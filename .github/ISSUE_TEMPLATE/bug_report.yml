@@ -14,7 +14,7 @@ body:
         - Find in [examples](https://www.visactor.io/)
         - Look for / ask questions on [Stack Overflow](https://stackoverflow.com/questions/tagged/visactor)
 
-        For non-technical support or general questions, you can email [dev@echarts.apache.org](mailto:dev@echarts.apache.org). And don't forget to subscribe to our [mailing list](https://echarts.apache.org/maillist.html) to get updated with the project.
+        For non-technical support or general questions, you can email [yangwenhai@bytedance.com](mailto:yangwenhai@bytedance.com). 
 
         Also try to search for your issue - it may have already been answered or even fixed in the development branch. However, if you find that an old, closed issue still persists in the latest version, you should open a new issue using the form below instead of commenting on the old issue.
 
@@ -30,9 +30,9 @@ body:
     attributes:
       label: Version
       description: |
-        Check if the issue is reproducible with the latest stable version of Apache ECharts.
+        Check if the issue is reproducible with the latest stable version of @VisActor/vgrammar.
       placeholder: |
-        e.g. 5.2.2
+        e.g. 1.0.0
 
     validations:
       required: true
@@ -41,7 +41,7 @@ body:
     attributes:
       label: Link to Minimal Reproduction
       description: |
-        If the reproduction does not need a build setup, please provide a link to [Official Editor](https://echarts.apache.org/examples/editor.html), [JSFiddle](https://jsfiddle.net/plainheart/e46ozpqj/7/), [JSBin](https://jsbin.com/) or [CodePen](https://codepen.io/Ovilia/pen/dyYWXWM). If it requires a build setup, you can use [CodeSandbox](https://codesandbox.io/s/echarts-basic-example-template-mpfz1s) or provide a GitHub repo.
+        If the reproduction does not need a build setup, please provide a link to [Official Editor](TODO), [JSFiddle](TODO), [JSBin](https://jsbin.com/) or [CodePen](TODO). If it requires a build setup, you can use [CodeSandbox](TODO) or provide a GitHub repo.
         The reproduction should be **minimal** - i.e. it should contain only the bare minimum amount of code needed to show the bug.
         Please do not just fill in a random link. The issue will be closed if no valid reproduction is provided. [Why?](https://antfu.me/posts/why-reproductions-are-required)
 
@@ -55,10 +55,9 @@ body:
         What do we need to do after opening your repo in order to make the bug happen? Clear and concise reproduction instructions are important for us to be able to triage your issue in a timely manner. Note that you can use [Markdown](https://guides.github.com/features/mastering-markdown/) to format lists and code.
 
       placeholder: |
-        1. How do you create the chart.
-        2. What's the chart option
+        1. How do you create the view
+        2. What's the spec of view
         3. User interactions before the error happens.
-
     validations:
       required: true
 
