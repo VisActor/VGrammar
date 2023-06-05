@@ -2,9 +2,9 @@ import type { IGraphic } from '@visactor/vrender';
 import type { IBaseScale } from '@visactor/vscale';
 // eslint-disable-next-line no-duplicate-imports
 import { isContinuous } from '@visactor/vscale';
-import type { DiscreteLegendAttrs, ColorLegendAttributes, SizeLegendAttributes } from '@visactor/vis-components';
+import type { DiscreteLegendAttrs, ColorLegendAttributes, SizeLegendAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend, LegendEvent } from '@visactor/vis-components';
+import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend, LegendEvent } from '@visactor/vrender-components';
 import { array, isString, merge, last } from '@visactor/vutils';
 import { ComponentDataRank, ComponentEnum, LegendEnum } from '../graph';
 import { defaultTheme } from '../theme/default';

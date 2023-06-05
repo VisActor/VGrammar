@@ -5,9 +5,9 @@ import { isObjectLike, throttle } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
 import { array, isNil, isString, merge } from '@visactor/vutils';
 import type { IGraphic, IGroup } from '@visactor/vrender';
-import type { TooltipAttributes, TooltipRowAttrs } from '@visactor/vis-components';
+import type { TooltipAttributes, TooltipRowAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { Tooltip as TooltipComponent } from '@visactor/vis-components';
+import { Tooltip as TooltipComponent } from '@visactor/vrender-components';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { registerComponent } from '../view/register-component';
 import type {

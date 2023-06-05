@@ -1,8 +1,8 @@
 import { isNil, isString, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
-import type { CircleAxisAttributes, LineAxisAttributes } from '@visactor/vis-components';
+import type { CircleAxisAttributes, LineAxisAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { CircleAxis as CircleAxisComponent, LineAxis as LineAxisComponent } from '@visactor/vis-components';
+import { CircleAxis as CircleAxisComponent, LineAxis as LineAxisComponent } from '@visactor/vrender-components';
 import type { IBaseScale } from '@visactor/vscale';
 import { getComponent, registerComponent } from '../view/register-component';
 import type {

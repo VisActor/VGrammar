@@ -1,10 +1,14 @@
 import { isArray, isString, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
-import type { ContinuousPlayerAttributes, DiscretePlayerAttributes, IDiscretePlayer } from '@visactor/vis-components';
+import type {
+  ContinuousPlayerAttributes,
+  DiscretePlayerAttributes,
+  IDiscretePlayer
+} from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { PlayerEventEnum } from '@visactor/vis-components';
+import { PlayerEventEnum } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { ContinuousPlayer, DiscretePlayer } from '@visactor/vis-components';
+import { ContinuousPlayer, DiscretePlayer } from '@visactor/vrender-components';
 import { getComponent, registerComponent } from '../view/register-component';
 import type { IData, IElement, IGroupMark, IView, Nil, RecursivePartial, StateEncodeSpec } from '../types';
 import { ComponentDataRank, ComponentEnum, PlayerEnum } from '../graph';

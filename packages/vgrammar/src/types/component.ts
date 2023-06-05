@@ -1,5 +1,5 @@
 import type { ISymbolGraphicAttribute, ITextGraphicAttribute } from '@visactor/vrender';
-import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vis-components';
+import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vrender-components';
 import type { ComponentEnum } from '../graph';
 import type { Nil, RecursivePartial } from './base';
 import type { IComponent, IData, IMark, IScale } from './grammar';

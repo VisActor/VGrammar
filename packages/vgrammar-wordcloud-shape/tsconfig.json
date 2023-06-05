@@ -13,9 +13,6 @@
     },
     {
       "path": "../vgrammar"
-    },
-    {
-      "path": "../vgrammar-scale"
     }
   ],
   "exclude": []

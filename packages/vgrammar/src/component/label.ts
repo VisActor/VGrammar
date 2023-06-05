@@ -1,8 +1,8 @@
 import { array, isNil, isString, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
-import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vis-components';
+import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { DataLabel } from '@visactor/vis-components';
+import { DataLabel } from '@visactor/vrender-components';
 import { registerComponent } from '../view/register-component';
 import type {
   BaseEncodeSpec,

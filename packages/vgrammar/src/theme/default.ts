@@ -18,7 +18,7 @@ import type {
   SliderAttributes,
   SymbolLabelAttrs,
   TooltipAttributes
-} from '@visactor/vis-components';
+} from '@visactor/vrender-components';
 import type { RecursivePartial } from '../types';
 
 const axis: RecursivePartial<LineAxisAttributes> = {

@@ -1,8 +1,8 @@
 import { isNil, isString, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
-import type { SliderAttributes } from '@visactor/vis-components';
+import type { SliderAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { Slider as SliderComponent } from '@visactor/vis-components';
+import { Slider as SliderComponent } from '@visactor/vrender-components';
 import { registerComponent } from '../view/register-component';
 import type {
   IData,
