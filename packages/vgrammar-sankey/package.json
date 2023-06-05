@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-sankey",
-  "version": "4.3.3",
+  "version": "0.0.9",
   "description": "Layout of sankey chart, used by VGrammar",
   "keywords": [
     "sankey",
@@ -35,10 +35,10 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vrender": "latest",
-    "@visactor/vgrammar": "workspace:4.3.3",
-    "@visactor/vgrammar-util": "workspace:4.3.3",
-    "@visactor/vutils": "^0.0.x"
+    "@visactor/vrender": "0.9.0-alpha.1",
+    "@visactor/vgrammar": "workspace:0.0.9",
+    "@visactor/vgrammar-util": "workspace:0.0.9",
+    "@visactor/vutils": "0.9.0-alpha.2"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
@@ -55,5 +55,8 @@
     "@types/jest": "~29.5.0",
     "@types/node": "*"
   },
+  "publishConfig": {
+    "access": "public"
+  }
   
 }

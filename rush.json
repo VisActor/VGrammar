@@ -106,24 +106,6 @@
       "projectFolder": "docs/dev-demos",
       "tags": ["doc"],
       "shouldPublish": false
-    },
-    {
-      "packageName": "@internal/examples",
-      "projectFolder": "docs/examples",
-      "tags": ["doc"],
-      "shouldPublish": false
-    },
-    {
-      "packageName": "@internal/benchmark",
-      "projectFolder": "docs/benchmark",
-      "tags": ["doc"],
-      "shouldPublish": false
-    },
-    {
-      "packageName": "@internal/vgrammar-docs",
-      "projectFolder": "docs/vgrammar-docs",
-      "tags": ["doc"],
-      "shouldPublish": false
     }
   ]
 }
