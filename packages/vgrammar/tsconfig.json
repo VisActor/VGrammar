@@ -1,0 +1,27 @@
+{
+  "extends": "@internal/ts-config/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./es",
+    "rootDir": "./src",
+    "composite": true
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "references": [
+    {
+      "path": "../vgrammar-util"
+    },
+    {
+      "path": "../vgrammar-coordinate"
+    },
+    {
+      "path": "../vgrammar-scale"
+    }
+  ],
+  "include": ["src", "__tests__", "examples"]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@internal/dev-demos",
+  "version": "0.0.1",
+  "description": "dev demos for all vGrammar packages",
+  "private": true,
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@internal/eslint-config": "workspace:*",
+    "@internal/ts-config": "workspace:*",
+    "@visactor/vutils": "^0.0.x",
+    "@visactor/vrender": "latest",
+    "d3-scale-chromatic": "^3.0.0",
+    "lodash": "4.17.21",
+    "typescript": "4.9.5",
+    "vite": "3.2.6"
+  }
+}

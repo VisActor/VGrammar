@@ -1,0 +1,17 @@
+{
+  "extends": "@internal/ts-config/tsconfig.base.json",
+  "compilerOptions": {
+    "ignoreDeprecations": "5.0",
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "outDir": "./es",
+    "composite": true
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "include": ["src", "__tests__", "examples"]
+}

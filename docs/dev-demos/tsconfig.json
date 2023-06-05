@@ -1,0 +1,31 @@
+{
+  "extends": "@internal/ts-config/tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@visactor/vgrammar": ["../packages/vgrammar/src/index.ts"],
+      "@visactor/vgrammar-coordinate": ["../packages/vgrammar-coordinate/src/index.ts"],
+      "@visactor/vgrammar-util": ["../packages/vgrammar-util/src/index.ts"],
+      "@visactor/vgrammar-projection": ["../packages/vgrammar-projection/src/index.ts"],
+      "@visactor/vgrammar-hierarchy": ["../packages/vgrammar-hierarchy/src/index.ts"],
+      "@visactor/vgrammar-sankey": ["../packages/vgrammar-sankey/src/index.ts"],
+      "@visactor/vgrammar-wordcloud": ["../packages/vgrammar-wordcloud/src/index.ts"],
+      "@visactor/vgrammar-wordcloud-shape": ["../packages/vgrammar-wordcloud-shape/src/index.ts"]
+    },
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "Node",
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
