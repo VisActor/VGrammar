@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-wordcloud-shape",
+      "comment": "init",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-wordcloud-shape"
+}
