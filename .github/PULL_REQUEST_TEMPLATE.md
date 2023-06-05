@@ -23,6 +23,7 @@ Thank you!
 - [ ] Branch merge
 - [ ] Site / documentation update
 - [ ] Demo update
+- [ ] Workflow
 - [ ] Other (about what?)
 
 ### 🔗 Related issue link
