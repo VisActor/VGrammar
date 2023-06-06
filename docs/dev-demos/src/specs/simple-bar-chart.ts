@@ -11,7 +11,6 @@ const getData = (size: number) => {
 console.log(getData(1000));
 
 export const spec = {
-  
   width: 400,
   height: 200,
   padding: 5,

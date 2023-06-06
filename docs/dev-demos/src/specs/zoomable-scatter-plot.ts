@@ -4,7 +4,6 @@ import { extent } from '@visactor/vgrammar-util';
 import normalData from '../data/normal-2d.json';
 
 export const spec = {
-  
   description: 'An interactive scatter plot example supporting pan and zoom.',
   width: 500,
   height: 300,

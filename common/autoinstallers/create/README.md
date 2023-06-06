@@ -9,4 +9,3 @@ Create a project
 ```bash
 rush create [--name | -n] [packageName]
 ```
-

@@ -1,7 +1,6 @@
-
 /**
  * @type {Partial<import('@internal/bundler').Config>}
  */
 module.exports = {
-  formats: ["cjs", "es", "umd"],
+  formats: ['cjs', 'es', 'umd']
 };

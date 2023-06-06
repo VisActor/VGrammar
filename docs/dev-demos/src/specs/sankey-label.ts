@@ -84,7 +84,7 @@ export const spec = {
       transform: [
         {
           type: 'map',
-          all:true,
+          all: true,
           callback: (datum: any) => {
             return datum[0].nodes;
           }
@@ -97,7 +97,7 @@ export const spec = {
       transform: [
         {
           type: 'map',
-          all:true,
+          all: true,
           callback: (datum: any) => {
             return formatLinkPath(datum[0].links);
           }
@@ -110,7 +110,7 @@ export const spec = {
       transform: [
         {
           type: 'map',
-          all:true,
+          all: true,
           callback: (datum: any) => {
             return getAlignEndTexts(datum[0].columns[0]);
           }
@@ -123,7 +123,7 @@ export const spec = {
       transform: [
         {
           type: 'map',
-          all:true,
+          all: true,
           callback: (datum: any) => {
             const columns = datum[0].columns;
             return getAlignStartTexts(columns[columns.length - 1]);

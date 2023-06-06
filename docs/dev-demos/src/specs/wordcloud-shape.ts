@@ -17,7 +17,6 @@ const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 
 export const spec = {
-  
   width: CANVAS_WIDTH,
   height: CANVAS_HEIGHT,
   padding: 0,

@@ -1,1 +1,1 @@
-module.exports = require('./common')('react')
+module.exports = require('./common')('react');

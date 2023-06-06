@@ -1,5 +1,4 @@
 export const spec = {
-  
   width: 500,
   height: 500,
   padding: 5,

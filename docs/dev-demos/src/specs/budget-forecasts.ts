@@ -2,7 +2,6 @@ import { clamp } from 'lodash';
 import budgetsData from '../data/budgets.json';
 
 export const spec = {
-  
   description: 'A recreation of a New York Times chart showing U.S. budget forecasts versus reality.',
   width: 700,
   height: 400,

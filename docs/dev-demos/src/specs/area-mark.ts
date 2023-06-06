@@ -1,5 +1,4 @@
 export const spec = {
-  
   width: 400,
   height: 200,
   padding: 5,
@@ -7,31 +6,26 @@ export const spec = {
   signals: [
     {
       id: 'enableSegments',
-      value: true,
-     
+      value: true
     },
     {
       id: 'defined',
-      value: true,
-     
+      value: true
     },
     {
       id: 'curveType',
-      value: 'basis',
-     
+      value: 'basis'
     },
     {
       id: 'tension',
-      value: 0,
-     
+      value: 0
     },
     { id: 'lineWidth', value: 4 },
 
-    { id: 'lineCap', value: 'butt',  },
+    { id: 'lineCap', value: 'butt' },
     {
       id: 'lineDash',
-      value: [1, 0],
-      
+      value: [1, 0]
     },
     { id: 'lineDashOffset', value: 0, bind: { input: 'range', min: 0, max: 50, step: 1 } },
     { id: 'lineJoin', value: 'miter', bind: { input: 'radio', options: ['miter', 'round', 'bevel'] } },

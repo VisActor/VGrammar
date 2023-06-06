@@ -50,7 +50,7 @@ export const spec = {
       transform: [
         {
           type: 'map',
-          all:true,
+          all: true,
           callback: (datum: any) => {
             return datum[0].nodes;
           }
@@ -63,7 +63,7 @@ export const spec = {
       transform: [
         {
           type: 'map',
-          all:true,
+          all: true,
           callback: (datum: any) => {
             return formatLinkPath(datum[0].links);
           }
