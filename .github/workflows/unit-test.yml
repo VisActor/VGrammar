@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: 'common/rush/pnpm-lock.yaml'
+          cache-dependency-path: './common/config/rush/pnpm-lock.yaml'
 
           # Install rush
       - name: Install rush
