@@ -30,4 +30,4 @@ jobs:
           # Install rush
       - name: Install rush
         run: node common/scripts/install-run-rush.js install --bypass-policy
-      - run: node common/scripts/install-run-rush.js run test --only tag:package
+      - run: node common/scripts/install-run-rush.js test --only tag:package
