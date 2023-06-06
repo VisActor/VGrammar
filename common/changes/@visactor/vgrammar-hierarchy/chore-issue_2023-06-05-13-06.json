@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-hierarchy",
+      "comment": "init",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-hierarchy"
+}

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-projection",
+      "comment": "init",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-projection"
+}

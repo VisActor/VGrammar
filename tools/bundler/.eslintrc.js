@@ -1,7 +1,7 @@
-require("@rushstack/eslint-patch/modern-module-resolution");
+require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
-  extends: ["@internal/eslint-config/profile/lib"],
+  extends: ['@internal/eslint-config/profile/lib'],
   parserOptions: { tsconfigRootDir: __dirname },
-  ignorePatterns: ["bin", "output", "vitest.config.ts", "fixtures"],
+  ignorePatterns: ['bin', 'output', 'vitest.config.ts', 'fixtures']
 };

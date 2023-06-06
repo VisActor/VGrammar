@@ -11,5 +11,5 @@ module.exports = {
     '@visactor/vgrammar-util': 'VGrammar.Util',
     '@visactor/vutils': 'VUtils'
   },
-  umdOutputFilename: 'vgrammar-hierarchy.js',
+  umdOutputFilename: 'vgrammar-hierarchy.js'
 };

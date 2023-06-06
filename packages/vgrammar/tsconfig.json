@@ -18,9 +18,6 @@
     },
     {
       "path": "../vgrammar-coordinate"
-    },
-    {
-      "path": "../vgrammar-scale"
     }
   ],
   "include": ["src", "__tests__", "examples"]

@@ -7,7 +7,6 @@ registerWordCloudTransforms();
 const depth_3d = 10;
 
 export const spec = {
-  
   //   "name": "WordcloudShape",
   //   "width": CANVAS_WIDTH,
   //   "height": CANVAS_HEIGHT,

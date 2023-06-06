@@ -5,9 +5,7 @@ module.exports = {
   testEnvironment: 'node',
   testTimeout: 30000,
   silent: true,
-  testMatch: [
-    "**/__tests__/**/*.test.[jt]s"
-  ],
+  testMatch: ['**/__tests__/**/*.test.[jt]s'],
   transform: {
     '^.+\\.ts?$': [
       'ts-jest',
@@ -17,11 +15,11 @@ module.exports = {
         experimentalDecorators: true,
         module: 'ESNext'
         // ts-jest configuration goes here
-      },
-    ],
+      }
+    ]
   },
   globals: {
-    __DEV__: true,
+    __DEV__: true
   },
   verbose: false,
 

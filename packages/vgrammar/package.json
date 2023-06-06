@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar",
-  "version": "4.3.3",
+  "version": "0.0.10-alpha.0",
   "description": "VGrammar is a visual grammar library",
   "keywords": [
     "grammar",
@@ -34,12 +34,12 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vrender": "latest",
-    "@visactor/vgrammar-coordinate": "workspace:4.3.3",
-    "@visactor/vscale": "latest",
-    "@visactor/vgrammar-util": "workspace:4.3.3",
-    "@visactor/vis-components": "^0.0.x",
-    "@visactor/vutils": "^0.0.x"
+    "@visactor/vrender": "0.9.0-alpha.1",
+    "@visactor/vgrammar-coordinate": "workspace:0.0.10-alpha.0",
+    "@visactor/vscale": "0.9.0-alpha.2",
+    "@visactor/vgrammar-util": "workspace:0.0.10-alpha.0",
+    "@visactor/vrender-components": "0.9.0-alpha.1",
+    "@visactor/vutils": "0.9.0-alpha.2"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
@@ -55,5 +55,9 @@
     "@types/jest": "~29.5.0",
     "typescript": "4.9.5",
     "@types/node": "*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

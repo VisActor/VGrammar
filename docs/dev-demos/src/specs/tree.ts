@@ -101,7 +101,7 @@ export const spec = {
       transform: [
         {
           type: 'map',
-          all:true,
+          all: true,
           callback: (datum: any) => {
             const res: any[] = [];
             flattenNodes(datum, res, { maxDepth: 4 });
@@ -133,7 +133,7 @@ export const spec = {
       transform: [
         {
           type: 'map',
-          all:true,
+          all: true,
           callback: (datum: any) => {
             const res: any[] = [];
             flattenTreeLinks(datum, res, { maxDepth: 4 });

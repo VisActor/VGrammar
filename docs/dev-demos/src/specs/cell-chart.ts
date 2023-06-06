@@ -32,7 +32,6 @@ const getHourData = () => {
 };
 
 export const spec = {
-  
   description: 'A basic bar chart example, with value labels shown upon mouse hover.',
   width: 800,
   height: 400,

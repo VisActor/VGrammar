@@ -8,9 +8,15 @@ import type {
   PolygonCrosshairAttrs,
   RectCrosshairAttrs,
   SectorCrosshairAttrs
-} from '@visactor/vis-components';
+} from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { CircleCrosshair, LineCrosshair, PolygonCrosshair, RectCrosshair, SectorCrosshair } from '@visactor/vis-components';
+import {
+  CircleCrosshair,
+  LineCrosshair,
+  PolygonCrosshair,
+  RectCrosshair,
+  SectorCrosshair
+} from '@visactor/vrender-components';
 import type { IBandLikeScale, IBaseScale } from '@visactor/vscale';
 // eslint-disable-next-line no-duplicate-imports
 import { isContinuous, isDiscrete } from '@visactor/vscale';

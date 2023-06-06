@@ -171,7 +171,10 @@ export default class View extends EventEmitter implements IView {
     );
     this.initialize();
   }
-    emit: <T extends EventEmitter.EventNames<string | symbol>>(event: T, ...args: EventEmitter.EventArgs<string | symbol, T>) => boolean;
+  // emit: <T extends EventEmitter.EventNames<string | symbol>>(
+  //   event: T,
+  //   ...args: EventEmitter.EventArgs<string | symbol, T>
+  // ) => boolean;
 
   // --- Lookup Grammars ---
 

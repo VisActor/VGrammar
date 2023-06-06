@@ -1,2286 +1,2286 @@
 [
-    {
-      "challenge_name": "螺蛳粉",
-      "sum_count": 957
-    },
-    {
-      "challenge_name": "钵钵鸡",
-      "sum_count": 942
-    },
-    {
-      "challenge_name": "板栗",
-      "sum_count": 842
-    },
-    {
-      "challenge_name": "胡辣汤",
-      "sum_count": 828
-    },
-    {
-      "challenge_name": "关东煮",
-      "sum_count": 665
-    },
-    {
-      "challenge_name": "羊肉汤",
-      "sum_count": 627
-    },
-    {
-      "challenge_name": "热干面",
-      "sum_count": 574
-    },
-    {
-      "challenge_name": "肠粉",
-      "sum_count": 564
-    },
-    {
-      "challenge_name": "北京烤鸭",
-      "sum_count": 554
-    },
-    {
-      "challenge_name": "龟苓膏",
-      "sum_count": 540
-    },
-    {
-      "challenge_name": "米粉",
-      "sum_count": 513
-    },
-    {
-      "challenge_name": "灌肠",
-      "sum_count": 499
-    },
-    {
-      "challenge_name": "藕粉",
-      "sum_count": 499
-    },
-    {
-      "challenge_name": "烤冷面",
-      "sum_count": 495
-    },
-    {
-      "challenge_name": "炸酱面",
-      "sum_count": 487
-    },
-    {
-      "challenge_name": "臭豆腐",
-      "sum_count": 484
-    },
-    {
-      "challenge_name": "沙县小吃",
-      "sum_count": 482
-    },
-    {
-      "challenge_name": "重庆小面",
-      "sum_count": 482
-    },
-    {
-      "challenge_name": "冒菜",
-      "sum_count": 479
-    },
-    {
-      "challenge_name": "醪糟",
-      "sum_count": 462
-    },
-    {
-      "challenge_name": "肉夹馍",
-      "sum_count": 456
-    },
-    {
-      "challenge_name": "酸辣粉",
-      "sum_count": 456
-    },
-    {
-      "challenge_name": "驴打滚",
-      "sum_count": 456
-    },
-    {
-      "challenge_name": "煎饼果子",
-      "sum_count": 443
-    },
-    {
-      "challenge_name": "驴肉火烧",
-      "sum_count": 443
-    },
-    {
-      "challenge_name": "小笼包",
-      "sum_count": 426
-    },
-    {
-      "challenge_name": "烧麦",
-      "sum_count": 425
-    },
-    {
-      "challenge_name": "卤煮",
-      "sum_count": 422
-    },
-    {
-      "challenge_name": "油条",
-      "sum_count": 414
-    },
-    {
-      "challenge_name": "桂林米粉",
-      "sum_count": 414
-    },
-    {
-      "challenge_name": "兰州拉面",
-      "sum_count": 409
-    },
-    {
-      "challenge_name": "双皮奶",
-      "sum_count": 408
-    },
-    {
-      "challenge_name": "锅盔",
-      "sum_count": 403
-    },
-    {
-      "challenge_name": "羊肉泡馍",
-      "sum_count": 403
-    },
-    {
-      "challenge_name": "凉皮",
-      "sum_count": 402
-    },
-    {
-      "challenge_name": "糍粑",
-      "sum_count": 397
-    },
-    {
-      "challenge_name": "豆皮",
-      "sum_count": 388
-    },
-    {
-      "challenge_name": "粘豆包",
-      "sum_count": 388
-    },
-    {
-      "challenge_name": "过桥米线",
-      "sum_count": 385
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    },
-    {
-      "challenge_name": "叉烧",
-      "sum_count": 375
-    },
-    {
-      "challenge_name": "豆腐脑",
-      "sum_count": 374
-    },
-    {
-      "challenge_name": "豆汁",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "麻花",
-      "sum_count": 363
-    },
-    {
-      "challenge_name": "春卷",
-      "sum_count": 354
-    },
-    {
-      "challenge_name": "锅贴",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "韭菜盒子",
-      "sum_count": 349
-    },
-    {
-      "challenge_name": "面筋",
-      "sum_count": 346
-    },
-    {
-      "challenge_name": "南瓜饼",
-      "sum_count": 343
-    },
-    {
-      "challenge_name": "炒肝",
-      "sum_count": 341
-    },
-    {
-      "challenge_name": "文昌鸡",
-      "sum_count": 338
-    }
-  ]
+  {
+    "challenge_name": "螺蛳粉",
+    "sum_count": 957
+  },
+  {
+    "challenge_name": "钵钵鸡",
+    "sum_count": 942
+  },
+  {
+    "challenge_name": "板栗",
+    "sum_count": 842
+  },
+  {
+    "challenge_name": "胡辣汤",
+    "sum_count": 828
+  },
+  {
+    "challenge_name": "关东煮",
+    "sum_count": 665
+  },
+  {
+    "challenge_name": "羊肉汤",
+    "sum_count": 627
+  },
+  {
+    "challenge_name": "热干面",
+    "sum_count": 574
+  },
+  {
+    "challenge_name": "肠粉",
+    "sum_count": 564
+  },
+  {
+    "challenge_name": "北京烤鸭",
+    "sum_count": 554
+  },
+  {
+    "challenge_name": "龟苓膏",
+    "sum_count": 540
+  },
+  {
+    "challenge_name": "米粉",
+    "sum_count": 513
+  },
+  {
+    "challenge_name": "灌肠",
+    "sum_count": 499
+  },
+  {
+    "challenge_name": "藕粉",
+    "sum_count": 499
+  },
+  {
+    "challenge_name": "烤冷面",
+    "sum_count": 495
+  },
+  {
+    "challenge_name": "炸酱面",
+    "sum_count": 487
+  },
+  {
+    "challenge_name": "臭豆腐",
+    "sum_count": 484
+  },
+  {
+    "challenge_name": "沙县小吃",
+    "sum_count": 482
+  },
+  {
+    "challenge_name": "重庆小面",
+    "sum_count": 482
+  },
+  {
+    "challenge_name": "冒菜",
+    "sum_count": 479
+  },
+  {
+    "challenge_name": "醪糟",
+    "sum_count": 462
+  },
+  {
+    "challenge_name": "肉夹馍",
+    "sum_count": 456
+  },
+  {
+    "challenge_name": "酸辣粉",
+    "sum_count": 456
+  },
+  {
+    "challenge_name": "驴打滚",
+    "sum_count": 456
+  },
+  {
+    "challenge_name": "煎饼果子",
+    "sum_count": 443
+  },
+  {
+    "challenge_name": "驴肉火烧",
+    "sum_count": 443
+  },
+  {
+    "challenge_name": "小笼包",
+    "sum_count": 426
+  },
+  {
+    "challenge_name": "烧麦",
+    "sum_count": 425
+  },
+  {
+    "challenge_name": "卤煮",
+    "sum_count": 422
+  },
+  {
+    "challenge_name": "油条",
+    "sum_count": 414
+  },
+  {
+    "challenge_name": "桂林米粉",
+    "sum_count": 414
+  },
+  {
+    "challenge_name": "兰州拉面",
+    "sum_count": 409
+  },
+  {
+    "challenge_name": "双皮奶",
+    "sum_count": 408
+  },
+  {
+    "challenge_name": "锅盔",
+    "sum_count": 403
+  },
+  {
+    "challenge_name": "羊肉泡馍",
+    "sum_count": 403
+  },
+  {
+    "challenge_name": "凉皮",
+    "sum_count": 402
+  },
+  {
+    "challenge_name": "糍粑",
+    "sum_count": 397
+  },
+  {
+    "challenge_name": "豆皮",
+    "sum_count": 388
+  },
+  {
+    "challenge_name": "粘豆包",
+    "sum_count": 388
+  },
+  {
+    "challenge_name": "过桥米线",
+    "sum_count": 385
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  },
+  {
+    "challenge_name": "叉烧",
+    "sum_count": 375
+  },
+  {
+    "challenge_name": "豆腐脑",
+    "sum_count": 374
+  },
+  {
+    "challenge_name": "豆汁",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "麻花",
+    "sum_count": 363
+  },
+  {
+    "challenge_name": "春卷",
+    "sum_count": 354
+  },
+  {
+    "challenge_name": "锅贴",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "韭菜盒子",
+    "sum_count": 349
+  },
+  {
+    "challenge_name": "面筋",
+    "sum_count": 346
+  },
+  {
+    "challenge_name": "南瓜饼",
+    "sum_count": 343
+  },
+  {
+    "challenge_name": "炒肝",
+    "sum_count": 341
+  },
+  {
+    "challenge_name": "文昌鸡",
+    "sum_count": 338
+  }
+]

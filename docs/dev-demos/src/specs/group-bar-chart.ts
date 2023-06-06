@@ -1,5 +1,4 @@
 export const spec = {
-  
   description: 'A basic grouped bar chart example.',
   width: 300,
   height: 240,

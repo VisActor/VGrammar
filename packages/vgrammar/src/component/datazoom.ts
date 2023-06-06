@@ -1,7 +1,7 @@
 import type { IGraphic } from '@visactor/vrender';
-import type { DataZoomAttributes } from '@visactor/vis-components';
+import type { DataZoomAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { DataZoom as DatazoomComponent } from '@visactor/vis-components';
+import { DataZoom as DatazoomComponent } from '@visactor/vrender-components';
 import { isNil, isString, merge } from '@visactor/vutils';
 import { ComponentDataRank, ComponentEnum } from '../graph';
 import { defaultTheme } from '../theme/default';

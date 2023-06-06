@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 export const spec = {
-  
   description: 'A basic bar chart example, with value labels shown upon mouse hover.',
   width: 400,
   height: 200,

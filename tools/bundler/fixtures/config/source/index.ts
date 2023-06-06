@@ -1,8 +1,8 @@
-import { isArray } from "@/utils";
+import { isArray } from '@/utils';
 
 export type Viking = {
   foo: string;
-}
+};
 
 export function bar(value: unknown) {
   if (isArray(value)) {

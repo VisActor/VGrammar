@@ -41,7 +41,6 @@ const getData = (size: number) => {
 };
 
 export const spec = {
-  
   width: 1500,
   height: 200,
   padding: 5,

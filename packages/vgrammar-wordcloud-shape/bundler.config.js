@@ -4,7 +4,13 @@
 module.exports = {
   formats: ['cjs', 'es', 'umd'],
   name: 'VGrammar.WordcloudShape',
-  external: ['@visactor/vrender', '@visactor/vgrammar', '@visactor/vgrammar-util', '@visactor/vutils', '@visactor/vscale'],
+  external: [
+    '@visactor/vrender',
+    '@visactor/vgrammar',
+    '@visactor/vgrammar-util',
+    '@visactor/vutils',
+    '@visactor/vscale'
+  ],
   globals: {
     '@visactor/vrender': 'VRender',
     '@visactor/vgrammar': 'VGrammar',

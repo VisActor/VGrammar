@@ -12,7 +12,6 @@ const getValues = (size: number) => {
 };
 
 export const spec = {
-  
   description: 'A basic bar chart example, with value labels shown upon mouse hover.',
   width: 1000,
   height: 200,

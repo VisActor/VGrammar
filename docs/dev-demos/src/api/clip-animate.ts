@@ -1,5 +1,11 @@
 /* eslint-disable no-console */
-import { createArc, ClipGraphicAnimate, ClipAngleAnimate, ClipRadiusAnimate, ClipDirectionAnimate } from '@visactor/vrender';
+import {
+  createArc,
+  ClipGraphicAnimate,
+  ClipAngleAnimate,
+  ClipRadiusAnimate,
+  ClipDirectionAnimate
+} from '@visactor/vrender';
 import type { IView, IElement } from '@visactor/vgrammar';
 
 export const runner = (view: IView) => {

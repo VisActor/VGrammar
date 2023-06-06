@@ -1,5 +1,4 @@
 export const spec = {
-  
   description: 'A population pyramid showing U.S. demographics from 1850 to 2000.',
   height: 800,
   padding: 5,

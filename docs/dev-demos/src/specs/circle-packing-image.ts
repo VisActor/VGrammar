@@ -77,7 +77,7 @@ export const spec = {
       transform: [
         {
           type: 'map',
-          all:true,
+          all: true,
           callback: (datum: any) => {
             const res: any[] = [];
             flattenNodes(datum, res, { maxDepth: 2 });

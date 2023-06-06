@@ -3,7 +3,6 @@ import baseData from '../data/wordcloud/social-media.json';
 registerWordCloudTransforms();
 
 export const spec = {
-  
   //   "name": "WordcloudShape",
   //   "width": CANVAS_WIDTH,
   //   "height": CANVAS_HEIGHT,
@@ -50,7 +49,7 @@ export const spec = {
           shape: 'circle',
           layoutType: 'fast',
           rotate: () => {
-            return Math.random() > 0.5 ? 90 : 0
+            return Math.random() > 0.5 ? 90 : 0;
           }
           // progressiveStep: 50
         }
