@@ -79,8 +79,6 @@ export interface IRendererOptions {
   renderer?: string;
   /* 是否关闭dirtyBounds */
   disableDirtyBounds?: boolean;
-  /* 是否支持3d视角变换 */
-  enableView3dTranform?: boolean;
   beforeRender?: (stage: IStage) => void;
   afterRender?: (stage: IStage) => void;
 }
@@ -109,6 +107,7 @@ export interface IViewEventConfig {
 
 export interface srIOption3DType extends IOption3D {
   enable?: boolean;
+  /* 是否支持3d视角变换 */
   enableView3dTranform?: boolean;
 }
 export interface IViewOptions extends IEnvironmentOptions, IRendererOptions, ILayoutOptions {
