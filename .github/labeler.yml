@@ -1,33 +1,33 @@
 # Add 'core' label to any change within the 'core' package
-core:
+'@pkg/core':
   - packages/vgrammar/src/**
 
 # Add 'coordinate' label to any change within the 'core' package
-coordinate:
+'@pkg/coordinate':
   - packages/vgrammar-coordinate/src/**
 
 # Add 'hierarchy' label to any change within the 'core' package
-hierarchy:
+'@pkg/hierarchy':
   - packages/vgrammar-hierarchy/src/**
 
 # Add 'projection' label to any change within the 'core' package
-projection:
+'@pkg/projection':
   - packages/vgrammar-projection/src/**
 
 # Add 'sankey' label to any change within the 'core' package
-sankey:
+'@pkg/sankey':
   - packages/vgrammar-sankey/src/**
 
 # Add 'util' label to any change within the 'core' package
-util:
+'@pkg/util':
   - packages/vgrammar-util/src/**
 
 # Add 'wordcloud' label to any change within the 'core' package
-wordcloud:
+'@pkg/wordcloud':
   - packages/vgrammar-wordcloud/src/**
 
 # Add 'wordcloud-shape' label to any change within the 'core' package
-wordcloud-shape:
+'@pkg/wordcloud-shape':
   - packages/vgrammar-wordcloud-shape/src/**
 
 # Add 'test' label to any change to packages/*/__tests__/* files within the source dir
