@@ -107,3 +107,6 @@ docs/echarts-www
 # build 
 .rollup.cache/
 tsconfig.tsbuildinfo
+
+# git-hook
+common/scripts/pre-commit
