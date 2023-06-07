@@ -1,8 +1,5 @@
 #!/bin/sh
 
-node common/scripts/install-run-rush.js lint-staged || exit $? #++
-
-
 # log rush change to stdout
 STAGE_FILES=$(git diff --cached --name-only)
 
@@ -34,6 +31,8 @@ if [[ $STAGE_FILES != "" ]] ; then
 
 fi
 
+
+node common/scripts/install-run-rush.js lint-staged || exit $? #++
 
 # local pre-commit
 if [ -f "common/scripts/pre-commit" ]; then
