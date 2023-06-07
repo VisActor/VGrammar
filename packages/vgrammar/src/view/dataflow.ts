@@ -8,7 +8,6 @@ import type { IDataflowCallback, IGrammarBase } from '../types';
 
 /**
  * A dataflow to run all the grammar elements
- * @constructor
  */
 export default class Dataflow implements IDataflow {
   logger: ILogger;

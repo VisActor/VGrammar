@@ -2,8 +2,9 @@ import { isValidNumber } from '@visactor/vutils';
 
 export const transform = (
   options: {
+    /** the field to of measure */
     field: string;
-    /** 转化率（当前层到下一层的比例） **/
+    /** 转化率（当前层到下一层的比例) **/
     asTransformRatio?: string;
     /** 到达率 （上一层到当前层的比例）*/
     asReachRatio?: string;
@@ -21,7 +22,6 @@ export const transform = (
     asLastValue?: string;
     /** 下一层的值 **/
     asNextValue?: string;
-
     /** 最底层漏斗是否为锥形 */
     isCone?: boolean;
     /** 高度是否进行数据映射 **/
