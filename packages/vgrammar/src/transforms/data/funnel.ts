@@ -2,6 +2,7 @@ import { isValidNumber } from '@visactor/vutils';
 
 export const transform = (
   options: {
+    /** the field to of measure */
     field: string;
     /** 转化率（当前层到下一层的比例） **/
     asTransformRatio?: string;
