@@ -1,0 +1,66 @@
+# Add 'core' label to any change within the 'core' package
+core:
+  - packages/vgrammar/**
+
+# Add 'coordinate' label to any change within the 'core' package
+coordinate:
+  - packages/vgrammar-coordinate/**
+
+# Add 'hierarchy' label to any change within the 'core' package
+hierarchy:
+  - packages/vgrammar-hierarchy/**
+
+# Add 'projection' label to any change within the 'core' package
+projection:
+  - packages/vgrammar-projection/**
+
+# Add 'sankey' label to any change within the 'core' package
+sankey:
+  - packages/vgrammar-sankey/**
+
+# Add 'util' label to any change within the 'core' package
+util:
+  - packages/vgrammar-util/**
+
+# Add 'wordcloud' label to any change within the 'core' package
+wordcloud:
+  - packages/vgrammar-wordcloud/**
+
+# Add 'wordcloud-shape' label to any change within the 'core' package
+wordcloud-shape:
+  - packages/vgrammar-wordcloud-shape/**
+
+# Add 'test' label to any change to packages/*/__tests__/* files within the source dir
+test:
+  - packages/*/__tests__/*
+
+# Add 'docs' label to any change to docs/ files within the source dir
+docs:
+  - docs/**
+
+# Add 'eslint' label to any change to docs/ files within the source dir
+eslint:
+  - share/eslint-config/**
+  - packages/*/.eslintrc.js
+
+# Add 'jest' label to any change to docs/ files within the source dir
+jest:
+  - share/jest-config/**
+  - packages/*/jest.config.js
+
+# Add 'typescript' label to any change to docs/ files within the source dir
+typescript:
+  - share/ts-config/**
+  - packages/*/tsconfig.json
+  - packages/*/tsconfig.eslint.json
+  - packages/vgrammar/src/types/**
+  - packages/vgrammar-coordinate/src/interface.ts
+
+# Add 'bundler' label to any change to tools/bunder/** files within the source dir
+bundler:
+  - tools/bundler/**
+  - packages/*/bundler.config.js
+
+# Add 'chore' label to any change to common/** files within the source dir
+chore:
+  - common/**
