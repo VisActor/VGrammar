@@ -15,7 +15,6 @@ import { DiffState, HOOK_EVENT, GrammarMarkType } from './enums';
 import { Element } from './element';
 import { invokeEncoderToItems } from './mark/encode';
 import type { IGraphicAttribute, IGlyph } from '@visactor/vrender';
-import { transformColor } from './attributes/common';
 
 export class GlyphElement extends Element implements IGlyphElement {
   declare graphicItem: IGlyph;
@@ -103,8 +102,6 @@ export class GlyphElement extends Element implements IGlyphElement {
       this.coordinateTransformEncode(targetItems);
 
       glyphStateAttributes.attributes = targetItems[0].nextAttrs;
-      // FIXME: remove this logic after vRender deprecates fillColor&strokeColor channel
-      transformColor(glyphStateAttributes.attributes);
 
       if (!this.graphicItem.glyphStates) {
         this.graphicItem.glyphStates = { [stateName]: glyphStateAttributes };

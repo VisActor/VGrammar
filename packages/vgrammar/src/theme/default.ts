@@ -28,10 +28,9 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     space: 4,
     style: {
       fontSize: 12,
-      fillColor: '#6F6F6F',
+      fill: '#6F6F6F',
       fontWeight: 'normal',
-      fillOpacity: 1,
-      fill: true
+      fillOpacity: 1
     }
   },
   tick: {
@@ -41,9 +40,8 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     length: 4,
     style: {
       lineWidth: 1,
-      strokeColor: '#D8DCE3',
-      strokeOpacity: 1,
-      stroke: true
+      stroke: '#D8DCE3',
+      strokeOpacity: 1
     }
   },
   subTick: {
@@ -53,28 +51,25 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     length: 2,
     style: {
       lineWidth: 1,
-      strokeColor: '#D8DCE3',
-      strokeOpacity: 1,
-      stroke: true
+      stroke: '#D8DCE3',
+      strokeOpacity: 1
     }
   },
   line: {
     visible: true,
     style: {
       lineWidth: 1,
-      strokeColor: '#dfdfdf',
-      strokeOpacity: 1,
-      stroke: true
+      stroke: '#dfdfdf',
+      strokeOpacity: 1
     }
   },
   grid: {
     visible: false,
     style: {
       lineWidth: 1,
-      strokeColor: '#dfdfdf',
+      stroke: '#dfdfdf',
       strokeOpacity: 1,
-      lineDash: [4, 4],
-      stroke: true
+      lineDash: [4, 4]
     },
     length: 100,
     type: 'line'
@@ -83,10 +78,9 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     visible: false,
     style: {
       lineWidth: 1,
-      strokeColor: '#dfdfdf',
+      stroke: '#dfdfdf',
       strokeOpacity: 1,
-      lineDash: [4, 4],
-      stroke: true
+      lineDash: [4, 4]
     }
   },
   items: [],
@@ -102,10 +96,9 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     padding: [0, 0, 0, 0],
     textStyle: {
       fontSize: 12,
-      fillColor: '#333333',
+      fill: '#333333',
       fontWeight: 'normal',
-      fillOpacity: 1,
-      fill: true
+      fillOpacity: 1
     },
     text: 'theta'
   },
@@ -115,10 +108,9 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     space: 4,
     style: {
       fontSize: 12,
-      fillColor: '#6F6F6F',
+      fill: '#6F6F6F',
       fontWeight: 'normal',
-      fillOpacity: 1,
-      fill: true
+      fillOpacity: 1
     }
   },
   tick: {
@@ -128,9 +120,8 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     length: 4,
     style: {
       lineWidth: 1,
-      strokeColor: '#D8DCE3',
-      strokeOpacity: 1,
-      stroke: true
+      stroke: '#D8DCE3',
+      strokeOpacity: 1
     }
   },
   subTick: {
@@ -140,27 +131,24 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     length: 2,
     style: {
       lineWidth: 1,
-      strokeColor: '#D8DCE3',
-      strokeOpacity: 1,
-      stroke: true
+      stroke: '#D8DCE3',
+      strokeOpacity: 1
     }
   },
   line: {
     visible: true,
     style: {
       lineWidth: 1,
-      strokeColor: '#dfdfdf',
-      strokeOpacity: 1,
-      stroke: true
+      stroke: '#dfdfdf',
+      strokeOpacity: 1
     }
   },
   grid: {
     style: {
       lineWidth: 1,
-      strokeColor: '#dfdfdf',
+      stroke: '#dfdfdf',
       strokeOpacity: 1,
-      lineDash: [4, 4],
-      stroke: true
+      lineDash: [4, 4]
     },
     type: 'line',
     visible: false,
@@ -170,10 +158,9 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     visible: false,
     style: {
       lineWidth: 1,
-      strokeColor: '#dfdfdf',
+      stroke: '#dfdfdf',
       strokeOpacity: 1,
-      lineDash: [4, 4],
-      stroke: true
+      lineDash: [4, 4]
     }
   },
   items: [],
@@ -194,7 +181,7 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
     textStyle: {
       fontSize: 12,
       fontWeight: 'bold',
-      fillColor: '#2C3542'
+      fill: '#2C3542'
     }
   },
   item: {
@@ -208,16 +195,12 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
       },
       state: {
         selectedHover: {
-          opacity: 0.85,
-          fill: true,
-          stroke: true
+          opacity: 0.85
         },
         unSelected: {
-          fillColor: '#D8D8D8',
-          strokeColor: '#D8D8D8',
-          fillOpacity: 0.5,
-          fill: true,
-          stroke: true
+          fill: '#D8D8D8',
+          stroke: '#D8D8D8',
+          fillOpacity: 0.5
         }
       }
     },
@@ -225,16 +208,15 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
       space: 4,
       style: {
         fontSize: 12,
-        fillColor: 'black',
-        cursor: 'pointer',
-        fill: true
+        fill: 'black',
+        cursor: 'pointer'
       },
       state: {
         selectedHover: {
           opacity: 0.85
         },
         unSelected: {
-          fillColor: '#D8D8D8',
+          fill: '#D8D8D8',
           fillOpacity: 0.5
         }
       }
@@ -243,7 +225,7 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
       alignRight: false,
       style: {
         fontSize: 12,
-        fillColor: '#ccc',
+        fill: '#ccc',
         cursor: 'pointer'
       },
       state: {
@@ -251,7 +233,7 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
           opacity: 0.85
         },
         unSelected: {
-          fillColor: '#D8D8D8'
+          fill: '#D8D8D8'
         }
       }
     },
@@ -261,21 +243,19 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
       },
       state: {
         selectedHover: {
-          fill: true,
           fillOpacity: 0.7,
-          fillColor: 'gray'
+          fill: 'gray'
         },
         unSelectedHover: {
-          fill: true,
           fillOpacity: 0.2,
-          fillColor: 'gray'
+          fill: 'gray'
         }
       }
     },
     focus: false,
     focusIconStyle: {
       size: 10,
-      fillColor: '#333',
+      fill: '#333',
       cursor: 'pointer'
     },
     visible: true,
@@ -306,10 +286,8 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
       id: '',
       label: '',
       shape: {
-        fill: true,
-        fillColor: '#6690F2',
-        stroke: true,
-        strokeColor: '#6690F2',
+        fill: '#6690F2',
+        stroke: '#6690F2',
         symbolType: 'circle'
       }
     }
@@ -336,7 +314,7 @@ const sizeLegend: RecursivePartial<SizeLegendAttributes> = {
     text: ''
   },
   trackStyle: {
-    fillColor: '#ccc'
+    fill: '#ccc'
   },
   layout: 'horizontal',
   align: 'bottom',

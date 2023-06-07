@@ -9,7 +9,7 @@ importers:
     specifiers:
       '@internal/eslint-config': workspace:*
       '@internal/ts-config': workspace:*
-      '@visactor/vrender': 0.9.0-alpha.1
+      '@visactor/vrender': 0.9.0-fillstroke.0
       '@visactor/vutils': 0.9.0-alpha.2
       d3-scale-chromatic: ^3.0.0
       lodash: 4.17.21
@@ -18,7 +18,7 @@ importers:
     devDependencies:
       '@internal/eslint-config': link:../../share/eslint-config
       '@internal/ts-config': link:../../share/ts-config
-      '@visactor/vrender': 0.9.0-alpha.1
+      '@visactor/vrender': 0.9.0-fillstroke.0
       '@visactor/vutils': 0.9.0-alpha.2
       d3-scale-chromatic: 3.0.0
       lodash: 4.17.21
@@ -35,10 +35,17 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
+<<<<<<< HEAD
       '@visactor/vgrammar-coordinate': workspace:0.0.10
       '@visactor/vgrammar-util': workspace:0.0.10
       '@visactor/vrender': 0.9.0-alpha.1
       '@visactor/vrender-components': 0.9.0-alpha.1
+=======
+      '@visactor/vgrammar-coordinate': workspace:0.0.10-alpha.0
+      '@visactor/vgrammar-util': workspace:0.0.10-alpha.0
+      '@visactor/vrender': 0.9.0-fillstroke.0
+      '@visactor/vrender-components': 0.9.0-fillstroke.0
+>>>>>>> dff4929 (refactor: update version of vRender and remove fill,stroke transform)
       '@visactor/vscale': 0.9.0-alpha.2
       '@visactor/vutils': 0.9.0-alpha.2
       eslint: ~8.18.0
@@ -51,8 +58,8 @@ importers:
     dependencies:
       '@visactor/vgrammar-coordinate': link:../vgrammar-coordinate
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.9.0-alpha.1
-      '@visactor/vrender-components': 0.9.0-alpha.1_t54dw3v433tpqhr37nftctsmvm
+      '@visactor/vrender': 0.9.0-fillstroke.0
+      '@visactor/vrender-components': 0.9.0-fillstroke.0_lc7ncboeap3rvfajm6nsryd5gm
       '@visactor/vscale': 0.9.0-alpha.2
       '@visactor/vutils': 0.9.0-alpha.2
     devDependencies:
@@ -117,9 +124,15 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
+<<<<<<< HEAD
       '@visactor/vgrammar': workspace:0.0.10
       '@visactor/vgrammar-util': workspace:0.0.10
       '@visactor/vrender': 0.9.0-alpha.1
+=======
+      '@visactor/vgrammar': workspace:0.0.10-alpha.0
+      '@visactor/vgrammar-util': workspace:0.0.10-alpha.0
+      '@visactor/vrender': 0.9.0-fillstroke.0
+>>>>>>> dff4929 (refactor: update version of vRender and remove fill,stroke transform)
       '@visactor/vutils': 0.9.0-alpha.2
       eslint: ~8.18.0
       jest: ~29.5.0
@@ -129,7 +142,7 @@ importers:
     dependencies:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.9.0-alpha.1
+      '@visactor/vrender': 0.9.0-fillstroke.0
       '@visactor/vutils': 0.9.0-alpha.2
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
@@ -197,9 +210,15 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
+<<<<<<< HEAD
       '@visactor/vgrammar': workspace:0.0.10
       '@visactor/vgrammar-util': workspace:0.0.10
       '@visactor/vrender': 0.9.0-alpha.1
+=======
+      '@visactor/vgrammar': workspace:0.0.10-alpha.0
+      '@visactor/vgrammar-util': workspace:0.0.10-alpha.0
+      '@visactor/vrender': 0.9.0-fillstroke.0
+>>>>>>> dff4929 (refactor: update version of vRender and remove fill,stroke transform)
       '@visactor/vutils': 0.9.0-alpha.2
       eslint: ~8.18.0
       jest: ~29.5.0
@@ -209,7 +228,7 @@ importers:
     dependencies:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.9.0-alpha.1
+      '@visactor/vrender': 0.9.0-fillstroke.0
       '@visactor/vutils': 0.9.0-alpha.2
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
@@ -269,9 +288,15 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
+<<<<<<< HEAD
       '@visactor/vgrammar': workspace:0.0.10
       '@visactor/vgrammar-util': workspace:0.0.10
       '@visactor/vrender': 0.9.0-alpha.1
+=======
+      '@visactor/vgrammar': workspace:0.0.10-alpha.0
+      '@visactor/vgrammar-util': workspace:0.0.10-alpha.0
+      '@visactor/vrender': 0.9.0-fillstroke.0
+>>>>>>> dff4929 (refactor: update version of vRender and remove fill,stroke transform)
       '@visactor/vutils': 0.9.0-alpha.2
       eslint: ~8.18.0
       jest: ~29.5.0
@@ -281,7 +306,7 @@ importers:
     dependencies:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.9.0-alpha.1
+      '@visactor/vrender': 0.9.0-fillstroke.0
       '@visactor/vutils': 0.9.0-alpha.2
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
@@ -308,9 +333,15 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
+<<<<<<< HEAD
       '@visactor/vgrammar': workspace:0.0.10
       '@visactor/vgrammar-util': workspace:0.0.10
       '@visactor/vrender': 0.9.0-alpha.1
+=======
+      '@visactor/vgrammar': workspace:0.0.10-alpha.0
+      '@visactor/vgrammar-util': workspace:0.0.10-alpha.0
+      '@visactor/vrender': 0.9.0-fillstroke.0
+>>>>>>> dff4929 (refactor: update version of vRender and remove fill,stroke transform)
       '@visactor/vscale': 0.9.0-alpha.2
       '@visactor/vutils': 0.9.0-alpha.2
       eslint: ~8.18.0
@@ -321,7 +352,7 @@ importers:
     dependencies:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.9.0-alpha.1
+      '@visactor/vrender': 0.9.0-fillstroke.0
       '@visactor/vscale': 0.9.0-alpha.2
       '@visactor/vutils': 0.9.0-alpha.2
     devDependencies:
@@ -2728,20 +2759,20 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: false
 
-  /@visactor/vrender-components/0.9.0-alpha.1_t54dw3v433tpqhr37nftctsmvm:
-    resolution: {integrity: sha512-Z/D2fk61awTAGhZY9Cmq1CXFH4sgrx2EUCCKbVr1Mw/9Orq5nITQ2xHbPWwrProg+VZS9dRoMDP5vvJsAO2RUA==}
+  /@visactor/vrender-components/0.9.0-fillstroke.0_lc7ncboeap3rvfajm6nsryd5gm:
+    resolution: {integrity: sha512-Bymj8zXgjlNQOWpl2+YMFOKVbnuuVTl5Xe8o5aQG2k3q5XyTAjRZzlzxPaP5DCmNnyVitueNahg+lF9SH8rupg==}
     peerDependencies:
-      '@visactor/vrender': 0.9.0-alpha.1
+      '@visactor/vrender': 0.9.0-fillstroke.0
       '@visactor/vscale': 0.9.0-alpha.2
     dependencies:
-      '@visactor/vrender': 0.9.0-alpha.1
+      '@visactor/vrender': 0.9.0-fillstroke.0
       '@visactor/vscale': 0.9.0-alpha.2
       '@visactor/vutils': 0.9.0-alpha.2
       gl-matrix: 3.4.3
     dev: false
 
-  /@visactor/vrender/0.9.0-alpha.1:
-    resolution: {integrity: sha512-yd0F5nya1DATzDNIAko4BmZQlsHIOEsdSU+qFTWwBtCzC6b2lnZoYqvZT8YDt6ZqRoH6YGKv28sstRHwPSkqwA==}
+  /@visactor/vrender/0.9.0-fillstroke.0:
+    resolution: {integrity: sha512-D2C/PcrukLQ5hfAVUXQtFcEHOuiB82giEtAsei9r98Iigh85HP4wtARUqfAJiaOaumLlx2G2FEKOORLcgPsV+g==}
     dependencies:
       '@visactor/vutils': 0.9.0-alpha.2
       color-convert: 2.0.1
