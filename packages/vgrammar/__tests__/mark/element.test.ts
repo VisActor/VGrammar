@@ -83,8 +83,7 @@ test('Element executes encoding', function () {
     {}
   );
   element.encodeGraphic();
-  expect(element.getGraphicAttribute('fill')).toEqual(true);
-  expect(element.getGraphicAttribute('fillColor')).toEqual('red');
+  expect(element.getGraphicAttribute('fill')).toEqual('red');
 
   // encode hover
   expect(element.getGraphicAttribute('x')).toEqual(123);
