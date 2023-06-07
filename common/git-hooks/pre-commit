@@ -22,16 +22,15 @@ if [[ $STAGE_FILES != "" ]] ; then
 
   if [[ $changedFiles != "" ]] ; then
 
-    echo -e "
+    echo "
     [Notice]: please check, do you need to run ${RED}${BIG_FONT}rush change${RESET} to generate changelog, 
     you has modified some src files, include: 
     ${changedFiles}
     "
   fi
-
 fi
 
-
+# lint-staged
 node common/scripts/install-run-rush.js lint-staged || exit $? #++
 
 # local pre-commit
