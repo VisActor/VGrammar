@@ -1,0 +1,17 @@
+{
+  "name": "@visactor/vgrammar-util",
+  "entries": [
+    {
+      "version": "0.0.10",
+      "tag": "@visactor/vgrammar-util_v0.0.10",
+      "date": "Wed, 07 Jun 2023 08:59:10 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "init"
+          }
+        ]
+      }
+    }
+  ]
+}
