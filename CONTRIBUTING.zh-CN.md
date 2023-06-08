@@ -12,21 +12,32 @@
 
 ## 版本管理
 
-VGrammar 遵循[语义化版本控制](https://semver.org/lang/zh-CN/)。我们发布 patch 补丁版本以修复重要的错误，发布 minor 次要版本以提供新功能或非必要的更改，发布 major 主要版本以适应任何重大更改。当我们进行重大更改时，在次要版本中还会引入弃用警告，以便用户了解即将到来的更改并提前迁移代码。
-
-每个重要的更改我们都会记录在对应项目 CHANGELOG 更新日志中。
-
-## 发布周期
-
-<!-- TODO -->
+VGrammar 遵循[语义化版本控制](https://semver.org/lang/zh-CN/)。
 
 - patch 修订版本号：每周末会进行日常 bugfix 更新。（如果有紧急的 bugfix，则任何时候都可发布）
 - minor 次版本号：每月发布一个带有新特性的向下兼容的版本。
 - major 主版本号：含有破坏性更新和新特性，不在发布周期内。
 
+每个重要的更改我们都会记录在对应项目 CHANGELOG 更新日志中。
+
+## 发布周期
+
+我们会每 2 周发布一个版本。
+
 ## 分支管理
 
-<!-- TODO：待讨论 -->
+分支命名规范：
+
+- fix/xxx: bugfix 分支
+- feat/xxx：功能分支
+- refactor/xxx：重构分支
+- release/xxx: 发布分支
+- chore/xxx：配置修改
+- docs/xxx：文档更新
+- perf/xxx：性能优化
+- test/xxx:更新测试案例
+- ci/xxx 更新 CI 流程配置
+- style/xxx：代码风格相关
 
 **请将所有的更改提交到 `main` 主分支**。我们不使用单独的分支进行开发或即将发布的版本管理。我们尽力保持主分支良好状态，确保所有测试都能通过。
 
@@ -34,20 +45,19 @@ VGrammar 遵循[语义化版本控制](https://semver.org/lang/zh-CN/)。我们�
 
 ## Bugs 管理
 
-我们使用 [GitHub Issues](todo) 来追踪所有的缺陷。无论内外部的缺陷，我们都会在 issues 上进行管理，尽量让一切公开、清晰明了。在你报告一个 bug 之前，请先确保已经搜索
+我们使用 [GitHub Issues](https://github.com/VisActor/VGrammar/issues) 来追踪所有的缺陷。无论内外部的缺陷，我们都会在 issues 上进行管理，尽量让一切公开、清晰明了。在你报告一个 bug 之前，请先确保已经搜索
 过已有的 issues。
 
-如果你想要你发现的 bug 被快速解决，最好的办法就是根据我们提供的 issue 模板进行提问，只需要进入 [New issue](todo) 页面，然后选择其中任意一个开始即可，最好能使用这个[模板](todo) 来提供复现的示例代码。
+如果你想要你发现的 bug 被快速解决，最好的办法就是根据我们提供的 issue 模板进行提问，只需要进入 [New issue](https://github.com/VisActor/VGrammar/issues/new/choose) 页面，然后选择其中任意一个开始即可.
 
 ## 提交变更建议
 
-如果你有改进我们的配置项、接口或者新增功能的想法，我们同样推荐你通过 issue 进行提问，或者进入我们的 [New issue](todo) 页面，选择相应的 issue 模板进行提交，
+如果你有改进我们的配置项、接口或者新增功能的想法，我们同样推荐你通过 issue 进行提问，或者进入我们的 [New issue](https://github.com/VisActor/VGrammar/issue) 页面，选择相应的 issue 模板进行提交，
 
 如果你准备帮助我们修复一个 bug，那么你可以立即提交一个 pull request 请求，但我们仍然建议你先创建一个 issue 并在 issue 中详细说明将要修复的内容，这样可以帮助我们更好得追踪问题。
 
 ## 你的第一个 Pull Request
 
-`
 如果你还不清楚怎么在 GitHub 上提 Pull Request ，可以阅读下面这篇文章来学习：[如何优雅地在 GitHub 上贡献代码](https://segmentfault.com/a/1190000000736629)
 
 为了能帮助你开始你的第一次尝试，我们用[good first issues](todo)标记了一些比较容易修复的 bug 和小功能。这些 issue 可以很好地作为你的首次尝试。
@@ -62,15 +72,13 @@ VisActor 团队会关注所有的 pull request，我们会 review 以及合并�
 
 在**你发送 Pull Request 之前**，请确认你是按照下面的步骤来做的：
 
-<!-- TODO: 待完善 -->
-
-1. 基于 `main` 分支做修改
-2. （如果你已经安装，请跳过此步骤）全局安装 [@microsoft/rush](https://rushjs.io/pages/intro/get_started/)：`npm i --global @microsoft/rush`
-3. 根目录下运行 `rush update --full`
-4. 如果你修复了一个 bug 或者新增了一个功能，请确保写了相应的测试，这很重要。
-5. 确认所有的测试都是通过的 `rush test`。 小贴士：开发过程中可以用 `rush test -- --watch TestName` 来运行指定的测试。
-6. 确保你的代码通过了 lint 检查 `rush lint`. 小贴士: Lint 会在你 git commit 的时候自动运行（通过 Git Hooks）。
-7. 运行 `rush compile` 进行 ts 类型检测。
+1.  克隆 [VGrammar](https://github.com/VisActor/VGrammar/)，基于 `main` 分支拉取新的分支做修改
+2.  （如果你已经安装，请跳过此步骤）全局安装 [@microsoft/rush](https://rushjs.io/pages/intro/get_started/)：`npm i --global @microsoft/rush`
+3.  根目录下运行 `rush update --full`
+4.  如果你修复了一个 bug 或者新增了一个功能，请确保写了相应的测试，这很重要。
+5.  确认所有的测试都是通过的 `rush test`。 小贴士：开发过程中可以用 `rush test -- --watch TestName` 来运行指定的测试。
+6.  确保你的代码通过了 lint 检查 `rush lint`. 小贴士: Lint 会在你 git commit 的时候自动运行（通过 Git Hooks）。
+7.  运行 `rush compile` 进行 ts 类型检测。
 
 ## 开发流程
 
