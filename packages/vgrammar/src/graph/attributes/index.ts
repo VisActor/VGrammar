@@ -1,4 +1,4 @@
-import { IPointLike, has, isNil, isString, isValidNumber } from '@visactor/vutils';
+import { has, isNil, isString, isValidNumber } from '@visactor/vutils';
 import type { IColor, IColorStop } from '@visactor/vrender';
 import { transformCommonAttribute, commonAttributes } from './common';
 import { getGraphicBorderRadius, getRulePoints } from './helpers';
@@ -27,6 +27,9 @@ function storeOriginAttributes(
   graphicAttributes[name] = storedAttrs;
   return storedAttrs;
 }
+
+const arcStrokeChannels = ['strokeOuter', 'strokeRight', 'strokeInner', 'strokeLeft'];
+const rectStrokeChannels = ['strokeTop', 'strokeRight', 'strokeBottom', 'strokeLeft'];
 
 export const transformsByType: Record<string, AttributeTransform[]> = {
   [GrammarMarkType.largeSymbols]: [
@@ -67,34 +70,32 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
   ],
   [GrammarMarkType.arc]: [
     {
-      channels: ['stroke', 'strokeColor', 'strokeOuter', 'strokeInner', 'strokeLeft', 'strokeRight'],
+      channels: ['stroke'].concat(arcStrokeChannels),
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        const strokeValue = storedAttrs.strokeColor ?? storedAttrs.stroke;
-        const stroke = !!storedAttrs.stroke;
-        graphicAttributes.stroke = [
-          stroke && storedAttrs.strokeOuter !== false,
-          stroke && storedAttrs.strokeRight !== false,
-          stroke && storedAttrs.strokeInner !== false,
-          stroke && storedAttrs.strokeLeft !== false
-        ];
-        graphicAttributes.strokeColor = stroke && strokeValue;
+        const stroke = storedAttrs.stroke;
+
+        graphicAttributes.stroke =
+          stroke && arcStrokeChannels.some(channel => !!storedAttrs[channel])
+            ? arcStrokeChannels.map(channel => {
+                return storedAttrs[channel] !== false ? stroke : false;
+              })
+            : stroke;
       },
       storedAttrs: 'strokeAttrs'
     }
   ],
   [GrammarMarkType.rect]: [
     {
-      channels: ['stroke', 'strokeColor', 'strokeTop', 'strokeBottom', 'strokeLeft', 'strokeRight'],
+      channels: ['stroke'].concat(rectStrokeChannels),
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        const strokeValue = storedAttrs.strokeColor ?? storedAttrs.stroke;
-        const stroke = !!storedAttrs.stroke;
-        graphicAttributes.stroke = [
-          stroke && storedAttrs.strokeTop !== false,
-          stroke && storedAttrs.strokeRight !== false,
-          stroke && storedAttrs.strokeBottom !== false,
-          stroke && storedAttrs.strokeLeft !== false
-        ];
-        graphicAttributes.strokeColor = stroke && strokeValue;
+        const stroke = storedAttrs.stroke;
+
+        graphicAttributes.stroke =
+          stroke && rectStrokeChannels.some(channel => !!storedAttrs[channel])
+            ? rectStrokeChannels.map(channel => {
+                return storedAttrs[channel] !== false ? stroke : false;
+              })
+            : stroke;
       },
       storedAttrs: 'strokeAttrs'
     },

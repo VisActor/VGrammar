@@ -12,7 +12,6 @@ import type {
 } from '../../types';
 import { getAnimationType } from '../../view/register-animation';
 import { isValidPointsChannel } from '../attributes/helpers';
-import { transformColor } from '../attributes/common';
 
 const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element: IElement): IParsedAnimationAttrs => {
   if (!attributes) {
@@ -167,9 +166,6 @@ export class AttributeAnimate extends ACustomAnimate<any> {
   onBind() {
     this.from = this.from ?? {};
     this.to = this.to ?? {};
-    // FIXME: remove this logic after vRender deprecates fillColor&strokeColor channel
-    transformColor(this.from);
-    transformColor(this.to);
   }
 
   onStart(): void {

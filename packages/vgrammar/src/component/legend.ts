@@ -44,8 +44,8 @@ export const generateDiscreteLegendAttributes = (
     const shape = color
       ? {
           ...defaultTheme.discreteLegend.items[0].shape,
-          fillColor: color,
-          strokeColor: color
+          fill: color,
+          str: color
         }
       : defaultTheme.discreteLegend.items[0].shape;
     return {
