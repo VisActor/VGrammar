@@ -10,6 +10,12 @@ importers:
       '@internal/eslint-config': workspace:*
       '@internal/ts-config': workspace:*
       '@visactor/vrender': 0.9.0-fillstroke.0
+      '@visactor/vgrammar': workspace:0.0.10
+      '@visactor/vgrammar-hierarchy': workspace:0.0.10
+      '@visactor/vgrammar-projection': workspace:0.0.10
+      '@visactor/vgrammar-sankey': workspace:0.0.10
+      '@visactor/vgrammar-wordcloud': workspace:0.0.10
+      '@visactor/vgrammar-wordcloud-shape': workspace:0.0.10
       '@visactor/vutils': 0.9.0-alpha.2
       d3-scale-chromatic: ^3.0.0
       lodash: 4.17.21
@@ -19,6 +25,12 @@ importers:
       '@internal/eslint-config': link:../../share/eslint-config
       '@internal/ts-config': link:../../share/ts-config
       '@visactor/vrender': 0.9.0-fillstroke.0
+      '@visactor/vgrammar': link:../../packages/vgrammar
+      '@visactor/vgrammar-hierarchy': link:../../packages/vgrammar-hierarchy
+      '@visactor/vgrammar-projection': link:../../packages/vgrammar-projection
+      '@visactor/vgrammar-sankey': link:../../packages/vgrammar-sankey
+      '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
+      '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
       '@visactor/vutils': 0.9.0-alpha.2
       d3-scale-chromatic: 3.0.0
       lodash: 4.17.21

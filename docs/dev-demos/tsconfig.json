@@ -1,16 +1,6 @@
 {
   "extends": "@internal/ts-config/tsconfig.base.json",
   "compilerOptions": {
-    "paths": {
-      "@visactor/vgrammar": ["../packages/vgrammar/src/index.ts"],
-      "@visactor/vgrammar-coordinate": ["../packages/vgrammar-coordinate/src/index.ts"],
-      "@visactor/vgrammar-util": ["../packages/vgrammar-util/src/index.ts"],
-      "@visactor/vgrammar-projection": ["../packages/vgrammar-projection/src/index.ts"],
-      "@visactor/vgrammar-hierarchy": ["../packages/vgrammar-hierarchy/src/index.ts"],
-      "@visactor/vgrammar-sankey": ["../packages/vgrammar-sankey/src/index.ts"],
-      "@visactor/vgrammar-wordcloud": ["../packages/vgrammar-wordcloud/src/index.ts"],
-      "@visactor/vgrammar-wordcloud-shape": ["../packages/vgrammar-wordcloud-shape/src/index.ts"]
-    },
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -27,5 +17,31 @@
     "noImplicitReturns": true,
     "skipLibCheck": true
   },
+  "references": [
+    {
+      "path": "../../packages/vgrammar-util"
+    },
+    {
+      "path": "../../packages/vgrammar"
+    },
+    {
+      "path": "../../packages/vgrammar-coordinate"
+    },
+    {
+      "path": "../../packages/vgrammar-hierarchy"
+    },
+    {
+      "path": "../../packages/vgrammar-projection"
+    },
+    {
+      "path": "../../packages/vgrammar-sankey"
+    },
+    {
+      "path": "../../packages/vgrammar-wordcloud"
+    },
+    {
+      "path": "../../packages/vgrammar-wordcloud-shape"
+    }
+  ],
   "include": ["src"]
 }
