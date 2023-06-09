@@ -8,6 +8,6 @@
     "outDir": "./es",
     "composite": true
   },
-  "include": ["src", "__tests__", "examples"],
+  "include": ["src"],
   "exclude": []
 }
