@@ -2,7 +2,7 @@
 
 > 基于 [gulp](https://gulpjs.com/) + [rollup](https://rollupjs.org/introduction/) 封装的专门针对前端库的打包工具，支持 typescript、react、 less 和资源拷贝等能力
 
-# 使用
+# 使用 Usage
 
 ```
 bundle [options] <entry>
@@ -11,7 +11,7 @@ bundle [options] <entry>
 bundle -f es -w dev --env __DEV__=true --env __ID__="'my_id'"
 ```
 
-# 命令行参数说明
+# 命令行参数说明 Cmd options
 
 ```
 -r, --root <path> 项目根目录(绝对或相对路径) eg. --root /path/to/project
@@ -29,7 +29,7 @@ bundle -f es -w dev --env __DEV__=true --env __ID__="'my_id'"
 -s, --sourcemap 是否生成 sourcemap
 ```
 
-# 配置文件
+# 配置文件 config file
 
 > 来自命令行参数的字段相比配置文件的相同字段优先级更高, 即可以用命令行参数覆盖配置文件中出现的字段
 
@@ -105,7 +105,7 @@ interface Config {
 type _ModuleKind = 'es' | 'cjs' | 'umd';
 ```
 
-# 测试
+# 测试 Try it
 
 ```shell
 rushx dev --root fixtures/config [options]
