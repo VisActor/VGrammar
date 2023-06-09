@@ -42,9 +42,9 @@ describe('config', () => {
     expect(config.tsconfig).toEqual(tsconfig);
     expect(config.input).toEqual(input);
     expect(config.formats).toEqual(['es', 'cjs', 'umd']);
-    expect(JSON.parse(config.envs['version'] as string)).toEqual("'x.y.z'");
-    expect(JSON.parse(config.envs['__DEV__'] as string)).toEqual(true);
-    expect(JSON.parse(config.envs['__VERSION__'] as string)).toEqual(rawPackageJson.version);
+    expect(JSON.parse(config.envs.version as string)).toEqual("'x.y.z'");
+    expect(JSON.parse(config.envs.__DEV__ as string)).toEqual(true);
+    expect(JSON.parse(config.envs.__VERSION__ as string)).toEqual(rawPackageJson.version);
     expect(config.sourcemap).toEqual(true);
     expect(config.watch).toEqual(true);
     expect(config.less).toEqual(true);
