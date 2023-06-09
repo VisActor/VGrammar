@@ -10,6 +10,6 @@ module.exports = {
     '@visactor/vgrammar-util': 'VGrammar.Util',
     '@visactor/vutils': 'VUtils'
   },
-  umdOutputFilename: 'vgrammar-sankey.js',
+  umdOutputFilename: 'index',
   external: ['@visactor/vrender', '@visactor/vgrammar', '@visactor/vgrammar-util', '@visactor/vutils']
 };
