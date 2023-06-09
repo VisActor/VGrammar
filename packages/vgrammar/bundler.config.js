@@ -4,5 +4,5 @@
 module.exports = {
   formats: ['cjs', 'es', 'umd'],
   name: 'VGrammar',
-  umdOutputFilename: 'vgrammar.js'
+  umdOutputFilename: 'index'
 };

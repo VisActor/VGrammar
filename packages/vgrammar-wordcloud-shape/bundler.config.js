@@ -18,5 +18,5 @@ module.exports = {
     '@visactor/vutils': 'VUtils',
     '@visactor/vscale': 'VScale'
   },
-  umdOutputFilename: 'vgrammar-wordcloud-shape.js'
+  umdOutputFilename: 'index'
 };

@@ -3,7 +3,7 @@
 # Keep this section in sync with .gitignore
 #-------------------------------------------------------------------------------------------------------------------
 
-# .gitignore contents here) 👋
+# ---------------------  .gitignore contents here) 👋 ---------------------------------------
 
 # Logs
 *.log
@@ -115,7 +115,7 @@ docs/echarts-www
 .rollup.cache/
 tsconfig.tsbuildinfo
 
-# end of .gitignore
+# ---------------------- end of .gitignore -------------------
 
 #-------------------------------------------------------------------------------------------------------------------
 # Prettier-specific overrides

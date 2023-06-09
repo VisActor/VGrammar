@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: update version of @visactor/vrender",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-hierarchy"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-hierarchy",
+  "email": "dingling112@gmail.com"
+}
