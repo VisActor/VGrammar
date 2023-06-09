@@ -85,9 +85,10 @@ After cloning VGrammar, run `rush update --full` to fetch its dependencies. Then
 
 1. `rush run -p @internal/dev-demos -s start` runs VGrammar test page locally.
 2. `rush eslint` checks the code style.
-3. `rush test` runs the complete test suite.
-4. `rush run -p <project_name> -s <script>` run the specified script for the specified project, eg. `rush run -p @VisActor/VGrammar -s start`
-5. `rush prettier --dir <project_relative_path> --ext <file_type>` prettier the specified script for the specified project, eg. `rush prettier --dir packages/VGrammar --ext ts`
+3. `rush build`
+4. `rush test` runs the complete test suite.
+5. `rush run -p <project_name> -s <script>` run the specified script for the specified project, eg. `rush run -p @VisActor/VGrammar -s start`
+6. `rush prettier --dir <project_relative_path> --ext <file_type>` prettier the specified script for the specified project, eg. `rush prettier --dir packages/VGrammar --ext ts`
 
 ## License
 
