@@ -19,17 +19,26 @@ function run() {
   if (typeof preReleaseName === 'string' && preReleaseName) {
     const preReleaseType = preReleaseName.includes('.') ? preReleaseName.split('.')[0] : 'alpha'; 
 
+    // 1. build all the packages
     spawnSync('sh', ['-c', `rush build --only tag:package`], {
       stdio: 'inherit',
       shell: false,
     });
 
+    // 2. apply version and update version of package.json
     spawnSync('sh', ['-c', `rush publish --apply --prerelease-name ${preReleaseName} --partial-prerelease`], {
       stdio: 'inherit',
       shell: false,
     });
 
+    // 3. publish to npm
     spawnSync('sh', ['-c', `rush publish --publish --include-all --tag ${preReleaseType}`], {
+      stdio: 'inherit',
+      shell: false,
+    });
+
+    // 4. update version of local packages to shrinkwrap
+    spawnSync('sh', ['-c', `rush update`], {
       stdio: 'inherit',
       shell: false,
     });
@@ -41,11 +50,13 @@ function run() {
       const pkgJsonPath = path.resolve(package.projectFolder, 'package.json')
       const pkgJson = getPackageJson(pkgJsonPath)
 
+      // 5. add the the changes
       spawnSync('sh', ['-c', `git add --all`], {
         stdio: 'inherit',
         shell: false,
       });
 
+      // 6. commit all the changes
       spawnSync('sh', ['-c', `git commit -m "build: prerelease version ${pkgJson.version}"`], {
         stdio: 'inherit',
         shell: false,
