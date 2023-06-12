@@ -577,9 +577,13 @@ export class Element implements IElement {
   }
 
   release() {
+    // stop all animations when releasing
+    this.mark?.animate.getElementAnimators(this).forEach(animator => {
+      animator.stop();
+    });
+
     this.mark = null;
     this.data = null;
-    // FIXME: removeGraphicItem 有性能问题，暂时不调用
     if (this.graphicItem) {
       removeGraphicItem(this.graphicItem);
       this.graphicItem[BridgeElementKey] = null;

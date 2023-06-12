@@ -187,9 +187,9 @@ export class Animate implements IAnimate {
 
   getElementAnimators(element: IElement | IElement[], animationState?: string) {
     const elements = array(element);
-    let animators: IAnimator[];
+    let animators: IAnimator[] = [];
     if (animationState) {
-      animators = this.animators.get(animationState);
+      animators = this.animators.get(animationState) ?? [];
     } else {
       this.animators.forEach(stateAnimators => {
         animators = animators.concat(stateAnimators);
