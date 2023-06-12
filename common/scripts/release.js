@@ -42,6 +42,21 @@ function run() {
       stdio: 'inherit',
       shell: false,
     });
+
+    spawnSync('sh', ['-c', `git add --all`], {
+      stdio: 'inherit',
+      shell: false,
+    });
+
+    spawnSync('sh', ['-c', `git commit -m "build: publish version ${pkgJson.version}"`], {
+      stdio: 'inherit',
+      shell: false,
+    });
+
+    spawnSync('sh', ['-c', `git push origin v${pkgJson.version}`], {
+      stdio: 'inherit',
+      shell: false,
+    });
   }
 }
 
