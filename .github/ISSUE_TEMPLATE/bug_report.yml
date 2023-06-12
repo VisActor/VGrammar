@@ -14,7 +14,7 @@ body:
         - Find in [examples](https://www.visactor.io/)
         - Look for / ask questions on [Stack Overflow](https://stackoverflow.com/questions/tagged/visactor)
 
-        For non-technical support or general questions, you can email [yangwenhai@bytedance.com](mailto:yangwenhai@bytedance.com). 
+        For non-technical support or general questions, you can email [xuanhun521@126.com](mailto:xuanhun521@126.com). 
 
         Also try to search for your issue - it may have already been answered or even fixed in the development branch. However, if you find that an old, closed issue still persists in the latest version, you should open a new issue using the form below instead of commenting on the old issue.
 
@@ -41,7 +41,7 @@ body:
     attributes:
       label: Link to Minimal Reproduction
       description: |
-        If the reproduction does not need a build setup, please provide a link to [Official Editor](TODO), [JSFiddle](TODO), [JSBin](https://jsbin.com/) or [CodePen](TODO). If it requires a build setup, you can use [CodeSandbox](TODO) or provide a GitHub repo.
+        If the reproduction does not need a build setup, please provide a link to [Official Editor](TODO), [JSFiddle](https://jsfiddle.net/alidingling/rzow6km7/), [JSBin](https://jsbin.com/) or [CodePen](https://codepen.io/kikiling/pen/eYQNbZx). If it requires a build setup, you can use [CodeSandbox](https://codesandbox.io/s/visactor-vgrammar-issue-template-fkx24s) or provide a GitHub repo.
         The reproduction should be **minimal** - i.e. it should contain only the bare minimum amount of code needed to show the bug.
         Please do not just fill in a random link. The issue will be closed if no valid reproduction is provided. [Why?](https://antfu.me/posts/why-reproductions-are-required)
 

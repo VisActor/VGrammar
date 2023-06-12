@@ -13,7 +13,6 @@ function getPackageJson(pkgJsonPath) {
 
 
 function run() {
-  const preReleaseName = process.argv.slice(2)[0] || 'alpha'
   const cwd = process.cwd();
 
   spawnSync('sh', ['-c', `rush version --bump`], {
