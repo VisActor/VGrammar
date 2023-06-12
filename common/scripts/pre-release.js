@@ -19,6 +19,11 @@ function run() {
   if (typeof preReleaseName === 'string' && preReleaseName) {
     const preReleaseType = preReleaseName.includes('.') ? preReleaseName.split('.')[0] : 'alpha'; 
 
+    spawnSync('sh', ['-c', `rush build --only tag:package`], {
+      stdio: 'inherit',
+      shell: false,
+    });
+
     spawnSync('sh', ['-c', `rush publish --apply --prerelease-name ${preReleaseName} --partial-prerelease`], {
       stdio: 'inherit',
       shell: false,
