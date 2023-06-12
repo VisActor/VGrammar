@@ -41,6 +41,10 @@ function run() {
       const pkgJsonPath = path.resolve(package.projectFolder, 'package.json')
       const pkgJson = getPackageJson(pkgJsonPath)
 
+      spawnSync('sh', ['-c', `git add --all`], {
+        stdio: 'inherit',
+        shell: false,
+      });
 
       spawnSync('sh', ['-c', `git commit -m "build: prerelease version ${pkgJson.version}"`], {
         stdio: 'inherit',
