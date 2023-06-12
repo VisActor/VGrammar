@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix the animation error when element is released",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
