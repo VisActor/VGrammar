@@ -90,7 +90,7 @@ module.exports = function buildConfig(type) {
           'promise/no-callback-in-promise': 'off',
 
           'prettier/prettier': ['error'],
-          // 强制使用 Unix 换行符： \n
+          // Force to use Unix breack-line symbol: \n
           'linebreak-style': ['error', 'unix'],
           // 强制换行时操作符在行首
           // 与prettier冲突

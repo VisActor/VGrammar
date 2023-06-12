@@ -180,10 +180,8 @@ test('Element executes encoding', function () {
     {}
   );
   element.encodeGraphic();
-  expect(element.getGraphicAttribute('fill', false, 'rect')).toEqual(true);
-  expect(element.getGraphicAttribute('fillColor', false, 'rect')).toEqual('red');
-  expect(element.getGraphicAttribute('stroke', false, 'rect')).toEqual([true, true, true, true]);
-  expect(element.getGraphicAttribute('strokeColor', false, 'rect')).toEqual('red');
+  expect(element.getGraphicAttribute('fill', false, 'rect')).toEqual('red');
+  expect(element.getGraphicAttribute('stroke', false, 'rect')).toEqual('red');
 
   // encode update
   expect(element.getGraphicAttribute('ruleWidth', false, 'rule')).toEqual(undefined);

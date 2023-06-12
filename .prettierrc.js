@@ -1,4 +1,6 @@
-// Documentation for this file: https://prettier.io/en/configuration.html
+/**
+ * Documentation for this file: https://prettier.io/en/configuration.html
+ */
 module.exports = {
   printWidth: 120,
   tabWidth: 2,

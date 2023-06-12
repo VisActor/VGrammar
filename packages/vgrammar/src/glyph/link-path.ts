@@ -310,45 +310,7 @@ export const registerLinkPathGlyph = () => {
         back: encodeValue
       };
     })
-    // FIXME: not handle fill&fillOpacity when thickness <= 1
-    // .registerChannelEncoder('fill', (channel, encodeValue, encodeValues, datum, element) => {
-    //   const thickness = encodeValues.thickness ?? element.getGraphicAttribute('thickness', false);
-    //   if (isValidThickness(thickness)) {
-    //     return null;
-    //   }
 
-    //   const stroke = encodeValues.stroke ?? encodeValue;
-    //   const strokeColor = encodeValues.strokeColor ?? encodeValues.fillColor;
-
-    //   return {
-    //     back: {
-    //       stroke,
-    //       strokeColor,
-    //       fill: false
-    //     },
-    //     front: {
-    //       stroke,
-    //       strokeColor,
-    //       fill: false
-    //     }
-    //   };
-    // })
-    // .registerChannelEncoder('fillOpacity', (channel, encodeValue, encodeValues) => {
-    //   if (hasValidThickness(encodeValues)) {
-    //     return null;
-    //   }
-
-    //   const strokeOpacity = encodeValues.strokeOpacity ?? encodeValue;
-
-    //   return {
-    //     back: {
-    //       strokeOpacity
-    //     },
-    //     front: {
-    //       strokeOpacity
-    //     }
-    //   };
-    // })
     .registerDefaultEncoder(() => {
       return {
         back: { zIndex: 0 },

@@ -30,8 +30,7 @@ const axis: RecursivePartial<LineAxisAttributes> = {
       fontSize: 12,
       fill: '#6F6F6F',
       fontWeight: 'normal',
-      fillOpacity: 1,
-
+      fillOpacity: 1
     }
   },
   tick: {
@@ -42,8 +41,7 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     style: {
       lineWidth: 1,
       stroke: '#D8DCE3',
-      strokeOpacity: 1,
-
+      strokeOpacity: 1
     }
   },
   subTick: {
@@ -54,8 +52,7 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     style: {
       lineWidth: 1,
       stroke: '#D8DCE3',
-      strokeOpacity: 1,
-
+      strokeOpacity: 1
     }
   },
   line: {
@@ -63,8 +60,7 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     style: {
       lineWidth: 1,
       stroke: '#dfdfdf',
-      strokeOpacity: 1,
-
+      strokeOpacity: 1
     }
   },
   grid: {
@@ -73,8 +69,7 @@ const axis: RecursivePartial<LineAxisAttributes> = {
       lineWidth: 1,
       stroke: '#dfdfdf',
       strokeOpacity: 1,
-      lineDash: [4, 4],
-
+      lineDash: [4, 4]
     },
     length: 100,
     type: 'line'
@@ -85,8 +80,7 @@ const axis: RecursivePartial<LineAxisAttributes> = {
       lineWidth: 1,
       stroke: '#dfdfdf',
       strokeOpacity: 1,
-      lineDash: [4, 4],
-
+      lineDash: [4, 4]
     }
   },
   items: [],
@@ -104,8 +98,7 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
       fontSize: 12,
       fill: '#333333',
       fontWeight: 'normal',
-      fillOpacity: 1,
-
+      fillOpacity: 1
     },
     text: 'theta'
   },
@@ -117,8 +110,7 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
       fontSize: 12,
       fill: '#6F6F6F',
       fontWeight: 'normal',
-      fillOpacity: 1,
-
+      fillOpacity: 1
     }
   },
   tick: {
@@ -129,8 +121,7 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     style: {
       lineWidth: 1,
       stroke: '#D8DCE3',
-      strokeOpacity: 1,
-
+      strokeOpacity: 1
     }
   },
   subTick: {
@@ -141,8 +132,7 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     style: {
       lineWidth: 1,
       stroke: '#D8DCE3',
-      strokeOpacity: 1,
-
+      strokeOpacity: 1
     }
   },
   line: {
@@ -150,8 +140,7 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     style: {
       lineWidth: 1,
       stroke: '#dfdfdf',
-      strokeOpacity: 1,
-
+      strokeOpacity: 1
     }
   },
   grid: {
@@ -159,8 +148,7 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
       lineWidth: 1,
       stroke: '#dfdfdf',
       strokeOpacity: 1,
-      lineDash: [4, 4],
-
+      lineDash: [4, 4]
     },
     type: 'line',
     visible: false,
@@ -172,8 +160,7 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
       lineWidth: 1,
       stroke: '#dfdfdf',
       strokeOpacity: 1,
-      lineDash: [4, 4],
-
+      lineDash: [4, 4]
     }
   },
   items: [],
@@ -208,16 +195,12 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
       },
       state: {
         selectedHover: {
-          opacity: 0.85,
-
-
+          opacity: 0.85
         },
         unSelected: {
           fill: '#D8D8D8',
           stroke: '#D8D8D8',
-          fillOpacity: 0.5,
-
-
+          fillOpacity: 0.5
         }
       }
     },
@@ -226,8 +209,7 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
       style: {
         fontSize: 12,
         fill: 'black',
-        cursor: 'pointer',
-
+        cursor: 'pointer'
       },
       state: {
         selectedHover: {
@@ -261,12 +243,10 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
       },
       state: {
         selectedHover: {
-
           fillOpacity: 0.7,
           fill: 'gray'
         },
         unSelectedHover: {
-
           fillOpacity: 0.2,
           fill: 'gray'
         }
@@ -306,9 +286,7 @@ const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
       id: '',
       label: '',
       shape: {
-
         fill: '#6690F2',
-
         stroke: '#6690F2',
         symbolType: 'circle'
       }

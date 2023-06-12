@@ -5,8 +5,8 @@ module.exports = {
   ...baseJestConfig,
   moduleNameMapper: {
     ...baseJestConfig.moduleNameMapper,
-    '@visactor/vgrammar-util': path.resolve(__dirname, '../vgrammar-util/src/index.ts'),
-    '@visactor/vgrammar-projection': path.resolve(__dirname, '../vgrammar-projection/src/index.ts'),
-    '@visactor/vgrammar-coordinate': path.resolve(__dirname, '../vgrammar-coordinate/src/index.ts')
+    '@visactor/vgrammar-util': path.resolve(__dirname, '../vgrammar-util/src/'),
+    '@visactor/vgrammar-projection': path.resolve(__dirname, '../vgrammar-projection/src/'),
+    '@visactor/vgrammar-coordinate': path.resolve(__dirname, '../vgrammar-coordinate/src/')
   }
 };

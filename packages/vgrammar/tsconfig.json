@@ -20,5 +20,5 @@
       "path": "../vgrammar-coordinate"
     }
   ],
-  "include": ["src", "__tests__", "examples"]
+  "include": ["./src"]
 }

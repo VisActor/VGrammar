@@ -42,9 +42,9 @@ const getFormData = (data) => {
 };
 
 async function uploadFile() {
-  console.log(`file path: ${path.resolve(process.cwd(), `dist/vgrammar.js.js`)}`)
+  console.log(`file path: ${path.resolve(process.cwd(), `dist/index.js`)}`)
   const formData = getFormData({
-    bundleFile: fs.createReadStream(path.resolve(process.cwd(), `dist/vgrammar.js.js`)),
+    bundleFile: fs.createReadStream(path.resolve(process.cwd(), `dist/index.js`)),
     triggerType: "upload-file",
   });
   const res = await fetch(`${host}/api/ci/trigger`, {
@@ -61,7 +61,8 @@ async function triggerScmBuild({ fileUrl }) {
   const formData = getFormData({
     triggerType: "scm-build",
     fileUrl: fileUrl,
-    createUser: process.env.GITHUB_ACTOR ?? ""
+    createUser: process.env.GITHUB_ACTOR ?? "",
+    commitBranchName: process.env.GITHUB_HEAD_REF ?? "",
   });
 
   const res = await fetch(`${host}/api/ci/trigger`, {

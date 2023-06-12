@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-wordcloud-shape",
+      "comment": "dep: update version of VRender",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-wordcloud-shape"
+}

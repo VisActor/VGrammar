@@ -4,7 +4,7 @@
 module.exports = {
   formats: ['cjs', 'es', 'umd'],
   name: 'VGrammar.Projection',
-  umdOutputFilename: 'vgrammar-projection.js',
+  umdOutputFilename: 'index',
   globals: {
     '@visactor/vgrammar': 'VGrammar',
     '@visactor/vgrammar-util': 'VGrammar.Util',

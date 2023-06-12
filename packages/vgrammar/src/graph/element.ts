@@ -26,7 +26,6 @@ import type { IGraphic, ILine, IGraphicAttribute } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports
 import { CustomPath2D } from '@visactor/vrender';
 import { invokeFunctionType, parseField } from '../parse/util';
-import { transformColor } from './attributes/common';
 
 export class Element implements IElement {
   mark: IMark;
@@ -324,8 +323,6 @@ export class Element implements IElement {
       this.graphicItem.states[stateName] = graphicAttributes;
     }
 
-    // FIXME: remove this logic after vRender deprecates fillColor&strokeColor channel
-    transformColor(graphicAttributes);
     return graphicAttributes;
   };
 

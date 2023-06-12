@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "refactor: update version of VRender, remove fillColor and strokeColor",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}

@@ -4,8 +4,18 @@
     "types": ["jest", "node"],
     "lib": ["DOM", "ESNext"],
     "baseUrl": ".",
-    "rootDir": "./"
+    "rootDir": "./src",
+    "composite": true,
+    "outDir": "./es"
   },
-  "include": ["src", "__tests__", "examples"],
+  "references": [
+    {
+      "path": "../vgrammar-util"
+    },
+    {
+      "path": "../vgrammar"
+    }
+  ],
+  "include": ["src"],
   "exclude": []
 }
