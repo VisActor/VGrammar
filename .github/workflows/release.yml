@@ -51,7 +51,7 @@ jobs:
         # See more about this action: https://github.com/marketplace/actions/get-current-package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
         with:
-          path: packages/test-release
+          path: packages/vgrammar
 
       - name: Commit & Push changes
         uses: actions-js/push@master
