@@ -1,7 +1,6 @@
 import path from 'path';
 import chalk from 'chalk';
 import minimist, { ParsedArgs } from 'minimist';
-import { RushConfiguration } from '@microsoft/rush-lib';
 import { spawnSync } from 'child_process';
 
 interface RunScriptArgv extends ParsedArgs {
@@ -15,8 +14,6 @@ function run() {
   const argv: RunScriptArgv = minimist(process.argv.slice(2));
   const message = argv.message;
   let bumpType = argv.type;
-
-  console.log(message)
 
   if (message) {
     const result = spawnSync(
@@ -36,7 +33,7 @@ function run() {
       bumpType = 'patch';
     }
 
-    spawnSync('sh', ['-c', `rush change --bulk --bump-type ${bumpType} --message '${message}' `], {
+    spawnSync('sh', ['-c', `rush change --bulk --bump-type '${bumpType}' --message '${message}'`], {
       stdio: 'inherit',
       shell: false,
     });
