@@ -50,6 +50,8 @@ function run() {
         console.log('\x1b[31m[warning]\x1b[0m no prerelease-name supply, default to \x1b[31m alpha.0\x1b[0m')
       }
     }
+  } else {
+    console.log(`\x1b[31m[error]\x1b[0m preReleaseName: \x1b[31m ${preReleaseName} \x1b[0m 不符合规范，只允许 alpha.0 , beta.1, rc.3 类似的格式 `)
   }
 
   if (preReleaseName && preReleaseType) {
