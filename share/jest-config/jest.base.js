@@ -28,5 +28,19 @@ module.exports = {
   moduleNameMapper: {
     'd3-color': path.resolve(__dirname, './node_modules/d3-color/dist/d3-color.min.js'),
     'd3-array': path.resolve(__dirname, './node_modules/d3-array/dist/d3-array.min.js')
+  },
+
+  collectCoverage: true,
+  coverageDirectory: "coverage",
+  coverageProvider: "v8",
+  coverageReporters: ['json-summary', 'lcov', "text"],
+  coveragePathIgnorePatterns: ['node_modules', '__tests__', 'interface.ts', '.d.ts', 'typings', 'types'],
+  coverageThreshold: {
+    global: {
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80
+    }
   }
-};
+}; 
