@@ -34,7 +34,16 @@ module.exports = {
   coverageDirectory: "coverage",
   coverageProvider: "v8",
   coverageReporters: ['json-summary', 'lcov', "text"],
-  coveragePathIgnorePatterns: ['node_modules', '__tests__', 'interface.ts', '.d.ts', 'typings', 'types'],
+  collectCoverageFrom: [
+    '**/src/**',
+    '!**/cjs/**',
+    '!**/dist/**',
+    '!**/es/**',
+    '!**/node_modules/**',
+    '!**/__tests__/**',
+    '!**/types/**',
+    '!**/interface.ts'
+  ],
   coverageThreshold: {
     global: {
       "branches": 80,
