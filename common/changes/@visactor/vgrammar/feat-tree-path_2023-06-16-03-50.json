@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: implement tree-path by glyph with three path, close #27",
+      "type": "minor",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}
