@@ -310,7 +310,6 @@ export const registerLinkPathGlyph = () => {
         back: encodeValue
       };
     })
-
     .registerDefaultEncoder(() => {
       return {
         back: { zIndex: 0 },

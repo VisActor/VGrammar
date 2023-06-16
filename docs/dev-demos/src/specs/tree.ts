@@ -199,7 +199,12 @@ export const spec = {
               thickness: 1,
               round: true,
               stroke: '#333',
-              lineWidth: 1
+              lineWidth: 1,
+              endArrow: true,
+              arrowSize: 10,
+              startArrow: true,
+              // endArrowStyle: { stroke: 'red', fill: 'red' },
+              startArrowStyle: { stroke: 'red', fill: 'red' }
             }
           }
         },

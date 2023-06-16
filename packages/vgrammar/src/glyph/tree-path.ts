@@ -15,6 +15,8 @@ export interface TreePathEncodeValues extends Partial<IGraphicAttribute> {
   round?: boolean;
   align?: 'start' | 'end' | 'center';
   pathType?: 'line' | 'smooth' | 'polyline';
+  startArrowStyle?: Partial<IGraphicAttribute>;
+  endArrowStyle?: Partial<IGraphicAttribute>;
   endArrow?: boolean;
   startArrow?: boolean;
   arrowSize?: number;
@@ -65,17 +67,17 @@ export const getHorizontalPath = (options: TreePathEncodeValues) => {
             x1 - sign * arrowSize
           )},${formatter(y1 + arrowSize)}`
         : '';
-      const startArrowPath = options.endArrow
+      const startArrowPath = options.startArrow
         ? `M${formatter(x0 + sign * arrowSize)},${formatter(y0 - arrowSize)}L${x0},${y0}L${formatter(
             x0 + sign * arrowSize
           )},${formatter(y0 + arrowSize)}`
         : '';
 
-      return `${startArrowPath}${mainPath}${endArrowPath}`;
+      return [startArrowPath, mainPath, endArrowPath];
     }
   }
 
-  return mainPath;
+  return ['', mainPath, ''];
 };
 
 export const getVerticalPath = (options: TreePathEncodeValues) => {
@@ -117,17 +119,17 @@ export const getVerticalPath = (options: TreePathEncodeValues) => {
             x1 + arrowSize
           )},${formatter(y1 - sign * arrowSize)}`
         : '';
-      const startArrowPath = options.endArrow
+      const startArrowPath = options.startArrow
         ? `M${formatter(x0 + arrowSize)},${formatter(y0 + sign * arrowSize)}L${x0},${formatter(y0)}L${formatter(
             x0 + arrowSize
           )},${formatter(y0 + sign * arrowSize)}`
         : '';
 
-      return `${startArrowPath}${mainPath}${endArrowPath}`;
+      return [startArrowPath, mainPath, endArrowPath];
     }
   }
 
-  return mainPath;
+  return ['', mainPath, ''];
 };
 
 const encoder = (encodeValues: TreePathEncodeValues, datum: any, element: IElement, config: TreePathConfig) => {
@@ -137,9 +139,17 @@ const encoder = (encodeValues: TreePathEncodeValues, datum: any, element: IEleme
   const encodeChannels = Object.keys(encodeValues);
   // parse path when all required channels are included
   if (['x0', 'y0', 'x1', 'y1'].every(channel => encodeChannels.includes(channel))) {
+    const [startArrowPath, mainPath, endArrowPath] = parsePath(encodeValues);
+
     return {
       main: {
-        path: parsePath(encodeValues)
+        path: mainPath
+      },
+      startArrow: {
+        path: startArrowPath
+      },
+      endArrow: {
+        path: endArrowPath
       }
     };
   }
@@ -250,8 +260,27 @@ const treePathUpdate: TypeAnimation<IElement> = (
 
 export const registerTreePathGlyph = () => {
   registerGlyph<TreePathEncodeValues, TreePathConfig>('treePath', {
-    main: 'path'
-  }).registerFunctionEncoder(encoder);
+    main: 'path',
+    startArrow: 'path',
+    endArrow: 'path'
+  })
+    .registerFunctionEncoder(encoder)
+    .registerChannelEncoder('startArrowStyle', (channel, encodeValue) => {
+      return {
+        startArrow: encodeValue
+      };
+    })
+    .registerChannelEncoder('endArrowStyle', (channel, encodeValue) => {
+      return {
+        endArrow: encodeValue
+      };
+    })
+    .registerDefaultEncoder(() => {
+      return {
+        startArrow: { zIndex: 1 },
+        endArrow: { zIndex: 2 }
+      };
+    });
 
   registerAnimationType('treePathGrowIn', treePathGrowIn);
   registerAnimationType('treePathGrowOut', treePathGrowOut);
