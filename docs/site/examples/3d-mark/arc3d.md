@@ -1,0 +1,120 @@
+---
+category: examples
+group: glyph-mark-boxplot
+title: arc3d 图元
+cover:
+---
+
+# arc3d 图元
+
+## 关键配置
+
+## 代码演示
+
+```ts
+const spec = {
+  width: 1600,
+  height: 400,
+  padding: { top: 5, right: 5, bottom: 30, left: 60 },
+
+  data: [
+    {
+      id: 'table',
+      values: [
+        {
+          value: 335,
+          name: '直接访问'
+        },
+        {
+          value: 310,
+          name: '邮件营销'
+        },
+        {
+          value: 274,
+          name: '联盟广告'
+        },
+        {
+          value: 123,
+          name: '搜索引擎'
+        },
+        {
+          value: 215,
+          name: '视频广告'
+        }
+      ],
+      transform: [
+        {
+          type: 'pie',
+          field: 'value',
+          asStartAngle: 'startAngle',
+          asEndAngle: 'endAngle'
+        }
+      ]
+    }
+  ],
+
+  scales: [
+    {
+      id: 'colorScale',
+      type: 'ordinal',
+      domain: { data: 'table', field: 'test' },
+      range: colorSchemeForLight
+    }
+  ],
+
+  marks: [
+    {
+      type: 'arc3d',
+      from: { data: 'table' },
+      encode: {
+        update: {
+          x: (datum, element, params) => params.viewBox.x1 + params.viewBox.width() / 2,
+          y: (datum, element, params) => params.viewBox.y1 + params.viewBox.height() / 2,
+          outerRadius: 150,
+          startAngle: { field: 'startAngle' },
+          endAngle: { field: 'endAngle' },
+          height: 20,
+          fill: { scale: 'colorScale', field: 'name' }
+        },
+        hover: {
+          fill: 'red'
+        }
+      },
+      animation: {
+        enter: {
+          type: 'growAngleIn',
+          options: { overall: true },
+          duration: 2000
+        },
+        state: {
+          duration: 500
+        }
+      },
+      dependency: ['viewBox']
+    }
+  ]
+};
+
+const vGrammarView = new VGrammarView({
+  width: spec.width,
+  height: spec.height,
+  container: CHART_CONTAINER_DOM_ID,
+  hover: true,
+  options3d: {
+    enable: true,
+    alpha: 0,
+    beta: -0.85,
+    center: { x: 800, y: 400 }
+    // enableView3dTranform: true
+  },
+  disableDirtyBounds: true
+});
+vGrammarView.parseSpec(spec);
+
+vGrammarView.runAsync();
+
+// 只为了方便控制太调试用，不要拷贝
+window.vGrammarView = vGrammarView;
+```
+
+## 相关教程
