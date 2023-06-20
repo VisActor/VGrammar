@@ -24,9 +24,7 @@ function run() {
 
     console.log(chalk.green(`[Notice] no message is supplied, we'll use latest commit mesage: ${chalk.red.bold(lastCommitMessage)}`));
     message = lastCommitMessage;
-  }
-
-  if (message) {
+  } else {
     const result = spawnSync(
       'sh',
       ['-c', `echo ${message} | ${commitLintBinPath} --config ${commitLineConfigPath}`],
@@ -38,27 +36,27 @@ function run() {
     if (result.status !== 0) {
       process.exit(1);
     }
-
-    if (!bumpType) {
-      console.log(chalk.green(`[Notice] no bumpType is supplied, we'll use default bumpType: ${chalk.red.bold('patch')}`));
-      bumpType = 'patch';
-    }
-
-    spawnSync('sh', ['-c', `rush change --bulk --bump-type '${bumpType}' --message '${message}'`], {
-      stdio: 'inherit',
-      shell: false,
-    });
-
-    spawnSync('sh', ['-c', 'git add --all'], {
-      stdio: 'inherit',
-      shell: false,
-    });
-
-    spawnSync('sh', ['-c', `git commit -m 'docs: update changlog of rush'`], {
-      stdio: 'inherit',
-      shell: false,
-    });
   }
+
+  if (!bumpType) {
+    console.log(chalk.green(`[Notice] no bumpType is supplied, we'll use default bumpType: ${chalk.red.bold('patch')}`));
+    bumpType = 'patch';
+  }
+
+  spawnSync('sh', ['-c', `rush change --bulk --bump-type '${bumpType}' --message '${message}'`], {
+    stdio: 'inherit',
+    shell: false,
+  });
+
+  spawnSync('sh', ['-c', 'git add --all'], {
+    stdio: 'inherit',
+    shell: false,
+  });
+
+  spawnSync('sh', ['-c', `git commit -m 'docs: update changlog of rush'`], {
+    stdio: 'inherit',
+    shell: false,
+  });
 }
 
 run();
