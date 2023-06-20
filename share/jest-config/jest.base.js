@@ -20,6 +20,7 @@ module.exports = {
     ]
   },
   globals: {
+    __VERSION__: JSON.stringify('test'),
     __DEV__: true
   },
   verbose: false,

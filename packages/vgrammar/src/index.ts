@@ -20,7 +20,7 @@ registerBasicTransforms();
 
 // -- Exports -----
 
-export const version = '4.3.0';
+export const version = __VERSION__;
 
 export * as Util from '@visactor/vgrammar-util';
 
