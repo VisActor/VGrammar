@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: add global.d.ts to every package\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-util"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-util",
+  "email": "dingling112@gmail.com"
+}
