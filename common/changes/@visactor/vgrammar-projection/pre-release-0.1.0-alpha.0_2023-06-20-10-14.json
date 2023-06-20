@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "chore: fix change-all when no commit\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-projection"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-projection",
+  "email": "dingling112@gmail.com"
+}
