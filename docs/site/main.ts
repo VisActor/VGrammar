@@ -54,11 +54,12 @@ const handleSwitchMarkdown = (tab, path, name) => {
     }
     (window as any).vGrammarView = null;
   }
+  const fileName = `./${tab}${path ? '/' + path : ''}/${name}.md`;
 
-  import(`./${tab}${path ? '/' + path : ''}/${name}.md`)
+  import(fileName)
     .then(module => {
       // eslint-disable-next-line no-console
-      console.info('%c %s', 'color: #1890ff;font-weight: bold', `当前 demo 路径：./${tab}${path ? '/' + path : ''}/${name}.md`);
+      console.info('%c %s', 'color: #1890ff;font-weight: bold', `当前 demo 路径：${fileName}`);
 
       (document.getElementById('article') as HTMLElement).innerHTML = module.html;
 
@@ -159,13 +160,15 @@ const getMenuListHtml = (key?: string | null) => {
     menuHtml: activeMenu.menu.map(entry => {
       if (entry.menu && entry.children && entry.children.length) {
         const childrenItems = entry.children.map(child => {
-          return `<p class="${ITEM_CLS}" data-path="${child.path ?? entry.path}" data-name="${child.name}" data-tab="${activeMenu!.key}">${child.name}</p>`;
+          return `<p class="${ITEM_CLS}" data-path="${child.path ?? entry.path}" data-name="${child.name}" data-tab="${activeMenu!.key}">
+            ${child.menu ?? child.name}
+          </p>`;
         });
   
         return `<p class="${ITEM_CLS} menu-title">${entry.menu}</p>${childrenItems.join('')}`;
       }
   
-      return `<p class="${ITEM_CLS}" data-name="${entry.name}" data-tab="${activeMenu!.key}">${entry.name}</p>`;
+      return `<p class="${ITEM_CLS}" data-name="${entry.name}" data-tab="${activeMenu!.key}">${entry.menu ?? entry.name}</p>`;
     }).join('')
   };
 }

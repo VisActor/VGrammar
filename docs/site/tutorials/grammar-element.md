@@ -1,114 +1,318 @@
-# 图表
+# 语法元素
 
-在 VGrammar 的核心包之外，VGrammar 也提供了一些可选的扩展包以支持额外的图表能力：
+VGrammar 的可视化场景由多种不同含义的语法元素构成。
 
-- VGrammar-hierarchy：提供了部分层级图表的 transform 封装，例如旭日图等；
-- VGrammar-sankey：提供了桑基图的 transform 封装；
-- VGrammar-wordcloud：提供了词云的 transform 封装；
-- VGrammar-wordcloud-shape：提供了形状词云的 transform 封装。
+目前 VGrammar 支持的语法元素包含：
 
-开发者可以使用这些扩展包所提供的 transform 快速创建各种常用的图表，例如桑基图、词云等。
+- 信号量 Signal
+- 数据 Data
+- 映射 Scale
+- 坐标系 Coordinate
+- 图元 Mark
 
-## 层级图表
+除此之外，开发者还可以通过 `registerGrammar` 接口注册自己的语法元素。
 
-层级图表是一类以层级节点为核心，将数据按照分类层级关系进行分层组织的图表。层级图表帮助我们更好地理解数据之间的关联性和层次结构。
+## 信号量 Signal
 
-VGrammar 目前通过 vgrammar-hierarchy 包提供了四种层级图表：Circle-packing 图、旭日图、树图和矩形树图。
+信号量（signal）语法元素描述了可视化场景中的一个变量。signal 可以是简单的值或者由特定的计算逻辑生成，并动态影响可视化场景的计算。
 
-### Circle-packing 图
+VGrammar 提供了一些内置的信号量，包括：
 
-Circle-packing 图是一种通过嵌套放置同心圆的方式呈现多层次层级关系的图表。数据层的大小通常由每个圆的大小来表示，层级关系由同心圆之间的包含关系体现。Circle-packing 图适用于展示多层次结构数据在同一领域的大小比较以及层级关系分布情况。例如，Circle-packing 图可以用于显示全球各国家地区的人口分布情况、公司经营业务部门的销售业绩等。
+- width & height: 可视化场景宽高
+- viewWidth & viewHeight: 去除内边距后的宽高
+- viewBox: 去除内边距后的包围盒
+- padding: 可视化场景内边距
+- autoFit: 可视化场景是否自适应容器宽高
 
-开发者可以调用 vgrammar-hierarchy 中的 `registerCirclePackingTransforms()` 或者 `registerAllHierarchyTransforms()` 对 `circlePacking` transform 进行注册。
-
-`circlePacking` transform 基于用户传入的层级数据计算 circle-packing 图的布局信息，并将布局结果放入数据字段中，例如 x、y。随后开发者可以将计算布局后的层级数据通过 `flattenNodes` 方法进行展平，并应用于 circle mark 的数据映射声明中。
-
-一个简单的 transform 使用示例为：
+Spec 形式 Signal 元素使用示例：
 
 ```js
 {
-  type: 'circlePacking',
-  width: { signal: 'viewWidth' },
-  height: { signal: 'viewHeight' },
-  padding: [10, 5, 0],
-  includeRoot: false
+  signals: [{
+    id: 'threshold',
+    value: 40
+  }],
+  data: [{
+    id: 'data',
+    values: [
+      { type: 'A', value: 22 },
+      { type: 'B', value: 45 },
+      { type: 'C', value: 77 },
+      { type: 'D', value: 31 }
+    ],
+    // apply signal to data transform
+    transform: [
+      {
+        type: 'filter',
+        callback: (datum, params) => datum.value >= params.threshold,
+      }
+    ],
+    // declare the reference to signal
+    dependency: 'threshold'
+  }]
 }
 ```
 
-![circle-packing](https://s1.ax1x.com/2023/06/19/pC33uiF.png)
+API 形式 Signal 元素使用示例：
 
-### 旭日图
+```js
+const threshold = view.signal(40);
+const data = view
+  .data([
+    { type: 'A', value: 22 },
+    { type: 'B', value: 45 },
+    { type: 'C', value: 77 },
+    { type: 'D', value: 31 }
+  ])
+  .transform([
+    {
+      type: 'filter',
+      callback: (datum, params) => datum.value >= params.threshold
+    }
+  ])
+  .depend(threshold);
+```
 
-旭日图（Sunburst）是一种以环形结构展示多层级数据关系的图表。旭日图的每个扇区代表一个层级节点，从中心向外表示从根节点到叶节点的层级结构。扇区的大小通常表示节点权重或者其他相对重要度数值。旭日图适用于显示复杂数量的层级数据关系和比较权重，例如文件系统的存储分布、组织架构的人员比例等。
+## 数据 Data
 
-开发者可以调用 vgrammar-hierarchy 中的 `registerSunburstTransforms()` 或者 `registerAllHierarchyTransforms()` 对 `sunburst` transform 进行注册。
+数据（data）语法元素用于管理一组数据，同时 VGrammar 提供了内置的数据转换 transform 以支持数据分析逻辑。
 
-`sunburst` transform 基于用户传入的层级数据计算旭日图的布局信息，并将布局结果放入数据字段中，例如 x、y、innerRadius、outerRadius 等。随后开发者可以将计算布局后的层级数据通过 `flattenNodes` 方法进行展平，并应用于 mark 的数据映射声明中。
+VGrammar 可视化场景中图元渲染基于数据驱动的逻辑，除了特殊的组件以及 Group 图元以外，其他的图元类型均基于 data 元素执行相应的数据映射（data join）计算。
 
-一个简单的 transform 使用示例为：
+Spec 形式 Data 元素使用示例：
 
 ```js
 {
-  type: 'sunburst',
-  width: { signal: 'viewWidth' },
-  height: { signal: 'viewHeight' },
-  innerRadius: ['15%', '37%', '67', '74%'],
-  outerRadius: ['35%', '65%', '72%', '80%'],
-  label: [
+  data: [{
+    id: 'data',
+    values: [
+      { type: 'A', value: 22 },
+      { type: 'B', value: 45 },
+      { type: 'C', value: 77 },
+      { type: 'D', value: 31 }
+    ],
+    transform: [
+      {
+        type: 'filter',
+        callback: (datum) => datum.value >= 40
+      }
+    ]
+  }],
+  marks: [{
+    type: 'rect',
+    // apply data join to mark
+    from: { data: 'data' }
+  }]
+}
+```
+
+API 形式 Data 元素使用示例：
+
+```js
+const data = view
+  .data([
+    { type: 'A', value: 22 },
+    { type: 'B', value: 45 },
+    { type: 'C', value: 77 },
+    { type: 'D', value: 31 }
+  ])
+  .transform([
     {
-      align: 'center',
-      rotate: 'tangential'
-    },
-    { rotate: 'radial', align: 'end' },
-    { rotate: 'radial', align: 'start', offset: 10 }
+      type: 'filter',
+      callback: datum => datum.value >= 40
+    }
+  ]);
+// apply data join to mark
+const bar = view.mark('rect', view.rootMark).join({ data: 'data' });
+```
+
+## 映射 Scale
+
+映射（scale）语法元素负责将数据映射到视觉通道上，例如将 `['A', 'B']` 的数据映射到颜色通道上 `['red', 'blue']`。
+
+目前 VGrammar 提供多种不同类型的 Scale 语法元素，例如线性映射 LinearScale、顺序映射的 OrdinalScale 等。
+
+开发者可以依据需求自由选择映射方式、配置映射参数，并将声明好的 scale 元素应用到 mark 的视觉编码计算中：
+
+Spec 形式 Scale 元素使用示例：
+
+```js
+{
+  scales: [{
+    id: 'colorScale',
+    type: 'ordinal',
+    domain: ['A', 'B'],
+    range: ['red', 'blue']
+  }],
+  marks: [{
+    type: 'rect',
+    encode: {
+      update: {
+        // apply visual scale to mark
+        fill: { scale: 'colorScale', field: 'type' }
+      }
+    }
+  }]
+}
+```
+
+API 形式 Scale 元素使用示例：
+
+```js
+const scale = view.scale('ordinal').domain(['A', 'B']).range(['red', 'blue']);
+
+// apply visual scale to mark
+const bar = view.mark('rect', view.rootMark).encode('fill', { scale: 'colorScale', field: 'type' });
+```
+
+## 坐标系 Coordinate
+
+坐标系（coordinate）语法元素描述了特定的坐标系转换逻辑，将坐标位置从画布坐标系转换到目标的坐标系中。
+
+坐标系的功能包括不同坐标系类别之间的转换（例如直角坐标系到极坐标系的转换）以及额外的坐标系转换逻辑（例如平移、旋转、缩放、转置）。语义图元会依据其对应的坐标系适配其展现的形式。
+
+目前 VGrammar 提供了两种坐标系类型：
+
+- 直角坐标系：VGrammar 提供的直角坐标系由两个相互垂直的 x 与 y 构成
+- 极坐标系：VGrammar 提供的极坐标系由角度 theta 与半径 r 构成
+
+Spec 形式 Coordinate 元素使用示例：
+
+```js
+{
+  coordinates: [
+    {
+      id: 'polar',
+      type: 'polar',
+      origin: [200, 200],
+      transpose: true
+    }
+  ],
+  marks: [{
+    type: 'interval',
+    // apply coordinate to mark
+    coordinate: 'polar'
+  }]
+}
+```
+
+API 形式 Coordinate 元素使用示例：
+
+```js
+const polar = view.coordinate('polar').origin([200, 200]).transpose(true);
+const interval = view.mark('interval', view.rootMark).coordinate(polar);
+```
+
+## 图元 Mark
+
+图元（mark）语法元素描述了一组具有相同数据映射以及视觉编码逻辑的图形元素。开发者可以通过 mark 元素创建数据驱动的图形内容。
+
+Spec 形式 Mark 元素使用示例：
+
+```js
+{
+  marks: [
+    {
+      type: 'rect',
+      from: { data: 'data' },
+      encode: {
+        update: {
+          x: { scale: 'xscale', field: 'type' },
+          width: { scale: 'xscale', band: 1 },
+          y: { scale: 'yscale', field: 'value' },
+          y1: 200,
+          fill: '#1890ff'
+        }
+      }
+    }
+  ],
+}
+```
+
+API 形式 Mark 元素使用示例：
+
+```js
+const bar = view
+  .mark('rect', view.rootMark)
+  .join(data)
+  .encode({
+    x: { scale: 'xscale', field: 'type' },
+    width: { scale: 'xscale', band: 1 },
+    y: { scale: 'yscale', field: 'value' },
+    y1: 200,
+    fill: '#1890ff'
+  });
+```
+
+## 语法元素的相互引用
+
+所有的语法元素都是可以相互引用的
+
+在 Spec 形式下，语法元素可以通过 `dependency` 配置，引用另一个语法元素：
+
+```js
+{
+  "data": [
+    {
+      "id": "table",
+      "values": [{ "a": 0, "b": 2 }]
+    }
+  ],
+
+  "scales": [
+    {
+      "id": "colorScale",
+      "type": "ordinal",
+      "dependency": ["table"],
+      "domain": (scale, params) => {
+        const data = params.table;
+
+        return data.map(entry => 'a');
+      },
+      "range": ["red", "blue"]
+    }
   ]
 }
 ```
 
-![sunburst](https://s1.ax1x.com/2023/06/19/pC33YdK.png)
-
-### 树图
-
-树图（Tree）是一种以连接线将树形结构的层级节点串联起来的图表。树图从根节点开始，沿着连接线不断分支，直至叶子节点，形成一个完整的层级关系图。树图适用于显示层级关系明确、深度有限的数据结构，例如公司组织架构、地区政区划分等。
-
-开发者可以调用 vgrammar-hierarchy 中的 `registerTreeTransforms()` 或者 `registerAllHierarchyTransforms()` 对 `tree` transform 进行注册。
-
-`tree` transform 基于用户传入的层级数据计算旭日图的布局信息，并将布局结果放入数据字段中，例如 x、y 等。随后开发者可以将计算布局后的层级数据通过 `flattenNodes` 方法进行展平，并应用于 mark 的数据映射声明中。
-
-一个简单的 transform 使用示例为：
+在 API 形式下，可以通过`depend`API，引用另一个语法元素：
 
 ```js
-{
-  type: 'tree',
-  width: { signal: 'viewWidth' },
-  height: { signal: 'viewHeight' },
-  alignType: 'leaf',
-  direction: 'vertical'
-}
+const tableData = view.data([{ a: 0, b: 2 }]).id('table');
+
+const colorScale = view
+  .scale('ordinal')
+  .depend('table')
+  .domain((scale, params) => {
+    const data = params.table;
+
+    return data.map(entry => 'a');
+  })
+  .range(['red', 'blue']);
 ```
 
-### 矩形树图
-
-矩形树图（Treemap）是一种将层级数据分隔成嵌套矩形的图表。矩形的面积表示节点的权重或者其他相对重要度数值，嵌套关系表示层级结构。矩形树图适用于展示节点间相对权重的层级关系，例如磁盘空间占用情况、销售数据等。
-
-开发者可以调用 vgrammar-hierarchy 中的 `registerSunburstTransforms()` 或者 `registerAllHierarchyTransforms()` 对 `sunburst` transform 进行注册。
-
-`sunburst` transform 基于用户传入的层级数据计算旭日图的布局信息，并将布局结果放入数据字段中，例如 x、y、innerRadius、outerRadius 等。随后开发者可以将计算布局后的层级数据通过 `flattenNodes` 方法进行展平，并应用于 mark 的数据映射声明中。
-
-一个简单的 transform 使用示例为：
+注意，各个语法元素分别提供了语义化的配置，用于依赖特定的语法元素，效果和`depend()`、 `dependency`都是一致的，使用自定义的回调函数申明特定的配置的时候，所有的依赖元素，都能够通过全局唯一的`id`被获取到；
 
 ```js
+const tableData = view
+  .data([
+    { cat: 'A', value: 2 },
+    { cat: 'B', value: 2 }
+  ])
+  .id('table');
 
+const colorScale = view.scale('ordinal').id('xScale').domain({ data: 'table', field: 'cat' }).range(['red', 'blue']);
+
+const mark = view
+  .mark('rect', view.rootMark)
+  .join('table')
+  .denpend('xScale')
+  .encode((datum, element, params) => {
+    const data = params.table;
+    const xScale = params.xScale;
+
+    return {
+      /***/
+    };
+  });
 ```
-
-## 桑基图
-
-桑基图（Sankey）是一种用来表示节点之间流量转移关系的图表。桑基图的节点表示数据实体，而流的大小通常由连接线的宽度来表示。桑基图适用于展示多个相互独立的节点之间的流量转移情况，例如能源流向分析、网站访问路径等。
-
-## 词云
-
-词云（Wordcloud）是一种将文字数据呈现为词汇组成的云形图像的图表。每个词汇的大小表示其权重或其他数值，视觉上呈现出数据中关键词的重要性差异。词云适用于展示关键词的权重差异，例如文本内容关键词分析、搜索热点关键词等。
-
-## 形状词云
-
-形状词云（WordcloudShape）是一种基于词云将文字数据呈现在特定形状的图表。与词云相同，每个词汇的大小表示其权重或其他数值，同时形状词云还具较强的视觉美感。形状词云适用于展示关键词的权重差异，同时具有较高的视觉冲击力，例如品牌宣传、商业推广等。
