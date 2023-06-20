@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: update version of VRender from 0.9.2-fill-stroke.9 to 0.10.3",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-wordcloud"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-wordcloud",
+  "email": "dingling112@gmail.com"
+}
