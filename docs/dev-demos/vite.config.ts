@@ -16,7 +16,8 @@ export default defineConfig({
     port: 3010
   },
   define: {
-    __DEV__: true
+    __DEV__: true,
+    __VERSION__: JSON.stringify(pkg.version),
   },
   optimizeDeps: {},
   resolve: {
