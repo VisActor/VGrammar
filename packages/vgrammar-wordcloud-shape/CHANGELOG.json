@@ -2,6 +2,26 @@
   "name": "@visactor/vgrammar-wordcloud-shape",
   "entries": [
     {
+      "version": "0.2.1",
+      "tag": "@visactor/vgrammar-wordcloud-shape_v0.2.1",
+      "date": "Tue, 20 Jun 2023 11:14:05 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix: update version to 0.2.0\n\n"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar\" from `0.2.0` to `0.2.1`"
+          },
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-util\" from `0.2.0` to `0.2.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.13",
       "tag": "@visactor/vgrammar-wordcloud-shape_v0.0.13",
       "date": "Tue, 20 Jun 2023 10:58:16 GMT",
