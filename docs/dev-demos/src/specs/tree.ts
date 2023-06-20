@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import { registerTreeTransforms, flattenNodes, flattenTreeLinks } from '@visactor/vgrammar-hierarchy';
-import { registerLinkPathGlyph } from '@visactor/vgrammar';
+import { registerTreePathGlyph } from '@visactor/vgrammar';
 import data from '../data/coffee.json';
 
 registerTreeTransforms();
-registerLinkPathGlyph();
+registerTreePathGlyph();
 
 export const spec = {
   width: 800,
@@ -180,7 +180,7 @@ export const spec = {
 
         {
           type: 'glyph',
-          glyphType: 'linkPath',
+          glyphType: 'treePath',
           from: { data: 'pathData' },
           key: 'key',
           encode: {
@@ -189,7 +189,7 @@ export const spec = {
               x1: { field: 'x1' },
               y0: { field: 'y0' },
               y1: { field: 'y1' },
-              pathType: 'polyline',
+              // pathType: 'polyline',
               direction: {
                 callback: (datum: any, el: any, params: any) => {
                   return params.layoutType === 'radial' ? 'radial' : params.direction;
@@ -198,7 +198,13 @@ export const spec = {
               },
               thickness: 1,
               round: true,
-              fill: '#333'
+              stroke: '#333',
+              lineWidth: 1,
+              endArrow: true,
+              arrowSize: 10,
+              startArrow: true,
+              // endArrowStyle: { stroke: 'red', fill: 'red' },
+              startArrowStyle: { stroke: 'red', fill: 'red' }
             }
           }
         },
