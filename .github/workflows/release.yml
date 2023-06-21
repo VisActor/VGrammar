@@ -40,7 +40,7 @@ jobs:
       - name: Build packages
         run: node common/scripts/install-run-rush.js build --only tag:package
 
-      - name: Run CI
+      - name: Run bug server
         working-directory: ./packages/vgrammar
         env:
           BUG_SERVER_TOKEN: ${{ secrets.BUG_SERVER_TOKEN }}
