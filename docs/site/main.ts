@@ -64,7 +64,7 @@ const handleSwitchMarkdown = (tab, path, name) => {
       (document.getElementById('article') as HTMLElement).innerHTML = module.html;
 
       const jsCodeElements = document.getElementsByClassName('language-ts');
-      const hasRuntimeCode = jsCodeElements && jsCodeElements.length;
+      const hasRuntimeCode = jsCodeElements && jsCodeElements.length && tab === 'examples';
       const exampleContainer = document.getElementById('chartContainer');
 
       if (exampleContainer) {
