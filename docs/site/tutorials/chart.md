@@ -105,10 +105,402 @@ Circle-packing 图是一种通过嵌套放置同心圆的方式呈现多层次�
 
 桑基图（Sankey）是一种用来表示节点之间流量转移关系的图表。桑基图的节点表示数据实体，而流的大小通常由连接线的宽度来表示。桑基图适用于展示多个相互独立的节点之间的流量转移情况，例如能源流向分析、网站访问路径等。
 
+### 安装
+
+如果需要实现桑基图，需要安装 npm 包`@visactor/vgrammar-sankey`:
+
+```sh
+npm add --save @visactor/vgrammar-sankey
+```
+
+### 注册 transform
+
+使用的时候，需要先调用`registerSankeyTransforms` 注册 sankey 布局算法对应的 transform； 同时 VGrammar 主包提供了组合图元`linkPath`用于展示桑基图中的连边；
+
+```javascript
+import { registerSankeyTransforms } from '@visactor/vgrammar-sankey';
+import { registerLinkPathGlyph } from '@visactor/vgrammar';
+
+registerSankeyTransforms();
+registerLinkPathGlyph();
+```
+
+### sankey transform 的使用
+
+`sankey` transform 对传入的数据计算布局，返回结果为：`[{ nodes, links }]`；
+我们可以通过`map` transform 获取自己想要的数据，或者进行格式化等逻辑；
+
+```javascript
+{
+  data: [
+    {
+      id: 'source'
+    },
+    {
+      id: 'sankey',
+      transform: [
+        {
+          type: 'sankey',
+          width: { signal: 'viewWidth' },
+          height: { signal: 'viewHeight' },
+          nodeKey: datum => datum.name
+        }
+      ]
+    },
+    {
+      id: 'nodes',
+      source: 'table',
+      transform: [
+        {
+          type: 'map',
+          all: true,
+          callback: datum => {
+            return datum[0].nodes;
+          }
+        }
+      ]
+    },
+    {
+      id: 'links',
+      source: 'table',
+      transform: [
+        {
+          type: 'map',
+          all: true,
+          callback: datum => {
+            return datum[0].links;
+          }
+        }
+      ]
+    }
+  ];
+}
+```
+
+### sankey 节点和边的展示
+
+得到格式化的数据后，我们通过两组图元展示对应的数据：
+
+示例：
+
+```javascript
+{
+  marks: [
+    {
+      type: 'rect',
+      id: 'sankeyNode',
+      from: { data: 'nodes' },
+      key: 'key',
+      encode: {
+        update: {
+          x: { field: 'x0' },
+          x1: { field: 'x1' },
+          y: { field: 'y0' },
+          y1: { field: 'y1' },
+          fill: { scale: 'colorScale', field: 'key' }
+        },
+        blur: {
+          fillOpacity: 0.2
+        }
+      }
+    },
+
+    {
+      type: 'glyph',
+      id: 'sankeyLink',
+      glyphType: 'linkPath',
+      from: { data: 'links' },
+      key: 'index',
+      dependency: ['colorScale'],
+
+      encode: {
+        update: (datum, el, params) => {
+          const sourceFill = params.colorScale.scale(datum.source);
+          const targetFill = params.colorScale.scale(datum.target);
+
+          return {
+            direction: datum.vertical ? 'vertical' : 'horizontal',
+            x0: datum.x0,
+            x1: datum.x1,
+            y0: datum.y0,
+            y1: datum.y1,
+            thickness: datum.thickness,
+            fill: 'pink',
+            backgroundStyle: { fillColor: '#ccc', fillOpacity: 0.2 },
+            fillOpacity: 0.3,
+            round: true
+          };
+        },
+        hover: {
+          stroke: '#000'
+        },
+        blur: {
+          fill: '#e8e8e8'
+        }
+      }
+    }
+  ];
+}
+```
+
 ## 词云
 
 词云（Wordcloud）是一种将文字数据呈现为词汇组成的云形图像的图表。每个词汇的大小表示其权重或其他数值，视觉上呈现出数据中关键词的重要性差异。词云适用于展示关键词的权重差异，例如文本内容关键词分析、搜索热点关键词等。
 
+### 安装
+
+如果需要实现词云图，需要安装 npm 包`@visactor/vgrammar-wordcloud`:
+
+```sh
+npm add --save @visactor/vgrammar-wordcloud
+```
+
+### 注册 transform
+
+使用的时候，需要先调用`registerWordCloudTransforms` 注册 wordcloud 布局算法对应的 transform；
+
+```javascript
+import { registerWordCloudTransforms } from '@visactor/vgrammar-wordcloud';
+
+registerWordCloudTransforms();
+```
+
+### wordcloud transform 的使用
+
+`wordcloud` transform 对传入的数据计算布局；
+我们可以通过`map` transform 获取自己想要的数据，或者进行格式化等逻辑；
+
+```javascript
+{
+  data: [
+    {
+      id: 'source',
+      values: [{ text: '词', value: 1122 }]
+    },
+    {
+      id: 'wordcloudTexts',
+      transform: [
+        {
+          type: 'wordcloud',
+          size: {
+            value: params => {
+              return [params.viewBox.width(), params.viewBox.height()];
+            }
+          },
+          text: { field: 'text' },
+          fontSize: { field: 'value' },
+          fontSizeRange: [12, 40]
+        }
+      ]
+    }
+  ];
+}
+```
+
+### 词云的展示
+
+得到格式化的数据后，我们通过`text`图元展示对应的数据：
+
+示例：
+
+```javascript
+{
+  marks: [
+    {
+      type: 'text',
+      from: { data: 'wordcloudTexts' },
+      dependency: ['viewBox'],
+      encode: {
+        update: {
+          text: { field: 'text' },
+          textAlign: 'center',
+          baseline: 'alphabetic',
+          fill: { scale: 'colorScale', field: 'text' },
+          fontFamily: { field: 'fontFamily' },
+          fontWeight: { field: 'weight' },
+          x: { field: 'x' },
+          y: { field: 'y' },
+          angle: { field: 'angle' },
+          fontSize: { field: 'fontSize' },
+          fillOpacity: 1
+        },
+        hover: {
+          fillOpacity: 0.5
+        }
+      }
+    }
+  ];
+}
+```
+
+### 词云图的性能优化
+
+由于词云图计算是一个非常耗时的过程，所以 VGrammar 也支持渐进式的输出结果，即每计算完一批词的布局结果，就返回并渲染；
+想要实现渐进渲染的词云图，只需要将 transform 配置到`mark`中，并设置以下两个属性之一：
+
+- progressiveStep number 类型，按照词的个数渐进渲染，也就是每帧处理的词的个数
+- progressiveTime number 类型，单位是`ms`，也就是当布局耗时超过这个时长的时候，停止计算，等待下一帧再继续计算
+
+```javascript
+{
+  marks: [
+    {
+      type: 'text',
+      from: { data: 'source' },
+      dependency: ['viewBox'],
+      transform: [
+        {
+          type: 'wordcloud',
+          size: {
+            value: params => {
+              return [params.viewBox.width(), params.viewBox.height()];
+            }
+          },
+          text: { field: 'text' },
+          fontSize: { field: 'value' },
+          fontSizeRange: [12, 40],
+          progressiveStep: 10
+        }
+      ],
+      encode: {
+        update: {
+          text: { field: 'text' },
+          textAlign: 'center',
+          baseline: 'alphabetic',
+          fill: { scale: 'colorScale', field: 'text' },
+          fontFamily: { field: 'fontFamily' },
+          fontWeight: { field: 'weight' },
+          x: { field: 'x' },
+          y: { field: 'y' },
+          angle: { field: 'angle' },
+          fontSize: { field: 'fontSize' },
+          fillOpacity: 1
+        },
+        hover: {
+          fillOpacity: 0.5
+        }
+      }
+    }
+  ];
+}
+```
+
 ## 形状词云
 
 形状词云（WordcloudShape）是一种基于词云将文字数据呈现在特定形状的图表。与词云相同，每个词汇的大小表示其权重或其他数值，同时形状词云还具较强的视觉美感。形状词云适用于展示关键词的权重差异，同时具有较高的视觉冲击力，例如品牌宣传、商业推广等。
+
+### 安装
+
+如果需要实现形状词云，需要安装 npm 包`@visactor/vgrammar-wordcloud-shape`:
+
+```sh
+npm add --save @visactor/vgrammar-wordcloud-shape
+```
+
+### 注册 transform
+
+使用的时候，需要先调用`registerWordCloudShapeTransforms` 注册 wordcloud 布局算法对应的 transform；
+
+```javascript
+import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-shape';
+
+registerWordCloudShapeTransforms();
+```
+
+### wordcloud-shape transform 的使用
+
+`wordcloud-shape` transform 对传入的数据计算布局；返回两种类型的词，一种是填充词，另一种是轮廓词；
+我们可以通过`map` transform 获取自己想要的数据，或者进行格式化等逻辑；
+
+```javascript
+{
+  data: [
+    {
+      id: 'source',
+      values: [{ text: '词', value: 1122 }]
+    },
+    {
+      id: 'wordcloudTexts',
+      dependency: ['viewBox'],
+      transform: [
+        {
+          type: 'wordcloudShape',
+          size: {
+            value: params => {
+              return [params.viewBox.width(), params.viewBox.height()];
+            }
+          },
+          fontSize: { field: 'value' },
+          text: { field: 'text' },
+          colorList: colorSchemeForLight,
+          shape: 'https://s1.ax1x.com/2023/06/02/pCSUWct.png',
+          colorMode: 'ordinal'
+        }
+      ]
+    },
+    {
+      id: 'keywords',
+      source: 'shapeData',
+      transform: [
+        {
+          type: 'filter',
+          callback: datum => {
+            return !datum.isFillingWord;
+          }
+        }
+      ]
+    },
+    {
+      id: 'filling',
+      source: 'shapeData',
+      transform: [
+        {
+          type: 'filter',
+          callback: datum => {
+            return datum.isFillingWord;
+          }
+        }
+      ]
+    }
+  ];
+}
+```
+
+### 词云的展示
+
+得到格式化的数据后，我们通过`text`图元展示对应的数据：
+
+示例：
+
+```javascript
+{
+  marks: [
+    {
+      type: 'text',
+      from: { data: 'keywords' },
+      encode: {
+        enter: {
+          text: { field: 'text' },
+          textAlign: 'center',
+          textBaseline: 'alphabetic',
+          fill: { field: 'color' },
+          fontFamily: { field: 'fontFamily' },
+          fontWeight: { field: 'fontWeight' },
+          fontStyle: { field: 'fontStyle' },
+          visible: { field: 'visible' }
+        },
+        update: {
+          x: { field: 'x' },
+          y: { field: 'y' },
+          angle: { field: 'angle' },
+          fontSize: { field: 'fontSize' },
+          fillOpacity: { field: 'opacity' }
+        },
+        hover: {
+          fillOpacity: 0.5
+        }
+      }
+    }
+  ];
+}
+```

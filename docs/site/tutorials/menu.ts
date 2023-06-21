@@ -1,5 +1,10 @@
 export const tutorialsMenu = [
   {
+    menu: '站点指引',
+    path: '',
+    name: 'website-guide'
+  },
+  {
     menu: '快速上手',
     path: '',
     name: 'quick-start'
@@ -59,10 +64,5 @@ export const tutorialsMenu = [
     menu: '高级指引',
     path: '',
     name: 'advanced-guide'
-  },
-  {
-    menu: '联系我们',
-    path: '',
-    name: 'concat-us'
   }
 ]

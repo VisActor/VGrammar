@@ -13,6 +13,35 @@ VGrammar 中的图元包含多种类别：
 
 ![图元组成](待补充)
 
+## transform
+
+图元也支持 transform 变换，和数据语法元素 Data 不同的点在于，图元的变换现在支持在两个阶段执行
+
+1. 在执行`join`之前，对 **join 数据** 进行数据变换
+2. 在执行完图形通道映射之后，创建图形元素之前，对 **图形 elements** 进行数据变换；
+
+所以 VGrammar 在注册 transform 的时候，会申明该`transform`如果在 图元中执行的阶段；因此，所有语法元素 Data 支持的 transform， 在 mark 上也是同样支持的；
+
+示例：
+
+```js
+{
+  marks: [
+    {
+      type: 'rect',
+      transform: [
+        {
+          type: 'filter',
+          callback: datum => {
+            return datum.value > 0;
+          }
+        }
+      ]
+    }
+  ];
+}
+```
+
 ## 自定义图形
 
 除了 VGrammar 内置的图元渲染效果，开发者还可以通过 `marks.setCustomizedShape` 接口对图元的渲染逻辑逻辑进行声明，从而实现自定义图元效果。
