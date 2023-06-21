@@ -137,6 +137,14 @@
       "required": false
     },
     {
+      "parameterKind": "flag",
+      "longName": "--not-commit",
+      "shortName": "-n",
+      "description": "not commit after run rush change",
+      "associatedCommands": ["change-all"],
+      "required": false
+    },
+    {
       "parameterKind": "choice",
       "longName": "--type",
       "shortName": "-t",
