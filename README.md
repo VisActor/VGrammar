@@ -20,6 +20,8 @@ VGrammar, not only generate charts, but also provide data visualization tools.
   <a href="">Cross-Platform</a>
 </p>
 
+![image test](https://github.com/visactor/vchart/actions/workflows/bug-server.yml/badge.svg)
+![unit test](https://github.com/visactor/vchart/actions/workflows/unit-test.yml/badge.svg)
 [![npm Version](https://img.shields.io/npm/v/@visactor/vgrammar.svg)](https://www.npmjs.com/package/@visactor/vgrammar)
 [![npm Download](https://img.shields.io/npm/dm/@visactor/vgrammar.svg)](https://www.npmjs.com/package/@visactor/vgrammar)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/visactor/vgrammar/blob/main/LICENSE)
@@ -73,95 +75,29 @@ import { View } from '@visactor/vgrammar';
 
 const spec = {
   padding: { top: 5, right: 5, bottom: 30, left: 60 },
-
   data: [
     {
       id: 'table',
       values: [
         {
-          name: 'Apple',
+          name: 'A',
           value: 214480
         },
         {
-          name: 'Google',
+          name: 'B',
           value: 155506
         },
         {
-          name: 'Amazon',
+          name: 'C',
           value: 100764
         },
         {
-          name: 'Microsoft',
+          name: 'D',
           value: 92715
-        },
-        {
-          name: 'Coca-Cola',
-          value: 66341
-        },
-        {
-          name: 'Samsung',
-          value: 59890
-        },
-        {
-          name: 'Toyota',
-          value: 53404
-        },
-        {
-          name: 'Mercedes-Benz',
-          value: 48601
-        },
-        {
-          name: 'Facebook',
-          value: 45168
-        },
-        {
-          name: "McDonald's",
-          value: 43417
-        },
-        {
-          name: 'Intel',
-          value: 43293
-        },
-        {
-          name: 'IBM',
-          value: 42972
-        },
-        {
-          name: 'BMW',
-          value: 41006
-        },
-        {
-          name: 'Disney',
-          value: 39874
-        },
-        {
-          name: 'Cisco',
-          value: 34575
-        },
-        {
-          name: 'GE',
-          value: 32757
-        },
-        {
-          name: 'Nike',
-          value: 30120
-        },
-        {
-          name: 'Louis Vuitton',
-          value: 28152
-        },
-        {
-          name: 'Oracle',
-          value: 26133
-        },
-        {
-          name: 'Honda',
-          value: 23682
         }
       ]
     }
   ],
-
   scales: [
     {
       id: 'xscale',

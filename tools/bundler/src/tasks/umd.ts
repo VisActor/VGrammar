@@ -22,7 +22,7 @@ export async function buildUmd(config: Config, projectRoot: string, rawPackageJs
     config.sourceDir,
     typeof config.input === 'string' ? config.input : config.input.umd!
   );
-  const rollupOptions = getRollupOptions(projectRoot, entry, rawPackageJson, babelPlugins, config);
+  const rollupOptions = getRollupOptions(projectRoot, entry, rawPackageJson, babelPlugins, { ...config, minify });
 
   DebugConfig('RollupOptions', JSON.stringify(rollupOptions));
   const bundle = await rollup(rollupOptions);
