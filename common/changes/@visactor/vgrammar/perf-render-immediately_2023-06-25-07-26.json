@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "call render immediately in evaluateSync",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
