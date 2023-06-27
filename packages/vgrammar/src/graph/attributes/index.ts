@@ -1,7 +1,7 @@
 import { has, isNil, isString, isValidNumber } from '@visactor/vutils';
 import type { IColor, IColorStop } from '@visactor/vrender';
 import { transformCommonAttribute, commonAttributes } from './common';
-import { getGraphicBorderRadius, getRulePoints } from './helpers';
+import { getRulePoints } from './helpers';
 import { GrammarMarkType } from '../enums';
 import type { AttributeTransform, IElement, IGlyphElement, MarkType } from '../../types';
 
@@ -32,7 +32,7 @@ const arcStrokeChannels = ['strokeOuter', 'strokeRight', 'strokeInner', 'strokeL
 const rectStrokeChannels = ['strokeTop', 'strokeRight', 'strokeBottom', 'strokeLeft'];
 
 export const transformsByType: Record<string, AttributeTransform[]> = {
-  [GrammarMarkType.largeSymbols]: [
+  [GrammarMarkType.largeRects]: [
     {
       channels: ['x', 'y', 'y1', 'x1', 'width', 'height'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
@@ -98,19 +98,6 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
             : stroke;
       },
       storedAttrs: 'strokeAttrs'
-    },
-    {
-      channels: [
-        'cornerRadius',
-        'cornerRadiusTopLeft',
-        'cornerRadiusTopRight',
-        'cornerRadiusBottomRight',
-        'cornerRadiusBottomLeft'
-      ],
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        graphicAttributes.borderRadius = getGraphicBorderRadius(storedAttrs);
-      },
-      storedAttrs: 'cornerAttrs'
     },
     {
       channels: ['x', 'y', 'x1', 'y1', 'width', 'height'],

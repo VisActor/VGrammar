@@ -161,22 +161,3 @@ export function getLargeSymbolsPoints(
 
   return arr;
 }
-
-export function getGraphicBorderRadius(attrs: {
-  cornerRadius?: number;
-  cornerRadiusTopLeft?: number;
-  cornerRadiusTopRight?: number;
-  cornerRadiusBottomLeft?: number;
-  cornerRadiusBottomRight?: number;
-}) {
-  let { cornerRadius, cornerRadiusTopLeft, cornerRadiusTopRight, cornerRadiusBottomRight, cornerRadiusBottomLeft } =
-    attrs;
-
-  cornerRadius = isNumber(cornerRadius) ? cornerRadius : 0;
-  cornerRadiusTopLeft = isNumber(cornerRadiusTopLeft) ? cornerRadiusTopLeft : cornerRadius;
-  cornerRadiusTopRight = isNumber(cornerRadiusTopRight) ? cornerRadiusTopRight : cornerRadius;
-  cornerRadiusBottomRight = isNumber(cornerRadiusBottomRight) ? cornerRadiusBottomRight : cornerRadius;
-  cornerRadiusBottomLeft = isNumber(cornerRadiusBottomLeft) ? cornerRadiusBottomLeft : cornerRadius;
-
-  return [cornerRadiusTopLeft, cornerRadiusTopRight, cornerRadiusBottomRight, cornerRadiusBottomLeft];
-}
