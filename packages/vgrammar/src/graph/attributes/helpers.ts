@@ -1,6 +1,6 @@
 import type { IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { isValidNumber, isNumber, isString } from '@visactor/vutils';
+import { isValidNumber, isString } from '@visactor/vutils';
 import type { MarkElementItem, MarkType } from '../../types';
 
 /**
