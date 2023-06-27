@@ -28,9 +28,6 @@ function storeOriginAttributes(
   return storedAttrs;
 }
 
-const arcStrokeChannels = ['strokeOuter', 'strokeRight', 'strokeInner', 'strokeLeft'];
-const rectStrokeChannels = ['strokeTop', 'strokeRight', 'strokeBottom', 'strokeLeft'];
-
 export const transformsByType: Record<string, AttributeTransform[]> = {
   [GrammarMarkType.largeRects]: [
     {
@@ -68,37 +65,7 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
       }
     }
   ],
-  [GrammarMarkType.arc]: [
-    {
-      channels: ['stroke'].concat(arcStrokeChannels),
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        const stroke = storedAttrs.stroke;
-
-        graphicAttributes.stroke =
-          stroke && arcStrokeChannels.some(channel => !!storedAttrs[channel])
-            ? arcStrokeChannels.map(channel => {
-                return storedAttrs[channel] !== false ? stroke : false;
-              })
-            : stroke;
-      },
-      storedAttrs: 'strokeAttrs'
-    }
-  ],
   [GrammarMarkType.rect]: [
-    {
-      channels: ['stroke'].concat(rectStrokeChannels),
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        const stroke = storedAttrs.stroke;
-
-        graphicAttributes.stroke =
-          stroke && rectStrokeChannels.some(channel => !!storedAttrs[channel])
-            ? rectStrokeChannels.map(channel => {
-                return storedAttrs[channel] !== false ? stroke : false;
-              })
-            : stroke;
-      },
-      storedAttrs: 'strokeAttrs'
-    },
     {
       channels: ['x', 'y', 'x1', 'y1', 'width', 'height'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {

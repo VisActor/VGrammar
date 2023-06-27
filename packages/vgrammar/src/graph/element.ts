@@ -115,7 +115,7 @@ export class Element implements IElement {
     return this.states.slice();
   }
 
-  updateData(groupKey: string | null, data: any[], key: MarkKeySpec, view: any) {
+  updateData(groupKey: string | null, data: any[], key: MarkKeySpec) {
     this.mark.emit(HOOK_EVENT.BEFORE_ELEMENT_UPDATE_DATA, { groupKey, data, key }, this);
     this.data = data;
     const keyGetter = parseField(key);
@@ -124,7 +124,7 @@ export class Element implements IElement {
       const item = {
         datum,
         key,
-        view,
+        view: this.mark.view,
         nextAttrs: {}
       };
 
@@ -138,7 +138,7 @@ export class Element implements IElement {
     return this.items;
   }
 
-  state(markState: MarkFunctionType<string | string[]>, view: any, parameters: any) {
+  state(markState: MarkFunctionType<string | string[]>, parameters?: any) {
     const isCollectionMark = this.mark.isCollectionMark();
 
     const prevStateValues = this.states;
@@ -204,7 +204,7 @@ export class Element implements IElement {
     };
   }
 
-  encodeItems(items: MarkElementItem[], encoders: StateEncodeSpec, parameters: any) {
+  encodeItems(items: MarkElementItem[], encoders: StateEncodeSpec, parameters?: any) {
     const isCollectionMark = this.mark.isCollectionMark();
     // marshall encoder functions
     const updateEncoder = encoders.update;
