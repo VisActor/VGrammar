@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "chore: update tsconfig.test.json for every package\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-projection"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-projection",
+  "email": "dingling112@gmail.com"
+}
