@@ -41,7 +41,8 @@ module.exports = {
     '!**/node_modules/**',
     '!**/__tests__/**',
     '!**/types/**',
-    '!**/interface.ts'
+    '!**/interface.ts',
+    '!**/*.d.ts'
   ],
   coverageThreshold: {
     global: {
