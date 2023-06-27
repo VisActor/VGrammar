@@ -1,4 +1,5 @@
 import { global, createImage } from '@visactor/vrender';
+import { getLogger } from '@visactor/vgrammar-util';
 import { isValidUrl } from '@visactor/vutils';
 import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
 
@@ -98,7 +99,8 @@ export function loadImage(url: string) {
     };
     imageMark.failCallback = () => {
       // eslint-disable-next-line no-undef
-      console.error('image 加载失败！', url);
+      const logger = getLogger();
+      logger.error('image 加载失败！', url);
     };
   });
 }

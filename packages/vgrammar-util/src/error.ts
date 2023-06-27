@@ -7,10 +7,10 @@
  * @license
  */
 
-declare const __DEV__: boolean;
+import { getLogger } from './logger';
 
 export const error = (message: string) => {
-  if (__DEV__) {
-    throw Error(message);
-  }
+  const logger = getLogger();
+
+  logger.error(message);
 };
