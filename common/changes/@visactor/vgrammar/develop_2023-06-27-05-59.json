@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: update `cornerRadius` channels:\n\nremove `cornerRadiusTopLeft`, `cornerRadiusTopRight`,\ncornerRadiusBottomRight`, `cornerRadiusBottomLeft`\nof rect and group mark\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}
