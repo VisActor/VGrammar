@@ -2,7 +2,7 @@
   "changes": [
     {
       "comment": "chore: update tsconfig.test.json for every package\n\n",
-      "type": "patch",
+      "type": "minor",
       "packageName": "@visactor/vgrammar-hierarchy"
     }
   ],
