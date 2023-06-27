@@ -116,13 +116,15 @@ export default class CanvasRenderer implements IRenderer {
     return this;
   }
 
-  render() {
+  render(immediately: boolean = false) {
     this.initStage();
 
     // disable dirty bounds when render is called
     this._stage.disableDirtyBounds();
     this._stage.afterNextRender(this.handleAfterNextRender);
 
+    // render immediately and skip render in next frame
+    immediately && this._stage.render();
     return this;
   }
 

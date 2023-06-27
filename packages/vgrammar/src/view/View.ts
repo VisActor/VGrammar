@@ -720,7 +720,7 @@ export default class View extends EventEmitter implements IView {
     return this;
   }
 
-  private doRender() {
+  private doRender(immediately: boolean) {
     this.emit(HOOK_EVENT.BEFORE_DO_RENDER);
     // render as needed
     if (!this._runIgnoreRender && this.renderer) {
@@ -728,7 +728,7 @@ export default class View extends EventEmitter implements IView {
         this.animate.animate();
       }
       // 绘图 =>
-      this.renderer.render();
+      this.renderer.render(immediately);
       this.handleRenderEnd();
     }
     this.emit(HOOK_EVENT.AFTER_DO_RENDER);
@@ -785,7 +785,7 @@ export default class View extends EventEmitter implements IView {
 
     // resize again if width/height signal is updated duration dataflow
     this._resizeRenderer();
-    this.doRender();
+    this.doRender(false);
 
     this._willMorphMarks?.forEach(morphMarks => {
       this._morph.morph(morphMarks.prev, morphMarks.next, normalizedMorphConfig);
@@ -841,7 +841,7 @@ export default class View extends EventEmitter implements IView {
     this.findProgressiveMarks();
 
     this._resizeRenderer();
-    this.doRender();
+    this.doRender(true);
 
     this._willMorphMarks?.forEach(morphMarks => {
       this._morph.morph(morphMarks.prev, morphMarks.next, normalizedMorphConfig);
