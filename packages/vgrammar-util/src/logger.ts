@@ -10,8 +10,6 @@
 import { isNumber } from '@visactor/vutils';
 import type { ILogger } from './types';
 
-declare const __DEV__: boolean;
-
 function log(method: string, level: any, input: any) {
   const args = [level].concat([].slice.call(input));
 
@@ -65,7 +63,7 @@ export class Logger implements ILogger {
   }
 
   error(...args: any[]) {
-    if (this._level >= LoggerLevel.Error || __DEV__) {
+    if (this._level >= LoggerLevel.Error) {
       log(this._method ?? 'error', 'ERROR', args);
     }
     return this;

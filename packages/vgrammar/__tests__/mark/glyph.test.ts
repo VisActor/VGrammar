@@ -149,19 +149,15 @@ test('Create element and update data', function () {
 test('Element executes state updating', function () {
   const element = createSimpleElement();
 
-  element.state('hover', view, {});
+  element.state('hover');
   expect(element.getStates()).toEqual(['hover']);
 
-  element.state(['hover', 'active'], view, {});
+  element.state(['hover', 'active']);
   expect(element.getStates()).toEqual(['hover', 'active']);
 
-  element.state(
-    (datum: any, el: any) => {
-      return `${datum.key}-${el.mark.markType}`;
-    },
-    view,
-    {}
-  );
+  element.state((datum: any, el: any) => {
+    return `${datum.key}-${el.mark.markType}`;
+  });
   expect(element.getStates()).toEqual(['0-glyph']);
 });
 

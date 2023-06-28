@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: remove useless function\n\n",
+      "type": "minor",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}

@@ -304,7 +304,7 @@ const colorLegend: RecursivePartial<ColorLegendAttributes> = {
   railWidth: 200,
   railHeight: 8,
   railStyle: {
-    borderRadius: 5
+    cornerRadius: 5
   }
 };
 
@@ -366,7 +366,7 @@ const slider: RecursivePartial<SliderAttributes> = {
   railWidth: 200,
   railHeight: 10,
   railStyle: {
-    borderRadius: 5
+    cornerRadius: 5
   },
   range: {
     draggableTrack: true
