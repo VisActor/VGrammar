@@ -9,11 +9,9 @@ cover:
 
 通过`cell`图元，日历色块图
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const getCalendarData = dayCount => {
   const DAY = 24 * 60 * 60 * 1000;
   const start = +new Date(2022, 0, 1);
@@ -321,7 +319,7 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true

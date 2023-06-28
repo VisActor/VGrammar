@@ -9,11 +9,9 @@ cover:
 
 `Symbol` 图元可以用于绘制常见的散点图，将两个数值变量分别映射到 `Symbol`图元的`x`通道和`y`通道,
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const spec = {
   padding: { top: 25, right: 5, bottom: 30, left: 60 },
 
@@ -1226,10 +1224,9 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   autoFit: true,
-  width: spec.width,
-  height: spec.height,
+  autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true
 });

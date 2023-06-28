@@ -9,11 +9,9 @@ cover:
 
 全局形变动画，主要用于图表更新、切换等场景，用于转场效果
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const data = [
   {
     ratio: '7.95%',
@@ -178,8 +176,6 @@ const data = [
 ];
 
 const roseSpec = {
-  width: 1600,
-  height: 400,
   padding: { top: 30, right: 30, bottom: 30, left: 30 },
 
   data: [
@@ -281,8 +277,6 @@ const roseSpec = {
 };
 
 const radarSpec = {
-  width: 1600,
-  height: 400,
   padding: { top: 30, right: 30, bottom: 30, left: 30 },
 
   data: [
@@ -402,8 +396,6 @@ const radarSpec = {
 };
 
 const funnelSpec = {
-  width: 1600,
-  height: 400,
   padding: { top: 30, right: 30, bottom: 30, left: 30 },
 
   data: [
@@ -503,7 +495,7 @@ const funnelSpec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   width: roseSpec.width,
   height: roseSpec.height,
   container: document.getElementById(CONTAINER_ID),

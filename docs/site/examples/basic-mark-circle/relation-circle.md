@@ -11,7 +11,7 @@ cover:
 
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 VGrammar.registerRippleGlyph();
 const spec = {
   padding: { top: 5, right: 5, bottom: 30, left: 60 },
@@ -199,7 +199,7 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true

@@ -9,14 +9,10 @@ cover:
 
 基于 VRender 渲染引擎，实现自定义的动画效果
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const spec = {
-  width: 1600,
-  height: 400,
   padding: { top: 60, right: 30, bottom: 30, left: 60 },
 
   data: [
@@ -107,7 +103,8 @@ const spec = {
             y: params.viewBox.y1,
             fontSize: 40,
             text: '2021年销售额统计',
-            textAlign: 'center'
+            textAlign: 'center',
+            fill: 'red'
           };
         }
       },
@@ -236,9 +233,8 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
-  width: spec.width,
-  height: spec.height,
+const vGrammarView = new View({
+  autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true
 });

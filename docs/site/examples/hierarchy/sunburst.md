@@ -7,11 +7,9 @@ cover:
 
 # sunburst 图
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 VGrammarHierarchy.registerSunburstTransforms();
 
 const flattenNodes = VGrammarHierarchy.flattenNodes;
@@ -482,7 +480,7 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true

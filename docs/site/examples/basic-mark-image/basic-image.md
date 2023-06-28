@@ -1,11 +1,13 @@
 ---
 category: examples
-group: basic-mark-rect
-title: 基础柱图
+group: basic-mark-image
+title: 图像图元
 cover:
 ---
 
-# 基础柱图
+# 图像图元
+
+图像图元可以用于展示图片，icon 等
 
 ## 代码演示
 
@@ -192,13 +194,32 @@ const spec = {
               x: { scale: 'xscale', field: 'name', band: 0.25 },
               width: { scale: 'xscale', band: 0.5 },
               y: { scale: 'yscale', field: 'value' },
-              y1: (datum, element, params) => {
-                return params.yscale.scale(params.yscale.domain()[0]);
+              height: (datum, element, params) => {
+                return Math.abs(params.yscale.scale(datum.value) - params.yscale.scale(params.yscale.domain()[0]));
               },
               fill: '#6690F2'
             },
             hover: {
               fill: 'red'
+            }
+          }
+        },
+        {
+          type: 'image',
+          id: 'image',
+          from: { data: 'table' },
+          dependency: ['yscale'],
+          encode: {
+            update: {
+              x: { scale: 'xscale', field: 'name', band: 0.25 },
+              width: { scale: 'xscale', band: 0.5 },
+              y: { scale: 'yscale', field: 'value' },
+              height: (datum, element, params) => {
+                return Math.abs(params.yscale.scale(datum.value) - params.yscale.scale(params.yscale.domain()[0]));
+              },
+              repeatX: 'repeat',
+              repeatY: 'repeat',
+              image: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/a222eb3ecfe32db85220dda0d.png'
             }
           }
         },

@@ -9,11 +9,9 @@ cover:
 
 当常见的动画配置不能满足需求的时候，可以通过动画编排可以定制各个图元之间动画的顺序、关系
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const spec = {
   padding: { top: 30, right: 5, bottom: 30, left: 60 },
 
@@ -349,9 +347,8 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
-  width: spec.width,
-  height: spec.height,
+const vGrammarView = new View({
+  autoFit: true,
   // autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true

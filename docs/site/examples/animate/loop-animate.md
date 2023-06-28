@@ -9,14 +9,10 @@ cover:
 
 循环动画在大屏类似的场景下，能够带来很好的展示效果
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const spec = {
-  width: 1600,
-  height: 400,
   padding: { top: 5, right: 5, bottom: 30, left: 60 },
 
   data: [
@@ -245,9 +241,8 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
-  width: spec.width,
-  height: spec.height,
+const vGrammarView = new View({
+  autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true
 });

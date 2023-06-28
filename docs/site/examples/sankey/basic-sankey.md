@@ -7,11 +7,9 @@ cover:
 
 # sankey 图
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 VGrammarSankey.registerSankeyTransforms();
 VGrammar.registerLinkPathGlyph();
 
@@ -518,7 +516,7 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true

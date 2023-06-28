@@ -9,11 +9,9 @@ cover:
 
 基础动画示例，所有图元都可以配置入场/出场/更新动画
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const originData = [
   {
     month: 'Jan.',
@@ -529,9 +527,8 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
-  width: spec.width,
-  height: spec.height,
+const vGrammarView = new View({
+  autoFit: true,
   // autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true
@@ -541,17 +538,17 @@ vGrammarView.parseSpec(spec);
 vGrammarView.runAsync();
 
 setTimeout(() => {
-  VGrammarView.getDataById('table').values(nextData);
+  View.getDataById('table').values(nextData);
   vGrammarView.runAsync();
 }, 3000);
 
 setTimeout(() => {
-  VGrammarView.getDataById('table').values([]);
+  View.getDataById('table').values([]);
   vGrammarView.runAsync();
 }, 6000);
 
 setTimeout(() => {
-  VGrammarView.getDataById('table').values(originData);
+  View.getDataById('table').values(originData);
   vGrammarView.runAsync();
 }, 9000);
 

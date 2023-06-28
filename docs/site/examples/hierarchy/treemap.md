@@ -7,15 +7,13 @@ cover:
 
 # sunburst 图
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 VGrammarHierarchy.registerTreemapTransforms();
 
 const flattenNodes = VGrammarHierarchy.flattenNodes;
-const ColorUtil = VisUtil.ColorUtil;
+// const ColorUtil = VisUtil.ColorUtil;
 
 const spec = {
   padding: { top: 30, right: 5, bottom: 30, left: 5 },
@@ -434,10 +432,16 @@ const spec = {
               y1: { field: 'y1' },
               fill: (datum, el, params) => {
                 const color = params.colorScale.scale(datum.datum[0].name);
-                const rgb = new ColorUtil.Color(color).color;
-                const hsl = ColorUtil.rgbToHsl(rgb.r, rgb.g, rgb.b);
 
-                return new ColorUtil.Color(`hsl(${hsl.h}, ${hsl.s}, ${40 + datum.depth * 10})`).toString();
+                // const rgb = new ColorUtil.Color(color).color;
+                // const hsl = ColorUtil.rgbToHsl(rgb.r, rgb.g, rgb.b);
+
+                // return new ColorUtil.Color(`hsl(${hsl.h}, ${hsl.s}, ${40 + datum.depth * 10})`).toString();
+
+                return color;
+              },
+              fillOpacity: (datum, el, params) => {
+                return 0.2 + 0.2 * datum.depth;
               }
             }
           }
@@ -478,7 +482,7 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true

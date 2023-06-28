@@ -10,7 +10,7 @@ import { default as MarkdownIt } from 'markdown-it';
 import { colorSchemeForLight, colorSchemeForDark } from './utils';
 
 (window as any).VRender = VRender;
-(window as any).VGrammarView = VGrammar.View;
+(window as any).View = VGrammar.View;
 (window as any).VGrammar = VGrammar;
 (window as any).VGrammarHierarchy = VGrammarHierarchy;
 (window as any).VGrammarSankey = VGrammarSankey;

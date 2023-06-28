@@ -7,13 +7,11 @@ cover:
 
 # 形状词云图
 
-数据引用于：https://observablehq.com/@zhoiii/d3-wordcolud；展示的是《围城》相关人物的词云图
-
-## 关键配置
+数据引用于：[obsevable](https://observablehq.com/@zhoiii/d3-wordcolud)；展示的是《围城》相关人物的词云图
 
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 VGrammarWordcloudShape.registerWordCloudShapeTransforms();
 
 const spec = {
@@ -251,8 +249,7 @@ const spec = {
             '#63C4C7',
             '#F68484'
           ],
-          // shape: 'https://s1.ax1x.com/2023/06/02/pCSUWct.png',
-          shape: `${window.location.origin}/image/shape_bears.png`,
+          shape: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/a222eb3ecfe32db85220dda0d.png',
 
           colorMode: 'ordinal'
           // padding: 1,
@@ -372,7 +369,7 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true

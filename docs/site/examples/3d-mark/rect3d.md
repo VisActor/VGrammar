@@ -9,14 +9,10 @@ cover:
 
 3d 模式下的柱图元，可以用于展示 3d 柱图，3d 条形图等
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const spec = {
-  width: 1600,
-  height: 400,
   padding: { top: 5, right: 5, bottom: 30, left: 60 },
 
   data: [
@@ -193,16 +189,15 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
-  width: spec.width,
-  height: spec.height,
+const vGrammarView = new View({
+  autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true,
   options3d: {
     enable: true,
     alpha: 0,
-    beta: 0,
-    center: { x: 800, y: 400 }
+    beta: 0
+    // center: { x: 800, y: 400 }
     // enableView3dTranform: true
   },
   disableDirtyBounds: true

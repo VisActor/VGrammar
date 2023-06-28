@@ -7,11 +7,9 @@ cover:
 
 # K 线图
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 VGrammar.registerGlyph('candle', {
   minMax: 'rule',
   startEnd: 'rect'
@@ -49,8 +47,6 @@ VGrammar.registerGlyph('candle', {
   });
 
 const spec = {
-  width: 1600,
-  height: 400,
   padding: { top: 30, right: 40, bottom: 30, left: 40 },
 
   data: [
@@ -218,9 +214,8 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
-  width: spec.width,
-  height: spec.height,
+const vGrammarView = new View({
+  autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true
 });

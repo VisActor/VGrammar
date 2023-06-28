@@ -138,6 +138,15 @@ export const examplesMenu = [
     ]
   },
   {
+    menu: '基础图元 - image',
+    path: 'basic-mark-image',
+    children: [
+      {
+        name: 'basic-image'
+      },
+    ]
+  },
+  {
     menu: '语法图元 - cell',
     path: 'mark-cell',
     children: [
@@ -237,18 +246,18 @@ export const examplesMenu = [
       }
     ]
   },
-  {
-    menu: '数据处理',
-    children: []
-  },
-  {
-    menu: 'scale',
-    children: []
-  },
-  {
-    menu: '交互',
-    children: []
-  },
+  // {
+  //   menu: '数据处理',
+  //   children: []
+  // },
+  // {
+  //   menu: 'scale',
+  //   children: []
+  // },
+  // {
+  //   menu: '交互',
+  //   children: []
+  // },
   {
     menu: '动画',
     path: 'animate',
@@ -315,8 +324,8 @@ export const examplesMenu = [
       }
     ]
   },
-  {
-    menu: '布局',
-    children: []
-  }
+  // {
+  //   menu: '布局',
+  //   children: []
+  // }
 ];

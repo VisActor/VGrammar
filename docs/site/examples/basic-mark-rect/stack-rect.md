@@ -7,11 +7,9 @@ cover:
 
 # 堆积柱图
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const spec = {
   padding: { top: 5, right: 5, bottom: 30, left: 60 },
 
@@ -359,9 +357,8 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
-  width: spec.width,
-  height: spec.height,
+const vGrammarView = new View({
+  autoFit: true,
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true

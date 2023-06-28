@@ -9,11 +9,9 @@ cover:
 
 `text` 图元一般用于图表中的信息展示，可以和数据绑定，也可以单独使用
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const spec = {
   padding: { top: 5, right: 5, bottom: 30, left: 60 },
 
@@ -137,18 +135,18 @@ const spec = {
       id: 'color',
       type: 'ordinal',
       domain: { data: 'table', field: 'name' },
-      range: window.[
-  '#6690F2',
-  '#70D6A3',
-  '#B4E6E2',
-  '#63B5FC',
-  '#FF8F62',
-  '#FFDC83',
-  '#BCC5FD',
-  '#A29BFE',
-  '#63C4C7',
-  '#F68484'
-]
+      range: [
+        '#6690F2',
+        '#70D6A3',
+        '#B4E6E2',
+        '#63B5FC',
+        '#FF8F62',
+        '#FFDC83',
+        '#BCC5FD',
+        '#A29BFE',
+        '#63C4C7',
+        '#F68484'
+      ]
     }
   ],
 
@@ -208,10 +206,9 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   autoFit: true,
-  width: spec.width,
-  height: spec.height,
+  autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true
 });

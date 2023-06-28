@@ -9,11 +9,9 @@ cover:
 
 根据任意的公式进行抽样取点，然后通过`line`图元进行展示，我们可以绘制任意的曲线类型
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 const getSpiralData = size => {
   const rad = Math.PI / 180;
   const alpha = 20;
@@ -187,9 +185,8 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
-  width: spec.width,
-  height: spec.height,
+const vGrammarView = new View({
+  autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true
 });

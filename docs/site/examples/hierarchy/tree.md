@@ -7,13 +7,11 @@ cover:
 
 # tree 图
 
-## 关键配置
-
 ## 代码演示
 
-```javascript livedemo
+```javascript livedemo template=vgrammar
 VGrammarHierarchy.registerTreeTransforms();
-VGrammar.registerLinkPathGlyph();
+VGrammar.registerTreePathGlyph();
 
 const flattenNodes = VGrammarHierarchy.flattenNodes;
 const flattenTreeLinks = VGrammarHierarchy.flattenTreeLinks;
@@ -438,7 +436,7 @@ const spec = {
       marks: [
         {
           type: 'glyph',
-          glyphType: 'linkPath',
+          glyphType: 'treePath',
           from: { data: 'pathData' },
           key: 'key',
           encode: {
@@ -511,7 +509,7 @@ const spec = {
   ]
 };
 
-const vGrammarView = new VGrammarView({
+const vGrammarView = new View({
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true
