@@ -205,8 +205,9 @@ const spec = {
           //orient: 'negative',
           dimensionField: 'month',
           stackField: 'value',
-          asStack: 'value',
-          asPrevStack: 'lastValue'
+          asStack: 'curValue',
+          asPrevStack: 'lastValue',
+          asSum: 'sum'
         }
       ]
     }
@@ -227,7 +228,7 @@ const spec = {
     {
       id: 'yscale',
       type: 'linear',
-      domain: { data: 'stack', field: ['value', 'lastValue'] },
+      domain: { data: 'stack', field: ['curValue', 'lastValue'] },
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [params.viewBox.y2, params.viewBox.y1];
@@ -306,6 +307,7 @@ const spec = {
     },
     {
       type: 'rect',
+      id: 'stackRect',
       from: { data: 'stack' },
       groupBy: 'product',
       key: 'month',
@@ -313,7 +315,7 @@ const spec = {
         update: {
           x: { scale: 'xscale', field: 'month', band: 0.25 },
           width: { scale: 'xscale', band: 0.5 },
-          y: { scale: 'yscale', field: 'value' },
+          y: { scale: 'yscale', field: 'curValue' },
           y1: { scale: 'yscale', field: 'lastValue' },
           fill: { scale: 'color', field: 'product' }
         },
@@ -321,6 +323,38 @@ const spec = {
           fill: 'red'
         }
       }
+    },
+    {
+      type: 'component',
+      componentType: 'tooltip',
+      target: 'stackRect',
+      title: { value: { field: 'month' } },
+      dependency: ['color'],
+      content: [
+        {
+          key: '数量',
+          value: { field: 'value' },
+          symbol: (datum, element, params) => {
+            return {
+              symbolType: 'square',
+              fill: params.color.scale(datum.product)
+            };
+          }
+        },
+        {
+          key: '总计',
+          value: (datum, element, params) => {
+            console.log(datum);
+            return datum.sum;
+          },
+          symbol: (datum, element, params) => {
+            return {
+              symbolType: 'square',
+              fill: params.color.scale(datum.product)
+            };
+          }
+        }
+      ]
     }
   ]
 };

@@ -23,38 +23,38 @@ const spec = {
       values: [
         {
           date: '05.16',
-          low: 32,
-          high: 20
+          high: 32,
+          low: 20
         },
         {
           date: '05.17',
-          low: 22,
-          high: 25
+          high: 22,
+          low: 25
         },
         {
           date: '05.18',
-          low: 26,
-          high: 19
+          high: 26,
+          low: 19
         },
         {
           date: '05.19',
-          low: 26,
-          high: 17
+          high: 26,
+          low: 17
         },
         {
           date: '05.20',
-          low: 28,
-          high: 20
+          high: 28,
+          low: 20
         },
         {
           date: '05.21',
-          low: 31,
-          high: 19
+          high: 31,
+          low: 19
         },
         {
           date: '05.22',
-          low: 21,
-          high: 15
+          high: 21,
+          low: 15
         }
       ]
     }
@@ -137,6 +137,7 @@ const spec = {
     },
     {
       type: 'rect',
+      id: 'rect',
       from: { data: 'weather' },
       encode: {
         update: {
@@ -150,6 +151,32 @@ const spec = {
           fill: 'red'
         }
       }
+    },
+
+    {
+      type: 'component',
+      componentType: 'tooltip',
+      target: 'rect',
+      title: { value: { field: 'date' } },
+      content: [
+        {
+          key: '最高值',
+          value: { field: 'high' },
+          symbol: {
+            symbolType: 'circle',
+            fill: '#6690F2'
+          }
+        },
+
+        {
+          key: '最低值',
+          value: { field: 'low' },
+          symbol: {
+            symbolType: 'circle',
+            fill: '#6690F2'
+          }
+        }
+      ]
     }
   ]
 };

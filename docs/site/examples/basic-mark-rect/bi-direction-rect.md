@@ -155,6 +155,7 @@ const spec = {
         },
         {
           type: 'rect',
+          id: 'leftRect',
           from: { data: 'table' },
           encode: {
             update: {
@@ -168,6 +169,22 @@ const spec = {
               fill: 'red'
             }
           }
+        },
+        {
+          type: 'component',
+          componentType: 'tooltip',
+          target: 'leftRect',
+          title: { value: '2020' },
+          content: [
+            {
+              key: { field: 'sales' },
+              value: { field: '2020' },
+              symbol: {
+                symbolType: 'square',
+                fill: '#6690F2'
+              }
+            }
+          ]
         }
       ]
     },
@@ -215,6 +232,7 @@ const spec = {
         },
         {
           type: 'rect',
+          id: 'rightRect',
           from: { data: 'table' },
           encode: {
             update: {
@@ -228,6 +246,22 @@ const spec = {
               fill: 'red'
             }
           }
+        },
+        {
+          type: 'component',
+          componentType: 'tooltip',
+          target: 'rightRect',
+          title: { value: '2021' },
+          content: [
+            {
+              key: { field: 'sales' },
+              value: { field: '2021' },
+              symbol: {
+                symbolType: 'square',
+                fill: '#70D6A3'
+              }
+            }
+          ]
         }
       ]
     },

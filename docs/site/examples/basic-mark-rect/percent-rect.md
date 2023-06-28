@@ -312,6 +312,7 @@ const spec = {
     },
     {
       type: 'rect',
+      id: 'stack',
       from: { data: 'stack' },
       groupBy: 'product',
       key: 'month',
@@ -327,6 +328,37 @@ const spec = {
           fill: 'red'
         }
       }
+    },
+    {
+      type: 'component',
+      componentType: 'tooltip',
+      target: 'stack',
+      title: { value: { field: 'month' } },
+      dependency: ['color'],
+      content: [
+        {
+          key: '数量',
+          value: { field: 'value' },
+          symbol: (datum, element, params) => {
+            return {
+              symbolType: 'square',
+              fill: params.color.scale(datum.product)
+            };
+          }
+        },
+        {
+          key: '占比',
+          value: (datum, element, params) => {
+            return (datum.percent * 100).toFixed(2) + '%';
+          },
+          symbol: (datum, element, params) => {
+            return {
+              symbolType: 'square',
+              fill: params.color.scale(datum.product)
+            };
+          }
+        }
+      ]
     }
   ]
 };
