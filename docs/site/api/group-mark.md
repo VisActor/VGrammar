@@ -3,7 +3,9 @@
 Group 图元
 继承`Mark`，所有`Mark`支持的 API，都能在`Component`实例上调用
 
-## appendChild(function)
+## 实例方法
+
+### appendChild
 
 添加子图元
 
@@ -11,7 +13,7 @@ Group 图元
 (mark: IMark | IGroupMark | IGlyphMark) => this;
 ```
 
-## removeChild(function)
+### removeChild
 
 删除子图元
 

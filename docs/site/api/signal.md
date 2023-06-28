@@ -2,7 +2,9 @@
 
 图形语法元素 - Signal
 
-## value(function)
+## 实例方法
+
+### value
 
 设置信号的值
 
@@ -10,7 +12,7 @@
 (value: T | Nil) => this;
 ```
 
-## update(function)
+### update
 
 设置信号的更新函数
 
@@ -18,7 +20,7 @@
 (update: SignalFunctionType<T> | Nil) => this;
 ```
 
-## getValue(function)
+### getValue
 
 获取信号的值
 
@@ -26,15 +28,15 @@
 () => T;
 ```
 
-## id(function)
+### id
 
 设置或者读取组件的唯一标识符`id`。
 
-## name(function)
+### name
 
 设置或者读取组件的名称`name`。
 
-## depend(function)
+### depend
 
 设置依赖的语法元素，ts 类型定义如下：
 
@@ -44,10 +46,10 @@
 
 参数可以是其他语法元素的实例，也可以是一个语法元素对应的`id`。
 
-## clear(function)
+### clear
 
 清除当前语法元素所有的配置
 
-## release(function)
+### release
 
 释放销毁该语法元素实例

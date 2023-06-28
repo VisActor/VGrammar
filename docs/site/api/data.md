@@ -2,7 +2,9 @@
 
 图形语法元素 - 数据。
 
-## values(function)
+## 实例方法
+
+### values
 
 设置数据元素的值
 
@@ -10,7 +12,7 @@
 (values: any[] | Nil, load?: boolean) => this;
 ```
 
-## source(function)
+### source
 
 设置数据元素的来源
 
@@ -18,7 +20,7 @@
 (source: string | string[] | IData | IData[], load?: boolean) => this;
 ```
 
-## transform(function)
+### transform
 
 设置数据元素的转换
 
@@ -26,7 +28,7 @@
 (transform: TransformSpec[] | Nil) => this;
 ```
 
-## field(function)
+### field
 
 获取数据元素中的字段
 
@@ -34,7 +36,7 @@
 (field: string) => any[];
 ```
 
-## getValue(function)
+### getValue
 
 获取数据元素的值
 
@@ -42,7 +44,7 @@
 () => any[];
 ```
 
-## getInput(function)
+### getInput
 
 获取数据元素的输入
 
@@ -50,7 +52,7 @@
 () => any[];
 ```
 
-## getDataIDKey(function)
+### getDataIDKey
 
 获取数据元素的唯一标识符
 
@@ -58,15 +60,15 @@
 () => string;
 ```
 
-## id(function)
+### id
 
 设置或者读取组件的唯一标识符`id`。
 
-## name(function)
+### name
 
 设置或者读取组件的名称`name`。
 
-## depend(function)
+### depend
 
 设置依赖的语法元素，ts 类型定义如下：
 
@@ -76,10 +78,10 @@
 
 参数可以是其他语法元素的实例，也可以是一个语法元素对应的`id`。
 
-## clear(function)
+### clear
 
 清除当前语法元素所有的配置
 
-## release(function)
+### release
 
 释放销毁该语法元素实例

@@ -2,7 +2,22 @@
 
 图形语法元素 - 图元。
 
-## join(function)
+## 实例属性
+
+### markType
+
+类型： `string`
+图元的类型
+
+### group
+
+类型：`IGroupMark`
+
+图元的父图元
+
+## 实例方法
+
+### join
 
 设置关联数据，ts 类型定义如下：
 
@@ -17,7 +32,7 @@
 参数`groupBy`:设置分组的属性
 参数`groupSort`:对图元中的分组进行排序，设置对应的排序回调函数
 
-## state(function)
+### state
 
 设置图元的状态，ts 类型定义如下：
 
@@ -25,7 +40,7 @@
 (state: MarkFunctionType<string | string[]> | Nil) => this;
 ```
 
-## encode(function)
+### encode
 
 设置图元的编码，ts 类型定义如下：
 
@@ -33,7 +48,7 @@
 ((encoders: BaseEncodeSpec) => this) & ((channel: string, value: ChannelEncodeType) => this);
 ```
 
-## encodeState(function)
+### encodeState
 
 设置图元的编码状态，ts 类型定义如下：
 
@@ -42,7 +57,7 @@
   ((state: string, encoders: BaseEncodeSpec) => this);
 ```
 
-## animation(function)
+### animation
 
 设置图元的动画配置，ts 类型定义如下：
 
@@ -50,7 +65,7 @@
 (animationConfig: MarkAnimationSpec | Nil) => this;
 ```
 
-## animationState(function)
+### animationState
 
 设置图元的动画状态，ts 类型定义如下：
 
@@ -58,7 +73,7 @@
 (animationState: MarkFunctionType<string> | Nil) => this;
 ```
 
-## layout(function)
+### layout
 
 设置图元的布局配置，ts 类型定义如下：
 
@@ -66,7 +81,7 @@
 (layout: MarkLayoutSpec | MarkLayoutCallback | Nil) => this;
 ```
 
-## configure(function)
+### configure
 
 设置图元的配置，ts 类型定义如下：
 
@@ -74,7 +89,7 @@
 (config: IMarkConfig | Nil) => this;
 ```
 
-## transform(function)
+### transform
 
 设置图元的转换，ts 类型定义如下：
 
@@ -82,7 +97,7 @@
 (transform: TransformSpec[] | Nil) => this;
 ```
 
-## getBounds(function)
+### getBounds
 
 获取图元的边界
 
@@ -90,7 +105,7 @@
 () => IBounds;
 ```
 
-## isCollectionMark(function)
+### isCollectionMark
 
 判断图元是否是集合图元
 
@@ -98,7 +113,7 @@
 () => boolean;
 ```
 
-## getAllElements(function)
+### getAllElements
 
 获取图元中的所有图形元素
 
@@ -106,39 +121,39 @@
 () => IElement[];
 ```
 
-## coordinate(function)
+### coordinate
 
 设置该图元关联的坐标系对应的 id 或者坐标系对应的图形元素
 
-## isProgressive(function)
+### isProgressive
 
 是否启动了增量渲染模式
 
-## isDoingProgressive(function)
+### isDoingProgressive
 
 是否正在执行增量渲染
 
-## clearProgressive(function)
+### clearProgressive
 
 清除增量渲染相关状态
 
-## restartProgressive(function)
+### restartProgressive
 
 从第一帧开始增量计算
 
-## evaluateProgressive(function)
+### evaluateProgressive
 
 分片执行
 
-## id(function)
+### id
 
 设置或者读取组件的唯一标识符`id`。
 
-## name(function)
+### name
 
 设置或者读取组件的名称`name`。
 
-## depend(function)
+### depend
 
 设置依赖的语法元素，ts 类型定义如下：
 
@@ -148,10 +163,10 @@
 
 参数可以是其他语法元素的实例，也可以是一个语法元素对应的`id`。
 
-## clear(function)
+### clear
 
 清除当前语法元素所有的配置
 
-## release(function)
+### release
 
 释放销毁该语法元素实例

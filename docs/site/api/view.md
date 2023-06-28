@@ -1,5 +1,7 @@
 # View
 
+## 初始化
+
 VGrammar 中的视图，用于创建具体的图形，`IViewConstructor`的定义如下：
 
 ```ts
@@ -30,123 +32,56 @@ view.renderSync();
 
 其中`options`支持如下配置：
 
-```ts
-interface IEnvironmentOptions {
-  /** 环境参数 */
-  mode?: EnvType;
-  /**
-   * 环境带的配置
-   */
-  modeParams?: any;
-}
+| 属性名             | 类型                        | 是否必选 | 描述                                                                                              |
+| ------------------ | --------------------------- | -------- | ------------------------------------------------------------------------------------------------- |
+| width              | `number`                    | 否       | 设置画布的宽度                                                                                    |
+| height             | `number`                    | 否       | 设置画布的高度                                                                                    |
+| container          | `string\| HTMLElement`      | 否       | 设置容器的`id`或者 dom 元素                                                                       |
+| padding            | `CommonPaddingSpec`         | 否       | 设置画布的内边距                                                                                  |
+| autoFit            | `boolean`                   | 否       | 是否该根据容器的宽高，自动计算画布的宽高                                                          |
+| options3d          | `srIOption3DType`           | 否       | 3d 相关的配置，支持两个属性\n`enable`: 开启 3d 渲 染;`enableView3dTranform`: 是否支持 3d 视角变换 |
+| hover              | `boolean`                   | 否       | 是否默认配置 hover 交互                                                                           |
+| select             | `boolean`                   | 否       | 是否开启选中交互                                                                                  |
+| cursor             | `boolean`                   | 否       | 是否启用 cursor 设置                                                                              |
+| logger             | `Logger`                    | 否       | 外部传入的 logger 方法                                                                            |
+| logLevel           | `number`                    | 否       | 设置 log 的级别，0 - None;1 - Error;2 - Warn;3 - Info;4 - Debug                                   |
+| domBridge          | `any`                       | 否       | worker 专用                                                                                       |
+| hooks              | `Hooks`                     | 否       | 生命周期等事件钩子                                                                                |
+| eventConfig        | `IViewEventConfig`          | 否       | 事件相关配置                                                                                      |
+| mode               | `EnvType`                   | 否       | 环境参数                                                                                          |
+| modeParams         | `any`                       | 否       | 各个环境自定义的配置                                                                              |
+| dpr                | `number`                    | 否       | 像素比                                                                                            |
+| viewBox            | `IBoundsLike`               | 否       | 手动设置画布所在的 ViewBox                                                                        |
+| background         | `IColor`                    | 否       | 背景颜色                                                                                          |
+| renderCanvas       | `string\|HTMLCanvasElement` | 否       | 非浏览器环境下，如小程序，需要传入经过包装的伪 canvas 实例                                        |
+| canvasControled    | `boolean`                   | 否       | 是否是受控制的 canvas，如果不是的话，不会进行 resize 等操作                                       |
+| stage              | `IStage`                    | 否       | vRender stage                                                                                     |
+| layer              | `ILayer`                    | 否       | vRender layer                                                                                     |
+| rendererTitle      | `string`                    | 否       | 当没有设置 container，内部自动创建 dom 元素的时候，设置到 dom 元素上的`title`属性                 |
+| renderStyle        | `string`                    | 否       | 渲染风格                                                                                          |
+| disableDirtyBounds | `boolean`                   | 否       | 是否关闭 dirtyBounds                                                                              |
+| beforeRender       | `beforeRender`              | 否       |                                                                                                   |
+| afterRender        | `afterRender`               | 否       |                                                                                                   |
+| parseMarkBounds    | `parseMarkBounds`           | 否       |                                                                                                   |
+| doLayout           | `doLayout`                  | 否       |                                                                                                   |
 
-interface IRendererOptions {
-  dpr?: number;
-  viewBox?: IBoundsLike;
-  container?: string | HTMLElement;
-  /** 背景颜色 */
-  background?: IColor;
-  /** 非浏览器环境下，如小程序，需要传入经过包装的伪 canvas 实例 */
-  renderCanvas?: string | HTMLCanvasElement;
-  /** 是否是受控制的canvas，如果不是的话，不会进行resize等操作 */
-  canvasControled?: boolean;
-  /** vRender stage */
-  stage?: IStage;
-  /** vRender layer */
-  layer?: ILayer;
-  rendererTitle?: string;
-  /* 渲染风格 */
-  renderStyle?: string;
-  /** vRender是否完整绘制 */
-  fullDraw?: boolean;
-  /** vRender渲染引擎类型，'2d' | '3d' */
-  engine?: string;
-  pickMode?: string;
-  webglOptions?: any;
-  preserveDrawingBuffer?: boolean;
-  /** 是否使用vRender 自定义ticker */
-  customTicker?: boolean;
-  /** renderer类型配置 */
-  renderer?: string;
-  /* 是否关闭dirtyBounds */
-  disableDirtyBounds?: boolean;
-  beforeRender?: (stage: IStage) => void;
-  afterRender?: (stage: IStage) => void;
-}
+## 实例属性
 
-interface ILayoutOptions {
-  parseMarkBounds?: (bounds: IBounds, mark: IMark) => IBounds;
-  doLayout?: (marks: IMark[], options: ILayoutOptions, view: IView) => void;
-}
-
-interface srIOption3DType extends IOption3D {
-  enable?: boolean;
-  /* 是否支持3d视角变换 */
-  enableView3dTranform?: boolean;
-}
-
-interface IViewOptions extends IEnvironmentOptions, IRendererOptions, ILayoutOptions {
-  width?: number;
-  height?: number;
-  padding?: CommonPaddingSpec;
-  autoFit?: boolean;
-
-  options3d?: srIOption3DType;
-
-  /** 是否默认配置hover交互 */
-  hover?: boolean;
-  /** 是否开启选中交互 */
-  select?: boolean;
-
-  /** 是否启用 cursor 设置 */
-  cursor?: boolean;
-
-  /** FIXME 函数 */
-  functions?: Record<string, any>;
-
-  /** 外部传入的logger方法 */
-  logger?: Logger;
-  loader?: any;
-  /**
-   * 0 - None
-   * 1 - Error
-   * 2 - Warn
-   * 3 - Info
-   * 4 - Debug
-   */
-  logLevel?: number;
-
-  /** worker 专用 */
-  domBridge?: any;
-
-  /** 生命周期等事件钩子 */
-  hooks?: Hooks;
-
-  /**
-   * 事件相关配置
-   * {
-   *    defaults: {
-   *      prevent: ['mousemove', 'mouseenter']
-   *    }
-   * }
-   */
-  eventConfig?: IViewEventConfig;
-}
-```
-
-## renderer
+### renderer
 
 **【只读属性】**，获取底层渲染器
 
-## rootMark
+### rootMark
 
 **【只读属性】**，获取`Mark`的根元素
 
-## grammars
+### grammars
 
 **【只读属性】**，获取所有的语法元素对应的实例
 
-## signal(function)
+## 实例方法
+
+### signal
 
 创建`Signal`实例，对应的 ts 类型定义为：
 
@@ -201,7 +136,7 @@ const tooltipPosition = view
   .depend(['isMouseEnter', 'mouseMovePosition']);
 ```
 
-## data(function)
+### data
 
 创建`Data`实例，对应的 ts 类型定义为：
 
@@ -216,7 +151,7 @@ const tooltipPosition = view
 view.data([{ a: 1, b: 2 }]);
 ```
 
-## scale(function)
+### scale
 
 创建`Scale`实例，
 
@@ -248,7 +183,7 @@ view.data([{ a: 1, b: 2 }]);
 view.scale('linear');
 ```
 
-## coordinate(function)
+### coordinate
 
 创建`Coordinate` 实例；ts 类型定义如下：
 
@@ -261,7 +196,7 @@ view.scale('linear');
 - 'cartesian'
 - 'polar'
 
-## mark(function)
+### mark
 
 创建`Mark` 实例, ts 类型定义如下
 
@@ -314,7 +249,7 @@ view.scale('linear');
 - `componentType`: 用于设置具体的组件类型，仅当`type = 'component'`时有效
 - `mode`: 用于设置是否支持 3d 模式，仅当`type = 'component' & componentType = "axis" `时有效
 
-## group(function)
+### group
 
 创建`GroupMark` 实例，ts 类型定义如下：
 
@@ -336,7 +271,7 @@ view.mark('group', view.rootMark);
 view.group(view.rootMark);
 ```
 
-## glyph(function)
+### glyph
 
 创建`GlyphMark`实例，ts 类型定义如下：
 
@@ -358,7 +293,7 @@ view.mark('glyph', view.rootMark, { glyphType: 'linkPath' });
 view.glyph('linkPath', view.rootMark);
 ```
 
-## component(function)
+### component
 
 创建`Component`实例，ts 类型定义如下：
 
@@ -380,7 +315,7 @@ view.mark('component', view.rootMark, { componentType: 'axis', mode: '3d' });
 view.component('axis', view.rootMark, { mode: '3d' });
 ```
 
-## axis(function)
+### axis
 
 创建坐标轴组件，ts 类型定义如下：
 
@@ -408,7 +343,7 @@ view.component('axis', view.rootMark, { mode: '3d' });
 view.axis(view.rootMark, { mode: '3d' });
 ```
 
-## legend(function)
+### legend
 
 创建 图例 组件，ts 类型定义如下：
 
@@ -436,7 +371,7 @@ view.component('${componentType}', view.rootMark);
 view.legend(view.rootMark);
 ```
 
-## crosshair(function)
+### crosshair
 
 创建 crosshair 组件，ts 类型定义如下：
 
@@ -464,7 +399,7 @@ view.component('crosshair', view.rootMark);
 view.corsshair(view.rootMark);
 ```
 
-## slider(function)
+### slider
 
 创建 slider 组件，ts 类型定义如下：
 
@@ -492,7 +427,7 @@ view.component('slider', view.rootMark);
 view.slider(view.rootMark);
 ```
 
-## label(function)
+### label
 
 创建 label 组件，ts 类型定义如下：
 
@@ -520,7 +455,7 @@ view.component('label', view.rootMark);
 view.label(view.rootMark);
 ```
 
-## player(function)
+### player
 
 创建 player 组件，ts 类型定义如下：
 
@@ -548,7 +483,7 @@ view.component('player', view.rootMark);
 view.player(view.rootMark);
 ```
 
-## tooltip(function)
+### tooltip
 
 创建 tooltip 组件，ts 类型定义如下：
 
@@ -576,7 +511,7 @@ view.component('tooltip', view.rootMark);
 view.tooltip(view.rootMark);
 ```
 
-## getGrammarById(function)
+### getGrammarById
 
 根据`id`获取语法元素的方法，ts 类型定义如下：
 
@@ -584,7 +519,7 @@ view.tooltip(view.rootMark);
 (id: string) => IGrammarBase | null;
 ```
 
-## getCustomizedById(function)
+### getCustomizedById
 
 根据`id`获取自定义语法元素的方法，ts 类型定义如下：
 
@@ -592,7 +527,7 @@ view.tooltip(view.rootMark);
 (id: string) => IGrammarBase | null;
 ```
 
-## getSignalById(function)
+### getSignalById
 
 根据`id`获取语法元素 Signal 实例的方法，ts 类型定义如下：
 
@@ -600,7 +535,7 @@ view.tooltip(view.rootMark);
 (id: string) => ISignal | null;
 ```
 
-## getDataById(function)
+### getDataById
 
 根据`id`获取语法元素 Data 实例的方法，ts 类型定义如下：
 
@@ -608,7 +543,7 @@ view.tooltip(view.rootMark);
 (id: string) => IData | null;
 ```
 
-## getScaleById(function)
+### getScaleById
 
 根据`id`获取语法元素 Scale 实例的方法，ts 类型定义如下：
 
@@ -616,7 +551,7 @@ view.tooltip(view.rootMark);
 (id: string) => IScale | null;
 ```
 
-## getCoordinateById(function)
+### getCoordinateById
 
 根据`id`获取语法元素 Coordinate 实例的方法，ts 类型定义如下：
 
@@ -624,7 +559,7 @@ view.tooltip(view.rootMark);
 (id: string) => ICoordinate | null;
 ```
 
-## getMarkById(function)
+### getMarkById
 
 根据`id`获取语法元素 Mark 实例的方法，ts 类型定义如下：
 
@@ -632,7 +567,7 @@ view.tooltip(view.rootMark);
 (id: string) => IMark | null;
 ```
 
-## getGrammarsByName(function)
+### getGrammarsByName
 
 根据申明的`name`属性，获取所有具有该属性的语法元素的方法，ts 类型定义如下：
 
@@ -640,7 +575,7 @@ view.tooltip(view.rootMark);
 (name: string) => IGrammarBase[];
 ```
 
-## getGrammarsByType(function)
+### getGrammarsByType
 
 根据`type`属性，获取所有具有该属性的语法元素的方法，ts 类型定义如下：
 
@@ -658,7 +593,7 @@ view.tooltip(view.rootMark);
 
 以及自定义注册的语法元素，如'projection'
 
-## getMarksByType(function)
+### getMarksByType
 
 根据`mark`的类型，返回所有该类型的`mark`实例，ts 类型定义如下：
 
@@ -669,7 +604,7 @@ view.tooltip(view.rootMark);
 
 其中`markType`支持的枚举值参考上面的`mark()`方法
 
-## parseSpec(function)
+### parseSpec
 
 通过一个统一的`spec`配置，设置所有的语法元素,ts 类型定义如下：
 
@@ -677,7 +612,7 @@ view.tooltip(view.rootMark);
 (spec: ViewSpec) => this;
 ```
 
-## updateSpec(function)
+### updateSpec
 
 更新`spec`配置,ts 类型定义如下：
 
@@ -685,7 +620,7 @@ view.tooltip(view.rootMark);
 (spec: ViewSpec) => this;
 ```
 
-## run(function)
+### run
 
 运行整个 View，ts 类型定义如下：
 
@@ -695,11 +630,11 @@ view.tooltip(view.rootMark);
 
 其中`morphConfig`用于设置，更新`view`的时候，全局切换动画相关配置
 
-## runNextTick(function)
+### runNextTick
 
 和`run`类似，参数和类型定义一样，不同的是，在下一帧率的时候运行整个 View
 
-## runAsync(function)
+### runAsync
 
 和`run`类似，异步运行整个 View 的更新逻辑；使用示例如下：
 
@@ -709,11 +644,11 @@ await view.runAsync();
 console.log(view);
 ```
 
-## runSync(function)
+### runSync
 
 和`run`类似，参数和类型定义一样，同步运行整个 View 的更新逻辑
 
-## runBefore(function)
+### runBefore
 
 设置每次 view 运行更新之前的回调函数，ts 类型定义如下:
 
@@ -721,7 +656,7 @@ console.log(view);
 (callback: (view: IView) => void) => this;
 ```
 
-## runAfter(function)
+### runAfter
 
 设置每次 view 运行完成之后的回调函数，ts 类型定义如下:
 
@@ -729,7 +664,7 @@ console.log(view);
 (callback: (view: IView) => void) => this;
 ```
 
-## background(function)
+### background
 
 设置或者读取背景颜色，ts 类型定义如下:
 
@@ -737,7 +672,7 @@ console.log(view);
 (value?: IColor) => IColor;
 ```
 
-## width(function)
+### width
 
 设置或者读取 整个 canvas 的宽度，ts 类型定义如下:
 
@@ -745,7 +680,7 @@ console.log(view);
 (value?: number) => number;
 ```
 
-## height(function)
+### height
 
 设置或者读取 整个 canvas 的高度，ts 类型定义如下:
 
@@ -753,7 +688,7 @@ console.log(view);
 (value?: number) => number;
 ```
 
-## viewWidth(function)
+### viewWidth
 
 设置或者读取 view 去掉`padding`后的 画布宽度，ts 类型定义如下:
 
@@ -761,7 +696,7 @@ console.log(view);
 (value?: number) => number;
 ```
 
-## viewHeight(function)
+### viewHeight
 
 设置或者读取 view 去掉`padding`后的 画布高度，ts 类型定义如下:
 
@@ -769,7 +704,7 @@ console.log(view);
 (value?: number) => number;
 ```
 
-## padding(function)
+### padding
 
 设置或者读取 `padding`，ts 类型定义如下:
 
@@ -782,7 +717,7 @@ console.log(view);
 };
 ```
 
-## addEventListener(function)
+### addEventListener
 
 添加事件监听，ts 类型定义如下:
 
@@ -790,7 +725,7 @@ console.log(view);
 (type: string, handler: BaseEventHandler, options?: any) => this;
 ```
 
-## removeEventListener(function)
+### removeEventListener
 
 移除事件监听，ts 类型定义如下:
 
@@ -798,7 +733,7 @@ console.log(view);
 (type: string, handler: BaseEventHandler) => this;
 ```
 
-## emit(function)
+### emit
 
 触发自定义事件，ts 类型定义如下:
 
@@ -809,7 +744,7 @@ console.log(view);
 第一个参数为自定义的事件名称；
 其他参数为，事件对应的自定义参数
 
-## resize(function)
+### resize
 
 调整 canvas 的宽度高度，ts 类型定义如下:
 
@@ -819,7 +754,7 @@ console.log(view);
 
 当`width`或者`height`发生改变的时候，`render`不为`false` 的话，会触发底层图形的重绘
 
-## tranverseMarkTree(function)
+### tranverseMarkTree
 
 遍历整个 mark 实例树，执行相应逻辑，ts 类型定义如下:
 
@@ -831,18 +766,18 @@ console.log(view);
 第二个参数用于设置针对每个`mark`实例执行的过滤函数；
 第三个参数用于设置是否叶子节点优先执行
 
-## pauseProgressive(function)
+### pauseProgressive
 
 暂停渐进渲染流程，如果有的话
 
-## resumeProgressive(function)
+### resumeProgressive
 
 重启渐进渲染流程，如果有的话
 
-## restartProgressive(function)
+### restartProgressive
 
 重启渐进渲染流程，如果有的话
 
-## release(function)
+### release
 
 释放销毁 view

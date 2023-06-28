@@ -4,11 +4,17 @@
 
 继承`Mark`，所有`Mark`支持的 API，都能在`Component`实例上调用
 
-## componentType(string)
+## 实例属性
+
+### componentType
+
+类型：`string`
 
 组件的类型
 
-## configureComponent(function)
+### 实例方法
+
+### configureComponent
 
 配置组件
 
@@ -16,7 +22,7 @@
 (config: any) => this;
 ```
 
-## scale(function)
+### scale
 
 设置组件的比例尺，目前有三种类型的组件是可以设置`scale`的：
 
@@ -28,7 +34,7 @@
 (scale?: IScale | string) => this;
 ```
 
-## axisType(string)
+### axisType(string)
 
 设置`Axis`组件的坐标轴类型
 
@@ -36,7 +42,7 @@
 (axisType: AxisType | Nil) => this;
 ```
 
-## tickCount(function)
+### tickCount
 
 设置`Axis`组件的刻度数量
 
@@ -44,7 +50,7 @@
 (tickCount: MarkFunctionType<number> | Nil) => this;
 ```
 
-## legendType(string)
+### legendType(string)
 
 设置`Legend`组件的图例类型
 
@@ -52,7 +58,7 @@
 (legendType: LegendType | Nil) => this;
 ```
 
-## target(function)
+### target
 
 设置组件的目标数据
 
@@ -60,7 +66,7 @@
 (data: IData | string | Nil, filter: string | ((datum: any, legendValues: any) => boolean) | Nil) => this;
 ```
 
-## setSelected(function)
+### setSelected
 
 设置`Legend`组件的选中值
 
@@ -68,7 +74,7 @@
 (selectedValues: any[]) => this;
 ```
 
-## crosshairType(string)
+### crosshairType(string)
 
 设置`Crosshair`组件的类型
 
@@ -76,7 +82,7 @@
 (crosshairType: CrosshairType | Nil) => this;
 ```
 
-## crosshairShape(string)
+### crosshairShape(string)
 
 设置`Crosshair`组件的形状
 
@@ -84,7 +90,7 @@
 (crosshairShape: CrosshairShape | Nil) => this;
 ```
 
-## min(function)
+### min
 
 设置`Slider`组件的最小值
 
@@ -92,7 +98,7 @@
 (min: MarkFunctionType<number> | Nil) => this;
 ```
 
-## max(function)
+### max
 
 设置`Slider`组件的最大值
 
@@ -100,7 +106,7 @@
 (max: MarkFunctionType<number> | Nil) => this;
 ```
 
-## setStartEndValue(function)
+### setStartEndValue
 
 设置`Slider`组件的起始值和结束值
 
@@ -108,7 +114,7 @@
 (start?: number, end?: number) => this;
 ```
 
-## preview(function)
+### preview
 
 设置`Datazoom`组件的预览值
 
@@ -122,7 +128,7 @@
 ) => this;
 ```
 
-## labelStyle(function)
+### labelStyle
 
 设置`Label`组件的标签样式
 
@@ -130,7 +136,7 @@
 (attributes: MarkFunctionType<RecursivePartial<BaseLabelAttrs>>) => this;
 ```
 
-## size(function)
+### size
 
 设置`Label`组件的大小
 
@@ -138,7 +144,7 @@
 (attributes: MarkFunctionType<DataLabelAttrs['size']>) => this;
 ```
 
-## playerType(string)
+### playerType(string)
 
 设置`Player`组件的播放器类型
 
@@ -146,23 +152,23 @@
 (playerType: PlayerType) => this;
 ```
 
-## play(function)
+### play
 
 播放`Player`组件
 
-## pause(function)
+### pause
 
 暂停`Player`组件
 
-## backward(function)
+### backward
 
 组件`Player`回退
 
-## forward(function)
+### forward
 
 组件`Player`前进
 
-## title(function)
+### title
 
 设置`Tooltip`组件的标题
 
@@ -170,7 +176,7 @@
 (title: ITooltipRow | Nil) => this;
 ```
 
-## content(function)
+### content
 
 设置`Tooltip`组件的内容
 

@@ -2,7 +2,9 @@
 
 图形语法元素 - 坐标系。
 
-## start(function)
+## 实例方法
+
+### start
 
 设置坐标系的起始点
 
@@ -10,7 +12,7 @@
 (start: CoordinateFunctionType<[number, number]> | Nil) => this;
 ```
 
-## end(function)
+### end
 
 设置坐标系的结束点
 
@@ -18,7 +20,7 @@
 (end: CoordinateFunctionType<[number, number]> | Nil) => this;
 ```
 
-## origin(function)
+### origin
 
 设置坐标系的原点
 
@@ -26,7 +28,7 @@
 (origin: CoordinateFunctionType<[number, number]> | Nil) => this;
 ```
 
-## translate(function)
+### translate
 
 设置坐标系的平移
 
@@ -34,7 +36,7 @@
 (offset: CoordinateFunctionType<[number, number]> | Nil) => this;
 ```
 
-## rotate(function)
+### rotate
 
 设置坐标系的旋转
 
@@ -42,7 +44,7 @@
 (angle: CoordinateFunctionType<number> | Nil) => this;
 ```
 
-## scale(function)
+### scale
 
 设置坐标系的缩放
 
@@ -50,7 +52,7 @@
 (ratio: CoordinateFunctionType<[number, number]> | Nil) => this;
 ```
 
-## transpose(function)
+### transpose
 
 设置坐标系是否进行转置
 
@@ -58,15 +60,15 @@
 (isTransposed: CoordinateFunctionType<boolean> | Nil) => this;
 ```
 
-## id(function)
+### id
 
 设置或者读取组件的唯一标识符`id`。
 
-## name(function)
+### name
 
 设置或者读取组件的名称`name`。
 
-## depend(function)
+### depend
 
 设置依赖的语法元素，ts 类型定义如下：
 
@@ -76,10 +78,10 @@
 
 参数可以是其他语法元素的实例，也可以是一个语法元素对应的`id`。
 
-## clear(function)
+### clear
 
 清除当前语法元素所有的配置
 
-## release(function)
+### release
 
 释放销毁该语法元素实例
