@@ -11,7 +11,7 @@ cover:
 
 ## 代码演示
 
-```ts
+```javascript livedemo
 VGrammar.registerRippleGlyph();
 const spec = {
   padding: { top: 5, right: 5, bottom: 30, left: 60 },

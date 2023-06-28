@@ -11,7 +11,7 @@ cover:
 
 ## 代码演示
 
-```ts
+```javascript livedemo
 VGrammarHierarchy.registerTreeTransforms();
 VGrammar.registerLinkPathGlyph();
 

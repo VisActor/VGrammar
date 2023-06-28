@@ -13,7 +13,7 @@ cover:
 
 ## 代码演示
 
-```ts
+```javascript livedemo
 const spec = {
   padding: { top: 25, right: 5, bottom: 30, left: 60 },
 

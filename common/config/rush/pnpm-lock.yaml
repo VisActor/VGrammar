@@ -49,6 +49,7 @@ importers:
       '@visactor/vgrammar-wordcloud-shape': workspace:0.3.0
       '@visactor/vrender': ~0.11.1
       '@visactor/vutils': ~0.11.1
+      axios: ^1.4.0
       d3-scale-chromatic: ^3.0.0
       lodash: 4.17.21
       markdown-it: 13.0.1
@@ -66,6 +67,7 @@ importers:
       '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
       '@visactor/vrender': 0.11.1
       '@visactor/vutils': 0.11.1
+      axios: 1.4.0
       d3-scale-chromatic: 3.0.0
       lodash: 4.17.21
       markdown-it: 13.0.1
@@ -3161,6 +3163,16 @@ packages:
     engines: {node: '>= 0.4'}
     dev: false
 
+  /axios/1.4.0:
+    resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
+    dependencies:
+      follow-redirects: 1.15.2
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
   /babel-jest/29.5.0_@babel+core@7.20.12:
     resolution: {integrity: sha512-mA4eCDh5mSo2EcA9xQjVTpmbbNk32Zb3Q3QFQsNhaK56Q+yoXowzFodLux30HRgyOho5rsQ6B0P9QpMkvvnJ0Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -4770,6 +4782,16 @@ packages:
       inherits: 2.0.4
       readable-stream: 2.3.8
     dev: false
+
+  /follow-redirects/1.15.2:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: true
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -7193,6 +7215,10 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
     dev: false
+
+  /proxy-from-env/1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+    dev: true
 
   /prr/1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}

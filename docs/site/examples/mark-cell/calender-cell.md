@@ -13,7 +13,7 @@ cover:
 
 ## 代码演示
 
-```ts
+```javascript livedemo
 const getCalendarData = dayCount => {
   const DAY = 24 * 60 * 60 * 1000;
   const start = +new Date(2022, 0, 1);

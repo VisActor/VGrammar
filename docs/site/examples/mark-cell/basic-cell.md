@@ -13,7 +13,7 @@ cover:
 
 ## 代码演示
 
-```ts
+```javascript livedemo
 const schemePiYG = [
   '#8e0152',
   '#c51b7d',

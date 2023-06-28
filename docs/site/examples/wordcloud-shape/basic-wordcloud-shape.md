@@ -13,7 +13,7 @@ cover:
 
 ## 代码演示
 
-```ts
+```javascript livedemo
 VGrammarWordcloudShape.registerWordCloudShapeTransforms();
 
 const spec = {

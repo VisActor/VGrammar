@@ -13,7 +13,7 @@ cover:
 
 ## 代码演示
 
-```ts
+```javascript livedemo
 const getSpiralData = size => {
   const rad = Math.PI / 180;
   const alpha = 20;
