@@ -1,6 +1,6 @@
 import type { IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { isValidNumber, isNumber, isString } from '@visactor/vutils';
+import { isValidNumber, isString } from '@visactor/vutils';
 import type { MarkElementItem, MarkType } from '../../types';
 
 /**
@@ -160,23 +160,4 @@ export function getLargeSymbolsPoints(
   });
 
   return arr;
-}
-
-export function getGraphicBorderRadius(attrs: {
-  cornerRadius?: number;
-  cornerRadiusTopLeft?: number;
-  cornerRadiusTopRight?: number;
-  cornerRadiusBottomLeft?: number;
-  cornerRadiusBottomRight?: number;
-}) {
-  let { cornerRadius, cornerRadiusTopLeft, cornerRadiusTopRight, cornerRadiusBottomRight, cornerRadiusBottomLeft } =
-    attrs;
-
-  cornerRadius = isNumber(cornerRadius) ? cornerRadius : 0;
-  cornerRadiusTopLeft = isNumber(cornerRadiusTopLeft) ? cornerRadiusTopLeft : cornerRadius;
-  cornerRadiusTopRight = isNumber(cornerRadiusTopRight) ? cornerRadiusTopRight : cornerRadius;
-  cornerRadiusBottomRight = isNumber(cornerRadiusBottomRight) ? cornerRadiusBottomRight : cornerRadius;
-  cornerRadiusBottomLeft = isNumber(cornerRadiusBottomLeft) ? cornerRadiusBottomLeft : cornerRadius;
-
-  return [cornerRadiusTopLeft, cornerRadiusTopRight, cornerRadiusBottomRight, cornerRadiusBottomLeft];
 }

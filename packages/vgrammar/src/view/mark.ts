@@ -686,7 +686,7 @@ export class Mark extends GrammarBase implements IMark {
     }
 
     elements.forEach(element => {
-      element.state(stateSpec, this.view, parameters);
+      element.state(stateSpec, parameters);
     });
   }
 

@@ -73,8 +73,8 @@ export interface IElement {
 
   // element 执行流程相关接口
   updateData: (groupKey: string, data: any[], keyGenerator: MarkKeySpec, view: any) => void;
-  state: (markState: MarkFunctionType<string | string[]>, view: any, parameters: any) => void;
-  encodeItems: (items: MarkElementItem[], encoders: StateEncodeSpec, parameters: any) => void;
+  state: (markState: MarkFunctionType<string | string[]>, parameters?: any) => void;
+  encodeItems: (items: MarkElementItem[], encoders: StateEncodeSpec, parameters?: any) => void;
   encodeGraphic: () => void;
   transformElementItems: (items: MarkElementItem[], markType: MarkType, computePoints?: boolean) => Record<string, any>;
   remove: () => void;

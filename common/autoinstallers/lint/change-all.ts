@@ -6,6 +6,7 @@ import { spawnSync, execSync } from 'child_process';
 interface RunScriptArgv extends ParsedArgs {
   message?: string;
   type?: string;
+  'not-commit'?: boolean; 
 }
 
 function run() {
@@ -14,6 +15,7 @@ function run() {
   const argv: RunScriptArgv = minimist(process.argv.slice(2));
   let message = argv.message;
   let bumpType = argv.type;
+  let notCommit = argv['not-commit']
 
   if (!message) {
     const lastCommitMessage = execSync('git log -1 --pretty=%B ').toString();
@@ -48,15 +50,18 @@ function run() {
     shell: false,
   });
 
-  spawnSync('sh', ['-c', 'git add --all'], {
-    stdio: 'inherit',
-    shell: false,
-  });
+  if (!notCommit) {
+    spawnSync('sh', ['-c', 'git add --all'], {
+      stdio: 'inherit',
+      shell: false,
+    });
+  
+    spawnSync('sh', ['-c', `git commit -m 'docs: update changlog of rush'`], {
+      stdio: 'inherit',
+      shell: false,
+    });
+  }
 
-  spawnSync('sh', ['-c', `git commit -m 'docs: update changlog of rush'`], {
-    stdio: 'inherit',
-    shell: false,
-  });
 }
 
 run();

@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-coordinate
 
-This log was last generated on Tue, 20 Jun 2023 11:14:05 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Jun 2023 03:31:17 GMT and should not be manually modified.
+
+## 0.3.0
+Wed, 28 Jun 2023 03:31:17 GMT
+
+### Minor changes
+
+- chore: update tsconfig.test.json for every package
+
+
 
 ## 0.2.1
 Tue, 20 Jun 2023 11:14:05 GMT

@@ -1,35 +1,9 @@
 import { Rect } from '@visactor/vrender';
-import { createGraphicItem } from '../../src/graph/util/graphic';
-import { createElement } from '../../src/graph/util/element';
-import { emptyFunction, getMockedView } from '../util';
-import { transformsByType } from '../../src/graph/attributes';
-
-const view = getMockedView();
-
-function createSimpleElement(markType: string = 'rect') {
-  const mark = {
-    markType,
-    isLargeMode: () => false,
-    isCollectionMark: () => markType === 'line' || markType === 'area',
-    needAnimate: () => false,
-    getSpec: () => ({}),
-    parameters: () => ({}),
-    graphicParent: { appendChild: emptyFunction, insertInto: emptyFunction },
-    emit: () => false,
-    view,
-    isProgressive: () => false,
-    getAttributeTransforms: () => transformsByType.rect
-  } as any;
-  mark.addGraphicItem = () => {
-    return (createGraphicItem as any)(mark, markType, {});
-  };
-  const element = createElement(mark);
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
-  return element;
-}
+import { createSimpleElement } from '../util';
 
 test('Create element and update data', function () {
   const element = createSimpleElement();
+  element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   expect(element.getGraphicItem() instanceof Rect).toEqual(true);
 
@@ -41,24 +15,24 @@ test('Create element and update data', function () {
 test('Element executes state updating', function () {
   const element = createSimpleElement();
 
-  element.state('hover', view, {});
+  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+
+  element.state('hover');
   expect(element.getStates()).toEqual(['hover']);
 
-  element.state(['hover', 'active'], view, {});
+  element.state(['hover', 'active']);
   expect(element.getStates()).toEqual(['hover', 'active']);
 
-  element.state(
-    (datum: any, el: any) => {
-      return `${datum.key}-${el.mark.markType}`;
-    },
-    view,
-    {}
-  );
+  element.state((datum: any, el: any) => {
+    return `${datum.key}-${el.mark.markType}`;
+  });
   expect(element.getStates()).toEqual(['0-rect']);
 });
 
 test('Element executes encoding', function () {
   const element = createSimpleElement();
+
+  element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
 
   // encode enter

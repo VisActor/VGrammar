@@ -1,7 +1,7 @@
 import { has, isNil, isString, isValidNumber } from '@visactor/vutils';
 import type { IColor, IColorStop } from '@visactor/vrender';
 import { transformCommonAttribute, commonAttributes } from './common';
-import { getGraphicBorderRadius, getRulePoints } from './helpers';
+import { getRulePoints } from './helpers';
 import { GrammarMarkType } from '../enums';
 import type { AttributeTransform, IElement, IGlyphElement, MarkType } from '../../types';
 
@@ -28,11 +28,8 @@ function storeOriginAttributes(
   return storedAttrs;
 }
 
-const arcStrokeChannels = ['strokeOuter', 'strokeRight', 'strokeInner', 'strokeLeft'];
-const rectStrokeChannels = ['strokeTop', 'strokeRight', 'strokeBottom', 'strokeLeft'];
-
 export const transformsByType: Record<string, AttributeTransform[]> = {
-  [GrammarMarkType.largeSymbols]: [
+  [GrammarMarkType.largeRects]: [
     {
       channels: ['x', 'y', 'y1', 'x1', 'width', 'height'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
@@ -68,50 +65,7 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
       }
     }
   ],
-  [GrammarMarkType.arc]: [
-    {
-      channels: ['stroke'].concat(arcStrokeChannels),
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        const stroke = storedAttrs.stroke;
-
-        graphicAttributes.stroke =
-          stroke && arcStrokeChannels.some(channel => !!storedAttrs[channel])
-            ? arcStrokeChannels.map(channel => {
-                return storedAttrs[channel] !== false ? stroke : false;
-              })
-            : stroke;
-      },
-      storedAttrs: 'strokeAttrs'
-    }
-  ],
   [GrammarMarkType.rect]: [
-    {
-      channels: ['stroke'].concat(rectStrokeChannels),
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        const stroke = storedAttrs.stroke;
-
-        graphicAttributes.stroke =
-          stroke && rectStrokeChannels.some(channel => !!storedAttrs[channel])
-            ? rectStrokeChannels.map(channel => {
-                return storedAttrs[channel] !== false ? stroke : false;
-              })
-            : stroke;
-      },
-      storedAttrs: 'strokeAttrs'
-    },
-    {
-      channels: [
-        'cornerRadius',
-        'cornerRadiusTopLeft',
-        'cornerRadiusTopRight',
-        'cornerRadiusBottomRight',
-        'cornerRadiusBottomLeft'
-      ],
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        graphicAttributes.borderRadius = getGraphicBorderRadius(storedAttrs);
-      },
-      storedAttrs: 'cornerAttrs'
-    },
     {
       channels: ['x', 'y', 'x1', 'y1', 'width', 'height'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {

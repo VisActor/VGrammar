@@ -5,7 +5,7 @@ import type { IViewEventConfig, IViewOptions } from './view';
 export interface IRenderer {
   initialize: (width: number, height: number, options: IViewOptions, eventConfig: IViewEventConfig) => this;
 
-  render: () => this;
+  render: (immediately?: boolean) => this;
   renderNextFrame: () => this;
   resize: (width: number, height: number) => this;
   shouldResize: (width: number, height: number) => boolean;

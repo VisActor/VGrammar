@@ -21,11 +21,9 @@ module.exports = {
   },
   globals: {
     __VERSION__: JSON.stringify('test'),
-    __DEV__: true
+    __DEV__: JSON.stringify(true)
   },
   verbose: false,
-
-  collectCoverageFrom: ['**/*.{ts}', '!**/node_modules/**'],
   moduleNameMapper: {
     'd3-color': path.resolve(__dirname, './node_modules/d3-color/dist/d3-color.min.js'),
     'd3-array': path.resolve(__dirname, './node_modules/d3-array/dist/d3-array.min.js')
@@ -41,7 +39,8 @@ module.exports = {
     '!**/node_modules/**',
     '!**/__tests__/**',
     '!**/types/**',
-    '!**/interface.ts'
+    '!**/interface.ts',
+    '!**/*.d.ts'
   ],
   coverageThreshold: {
     global: {
