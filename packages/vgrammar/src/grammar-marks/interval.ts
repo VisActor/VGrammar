@@ -113,30 +113,28 @@ export class Interval extends Mark {
 
   getAttributeTransforms() {
     if (this.coord && this.coord.output().type === 'polar') {
-      return (
-        [
-          {
-            channels: ['x', 'y', 'x1', 'y1', 'cx', 'cy'],
-            transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-              graphicAttributes.x = storedAttrs.cx;
-              graphicAttributes.y = storedAttrs.cy;
-              if (this.coord.output().isTransposed()) {
-                graphicAttributes.startAngle = storedAttrs.y;
-                graphicAttributes.endAngle = storedAttrs.y1;
-                graphicAttributes.innerRadius = storedAttrs.x;
-                graphicAttributes.outerRadius = storedAttrs.x1;
-              } else {
-                //
-                graphicAttributes.startAngle = storedAttrs.x;
-                graphicAttributes.endAngle = storedAttrs.x1;
-                graphicAttributes.innerRadius = storedAttrs.y;
-                graphicAttributes.outerRadius = storedAttrs.y1;
-              }
-            },
-            storedAttrs: 'sizeAttrs'
-          }
-        ] as AttributeTransform[]
-      ).concat(transformsByType.arc);
+      return [
+        {
+          channels: ['x', 'y', 'x1', 'y1', 'cx', 'cy'],
+          transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
+            graphicAttributes.x = storedAttrs.cx;
+            graphicAttributes.y = storedAttrs.cy;
+            if (this.coord.output().isTransposed()) {
+              graphicAttributes.startAngle = storedAttrs.y;
+              graphicAttributes.endAngle = storedAttrs.y1;
+              graphicAttributes.innerRadius = storedAttrs.x;
+              graphicAttributes.outerRadius = storedAttrs.x1;
+            } else {
+              //
+              graphicAttributes.startAngle = storedAttrs.x;
+              graphicAttributes.endAngle = storedAttrs.x1;
+              graphicAttributes.innerRadius = storedAttrs.y;
+              graphicAttributes.outerRadius = storedAttrs.y1;
+            }
+          },
+          storedAttrs: 'sizeAttrs'
+        }
+      ] as AttributeTransform[];
     }
 
     return transformsByType.rect;
