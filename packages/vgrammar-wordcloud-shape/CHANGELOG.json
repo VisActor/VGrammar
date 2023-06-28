@@ -2,6 +2,34 @@
   "name": "@visactor/vgrammar-wordcloud-shape",
   "entries": [
     {
+      "version": "0.3.0",
+      "tag": "@visactor/vgrammar-wordcloud-shape_v0.3.0",
+      "date": "Wed, 28 Jun 2023 03:31:17 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix: update `cornerRadius` channels:\n\nremove `cornerRadiusTopLeft`, `cornerRadiusTopRight`,\ncornerRadiusBottomRight`, `cornerRadiusBottomLeft`\nof rect and group mark\n\n"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "fix: remove useless function\n\n"
+          },
+          {
+            "comment": "chore: update tsconfig.test.json for every package\n\n"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar\" from `0.2.1` to `0.3.0`"
+          },
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-util\" from `0.2.1` to `0.3.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.1",
       "tag": "@visactor/vgrammar-wordcloud-shape_v0.2.1",
       "date": "Tue, 20 Jun 2023 11:14:05 GMT",
