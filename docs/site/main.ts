@@ -16,7 +16,7 @@ import { colorSchemeForLight, colorSchemeForDark } from './utils';
 (window as any).VGrammarSankey = VGrammarSankey;
 (window as any).VGrammarWordcloud = VGrammarWordcloud;
 (window as any).VGrammarWordcloudShape = VGrammarWordcloudShape;
-(window as any).CHART_CONTAINER_DOM_ID = 'chart';
+(window as any).CONTAINER_ID = 'chart';
 (window as any).colorSchemeForLight = colorSchemeForLight;
 (window as any).colorSchemeForDark = colorSchemeForDark;
 (window as any).VisUtil = VisUtil;

@@ -388,7 +388,18 @@ const spec = {
 
         return (data || []).filter(d => d.depth <= 1).map(d => d.key);
       },
-      range: colorSchemeForLight
+      range: [
+        '#6690F2',
+        '#70D6A3',
+        '#B4E6E2',
+        '#63B5FC',
+        '#FF8F62',
+        '#FFDC83',
+        '#BCC5FD',
+        '#A29BFE',
+        '#63C4C7',
+        '#F68484'
+      ]
     }
   ],
 
@@ -460,7 +471,7 @@ const spec = {
 
 const vGrammarView = new VGrammarView({
   autoFit: true,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);

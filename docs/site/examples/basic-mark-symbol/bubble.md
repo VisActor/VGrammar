@@ -311,7 +311,7 @@ const vGrammarView = new VGrammarView({
   autoFit: true,
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -323,5 +323,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

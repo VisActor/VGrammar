@@ -1,11 +1,13 @@
 ---
 category: examples
-group: glyph-mark-boxplot
+group: 3d-mark
 title: pyramid3d 图元
 cover:
 ---
 
 # pyramid3d 图元
+
+3d 模式下的梯形图元，主要用于展示 3d 的漏斗图
 
 ## 关键配置
 
@@ -80,7 +82,18 @@ const spec = {
       id: 'colorScale',
       type: 'ordinal',
       domain: { data: 'table', field: 'name' },
-      range: colorSchemeForLight
+      range: [
+        '#6690F2',
+        '#70D6A3',
+        '#B4E6E2',
+        '#63B5FC',
+        '#FF8F62',
+        '#FFDC83',
+        '#BCC5FD',
+        '#A29BFE',
+        '#63C4C7',
+        '#F68484'
+      ]
     }
   ],
 
@@ -125,7 +138,7 @@ const spec = {
 const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true,
   options3d: {
     enable: true,

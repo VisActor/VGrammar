@@ -7,6 +7,8 @@ cover:
 
 # morph 动画
 
+全局形变动画，主要用于图表更新、切换等场景，用于转场效果
+
 ## 关键配置
 
 ## 代码演示
@@ -446,7 +448,18 @@ const funnelSpec = {
       id: 'colorScale',
       type: 'ordinal',
       domain: { data: 'table', field: 'name' },
-      range: colorSchemeForLight
+      range: [
+        '#6690F2',
+        '#70D6A3',
+        '#B4E6E2',
+        '#63B5FC',
+        '#FF8F62',
+        '#FFDC83',
+        '#BCC5FD',
+        '#A29BFE',
+        '#63C4C7',
+        '#F68484'
+      ]
     }
   ],
 
@@ -493,7 +506,7 @@ const funnelSpec = {
 const vGrammarView = new VGrammarView({
   width: roseSpec.width,
   height: roseSpec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(roseSpec);

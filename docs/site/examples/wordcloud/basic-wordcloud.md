@@ -1,11 +1,11 @@
 ---
 category: examples
 group: wordcloud
-title: wordcloud
+title: 词云图
 cover:
 ---
 
-# wordcloud
+# 词云图
 
 数据引用于：https://observablehq.com/@zhoiii/d3-wordcolud；展示的是《围城》相关人物的词云图
 
@@ -233,7 +233,20 @@ const spec = {
       type: 'ordinal',
 
       domain: { data: 'table', field: 'text' },
-      range: colorSchemeForDark
+      range: [
+        '#5383F4',
+        '#7BCF8E',
+        '#FF9D2C',
+        '#FFDB26',
+        '#7568D9',
+        '#80D8FB',
+        '#1857A3',
+        '#CAB0E8',
+        '#FF8867',
+        '#B9E493',
+        '#2CB4A8',
+        '#B9E4E3'
+      ]
     }
   ],
 
@@ -279,7 +292,7 @@ const spec = {
 
 const vGrammarView = new VGrammarView({
   autoFit: true,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);

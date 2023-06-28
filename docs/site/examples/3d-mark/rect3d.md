@@ -1,11 +1,13 @@
 ---
 category: examples
-group: glyph-mark-boxplot
+group: 3d-mark
 title: rect3d 图元
 cover:
 ---
 
 # rect3d 图元
+
+3d 模式下的柱图元，可以用于展示 3d 柱图，3d 条形图等
 
 ## 关键配置
 
@@ -194,7 +196,7 @@ const spec = {
 const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true,
   options3d: {
     enable: true,

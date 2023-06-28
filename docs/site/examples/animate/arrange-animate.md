@@ -7,6 +7,8 @@ cover:
 
 # 动画编排
 
+当常见的动画配置不能满足需求的时候，可以通过动画编排可以定制各个图元之间动画的顺序、关系
+
 ## 关键配置
 
 ## 代码演示
@@ -351,7 +353,7 @@ const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
   // autoFit: true,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);

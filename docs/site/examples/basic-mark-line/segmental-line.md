@@ -1,17 +1,15 @@
 ---
 category: examples
 group: basic-mark-line
-title: segmental-line
+title: 分段曲线
 cover:
 ---
 
-# 基础柱图
+# 分段曲线
 
 ## 关键配置
 
-- `direction` 属性配置为 'horizontal'
-- `xField` 属性声明为数值字段
-- `yField` 属性声明为分类字段
+- `enableSegments` 当线的视觉通道`enableSegments`设置为`true`，VGrammar 会计算各个点的视觉通道编码，如果有差异，自动创建分段样式的曲线
 
 ## 代码演示
 
@@ -180,7 +178,7 @@ const spec = {
 const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -192,5 +190,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

@@ -5,9 +5,11 @@ title: 条形图
 cover:
 ---
 
-# 基础柱图
+# 条形图
 
 ## 关键配置
+
+- `transpose` 坐标轴配置`transpose`为`true`，对图元进行转置
 
 ## 代码演示
 
@@ -77,7 +79,18 @@ const spec = {
       id: 'colorScale',
       type: 'ordinal',
       domain: { data: 'table', field: 'group' },
-      range: colorSchemeForLight
+      range: [
+        '#6690F2',
+        '#70D6A3',
+        '#B4E6E2',
+        '#63B5FC',
+        '#FF8F62',
+        '#FFDC83',
+        '#BCC5FD',
+        '#A29BFE',
+        '#63C4C7',
+        '#F68484'
+      ]
     }
   ],
 
@@ -200,7 +213,7 @@ const spec = {
 
 const vGrammarView = new VGrammarView({
   autoFit: true,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -212,5 +225,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

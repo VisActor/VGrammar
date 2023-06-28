@@ -5,13 +5,11 @@ title: 阿基米德螺线
 cover:
 ---
 
-# log 轴线图
+# 阿基米德螺线
+
+根据任意的公式进行抽样取点，然后通过`line`图元进行展示，我们可以绘制任意的曲线类型
 
 ## 关键配置
-
-- `direction` 属性配置为 'horizontal'
-- `xField` 属性声明为数值字段
-- `yField` 属性声明为分类字段
 
 ## 代码演示
 
@@ -192,7 +190,7 @@ const spec = {
 const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -204,5 +202,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

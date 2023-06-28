@@ -116,7 +116,18 @@ const spec = {
                 text: '2020',
                 fontWeight: 'bold',
                 fontSize: 40,
-                fillColor: colorSchemeForLight[1],
+                fillColor: [
+                  '#6690F2',
+                  '#70D6A3',
+                  '#B4E6E2',
+                  '#63B5FC',
+                  '#FF8F62',
+                  '#FFDC83',
+                  '#BCC5FD',
+                  '#A29BFE',
+                  '#63C4C7',
+                  '#F68484'
+                ][1],
                 fill: true
               },
               {
@@ -199,7 +210,7 @@ const spec = {
 
 const vGrammarView = new VGrammarView({
   autoFit: true,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -211,5 +222,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

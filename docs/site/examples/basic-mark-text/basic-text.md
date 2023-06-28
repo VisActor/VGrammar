@@ -1,7 +1,7 @@
 ---
 category: examples
 group: basic-mark-text
-title: text图元
+title: text 图元基础用法
 cover:
 ---
 
@@ -10,10 +10,6 @@ cover:
 `text` 图元一般用于图表中的信息展示，可以和数据绑定，也可以单独使用
 
 ## 关键配置
-
-- `direction` 属性配置为 'horizontal'
-- `xField` 属性声明为数值字段
-- `yField` 属性声明为分类字段
 
 ## 代码演示
 
@@ -141,7 +137,18 @@ const spec = {
       id: 'color',
       type: 'ordinal',
       domain: { data: 'table', field: 'name' },
-      range: window.colorSchemeForLight
+      range: window.[
+  '#6690F2',
+  '#70D6A3',
+  '#B4E6E2',
+  '#63B5FC',
+  '#FF8F62',
+  '#FFDC83',
+  '#BCC5FD',
+  '#A29BFE',
+  '#63C4C7',
+  '#F68484'
+]
     }
   ],
 
@@ -205,7 +212,7 @@ const vGrammarView = new VGrammarView({
   autoFit: true,
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -217,5 +224,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

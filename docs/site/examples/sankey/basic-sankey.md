@@ -393,7 +393,20 @@ const spec = {
       type: 'ordinal',
 
       domain: { data: 'nodes', field: 'key' },
-      range: colorSchemeForDark
+      range: [
+        '#5383F4',
+        '#7BCF8E',
+        '#FF9D2C',
+        '#FFDB26',
+        '#7568D9',
+        '#80D8FB',
+        '#1857A3',
+        '#CAB0E8',
+        '#FF8867',
+        '#B9E493',
+        '#2CB4A8',
+        '#B9E4E3'
+      ]
     }
   ],
 
@@ -507,7 +520,7 @@ const spec = {
 
 const vGrammarView = new VGrammarView({
   autoFit: true,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);

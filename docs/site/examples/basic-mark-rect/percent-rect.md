@@ -1,17 +1,15 @@
 ---
 category: examples
 group: basic-mark-rect
-title: 堆积柱图
+title: 百分比堆积柱图
 cover:
 ---
 
-# 堆积柱图
+# 百分比堆积柱图
 
 ## 关键配置
 
-- `direction` 属性配置为 'horizontal'
-- `xField` 属性声明为数值字段
-- `yField` 属性声明为分类字段
+- `transform` 通过`stack`类型的`transform`，实现百分比堆积图
 
 ## 代码演示
 
@@ -337,7 +335,7 @@ const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
   autoFit: true,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -349,5 +347,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

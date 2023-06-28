@@ -7,11 +7,7 @@ cover:
 
 # log 轴线图
 
-## 关键配置
-
-- `direction` 属性配置为 'horizontal'
-- `xField` 属性声明为数值字段
-- `yField` 属性声明为分类字段
+当数据的数量级差别较大的时候，我们可以通过使用`log` 类型的`scale` 来减缓曲线的变化趋势
 
 ## 代码演示
 
@@ -202,7 +198,7 @@ const spec = {
 const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -214,5 +210,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

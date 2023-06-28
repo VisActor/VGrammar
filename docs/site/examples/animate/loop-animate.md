@@ -7,6 +7,8 @@ cover:
 
 # 循环动画
 
+循环动画在大屏类似的场景下，能够带来很好的展示效果
+
 ## 关键配置
 
 ## 代码演示
@@ -246,7 +248,7 @@ const spec = {
 const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);

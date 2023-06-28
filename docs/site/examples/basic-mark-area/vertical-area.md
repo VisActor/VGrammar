@@ -1,17 +1,11 @@
 ---
 category: examples
 group: basic-mark-area
-title: 纵向的面积图
+title: 纵向面积图
 cover:
 ---
 
-# 纵向的面积图
-
-## 关键配置
-
-- `direction` 属性配置为 'horizontal'
-- `xField` 属性声明为数值字段
-- `yField` 属性声明为分类字段
+# 纵向面积图
 
 ## 代码演示
 
@@ -201,7 +195,7 @@ const spec = {
 const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -213,5 +207,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

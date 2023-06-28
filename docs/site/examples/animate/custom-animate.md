@@ -7,6 +7,8 @@ cover:
 
 # 自定义动画
 
+基于 VRender 渲染引擎，实现自定义的动画效果
+
 ## 关键配置
 
 ## 代码演示
@@ -237,7 +239,7 @@ const spec = {
 const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);

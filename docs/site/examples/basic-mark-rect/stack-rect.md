@@ -9,10 +9,6 @@ cover:
 
 ## 关键配置
 
-- `direction` 属性配置为 'horizontal'
-- `xField` 属性声明为数值字段
-- `yField` 属性声明为分类字段
-
 ## 代码演示
 
 ```ts
@@ -333,7 +329,7 @@ const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
   autoFit: true,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -345,5 +341,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)

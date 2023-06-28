@@ -1,11 +1,13 @@
 ---
 category: examples
 group: animate
-title: 基础入场/出场/更新动画
+title: 基础动画
 cover:
 ---
 
-# 基础入场/出场/更新动画
+# 基础动画
+
+基础动画示例，所有图元都可以配置入场/出场/更新动画
 
 ## 关键配置
 
@@ -531,7 +533,7 @@ const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
   // autoFit: true,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);

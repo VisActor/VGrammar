@@ -1,17 +1,15 @@
 ---
 category: examples
 group: basic-mark-polygon
-title: 漏斗图
+title: 多边形交集
 cover:
 ---
 
-# 基础柱图
+# 多边形交集
+
+`polygon`图元可以展示任意的多边形
 
 ## 关键配置
-
-- `direction` 属性配置为 'horizontal'
-- `xField` 属性声明为数值字段
-- `yField` 属性声明为分类字段
 
 ## 代码演示
 
@@ -153,7 +151,7 @@ const spec = {
 const vGrammarView = new VGrammarView({
   width: spec.width,
   height: spec.height,
-  container: CHART_CONTAINER_DOM_ID,
+  container: document.getElementById(CONTAINER_ID),
   hover: true
 });
 vGrammarView.parseSpec(spec);
@@ -165,5 +163,3 @@ window.vGrammarView = vGrammarView;
 ```
 
 ## 相关教程
-
-[柱状图](link)
