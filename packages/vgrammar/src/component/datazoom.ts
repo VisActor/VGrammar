@@ -63,14 +63,8 @@ export class Datazoom extends Component implements IDatazoom {
 
   protected parseAddition(spec: DatazoomSpec) {
     super.parseAddition(spec);
-    this.preview(
-      this.spec.preview?.data,
-      this.spec.preview?.x,
-      this.spec.preview?.y,
-      this.spec.preview?.x1,
-      this.spec.preview?.y1
-    );
-    this.target(this.spec.target?.data, this.spec.target?.filter);
+    this.preview(spec.preview?.data, spec.preview?.x, spec.preview?.y, spec.preview?.x1, spec.preview?.y1);
+    this.target(spec.target?.data, spec.target?.filter);
     this._updateComponentEncoders();
     return this;
   }
