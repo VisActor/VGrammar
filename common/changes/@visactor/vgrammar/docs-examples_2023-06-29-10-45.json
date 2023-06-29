@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix: the component should read the new spec not old spec",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
