@@ -17,6 +17,9 @@ export const examplesMenu = [
       },
       {
         name: 'percent-rect'
+      },
+      {
+        name: 'api-rect'
       }
     ]
   },
@@ -246,6 +249,28 @@ export const examplesMenu = [
       }
     ]
   },
+
+  {
+    menu: '组件',
+    path: 'component',
+    children: [
+      {
+        name: 'legend'
+      },
+      {
+        name: 'slider'
+      },
+      {
+        name: 'player'
+      },
+      {
+        name: 'label'
+      },
+      {
+        name: 'dataZoom'
+      }
+    ]
+  },
   // {
   //   menu: '数据处理',
   //   children: []
@@ -324,6 +349,16 @@ export const examplesMenu = [
       }
     ]
   },
+  {
+    menu: '性能优化',
+    path: 'performance',
+    children: [
+      {
+        name: 'progressive-rect'
+      }
+    ]
+
+  }
   // {
   //   menu: '布局',
   //   children: []

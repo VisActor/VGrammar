@@ -31,6 +31,8 @@ const ITEM_CLS = 'menu-item';
 const LOCAL_STORAGE_TAB_KEY = 'VGRAMMAR_DEMO_TAB';
 const LOCAL_STORAGE_PAGE_KEY = 'VGRAMMAR_DEMO_PAGE';
 
+const liveDemos: string[] = [];
+
 const evaluateCode = (code: string) => {
   // eslint-disable-next-line no-console
   if (!code) {
@@ -44,6 +46,33 @@ const evaluateCode = (code: string) => {
   }
 };
 
+const handleRefExample = (container: HTMLDivElement) => {
+  const path = container.dataset.path;
+  const id = container.id;
+
+  if (!path || !id) { return; }
+  const examplePath = `./examples/${path}.md`;
+  import(examplePath).then(module => {
+    const html = module.html;
+    const startStr = `<code class="language-javascript">`;
+    const endStr = `</code></pre>`;
+    const starIndex = html.indexOf(startStr);
+    const endIndex = html.indexOf(endStr);
+    
+
+    if (starIndex >= 0 && endIndex >= 0) {
+      const code = html.slice(starIndex + startStr.length, endIndex);
+
+      container.style.width ="100%";
+      container.style.height ="300px";
+
+      const jsCode = code.replace('CONTAINER_ID', `"${id}"`).replace('window.vGrammarView = vGrammarView;', `window['${id}'] = vGrammarView;`);
+      evaluateCode(md.utils.unescapeAll(jsCode));
+      liveDemos.push(id);
+    }
+  });
+}
+
 const handleSwitchMarkdown = (tab, path, name) => {
   if ((window as any).vGrammarView) {
     (window as any).vGrammarView.release();
@@ -54,6 +83,15 @@ const handleSwitchMarkdown = (tab, path, name) => {
     }
     (window as any).vGrammarView = null;
   }
+
+  if (liveDemos && liveDemos.length) {
+    liveDemos.forEach(entry => {
+      if ((window as any)[entry]) {
+        (window as any)[entry].release();
+        (window as any)[entry] = null;
+      }
+    })
+  }
   const fileName = `./${tab}${path ? '/' + path : ''}/${name}.md`;
 
   import(fileName)
@@ -61,19 +99,54 @@ const handleSwitchMarkdown = (tab, path, name) => {
       // eslint-disable-next-line no-console
       console.info('%c %s', 'color: #1890ff;font-weight: bold', `当前 demo 路径：${fileName}`);
 
-      (document.getElementById('article') as HTMLElement).innerHTML = module.html;
+      const html = module.html;
+    
+      (document.getElementById('article') as HTMLElement).innerHTML = html;
 
-      const jsCodeElements = document.getElementsByClassName('language-javascript');
-      const hasRuntimeCode = jsCodeElements && jsCodeElements.length && tab === 'examples';
+
       const exampleContainer = document.getElementById('chartContainer');
+      const jsCodeElements = document.getElementsByClassName('language-javascript');
+      const hasRuntimeCode = jsCodeElements && jsCodeElements.length;
+      const examplesRefs = document.getElementsByClassName('examples-ref-container');
 
-      if (exampleContainer) {
-        exampleContainer.style.display = hasRuntimeCode ? 'block' : 'none';
+      if (examplesRefs && examplesRefs.length) {
+        [...examplesRefs].forEach(el => handleRefExample(el as HTMLDivElement));
       }
 
       if (hasRuntimeCode) {
-        const jsCode = jsCodeElements[0].innerHTML;
-        evaluateCode(md.utils.unescapeAll(jsCode));
+        if (tab === 'examples') {
+          if (exampleContainer){
+            exampleContainer!.style.display = 'block';
+          }
+          const jsCode = jsCodeElements[0].innerHTML;
+          evaluateCode(md.utils.unescapeAll(jsCode));
+        } else {
+          if (exampleContainer){
+            exampleContainer!.style.display = 'none';
+          }
+
+          for (let i = 0, len = jsCodeElements.length; i < len; i++) {
+            const codeEl = jsCodeElements[i];
+            const parent = (codeEl as HTMLElement).parentElement;
+
+            (parent!).style.display = 'none';
+
+            const chartContainer = document.createElement('div');
+            const id = `livedemo-${i}`;
+            chartContainer.id = id;
+            chartContainer.style.width ="100%";
+            chartContainer.style.height ="300px";
+            parent?.parentNode?.insertBefore(chartContainer, parent)
+
+            const jsCode = codeEl.innerHTML.replace('CONTAINER_ID', `"${id}"`).replace('window.vGrammarView = vGrammarView;', `window['${id}'] = vGrammarView;`);
+            evaluateCode(md.utils.unescapeAll(jsCode));
+            liveDemos.push(id);
+          }
+        }
+      } else {
+        if (exampleContainer){
+          exampleContainer!.style.display = 'none';
+        }
       }
     })
     .catch(err => {

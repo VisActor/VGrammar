@@ -6,7 +6,7 @@
 
 在 Spec 模式下，我们需要通过`events`字段配置事件监听。示例如下：
 
-```javascript
+```js
 const spec = {
   signals: [
     // ...
@@ -40,7 +40,7 @@ const spec = {
 
 示例：
 
-```javascript
+```js
 const spec = {
   signals: [
     {
@@ -62,7 +62,7 @@ const spec = {
 
 如果需要触发多个`signal` 的更新，可以参考下面的案例：
 
-```javascript
+```js
 const spec = {
   signals: [
     {
@@ -100,7 +100,7 @@ const spec = {
 
 当我们需要通过事件触发图元状态更新的时候，我们可以在配置事件的`callback`，调用`element`的 API，增加或者删除状态
 
-```javascript
+```js
 const spec = {
   events: [
     {

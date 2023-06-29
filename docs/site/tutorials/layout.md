@@ -24,7 +24,7 @@ VGrammar 支持两种布局类型：相对布局（relative）和网格布局（
 
 相对布局可以让子图元相对于其父图元设定的位置，根据一定的规则进行排列。首先将父图元的布局属性 `display` 设置为 `'relative'`，即可启用相对布局：
 
-```javascript
+```js
 marks: [{
   type: 'group',
   layout: {
@@ -52,7 +52,7 @@ marks: [{
 
 示例代码：
 
-```javascript
+```js
 marks: [
   {
     type: 'group',
@@ -81,7 +81,7 @@ marks: [
 
 网格布局会将父图元按照指定的行和列进行划分，并将子图元放置在这些划分的单元格内。首先设置父图元的布局属性 `layout.display` 为 'grid'，即可启用网格布局：
 
-```javascript
+```js
 marks: [{
   type: 'group',
   layout: {
@@ -94,7 +94,7 @@ marks: [{
 
 示例代码：
 
-```javascript
+```js
 marks: [
   {
     type: 'group',
@@ -126,7 +126,7 @@ marks: [
 
 除了相对布局和网格布局，VGrammar 也支持自定义布局方案。要自定义布局方，需要将 `layout` 属性设置为自定义的回调函数：
 
-```javascript
+```js
 marks: [{
   type: 'group',
   layout: (group, children, parentLayoutBounds, options) => {

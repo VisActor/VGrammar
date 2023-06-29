@@ -21,10 +21,12 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 轴组件的 componentType 为 `'axis'` ，同时 View 上也提供了 `View.component()` 接口以便捷的创建一个轴。
 
 一个简单的直角坐标系轴示例为：
-![直角坐标系轴](https://s1.ax1x.com/2023/06/19/pC33RJg.png)
+
+<div class="examples-ref-container" id="examples-ref-axis-rect" data-path="basic-mark-rect/basic-rect"></div>
 
 一个简单的极坐标系轴示例为：
-![极坐标系轴](https://s1.ax1x.com/2023/06/19/pC38rp4.png)
+
+<div class="examples-ref-container" id="examples-ref-axis-polar" data-path="mark-interval/polar-interval"></div>
 
 ## 图例 (Legend)
 
@@ -39,7 +41,8 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 图例组件的 componentType 为 `'legend'` ，同时 View 上也提供了 `View.legend()` 接口以便捷的创建一个图例。
 
 不同类型图例的示例：
-![图例](https://s1.ax1x.com/2023/06/19/pC38wkT.png)
+
+<div class="examples-ref-container" id="examples-ref-legend" data-path="component/legend"></div>
 
 ## 十字准线 (Crosshair)
 
@@ -50,7 +53,8 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 十字准线组件的 componentType 为 `'crosshair'` ，同时 View 上也提供了 `View.crosshair()` 接口以便捷的创建一个十字准线。
 
 十字准线的示例：
-![十字准线](https://s1.ax1x.com/2023/06/19/pC38kfe.png)
+
+<div class="examples-ref-container" id="examples-ref-crosshair" data-path="basic-mark-symbol/basic-symbol"></div>
 
 ## 筛选器 (Slider)
 
@@ -59,7 +63,8 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 筛选器组件的 componentType 为 `'slider'` ，同时 View 上也提供了 `View.slider()` 接口以便捷的创建一个筛选器。
 
 筛选器的示例：
-![筛选器](https://s1.ax1x.com/2023/06/19/pC38iFO.png)
+
+<div class="examples-ref-container" id="examples-ref-slider" data-path="component/slider"></div>
 
 ## 缩略轴 (Datazoom)
 
@@ -68,7 +73,8 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 缩略轴组件的 componentType 为 `'datazoom'` ，同时 View 上也提供了 `View.datazoom()` 接口以便捷的创建一个缩略轴。
 
 缩略轴的示例：
-![缩略轴](https://s1.ax1x.com/2023/06/19/pC389w6.png)
+
+<div class="examples-ref-container" id="examples-ref-dataZoom" data-path="component/dataZoom"></div>
 
 ## 标签 (Label)
 
@@ -77,7 +83,8 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 标签组件的 componentType 为 `'label'` ，同时 View 上也提供了 `View.label()` 接口以便捷的创建标签。
 
 标签的示例：
-![标签](https://s1.ax1x.com/2023/06/19/pC38pex.png)
+
+<div class="examples-ref-container" id="examples-ref-label" data-path="component/label"></div>
 
 ## 提示信息 (Tooltip)
 
@@ -86,7 +93,8 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 提示信息组件的 componentType 为 `'tooltip'` ，同时 View 上也提供了 `View.tooltip()` 接口以便捷的创建一个提示信息。
 
 提示信息的示例：
-![提示信息](https://s1.ax1x.com/2023/06/19/pC33vl9.png)
+
+<div class="examples-ref-container" id="examples-ref-tooltip" data-path="basic-mark-rect/percent-rect"></div>
 
 ## 播放器 (Player)
 
@@ -95,4 +103,5 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 播放器组件的 componentType 为 `'player'` ，同时 View 上也提供了 `View.player()` 接口以便捷的创建一个播放器。
 
 播放器的示例：
-![播放器](TODO)
+
+<div class="examples-ref-container" id="examples-ref-player" data-path="component/player"></div>

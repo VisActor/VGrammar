@@ -21,10 +21,14 @@ VGrammar 中的组合图元（Glyph）是通过任意基础图元组合得到的
 VGrammar 提供了两种箱形图元以支持箱形图可视化：
 
 - boxplot: 普通箱形图元，glyphType 为 `'boxplot'`。在使用普通箱形图元之前，需要执行 `registerBoxplotGlyph()` 对图元进行注册。示例：
-  ![普通箱形图元](https://s1.ax1x.com/2023/06/19/pC33RJg.png)
+
+<div class="examples-ref-container" id="examples-ref-boxplot" data-path="glyph-mark-boxplot/boxplot">
+</div>
 
 - barBoxplot: 变种箱形图元，glyphType 为 `'barBoxplot'`。在使用变种箱形图元之前，需要执行 `registerBarBoxplotGlyph()` 对图元进行注册。示例：
-  ![变种箱形图元](https://s1.ax1x.com/2023/06/19/pC33fzj.png)
+
+<div class="examples-ref-container" id="examples-ref-bar-boxplot" data-path="glyph-mark-boxplot/bar-boxplot">
+</div>
 
 ## 涟漪点图元 (RipplePoint)
 
@@ -34,13 +38,18 @@ VGrammar 提供了两种箱形图元以支持箱形图可视化：
 在使用涟漪点图元之前，需要执行 `registerRippleGlyph()` 对图元进行注册。示例：
 ![涟漪点图元](TODO)
 
+<div class="examples-ref-container" id="examples-ref-ripple" data-path="glyph-mark-ripple/ripple">
+</div>
+
 ## 波浪图元 (Wave)
 
 波浪图元是一种模拟波动的图元，用于表现数据随时间的波动情况。在股票交易、天气预报等领域，波浪图元可以展示数据的波动趋势、周期性变化等。使用场景包括展示股票价格、气温/降水量的波动。
 
 波浪图元 glyphType 为 `'wave'`。
 在使用波浪图元之前，需要执行 `registerWaveGlyph()` 对图元进行注册。示例：
-![波浪图元](TODO)
+
+<div class="examples-ref-container" id="examples-ref-wave" data-path="glyph-mark-wave/wave">
+</div>
 
 ## 连线图元 (LinkPath)
 
@@ -48,9 +57,16 @@ VGrammar 提供了两种箱形图元以支持箱形图可视化：
 
 连线图元 glyphType 为 `'linkPath'`。
 在使用连线图元之前，需要执行 `registerLinkPathGlyph()` 对图元进行注册。示例：
-![连线图元](https://s1.ax1x.com/2023/06/19/pC33LYF.png)
+
+<div class="examples-ref-container" id="examples-ref-link-path" data-path="glyph-mark-link-path/link-path">
+</div>
 
 ## 树线图元(TreePath)
+
+TreePath 和 LinkPath 的含义差不多，用于展示没有宽度的连线
+
+<div class="examples-ref-container" id="examples-ref-tree-path" data-path="hierarchy/tree">
+</div>
 
 ## 自定义组合图元
 
@@ -101,4 +117,6 @@ registerGlyph('candle', {
 除此之外，开发者还可以通过 `registerAnimationType` 接口注册额外的动画类型以搭配 glyph 图元使用。
 
 K 线图示例：
-![K 线图](TODO)
+
+<div class="examples-ref-container" id="examples-ref-candle" data-path="glyph-mark-custom/candle">
+</div>

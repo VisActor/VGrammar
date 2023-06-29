@@ -258,7 +258,7 @@ export class Projection extends GrammarBase implements IProjection {
 
 接下来只需要调用注册方法对自定义的语法元素进行注册:
 
-```javascript
+```js
 import { registerGrammar } from '@visactor/vgrammar';
 
 registerGrammar('projection', Projection, 'projections');
@@ -274,7 +274,7 @@ registerGrammar('projection', Projection, 'projections');
 
 在 Spec 模式下，可以通过注册语法元素时候，申明的`specKey`进行设置
 
-```javascript
+```js
 vGrammarView.parseSpec({
   projections: [
     {
@@ -287,7 +287,7 @@ vGrammarView.parseSpec({
 
 在 API 模式下，可以通过`customized()` API 创建自定义的语法元素
 
-```javascript
+```js
 vGrammarView
   .customized('projection', {
     size: [10, 10]

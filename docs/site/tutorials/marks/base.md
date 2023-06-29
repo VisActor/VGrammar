@@ -48,21 +48,24 @@ VGrammar 中的图元包含多种类别：
 
 自定义图形示例：
 
+<div class="examples-ref-container" id="examples-ref-customized-shape" data-path="basic-mark-rect/customized-shape">
+</div>
+
+关键配置如下：
+
 ```js
 {
   type: 'rect',
-  setCustomizedShape: (data: any[], attrs: any, path: ICustomPath2D) => {
-    path.moveTo(0, attrs.height / 2);
-    path.quadraticCurveTo(0.67 * attrs.width, 0.55 * attrs.height, attrs.width, attrs.height);
-    path.lineTo(attrs.width, 0);
-    path.quadraticCurveTo(0.67 * attrs.width, 0.45 * attrs.height, 0, attrs.height / 2);
+  setCustomizedShape: (data, attrs, path) => {
+    path.moveTo(attrs.width / 2, 0);
+    path.quadraticCurveTo(0.55 * attrs.width, 0.67 * attrs.height, attrs.width, attrs.height);
+    path.lineTo(0, attrs.height);
+    path.quadraticCurveTo(0.45 * attrs.width, 0.67 * attrs.height, attrs.width / 2, 0);
     path.closePath();
     return path;
   }
 }
 ```
-
-![自定义图形](TODO)
 
 ## 性能
 
@@ -80,7 +83,8 @@ VGrammar 中的图元包含多种类别：
 }
 ```
 
-![渐进式渲染](TODO)
+<div class="examples-ref-container" id="examples-ref-progressive-rect" data-path="performance/progressive-rect">
+</div>
 
 ### 大数据量图形简化
 

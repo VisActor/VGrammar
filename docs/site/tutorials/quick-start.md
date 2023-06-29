@@ -52,146 +52,15 @@ const view = new View({
 
 开发者可以声明可视化场景的 specification，并通过可视化实例执行解析以及渲染：
 
-```js
-const spec = {
-  data: [
-    {
-      id: 'data',
-      values: [
-        { type: 'A', value: 22 },
-        { type: 'B', value: 45 },
-        { type: 'C', value: 77 },
-        { type: 'D', value: 31 }
-      ]
-    }
-  ],
-
-  scales: [
-    {
-      id: 'xscale',
-      type: 'band',
-      domain: { data: 'data', field: 'type' },
-      range: [0, 200],
-      padding: 0.05,
-      round: true
-    },
-    {
-      id: 'yscale',
-      type: 'linear',
-      domain: [0, 100],
-      range: [200, 0],
-      nice: true
-    }
-  ],
-
-  marks: [
-    {
-      type: 'component',
-      componentType: 'axis',
-      scale: 'xscale',
-      encode: {
-        update: {
-          x: 50,
-          y: 210,
-          start: { x: 0, y: 0 },
-          end: { x: 200, y: 0 }
-        }
-      }
-    },
-    {
-      type: 'component',
-      componentType: 'axis',
-      scale: 'yscale',
-      encode: {
-        update: {
-          x: 50,
-          y: 210,
-          start: { x: 0, y: 0 },
-          end: { x: 0, y: -200 },
-          verticalFactor: -1
-        }
-      }
-    },
-    {
-      type: 'group',
-      encode: {
-        enter: {
-          x: 50,
-          y: 10
-        }
-      },
-      marks: [
-        {
-          type: 'rect',
-          from: { data: 'data' },
-          encode: {
-            update: {
-              x: { scale: 'xscale', field: 'type' },
-              width: { scale: 'xscale', band: 1 },
-              y: { scale: 'yscale', field: 'value' },
-              y1: 200,
-              fill: '#1890ff'
-            }
-          }
-        }
-      ]
-    }
-  ]
-};
-view.parseSpec(spec);
-view.runAsync();
-```
+<div class="examples-ref-container" id="examples-ref-rect" data-path="basic-mark-rect/basic-rect">
+</div>
 
 ## 通过 API 形式创建
 
 开发者可以通过 api 接口创建可视化场景中的所有语法元素，并使用可视化实例执行渲染：
 
-```js
-const data = view.data([
-  { type: 'A', value: 22 },
-  { type: 'B', value: 45 },
-  { type: 'C', value: 77 },
-  { type: 'D', value: 31 }
-]);
-const xScale = view
-  .scale('band')
-  .domain({ data, field: 'type' })
-  .range([0, 200])
-  .configure({ padding: 0.05, round: true });
-const yScale = view.scale('linear').domain([0, 100]).range([200, 0]).configure({ nice: true });
-const xAxis = view
-  .axis(view.rootMark)
-  .scale(xScale)
-  .encode({
-    x: 50,
-    y: 210,
-    start: { x: 0, y: 0 },
-    end: { x: 200, y: 0 }
-  });
-const yAxis = view
-  .axis(view.rootMark)
-  .scale(yScale)
-  .encode({
-    x: 50,
-    y: 210,
-    start: { x: 0, y: 0 },
-    end: { x: 0, y: -200 },
-    verticalFactor: -1
-  });
-const group = view.group(view.rootMark).encode({ x: 50, y: 10 });
-const bar = view
-  .mark('rect', group)
-  .join(data)
-  .encode({
-    x: { scale: xScale, field: 'type' },
-    width: { scale: xScale, band: 1 },
-    y: { scale: yScale, field: 'value' },
-    y1: 200,
-    fill: '#1890ff'
-  });
-
-view.runAsync();
-```
+<div class="examples-ref-container" id="examples-ref-rect-api" data-path="basic-mark-rect/api-rect">
+</div>
 
 ## 销毁可视化实例
 

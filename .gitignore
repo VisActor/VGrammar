@@ -114,3 +114,4 @@ common/scripts/pre-commit
 # docs
 
 docs/site/examples/**.js
+docs/site/tutorials/**.js

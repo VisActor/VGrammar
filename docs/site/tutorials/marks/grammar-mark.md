@@ -11,11 +11,15 @@ VGrammar 中的语义图元描述了某一类特定的数据语义。
 区间图元类型声明为 `'interval'`。
 
 区间图元渲染示例：
-![区间图元](https://s1.ax1x.com/2023/06/19/pC33Arq.png)
+
+<div class="examples-ref-container" id="examples-ref-interval" data-path="mark-interval/polar-interval">
+</div>
 
 ## 单元图元 (Cell)
 
 单元图元通常用于表示数据集某一个单位范围内的数值比例，可以用于创建热力图等可视化效果。单元图元类型声明为 `'cell'`。
 
 单元图元渲染示例：
-![单元图元](https://s1.ax1x.com/2023/06/19/pC332FS.png)
+
+<div class="examples-ref-container" id="examples-ref-cell" data-path="mark-cell/calender-cell">
+</div>

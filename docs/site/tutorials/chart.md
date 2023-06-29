@@ -35,7 +35,8 @@ Circle-packing 图是一种通过嵌套放置同心圆的方式呈现多层次�
 }
 ```
 
-![circle-packing](https://s1.ax1x.com/2023/06/19/pC33uiF.png)
+<div class="examples-ref-container" id="examples-ref-circlepacking" data-path="hierarchy/circlepacking">
+</div>
 
 ### 旭日图
 
@@ -65,7 +66,8 @@ Circle-packing 图是一种通过嵌套放置同心圆的方式呈现多层次�
 }
 ```
 
-![sunburst](https://s1.ax1x.com/2023/06/19/pC33YdK.png)
+<div class="examples-ref-container" id="examples-ref-sunburst" data-path="hierarchy/sunburst">
+</div>
 
 ### 树图
 
@@ -87,6 +89,9 @@ Circle-packing 图是一种通过嵌套放置同心圆的方式呈现多层次�
 }
 ```
 
+<div class="examples-ref-container" id="examples-ref-tree" data-path="hierarchy/tree">
+</div>
+
 ### 矩形树图
 
 矩形树图（Treemap）是一种将层级数据分隔成嵌套矩形的图表。矩形的面积表示节点的权重或者其他相对重要度数值，嵌套关系表示层级结构。矩形树图适用于展示节点间相对权重的层级关系，例如磁盘空间占用情况、销售数据等。
@@ -97,9 +102,8 @@ Circle-packing 图是一种通过嵌套放置同心圆的方式呈现多层次�
 
 一个简单的 transform 使用示例为：
 
-```js
-
-```
+<div class="examples-ref-container" id="examples-ref-treemap" data-path="hierarchy/treemap">
+</div>
 
 ## 桑基图
 
@@ -117,7 +121,7 @@ npm add --save @visactor/vgrammar-sankey
 
 使用的时候，需要先调用`registerSankeyTransforms` 注册 sankey 布局算法对应的 transform； 同时 VGrammar 主包提供了组合图元`linkPath`用于展示桑基图中的连边；
 
-```javascript
+```js
 import { registerSankeyTransforms } from '@visactor/vgrammar-sankey';
 import { registerLinkPathGlyph } from '@visactor/vgrammar';
 
@@ -130,7 +134,7 @@ registerLinkPathGlyph();
 `sankey` transform 对传入的数据计算布局，返回结果为：`[{ nodes, links }]`；
 我们可以通过`map` transform 获取自己想要的数据，或者进行格式化等逻辑；
 
-```javascript
+```js
 {
   data: [
     {
@@ -183,7 +187,7 @@ registerLinkPathGlyph();
 
 示例：
 
-```javascript
+```js
 {
   marks: [
     {
@@ -243,6 +247,11 @@ registerLinkPathGlyph();
 }
 ```
 
+### sankey 示例
+
+<div class="examples-ref-container" id="examples-ref-sankey" data-path="sankey/basic-sankey">
+</div>
+
 ## 词云
 
 词云（Wordcloud）是一种将文字数据呈现为词汇组成的云形图像的图表。每个词汇的大小表示其权重或其他数值，视觉上呈现出数据中关键词的重要性差异。词云适用于展示关键词的权重差异，例如文本内容关键词分析、搜索热点关键词等。
@@ -259,7 +268,7 @@ npm add --save @visactor/vgrammar-wordcloud
 
 使用的时候，需要先调用`registerWordCloudTransforms` 注册 wordcloud 布局算法对应的 transform；
 
-```javascript
+```js
 import { registerWordCloudTransforms } from '@visactor/vgrammar-wordcloud';
 
 registerWordCloudTransforms();
@@ -270,7 +279,7 @@ registerWordCloudTransforms();
 `wordcloud` transform 对传入的数据计算布局；
 我们可以通过`map` transform 获取自己想要的数据，或者进行格式化等逻辑；
 
-```javascript
+```js
 {
   data: [
     {
@@ -303,7 +312,7 @@ registerWordCloudTransforms();
 
 示例：
 
-```javascript
+```js
 {
   marks: [
     {
@@ -341,7 +350,7 @@ registerWordCloudTransforms();
 - progressiveStep number 类型，按照词的个数渐进渲染，也就是每帧处理的词的个数
 - progressiveTime number 类型，单位是`ms`，也就是当布局耗时超过这个时长的时候，停止计算，等待下一帧再继续计算
 
-```javascript
+```js
 {
   marks: [
     {
@@ -385,6 +394,11 @@ registerWordCloudTransforms();
 }
 ```
 
+### 词云图示例
+
+<div class="examples-ref-container" id="examples-ref-wordcloud" data-path="wordcloud/basic-wordcloud">
+</div>
+
 ## 形状词云
 
 形状词云（WordcloudShape）是一种基于词云将文字数据呈现在特定形状的图表。与词云相同，每个词汇的大小表示其权重或其他数值，同时形状词云还具较强的视觉美感。形状词云适用于展示关键词的权重差异，同时具有较高的视觉冲击力，例如品牌宣传、商业推广等。
@@ -401,7 +415,7 @@ npm add --save @visactor/vgrammar-wordcloud-shape
 
 使用的时候，需要先调用`registerWordCloudShapeTransforms` 注册 wordcloud 布局算法对应的 transform；
 
-```javascript
+```js
 import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-shape';
 
 registerWordCloudShapeTransforms();
@@ -412,7 +426,7 @@ registerWordCloudShapeTransforms();
 `wordcloud-shape` transform 对传入的数据计算布局；返回两种类型的词，一种是填充词，另一种是轮廓词；
 我们可以通过`map` transform 获取自己想要的数据，或者进行格式化等逻辑；
 
-```javascript
+```js
 {
   data: [
     {
@@ -472,7 +486,7 @@ registerWordCloudShapeTransforms();
 
 示例：
 
-```javascript
+```js
 {
   marks: [
     {
@@ -504,3 +518,8 @@ registerWordCloudShapeTransforms();
   ];
 }
 ```
+
+### 形状词云图示例
+
+<div class="examples-ref-container" id="examples-ref-wordcloud-shape" data-path="wordcloud-shape/basic-wordcloud-shape">
+</div>
