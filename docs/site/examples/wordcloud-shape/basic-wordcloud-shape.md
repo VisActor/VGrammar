@@ -3,7 +3,8 @@ category: examples
 group: wordcloud-shape
 title: 形状词云图
 order: 100-0
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-wordcloud-shape-basic-wordcloud-shape.png
 ---
 
 # 形状词云图

@@ -3,7 +3,8 @@ category: examples
 group: glyph-mark
 title: 涟漪点折线图
 order: 30-4
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-glyph-mark-ripple.png
 ---
 
 # 涟漪点折线图

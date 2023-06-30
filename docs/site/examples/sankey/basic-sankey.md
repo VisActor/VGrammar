@@ -3,7 +3,8 @@ category: examples
 group: sankey
 title: sankey图
 order: 80-0
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-sankey-basic-sankey.png
 ---
 
 # sankey 图

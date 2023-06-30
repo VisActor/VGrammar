@@ -3,7 +3,8 @@ category: examples
 group: basic-mark-line
 title: log轴线图
 order: 1-2
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-line-log-line.png
 ---
 
 # log 轴线图

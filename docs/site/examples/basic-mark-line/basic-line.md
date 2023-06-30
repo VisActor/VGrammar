@@ -3,7 +3,8 @@ category: examples
 group: basic-mark-line
 title: 基础线图
 order: 1-0
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-line-basic-line.png
 ---
 
 # 基础线图

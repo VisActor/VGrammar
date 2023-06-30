@@ -3,7 +3,8 @@ category: examples
 group: mark-interval
 title: 极坐标柱图
 order: 21-2
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-mark-interval-polar-interval.png
 ---
 
 # 极坐标柱图

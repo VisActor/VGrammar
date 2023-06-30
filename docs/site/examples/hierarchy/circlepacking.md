@@ -3,7 +3,8 @@ category: examples
 group: hierarchy-circlePacking
 title: circlePacking图
 order: 70-0
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-hierarchy-circlepacking.png
 ---
 
 # circlePacking 图

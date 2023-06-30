@@ -3,7 +3,8 @@ category: examples
 group: basic-mark-area
 title: 基础面积图
 order: 2-0
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-area-basic-area.png
 ---
 
 # 基础面积图

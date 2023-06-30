@@ -3,7 +3,8 @@ category: examples
 group: glyph-mark
 title: 箱线图
 order: 30-0
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-glyph-mark-boxplot.png
 ---
 
 # 箱线图

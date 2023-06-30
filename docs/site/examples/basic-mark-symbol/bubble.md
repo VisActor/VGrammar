@@ -3,7 +3,8 @@ category: examples
 group: basic-mark-symbol
 title: 气泡图
 order: 3-1
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-symbol-bubble.png
 ---
 
 # 气泡图

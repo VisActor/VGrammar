@@ -3,7 +3,8 @@ category: examples
 group: 3d-mark
 title: rect3d 图元
 order: 40-0
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-3d-mark-rect3d.png
 ---
 
 # rect3d 图元
@@ -134,7 +135,7 @@ const spec = {
       mode: '3d',
       componentType: 'axis',
       scale: 'xscale',
-      tickCount: -1,
+      // tickCount: -1,
       dependency: ['viewBox'],
       encode: {
         update: (scale, elment, params) => {

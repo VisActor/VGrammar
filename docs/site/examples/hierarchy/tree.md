@@ -3,7 +3,8 @@ category: examples
 group: hierarchy
 title: tree图
 order: 70-2
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-hierarchy-tree.png
 ---
 
 # tree 图

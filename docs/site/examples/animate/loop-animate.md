@@ -3,7 +3,8 @@ category: examples
 group: animate
 title: 循环动画
 order: 60-1
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-animate-loop-animate.png
 ---
 
 # 循环动画

@@ -3,7 +3,8 @@ category: examples
 group: component
 title: 柱图标签
 order: 50-4
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-component-label.png
 ---
 
 # 柱图标签

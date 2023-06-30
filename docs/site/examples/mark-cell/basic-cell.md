@@ -3,7 +3,8 @@ category: examples
 group: mark-cell
 title: 色块图
 order: 20-0
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-mark-cell-basic-cell.png
 ---
 
 # 色块图

@@ -3,7 +3,8 @@ category: examples
 group: basic-mark-rule
 title: rule基础使用
 order: 4-0
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-rule-basic-rule.png
 ---
 
 # rule 基础使用

@@ -3,7 +3,8 @@ category: examples
 group: basic-mark-rect
 title: 区间柱图
 order: 0-1
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-rect-range-rect.png
 ---
 
 # 区间柱图

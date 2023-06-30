@@ -3,7 +3,8 @@ category: examples
 group: animate
 title: 自定义动画
 order: 60-3
-cover:
+
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-animate-custom-animate.png
 ---
 
 # 自定义动画
