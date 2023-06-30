@@ -1,6 +1,19 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Wed, 28 Jun 2023 03:31:17 GMT and should not be manually modified.
+This log was last generated on Fri, 30 Jun 2023 09:22:01 GMT and should not be manually modified.
+
+## 0.3.1
+Fri, 30 Jun 2023 09:22:01 GMT
+
+### Patches
+
+- fix: remove deprecated options of view
+
+
+- fix: remove unneed transform of interval
+
+
+- fix: the component should read the new spec not old spec
 
 ## 0.3.0
 Wed, 28 Jun 2023 03:31:17 GMT

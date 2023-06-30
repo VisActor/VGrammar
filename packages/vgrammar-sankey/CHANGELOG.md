@@ -1,6 +1,11 @@
 # Change Log - @visactor/vgrammar-sankey
 
-This log was last generated on Wed, 28 Jun 2023 03:31:17 GMT and should not be manually modified.
+This log was last generated on Fri, 30 Jun 2023 09:22:01 GMT and should not be manually modified.
+
+## 0.3.1
+Fri, 30 Jun 2023 09:22:01 GMT
+
+_Version update only_
 
 ## 0.3.0
 Wed, 28 Jun 2023 03:31:17 GMT

@@ -78,9 +78,9 @@ export class Label extends Component implements ILabel {
 
   protected parseAddition(spec: LabelSpec) {
     super.parseAddition(spec);
-    this.labelStyle(this.spec.labelStyle);
-    this.size(this.spec.size);
-    this.target(this.spec.target);
+    this.labelStyle(spec.labelStyle);
+    this.size(spec.size);
+    this.target(spec.target);
     return this;
   }
 

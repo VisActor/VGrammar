@@ -1,6 +1,6 @@
 import type { IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { array, has, isBoolean, isNil, isFunction, isString, isArray, get } from '@visactor/vutils';
+import { array, has, isBoolean, isNil, isFunction, isString, isArray, get, isEmpty } from '@visactor/vutils';
 import { isEqual } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import { BridgeElementKey } from './constants';
@@ -432,6 +432,10 @@ export class Element implements IElement {
   }
 
   protected applyGraphicAttributes(graphicAttributes: any) {
+    if (isEmpty(graphicAttributes)) {
+      return;
+    }
+
     if (this.mark.needAnimate()) {
       // If mark need animate, diff attributes.
       const nextGraphicAttributes = this.diffAttributes(graphicAttributes);

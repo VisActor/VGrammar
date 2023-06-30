@@ -96,6 +96,12 @@
       "projectFolder": "docs/dev-demos",
       "tags": ["doc"],
       "shouldPublish": false
+    },
+    {
+      "packageName": "@internal/site",
+      "projectFolder": "docs/site",
+      "tags": ["doc"],
+      "shouldPublish": false
     }
   ]
 }

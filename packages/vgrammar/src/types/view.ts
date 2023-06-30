@@ -66,17 +66,6 @@ export interface IRendererOptions {
   rendererTitle?: string;
   /* 渲染风格 */
   renderStyle?: string;
-  /** vRender是否完整绘制 */
-  fullDraw?: boolean;
-  /** vRender渲染引擎类型，'2d' | '3d' */
-  engine?: string;
-  pickMode?: string;
-  webglOptions?: any;
-  preserveDrawingBuffer?: boolean;
-  /** 是否使用vRender 自定义ticker */
-  customTicker?: boolean;
-  /** renderer类型配置 */
-  renderer?: string;
   /* 是否关闭dirtyBounds */
   disableDirtyBounds?: boolean;
   beforeRender?: (stage: IStage) => void;
@@ -126,12 +115,8 @@ export interface IViewOptions extends IEnvironmentOptions, IRendererOptions, ILa
   /** 是否启用 cursor 设置 */
   cursor?: boolean;
 
-  /** FIXME 函数 */
-  functions?: Record<string, any>;
-
   /** 外部传入的logger方法 */
   logger?: Logger;
-  loader?: any;
   /**
    * 0 - None
    * 1 - Error
