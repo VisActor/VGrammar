@@ -236,6 +236,7 @@ export interface IView {
   restartProgressive: () => boolean;
 
   release: () => void;
+  getImageBuffer: () => Buffer;
 }
 
 export interface IViewConstructor {

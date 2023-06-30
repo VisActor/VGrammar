@@ -954,6 +954,26 @@ export default class View extends EventEmitter implements IView {
     return this;
   }
 
+  /**
+   * 目前仅支持 node 环境，用于 node 端的图片导出
+   * @returns
+   */
+  getImageBuffer() {
+    if (this._options.mode !== 'node') {
+      this.logger.error(new TypeError('getImageBuffer() now only support node environment.'));
+      return;
+    }
+    const stage = this.renderer?.stage?.();
+    if (stage) {
+      stage.render();
+      const buffer = stage.window.getImageBuffer();
+      return buffer;
+    }
+    this.logger.error(new ReferenceError(`render is not defined`));
+
+    return null;
+  }
+
   // --- Mark Tree ---
 
   traverseMarkTree(apply: (mark: IMark) => any, filter?: (mark: IMark) => boolean, leafFirst?: boolean) {
