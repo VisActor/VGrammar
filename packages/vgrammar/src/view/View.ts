@@ -135,7 +135,6 @@ export default class View extends EventEmitter implements IView {
     handler: any;
   }>;
 
-  private _pending?: Promise<any>;
   private _dataflow: Dataflow;
   /** 正在执行的dataflow */
   private _currentDataflow?: Promise<any>;
@@ -740,25 +739,20 @@ export default class View extends EventEmitter implements IView {
     this.reuseCachedGrammars(normalizedMorphConfig);
     const grammarWillDetach = this._cachedGrammars.size() > 0;
     this.detachCachedGrammar();
+    // For most of time, width & height signal won't be modified duration dataflow,
+    //  so resizing before generating vRender graphic items should be faster.
+    const hasResize = this._resizeRenderer();
+    const hasUpdate = this._dataflow.hasCommitted();
+
+    // if no grammar is update and layout is unnecessary, end evaluating
+    if (!grammarWillDetach && !hasUpdate && !this._layoutState && !hasResize) {
+      return this;
+    }
 
     this.clearProgressive();
 
-    // wait for pending datasets to load
-    if (this._pending) {
-      await this._pending;
-    }
-
-    // For most of time, width & height signal won't be modified duration dataflow,
-    //  so resizing before generating vRender graphic items should be faster.
-    this._resizeRenderer();
-
     // evaluate dataflow
-    const hasUpdate = await this._dataflow.evaluate();
-
-    // if no grammar is update and layout is unnecessary, end evaluating
-    if (!grammarWillDetach && !hasUpdate && !this._layoutState) {
-      return this;
-    }
+    await this._dataflow.evaluate();
 
     if (this._needBuildLayoutTree) {
       this.buildLayoutTree();
@@ -805,17 +799,16 @@ export default class View extends EventEmitter implements IView {
     this.reuseCachedGrammars(normalizedMorphConfig);
     const grammarWillDetach = this._cachedGrammars.size() > 0;
     this.releaseCachedGrammars();
+    const hasResize = this._resizeRenderer();
+    const hasUpdate = this._dataflow.hasCommitted();
 
-    this.clearProgressive();
-
-    this._resizeRenderer();
-
-    // evaluate dataflow
-    const hasUpdate = this._dataflow.evaluateSync();
-
-    if (!grammarWillDetach && !hasUpdate && !this._layoutState) {
+    if (!grammarWillDetach && !hasUpdate && !this._layoutState && !hasResize) {
       return this;
     }
+
+    this.clearProgressive();
+    // evaluate dataflow
+    this._dataflow.evaluateSync();
 
     if (this._needBuildLayoutTree) {
       this.buildLayoutTree();
@@ -1042,7 +1035,10 @@ export default class View extends EventEmitter implements IView {
     if (this.renderer.shouldResize(width, height)) {
       this.renderer.resize(width, height);
       this.emit('resize', {}, { width, height });
+      return true;
     }
+
+    return false;
   }
 
   // --- Event ---
