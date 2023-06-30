@@ -2,6 +2,24 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.3.1",
+      "tag": "@visactor/vgrammar_v0.3.1",
+      "date": "Fri, 30 Jun 2023 09:22:01 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix: remove deprecated options of view\n\n"
+          },
+          {
+            "comment": "fix: remove unneed transform of interval\n\n"
+          },
+          {
+            "comment": "fix: the component should read the new spec not old spec"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.0",
       "tag": "@visactor/vgrammar_v0.3.0",
       "date": "Wed, 28 Jun 2023 03:31:17 GMT",
