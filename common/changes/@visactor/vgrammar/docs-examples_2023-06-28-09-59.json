@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: remove unneed transform of interval\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}

@@ -990,8 +990,8 @@ export default class View extends EventEmitter implements IView {
 
     if (container) {
       const { width: containerWidth, height: containerHeight } = getContainerSize(container!);
-      const width = this._spec.width ?? this._options.width ?? containerWidth;
-      const height = this._spec.height ?? this._options.height ?? containerHeight;
+      const width = this._spec?.width ?? this._options.width ?? containerWidth;
+      const height = this._spec?.height ?? this._options.height ?? containerHeight;
 
       return { width, height };
     }
