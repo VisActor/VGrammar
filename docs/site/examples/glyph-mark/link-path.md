@@ -1,7 +1,8 @@
 ---
 category: examples
-group: glyph-mark-link-path
+group: glyph-mark
 title: 桑基图
+order: 30-6
 cover:
 ---
 

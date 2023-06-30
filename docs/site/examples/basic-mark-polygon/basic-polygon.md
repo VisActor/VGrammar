@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-polygon
 title: 漏斗图
+order: 5-0
 cover:
 ---
 

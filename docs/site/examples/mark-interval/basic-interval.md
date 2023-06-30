@@ -2,6 +2,7 @@
 category: examples
 group: mark-interval
 title: 柱图
+order: 21-0
 cover:
 ---
 

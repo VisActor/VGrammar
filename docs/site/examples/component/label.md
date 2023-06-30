@@ -2,6 +2,7 @@
 category: examples
 group: component
 title: 柱图标签
+order: 50-4
 cover:
 ---
 

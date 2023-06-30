@@ -1,90 +1,72 @@
 ---
 category: examples
-group: glyph-mark-ripple
-title: 涟漪点折线图
+group: glyph-mark
+title: 箱线图
+order: 30-0
 cover:
 ---
 
-# 涟漪点折线图
+# 箱线图
 
 ## 代码演示
 
 ```javascript livedemo template=vgrammar
-VGrammar.registerRippleGlyph();
+VGrammar.registerBoxplotGlyph();
 
 const spec = {
   padding: { top: 30, right: 40, bottom: 30, left: 40 },
-  signals: [
-    {
-      id: 'test',
-      value: 'testValue'
-    }
-  ],
 
   data: [
     {
       id: 'table',
       values: [
         {
-          time: '2:00',
-          value: 8
+          test: 'test0',
+          value1: 1600,
+          value2: 1200,
+          value3: 800,
+          value4: 700,
+          value5: 500
         },
         {
-          time: '4:00',
-          value: 9
+          test: 'test1',
+          value1: 1900,
+          value2: 1000,
+          value3: 400,
+          value4: 300,
+          value5: 100
         },
         {
-          time: '6:00',
-          value: 11
+          test: 'test2',
+          value1: 1300,
+          value2: 1200,
+          value3: 200,
+          value4: -100,
+          value5: -500
         },
         {
-          time: '8:00',
-          value: 14
+          test: 'test3',
+          value1: 1400,
+          value2: 1000,
+          value3: 900,
+          value4: 800,
+          value5: 500
         },
         {
-          time: '10:00',
-          value: 16
+          test: 'test4',
+          value1: 1200,
+          value2: 500,
+          value3: 400,
+          value4: -100,
+          value5: -400
         },
         {
-          time: '12:00',
-          value: 17
-        },
-        {
-          time: '14:00',
-          value: 17
-        },
-        {
-          time: '16:00',
-          value: 16
-        },
-        {
-          time: '18:00',
-          value: 15
-        }
-      ]
-    },
-    {
-      id: 'normalData',
-      source: 'table',
-      transform: [
-        {
-          type: 'filter',
-          callback: (datum, params) => {
-            return datum.time !== '16:00';
-          },
-          dependency: ['test']
-        }
-      ]
-    },
-    {
-      id: 'highlightData',
-      source: 'table',
-      transform: [
-        {
-          type: 'filter',
-          callback: (datum, params) => {
-            return datum.time === '16:00';
-          }
+          test: 'test5',
+          value1: 1400,
+          value2: 1000,
+          value3: 900,
+          value4: 700,
+          value5: 300
         }
       ]
     }
@@ -94,7 +76,7 @@ const spec = {
     {
       id: 'xScale',
       type: 'point',
-      domain: { data: 'table', field: 'time' },
+      domain: { data: 'table', field: 'test' },
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [params.viewBox.x1, params.viewBox.x2];
@@ -105,12 +87,29 @@ const spec = {
     {
       id: 'yScale',
       type: 'linear',
-      domain: { data: 'table', field: 'value' },
+      domain: { data: 'table', field: ['value1', 'value2', 'value3', 'value4', 'value5'] },
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [params.viewBox.y2, params.viewBox.y1];
       },
       zero: true
+    },
+    {
+      id: 'colorScale',
+      type: 'ordinal',
+      domain: { data: 'table', field: 'test' },
+      range: [
+        '#6690F2',
+        '#70D6A3',
+        '#B4E6E2',
+        '#63B5FC',
+        '#FF8F62',
+        '#FFDC83',
+        '#BCC5FD',
+        '#A29BFE',
+        '#63C4C7',
+        '#F68484'
+      ]
     }
   ],
 
@@ -166,49 +165,36 @@ const spec = {
       dependency: ['viewBox']
     },
     {
-      type: 'line',
-      from: { data: 'table' },
-      encode: {
-        update: {
-          x: { scale: 'xScale', field: 'time' },
-          y: { scale: 'yScale', field: 'value' },
-          stroke: '#6690F2',
-          lineWidth: 2
-        }
-      }
-    },
-    {
-      type: 'symbol',
-      from: { data: 'normalData' },
-      encode: {
-        update: {
-          x: { scale: 'xScale', field: 'time' },
-          y: { scale: 'yScale', field: 'value' },
-          size: 30,
-          fill: '#6690F2'
-        }
-      }
-    },
-    {
       type: 'glyph',
-      glyphType: 'ripplePoint',
-      from: { data: 'highlightData' },
+      from: { data: 'table' },
+      glyphType: 'boxplot',
       encode: {
         update: {
-          x: { scale: 'xScale', field: 'time' },
-          y: { scale: 'yScale', field: 'value' },
-          size: 30,
-          fill: '#6690F2',
-          ripple: 0
+          x: { scale: 'xScale', field: 'test' },
+          max: { scale: 'yScale', field: 'value1' },
+          q3: { scale: 'yScale', field: 'value2' },
+          median: { scale: 'yScale', field: 'value3' },
+          q1: { scale: 'yScale', field: 'value4' },
+          min: { scale: 'yScale', field: 'value5' },
+
+          boxWidth: 60,
+          ruleWidth: 40,
+
+          stroke: 'black',
+          fill: { scale: 'colorScale', field: 'test' },
+          opacity: 1
+        },
+        hover: {
+          opacity: 0.7
         }
       },
       animation: {
         enter: {
-          channel: {
-            ripple: { from: 0, to: 1 }
-          },
-          easing: 'linear',
-          loop: true
+          type: 'boxplotScaleIn',
+          duration: 1000
+        },
+        state: {
+          duration: 500
         }
       }
     }

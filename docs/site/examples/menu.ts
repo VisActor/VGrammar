@@ -42,27 +42,6 @@ export const examplesMenu = [
     ],
   },
   {
-    menu: '基础图元 - symbol',
-    path: 'basic-mark-symbol',
-    children: [
-      {
-        name: 'basic-symbol'
-      },
-      {
-        name: 'bubble'
-      }
-    ],
-  },
-  {
-    menu: '基础图元 - text',
-    path: 'basic-mark-text',
-    children: [
-      {
-        name: 'basic-text'
-      }
-    ],
-  },
-  {
     menu: '基础图元 - area',
     path: 'basic-mark-area',
     children: [
@@ -81,6 +60,19 @@ export const examplesMenu = [
     ]
   },
   {
+    menu: '基础图元 - symbol',
+    path: 'basic-mark-symbol',
+    children: [
+      {
+        name: 'basic-symbol'
+      },
+      {
+        name: 'bubble'
+      }
+    ],
+  },
+  
+  {
     menu: '基础图元 - arc',
     path: 'basic-mark-arc',
     children: [
@@ -95,6 +87,20 @@ export const examplesMenu = [
       }
     ]
   },
+
+  {
+    menu: '基础图元 - rule',
+    path: 'basic-mark-rule',
+    children: [
+      {
+        name: 'basic-rule'
+      },
+      {
+        name: 'rule-symbol'
+      },
+    ]
+  },
+
   {
     menu: '基础图元 - polygon',
     path: 'basic-mark-polygon',
@@ -120,6 +126,15 @@ export const examplesMenu = [
     ]
   },
   {
+    menu: '基础图元 - text',
+    path: 'basic-mark-text',
+    children: [
+      {
+        name: 'basic-text'
+      }
+    ],
+  },
+  {
     menu: '基础图元 - richtext',
     path: 'basic-mark-richtext',
     children: [
@@ -128,18 +143,7 @@ export const examplesMenu = [
       },
     ]
   },
-  {
-    menu: '基础图元 - rule',
-    path: 'basic-mark-rule',
-    children: [
-      {
-        name: 'basic-rule'
-      },
-      {
-        name: 'rule-symbol'
-      },
-    ]
-  },
+  
   {
     menu: '基础图元 - image',
     path: 'basic-mark-image',
@@ -150,7 +154,7 @@ export const examplesMenu = [
     ]
   },
   {
-    menu: '语法图元 - cell',
+    menu: '语义图元 - cell',
     path: 'mark-cell',
     children: [
       {
@@ -162,7 +166,7 @@ export const examplesMenu = [
     ]
   },
   {
-    menu: '语法图元 - interval',
+    menu: '语义图元 - interval',
     path: 'mark-interval',
     children: [
       {
@@ -180,8 +184,8 @@ export const examplesMenu = [
     ]
   },
   {
-    menu: '组合图元 - boxplot',
-    path: 'glyph-mark-boxplot',
+    menu: '组合图元',
+    path: 'glyph-mark',
     children: [
       {
         name: 'boxplot'
@@ -194,40 +198,16 @@ export const examplesMenu = [
       },
       {
         name: 'bar-boxplot'
-      }
-    ]
-  },
-  {
-    menu: '组合图元 - ripple',
-    path: 'glyph-mark-ripple',
-    children: [
+      },
       {
         name: 'ripple'
-      }
-    ]
-  },
-  {
-    menu: '组合图元 - wave',
-    path: 'glyph-mark-wave',
-    children: [
+      },
       {
         name: 'wave'
-      }
-    ]
-  },
-  {
-    menu: '组合图元 - linkPath',
-    path: 'glyph-mark-link-path',
-    children: [
+      },
       {
         name: 'link-path'
-      }
-    ]
-  },
-  {
-    menu: '组合图元 - custom',
-    path: 'glyph-mark-custom',
-    children: [
+      },
       {
         name: 'candle'
       }
@@ -355,6 +335,9 @@ export const examplesMenu = [
     children: [
       {
         name: 'progressive-rect'
+      },
+      {
+        name: 'progressive-line'
       }
     ]
 

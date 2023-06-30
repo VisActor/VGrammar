@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-area
 title: 百分比面积图
+order: 2-2
 cover:
 ---
 

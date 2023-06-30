@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-rect
 title: 区间柱图
+order: 0-1
 cover:
 ---
 

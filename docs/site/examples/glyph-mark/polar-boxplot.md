@@ -1,7 +1,8 @@
 ---
 category: examples
-group: glyph-mark-boxplot
+group: glyph-mark
 title: 极坐标下的箱线图
+order: 30-2
 cover:
 ---
 

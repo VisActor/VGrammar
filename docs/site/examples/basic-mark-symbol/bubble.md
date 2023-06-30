@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-symbol
 title: 气泡图
+order: 3-1
 cover:
 ---
 

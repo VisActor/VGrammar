@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-area
 title: 纵向面积图
+order: 2-3
 cover:
 ---
 

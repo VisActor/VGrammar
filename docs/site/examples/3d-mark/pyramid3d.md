@@ -2,6 +2,7 @@
 category: examples
 group: 3d-mark
 title: pyramid3d 图元
+order: 40-2
 cover:
 ---
 

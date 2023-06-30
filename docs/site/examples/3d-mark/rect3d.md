@@ -2,6 +2,7 @@
 category: examples
 group: 3d-mark
 title: rect3d 图元
+order: 40-0
 cover:
 ---
 
@@ -174,7 +175,6 @@ const spec = {
           width: { scale: 'xscale', band: 1 },
           y: { scale: 'yscale', field: 'value' },
           y1: (datum, element, params) => {
-            console.log(params.yscale.domain());
             return params.yscale.scale(params.yscale.domain()[0]);
           },
           z: 0,

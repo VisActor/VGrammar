@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-rect
 title: 堆积柱图
+order: 0-3
 cover:
 ---
 
@@ -342,7 +343,6 @@ const spec = {
         {
           key: '总计',
           value: (datum, element, params) => {
-            console.log(datum);
             return datum.sum;
           },
           symbol: (datum, element, params) => {

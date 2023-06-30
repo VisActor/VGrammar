@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-polygon
 title: 转化漏斗图
+order: 5-1
 cover:
 ---
 

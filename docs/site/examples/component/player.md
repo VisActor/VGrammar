@@ -2,6 +2,7 @@
 category: examples
 group: component
 title: 播放器
+order: 50-2
 cover:
 ---
 
@@ -76,7 +77,6 @@ const xAxis = vGrammarView
   .tickCount(-1)
   .depend(['viewBox'])
   .encode((scale, elment, params) => {
-    console.log('xAxis', params.viewBox);
     return {
       x: 0,
       y: params.viewBox.height(),

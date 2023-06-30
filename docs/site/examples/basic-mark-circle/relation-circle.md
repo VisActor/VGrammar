@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-circle
 title: 相关性图表
+order: 6-0
 cover:
 ---
 
@@ -153,8 +154,6 @@ const spec = {
           const angle = angleScale.scale(datum.word) + (domain.indexOf(datum.word) % 2 ? Math.PI : 0);
           const cx = viewBox.x1 + viewBox.width() / 2;
           const cy = viewBox.y1 + viewBox.height() / 2;
-
-          console.log(datum, element);
 
           return {
             x: cx + radius * Math.cos(angle),

@@ -2,6 +2,7 @@
 category: examples
 group: animate
 title: 循环动画
+order: 60-1
 cover:
 ---
 

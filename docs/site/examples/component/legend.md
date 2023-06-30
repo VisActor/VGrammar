@@ -2,6 +2,7 @@
 category: examples
 group: component
 title: legend
+order: 50-0
 cover:
 ---
 

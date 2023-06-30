@@ -2,6 +2,7 @@
 category: examples
 group: mark-interval
 title: 条形图
+order: 21-1
 cover:
 ---
 

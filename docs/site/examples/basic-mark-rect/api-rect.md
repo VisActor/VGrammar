@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-rect
 title: API模式创建柱图
+order: 0-6
 cover:
 ---
 

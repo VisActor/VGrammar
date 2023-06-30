@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-arc
 title: 进度条
+order: 3-1
 cover:
 ---
 

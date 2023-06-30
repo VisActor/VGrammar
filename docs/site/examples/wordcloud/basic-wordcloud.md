@@ -2,6 +2,7 @@
 category: examples
 group: wordcloud
 title: 词云图
+order: 90-0
 cover:
 ---
 

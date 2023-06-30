@@ -2,6 +2,7 @@
 category: examples
 group: wordcloud-shape
 title: 形状词云图
+order: 100-0
 cover:
 ---
 

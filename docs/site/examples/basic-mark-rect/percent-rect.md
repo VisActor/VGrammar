@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-rect
 title: 百分比堆积柱图
+order: 0-4
 cover:
 ---
 

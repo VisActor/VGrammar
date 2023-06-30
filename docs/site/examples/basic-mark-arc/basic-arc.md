@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-arc
 title: 饼图
+order: 3-0
 cover:
 ---
 

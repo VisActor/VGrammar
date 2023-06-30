@@ -1,16 +1,17 @@
 ---
 category: examples
-group: glyph-mark-boxplot
-title: 条状箱线图
+group: glyph-mark
+title: 横向箱线图
+order: 30-1
 cover:
 ---
 
-# 条状箱线图
+# 横向箱线图
 
 ## 代码演示
 
 ```javascript livedemo template=vgrammar
-VGrammar.registerBarBoxplotGlyph();
+VGrammar.registerBoxplotGlyph();
 
 const spec = {
   padding: { top: 30, right: 40, bottom: 30, left: 40 },
@@ -74,24 +75,24 @@ const spec = {
   scales: [
     {
       id: 'xScale',
-      type: 'point',
-      domain: { data: 'table', field: 'test' },
-      dependency: ['viewBox'],
-      range: (scale, params) => {
-        return [params.viewBox.x1, params.viewBox.x2];
-      },
-      padding: 0.5,
-      round: true
-    },
-    {
-      id: 'yScale',
       type: 'linear',
       domain: { data: 'table', field: ['value1', 'value2', 'value3', 'value4', 'value5'] },
       dependency: ['viewBox'],
       range: (scale, params) => {
-        return [params.viewBox.y2, params.viewBox.y1];
+        return [params.viewBox.x1, params.viewBox.x2];
       },
       zero: true
+    },
+    {
+      id: 'yScale',
+      type: 'point',
+      domain: { data: 'table', field: 'test' },
+      dependency: ['viewBox'],
+      range: (scale, params) => {
+        return [params.viewBox.y2, params.viewBox.y1];
+      },
+      padding: 0.5,
+      round: true
     },
     {
       id: 'colorScale',
@@ -116,14 +117,14 @@ const spec = {
     {
       type: 'component',
       componentType: 'crosshair',
-      scale: 'xScale',
+      scale: 'yScale',
       crosshairShape: 'rect',
-      crosshairType: 'x',
+      crosshairType: 'y',
       encode: {
         update: (datum, element, params) => {
           return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
+            start: { x: params.viewBox.x1 },
+            end: { x: params.viewBox.x2 }
           };
         }
       },
@@ -133,7 +134,7 @@ const spec = {
       type: 'component',
       componentType: 'axis',
       scale: 'yScale',
-      tickCount: 5,
+      dependency: ['viewBox'],
       encode: {
         update: (datum, element, params) => {
           return {
@@ -144,13 +145,14 @@ const spec = {
             verticalFactor: -1
           };
         }
-      },
-      dependency: ['viewBox']
+      }
     },
     {
       type: 'component',
       componentType: 'axis',
       scale: 'xScale',
+      tickCount: 5,
+      dependency: ['viewBox'],
       encode: {
         update: (datum, element, params) => {
           return {
@@ -160,29 +162,27 @@ const spec = {
             end: { x: params.viewBox.width(), y: 0 }
           };
         }
-      },
-      dependency: ['viewBox']
+      }
     },
     {
       type: 'glyph',
       from: { data: 'table' },
-      glyphType: 'barBoxplot',
+      glyphType: 'boxplot',
+      glyphConfig: { direction: 'horizontal' },
       encode: {
         update: {
-          x: { scale: 'xScale', field: 'test' },
-          max: { scale: 'yScale', field: 'value1' },
-          q3: { scale: 'yScale', field: 'value2' },
-          median: { scale: 'yScale', field: 'value3' },
-          q1: { scale: 'yScale', field: 'value4' },
-          min: { scale: 'yScale', field: 'value5' },
+          y: { scale: 'yScale', field: 'test' },
+          max: { scale: 'xScale', field: 'value1' },
+          q3: { scale: 'xScale', field: 'value2' },
+          median: { scale: 'xScale', field: 'value3' },
+          q1: { scale: 'xScale', field: 'value4' },
+          min: { scale: 'xScale', field: 'value5' },
 
-          q1q3Width: 60,
-          minMaxWidth: 40,
-          lineWidth: 2,
+          boxHeight: 30,
+          ruleHeight: 20,
 
-          fill: { scale: 'colorScale', field: 'test' },
           stroke: 'black',
-          minMaxFillOpacity: 0.5,
+          fill: { scale: 'colorScale', field: 'test' },
           opacity: 1
         },
         hover: {
@@ -191,7 +191,7 @@ const spec = {
       },
       animation: {
         enter: {
-          type: 'barBoxplotScaleIn',
+          type: 'boxplotScaleIn',
           duration: 1000
         },
         state: {

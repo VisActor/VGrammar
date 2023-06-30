@@ -1,7 +1,8 @@
 ---
 category: examples
-group: glyph-mark-wave
+group: glyph-mark
 title: 水波图
+order: 30-5
 cover:
 ---
 

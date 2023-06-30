@@ -2,6 +2,7 @@
 category: examples
 group: perf
 title: 大数据量柱图
+order: 110-0
 cover:
 ---
 

@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-area
 title: 堆积面积图
+order: 2-1
 cover:
 ---
 

@@ -2,6 +2,7 @@
 category: examples
 group: mark-cell
 title: 日历色块图
+order: 20-1
 cover:
 ---
 
@@ -120,8 +121,6 @@ const spec = {
 
               return res;
             }, {});
-
-            console.log(textMap);
 
             Object.keys(textMap).forEach(key => {
               const dates = textMap[key];
@@ -279,8 +278,6 @@ const spec = {
           dependency: ['xscale', 'yscale'],
           encode: {
             update: (datum, el, params) => {
-              console.log(datum);
-
               return {
                 curveType: 'stepBefore',
                 x: params.xscale.scale(datum.column) + params.xscale.bandwidth(),

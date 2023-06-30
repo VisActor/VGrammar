@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-line
 title: log轴线图
+order: 1-2
 cover:
 ---
 

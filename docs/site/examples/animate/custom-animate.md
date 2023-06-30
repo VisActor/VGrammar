@@ -2,6 +2,7 @@
 category: examples
 group: animate
 title: 自定义动画
+order: 60-3
 cover:
 ---
 

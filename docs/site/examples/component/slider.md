@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-symbol
 title: 基础散点图
+order: 50-1
 cover:
 ---
 

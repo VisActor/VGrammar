@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-area
 title: 基础面积图
+order: 2-0
 cover:
 ---
 

@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-rect
 title: 双向条形图
+order: 0-2
 cover:
 ---
 

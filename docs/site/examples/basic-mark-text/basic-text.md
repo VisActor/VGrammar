@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-text
 title: text 图元基础用法
+order: 7-0
 cover:
 ---
 

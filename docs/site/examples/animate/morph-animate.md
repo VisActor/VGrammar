@@ -2,6 +2,7 @@
 category: examples
 group: animate
 title: morph 动画
+order: 60-2
 cover:
 ---
 

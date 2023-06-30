@@ -2,6 +2,7 @@
 category: examples
 group: hierarchy-sunburst
 title: sunburst图
+order: 70-1
 cover:
 ---
 

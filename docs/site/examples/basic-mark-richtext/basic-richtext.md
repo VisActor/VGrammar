@@ -2,6 +2,7 @@
 category: examples
 group: basic-mark-richtext
 title: richtext基础使用
+order: 8-0
 cover:
 ---
 

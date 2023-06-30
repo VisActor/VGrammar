@@ -1,118 +1,44 @@
 ---
 category: examples
-group: basic-mark-rect
-title: 基础柱图
-order: 0-0
+group: perf
+title: 大数据量线图
+order: 110-1
 cover:
 ---
 
-# 基础柱图
+# 大数据量线图
+
+当数据量比较大的时候，开启渐进渲染，来由线图的绘制性能
 
 ## 代码演示
 
 ```javascript livedemo template=vgrammar
+const data = new Array(10000).fill(0).map((entry, index) => {
+  return {
+    name: `${index}`,
+    value: Math.floor(10000 * Math.random())
+  };
+});
 const spec = {
   padding: { top: 5, right: 5, bottom: 30, left: 60 },
 
   data: [
     {
       id: 'table',
-      values: [
-        {
-          name: 'Apple',
-          value: 214480
-        },
-        {
-          name: 'Google',
-          value: 155506
-        },
-        {
-          name: 'Amazon',
-          value: 100764
-        },
-        {
-          name: 'Microsoft',
-          value: 92715
-        },
-        {
-          name: 'Coca-Cola',
-          value: 66341
-        },
-        {
-          name: 'Samsung',
-          value: 59890
-        },
-        {
-          name: 'Toyota',
-          value: 53404
-        },
-        {
-          name: 'Mercedes-Benz',
-          value: 48601
-        },
-        {
-          name: 'Facebook',
-          value: 45168
-        },
-        {
-          name: "McDonald's",
-          value: 43417
-        },
-        {
-          name: 'Intel',
-          value: 43293
-        },
-        {
-          name: 'IBM',
-          value: 42972
-        },
-        {
-          name: 'BMW',
-          value: 41006
-        },
-        {
-          name: 'Disney',
-          value: 39874
-        },
-        {
-          name: 'Cisco',
-          value: 34575
-        },
-        {
-          name: 'GE',
-          value: 32757
-        },
-        {
-          name: 'Nike',
-          value: 30120
-        },
-        {
-          name: 'Louis Vuitton',
-          value: 28152
-        },
-        {
-          name: 'Oracle',
-          value: 26133
-        },
-        {
-          name: 'Honda',
-          value: 23682
-        }
-      ]
+      values: data
     }
   ],
 
   scales: [
     {
       id: 'xscale',
-      type: 'band',
+      type: 'point',
       domain: { data: 'table', field: 'name' },
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [0, params.viewBox.width()];
       },
-      padding: 0.05,
-      round: true
+      padding: 0.05
     },
     {
       id: 'yscale',
@@ -146,7 +72,7 @@ const spec = {
           type: 'component',
           componentType: 'axis',
           scale: 'xscale',
-          tickCount: -1,
+          // tickCount: -1,
           dependency: ['viewBox'],
           encode: {
             update: (scale, elment, params) => {
@@ -184,40 +110,22 @@ const spec = {
           crosshairType: 'x'
         },
         {
-          type: 'rect',
-          id: 'rect',
+          type: 'line',
+          id: 'line',
           from: { data: 'table' },
           dependency: ['yscale'],
+          progressiveStep: 200,
+          progressiveThreshold: 3000,
           encode: {
             update: {
-              x: { scale: 'xscale', field: 'name', band: 0.25 },
-              width: { scale: 'xscale', band: 0.5 },
+              x: { scale: 'xscale', field: 'name' },
               y: { scale: 'yscale', field: 'value' },
-              y1: (datum, element, params) => {
-                return params.yscale.scale(params.yscale.domain()[0]);
-              },
-              fill: '#6690F2'
-            },
-            hover: {
-              fill: 'red'
+              stroke: '#6690F2'
             }
+            // hover: {
+            //   stroke: 'red'
+            // }
           }
-        },
-        {
-          type: 'component',
-          componentType: 'tooltip',
-          target: 'rect',
-          title: { visible: false, value: 'value' },
-          content: [
-            {
-              key: { field: 'name' },
-              value: { field: 'value' },
-              symbol: {
-                symbolType: 'circle',
-                fill: '#6690F2'
-              }
-            }
-          ]
         }
       ]
     }

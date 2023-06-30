@@ -2,6 +2,7 @@
 category: examples
 group: sankey
 title: sankey图
+order: 80-0
 cover:
 ---
 

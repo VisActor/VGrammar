@@ -2,6 +2,7 @@
 category: examples
 group: component
 title: 大数据量线图
+order: 50-3
 cover:
 ---
 

@@ -2,6 +2,7 @@
 category: examples
 group: mark-cell
 title: 色块图
+order: 20-0
 cover:
 ---
 
@@ -9178,7 +9179,7 @@ const spec = {
             update: (scale, elment, params) => {
               return {
                 x: params.viewBox.x1,
-                y: params.viewBox.y2,
+                y: params.viewBox.y1,
                 start: { x: 0, y: 0 },
                 end: { x: params.viewBox.width(), y: 0 },
                 verticalFactor: -1

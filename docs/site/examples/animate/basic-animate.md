@@ -2,6 +2,7 @@
 category: examples
 group: animate
 title: 基础动画
+order: 60-0
 cover:
 ---
 
