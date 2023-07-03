@@ -3,7 +3,7 @@ category: examples
 group: perf
 title: 大数据量线图
 order: 110-1
-cover:
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-performance-progressive-line.gif
 ---
 
 # 大数据量线图

@@ -3,7 +3,6 @@ category: examples
 group: mark-cell
 title: 日历色块图
 order: 20-1
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-mark-cell-calender-cell.png
 ---
 

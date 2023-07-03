@@ -3,7 +3,6 @@ category: examples
 group: basic-mark-rect
 title: 堆积柱图
 order: 0-3
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-rect-stack-rect.png
 ---
 

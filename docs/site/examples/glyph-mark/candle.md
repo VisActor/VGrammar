@@ -3,7 +3,6 @@ category: examples
 group: glyph-mark
 title: K线图
 order: 30-7
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-glyph-mark-candle.png
 ---
 

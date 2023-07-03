@@ -3,7 +3,6 @@ category: examples
 group: basic-mark-rect
 title: 双向条形图
 order: 0-2
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-rect-bi-direction-rect.png
 ---
 

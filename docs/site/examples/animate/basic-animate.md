@@ -3,8 +3,7 @@ category: examples
 group: animate
 title: 基础动画
 order: 60-0
-
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-animate-basic-animate.png
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-animate-basic-animate.gif
 ---
 
 # 基础动画

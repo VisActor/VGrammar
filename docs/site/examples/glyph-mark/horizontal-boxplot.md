@@ -3,7 +3,6 @@ category: examples
 group: glyph-mark
 title: 横向箱线图
 order: 30-1
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-glyph-mark-horizontal-boxplot.png
 ---
 

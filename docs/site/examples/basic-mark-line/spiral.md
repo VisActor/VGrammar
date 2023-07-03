@@ -3,7 +3,6 @@ category: examples
 group: basic-mark-line
 title: 阿基米德螺线
 order: 1-3
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-line-spiral.png
 ---
 

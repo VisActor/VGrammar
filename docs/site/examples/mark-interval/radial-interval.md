@@ -3,7 +3,6 @@ category: examples
 group: mark-interval
 title: 极坐标条形图
 order: 21-3
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-mark-interval-radial-interval.png
 ---
 

@@ -1,10 +1,8 @@
 ---
-
 category: examples
 group: basic-mark-arc
 title: 玉玦图
 order: 3-2
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-arc-radial-arc.png
 ---
 

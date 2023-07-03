@@ -3,7 +3,7 @@ category: examples
 group: perf
 title: 大数据量柱图
 order: 110-0
-cover:
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-performance-progressive-rect.gif
 ---
 
 # 大数据量柱图

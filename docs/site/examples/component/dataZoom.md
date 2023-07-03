@@ -3,7 +3,6 @@ category: examples
 group: component
 title: 大数据量线图
 order: 50-3
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-component-dataZoom.png
 ---
 

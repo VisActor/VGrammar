@@ -3,7 +3,6 @@ category: examples
 group: glyph-mark
 title: 条状箱线图
 order: 30-3
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-glyph-mark-bar-boxplot.png
 ---
 

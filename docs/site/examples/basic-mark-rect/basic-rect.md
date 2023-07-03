@@ -3,7 +3,6 @@ category: examples
 group: basic-mark-rect
 title: 基础柱图
 order: 0-0
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-rect-basic-rect.png
 ---
 

@@ -3,7 +3,6 @@ category: examples
 group: glyph-mark
 title: 桑基图
 order: 30-6
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-glyph-mark-link-path.png
 ---
 

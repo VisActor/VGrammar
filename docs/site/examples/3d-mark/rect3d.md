@@ -3,7 +3,6 @@ category: examples
 group: 3d-mark
 title: rect3d 图元
 order: 40-0
-
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-3d-mark-rect3d.png
 ---
 
