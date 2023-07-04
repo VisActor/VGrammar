@@ -1,9 +1,8 @@
 ---
 category: examples
 group: basic-mark-arc
-title: 环图
-order: 3-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png
+title: 饼图
+cover:
 ---
 
 # 饼图
@@ -12,8 +11,6 @@ cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-ar
 
 ```javascript livedemo template=vgrammar
 const spec = {
-  padding: { top: 5, right: 5, bottom: 30, left: 60 },
-
   data: [
     {
       id: 'table',
@@ -37,28 +34,20 @@ const spec = {
       ]
     },
     {
-      id: 'stack',
+      id: 'pie',
       source: 'table',
       transform: [
         {
-          type: 'stack',
-          dimensionField: 'none',
-          stackField: 'value',
-          asStack: 'value1',
-          asPrevStack: 'value0',
-          asPercentStack: 'percent1',
-          asPrevPercentStack: 'percent0'
+          type: 'pie',
+          field: 'value',
+          asStartAngle: 'startAngle',
+          asEndAngle: 'endAngle'
         }
       ]
     }
   ],
 
   scales: [
-    {
-      id: 'angleScale',
-      type: 'linear',
-      range: [-Math.PI, 0]
-    },
     {
       id: 'colorScale',
       type: 'ordinal',
@@ -81,20 +70,18 @@ const spec = {
   marks: [
     {
       type: 'arc',
-      from: { data: 'stack' },
+      from: { data: 'pie' },
       dependency: ['viewBox', 'angleScale', 'colorScale'],
       encode: {
         update: (datum, element, params) => {
           const viewBox = params.viewBox;
-          const angleScale = params.angleScale;
-          const startAngle = angleScale.scale(datum.percent0);
-          const maxR = Math.min(viewBox.width() / 2, viewBox.height());
+          const maxR = Math.min(viewBox.width() / 2, viewBox.height() / 2);
 
           return {
             x: viewBox.x1 + viewBox.width() / 2,
-            y: viewBox.y2,
-            startAngle: startAngle,
-            endAngle: angleScale.scale(datum.percent1),
+            y: viewBox.y1 + viewBox.height() / 2,
+            startAngle: datum.startAngle,
+            endAngle: datum.endAngle,
             innerRadius: 100,
             outerRadius: maxR,
             fill: params.colorScale.scale(datum.name)
