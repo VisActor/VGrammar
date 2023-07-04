@@ -78,9 +78,13 @@ export const doRelativeLayout = (
     viewBounds.y2 = parentLayoutBounds.y2 - minDeltaY2;
   }
 
-  const currentBounds = viewBounds.clone();
+  let curTopY = parentLayoutBounds.y1;
+  let curBottomY = viewBounds.y2;
+  let curLeftX = parentLayoutBounds.x1;
+  let curRightX = viewBounds.x2;
 
-  for (let i = children.length - 1; i >= 0; i--) {
+  for (let i = 0, len = children.length; i < len; i++) {
+    // from inner to outer
     const child = children[i];
     const layoutSpec = child.getSpec().layout as MarkRelativeItemSpec;
     const padding = normalizePadding(layoutSpec.padding);
@@ -90,41 +94,21 @@ export const doRelativeLayout = (
       const childHeight = Math.min(bounds.height() + padding.top + padding.bottom, maxChildHeight);
 
       if (layoutSpec.position === 'top') {
-        child.layoutBounds = new Bounds().set(
-          viewBounds.x1,
-          currentBounds.y1 - childHeight,
-          viewBounds.x2,
-          currentBounds.y1
-        );
-        currentBounds.y1 = currentBounds.y1 - childHeight;
+        child.layoutBounds = new Bounds().set(viewBounds.x1, curTopY, viewBounds.x2, curTopY + childHeight);
+        curTopY += childHeight;
       } else {
-        child.layoutBounds = new Bounds().set(
-          viewBounds.x1,
-          currentBounds.y2,
-          viewBounds.x2,
-          currentBounds.y2 + childHeight
-        );
-        currentBounds.y2 = currentBounds.y2 + childHeight;
+        child.layoutBounds = new Bounds().set(viewBounds.x1, curBottomY, viewBounds.x2, curBottomY + childHeight);
+        curBottomY += childHeight;
       }
     } else if (layoutSpec.position === 'left' || layoutSpec.position === 'right') {
       const childWidth = Math.min(bounds.width() + padding.left + padding.right, maxChildWidth);
 
       if (layoutSpec.position === 'left') {
-        child.layoutBounds = new Bounds().set(
-          currentBounds.x1 - childWidth,
-          viewBounds.y1,
-          currentBounds.x1,
-          viewBounds.y2
-        );
-        currentBounds.x1 = currentBounds.x1 - childWidth;
+        child.layoutBounds = new Bounds().set(curLeftX, viewBounds.y1, curLeftX + childWidth, viewBounds.y2);
+        curLeftX += childWidth;
       } else {
-        child.layoutBounds = new Bounds().set(
-          currentBounds.x2,
-          viewBounds.y1,
-          currentBounds.x2 + childWidth,
-          viewBounds.y2
-        );
-        currentBounds.x2 = currentBounds.x2 + childWidth;
+        child.layoutBounds = new Bounds().set(curRightX, viewBounds.y1, curRightX + childWidth, viewBounds.y2);
+        curRightX += childWidth;
       }
     } else {
       child.layoutBounds = viewBounds;

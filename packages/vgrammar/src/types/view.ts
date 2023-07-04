@@ -213,6 +213,7 @@ export interface IView {
     top: number;
     bottom: number;
   };
+  getViewBox: () => IBounds;
 
   // --- Event API ---
   addEventListener: (type: string, handler: BaseEventHandler, options?: any) => this;
