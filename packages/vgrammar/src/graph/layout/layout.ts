@@ -30,12 +30,12 @@ export const defaultDoLayout = (layoutMarks: IMark[], options: ILayoutOptions, v
     } else if ((layoutSpec as MarkRelativeContainerSpec).display === 'relative') {
       if (layoutSpec.updateViewSignals) {
         const oldViewBox = view.getViewBox();
-        const viewBounds = doRelativeLayout(
-          mark as IGroupMark,
-          layoutChildren,
-          oldViewBox ? bounds.intersect(oldViewBox) : bounds,
-          options
-        );
+
+        if (oldViewBox) {
+          bounds.intersect(oldViewBox);
+        }
+
+        const viewBounds = doRelativeLayout(mark as IGroupMark, layoutChildren, bounds, options);
         const viewWidth = viewBounds.width();
         const viewHeight = viewBounds.height();
         const padding = {
