@@ -134,7 +134,7 @@ export const generateRectCrosshairAttributes = (
   scale: IBaseScale,
   type: CrosshairType,
   groupSize: { width: number; height: number },
-  config: Required<CrosshairSpec['componentConfig']>,
+  config: CrosshairSpec['componentConfig'],
   addition?: RecursivePartial<RectCrosshairAttrs>
 ): RectCrosshairAttrs => {
   const crosshairTheme = defaultTheme.rectCrosshair;
