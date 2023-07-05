@@ -22,12 +22,12 @@ VGrammar 提供了两种箱形图元以支持箱形图可视化：
 
 - boxplot: 普通箱形图元，glyphType 为 `'boxplot'`。在使用普通箱形图元之前，需要执行 `registerBoxplotGlyph()` 对图元进行注册。示例：
 
-<div class="examples-ref-container" id="examples-ref-boxplot" data-path="glyph-mark-boxplot/boxplot">
+<div class="examples-ref-container" id="examples-ref-boxplot" data-path="glyph-mark/boxplot">
 </div>
 
 - barBoxplot: 变种箱形图元，glyphType 为 `'barBoxplot'`。在使用变种箱形图元之前，需要执行 `registerBarBoxplotGlyph()` 对图元进行注册。示例：
 
-<div class="examples-ref-container" id="examples-ref-bar-boxplot" data-path="glyph-mark-boxplot/bar-boxplot">
+<div class="examples-ref-container" id="examples-ref-bar-boxplot" data-path="glyph-mark/bar-boxplot">
 </div>
 
 ## 涟漪点图元 (RipplePoint)
@@ -38,7 +38,7 @@ VGrammar 提供了两种箱形图元以支持箱形图可视化：
 在使用涟漪点图元之前，需要执行 `registerRippleGlyph()` 对图元进行注册。示例：
 ![涟漪点图元](TODO)
 
-<div class="examples-ref-container" id="examples-ref-ripple" data-path="glyph-mark-ripple/ripple">
+<div class="examples-ref-container" id="examples-ref-ripple" data-path="glyph-mark/ripple">
 </div>
 
 ## 波浪图元 (Wave)
@@ -48,7 +48,7 @@ VGrammar 提供了两种箱形图元以支持箱形图可视化：
 波浪图元 glyphType 为 `'wave'`。
 在使用波浪图元之前，需要执行 `registerWaveGlyph()` 对图元进行注册。示例：
 
-<div class="examples-ref-container" id="examples-ref-wave" data-path="glyph-mark-wave/wave">
+<div class="examples-ref-container" id="examples-ref-wave" data-path="glyph-mark/wave">
 </div>
 
 ## 连线图元 (LinkPath)
@@ -58,7 +58,7 @@ VGrammar 提供了两种箱形图元以支持箱形图可视化：
 连线图元 glyphType 为 `'linkPath'`。
 在使用连线图元之前，需要执行 `registerLinkPathGlyph()` 对图元进行注册。示例：
 
-<div class="examples-ref-container" id="examples-ref-link-path" data-path="glyph-mark-link-path/link-path">
+<div class="examples-ref-container" id="examples-ref-link-path" data-path="glyph-mark/link-path">
 </div>
 
 ## 树线图元(TreePath)
@@ -118,5 +118,5 @@ registerGlyph('candle', {
 
 K 线图示例：
 
-<div class="examples-ref-container" id="examples-ref-candle" data-path="glyph-mark-custom/candle">
+<div class="examples-ref-container" id="examples-ref-candle" data-path="glyph-mark/candle">
 </div>
