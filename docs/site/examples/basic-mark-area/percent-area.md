@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: 百分比面积图
 order: 2-2
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-basic-mark-area-percent-area.png
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-percent-area.png
 ---
 
 # 百分比面积图

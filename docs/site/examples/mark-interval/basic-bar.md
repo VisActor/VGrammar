@@ -3,7 +3,7 @@ category: examples
 group: mark-interval
 title: 条形图
 order: 21-1
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-mark-interval-basic-bar.png
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-basic-bar.png
 ---
 
 # 条形图

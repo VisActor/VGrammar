@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: 水波图
 order: 30-5
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-glyph-mark-wave.png
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-wave.png
 ---
 
 # 水波图

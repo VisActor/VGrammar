@@ -3,7 +3,7 @@ category: examples
 group: hierarchy-sunburst
 title: sunburst图
 order: 70-3
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar-hierarchy-treemap.png
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/hierarchy-treemap.png
 ---
 
 # sunburst 图
