@@ -200,7 +200,6 @@ export interface IView {
   runSync: (morphConfig?: IMorphConfig) => this;
   runBefore: (callback: (view: IView) => void) => this;
   runAfter: (callback: (view: IView) => void) => this;
-  ignoreRender: (ignore: boolean) => this;
 
   // --- Global Config API ---
   background: (value?: IColor) => IColor;
@@ -239,7 +238,7 @@ export interface IView {
 }
 
 export interface IViewConstructor {
-  new (spec: ViewSpec, options?: IViewOptions, config?: IViewThemeConfig): IView;
+  new (options?: IViewOptions, config?: IViewThemeConfig): IView;
 }
 
 export interface ViewSpec {
