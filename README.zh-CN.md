@@ -20,8 +20,8 @@ VGrammar，不只是生成万千图表的可视化语法，更是化枯燥为神
   <a href="">跨端</a>
 </p>
 
-![image test](https://github.com/visactor/vchart/actions/workflows/bug-server.yml/badge.svg?branch=main)
-![unit test](https://github.com/visactor/vchart/actions/workflows/unit-test.yml/badge.svg?branch=main)
+![image test](https://github.com/visactor/vchart/actions/workflows/bug-server.yml/badge.svg?event=push)
+![unit test](https://github.com/visactor/vchart/actions/workflows/unit-test.yml/badge.svg?event=push)
 [![npm Version](https://img.shields.io/npm/v/@visactor/vgrammar.svg)](https://www.npmjs.com/package/@visactor/vgrammar)
 [![npm Download](https://img.shields.io/npm/dm/@visactor/vgrammar.svg)](https://www.npmjs.com/package/@visactor/vgrammar)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/visactor/vgrammar/blob/main/LICENSE)
