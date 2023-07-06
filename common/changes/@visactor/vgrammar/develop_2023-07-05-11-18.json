@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix: remove useless api of View: `ignoreRender()`, fix the definition of `IViewConstructor`",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}

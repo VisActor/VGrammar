@@ -105,8 +105,6 @@ export default class View extends EventEmitter implements IView {
   /** renderer */
   renderer: IRenderer;
   animate: IBaseAnimate;
-  /** 增加参数 指定当前的 evaluate 是否是不进行绘制的 */
-  private _runIgnoreRender: boolean;
   rootMark: IGroupMark;
 
   /** 生命周期相关的钩子 */
@@ -714,15 +712,10 @@ export default class View extends EventEmitter implements IView {
     return this;
   }
 
-  ignoreRender(ignore: boolean) {
-    this._runIgnoreRender = ignore;
-    return this;
-  }
-
   private doRender(immediately: boolean) {
     this.emit(HOOK_EVENT.BEFORE_DO_RENDER);
     // render as needed
-    if (!this._runIgnoreRender && this.renderer) {
+    if (this.renderer) {
       if (!this._progressiveMarks) {
         this.animate.animate();
       }
@@ -1387,8 +1380,6 @@ export default class View extends EventEmitter implements IView {
       // 生命周期事件（包含原性能测试钩子）
       this.hooks = this._options.hooks;
     }
-
-    this._runIgnoreRender = false;
     this.container = null;
 
     // initialize renderer, handler and event management
