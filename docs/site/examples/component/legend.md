@@ -2,7 +2,8 @@
 category: examples
 group: component
 title: legend
-cover:
+order: 50-0
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-legend.png
 ---
 
 # legend

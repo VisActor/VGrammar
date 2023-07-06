@@ -27,7 +27,7 @@ export const tutorialsMenu = [
         menu: '基础图元'
       },
       {
-        name: 'grammar-mark',
+        name: 'semantic-mark',
         menu: '语义图元'
       },
       {

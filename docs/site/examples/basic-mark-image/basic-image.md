@@ -2,7 +2,8 @@
 category: examples
 group: basic-mark-image
 title: 图像图元
-cover:
+order: 9-0
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-image-basic-image.png
 ---
 
 # 图像图元

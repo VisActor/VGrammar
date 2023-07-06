@@ -2,7 +2,8 @@
 category: examples
 group: basic-mark-richtext
 title: richtext基础使用
-cover:
+order: 8-0
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-richtext-basic-richtext.png
 ---
 
 # richtext 基础使用

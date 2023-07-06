@@ -116,3 +116,5 @@ common/scripts/pre-commit
 docs/site/examples/**.js
 docs/site/tutorials/**.js
 docs/site/api/**.js
+docs/site/examples/preview-image
+docs/site/examples/preview-fail.json

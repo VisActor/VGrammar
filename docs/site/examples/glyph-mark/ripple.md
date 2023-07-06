@@ -1,106 +1,91 @@
 ---
 category: examples
-group: glyph-mark-custom
-title: K线图
-cover:
+group: glyph-mark
+title: 涟漪点折线图
+order: 30-4
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-ripple.png
 ---
 
-# K 线图
+# 涟漪点折线图
 
 ## 代码演示
 
 ```javascript livedemo template=vgrammar
-VGrammar.registerGlyph('candle', {
-  minMax: 'rule',
-  startEnd: 'rect'
-})
-  .registerChannelEncoder('x', (channel, encodeValue) => {
-    return {
-      minMax: { x: encodeValue, x1: encodeValue },
-      startEnd: { x: encodeValue }
-    };
-  })
-  .registerChannelEncoder('min', (channel, encodeValue) => {
-    return {
-      minMax: { y: encodeValue }
-    };
-  })
-  .registerChannelEncoder('max', (channel, encodeValue) => {
-    return {
-      minMax: { y1: encodeValue }
-    };
-  })
-  .registerChannelEncoder('start', (channel, encodeValue) => {
-    return {
-      startEnd: { y: encodeValue }
-    };
-  })
-  .registerChannelEncoder('end', (channel, encodeValue) => {
-    return {
-      startEnd: { y1: encodeValue }
-    };
-  })
-  .registerChannelEncoder('boxWidth', (channel, encodeValue) => {
-    return {
-      startEnd: { width: encodeValue, dx: -encodeValue / 2 }
-    };
-  });
+VGrammar.registerRippleGlyph();
 
 const spec = {
   padding: { top: 30, right: 40, bottom: 30, left: 40 },
+  signals: [
+    {
+      id: 'test',
+      value: 'testValue'
+    }
+  ],
 
   data: [
     {
       id: 'table',
       values: [
         {
-          time: '02-11',
-          start: 6.91,
-          max: 7.31,
-          min: 6.48,
-          end: 7.18
+          time: '2:00',
+          value: 8
         },
         {
-          time: '02-12',
-          start: 7.01,
-          max: 7.14,
-          min: 6.8,
-          end: 6.85
+          time: '4:00',
+          value: 9
         },
         {
-          time: '02-13',
-          start: 7.05,
-          max: 7.2,
-          min: 6.8,
-          end: 6.9
+          time: '6:00',
+          value: 11
         },
         {
-          time: '02-14',
-          start: 6.98,
-          max: 7.27,
-          min: 6.84,
-          end: 7.18
+          time: '8:00',
+          value: 14
         },
         {
-          time: '02-15',
-          start: 7.09,
-          max: 7.44,
-          min: 6.93,
-          end: 7.17
+          time: '10:00',
+          value: 16
         },
         {
-          time: '02-16',
-          start: 7.1,
-          max: 7.17,
-          min: 6.82,
-          end: 7
+          time: '12:00',
+          value: 17
         },
         {
-          time: '02-17',
-          start: 7.01,
-          max: 7.5,
-          min: 7.01,
-          end: 7.46
+          time: '14:00',
+          value: 17
+        },
+        {
+          time: '16:00',
+          value: 16
+        },
+        {
+          time: '18:00',
+          value: 15
+        }
+      ]
+    },
+    {
+      id: 'normalData',
+      source: 'table',
+      transform: [
+        {
+          type: 'filter',
+          callback: (datum, params) => {
+            return datum.time !== '16:00';
+          },
+          dependency: ['test']
+        }
+      ]
+    },
+    {
+      id: 'highlightData',
+      source: 'table',
+      transform: [
+        {
+          type: 'filter',
+          callback: (datum, params) => {
+            return datum.time === '16:00';
+          }
         }
       ]
     }
@@ -121,11 +106,12 @@ const spec = {
     {
       id: 'yScale',
       type: 'linear',
-      domain: { data: 'table', field: ['start', 'end', 'min', 'max'] },
+      domain: { data: 'table', field: 'value' },
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [params.viewBox.y2, params.viewBox.y1];
-      }
+      },
+      zero: true
     }
   ],
 
@@ -181,33 +167,49 @@ const spec = {
       dependency: ['viewBox']
     },
     {
-      type: 'glyph',
+      type: 'line',
       from: { data: 'table' },
-      glyphType: 'candle',
       encode: {
         update: {
           x: { scale: 'xScale', field: 'time' },
-          max: { scale: 'yScale', field: 'max' },
-          start: { scale: 'yScale', field: 'start' },
-          end: { scale: 'yScale', field: 'end' },
-          min: { scale: 'yScale', field: 'min' },
-
-          boxWidth: 60,
-          lineWidth: 2,
-          stroke: (datum, element, params) => {
-            return datum.end >= datum.start ? '#eb5454' : '#46b262';
-          },
-          fill: (datum, element, params) => {
-            return datum.end >= datum.start ? '#eb5454' : '#46b262';
-          }
-        },
-        hover: {
-          stroke: '#000'
+          y: { scale: 'yScale', field: 'value' },
+          stroke: '#6690F2',
+          lineWidth: 2
+        }
+      }
+    },
+    {
+      type: 'symbol',
+      from: { data: 'normalData' },
+      encode: {
+        update: {
+          x: { scale: 'xScale', field: 'time' },
+          y: { scale: 'yScale', field: 'value' },
+          size: 30,
+          fill: '#6690F2'
+        }
+      }
+    },
+    {
+      type: 'glyph',
+      glyphType: 'ripplePoint',
+      from: { data: 'highlightData' },
+      encode: {
+        update: {
+          x: { scale: 'xScale', field: 'time' },
+          y: { scale: 'yScale', field: 'value' },
+          size: 30,
+          fill: '#6690F2',
+          ripple: 0
         }
       },
       animation: {
-        state: {
-          duration: 500
+        enter: {
+          channel: {
+            ripple: { from: 0, to: 1 }
+          },
+          easing: 'linear',
+          loop: true
         }
       }
     }

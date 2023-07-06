@@ -2,7 +2,8 @@
 category: examples
 group: basic-mark-polygon
 title: 多边形交集
-cover:
+order: 5-2
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-polygon-polygon-intersect.png
 ---
 
 # 多边形交集

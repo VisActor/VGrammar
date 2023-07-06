@@ -2,7 +2,8 @@
 category: examples
 group: basic-mark-rect
 title: 堆积柱图
-cover:
+order: 0-3
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-stack-rect.png
 ---
 
 # 堆积柱图
@@ -342,7 +343,6 @@ const spec = {
         {
           key: '总计',
           value: (datum, element, params) => {
-            console.log(datum);
             return datum.sum;
           },
           symbol: (datum, element, params) => {

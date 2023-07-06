@@ -1,11 +1,12 @@
 ---
 category: examples
-group: glyph-mark-boxplot
-title: 极坐标下的箱线图
-cover:
+group: glyph-mark
+title: 箱线图
+order: 30-0
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-boxplot.png
 ---
 
-# 极坐标下的箱线图
+# 箱线图
 
 ## 代码演示
 
@@ -71,41 +72,27 @@ const spec = {
     }
   ],
 
-  signals: [
-    {
-      id: 'polar',
-      update: (signal, params) => {
-        return {
-          x: params.viewBox.x1 + params.viewBox.width() / 2,
-          y: params.viewBox.y1 + params.viewBox.height() / 2,
-          radius: Math.min(params.viewBox.width(), params.viewBox.height()) / 2
-        };
-      },
-      dependency: ['viewBox']
-    }
-  ],
-
   scales: [
     {
-      id: 'angleScale',
+      id: 'xScale',
       type: 'point',
       domain: { data: 'table', field: 'test' },
-      range: [0, Math.PI * 2],
-      padding: 0.5
+      dependency: ['viewBox'],
+      range: (scale, params) => {
+        return [params.viewBox.x1, params.viewBox.x2];
+      },
+      padding: 0.5,
+      round: true
     },
     {
-      id: 'radiusScale',
+      id: 'yScale',
       type: 'linear',
-      domain: [-1000, 2000],
-      range: (scale, params) => [0, params.polar.radius],
-      dependency: 'polar'
-    },
-    {
-      id: 'valueScale',
-      type: 'linear',
-      domain: [-1000, 2000],
-      range: (scale, params) => [params.polar.x, params.polar.x + params.polar.radius],
-      dependency: 'polar'
+      domain: { data: 'table', field: ['value1', 'value2', 'value3', 'value4', 'value5'] },
+      dependency: ['viewBox'],
+      range: (scale, params) => {
+        return [params.viewBox.y2, params.viewBox.y1];
+      },
+      zero: true
     },
     {
       id: 'colorScale',
@@ -129,76 +116,69 @@ const spec = {
   marks: [
     {
       type: 'component',
-      componentType: 'axis',
-      scale: 'angleScale',
-      axisType: 'circle',
+      componentType: 'crosshair',
+      scale: 'xScale',
+      crosshairShape: 'rect',
+      crosshairType: 'x',
       encode: {
         update: (datum, element, params) => {
           return {
-            center: { x: params.polar.x, y: params.polar.y },
-            radius: params.polar.radius,
-            grid: { visible: true }
+            start: { y: params.viewBox.y1 },
+            end: { y: params.viewBox.y2 }
           };
         }
       },
-      dependency: 'polar'
+      dependency: ['viewBox']
     },
     {
       type: 'component',
       componentType: 'axis',
-      scale: 'radiusScale',
+      scale: 'yScale',
       tickCount: 5,
       encode: {
         update: (datum, element, params) => {
           return {
-            x: params.polar.x,
-            y: params.polar.y,
+            x: params.viewBox.x1,
+            y: params.viewBox.y2,
             start: { x: 0, y: 0 },
-            end: { x: params.polar.radius, y: 0 },
-            grid: { visible: true, center: { x: 0, y: 0 }, type: 'circle', closed: true, sides: 10 }
+            end: { x: 0, y: -params.viewBox.height() },
+            verticalFactor: -1
           };
         }
       },
-      dependency: 'polar'
+      dependency: ['viewBox']
     },
     {
       type: 'component',
-      componentType: 'crosshair',
-      scale: 'angleScale',
-      crosshairShape: 'rect',
-      crosshairType: 'angle',
+      componentType: 'axis',
+      scale: 'xScale',
       encode: {
         update: (datum, element, params) => {
           return {
-            radius: params.polar.radius,
-            center: {
-              x: params.polar.x,
-              y: params.polar.y
-            }
+            x: params.viewBox.x1,
+            y: params.viewBox.y2,
+            start: { x: 0, y: 0 },
+            end: { x: params.viewBox.width(), y: 0 }
           };
         }
       },
-      dependency: 'polar'
+      dependency: ['viewBox']
     },
     {
       type: 'glyph',
       from: { data: 'table' },
       glyphType: 'boxplot',
-      glyphConfig: { direction: 'horizontal' },
       encode: {
         update: {
-          y: (datum, element, params) => params.polar.y,
-          angle: { scale: 'angleScale', field: 'test' },
-          anchor: (datum, element, params) => [params.polar.x, params.polar.y],
+          x: { scale: 'xScale', field: 'test' },
+          max: { scale: 'yScale', field: 'value1' },
+          q3: { scale: 'yScale', field: 'value2' },
+          median: { scale: 'yScale', field: 'value3' },
+          q1: { scale: 'yScale', field: 'value4' },
+          min: { scale: 'yScale', field: 'value5' },
 
-          max: { scale: 'valueScale', field: 'value1' },
-          q3: { scale: 'valueScale', field: 'value2' },
-          median: { scale: 'valueScale', field: 'value3' },
-          q1: { scale: 'valueScale', field: 'value4' },
-          min: { scale: 'valueScale', field: 'value5' },
-
-          boxHeight: 30,
-          ruleHeight: 20,
+          boxWidth: 60,
+          ruleWidth: 40,
 
           stroke: 'black',
           fill: { scale: 'colorScale', field: 'test' },
@@ -216,8 +196,7 @@ const spec = {
         state: {
           duration: 500
         }
-      },
-      dependency: 'polar'
+      }
     }
   ]
 };

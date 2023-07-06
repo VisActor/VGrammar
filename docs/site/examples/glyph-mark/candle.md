@@ -1,16 +1,51 @@
 ---
 category: examples
-group: glyph-mark-boxplot
-title: 箱线图
-cover:
+group: glyph-mark
+title: K线图
+order: 30-7
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-candle.png
 ---
 
-# 箱线图
+# K 线图
 
 ## 代码演示
 
 ```javascript livedemo template=vgrammar
-VGrammar.registerBoxplotGlyph();
+VGrammar.registerGlyph('candle', {
+  minMax: 'rule',
+  startEnd: 'rect'
+})
+  .registerChannelEncoder('x', (channel, encodeValue) => {
+    return {
+      minMax: { x: encodeValue, x1: encodeValue },
+      startEnd: { x: encodeValue }
+    };
+  })
+  .registerChannelEncoder('min', (channel, encodeValue) => {
+    return {
+      minMax: { y: encodeValue }
+    };
+  })
+  .registerChannelEncoder('max', (channel, encodeValue) => {
+    return {
+      minMax: { y1: encodeValue }
+    };
+  })
+  .registerChannelEncoder('start', (channel, encodeValue) => {
+    return {
+      startEnd: { y: encodeValue }
+    };
+  })
+  .registerChannelEncoder('end', (channel, encodeValue) => {
+    return {
+      startEnd: { y1: encodeValue }
+    };
+  })
+  .registerChannelEncoder('boxWidth', (channel, encodeValue) => {
+    return {
+      startEnd: { width: encodeValue, dx: -encodeValue / 2 }
+    };
+  });
 
 const spec = {
   padding: { top: 30, right: 40, bottom: 30, left: 40 },
@@ -20,52 +55,53 @@ const spec = {
       id: 'table',
       values: [
         {
-          test: 'test0',
-          value1: 1600,
-          value2: 1200,
-          value3: 800,
-          value4: 700,
-          value5: 500
+          time: '02-11',
+          start: 6.91,
+          max: 7.31,
+          min: 6.48,
+          end: 7.18
         },
         {
-          test: 'test1',
-          value1: 1900,
-          value2: 1000,
-          value3: 400,
-          value4: 300,
-          value5: 100
+          time: '02-12',
+          start: 7.01,
+          max: 7.14,
+          min: 6.8,
+          end: 6.85
         },
         {
-          test: 'test2',
-          value1: 1300,
-          value2: 1200,
-          value3: 200,
-          value4: -100,
-          value5: -500
+          time: '02-13',
+          start: 7.05,
+          max: 7.2,
+          min: 6.8,
+          end: 6.9
         },
         {
-          test: 'test3',
-          value1: 1400,
-          value2: 1000,
-          value3: 900,
-          value4: 800,
-          value5: 500
+          time: '02-14',
+          start: 6.98,
+          max: 7.27,
+          min: 6.84,
+          end: 7.18
         },
         {
-          test: 'test4',
-          value1: 1200,
-          value2: 500,
-          value3: 400,
-          value4: -100,
-          value5: -400
+          time: '02-15',
+          start: 7.09,
+          max: 7.44,
+          min: 6.93,
+          end: 7.17
         },
         {
-          test: 'test5',
-          value1: 1400,
-          value2: 1000,
-          value3: 900,
-          value4: 700,
-          value5: 300
+          time: '02-16',
+          start: 7.1,
+          max: 7.17,
+          min: 6.82,
+          end: 7
+        },
+        {
+          time: '02-17',
+          start: 7.01,
+          max: 7.5,
+          min: 7.01,
+          end: 7.46
         }
       ]
     }
@@ -75,7 +111,7 @@ const spec = {
     {
       id: 'xScale',
       type: 'point',
-      domain: { data: 'table', field: 'test' },
+      domain: { data: 'table', field: 'time' },
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [params.viewBox.x1, params.viewBox.x2];
@@ -86,29 +122,11 @@ const spec = {
     {
       id: 'yScale',
       type: 'linear',
-      domain: { data: 'table', field: ['value1', 'value2', 'value3', 'value4', 'value5'] },
+      domain: { data: 'table', field: ['start', 'end', 'min', 'max'] },
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [params.viewBox.y2, params.viewBox.y1];
-      },
-      zero: true
-    },
-    {
-      id: 'colorScale',
-      type: 'ordinal',
-      domain: { data: 'table', field: 'test' },
-      range: [
-        '#6690F2',
-        '#70D6A3',
-        '#B4E6E2',
-        '#63B5FC',
-        '#FF8F62',
-        '#FFDC83',
-        '#BCC5FD',
-        '#A29BFE',
-        '#63C4C7',
-        '#F68484'
-      ]
+      }
     }
   ],
 
@@ -166,32 +184,29 @@ const spec = {
     {
       type: 'glyph',
       from: { data: 'table' },
-      glyphType: 'boxplot',
+      glyphType: 'candle',
       encode: {
         update: {
-          x: { scale: 'xScale', field: 'test' },
-          max: { scale: 'yScale', field: 'value1' },
-          q3: { scale: 'yScale', field: 'value2' },
-          median: { scale: 'yScale', field: 'value3' },
-          q1: { scale: 'yScale', field: 'value4' },
-          min: { scale: 'yScale', field: 'value5' },
+          x: { scale: 'xScale', field: 'time' },
+          max: { scale: 'yScale', field: 'max' },
+          start: { scale: 'yScale', field: 'start' },
+          end: { scale: 'yScale', field: 'end' },
+          min: { scale: 'yScale', field: 'min' },
 
           boxWidth: 60,
-          ruleWidth: 40,
-
-          stroke: 'black',
-          fill: { scale: 'colorScale', field: 'test' },
-          opacity: 1
+          lineWidth: 2,
+          stroke: (datum, element, params) => {
+            return datum.end >= datum.start ? '#eb5454' : '#46b262';
+          },
+          fill: (datum, element, params) => {
+            return datum.end >= datum.start ? '#eb5454' : '#46b262';
+          }
         },
         hover: {
-          opacity: 0.7
+          stroke: '#000'
         }
       },
       animation: {
-        enter: {
-          type: 'boxplotScaleIn',
-          duration: 1000
-        },
         state: {
           duration: 500
         }

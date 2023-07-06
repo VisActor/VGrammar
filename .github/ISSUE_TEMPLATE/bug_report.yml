@@ -59,7 +59,7 @@ body:
         2. What's the spec of view
         3. User interactions before the error happens.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     attributes:

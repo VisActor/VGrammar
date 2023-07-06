@@ -2,7 +2,8 @@
 category: examples
 group: basic-mark-text
 title: text 图元基础用法
-cover:
+order: 7-0
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-text-basic-text.png
 ---
 
 # text 图元基础用法

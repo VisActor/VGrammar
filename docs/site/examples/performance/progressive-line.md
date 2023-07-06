@@ -1,12 +1,14 @@
 ---
 category: examples
 group: perf
-title: 大数据量柱图
-order: 110-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/performance-progressive-rect.gif
+title: 大数据量线图
+order: 110-1
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/performance-progressive-line.gif
 ---
 
-# 大数据量柱图
+# 大数据量线图
+
+当数据量比较大的时候，开启渐进渲染，来由线图的绘制性能
 
 ## 代码演示
 
@@ -30,7 +32,7 @@ const spec = {
   scales: [
     {
       id: 'xscale',
-      type: 'band',
+      type: 'point',
       domain: { data: 'table', field: 'name' },
       dependency: ['viewBox'],
       range: (scale, params) => {
@@ -108,42 +110,22 @@ const spec = {
           crosshairType: 'x'
         },
         {
-          type: 'rect',
-          id: 'rect',
+          type: 'line',
+          id: 'line',
           from: { data: 'table' },
           dependency: ['yscale'],
           progressiveStep: 200,
           progressiveThreshold: 3000,
           encode: {
             update: {
-              x: { scale: 'xscale', field: 'name', band: 0.25 },
-              width: { scale: 'xscale', band: 0.5 },
+              x: { scale: 'xscale', field: 'name' },
               y: { scale: 'yscale', field: 'value' },
-              y1: (datum, element, params) => {
-                return params.yscale.scale(params.yscale.domain()[0]);
-              },
-              fill: '#6690F2'
-            },
-            hover: {
-              fill: 'red'
+              stroke: '#6690F2'
             }
+            // hover: {
+            //   stroke: 'red'
+            // }
           }
-        },
-        {
-          type: 'component',
-          componentType: 'tooltip',
-          target: 'rect',
-          title: { visible: false, value: 'value' },
-          content: [
-            {
-              key: { field: 'name' },
-              value: { field: 'value' },
-              symbol: {
-                symbolType: 'circle',
-                fill: '#6690F2'
-              }
-            }
-          ]
         }
       ]
     }

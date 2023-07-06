@@ -2,7 +2,8 @@
 category: examples
 group: basic-mark-area
 title: 纵向面积图
-cover:
+order: 2-3
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-vertical-area.png
 ---
 
 # 纵向面积图

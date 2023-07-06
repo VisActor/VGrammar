@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat: add a new api `getImageBuffer` to View\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}
