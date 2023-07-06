@@ -79,7 +79,7 @@ export class Projection extends GrammarBase implements IProjection {
 
   parse(spec: ProjectionSpec) {
     super.parse(spec);
-    this.spec = merge(this.spec, spec);
+    this.spec = merge({}, this.spec, spec);
     this.attach(parseProjection(spec, this.view));
 
     return this;

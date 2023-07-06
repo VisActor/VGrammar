@@ -1,6 +1,6 @@
 import type { EventEmitter, IBounds, IBoundsLike } from '@visactor/vutils';
 import type { EnvType, IStage, IColor, IOption3D, ILayer } from '@visactor/vrender';
-import type { Logger } from '@visactor/vgrammar-util';
+import type { ILogger, Logger } from '@visactor/vgrammar-util';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { DataSpec } from './data';
 import type { SignalFunctionType, SignalSpec } from './signal';
@@ -148,7 +148,7 @@ export interface IView {
   readonly rootMark: IGroupMark;
   readonly animate: IBaseAnimate;
   readonly grammars: IRecordedGrammars;
-  readonly logger: Logger;
+  readonly logger: ILogger;
 
   // --- Grammar API ---
   signal: <T>(value?: T, update?: SignalFunctionType<T>) => ISignal<T>;

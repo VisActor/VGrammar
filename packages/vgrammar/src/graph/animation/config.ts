@@ -1,5 +1,4 @@
-import { array, isFunction, isNil } from '@visactor/vutils';
-import { mergeConfig } from '@visactor/vgrammar-util';
+import { array, isFunction, isNil, merge } from '@visactor/vutils';
 import type { IElement } from '../../types';
 import type {
   IAnimationConfig,
@@ -27,7 +26,7 @@ function transformToTimelineConfig(animationConfig: IAnimationConfig): IAnimatio
       totalTime: typeConfig.totalTime,
       oneByOne: typeConfig.oneByOne ?? DefaultAnimationOneByOne,
       loop: typeConfig.loop ?? DefaultAnimationLoop,
-      controlOptions: mergeConfig(DefaultAnimationControlOptions, typeConfig.controlOptions ?? {}),
+      controlOptions: merge({}, DefaultAnimationControlOptions, typeConfig.controlOptions ?? {}),
       timeSlices: [
         {
           duration: typeConfig.duration ?? DefaultAnimationDuration,
@@ -59,7 +58,7 @@ function transformToTimelineConfig(animationConfig: IAnimationConfig): IAnimatio
       totalTime: (animationConfig as IAnimationTimeline).totalTime,
       oneByOne: (animationConfig as IAnimationTimeline).oneByOne ?? DefaultAnimationOneByOne,
       loop: (animationConfig as IAnimationTimeline).loop ?? DefaultAnimationLoop,
-      controlOptions: mergeConfig(DefaultAnimationControlOptions, animationConfig.controlOptions ?? {}),
+      controlOptions: merge({}, DefaultAnimationControlOptions, animationConfig.controlOptions ?? {}),
       timeSlices: formattedTimeSlices.map(timeSlice => {
         return {
           duration: timeSlice.duration,
