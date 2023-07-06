@@ -7,8 +7,8 @@
  * @license
  */
 
-import { array, isFunction, isNil } from '@visactor/vutils';
-import { error, mergeConfig } from '@visactor/vgrammar-util';
+import { array, isFunction, isNil, merge } from '@visactor/vutils';
+import { error } from '@visactor/vgrammar-util';
 import { projection, projectionProperties } from './projections';
 import type { IView, GrammarType, IGrammarBase } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
@@ -79,7 +79,7 @@ export class Projection extends GrammarBase implements IProjection {
 
   parse(spec: ProjectionSpec) {
     super.parse(spec);
-    this.spec = mergeConfig(this.spec, spec);
+    this.spec = merge(this.spec, spec);
     this.attach(parseProjection(spec, this.view));
 
     return this;

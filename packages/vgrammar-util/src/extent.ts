@@ -7,14 +7,14 @@
  * @license
  */
 
-import { isFunction, isNil } from '@visactor/vutils';
+import { isFunction, isNumber, isNil } from '@visactor/vutils';
 import type { ReturnNumberFunction } from './types';
 
 /**
  * Return an array with minimum and maximum values, in the
  * form [min, max]. Ignores null, undefined, and NaN values.
  */
-export const extent = (array: number[], func?: ReturnNumberFunction) => {
+export const extent = (array: any[], func?: ReturnNumberFunction) => {
   const valueGetter = isFunction(func) ? func : (val: any) => val;
   let min: number;
   let max: number;
@@ -25,7 +25,7 @@ export const extent = (array: number[], func?: ReturnNumberFunction) => {
     // find first valid value
     for (let i = 0; i < n; i += 1) {
       const value = valueGetter(array[i]);
-      if (!isNil(value) && !Number.isNaN(value)) {
+      if (isNumber(value) && !Number.isNaN(value)) {
         if (isNil(min)) {
           min = value;
           max = value;

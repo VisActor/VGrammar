@@ -14,8 +14,6 @@ export { id, identity, zero, one, truthy, falsy, emptyObject } from './accessors
 
 export { Logger, setLogLevel, setLogger, getLogger, clearLogger } from './logger';
 
-export { mergeConfig, writeConfig } from './mergeConfig';
-
 export { compare, ascending } from './compare';
 export { error } from './error';
 export { extent } from './extent';
@@ -26,7 +24,6 @@ export { splitAccessPath } from './splitAccessPath';
 
 export { toPercent } from './toPercent';
 
-export * as vGrammarConstants from './constants';
 export * from './types';
 
 export { regressionLinear } from './regression-linear';
