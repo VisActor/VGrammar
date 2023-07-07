@@ -4,6 +4,7 @@ import type { ComponentEnum } from '../graph';
 import type { Nil, RecursivePartial } from './base';
 import type { IComponent, IData, IMark, IScale } from './grammar';
 import type { ChannelEncodeType, ComponentSpec, FieldEncodeType, MarkFunctionType, ScaleEncodeType } from './mark';
+import type { IPointLike } from '@visactor/vutils';
 
 // scale component
 
@@ -68,6 +69,7 @@ export interface CrosshairSpec extends ScaleComponentSpec {
   componentType: ComponentEnum.crosshair;
   crosshairType?: CrosshairType;
   crosshairShape?: CrosshairShape;
+  componentConfig?: { radius?: number; center?: IPointLike };
 }
 
 // slider component

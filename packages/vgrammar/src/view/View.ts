@@ -1,3 +1,4 @@
+import type { IBounds } from '@visactor/vutils';
 import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports
@@ -57,7 +58,8 @@ import {
   SIGNAL_VIEW_HEIGHT,
   DEFAULT_PADDING,
   EVENT_SOURCE_VIEW,
-  EVENT_SOURCE_WINDOW
+  EVENT_SOURCE_WINDOW,
+  SIGNAL_VIEW_BOX
 } from './constants';
 import { Signal } from './signal';
 import { Scale } from './scale';
@@ -582,6 +584,12 @@ export default class View extends EventEmitter implements IView {
       return value;
     }
     return signal.output() as boolean;
+  }
+
+  getViewBox() {
+    const signal = this.getSignalById<IBounds>(SIGNAL_VIEW_BOX);
+
+    return signal?.output() as IBounds;
   }
 
   // --- Layout ---

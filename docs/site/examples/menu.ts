@@ -80,6 +80,9 @@ export const examplesMenu = [
         name: 'basic-arc'
       },
       {
+        name: 'simple-pie',
+      },
+      {
         name: 'radial-arc'
       },
       {

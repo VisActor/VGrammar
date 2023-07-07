@@ -78,9 +78,13 @@ export const doRelativeLayout = (
     viewBounds.y2 = parentLayoutBounds.y2 - minDeltaY2;
   }
 
-  const currentBounds = viewBounds.clone();
+  let curTopY = parentLayoutBounds.y1;
+  let curBottomY = viewBounds.y2;
+  let curLeftX = parentLayoutBounds.x1;
+  let curRightX = viewBounds.x2;
 
-  for (let i = children.length - 1; i >= 0; i--) {
+  for (let i = 0, len = children.length; i < len; i++) {
+    // from inner to outer
     const child = children[i];
     const layoutSpec = child.getSpec().layout as MarkRelativeItemSpec;
     const padding = normalizePadding(layoutSpec.padding);
@@ -90,41 +94,55 @@ export const doRelativeLayout = (
       const childHeight = Math.min(bounds.height() + padding.top + padding.bottom, maxChildHeight);
 
       if (layoutSpec.position === 'top') {
-        child.layoutBounds = new Bounds().set(
-          viewBounds.x1,
-          currentBounds.y1 - childHeight,
-          viewBounds.x2,
-          currentBounds.y1
-        );
-        currentBounds.y1 = currentBounds.y1 - childHeight;
+        child.layoutBounds = new Bounds().set(viewBounds.x1, curTopY, viewBounds.x2, curTopY + childHeight);
+        curTopY += childHeight;
       } else {
-        child.layoutBounds = new Bounds().set(
-          viewBounds.x1,
-          currentBounds.y2,
-          viewBounds.x2,
-          currentBounds.y2 + childHeight
-        );
-        currentBounds.y2 = currentBounds.y2 + childHeight;
+        child.layoutBounds = new Bounds().set(viewBounds.x1, curBottomY, viewBounds.x2, curBottomY + childHeight);
+        curBottomY += childHeight;
+      }
+
+      if (layoutSpec.align) {
+        const childWidth = bounds.width() + padding.left + padding.right;
+
+        if (childWidth < viewBounds.width()) {
+          if (layoutSpec.align === 'center') {
+            child.layoutBounds.x1 = (viewBounds.x1 + viewBounds.x2) / 2 - childWidth / 2;
+            child.layoutBounds.x2 = child.layoutBounds.x1 + childWidth;
+          } else if (layoutSpec.align === 'right') {
+            child.layoutBounds.x1 = viewBounds.x2 - childWidth;
+            child.layoutBounds.x2 = viewBounds.x2;
+          } else if (layoutSpec.align === 'left') {
+            child.layoutBounds.x1 = viewBounds.x1;
+            child.layoutBounds.x2 = viewBounds.x1 + childWidth;
+          }
+        }
       }
     } else if (layoutSpec.position === 'left' || layoutSpec.position === 'right') {
       const childWidth = Math.min(bounds.width() + padding.left + padding.right, maxChildWidth);
 
       if (layoutSpec.position === 'left') {
-        child.layoutBounds = new Bounds().set(
-          currentBounds.x1 - childWidth,
-          viewBounds.y1,
-          currentBounds.x1,
-          viewBounds.y2
-        );
-        currentBounds.x1 = currentBounds.x1 - childWidth;
+        child.layoutBounds = new Bounds().set(curLeftX, viewBounds.y1, curLeftX + childWidth, viewBounds.y2);
+        curLeftX += childWidth;
       } else {
-        child.layoutBounds = new Bounds().set(
-          currentBounds.x2,
-          viewBounds.y1,
-          currentBounds.x2 + childWidth,
-          viewBounds.y2
-        );
-        currentBounds.x2 = currentBounds.x2 + childWidth;
+        child.layoutBounds = new Bounds().set(curRightX, viewBounds.y1, curRightX + childWidth, viewBounds.y2);
+        curRightX += childWidth;
+      }
+
+      if (layoutSpec.align) {
+        const childHeight = bounds.height() + padding.top + padding.bottom;
+
+        if (childWidth < viewBounds.width()) {
+          if (layoutSpec.align === 'middle') {
+            child.layoutBounds.y1 = (viewBounds.y1 + viewBounds.y2) / 2 - childHeight / 2;
+            child.layoutBounds.y2 = child.layoutBounds.y1 + childHeight;
+          } else if (layoutSpec.align === 'bottom') {
+            child.layoutBounds.y1 = viewBounds.y2 - childHeight;
+            child.layoutBounds.y2 = viewBounds.y2;
+          } else if (layoutSpec.align === 'top') {
+            child.layoutBounds.y1 = viewBounds.y1;
+            child.layoutBounds.y2 = viewBounds.y1 + childHeight;
+          }
+        }
       }
     } else {
       child.layoutBounds = viewBounds;

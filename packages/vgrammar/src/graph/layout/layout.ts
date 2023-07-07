@@ -28,8 +28,14 @@ export const defaultDoLayout = (layoutMarks: IMark[], options: ILayoutOptions, v
     } else if (isFunction(layoutSpec.callback)) {
       layoutSpec.callback.call(null, mark as IGroupMark, layoutChildren, bounds, options);
     } else if ((layoutSpec as MarkRelativeContainerSpec).display === 'relative') {
-      const viewBounds = doRelativeLayout(mark as IGroupMark, layoutChildren, bounds, options);
       if (layoutSpec.updateViewSignals) {
+        const oldViewBox = view.getViewBox();
+
+        if (oldViewBox) {
+          bounds.intersect(oldViewBox);
+        }
+
+        const viewBounds = doRelativeLayout(mark as IGroupMark, layoutChildren, bounds, options);
         const viewWidth = viewBounds.width();
         const viewHeight = viewBounds.height();
         const padding = {
@@ -42,6 +48,8 @@ export const defaultDoLayout = (layoutMarks: IMark[], options: ILayoutOptions, v
         (view as any).updateSignal(SIGNAL_VIEW_WIDTH, viewWidth);
         (view as any).updateSignal(SIGNAL_VIEW_HEIGHT, viewHeight);
         (view as any).updateSignal(SIGNAL_PADDING, padding);
+      } else {
+        doRelativeLayout(mark as IGroupMark, layoutChildren, bounds, options);
       }
     } else if ((layoutSpec as MarkGridContainerSpec).display === 'grid') {
       doGridLayout(mark as IGroupMark, layoutChildren, bounds, options);
