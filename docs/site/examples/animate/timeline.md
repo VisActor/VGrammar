@@ -6,9 +6,9 @@ order: 60-5
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-basic-animate.gif
 ---
 
-# 基础动画
+# 事件轴&动画
 
-基础动画示例，所有图元都可以配置入场/出场/更新动画
+我们通过自定义`glyph`实现了事件点的展示，然后通过循环动画展示时间轴的播放
 
 ## 代码演示
 
@@ -195,7 +195,10 @@ const spec = {
                   return 0;
                 },
                 to: (datum, element, params) => {
+<<<<<<< HEAD
                   console.log(params, datum, element);
+=======
+>>>>>>> 0a6d44f (docs: update demo of a horizontal timeline)
                   const xScale = params.view.getScaleById('xscale').output();
                   const bandWidth = xScale.bandwidth();
                   const range = xScale.range();
