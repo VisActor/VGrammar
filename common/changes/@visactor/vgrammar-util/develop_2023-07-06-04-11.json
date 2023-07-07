@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-util",
+      "comment": "test(vgrammar-util): add test case of vgrammar-util and remove some useless function",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-util"
+}

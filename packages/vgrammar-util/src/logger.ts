@@ -48,7 +48,7 @@ export class Logger implements ILogger {
   }
 
   canLogWarn() {
-    return this._level >= LoggerLevel.Error;
+    return this._level >= LoggerLevel.Warn;
   }
 
   level(): number;
@@ -91,9 +91,9 @@ export class Logger implements ILogger {
   }
 }
 
-let defaultLogger: Logger = null;
+let defaultLogger: ILogger = null;
 
-export const setLogger = (logger: Logger) => {
+export const setLogger = (logger: ILogger) => {
   defaultLogger = logger;
 };
 

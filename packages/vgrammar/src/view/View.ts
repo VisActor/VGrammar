@@ -33,7 +33,7 @@ import type {
   IComponent,
   ComponentSpec
 } from '../types/';
-import type { Logger } from '@visactor/vgrammar-util';
+import type { ILogger } from '@visactor/vgrammar-util';
 // eslint-disable-next-line no-duplicate-imports
 import { setLogger, getLogger } from '@visactor/vgrammar-util';
 import { unregisterRuntimeTransforms } from '../transforms/register';
@@ -110,7 +110,7 @@ export default class View extends EventEmitter implements IView {
   /** 生命周期相关的钩子 */
   hooks: Hooks;
 
-  logger: Logger;
+  logger: ILogger;
 
   grammars: IRecordedGrammars;
 

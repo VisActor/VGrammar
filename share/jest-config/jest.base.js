@@ -14,7 +14,7 @@ module.exports = {
         esModuleInterop: true,
         experimentalDecorators: true,
         module: 'ESNext',
-        tsconfig: '<rootDir>/tsconfig.test.json',
+        tsconfig: '<rootDir>/__tests__/tsconfig.json',
         // ts-jest configuration goes here
       }
     ]
