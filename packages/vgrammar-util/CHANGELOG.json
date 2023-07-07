@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-util",
   "entries": [
     {
+      "version": "0.3.1",
+      "tag": "@visactor/vgrammar-util_v0.3.1",
+      "date": "Fri, 07 Jul 2023 04:16:33 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "test(vgrammar-util): add test case of vgrammar-util and remove some useless function"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.0",
       "tag": "@visactor/vgrammar-util_v0.3.0",
       "date": "Wed, 28 Jun 2023 03:31:17 GMT",

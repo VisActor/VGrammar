@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-wordcloud-shape",
   "entries": [
     {
+      "version": "0.3.2",
+      "tag": "@visactor/vgrammar-wordcloud-shape_v0.3.2",
+      "date": "Fri, 07 Jul 2023 04:16:33 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar\" from `0.3.1` to `0.3.2`"
+          },
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-util\" from `0.3.0` to `0.3.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.1",
       "tag": "@visactor/vgrammar-wordcloud-shape_v0.3.1",
       "date": "Fri, 30 Jun 2023 09:22:01 GMT",
