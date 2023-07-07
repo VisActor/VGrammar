@@ -2,6 +2,26 @@
   "name": "@visactor/vgrammar-projection",
   "entries": [
     {
+      "version": "0.3.2",
+      "tag": "@visactor/vgrammar-projection_v0.3.2",
+      "date": "Fri, 07 Jul 2023 04:16:33 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "test(vgrammar-util): add test case of vgrammar-util and remove some useless function"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-util\" from `0.3.0` to `0.3.1`"
+          },
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar\" from `0.3.1` to `0.3.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.1",
       "tag": "@visactor/vgrammar-projection_v0.3.1",
       "date": "Fri, 30 Jun 2023 09:22:01 GMT",

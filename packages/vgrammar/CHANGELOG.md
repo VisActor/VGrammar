@@ -1,6 +1,22 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Fri, 30 Jun 2023 09:22:01 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jul 2023 04:16:33 GMT and should not be manually modified.
+
+## 0.3.2
+Fri, 07 Jul 2023 04:16:33 GMT
+
+### Patches
+
+- fix: remove useless api of View: `ignoreRender()`, fix the definition of `IViewConstructor`
+- feat: add a new api `getImageBuffer` to View
+
+
+- fix: crosshair can read `radius` and `center` from encode result, fix #42
+
+
+- feat: add config `align` to layout config, fix #43
+
+
 
 ## 0.3.1
 Fri, 30 Jun 2023 09:22:01 GMT

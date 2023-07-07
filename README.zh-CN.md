@@ -20,6 +20,8 @@ VGrammar，不只是生成万千图表的可视化语法，更是化枯燥为神
   <a href="">跨端</a>
 </p>
 
+![image test](https://github.com/visactor/vchart/actions/workflows/bug-server.yml/badge.svg?event=push)
+![unit test](https://github.com/visactor/vchart/actions/workflows/unit-test.yml/badge.svg?event=push)
 [![npm Version](https://img.shields.io/npm/v/@visactor/vgrammar.svg)](https://www.npmjs.com/package/@visactor/vgrammar)
 [![npm Download](https://img.shields.io/npm/dm/@visactor/vgrammar.svg)](https://www.npmjs.com/package/@visactor/vgrammar)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/visactor/vgrammar/blob/main/LICENSE)
@@ -69,136 +71,100 @@ yarn add @visactor/vgrammar
 ## 快速上手
 
 ```javascript
-const spec = {
-  type: 'common',
-  data: {
-    values: [
-      {
-        time: '2:00',
-        value: 8,
-        type: '抖音'
-      },
-      {
-        time: '4:00',
-        value: 9,
-        type: '抖音'
-      },
-      {
-        time: '6:00',
-        value: 11,
-        type: '抖音'
-      },
-      {
-        time: '8:00',
-        value: 14,
-        type: '抖音'
-      },
-      {
-        time: '10:00',
-        value: 16,
-        type: '抖音'
-      },
-      {
-        time: '12:00',
-        value: 17,
-        type: '抖音'
-      },
-      {
-        time: '14:00',
-        value: 17,
-        type: '抖音'
-      },
-      {
-        time: '16:00',
-        value: 16,
-        type: '抖音'
-      },
-      {
-        time: '18:00',
-        value: 15,
-        type: '抖音'
-      },
+import { View } from '@visactor/vgrammar';
 
-      {
-        time: '2:00',
-        value: 7,
-        type: 'B站'
-      },
-      {
-        time: '4:00',
-        value: 8,
-        type: 'B站'
-      },
-      {
-        time: '6:00',
-        value: 9,
-        type: 'B站'
-      },
-      {
-        time: '8:00',
-        value: 10,
-        type: 'B站'
-      },
-      {
-        time: '10:00',
-        value: 9,
-        type: 'B站'
-      },
-      {
-        time: '12:00',
-        value: 12,
-        type: 'B站'
-      },
-      {
-        time: '14:00',
-        value: 14,
-        type: 'B站'
-      },
-      {
-        time: '16:00',
-        value: 12,
-        type: 'B站'
-      },
-      {
-        time: '18:00',
-        value: 14,
-        type: 'B站'
-      }
-    ]
-  },
-  color: ['#6690F2', '#70D6A3'],
-  series: [
+const spec = {
+  data: [
     {
-      type: 'bar',
-      xField: 'time',
-      yField: 'value',
-      stack: true,
-      seriesField: 'type'
-    }
-  ],
-  legends: {
-    visible: true,
-    orient: 'right'
-  },
-  axes: [
-    {
-      orient: 'bottom',
-      type: 'band'
+      id: 'table',
+      values: [
+        {
+          value: 3676,
+          name: ' ~ 29'
+        },
+        {
+          value: 3872,
+          name: '30 ~ 39'
+        },
+        {
+          value: 1668,
+          name: '40 ~ 49'
+        },
+        {
+          value: 610,
+          name: '50 ~'
+        }
+      ]
     },
     {
-      orient: 'left',
-      type: 'linear'
+      id: 'pie',
+      source: 'table',
+      transform: [
+        {
+          type: 'pie',
+          field: 'value',
+          asStartAngle: 'startAngle',
+          asEndAngle: 'endAngle'
+        }
+      ]
+    }
+  ],
+
+  scales: [
+    {
+      id: 'colorScale',
+      type: 'ordinal',
+      domain: { data: 'table', field: 'name' },
+      range: [
+        '#6690F2',
+        '#70D6A3',
+        '#B4E6E2',
+        '#63B5FC',
+        '#FF8F62',
+        '#FFDC83',
+        '#BCC5FD',
+        '#A29BFE',
+        '#63C4C7',
+        '#F68484'
+      ]
+    }
+  ],
+
+  marks: [
+    {
+      type: 'arc',
+      from: { data: 'pie' },
+      dependency: ['viewBox', 'colorScale'],
+      encode: {
+        update: (datum, element, params) => {
+          const viewBox = params.viewBox;
+          const maxR = Math.min(viewBox.width() / 2, viewBox.height() / 2);
+          return {
+            x: viewBox.x1 + viewBox.width() / 2,
+            y: viewBox.y1 + viewBox.height() / 2,
+            startAngle: datum.startAngle,
+            endAngle: datum.endAngle,
+            innerRadius: 100,
+            outerRadius: maxR,
+            fill: params.colorScale.scale(datum.name)
+          };
+        },
+        hover: {
+          fill: 'red'
+        }
+      }
     }
   ]
 };
 
-/**
- * 图表容器 dom id: CHART_CONTAINER_DOM_ID
- * ChartSpace 类: ChartSpace
- *
- */
-const chartSpace = new ChartSpace(spec, { dom: CHART_CONTAINER_DOM_ID });
-await chartSpace.renderAsync();
+const vGrammarView = new View({
+  autoFit: true,
+  container: 'chart',
+  hover: true
+});
+vGrammarView.parseSpec(spec);
+
+vGrammarView.runAsync();
 ```
 
 ##

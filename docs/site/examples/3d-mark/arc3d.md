@@ -2,7 +2,8 @@
 category: examples
 group: 3d-mark
 title: 3d arc 图元
-cover:
+order: 40-1
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/3d-mark-arc3d.png
 ---
 
 # 3d arc 图元

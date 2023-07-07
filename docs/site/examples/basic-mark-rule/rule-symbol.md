@@ -2,7 +2,8 @@
 category: examples
 group: basic-mark-rule
 title: rule图形展示
-cover:
+order: 4-1
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rule-rule-symbol.png
 ---
 
 # rule 图形展示

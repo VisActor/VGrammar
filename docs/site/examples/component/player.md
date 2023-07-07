@@ -2,7 +2,8 @@
 category: examples
 group: component
 title: 播放器
-cover:
+order: 50-2
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-player.png
 ---
 
 # 播放器
@@ -76,7 +77,6 @@ const xAxis = vGrammarView
   .tickCount(-1)
   .depend(['viewBox'])
   .encode((scale, elment, params) => {
-    console.log('xAxis', params.viewBox);
     return {
       x: 0,
       y: params.viewBox.height(),

@@ -2,6 +2,35 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.3.2",
+      "tag": "@visactor/vgrammar_v0.3.2",
+      "date": "Fri, 07 Jul 2023 04:16:33 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix: remove useless api of View: `ignoreRender()`, fix the definition of `IViewConstructor`"
+          },
+          {
+            "comment": "feat: add a new api `getImageBuffer` to View\n\n"
+          },
+          {
+            "comment": "fix: crosshair can read `radius` and `center` from encode result, fix #42\n\n"
+          },
+          {
+            "comment": "feat: add config `align` to layout config, fix #43\n\n"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-coordinate\" from `0.3.0` to `0.3.1`"
+          },
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-util\" from `0.3.0` to `0.3.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.1",
       "tag": "@visactor/vgrammar_v0.3.1",
       "date": "Fri, 30 Jun 2023 09:22:01 GMT",

@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar-util
 
-This log was last generated on Wed, 28 Jun 2023 03:31:17 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jul 2023 04:16:33 GMT and should not be manually modified.
+
+## 0.3.1
+Fri, 07 Jul 2023 04:16:33 GMT
+
+### Patches
+
+- test(vgrammar-util): add test case of vgrammar-util and remove some useless function
 
 ## 0.3.0
 Wed, 28 Jun 2023 03:31:17 GMT

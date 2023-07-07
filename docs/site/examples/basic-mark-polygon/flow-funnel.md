@@ -2,7 +2,8 @@
 category: examples
 group: basic-mark-polygon
 title: 转化漏斗图
-cover:
+order: 5-1
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-polygon-flow-funnel.png
 ---
 
 # 转化漏斗图

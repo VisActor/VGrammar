@@ -2,7 +2,8 @@
 category: examples
 group: animate
 title: 自定义动画
-cover:
+order: 60-3
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-custom-animate.gif
 ---
 
 # 自定义动画

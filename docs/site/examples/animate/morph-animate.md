@@ -2,7 +2,8 @@
 category: examples
 group: animate
 title: morph 动画
-cover:
+order: 60-2
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-morph-animate.gif
 ---
 
 # morph 动画

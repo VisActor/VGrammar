@@ -2,8 +2,6 @@
 
 VGrammar 是一个面向数据可视化的语法引擎，提供了一套声明式的 Specification 以及等价的 API 形式接口，允许用户自由创作属于自己的可视化作品。
 
-![VGrammar 宣传图片](待补充)
-
 # 获取 VGrammar
 
 目前，开发者可以通过 npm 以及 github 两种方式获取 VGrammar 资源。

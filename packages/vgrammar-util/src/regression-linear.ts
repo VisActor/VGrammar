@@ -15,52 +15,7 @@ export function ordinaryLeastSquares(uX: number, uY: number, uXY: number, uX2: n
 
   return [intercept, slope];
 }
-/* Adapted from vega by University of Washington Interactive Data Lab
- * https://vega.github.io/vega/
- * Licensed under the BSD-3-Clause
 
- * url: https://github.com/vega/vega/blob/main/packages/vega-statistics/src/regression/points.js
- * License: https://github.com/vega/vega/blob/main/LICENSE
- * @license
- */
-export function points(data: any[], x: (datum: any) => number, y: (datum: any) => number, sort?: boolean) {
-  data = data.filter(d => {
-    let u = x(d);
-    let v = y(d);
-    return !isNil(u) && (u = +u) >= u && !isNil(v) && (v = +v) >= v;
-  });
-
-  if (sort) {
-    data.sort((a, b) => x(a) - x(b));
-  }
-
-  const n = data.length;
-  const X = new Float64Array(n);
-  const Y = new Float64Array(n);
-
-  // extract values, calculate means
-  let i = 0;
-  let ux: number = 0;
-  let uy: number = 0;
-  let xv;
-  let yv;
-
-  data.forEach(d => {
-    X[i] = xv = +x(d);
-    Y[i] = yv = +y(d);
-    ++i;
-    ux += (xv - ux) / i;
-    uy += (yv - uy) / i;
-  });
-
-  // mean center the data
-  for (i = 0; i < n; ++i) {
-    X[i] -= ux;
-    Y[i] -= uy;
-  }
-
-  return [X, Y, ux, uy];
-}
 // Adapted from d3-regression by Harry Stevens
 // License: https://github.com/HarryStevens/d3-regression/blob/master/LICENSE
 export function visitPoints(
@@ -107,7 +62,11 @@ export function rSquared(
 
 // Adapted from d3-regression by Harry Stevens
 // License: https://github.com/HarryStevens/d3-regression/blob/master/LICENSE
-export function regressionLinear(data: any[], x: (datum: any) => number, y: (datum: any) => number) {
+export function regressionLinear(
+  data: any[],
+  x: (datum: any) => number = datum => datum.x,
+  y: (datum: any) => number = datum => datum.y
+) {
   let X = 0;
   let Y = 0;
   let XY = 0;

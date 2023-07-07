@@ -2,7 +2,8 @@
 category: examples
 group: wordcloud
 title: 词云图
-cover:
+order: 90-0
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/wordcloud-basic-wordcloud.png
 ---
 
 # 词云图

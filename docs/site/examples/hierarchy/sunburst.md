@@ -2,7 +2,8 @@
 category: examples
 group: hierarchy-sunburst
 title: sunburst图
-cover:
+order: 70-1
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/hierarchy-sunburst.png
 ---
 
 # sunburst 图

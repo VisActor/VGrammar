@@ -2,7 +2,8 @@
 category: examples
 group: 3d-mark
 title: pyramid3d 图元
-cover:
+order: 40-2
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/3d-mark-pyramid3d.png
 ---
 
 # pyramid3d 图元

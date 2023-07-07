@@ -2,7 +2,8 @@
 category: examples
 group: sankey
 title: sankey图
-cover:
+order: 80-0
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/sankey-basic-sankey.png
 ---
 
 # sankey 图

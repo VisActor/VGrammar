@@ -54,13 +54,13 @@ const computeCrosshairStartEnd = (
   scale: IBaseScale,
   type: CrosshairType,
   groupSize: { width: number; height: number },
-  config: { radius: number; center: IPointLike },
+  config: CrosshairSpec['componentConfig'],
   offset: number = 0
 ) => {
   const start = { x: 0, y: 0 };
   const end = { x: 0, y: 0 };
-  const radius = config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2;
-  const center = config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
+  const radius = type === 'angle' ? config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2 : null;
+  const center = type === 'angle' ? config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 } : null;
 
   let current = 0;
   if (isDiscrete(scale.type)) {
@@ -110,12 +110,22 @@ export const generateLineCrosshairAttributes = (
   scale: IBaseScale,
   type: CrosshairType,
   groupSize: { width: number; height: number },
-  config: { radius: number; center: IPointLike },
-  addition?: RecursivePartial<LineCrosshairAttrs>
+  config: CrosshairSpec['componentConfig'],
+  addition?: RecursivePartial<LineCrosshairAttrs> & CrosshairSpec['componentConfig']
 ): LineCrosshairAttrs => {
   const crosshairTheme = defaultTheme.lineCrosshair;
   const offset = scale.type === 'band' ? (scale as IBandLikeScale).bandwidth() / 2 : 0;
-  const points = computeCrosshairStartEnd(point, scale, type, groupSize, config, offset);
+  const points = computeCrosshairStartEnd(
+    point,
+    scale,
+    type,
+    groupSize,
+    {
+      radius: addition?.radius ?? config?.radius,
+      center: addition?.center ?? config?.center
+    },
+    offset
+  );
   return merge({}, crosshairTheme, points, addition ?? {});
 };
 
@@ -124,7 +134,7 @@ export const generateRectCrosshairAttributes = (
   scale: IBaseScale,
   type: CrosshairType,
   groupSize: { width: number; height: number },
-  config: { radius: number; center: IPointLike },
+  config: CrosshairSpec['componentConfig'],
   addition?: RecursivePartial<RectCrosshairAttrs>
 ): RectCrosshairAttrs => {
   const crosshairTheme = defaultTheme.rectCrosshair;
@@ -165,12 +175,13 @@ export const generateSectorCrosshairAttributes = (
   scale: IBaseScale,
   type: CrosshairType,
   groupSize: { width: number; height: number },
-  config: { radius: number; center: IPointLike },
+  config: CrosshairSpec['componentConfig'],
   addition?: RecursivePartial<SectorCrosshairAttrs>
 ): SectorCrosshairAttrs => {
   const crosshairTheme = defaultTheme.sectorCrosshair;
-  const radius = config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2;
-  const center = config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
+  const radius = addition?.radius ?? config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2;
+  const center = (addition?.center ??
+    config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 }) as IPointLike;
   const defaultAngle = crosshairTheme.endAngle - crosshairTheme.startAngle;
   const angle = scale.type === 'band' || scale.type === 'point' ? (scale as IBandLikeScale).step() : defaultAngle;
   let currentAngle = 0;
@@ -190,12 +201,12 @@ export const generateCircleCrosshairAttributes = (
   scale: IBaseScale,
   type: CrosshairType,
   groupSize: { width: number; height: number },
-  config: { radius: number; center: IPointLike },
+  config: CrosshairSpec['componentConfig'],
   addition?: RecursivePartial<CircleCrosshairAttrs>
 ): CircleCrosshairAttrs => {
   const crosshairTheme = defaultTheme.circleCrosshair;
   const radius = config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2;
-  const center = config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
+  const center = addition?.center ?? config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
   let currentRadius = 0;
   if (isDiscrete(scale.type)) {
     const radius = Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2);
@@ -203,8 +214,10 @@ export const generateCircleCrosshairAttributes = (
   } else if (isContinuous(scale.type)) {
     currentRadius = Math.min(radius, Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2));
   }
+
   const startAngle = crosshairTheme.startAngle;
   const endAngle = crosshairTheme.endAngle;
+
   return merge({}, crosshairTheme, { center, radius: currentRadius, startAngle, endAngle }, addition ?? {});
 };
 
@@ -213,12 +226,12 @@ export const generatePolygonCrosshairAttributes = (
   scale: IBaseScale,
   type: CrosshairType,
   groupSize: { width: number; height: number },
-  config: { radius: number; center: IPointLike },
+  config: CrosshairSpec['componentConfig'],
   addition?: RecursivePartial<PolygonCrosshairAttrs>
 ): PolygonCrosshairAttrs => {
   const crosshairTheme = defaultTheme.circleCrosshair;
-  const radius = config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2;
-  const center = config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
+  const radius = addition?.radius ?? config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2;
+  const center = addition?.center ?? config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
   let currentRadius = 0;
   if (isDiscrete(scale.type)) {
     const radius = Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2);

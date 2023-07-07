@@ -1,6 +1,11 @@
 # Change Log - @visactor/vgrammar-hierarchy
 
-This log was last generated on Fri, 30 Jun 2023 09:22:01 GMT and should not be manually modified.
+This log was last generated on Fri, 07 Jul 2023 04:16:33 GMT and should not be manually modified.
+
+## 0.3.2
+Fri, 07 Jul 2023 04:16:33 GMT
+
+_Version update only_
 
 ## 0.3.1
 Fri, 30 Jun 2023 09:22:01 GMT

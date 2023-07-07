@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["./", "../src"],
+  "compilerOptions": {
+    "paths": {
+      "@visactor/vgrammar-util": ["../../vgrammar-util/src"]
+    }
+  },
+  "references": []
+}
