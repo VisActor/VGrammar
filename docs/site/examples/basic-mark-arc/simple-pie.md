@@ -2,7 +2,8 @@
 category: examples
 group: basic-mark-arc
 title: 饼图
-cover:
+order: 3-3
+cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-simple-pie.png
 ---
 
 # 饼图

@@ -75,7 +75,7 @@
 | rotateOut        | 旋转退出                           |
 | update           | 对有变化的视觉通道，执行默认的插值 |
 
-还有特定图元支持的内置动画类型，大家可以在[spec 文档](todo)中查询
+还有特定图元支持的内置动画类型，大家可以在[spec 文档](/vgrammar/option/marks-symbol#animation.type)中查询
 
 #### 视觉通道动画
 
