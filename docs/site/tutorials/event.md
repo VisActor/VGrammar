@@ -32,7 +32,7 @@ const spec = {
 - `#foo:mousedown`： 监听 id 为 foo 的 mark，所有的图形元素对应的 mousedown 事件。
 - `@foo:mousedown`： 监听 name 为 foo 的 mark 下，所有的图形元素对应的 mousedown 事件。
 
-图形元素支持的事件名称和 DOM 事件名称基本保持一致，具体可以查询[spec 文档](todo)
+图形元素支持的事件名称和 DOM 事件名称基本保持一致，具体可以查询[spec 文档](/vgrammar/option/events#type)
 
 ### 事件触发 signal 更新
 
