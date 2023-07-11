@@ -1,6 +1,6 @@
 {
-  "extends": "../tsconfig.json",
-  "include": ["./", "../src"],
+  "extends": "@internal/ts-config/tsconfig.base.json",
+  "include": [".", "../src"],
   "compilerOptions": {
     "paths": {
       "@visactor/vgrammar-util": ["../../vgrammar-util/src"],
