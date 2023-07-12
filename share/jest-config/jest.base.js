@@ -33,6 +33,7 @@ module.exports = {
   coverageReporters: ['json-summary', 'lcov', "text"],
   collectCoverageFrom: [
     '**/src/**',
+    '!.rollup.cache/**',
     '!**/cjs/**',
     '!**/dist/**',
     '!**/es/**',

@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-projection
 
-This log was last generated on Fri, 07 Jul 2023 04:16:33 GMT and should not be manually modified.
+This log was last generated on Wed, 12 Jul 2023 10:47:26 GMT and should not be manually modified.
+
+## 0.3.3
+Wed, 12 Jul 2023 10:47:26 GMT
+
+### Patches
+
+- fix(vgrammar): fix issue when update state, data of line/area, the graphic item may use old points
+
+
 
 ## 0.3.2
 Fri, 07 Jul 2023 04:16:33 GMT

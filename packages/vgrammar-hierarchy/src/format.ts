@@ -27,14 +27,14 @@ export const flattenNodes = <T = TreemapNodeElement>(
   return output;
 };
 
-export const flattenTreeLinks = <T>(
+export const flattenTreeLinks = <T = TreeLinkElement>(
   nodes: TreeNodeElement[],
   output: T[] = [],
   options?: {
     maxDepth?: number;
     callback?: (link: TreeLinkElement) => T;
   }
-) => {
+): T[] => {
   const hasMaxDepth = options?.maxDepth >= 0;
 
   nodes.forEach(node => {

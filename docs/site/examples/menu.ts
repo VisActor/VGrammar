@@ -284,6 +284,9 @@ export const examplesMenu = [
       },
       {
         name: 'morph-animate'
+      },
+      {
+        name: 'timeline'
       }
     ]
   },

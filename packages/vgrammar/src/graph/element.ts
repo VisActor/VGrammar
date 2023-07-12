@@ -8,7 +8,7 @@ import { DiffState, HOOK_EVENT, GrammarMarkType } from './enums';
 import { invokeEncoderToItems } from './mark/encode';
 import { removeGraphicItem } from './util/graphic';
 import { transformAttributes, getLineSegmentConfigs, isPointsMarkType, getLinePointsFromSegments } from './attributes';
-import { getLargeRectsPoints, getLargeSymbolsPoints, getLinePoints } from './attributes/helpers';
+import { getLargeRectsPoints, getLargeSymbolsPoints, getLinePoints, isValidPointsChannel } from './attributes/helpers';
 import type {
   BaseEncodeSpec,
   IElement,
@@ -167,13 +167,15 @@ export class Element implements IElement {
     if (!this.graphicItem) {
       this.initGraphicItem(graphicAttributes);
     } else {
+      this.graphicItem.clearStates();
+      // 更新数据流后，states计算不缓存
+      this.graphicItem.states = {};
+      this.graphicItem.stateProxy = null;
+
       this.applyGraphicAttributes(graphicAttributes);
     }
 
     if ((this.diffState === DiffState.enter || this.diffState === DiffState.update) && this.states.length) {
-      this.graphicItem.clearStates();
-      // 更新数据流后，states计算不缓存
-      this.graphicItem.states = {};
       this.useStates(this.states);
     }
 
@@ -380,7 +382,7 @@ export class Element implements IElement {
       items &&
       items.length &&
       isNil(item.nextAttrs?.points) &&
-      computePoints !== false &&
+      (computePoints === true || isValidPointsChannel(Object.keys(item.nextAttrs), this.mark.markType)) &&
       isPointsMarkType(markType)
     ) {
       const lastPoints = this.getGraphicAttribute('points', false);
