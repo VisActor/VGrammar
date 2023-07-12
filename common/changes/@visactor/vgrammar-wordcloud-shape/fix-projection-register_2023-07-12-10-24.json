@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat(vgrammar-projection): update api of Projection\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-wordcloud-shape"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-wordcloud-shape",
+  "email": "dingling112@gmail.com"
+}
