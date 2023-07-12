@@ -1,7 +1,13 @@
-import type { GenericFunctionType, IGrammarBase } from '@visactor/vgrammar';
+import type { GenericFunctionType, IGrammarBase, Nil } from '@visactor/vgrammar';
 
 export interface IProjection extends IGrammarBase {
   grammarType: 'projection';
+  parse: (spec: ProjectionSpec) => this;
+  pointRadius: (spec: ProjectionSpec['pointRadius']) => this;
+  size: (spec: ProjectionSpec['size']) => this;
+  fit: (spec: ProjectionSpec['fit']) => this;
+  extent: (spec: ProjectionSpec['extent']) => this;
+  configure: (spec: Omit<ProjectionSpec, 'fit' | 'extent' | 'size' | 'pointRadius'> | Nil) => this;
 }
 
 export interface GeometryData {

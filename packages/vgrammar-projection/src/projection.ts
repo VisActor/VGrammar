@@ -7,10 +7,10 @@
  * @license
  */
 
-import { array, isFunction, isNil, merge } from '@visactor/vutils';
+import { array, isFunction, isNil } from '@visactor/vutils';
 import { error } from '@visactor/vgrammar-util';
 import { projection, projectionProperties } from './projections';
-import type { IView, IGrammarBase } from '@visactor/vgrammar';
+import type { IView, IGrammarBase, Nil } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
 import { GrammarBase, parseFunctionType, invokeFunctionType } from '@visactor/vgrammar';
 import type { FeatureCollectionData, FeatureData, IProjection, ProjectionSpec } from './interface';
@@ -79,9 +79,73 @@ export class Projection extends GrammarBase implements IProjection {
 
   parse(spec: ProjectionSpec) {
     super.parse(spec);
-    this.spec = merge({}, this.spec, spec);
-    this.attach(parseProjection(spec, this.view));
+    this.pointRadius(spec.pointRadius);
+    this.size(spec.size);
+    this.extent(spec.extent);
+    this.fit(spec.fit);
+    this.configure(spec);
 
+    this.commit();
+
+    return this;
+  }
+
+  pointRadius(pointRadius: ProjectionSpec['pointRadius']) {
+    if (!isNil(this.spec.pointRadius)) {
+      this.detach(parseFunctionType(this.spec.pointRadius, this.view));
+    }
+    this.spec.pointRadius = pointRadius;
+    this.attach(parseFunctionType(pointRadius, this.view));
+    this.commit();
+    return this;
+  }
+
+  size(data: ProjectionSpec['size']) {
+    if (!isNil(this.spec.size)) {
+      this.detach(parseFunctionType(this.spec.size, this.view));
+    }
+    this.spec.size = data;
+    this.attach(parseFunctionType(data, this.view));
+    this.commit();
+    return this;
+  }
+
+  extent(data: ProjectionSpec['extent']) {
+    if (!isNil(this.spec.extent)) {
+      this.detach(parseFunctionType(this.spec.extent, this.view));
+    }
+    this.spec.extent = data;
+    this.attach(parseFunctionType(data, this.view));
+    this.commit();
+    return this;
+  }
+
+  fit(data: ProjectionSpec['fit']) {
+    if (!isNil(this.spec.fit)) {
+      this.detach(parseFunctionType(this.spec.fit, this.view));
+    }
+    this.spec.fit = data;
+    this.attach(parseFunctionType(data, this.view));
+    this.commit();
+    return this;
+  }
+
+  configure(config: Omit<ProjectionSpec, 'fit' | 'extent' | 'size' | 'pointRadius'> | Nil) {
+    this.detach(parseProjection(this.spec, this.view));
+
+    if (isNil(config)) {
+      this.spec = {
+        type: this.spec.type,
+        fit: this.spec.fit,
+        extent: this.spec.extent,
+        size: this.spec.size,
+        pointRadius: this.spec.pointRadius
+      };
+    } else {
+      Object.assign(this.spec, config);
+      this.attach(parseProjection(this.spec, this.view));
+    }
+    this.commit();
     return this;
   }
 
