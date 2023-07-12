@@ -278,7 +278,7 @@ export class Mark extends GrammarBase implements IMark {
   async evaluate(data: any[], parameters: any) {
     this.evaluateMainTasks(data, parameters);
     if (!this.renderContext?.progressive) {
-      await this.evaluateTransform(this.transforms, this.elements, parameters);
+      await this.evaluateTransform(this._getTransformsAfterEncode(), this.elements, parameters);
     }
 
     return this;
@@ -288,7 +288,7 @@ export class Mark extends GrammarBase implements IMark {
     this.evaluateMainTasks(data, parameters);
 
     if (!this.renderContext?.progressive) {
-      this.evaluateTransformSync(this.transforms, this.elements, parameters);
+      this.evaluateTransformSync(this._getTransformsAfterEncode(), this.elements, parameters);
     }
 
     return this;
