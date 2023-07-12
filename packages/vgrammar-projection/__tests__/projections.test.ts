@@ -7,9 +7,10 @@
  * @license
  */
 
-import { projection } from '../src/index';
+import { projection, projectionProperties } from '../src/index';
 
 test('default projections are registered', function () {
+  expect(projectionProperties.length).toBe(19);
   [
     'albers',
     'albersusa',
@@ -28,6 +29,12 @@ test('default projections are registered', function () {
     'transversemercator'
   ].forEach(function (name) {
     const p = projection(name);
-    expect(p).not.toBe(null);
+    expect(p).not.toBeNull();
+    const proj = p();
+    expect(proj.copy).not.toBeUndefined();
+
+    const p1 = proj.copy();
+
+    expect(p1).not.toBeUndefined();
   });
 });
