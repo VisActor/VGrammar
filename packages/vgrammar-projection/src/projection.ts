@@ -10,7 +10,7 @@
 import { array, isFunction, isNil, merge } from '@visactor/vutils';
 import { error } from '@visactor/vgrammar-util';
 import { projection, projectionProperties } from './projections';
-import type { IView, GrammarType, IGrammarBase } from '@visactor/vgrammar';
+import type { IView, IGrammarBase } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
 import { GrammarBase, parseFunctionType, invokeFunctionType } from '@visactor/vgrammar';
 import type { FeatureCollectionData, FeatureData, IProjection, ProjectionSpec } from './interface';
@@ -69,7 +69,7 @@ export function parseProjection(spec: ProjectionSpec, view: IView) {
 }
 
 export class Projection extends GrammarBase implements IProjection {
-  readonly grammarType: GrammarType = 'projection';
+  readonly grammarType = 'projection';
 
   private projection: any;
 
@@ -99,7 +99,7 @@ export class Projection extends GrammarBase implements IProjection {
     if (!isNil(this.spec.pointRadius)) {
       this.projection.path.pointRadius(invokeFunctionType(this.spec.pointRadius, parameters, projection));
     }
-    if (!isNil(this.spec.fit)) {
+    if (!isNil(this.spec.fit) && (!isNil(this.spec.extent) || !isNil(this.spec.size))) {
       const fit = invokeFunctionType(this.spec.fit, parameters, projection);
       const data = collectGeoJSON(fit);
 

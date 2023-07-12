@@ -1,6 +1,8 @@
 import type { GenericFunctionType, IGrammarBase } from '@visactor/vgrammar';
 
-export type IProjection = IGrammarBase;
+export interface IProjection extends IGrammarBase {
+  grammarType: 'projection';
+}
 
 export interface GeometryData {
   type: 'Point' | 'MultiPoint' | 'LineString' | 'MultiLineString' | 'Polygon' | 'MultiPolygon' | 'GeometryCollection';
@@ -28,7 +30,9 @@ export interface ProjectionSpec {
   name?: string;
   pointRadius?: ProjectionFunctionType<number>;
   extent?: ProjectionFunctionType<[[number, number], [number, number]]>;
-  fit?: ProjectionFunctionType<boolean>;
+  fit?: ProjectionFunctionType<
+    FeatureCollectionData | FeatureCollectionData[] | FeatureData | FeatureData[] | GeometryData | GeometryData[]
+  >;
   size?: ProjectionFunctionType<[number, number]>;
 
   // standard properties in d3-geo
