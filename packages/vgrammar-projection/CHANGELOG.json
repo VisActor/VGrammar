@@ -2,6 +2,26 @@
   "name": "@visactor/vgrammar-projection",
   "entries": [
     {
+      "version": "0.3.3",
+      "tag": "@visactor/vgrammar-projection_v0.3.3",
+      "date": "Wed, 12 Jul 2023 10:47:26 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix(vgrammar): fix issue when update state, data of line/area, the graphic item may use old points\n\n"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-util\" from `0.3.1` to `0.3.2`"
+          },
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar\" from `0.3.2` to `0.3.3`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.2",
       "tag": "@visactor/vgrammar-projection_v0.3.2",
       "date": "Fri, 07 Jul 2023 04:16:33 GMT",

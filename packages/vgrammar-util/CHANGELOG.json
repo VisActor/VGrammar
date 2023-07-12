@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-util",
   "entries": [
     {
+      "version": "0.3.2",
+      "tag": "@visactor/vgrammar-util_v0.3.2",
+      "date": "Wed, 12 Jul 2023 10:47:26 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix(vgrammar): fix issue when update state, data of line/area, the graphic item may use old points\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.1",
       "tag": "@visactor/vgrammar-util_v0.3.1",
       "date": "Fri, 07 Jul 2023 04:16:33 GMT",
