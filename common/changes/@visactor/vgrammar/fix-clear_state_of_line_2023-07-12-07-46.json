@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix(vgrammar): fix issue when update state, data of line/area, the graphic item may use old points\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}

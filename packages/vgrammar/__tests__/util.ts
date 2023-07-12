@@ -43,19 +43,25 @@ export const getMockedView = () => {
   };
 };
 
-export function createSimpleElement(markType: string = 'rect', transformType?: string) {
+export function createSimpleElement(
+  markType: string = 'rect',
+  options?: {
+    transformType?: string;
+    markSpec?: any;
+  }
+) {
   const mark = {
     markType,
     isLargeMode: () => false,
     isCollectionMark: () => markType === 'line' || markType === 'area',
     needAnimate: () => false,
-    getSpec: () => ({}),
+    getSpec: () => options?.markSpec ?? {},
     parameters: () => ({}),
     graphicParent: { appendChild: emptyFunction, insertInto: emptyFunction },
     emit: () => false,
     view: getMockedView(),
     isProgressive: () => false,
-    getAttributeTransforms: () => transformsByType[transformType ?? markType]
+    getAttributeTransforms: () => transformsByType[options?.transformType ?? markType]
   } as any;
   mark.addGraphicItem = () => {
     return (createGraphicItem as any)(mark, markType, {});

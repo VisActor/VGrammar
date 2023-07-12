@@ -1,7 +1,7 @@
 import { createSimpleElement } from '../util';
 
 test('cornerRadius can be set to Group', function () {
-  const element = createSimpleElement('group', 'rect');
+  const element = createSimpleElement('group', { transformType: 'rect' });
 
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
@@ -31,7 +31,7 @@ test('cornerRadius can be set to Group', function () {
 });
 
 test("'strokeTop', 'strokeRight', 'strokeBottom', 'strokeLeft' can be set to Group", function () {
-  const element = createSimpleElement('group', 'rect');
+  const element = createSimpleElement('group', { transformType: 'rect' });
 
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
@@ -57,7 +57,7 @@ test("'strokeTop', 'strokeRight', 'strokeBottom', 'strokeLeft' can be set to Gro
 });
 
 test('size channels can be set to Group', function () {
-  const element = createSimpleElement('group', 'rect');
+  const element = createSimpleElement('group', { transformType: 'rect' });
 
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
