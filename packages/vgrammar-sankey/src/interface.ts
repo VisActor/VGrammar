@@ -102,6 +102,7 @@ export interface SankeyNodeElement {
  * the link element after sankey layout
  */
 export interface SankeyLinkElement {
+  key?: string;
   vertical?: boolean;
   index: number;
   source: string | number;

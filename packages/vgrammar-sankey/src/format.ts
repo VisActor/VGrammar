@@ -14,7 +14,7 @@ export const formatNodeRect = (nodes: SankeyNodeElement[]): IRectGraphicAttribut
   });
 };
 
-export const formatLinkPolygon = (links: SankeyLinkElement[]): IPolygonGraphicAttribute[] => {
+export const formatLinkPolygon = (links: SankeyLinkElement[]): (IPolygonGraphicAttribute & SankeyLinkElement)[] => {
   const isVertical = !isNil(links?.[0]?.vertical);
 
   if (isVertical) {
@@ -68,7 +68,10 @@ export const formatLinkPolygon = (links: SankeyLinkElement[]): IPolygonGraphicAt
   });
 };
 
-export const formatLinkPath = (links: SankeyLinkElement[], round: boolean = true): IPathGraphicAttribute[] => {
+export const formatLinkPath = (
+  links: SankeyLinkElement[],
+  round: boolean = true
+): (IPathGraphicAttribute & SankeyLinkElement)[] => {
   const isVertical = !isNil(links?.[0]?.vertical);
 
   if (isVertical) {
