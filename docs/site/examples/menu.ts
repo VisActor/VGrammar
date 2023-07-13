@@ -56,6 +56,9 @@ export const examplesMenu = [
       },
       {
         name: 'percent-area'
+      },
+      {
+        name: 'intersection'
       }
     ]
   },
