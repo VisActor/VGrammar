@@ -62,6 +62,10 @@ export class Element implements IElement {
     this.graphicItem[BridgeElementKey] = this;
 
     this.graphicItem.onBeforeAttributeUpdate = (attributes: any) => {
+      // mark might be released
+      if (!this.mark) {
+        return attributes;
+      }
       const graphicAttributes = transformAttributes(this.mark.getAttributeTransforms(), attributes, this);
       return graphicAttributes;
     };
@@ -583,10 +587,10 @@ export class Element implements IElement {
   }
 
   release() {
-    // stop all animations when releasing
-    this.mark?.animate.getElementAnimators(this).forEach(animator => {
-      animator.stop();
-    });
+    // stop all animation when releasing including normal animation & morphing animation
+    if (this.graphicItem) {
+      this.graphicItem.animates?.forEach?.(animate => animate.stop());
+    }
 
     this.mark = null;
     this.data = null;
