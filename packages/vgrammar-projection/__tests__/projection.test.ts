@@ -1,8 +1,9 @@
 import type { IView } from '@visactor/vgrammar';
 import { Projection } from '../src/index';
 import { getMockedView } from './utils';
-import type { GeometryData } from '../src/interface';
+import type { FeatureCollectionData } from '../src/interface';
 import { collectGeoJSON } from '../src/projection';
+import { testData } from './data';
 
 test('new Projection', () => {
   const projeciton = new Projection(getMockedView() as unknown as IView);
@@ -23,7 +24,8 @@ test('new Projection', () => {
     center: [20, 40] as [number, number],
     clipAngle: 180,
     pointRadius: 5,
-    fit: [{ type: 'Point' }] as GeometryData[]
+    fit: testData as FeatureCollectionData,
+    size: [400, 600] as [number, number]
   };
   projeciton.parse(specB);
   projeciton.evaluate([], {});
