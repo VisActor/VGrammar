@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "stop all animations when release",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
