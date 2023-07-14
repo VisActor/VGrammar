@@ -1,17 +1,25 @@
-import type { GenericFunctionType, IGrammarBase } from '@visactor/vgrammar';
+import type { GenericFunctionType, IGrammarBase, Nil } from '@visactor/vgrammar';
 
-export type IProjection = IGrammarBase;
+export interface IProjection extends IGrammarBase {
+  grammarType: 'projection';
+  parse: (spec: ProjectionSpec) => this;
+  pointRadius: (spec: ProjectionSpec['pointRadius']) => this;
+  size: (spec: ProjectionSpec['size']) => this;
+  fit: (spec: ProjectionSpec['fit']) => this;
+  extent: (spec: ProjectionSpec['extent']) => this;
+  configure: (spec: Omit<ProjectionSpec, 'fit' | 'extent' | 'size' | 'pointRadius'> | Nil) => this;
+}
 
 export interface GeometryData {
   type: 'Point' | 'MultiPoint' | 'LineString' | 'MultiLineString' | 'Polygon' | 'MultiPolygon' | 'GeometryCollection';
-  coordinates?: [number, number] | [number, number][];
+  coordinates?: [number, number] | [number, number][] | [number, number][][] | [number, number][][][];
   arcs?: number[][];
 }
 
 export interface FeatureData {
   type: 'Feature';
-  geometry: GeometryData[];
-  properties: Record<string, any>;
+  geometry: GeometryData;
+  properties?: Record<string, any>;
 }
 
 export interface FeatureCollectionData {
@@ -28,7 +36,9 @@ export interface ProjectionSpec {
   name?: string;
   pointRadius?: ProjectionFunctionType<number>;
   extent?: ProjectionFunctionType<[[number, number], [number, number]]>;
-  fit?: ProjectionFunctionType<boolean>;
+  fit?: ProjectionFunctionType<
+    FeatureCollectionData | FeatureCollectionData[] | FeatureData | FeatureData[] | GeometryData | GeometryData[]
+  >;
   size?: ProjectionFunctionType<[number, number]>;
 
   // standard properties in d3-geo

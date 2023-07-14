@@ -206,13 +206,14 @@ importers:
       '@internal/ts-config': workspace:*
       '@jest/globals': ~29.5.0
       '@rushstack/eslint-patch': ~1.1.4
-      '@types/d3-geo': ^1.11.1
+      '@types/d3-geo': ^3.0.1
       '@types/jest': ~29.5.0
       '@types/node': '*'
       '@visactor/vgrammar': workspace:0.3.3
       '@visactor/vgrammar-util': workspace:0.3.2
       '@visactor/vutils': ~0.11.1
-      d3-geo: ^1.11.6
+      d3-array: 2.5.0 - 3
+      d3-geo: ^3.0.1
       eslint: ~8.18.0
       jest: ~29.5.0
       ts-jest: ~29.1.0
@@ -222,7 +223,7 @@ importers:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-util': link:../vgrammar-util
       '@visactor/vutils': 0.11.1
-      d3-geo: 1.12.1
+      d3-geo: 3.1.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -230,9 +231,10 @@ importers:
       '@internal/ts-config': link:../../share/ts-config
       '@jest/globals': 29.5.0
       '@rushstack/eslint-patch': 1.1.4
-      '@types/d3-geo': 1.12.4
+      '@types/d3-geo': 3.0.3
       '@types/jest': 29.5.3
       '@types/node': 20.4.2
+      d3-array: 3.2.4
       eslint: 8.18.0
       jest: 29.5.0_@types+node@20.4.2
       ts-jest: 29.1.1_doipufordlnvh5g4adbwayvyvy
@@ -2446,8 +2448,8 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /@types/d3-geo/1.12.4:
-    resolution: {integrity: sha512-lNDaAuOaML6w2d1XE0Txr5YOXLBQSF1q2IU6eXh/u1TTPQSm2Ah+TMIub1+CIMq8J/7DOzi5Cr8/yHqjNvqLKA==}
+  /@types/d3-geo/3.0.3:
+    resolution: {integrity: sha512-bK9uZJS3vuDCNeeXQ4z3u0E7OeJZXjUgzFdSOtNtMCJCLvDtWDwfpRVWlyt3y8EvRzI0ccOu9xlMVirawolSCw==}
     dependencies:
       '@types/geojson': 7946.0.10
     dev: true
@@ -3799,19 +3801,22 @@ packages:
       type: 1.2.0
     dev: false
 
-  /d3-array/1.2.4:
-    resolution: {integrity: sha512-KHW6M86R+FUPYGb3R5XiYjXPq7VzwxZ22buHhAEVG5ztoEcZZMLov530mmccaqA1GghZArjQV46fuc8kUqhhHw==}
-    dev: false
+  /d3-array/3.2.4:
+    resolution: {integrity: sha512-tdQAmyA18i4J7wprpYq8ClcxZy3SC31QMeByyCFyRt7BVHdREQZ5lpzoe5mFEYZUWe+oq8HBvk9JjpibyEV4Jg==}
+    engines: {node: '>=12'}
+    dependencies:
+      internmap: 2.0.3
 
   /d3-color/3.1.0:
     resolution: {integrity: sha512-zg/chbXyeBtMQ1LbD/WSoW2DpC3I0mpmPdW+ynRTj/x2DAWYrIY7qeZIHidozwV24m4iavr15lNwIwLxRmOxhA==}
     engines: {node: '>=12'}
     dev: true
 
-  /d3-geo/1.12.1:
-    resolution: {integrity: sha512-XG4d1c/UJSEX9NfU02KwBL6BYPj8YKHxgBEw5om2ZnTRSbIcego6dhHwcxuSR3clxh0EpE38os1DVPOmnYtTPg==}
+  /d3-geo/3.1.0:
+    resolution: {integrity: sha512-JEo5HxXDdDYXCaWdwLRt79y7giK8SbhZJbFWXqbRTolCHFI5jRqteLzCsq51NKbUoX0PjBVSohxrx+NoOUujYA==}
+    engines: {node: '>=12'}
     dependencies:
-      d3-array: 1.2.4
+      d3-array: 3.2.4
     dev: false
 
   /d3-interpolate/3.0.1:
@@ -5450,6 +5455,10 @@ packages:
       has: 1.0.3
       side-channel: 1.0.4
     dev: false
+
+  /internmap/2.0.3:
+    resolution: {integrity: sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==}
+    engines: {node: '>=12'}
 
   /interpret/1.4.0:
     resolution: {integrity: sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==}

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-projection",
+      "comment": "feat: add transform `geoPath`",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-projection"
+}

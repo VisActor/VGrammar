@@ -25,8 +25,8 @@ module.exports = {
   },
   verbose: false,
   moduleNameMapper: {
-    'd3-color': path.resolve(__dirname, './node_modules/d3-color/dist/d3-color.min.js'),
-    'd3-array': path.resolve(__dirname, './node_modules/d3-array/dist/d3-array.min.js')
+    // 'd3-color': path.resolve(__dirname, './node_modules/d3-color/dist/d3-color.min.js'),
+    // 'd3-array': path.resolve(__dirname, './node_modules/d3-array/dist/d3-array.min.js')
   },
   coverageDirectory: "coverage",
   coverageProvider: "v8",

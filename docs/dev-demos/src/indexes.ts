@@ -416,5 +416,14 @@ export const indexes = [
         type: 'api'
       }
     ]
+  },
+  {
+    menu: 'other', 
+    children: [
+      {
+        path: 'geo-path',
+        name: 'geo-path',
+      }
+    ]
   }
 ];

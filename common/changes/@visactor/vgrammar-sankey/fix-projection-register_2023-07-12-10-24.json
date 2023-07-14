@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat(vgrammar-projection): update api of Projection\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-sankey"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-sankey",
+  "email": "dingling112@gmail.com"
+}
