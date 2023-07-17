@@ -11,6 +11,7 @@ import { transformAttributes, getLineSegmentConfigs, isPointsMarkType, getLinePo
 import { getLargeRectsPoints, getLargeSymbolsPoints, getLinePoints, isValidPointsChannel } from './attributes/helpers';
 import type {
   BaseEncodeSpec,
+  BaseSignleEncodeSpec,
   IElement,
   IMark,
   IMarkConfig,
@@ -19,7 +20,6 @@ import type {
   MarkKeySpec,
   MarkSpec,
   MarkType,
-  StateEncodeSpec,
   StateProxyEncodeSpec
 } from '../types';
 import type { IGraphic, ILine, IGraphicAttribute } from '@visactor/vrender';
@@ -40,7 +40,7 @@ export class Element implements IElement {
   // Element should be reserved as long as it need to animate
   isReserved: boolean = false;
 
-  runtimeStatesEncoder: StateEncodeSpec = null;
+  runtimeStatesEncoder: BaseEncodeSpec = null;
 
   protected graphicItem: IGraphic;
 
@@ -210,7 +210,7 @@ export class Element implements IElement {
     };
   }
 
-  encodeItems(items: MarkElementItem[], encoders: StateEncodeSpec, parameters?: any) {
+  encodeItems(items: MarkElementItem[], encoders: BaseEncodeSpec, parameters?: any) {
     const isCollectionMark = this.mark.isCollectionMark();
     // marshall encoder functions
     const updateEncoder = encoders.update;
@@ -275,7 +275,7 @@ export class Element implements IElement {
     return this.states && this.states.includes(state);
   }
 
-  addState(state: string | string[], attrs?: BaseEncodeSpec | StateProxyEncodeSpec) {
+  addState(state: string | string[], attrs?: BaseSignleEncodeSpec) {
     const states = array(state);
     const nextStates = states.reduce((nextStates: string[], state: string) => {
       if (!nextStates.includes(state)) {

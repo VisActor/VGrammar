@@ -1,7 +1,8 @@
+import type { RipplePointEncoderSpec } from '../types';
 import { registerGlyph } from '../view/register-glyph';
 
 export const registerRippleGlyph = () => {
-  registerGlyph('ripplePoint', {
+  registerGlyph<RipplePointEncoderSpec>('ripplePoint', {
     symbol: 'symbol',
     ripple0: 'symbol',
     ripple1: 'symbol',

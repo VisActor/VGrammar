@@ -1,34 +1,14 @@
-import type { IGraphicAttribute } from '@visactor/vrender';
-import type { IAnimationParameters, TypeAnimation } from '../types';
+import type { IAnimationParameters, TypeAnimation, TreePathEncoderSpec } from '../types';
 import type { IElement } from '../types/element';
 import { registerAnimationType } from '../view/register-animation';
 import { registerGlyph } from '../view/register-glyph';
 import { isNil } from '@visactor/vutils';
 
-export interface TreePathEncodeValues extends Partial<IGraphicAttribute> {
-  x0: number;
-  y0: number;
-  x1: number;
-  y1: number;
-  curvature?: number;
-  /** round all the coordinates */
-  round?: boolean;
-  align?: 'start' | 'end' | 'center';
-  pathType?: 'line' | 'smooth' | 'polyline';
-  startArrowStyle?: Partial<IGraphicAttribute>;
-  endArrowStyle?: Partial<IGraphicAttribute>;
-  endArrow?: boolean;
-  startArrow?: boolean;
-  arrowSize?: number;
-  backgroundStyle?: any;
-  direction?: 'horizontal' | 'vertical' | 'LR' | 'RL' | 'TB' | 'BL' | 'radial';
-}
-
 export interface TreePathConfig {
   direction?: 'horizontal' | 'vertical' | 'LR' | 'RL' | 'TB' | 'BL' | 'radial';
 }
 
-export const getHorizontalPath = (options: TreePathEncodeValues) => {
+export const getHorizontalPath = (options: TreePathEncoderSpec) => {
   const curvature = options.curvature ?? 0.5;
   let x0 = options.x0;
   let x1 = options.x1;
@@ -80,7 +60,7 @@ export const getHorizontalPath = (options: TreePathEncodeValues) => {
   return ['', mainPath, ''];
 };
 
-export const getVerticalPath = (options: TreePathEncodeValues) => {
+export const getVerticalPath = (options: TreePathEncoderSpec) => {
   const curvature = options.curvature ?? 0.5;
   let y0 = options.y0;
   let y1 = options.y1;
@@ -132,7 +112,7 @@ export const getVerticalPath = (options: TreePathEncodeValues) => {
   return ['', mainPath, ''];
 };
 
-const encoder = (encodeValues: TreePathEncodeValues, datum: any, element: IElement, config: TreePathConfig) => {
+const encoder = (encodeValues: TreePathEncoderSpec, datum: any, element: IElement, config: TreePathConfig) => {
   const direction = encodeValues.direction ?? config?.direction;
   const parsePath = ['vertical', 'TB', 'BT'].includes(direction) ? getVerticalPath : getHorizontalPath;
 
@@ -162,7 +142,7 @@ const treePathGrowIn: TypeAnimation<IElement> = (
   options: any,
   animationParameters: IAnimationParameters
 ) => {
-  const linkValues: TreePathEncodeValues = {
+  const linkValues: TreePathEncoderSpec = {
     x0: element.getGraphicAttribute('x0', false),
     x1: element.getGraphicAttribute('x1', false),
     y0: element.getGraphicAttribute('y0', false),
@@ -190,7 +170,7 @@ const treePathGrowOut: TypeAnimation<IElement> = (
   options: any,
   animationParameters: IAnimationParameters
 ) => {
-  const linkValues: TreePathEncodeValues = {
+  const linkValues: TreePathEncoderSpec = {
     x0: element.getGraphicAttribute('x0', true),
     x1: element.getGraphicAttribute('x1', true),
     y0: element.getGraphicAttribute('y0', true),
@@ -232,7 +212,7 @@ const treePathUpdate: TypeAnimation<IElement> = (
       delete bassLinkValues[key];
     }
   });
-  const prevLinkValues: TreePathEncodeValues = Object.assign(
+  const prevLinkValues: TreePathEncoderSpec = Object.assign(
     {
       x0: element.getGraphicAttribute('x0', true),
       x1: element.getGraphicAttribute('x1', true),
@@ -242,7 +222,7 @@ const treePathUpdate: TypeAnimation<IElement> = (
     },
     bassLinkValues
   );
-  const nextLinkValues: TreePathEncodeValues = Object.assign(
+  const nextLinkValues: TreePathEncoderSpec = Object.assign(
     {
       x0: element.getGraphicAttribute('x0', false),
       x1: element.getGraphicAttribute('x1', false),
@@ -259,7 +239,7 @@ const treePathUpdate: TypeAnimation<IElement> = (
 };
 
 export const registerTreePathGlyph = () => {
-  registerGlyph<TreePathEncodeValues, TreePathConfig>('treePath', {
+  registerGlyph<TreePathEncoderSpec, TreePathConfig>('treePath', {
     main: 'path',
     startArrow: 'path',
     endArrow: 'path'

@@ -1,7 +1,64 @@
-import type { IGraphic } from '@visactor/vrender';
+import type {
+  IArc,
+  IArc3d,
+  IArea,
+  ICircle,
+  IGlyph,
+  IGraphic,
+  IGroup,
+  IImage,
+  ILine,
+  IPath,
+  IPolygon,
+  IPyramid3d,
+  IRect,
+  IRect3d,
+  IRichText,
+  ISymbol,
+  IText
+} from '@visactor/vrender';
 import type { DiffState } from '../graph/enums';
 import type { IMark, IGlyphMark } from './grammar';
-import type { IMarkConfig, MarkFunctionType, MarkKeySpec, MarkType, StateEncodeSpec } from './mark';
+import type { BaseEncodeSpec, IMarkConfig, MarkFunctionType, MarkKeySpec, MarkType } from './mark';
+
+export interface ElementGraphicMap {
+  circle: ICircle;
+  arc: IArc;
+  area: IArea;
+  image: IImage;
+  line: ILine;
+  path: IPath;
+  rule: ILine;
+  shape: IPath;
+  symbol: ISymbol;
+  text: IText;
+  richtext: IRichText;
+  polygon: IPolygon;
+  cell: ISymbol;
+  interval: IGraphic;
+  rect: IRect;
+  rect3d: IRect3d;
+  arc3d: IArc3d;
+  pyramid3d: IPyramid3d;
+  group: IGroup;
+  glyph: IGlyph;
+  linkPath: IGlyph;
+  treePath: IGlyph;
+  wave: IGlyph;
+  ripplePoint: IGlyph;
+  barBoxplot: IGlyph;
+  boxPlot: IGlyph;
+  component: IGroup;
+  axis: IGroup;
+  legend: IGroup;
+  corsshair: IGroup;
+  slider: IGroup;
+  datazoom: IGroup;
+  label: IGroup;
+  player: IGroup;
+}
+
+export type GetGraphicByType<T> = T extends keyof ElementGraphicMap ? ElementGraphicMap[T] : IGraphic;
 
 /**
  * 保存graphicItem状态
@@ -74,7 +131,7 @@ export interface IElement {
   // element 执行流程相关接口
   updateData: (groupKey: string, data: any[], keyGenerator: MarkKeySpec, view: any) => void;
   state: (markState: MarkFunctionType<string | string[]>, parameters?: any) => void;
-  encodeItems: (items: MarkElementItem[], encoders: StateEncodeSpec, parameters?: any) => void;
+  encodeItems: (items: MarkElementItem[], encoders: BaseEncodeSpec, parameters?: any) => void;
   encodeGraphic: () => void;
   transformElementItems: (items: MarkElementItem[], markType: MarkType, computePoints?: boolean) => Record<string, any>;
   remove: () => void;
@@ -97,7 +154,7 @@ export interface IElement {
   useStates: (states: string[], noAnimation?: boolean) => void;
 }
 
-export interface IGlyphElement extends IElement {
+export interface IGlyphElement<P = any> extends IElement {
   mark: IGlyphMark;
 
   getGlyphGraphicItems: () => { [markName: string]: any };

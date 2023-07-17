@@ -5,6 +5,7 @@ import type { SliderAttributes } from '@visactor/vrender-components';
 import { Slider as SliderComponent } from '@visactor/vrender-components';
 import { registerComponent } from '../view/register-component';
 import type {
+  BaseSignleEncodeSpec,
   IData,
   IElement,
   IGroupMark,
@@ -100,7 +101,7 @@ export class Slider extends Component implements ISlider {
           callback: (datum: any, element: IElement, parameters: any) => {
             const min = !isNil(this.spec.min) ? invokeFunctionType(this.spec.min, parameters, datum, element) : 0;
             const max = !isNil(this.spec.max) ? invokeFunctionType(this.spec.max, parameters, datum, element) : 1;
-            const addition = invokeEncoder(encoder, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             return generateSliderAttributes(min, max, addition);
           }
         };

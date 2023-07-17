@@ -19,9 +19,9 @@ import type {
   MarkSortSpec,
   MarkKeySpec,
   IMarkConfig,
-  BaseEncodeSpec,
   ChannelEncodeType,
-  AttributeTransform
+  AttributeTransform,
+  BaseSignleEncodeSpec
 } from './mark';
 import type { ScaleConfigureSpec, ScaleData, ScaleFunctionType, GrammarScaleType } from './scale';
 import type { IView } from './view';
@@ -234,9 +234,9 @@ export interface IMark extends IGrammarBase, IProgressiveGrammar {
   ) => this;
   coordinate: (coordinate: ICoordinate | string | Nil) => this;
   state: (state: MarkFunctionType<string | string[]> | Nil) => this;
-  encode: ((encoders: BaseEncodeSpec) => this) & ((channel: string, value: ChannelEncodeType) => this);
+  encode: ((encoders: BaseSignleEncodeSpec) => this) & ((channel: string, value: ChannelEncodeType) => this);
   encodeState: ((state: string, channel: string, value: ChannelEncodeType) => this) &
-    ((state: string, encoders: BaseEncodeSpec) => this);
+    ((state: string, encoders: BaseSignleEncodeSpec) => this);
   animation: (animationConfig: MarkAnimationSpec | Nil) => this;
   animationState: (animationState: MarkFunctionType<string> | Nil) => this;
   layout: (layout: MarkLayoutSpec | MarkLayoutCallback | Nil) => this;
