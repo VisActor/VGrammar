@@ -8,11 +8,11 @@ import type {
   ComponentSpec,
   IData,
   Nil,
-  BaseEncodeSpec,
   MarkFunctionType,
   StateEncodeSpec,
   IElement,
-  IDataFilter
+  IDataFilter,
+  BaseSignleEncodeSpec
 } from '../types';
 import { Mark } from './mark';
 import { getComponent } from './register-component';
@@ -51,7 +51,7 @@ export class Component extends Mark implements IComponent {
     return super.join(data, DefaultKey);
   }
 
-  encodeState(state: string, channel: string | BaseEncodeSpec, value?: MarkFunctionType<any>) {
+  encodeState(state: string, channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>) {
     super.encodeState(state, channel, value);
     this._updateComponentEncoders();
     return this;

@@ -11,6 +11,7 @@ import { Tooltip as TooltipComponent } from '@visactor/vrender-components';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { registerComponent } from '../view/register-component';
 import type {
+  BaseSignleEncodeSpec,
   IElement,
   IGrammarBase,
   IGroupMark,
@@ -139,7 +140,7 @@ export class Tooltip extends Component implements ITooltip {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            this._additionalEncodeResult = invokeEncoder(encoder, datum, element, parameters);
+            this._additionalEncodeResult = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
           }
         };
       }

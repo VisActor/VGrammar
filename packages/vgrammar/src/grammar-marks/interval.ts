@@ -9,10 +9,10 @@ import type {
   StateEncodeSpec,
   MarkSpec,
   IElement,
-  BaseEncodeSpec,
   MarkFunctionType,
-  IntervalChannelEncoderSpec,
-  AttributeTransform
+  AttributeTransform,
+  GetSignleEncodeSpecByType,
+  BaseSignleEncodeSpec
 } from '../types';
 import { Mark } from '../view/mark';
 import { isNil } from '@visactor/vutils';
@@ -26,7 +26,7 @@ export class Interval extends Mark {
 
   protected _encoders: StateEncodeSpec;
 
-  encodeState(state: string, channel: string | BaseEncodeSpec, value?: MarkFunctionType<any>) {
+  encodeState(state: string, channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>) {
     super.encodeState(state, channel, value);
 
     this._updateComponentEncoders(state);
@@ -39,7 +39,7 @@ export class Interval extends Mark {
       this._encoders = {};
     }
 
-    const userEncoder = this.spec.encode[state] as IntervalChannelEncoderSpec;
+    const userEncoder = this.spec.encode[state] as GetSignleEncodeSpecByType<'interval'>;
 
     if (userEncoder && state === 'update') {
       const params = this.parameters();
@@ -88,7 +88,8 @@ export class Interval extends Mark {
 
           if (scales) {
             const scaleGrammar =
-              this.view.getScaleById(userEncoder.x?.scale) ?? this.view.getScaleById(userEncoder.y?.scale);
+              this.view.getScaleById((userEncoder as any).x?.scale) ??
+              this.view.getScaleById((userEncoder as any).y?.scale);
             const coord = scaleGrammar.getCoordinate();
 
             if (coord && coord.type === 'polar') {
@@ -101,7 +102,7 @@ export class Interval extends Mark {
 
           return userEncodeRes;
         }
-      };
+      } as GetSignleEncodeSpecByType<'interval'>;
     } else {
       this._encoders[state] = userEncoder;
     }

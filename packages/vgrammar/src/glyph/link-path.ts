@@ -1,28 +1,8 @@
-import type { IGraphicAttribute } from '@visactor/vrender';
-import type { IAnimationParameters, TypeAnimation } from '../types';
+import type { IAnimationParameters, LinkPathEncoderSpec, TypeAnimation } from '../types';
 import type { IElement } from '../types/element';
 import { registerAnimationType } from '../view/register-animation';
 import { registerGlyph } from '../view/register-glyph';
 import { isNil } from '@visactor/vutils';
-
-export interface LinkPathEncodeValues extends Partial<IGraphicAttribute> {
-  x0: number;
-  y0: number;
-  x1: number;
-  y1: number;
-  thickness: number;
-  curvature?: number;
-  /** round all the coordinates */
-  round?: boolean;
-  /** the ratio of normal style path */
-  ratio?: number;
-  align?: 'start' | 'end' | 'center';
-  pathType?: 'line' | 'smooth' | 'polyline';
-  endArrow?: boolean;
-  startArrow?: boolean;
-  backgroundStyle?: any;
-  direction?: 'horizontal' | 'vertical' | 'LR' | 'RL' | 'TB' | 'BL' | 'radial';
-}
 
 export interface LinkPathConfig {
   direction?: 'horizontal' | 'vertical' | 'LR' | 'RL' | 'TB' | 'BL' | 'radial';
@@ -31,7 +11,7 @@ export interface LinkPathConfig {
 // const isValidThickness = (thickness: number) => isValidNumber(thickness) && thickness > 1;
 // const hasValidThickness = (options: LinkPathEncodeValues) => isValidThickness(options.thickness);
 
-export const getHorizontalPath = (options: LinkPathEncodeValues, ratio?: number) => {
+export const getHorizontalPath = (options: LinkPathEncoderSpec, ratio?: number) => {
   const curvature = options.curvature ?? 0.5;
   const hasThickness = true;
   const thickness = typeof ratio === 'number' ? options.thickness * ratio : options.thickness;
@@ -104,7 +84,7 @@ export const getHorizontalPath = (options: LinkPathEncodeValues, ratio?: number)
   ${endArrowPath}L${x1},${y11}C${cpx1},${y11},${cpx0},${y01},${x0},${y01}${startArrowPath}Z`;
 };
 
-export const getVerticalPath = (options: LinkPathEncodeValues, ratio?: number) => {
+export const getVerticalPath = (options: LinkPathEncoderSpec, ratio?: number) => {
   const curvature = options.curvature ?? 0.5;
   const hasThickness = true;
   const thickness = typeof ratio === 'number' ? options.thickness * ratio : options.thickness;
@@ -175,7 +155,7 @@ export const getVerticalPath = (options: LinkPathEncodeValues, ratio?: number) =
   ${endArrowPath}L${x11},${y1}C${x11},${cpy1},${x01},${cpy0},${x01},${y0}${startArrowPath}Z`;
 };
 
-const encoder = (encodeValues: LinkPathEncodeValues, datum: any, element: IElement, config: LinkPathConfig) => {
+const encoder = (encodeValues: LinkPathEncoderSpec, datum: any, element: IElement, config: LinkPathConfig) => {
   const direction = encodeValues.direction ?? config?.direction;
   const parsePath = ['vertical', 'TB', 'BT'].includes(direction) ? getVerticalPath : getHorizontalPath;
   const isRatioShow = typeof encodeValues.ratio === 'number' && encodeValues.ratio >= 0 && encodeValues.ratio <= 1;
@@ -201,7 +181,7 @@ const linkPathGrowIn: TypeAnimation<IElement> = (
   options: any,
   animationParameters: IAnimationParameters
 ) => {
-  const linkValues: LinkPathEncodeValues = {
+  const linkValues: LinkPathEncoderSpec = {
     x0: element.getGraphicAttribute('x0', false),
     x1: element.getGraphicAttribute('x1', false),
     y0: element.getGraphicAttribute('y0', false),
@@ -230,7 +210,7 @@ const linkPathGrowOut: TypeAnimation<IElement> = (
   options: any,
   animationParameters: IAnimationParameters
 ) => {
-  const linkValues: LinkPathEncodeValues = {
+  const linkValues: LinkPathEncoderSpec = {
     x0: element.getGraphicAttribute('x0', true),
     x1: element.getGraphicAttribute('x1', true),
     y0: element.getGraphicAttribute('y0', true),
@@ -273,7 +253,7 @@ const linkPathUpdate: TypeAnimation<IElement> = (
       delete bassLinkValues[key];
     }
   });
-  const prevLinkValues: LinkPathEncodeValues = Object.assign(
+  const prevLinkValues: LinkPathEncoderSpec = Object.assign(
     {
       x0: element.getGraphicAttribute('x0', true),
       x1: element.getGraphicAttribute('x1', true),
@@ -283,7 +263,7 @@ const linkPathUpdate: TypeAnimation<IElement> = (
     },
     bassLinkValues
   );
-  const nextLinkValues: LinkPathEncodeValues = Object.assign(
+  const nextLinkValues: LinkPathEncoderSpec = Object.assign(
     {
       x0: element.getGraphicAttribute('x0', false),
       x1: element.getGraphicAttribute('x1', false),
@@ -300,7 +280,7 @@ const linkPathUpdate: TypeAnimation<IElement> = (
 };
 
 export const registerLinkPathGlyph = () => {
-  registerGlyph<LinkPathEncodeValues, LinkPathConfig>('linkPath', {
+  registerGlyph<LinkPathEncoderSpec, LinkPathConfig>('linkPath', {
     back: 'path',
     front: 'path'
   })

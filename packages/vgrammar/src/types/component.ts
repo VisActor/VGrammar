@@ -1,9 +1,26 @@
-import type { ISymbolGraphicAttribute, ITextGraphicAttribute } from '@visactor/vrender';
-import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vrender-components';
+import type { IGraphicAttribute, ISymbolGraphicAttribute, ITextGraphicAttribute } from '@visactor/vrender';
+import type {
+  AxisBaseAttributes,
+  BaseCrosshairAttrs,
+  BaseLabelAttrs,
+  DataLabelAttrs,
+  DataZoomAttributes,
+  LegendBaseAttributes,
+  PlayerAttributes,
+  SliderAttributes,
+  TooltipAttributes
+} from '@visactor/vrender-components';
 import type { ComponentEnum } from '../graph';
 import type { Nil, RecursivePartial } from './base';
 import type { IComponent, IData, IMark, IScale } from './grammar';
-import type { ChannelEncodeType, ComponentSpec, FieldEncodeType, MarkFunctionType, ScaleEncodeType } from './mark';
+import type {
+  ChannelEncodeType,
+  ComponentSpec,
+  FieldEncodeType,
+  GenerateBasicEncoderSpec,
+  MarkFunctionType,
+  ScaleEncodeType
+} from './mark';
 import type { IPointLike } from '@visactor/vutils';
 
 // scale component
@@ -12,7 +29,9 @@ export interface IScaleComponent extends IComponent {
   scale: (scale?: IScale | string) => this;
 }
 
-export interface ScaleComponentSpec extends ComponentSpec {
+export interface ScaleComponentSpec<
+  BasicEncoderSpec extends GenerateBasicEncoderSpec<IGraphicAttribute> = GenerateBasicEncoderSpec<IGraphicAttribute>
+> extends ComponentSpec<BasicEncoderSpec> {
   scale?: IScale | string;
 }
 
@@ -25,7 +44,7 @@ export interface IAxis extends IScaleComponent {
   tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
 }
 
-export interface AxisSpec extends ScaleComponentSpec {
+export interface AxisSpec extends ScaleComponentSpec<Partial<AxisBaseAttributes>> {
   componentType: ComponentEnum.axis;
   axisType?: AxisType;
   tickCount?: MarkFunctionType<number>;
@@ -45,7 +64,7 @@ export interface ILegend extends IScaleComponent {
   setSelected: (selectedValues: any[]) => this;
 }
 
-export interface LegendSpec extends ScaleComponentSpec {
+export interface LegendSpec extends ScaleComponentSpec<LegendBaseAttributes> {
   componentType: ComponentEnum.legend;
   legendType?: LegendType;
   target?: {
@@ -65,7 +84,7 @@ export interface ICrosshair extends IScaleComponent {
   crosshairShape: (crosshairShape: CrosshairShape | Nil) => this;
 }
 
-export interface CrosshairSpec extends ScaleComponentSpec {
+export interface CrosshairSpec extends ScaleComponentSpec<BaseCrosshairAttrs> {
   componentType: ComponentEnum.crosshair;
   crosshairType?: CrosshairType;
   crosshairShape?: CrosshairShape;
@@ -88,7 +107,7 @@ export interface ISlider extends IComponent {
   setStartEndValue: (start?: number, end?: number) => this;
 }
 
-export interface SliderSpec extends ComponentSpec {
+export interface SliderSpec extends ComponentSpec<SliderAttributes> {
   componentType: ComponentEnum.slider;
   min?: MarkFunctionType<number>;
   max?: MarkFunctionType<number>;
@@ -119,7 +138,8 @@ export interface IDatazoom extends IComponent {
   setStartEndValue: (start?: number, end?: number) => this;
 }
 
-export interface DatazoomSpec extends ComponentSpec {
+export type DataZoomEncoderSpec = GenerateBasicEncoderSpec<DataZoomAttributes & { x1?: number; y1?: number }>;
+export interface DatazoomSpec extends ComponentSpec<DataZoomEncoderSpec> {
   componentType: ComponentEnum.datazoom;
   preview?: {
     data: IData | string;
@@ -142,7 +162,7 @@ export interface ILabel extends IComponent {
   target: (mark: IMark | IMark[] | string | string[] | Nil) => this;
 }
 
-export interface LabelSpec extends ComponentSpec {
+export interface LabelSpec extends ComponentSpec<BaseLabelAttrs> {
   componentType: ComponentEnum.label;
   labelStyle?: MarkFunctionType<RecursivePartial<BaseLabelAttrs>>;
   size?: MarkFunctionType<DataLabelAttrs['size']>;
@@ -166,7 +186,7 @@ export interface IPlayer extends IComponent {
   forward: () => this;
 }
 
-export interface PlayerSpec extends ComponentSpec {
+export interface PlayerSpec extends ComponentSpec<PlayerAttributes> {
   componentType: ComponentEnum.player;
   playerType?: PlayerType;
   target?: {
@@ -190,7 +210,7 @@ export interface ITooltip extends IComponent {
   content: (content: ITooltipRow | ITooltipRow[] | Nil) => this;
 }
 
-export interface TooltipSpec extends ComponentSpec {
+export interface TooltipSpec extends ComponentSpec<TooltipAttributes> {
   componentType: ComponentEnum.tooltip;
   target?: IMark | IMark[] | string | string[];
   title?: ITooltipRow;

@@ -8,7 +8,16 @@ import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend, LegendEven
 import { array, isString, merge, last } from '@visactor/vutils';
 import { ComponentDataRank, ComponentEnum, LegendEnum } from '../graph';
 import { defaultTheme } from '../theme/default';
-import type { IData, IElement, IGroupMark, IView, Nil, RecursivePartial, StateEncodeSpec } from '../types';
+import type {
+  BaseSignleEncodeSpec,
+  IData,
+  IElement,
+  IGroupMark,
+  IView,
+  Nil,
+  RecursivePartial,
+  StateEncodeSpec
+} from '../types';
 import type { ILegend, LegendSpec, LegendType } from '../types/component';
 import { parseColor } from '../parse/util';
 import { getComponent, registerComponent } from '../view/register-component';
@@ -171,7 +180,7 @@ export class Legend extends ScaleComponent implements ILegend {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const addition = invokeEncoder(encoder, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const scale = scaleGrammar?.getScale?.();
             switch (this._getLegendComponentType()) {
               case LegendEnum.discreteLegend:

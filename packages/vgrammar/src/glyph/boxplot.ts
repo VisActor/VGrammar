@@ -1,5 +1,11 @@
 import { isValidNumber } from '@visactor/vutils';
-import type { IAnimationParameters, IGlyphElement, TypeAnimation } from '../types';
+import type {
+  BarBoxPlotEncoderSpec,
+  BoxPlotEncoderSpec,
+  IAnimationParameters,
+  IGlyphElement,
+  TypeAnimation
+} from '../types';
 import { registerAnimationType } from '../view/register-animation';
 import { registerGlyph } from '../view/register-glyph';
 
@@ -212,7 +218,13 @@ const encodeBoxplotSize = (encodeValues: any, datum: any, element: IGlyphElement
 };
 
 export function registerBoxplotGlyph() {
-  registerGlyph('boxplot', { shaft: 'rule', box: 'rect', max: 'rule', min: 'rule', median: 'rule' })
+  registerGlyph<BoxPlotEncoderSpec, { direction?: 'horizontal' | 'vertical' }>('boxplot', {
+    shaft: 'rule',
+    box: 'rect',
+    max: 'rule',
+    min: 'rule',
+    median: 'rule'
+  })
     .registerFunctionEncoder(encodeBoxplotSize)
     .registerChannelEncoder('x', (channel, encodeValue, encodeValues, datum, element, config) => {
       if (config?.direction === 'horizontal') {
@@ -399,7 +411,11 @@ const encodeBarBoxplotSize = (encodeValues: any, datum: any, element: IGlyphElem
 };
 
 export function registerBarBoxplotGlyph() {
-  registerGlyph('barBoxplot', { minMaxBox: 'rect', q1q3Box: 'rect', median: 'rule' })
+  registerGlyph<BarBoxPlotEncoderSpec, { direction?: 'horizontal' | 'vertical' }>('barBoxplot', {
+    minMaxBox: 'rect',
+    q1q3Box: 'rect',
+    median: 'rule'
+  })
     .registerFunctionEncoder(encodeBarBoxplotSize)
     .registerChannelEncoder('q1', (channel, encodeValue, encodeValues, datum, element, config) => {
       return config?.direction === 'horizontal' ? { q1q3Box: { x: encodeValue } } : { q1q3Box: { y: encodeValue } };

@@ -10,7 +10,16 @@ import { PlayerEventEnum } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { ContinuousPlayer, DiscretePlayer } from '@visactor/vrender-components';
 import { getComponent, registerComponent } from '../view/register-component';
-import type { IData, IElement, IGroupMark, IView, Nil, RecursivePartial, StateEncodeSpec } from '../types';
+import type {
+  BaseSignleEncodeSpec,
+  IData,
+  IElement,
+  IGroupMark,
+  IView,
+  Nil,
+  RecursivePartial,
+  StateEncodeSpec
+} from '../types';
 import { ComponentDataRank, ComponentEnum, PlayerEnum } from '../graph';
 import type { IPlayer, PlayerFilterValue, PlayerSpec, PlayerType } from '../types/component';
 import { Component } from '../view/component';
@@ -150,7 +159,7 @@ export class Player extends Component implements IPlayer {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const addition = invokeEncoder(encoder, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const source = this.spec.target?.source;
             const sourceDataGrammar = isArray(source)
               ? null

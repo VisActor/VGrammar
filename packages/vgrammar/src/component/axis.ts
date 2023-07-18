@@ -6,6 +6,7 @@ import { CircleAxis as CircleAxisComponent, LineAxis as LineAxisComponent } from
 import type { IBaseScale } from '@visactor/vscale';
 import { getComponent, registerComponent } from '../view/register-component';
 import type {
+  BaseSignleEncodeSpec,
   IElement,
   IGroupMark,
   IView,
@@ -133,7 +134,7 @@ export class Axis extends ScaleComponent implements IAxis {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            let addition = invokeEncoder(encoder, datum, element, parameters);
+            let addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const inside = invokeFunctionType(this.spec.inside, parameters, datum, element);
             const coord = scaleGrammar?.getCoordinate?.();
 

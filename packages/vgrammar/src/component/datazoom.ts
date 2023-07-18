@@ -6,6 +6,7 @@ import { isNil, isString, merge } from '@visactor/vutils';
 import { ComponentDataRank, ComponentEnum } from '../graph';
 import { defaultTheme } from '../theme/default';
 import type {
+  BaseSignleEncodeSpec,
   ChannelEncodeType,
   IData,
   IElement,
@@ -43,8 +44,12 @@ export const generateDatazoomAttributes = (
   }
   const previewXCallback = x ? (datum: any) => invokeEncoder({ x }, datum, element, parameters).x : null;
   const previewYCallback = y ? (datum: any) => invokeEncoder({ y }, datum, element, parameters).y : null;
-  const previewX1Callback = x1 ? (datum: any) => invokeEncoder({ x1 }, datum, element, parameters).x1 : null;
-  const previewY1Callback = y1 ? (datum: any) => invokeEncoder({ y1 }, datum, element, parameters).y1 : null;
+  const previewX1Callback = x1
+    ? (datum: any) => invokeEncoder({ x1 } as BaseSignleEncodeSpec, datum, element, parameters).x1
+    : null;
+  const previewY1Callback = y1
+    ? (datum: any) => invokeEncoder({ y1 } as BaseSignleEncodeSpec, datum, element, parameters).y1
+    : null;
   return merge(
     {},
     datazoomTheme,
@@ -175,7 +180,7 @@ export class Datazoom extends Component implements IDatazoom {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const addition = invokeEncoder(encoder, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             return generateDatazoomAttributes(
               dataGrammar?.getValue?.(),
               this.spec.preview?.x,
