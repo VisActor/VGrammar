@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import './style.css';
-import { View } from '@visactor/vgrammar';
+import { Plot, View } from '@visactor/vgrammar';
 import { indexes } from './indexes';
 import { createBinds } from './bind-helpers';
 
@@ -121,7 +121,6 @@ const createChartByAPI = (runner: any) => {
   chartInstance = new View({
     width: 400,
     height: 400,
-    renderer: 'canvas',
     container: 'container',
     hover: true,
     logLevel: 3
@@ -132,6 +131,24 @@ const createChartByAPI = (runner: any) => {
   chartInstance.run(undefined, undefined, () => {
     // do nothing
   });
+
+  return chartInstance;
+};
+
+const createChartByPlot = (runner: any) => {
+  if (chartInstance) {
+    chartInstance.release();
+  }
+
+  chartInstance = new Plot({
+    width: 400,
+    height: 400,
+    container: 'container',
+  });
+  (window as any).view = chartInstance;
+  runner(chartInstance);
+
+  chartInstance.render();
 
   return chartInstance;
 };
@@ -178,6 +195,15 @@ const handleClick = (e: { target: any }, isInit?: boolean) => {
       import(`./api/${path}.ts`)
         .then(module => {
           createChartByAPI(module.runner);
+          resetFooterContent(module.callback, module.binds);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else if (type === 'plot') {
+      import(`./plot/${path}.ts`)
+        .then(module => {
+          createChartByPlot(module.runner);
           resetFooterContent(module.callback, module.binds);
         })
         .catch(err => {
