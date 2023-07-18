@@ -44,7 +44,7 @@ export interface IAxis extends IScaleComponent {
   tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
 }
 
-export interface AxisSpec extends ScaleComponentSpec<AxisBaseAttributes> {
+export interface AxisSpec extends ScaleComponentSpec<Partial<AxisBaseAttributes>> {
   componentType: ComponentEnum.axis;
   axisType?: AxisType;
   tickCount?: MarkFunctionType<number>;

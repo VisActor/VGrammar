@@ -57,7 +57,7 @@ export type MarkStateSpec = MarkFunctionType<string | string[]>;
 
 export type ScaleEncodeType = {
   scale: IScale | string;
-  field?: string;
+  field?: string | ((datum: any) => any) | string[] | ((datum: any) => any)[];
   value?: any;
   band?: number;
   offset?: number;
@@ -453,7 +453,7 @@ export type GetBasicEncoderSpecByType<T, P = any> = T extends keyof BasicEncoder
   : GenerateBasicEncoderSpec<IGraphicAttribute & P>;
 export type GetEncoderSpecByType<T, P = any> = T extends keyof BasicEncoderSpecMap
   ? StateEncodeSpec<BasicEncoderSpecMap[T]>
-  : StateEncodeSpec<IGraphicAttribute & P>;
+  : StateEncodeSpec<GenerateBasicEncoderSpec<IGraphicAttribute> & P>;
 
 export type BaseEncodeSpec<P = any> = StateEncodeSpec<GenerateBasicEncoderSpec<IGraphicAttribute & P>>;
 export type BaseSignleEncodeSpec<P = any> =
