@@ -481,5 +481,15 @@ export const indexes = [
         name: 'projections-2',
       }
     ]
+  },
+  {
+    menu: 'Plot',
+    children: [
+      {
+        path: 'interval',
+        name: 'Interval图元',
+        type: 'plot'
+      },
+    ]
   }
 ];
