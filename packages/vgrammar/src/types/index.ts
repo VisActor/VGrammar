@@ -14,3 +14,4 @@ export * from './base';
 export * from './animate';
 export * from './glyph';
 export * from './morph';
+export * from './plot';
