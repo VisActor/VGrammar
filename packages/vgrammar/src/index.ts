@@ -37,3 +37,5 @@ export { registerComponent, unregisterComponent, unregisterAllComponents } from 
 export { registerGlyph, unregisterGlyph, unregisterAllGlyphs } from './view/register-glyph';
 export { registerGrammar, unregisterGrammar, unregisterAllGrammars } from './view/register-grammar';
 export * from './types';
+
+export { Plot } from './plot/plot';

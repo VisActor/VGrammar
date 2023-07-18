@@ -35,3 +35,5 @@ export type DiffResult<Prev, Next> = {
   update: { prev: Prev; next: Next }[];
   exit: { prev: Prev }[];
 };
+
+export type ValueOf<T, K extends keyof T = keyof T> = T[K];
