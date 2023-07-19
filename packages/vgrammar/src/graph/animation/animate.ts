@@ -11,7 +11,7 @@ import type {
 } from '../../types/animate';
 import { Animator } from './animator';
 import { invokeAnimateSpec, normalizeAnimationConfig, normalizeStateAnimationConfig } from './config';
-import { ImmediateAnimationState } from '../constants';
+import { DefaultAnimationParameters, ImmediateAnimationState } from '../constants';
 import type { IAnimationEvent, IElement, IMark, MarkFunctionType } from '../../types';
 import { invokeFunctionType } from '../../parse/util';
 import { Arranger } from './arranger';
@@ -261,14 +261,22 @@ export class Animate implements IAnimate {
           return config.timeline.sort(elementA.getDatum(), elementB.getDatum(), elementA, elementB, parameters);
         });
       }
-      const animationParameters: IAnimationParameters = {
-        width: this.mark.view.width(),
-        height: this.mark.view.height(),
-        group: this.mark.group ?? null,
-        mark: this.mark,
-        view: this.mark.view
-      };
       animatedElements.forEach((element, index) => {
+        const animationParameters: IAnimationParameters = {
+          width: this.mark.view.width(),
+          height: this.mark.view.height(),
+          group: this.mark.group ?? null,
+          mark: this.mark,
+          view: this.mark.view,
+          elementCount: animatedElements.length,
+          elementIndex: index
+        };
+        // add animation parameter into parameters
+        const mergedParameters = Object.assign(
+          { [DefaultAnimationParameters]: animationParameters },
+          animationParameters
+        );
+
         const animationUnit = this.getAnimationUnit(
           config.timeline,
           element,
@@ -276,7 +284,7 @@ export class Animate implements IAnimate {
           animatedElements.length,
           parameters
         );
-        animators.push(this.animateElement(config, animationUnit, element, animationParameters));
+        animators.push(this.animateElement(config, animationUnit, element, animationParameters, mergedParameters));
       });
     }
     return animators;
@@ -286,13 +294,14 @@ export class Animate implements IAnimate {
     config: IParsedAnimationConfig,
     animationUnit: IAnimationUnit,
     element: IElement,
-    animationParameters: IAnimationParameters
+    animationParameters: IAnimationParameters,
+    parameters: any
   ) {
     // create animator
     const animator = new Animator(element, animationUnit, config);
 
     // start animating
-    animator.animate(animationParameters);
+    animator.animate(animationParameters, parameters);
     // return when animator has no valid animation
     if (!animator.isAnimating) {
       return;
