@@ -39,9 +39,9 @@
     "@visactor/vgrammar-coordinate": "workspace:0.4.0",
     "@visactor/vrender": "~0.13.0",
     "@visactor/vgrammar-util": "workspace:0.4.0",
-    "@visactor/vscale": "~0.13.0",
+    "@visactor/vscale": "~0.13.3",
     "@visactor/vrender-components": "~0.13.0",
-    "@visactor/vutils": "~0.13.0"
+    "@visactor/vutils": "~0.13.3"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",

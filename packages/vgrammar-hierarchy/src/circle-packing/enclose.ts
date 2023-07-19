@@ -1,4 +1,4 @@
-import { shuffleArray } from '@visactor/vutils';
+import { shuffleArray, Logger } from '@visactor/vutils';
 import type { ICircle } from '../interface';
 import { randomLCG } from '../lcg';
 
@@ -58,7 +58,7 @@ function extendBasis(B: ICircle[], p: ICircle) {
   }
 
   // If we get here then something is very wrong.
-  throw new Error();
+  Logger.getInstance().error('error when packEncloseRandom');
 }
 
 function enclosesNot(a: ICircle, b: ICircle) {

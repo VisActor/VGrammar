@@ -1,7 +1,6 @@
-import type { ILogger } from '@visactor/vgrammar-util';
+import type { ILogger } from '@visactor/vutils';
 import type { IDataflow } from '../types/dataflow';
-import { isNil } from '@visactor/vutils';
-import { getLogger } from '@visactor/vgrammar-util';
+import { isNil, Logger } from '@visactor/vutils';
 import { Heap } from '../util/grammar-heap';
 import { UniqueList } from '../util/unique-list';
 import type { IDataflowCallback, IGrammarBase } from '../types';
@@ -26,7 +25,7 @@ export default class Dataflow implements IDataflow {
   private _finishFirstRender?: boolean;
 
   constructor() {
-    this.logger = getLogger();
+    this.logger = Logger.getInstance();
 
     this._curRank = 0;
 
