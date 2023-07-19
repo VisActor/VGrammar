@@ -9,14 +9,14 @@ export interface SignalFunction<Callback extends FunctionCallback<T>, T> {
   dependency?: SignalDependency | SignalDependency[];
 }
 
-export interface SignalReference {
-  signal: string | ISignal<any>;
+export interface SignalReference<T = any> {
+  signal: string | ISignal<T>;
 }
 
 export type GenericFunctionType<Callback extends FunctionCallback<T>, T> =
   | T
   | Callback
-  | SignalReference
+  | SignalReference<T>
   | SignalFunction<Callback, T>;
 
 export type ParameterCallback<T> = (parameters: any) => T;

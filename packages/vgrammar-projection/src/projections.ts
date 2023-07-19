@@ -47,12 +47,12 @@ export const projectionProperties = [
   'translate',
   'center',
   'rotate',
-  'parallels',
   'precision',
   'reflectX',
   'reflectY',
 
   // extended properties in d3-geo-projections
+  'parallels',
   'coefficient',
   'distance',
   'fraction',

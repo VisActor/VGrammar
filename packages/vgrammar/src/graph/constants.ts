@@ -33,3 +33,4 @@ export const DefaultAnimationControlOptions: IAnimationControlOptions = {
   stopWhenStateChange: false,
   immediatelyApply: true
 };
+export const DefaultAnimationParameters = 'VGRAMMAR_ANIMATION_PARAMETERS';

@@ -1,6 +1,21 @@
 # Change Log - @visactor/vgrammar-wordcloud
 
-This log was last generated on Wed, 12 Jul 2023 10:47:26 GMT and should not be manually modified.
+This log was last generated on Wed, 19 Jul 2023 11:20:25 GMT and should not be manually modified.
+
+## 0.4.0
+Wed, 19 Jul 2023 11:20:25 GMT
+
+### Minor changes
+
+- feat: add new parameters `pluginList` of IRendererOptions
+
+
+
+### Patches
+
+- feat(vgrammar-projection): update api of Projection
+
+
 
 ## 0.3.3
 Wed, 12 Jul 2023 10:47:26 GMT

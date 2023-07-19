@@ -5,7 +5,7 @@ import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vrender-component
 import { DataLabel } from '@visactor/vrender-components';
 import { registerComponent } from '../view/register-component';
 import type {
-  BaseEncodeSpec,
+  BaseSignleEncodeSpec,
   IElement,
   IGroupMark,
   IMark,
@@ -13,8 +13,7 @@ import type {
   MarkFunctionType,
   Nil,
   RecursivePartial,
-  StateEncodeSpec,
-  StateProxyEncodeSpec
+  StateEncodeSpec
 } from '../types';
 import { ComponentEnum, GrammarMarkType } from '../graph';
 import type { ILabel, LabelSpec } from '../types/component';
@@ -29,7 +28,7 @@ registerComponent(ComponentEnum.label, (attrs: DataLabelAttrs) => new DataLabel(
 export const generateLabelAttributes = (
   marks: IMark[],
   groupSize: { width: number; height: number },
-  encoder: BaseEncodeSpec | StateProxyEncodeSpec,
+  encoder: BaseSignleEncodeSpec,
   labelStyle: MarkFunctionType<RecursivePartial<BaseLabelAttrs>>,
   parameters: any
 ): DataLabelAttrs => {
@@ -122,7 +121,13 @@ export class Label extends Component implements ILabel {
                 : { width: Infinity, height: Infinity };
             }
 
-            return generateLabelAttributes(marks, size, encoder, this.spec.labelStyle, parameters);
+            return generateLabelAttributes(
+              marks,
+              size,
+              encoder as BaseSignleEncodeSpec,
+              this.spec.labelStyle,
+              parameters
+            );
           }
         };
       }

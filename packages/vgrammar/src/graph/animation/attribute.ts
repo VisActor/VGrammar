@@ -51,10 +51,12 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
 export function typeAnimationAttributes(
   element: IElement,
   effect: IAnimationEffect,
-  animationParameters: IAnimationParameters
+  animationParameters: IAnimationParameters,
+  parameters: any
 ): IParsedAnimationAttrs {
+  // const parameters =
   const options = isFunction(effect.options)
-    ? effect.options.call(null, element.getDatum(), element, element.mark.parameters())
+    ? effect.options.call(null, element.getDatum(), element, parameters)
     : effect.options;
   if (!effect.type || !getAnimationType(effect.type)) {
     return null;
@@ -67,15 +69,17 @@ const parseChannelValue = (
   element: IElement,
   channel: string,
   channelValue: any,
-  animationParameters: IAnimationParameters
+  animationParameters: IAnimationParameters,
+  parameters: any
 ) => {
-  return isFunction(channelValue) ? channelValue(element.getDatum(), element, animationParameters) : channelValue;
+  return isFunction(channelValue) ? channelValue(element.getDatum(), element, parameters) : channelValue;
 };
 
 export function channelAnimationAttributes(
   element: IElement,
   effect: IAnimationEffect,
-  animationParameters: IAnimationParameters
+  animationParameters: IAnimationParameters,
+  parameters: any
 ): IParsedAnimationAttrs {
   const channel = effect.channel;
   let attributes: IParsedAnimationAttrs = null;
@@ -96,9 +100,11 @@ export function channelAnimationAttributes(
         const hasTo = !isNil(channel[key]?.to);
 
         if (hasFrom || hasTo) {
-          res.from[key] = hasFrom ? parseChannelValue(element, key, channel[key].from, animationParameters) : undefined;
+          res.from[key] = hasFrom
+            ? parseChannelValue(element, key, channel[key].from, animationParameters, parameters)
+            : undefined;
           res.to[key] = hasTo
-            ? parseChannelValue(element, key, channel[key].to, animationParameters)
+            ? parseChannelValue(element, key, channel[key].to, animationParameters, parameters)
             : element.getGraphicAttribute(key, false);
         }
 

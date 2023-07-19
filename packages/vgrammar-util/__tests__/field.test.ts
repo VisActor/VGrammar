@@ -89,3 +89,29 @@ test('field creates a field accessor', () => {
   expect(f({ x: { 'a b': { z: 'bar' } } })).toBe('bar');
   expect(f({ x: { 'a b': { z: 0 } } })).toBe(0);
 });
+
+test('field(function(){})', () => {
+  const func = (datum: any) => datum.x;
+  const f = field(func);
+  expect(typeof f).toBe('function');
+  expect(f).toBe(func);
+  expect(f({ x: 'foo' })).toBe('foo');
+  expect(f({ x: 0 })).toBe(0);
+});
+
+test('field() of function array', () => {
+  const funcA = (datum: any) => datum.x;
+  const funcB = (datum: any) => datum.x1;
+
+  const f = field([funcA, funcB]);
+  expect(typeof f).toBe('function');
+  expect(f({ x: 'foo', x1: '6' })).toEqual(['foo', '6']);
+  expect(f({ x: 0 })).toEqual([0, undefined]);
+});
+
+test('field() of string array', () => {
+  const f = field(['x', 'x1']);
+  expect(typeof f).toBe('function');
+  expect(f({ x: 'foo', x1: '6' })).toEqual(['foo', '6']);
+  expect(f({ x: 0 })).toEqual([0, undefined]);
+});

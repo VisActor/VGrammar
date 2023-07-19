@@ -192,7 +192,8 @@ export default class CanvasRenderer implements IRenderer {
         beforeRender: viewOptions.beforeRender,
         afterRender: viewOptions.afterRender,
         disableDirtyBounds: !!viewOptions.disableDirtyBounds,
-        autoRender: true
+        autoRender: true,
+        pluginList: viewOptions.pluginList
       });
 
     if (viewOptions.options3d?.enable) {
@@ -240,5 +241,7 @@ export default class CanvasRenderer implements IRenderer {
     if (this._stage && !this._viewOptions.disableDirtyBounds) {
       this._stage.enableDirtyBounds();
     }
+
+    this._view.emit(HOOK_EVENT.AFTER_VRENDER_NEXT_RENDER);
   };
 }

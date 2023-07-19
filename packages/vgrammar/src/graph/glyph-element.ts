@@ -49,6 +49,10 @@ export class GlyphElement extends Element implements IGlyphElement {
       const markType = glyphMarks[graphic.name];
       this.glyphGraphicItems[graphic.name] = graphic;
       graphic.onBeforeAttributeUpdate = (attributes: any) => {
+        // mark might be released
+        if (!this.mark) {
+          return attributes;
+        }
         const graphicAttributes = transformAttributes(markType, attributes, this, graphic.name);
         return graphicAttributes;
       };
@@ -194,6 +198,10 @@ export class GlyphElement extends Element implements IGlyphElement {
 
   private _onGlyphAttributeUpdate(first: boolean = false) {
     return (attributes: any) => {
+      // mark might be released
+      if (!this.mark) {
+        return attributes;
+      }
       const glyphMarks = this.glyphMeta.getMarks();
 
       const graphicAttributes = transformAttributes(this.mark.getAttributeTransforms(), attributes, this);

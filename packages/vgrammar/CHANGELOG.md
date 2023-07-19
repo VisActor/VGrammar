@@ -1,6 +1,26 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Wed, 12 Jul 2023 10:47:26 GMT and should not be manually modified.
+This log was last generated on Wed, 19 Jul 2023 11:20:25 GMT and should not be manually modified.
+
+## 0.4.0
+Wed, 19 Jul 2023 11:20:25 GMT
+
+### Minor changes
+
+- feat: emit event AFTER_VRENDER_NEXT_RENDER when finished render of VRender stage
+
+
+
+### Patches
+
+- fix animation parameters for callbacks
+- feat: add new parameters `pluginList` of IRendererOptions
+
+
+- feat(vgrammar-projection): update api of Projection
+
+
+- stop all animations when release
 
 ## 0.3.3
 Wed, 12 Jul 2023 10:47:26 GMT

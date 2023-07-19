@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-hierarchy",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Layout of hierarchical data for VGrammar",
   "keywords": [
     "hierarchy",
@@ -38,10 +38,10 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vgrammar": "workspace:0.3.3",
-    "@visactor/vgrammar-util": "workspace:0.3.2",
-    "@visactor/vutils": "~0.11.1",
-    "@visactor/vrender": "~0.12.0"
+    "@visactor/vgrammar": "workspace:0.4.0",
+    "@visactor/vgrammar-util": "workspace:0.4.0",
+    "@visactor/vutils": "~0.13.0",
+    "@visactor/vrender": "~0.13.0"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
@@ -53,6 +53,7 @@
     "typescript": "4.9.5",
     "@internal/jest-config": "workspace:*",
     "jest": "~29.5.0",
+    "jest-environment-jsdom": "~29.5.0",
     "@jest/globals": "~29.5.0",
     "ts-jest": "~29.1.0",
     "@types/jest": "~29.5.0",

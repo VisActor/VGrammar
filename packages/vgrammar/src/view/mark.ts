@@ -39,7 +39,7 @@ import type {
   Nil,
   IAnimate,
   MarkStateSortSpec,
-  BaseEncodeSpec
+  BaseSignleEncodeSpec
 } from '../types';
 import { isScaleEncode, parseEncodeType } from '../parse/mark';
 import { getGrammarOutput, parseField, isFunctionType } from '../parse/util';
@@ -348,11 +348,11 @@ export class Mark extends GrammarBase implements IMark {
     return this.setFunctionSpec(state, 'state');
   }
 
-  encode(channel: string | BaseEncodeSpec, value?: MarkFunctionType<any>): this {
+  encode(channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>): this {
     return this.encodeState('update', channel, value);
   }
 
-  encodeState(state: string, channel: string | BaseEncodeSpec, value?: MarkFunctionType<any>): this {
+  encodeState(state: string, channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>): this {
     if (!this.spec.encode[state]) {
       this.spec.encode[state] = {};
     } else {

@@ -224,6 +224,8 @@ export interface IAnimationParameters {
   height: number;
   mark: IMark;
   group: IMark | null;
+  elementIndex: number;
+  elementCount: number;
   view: any;
 }
 
@@ -256,7 +258,7 @@ export interface IAnimator {
   isAnimating: boolean;
 
   /** execute animation */
-  animate: (animationParameters: IAnimationParameters) => this;
+  animate: (animationParameters: IAnimationParameters, parameters: any) => this;
   /** set animation callback */
   callback: (callbackFunction: (...args: any[]) => void) => this;
 

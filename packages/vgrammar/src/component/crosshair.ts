@@ -23,7 +23,7 @@ import { isContinuous, isDiscrete } from '@visactor/vscale';
 import { ComponentEnum, CrosshairEnum } from '../graph';
 import type { CrosshairType, CrosshairSpec, CrosshairShape, ICrosshair } from '../types/component';
 import { getComponent, registerComponent } from '../view/register-component';
-import type { IElement, IGroupMark, IView, RecursivePartial, StateEncodeSpec } from '../types';
+import type { BaseSignleEncodeSpec, IElement, IGroupMark, IView, RecursivePartial, StateEncodeSpec } from '../types';
 import { defaultTheme } from '../theme/default';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
@@ -314,7 +314,7 @@ export class Crosshair extends ScaleComponent implements ICrosshair {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            this._additionalEncodeResult = invokeEncoder(encoder, datum, element, parameters);
+            this._additionalEncodeResult = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
           }
         };
       }
