@@ -53,10 +53,10 @@ export class Animator implements IAnimator {
     return this;
   }
 
-  animate(animationParameters: IAnimationParameters): this {
+  animate(animationParameters: IAnimationParameters, parameters: any): this {
     this.isAnimating = true;
 
-    this.animateElement(animationParameters);
+    this.animateElement(animationParameters, parameters);
 
     // if no valid running, end animating immediately
     if (this.runnings.length === 0) {
@@ -103,7 +103,7 @@ export class Animator implements IAnimator {
     }
   }
 
-  private animateElement(animationParameters: IAnimationParameters) {
+  private animateElement(animationParameters: IAnimationParameters, parameters: any) {
     const graphicAnimate: IGraphicAnimate = this.element.getGraphicItem().animate();
     this.runnings.push(graphicAnimate);
     // initialDelay is only used at first loop
@@ -111,7 +111,7 @@ export class Animator implements IAnimator {
     // execute loop animation
     graphicAnimate.wait(this.unit.loopDelay);
     this.unit.timeSlices.forEach(timeSlice => {
-      this.animateTimeSlice(graphicAnimate, timeSlice, animationParameters);
+      this.animateTimeSlice(graphicAnimate, timeSlice, animationParameters, parameters);
     });
     graphicAnimate.wait(this.unit.loopDelayAfter);
 
@@ -137,7 +137,8 @@ export class Animator implements IAnimator {
   private animateTimeSlice(
     graphicAnimate: IGraphicAnimate,
     timeSlice: IAnimationTimeSlice,
-    animationParameters: IAnimationParameters
+    animationParameters: IAnimationParameters,
+    parameters: any
   ) {
     const delay = timeSlice.delay as number;
     const duration = timeSlice.duration as number;
@@ -155,8 +156,8 @@ export class Animator implements IAnimator {
         .map((effect, index) => {
           const attributes =
             (effect.type
-              ? typeAnimationAttributes(this.element, effect, animationParameters)
-              : channelAnimationAttributes(this.element, effect, animationParameters)) ?? {};
+              ? typeAnimationAttributes(this.element, effect, animationParameters, parameters)
+              : channelAnimationAttributes(this.element, effect, animationParameters, parameters)) ?? {};
           const customOption = attributes?.custom || effect?.custom;
           const customParametersOption = attributes?.customParameters || effect?.customParameters;
 

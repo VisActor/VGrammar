@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix animation parameters for callbacks",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
