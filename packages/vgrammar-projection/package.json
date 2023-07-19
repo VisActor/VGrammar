@@ -43,7 +43,7 @@
   "dependencies": {
     "@visactor/vgrammar-util": "workspace:0.3.2",
     "@visactor/vgrammar": "workspace:0.3.3",
-    "@visactor/vutils": "~0.11.1",
+    "@visactor/vutils": "~0.13.0",
     "d3-geo": "^3.0.1"
   },
   "devDependencies": {
@@ -58,6 +58,7 @@
     "@types/d3-geo": "^3.0.1",
     "@internal/jest-config": "workspace:*",
     "jest": "~29.5.0",
+    "jest-environment-jsdom": "~29.5.0",
     "@jest/globals": "~29.5.0",
     "ts-jest": "~29.1.0",
     "@types/jest": "~29.5.0",

@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   testTimeout: 30000,
   silent: true,
   testMatch: ['**/__tests__/**/*.test.[jt]s'],

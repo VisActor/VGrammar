@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat: add new parameters `pluginList` of IRendererOptions\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-util"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-util",
+  "email": "dingling112@gmail.com"
+}

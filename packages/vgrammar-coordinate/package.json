@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@visactor/vgrammar-util": "workspace:0.3.2",
-    "@visactor/vutils": "~0.11.1"
+    "@visactor/vutils": "~0.13.0"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
@@ -46,6 +46,7 @@
     "vite": "3.2.6",
     "@internal/jest-config": "workspace:*",
     "jest": "~29.5.0",
+    "jest-environment-jsdom": "~29.5.0",
     "@jest/globals": "~29.5.0",
     "ts-jest": "~29.1.0",
     "@types/jest": "~29.5.0",

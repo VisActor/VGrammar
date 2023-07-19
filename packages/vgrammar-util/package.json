@@ -34,7 +34,7 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vutils": "~0.11.1"
+    "@visactor/vutils": "~0.13.0"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
@@ -46,6 +46,7 @@
     "typescript": "4.9.5",
     "@internal/jest-config": "workspace:*",
     "jest": "~29.5.0",
+    "jest-environment-jsdom": "~29.5.0",
     "@jest/globals": "~29.5.0",
     "ts-jest": "~29.1.0",
     "@types/jest": "~29.5.0",
