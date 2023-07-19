@@ -1,6 +1,6 @@
 import type { EventEmitter, IBounds, IBoundsLike } from '@visactor/vutils';
 import type { EnvType, IStage, IColor, IOption3D, ILayer } from '@visactor/vrender';
-import type { ILogger, Logger } from '@visactor/vgrammar-util';
+import type { ILogger } from '@visactor/vgrammar-util';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { DataSpec } from './data';
 import type { SignalFunctionType, SignalSpec } from './signal';
@@ -117,7 +117,7 @@ export interface IViewOptions extends IEnvironmentOptions, IRendererOptions, ILa
   cursor?: boolean;
 
   /** 外部传入的logger方法 */
-  logger?: Logger;
+  logger?: ILogger;
   /**
    * 0 - None
    * 1 - Error
