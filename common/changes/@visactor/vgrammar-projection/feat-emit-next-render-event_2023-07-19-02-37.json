@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat: emit event AFTER_VRENDER_NEXT_RENDER when finished render of VRender stage\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-projection"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-projection",
+  "email": "dingling112@gmail.com"
+}
