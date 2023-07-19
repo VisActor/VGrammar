@@ -70,6 +70,7 @@ export interface IRendererOptions {
   disableDirtyBounds?: boolean;
   beforeRender?: (stage: IStage) => void;
   afterRender?: (stage: IStage) => void;
+  pluginList?: string[];
 }
 
 export interface ILayoutOptions {
