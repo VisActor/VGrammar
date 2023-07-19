@@ -240,5 +240,7 @@ export default class CanvasRenderer implements IRenderer {
     if (this._stage && !this._viewOptions.disableDirtyBounds) {
       this._stage.enableDirtyBounds();
     }
+
+    this._view.emit(HOOK_EVENT.AFTER_VRENDER_NEXT_RENDER);
   };
 }

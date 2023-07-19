@@ -155,6 +155,8 @@ export enum HOOK_EVENT {
   BEFORE_ADD_VRENDER_MARK = 'beforeAddVRenderMark',
   AFTER_ADD_VRENDER_MARK = 'afterAddVRenderMark',
 
+  AFTER_VRENDER_NEXT_RENDER = 'afterVRenderNextRender',
+
   BEFORE_ELEMENT_UPDATE_DATA = 'beforeElementUpdateData',
   AFTER_ELEMENT_UPDATE_DATA = 'afterElementUpdateData',
 
