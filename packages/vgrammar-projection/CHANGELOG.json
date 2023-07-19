@@ -2,6 +2,37 @@
   "name": "@visactor/vgrammar-projection",
   "entries": [
     {
+      "version": "0.4.0",
+      "tag": "@visactor/vgrammar-projection_v0.4.0",
+      "date": "Wed, 19 Jul 2023 11:20:25 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "feat: emit event AFTER_VRENDER_NEXT_RENDER when finished render of VRender stage\n\n"
+          },
+          {
+            "comment": "feat(vgrammar-projection): update api of Projection\n\n"
+          },
+          {
+            "comment": "feat: add transform `geoPath`"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "feat: add new parameters `pluginList` of IRendererOptions\n\n"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-util\" from `0.3.2` to `0.4.0`"
+          },
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar\" from `0.3.3` to `0.4.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.3",
       "tag": "@visactor/vgrammar-projection_v0.3.3",
       "date": "Wed, 12 Jul 2023 10:47:26 GMT",
