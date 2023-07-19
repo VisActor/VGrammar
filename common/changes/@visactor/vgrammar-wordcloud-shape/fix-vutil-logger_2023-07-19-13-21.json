@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: upgrade vutils from ~0.13.0 to ~0.13.3, use Logger of vutils\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-wordcloud-shape"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-wordcloud-shape",
+  "email": "dingling112@gmail.com"
+}
