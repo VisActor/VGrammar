@@ -1,6 +1,5 @@
 import { global, createImage } from '@visactor/vrender';
-import { getLogger } from '@visactor/vgrammar-util';
-import { isValidUrl } from '@visactor/vutils';
+import { isValidUrl, Logger } from '@visactor/vutils';
 import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
 
 export enum WORDCLOUD_SHAPE_HOOK_EVENT {
@@ -99,7 +98,7 @@ export function loadImage(url: string) {
     };
     imageMark.failCallback = () => {
       // eslint-disable-next-line no-undef
-      const logger = getLogger();
+      const logger = Logger.getInstance();
       logger.error('image 加载失败！', url);
     };
   });

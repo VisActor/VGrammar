@@ -12,8 +12,6 @@ export { getter } from './getter';
 
 export { id, identity, zero, one, truthy, falsy, emptyObject } from './accessors';
 
-export { Logger, setLogLevel, setLogger, getLogger, clearLogger } from './logger';
-
 export { compare, ascending } from './compare';
 export { error } from './error';
 export { extent } from './extent';

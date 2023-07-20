@@ -1,5 +1,5 @@
-import type { IBounds } from '@visactor/vutils';
-import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize } from '@visactor/vutils';
+import type { IBounds, ILogger } from '@visactor/vutils';
+import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports
 import { global } from '@visactor/vrender';
@@ -34,9 +34,6 @@ import type {
   IComponent,
   ComponentSpec
 } from '../types/';
-import type { ILogger } from '@visactor/vgrammar-util';
-// eslint-disable-next-line no-duplicate-imports
-import { setLogger, getLogger } from '@visactor/vgrammar-util';
 import { unregisterRuntimeTransforms } from '../transforms/register';
 import { Data } from './data';
 import { initializeEventConfig, permit, prevent } from './events';
@@ -1370,10 +1367,10 @@ export default class View extends EventEmitter implements IView {
     this._cachedGrammars = new RecordedGrammars(grammar => grammar.id());
 
     if (this._options.logger) {
-      setLogger(this._options.logger);
+      Logger.setInstance(this._options.logger);
     }
 
-    this.logger = getLogger(this._options.logLevel ?? 0);
+    this.logger = Logger.getInstance(this._options.logLevel ?? 0);
 
     this._dataflow = new Dataflow();
 
