@@ -15,7 +15,6 @@ const vGrammarView = new View({
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true,
-  logLevel: 5,
   padding: { top: 5, right: 5, bottom: 50, left: 60 }
 });
 const data = vGrammarView
@@ -144,9 +143,37 @@ const player = vGrammarView
       y: params.viewBox.y2 + 20,
       size: { width: params.viewBox.width() },
       interval: 1000,
-      data: params.table
+      data: params.table,
+      controller: {
+        forward: { style: { visible: false, size: 0 } },
+        backward: { style: { visible: false, size: 0 } }
+      }
     };
   });
+
+let animate;
+
+player.on('onPlay', a => {
+  if (!animate) {
+    animate = rect.animate.run({
+      type: 'growHeightIn',
+      duration: 1000,
+      easing: 'linear',
+      oneByOne: true,
+      options: { orient: 'negative' }
+    });
+  } else {
+    rect.animate.resume();
+  }
+});
+
+player.on('onPause', a => {
+  rect.animate.pause();
+});
+
+rect.on('animationEnd', () => {
+  animate = null;
+});
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
