@@ -47,6 +47,7 @@
     "d3-geo": "^1.12.1"
   },
   "devDependencies": {
+    "d3-array": "1.x",
     "@internal/bundler": "workspace:*",
     "@internal/eslint-config": "workspace:*",
     "@internal/ts-config": "workspace:*",
