@@ -23,7 +23,7 @@ import type {
   WithDefaultEncode,
   IElement
 } from '../types';
-import { isNil } from '@visactor/vutils';
+import { array, isNil } from '@visactor/vutils';
 import type { IBaseScale } from '@visactor/vscale';
 import { getPalette } from '../palette';
 import type { AxisSpec } from '../types/component';
@@ -75,7 +75,11 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     this.spec.style = style;
     return this;
   }
-  transform: (option: TransformSpec) => this;
+  transform(option: TransformSpec | TransformSpec[]) {
+    this.spec.transform = array(option) as TransformSpec[];
+
+    return this;
+  }
   animate: (state: string, option: MarkAnimationSpec) => this;
   state: (state: string, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>) => this;
   axis(channel: string, option?: AxisBaseAttributes | boolean) {

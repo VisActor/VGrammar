@@ -29,6 +29,7 @@ export const spec = {
         { value: 13000, url: 'https://img.hanabi.cn/_6675700709742084329.png?x-oss-process=style/hanabi_icon' },
         { value: 19000, url: 'https://img.hanabi.cn/_6675700806211076331.png?x-oss-process=style/hanabi_icon' }
       ],
+      dependency: ['padding'],
       transform: [
         {
           type: 'circlePacking',
@@ -39,7 +40,7 @@ export const spec = {
             callback: (params: any) => {
               return params.padding.left;
             },
-            dependency: ['padding']
+            // dependency: ['padding']
           },
           x1: {
             // "chartWidth + chartPad"

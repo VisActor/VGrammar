@@ -101,7 +101,7 @@ export interface ISemanticMark<EncodeSpec, K extends string> {
   style: (style: ISemanticStyle<EncodeSpec, K>) => this;
   encode: (channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>) => this;
   scale: (channel: K, option: ScaleSpec) => this;
-  transform: (option: TransformSpec) => this;
+  transform: (option: TransformSpec[]) => this;
   animate: (state: string, option: MarkAnimationSpec) => this;
   state: (state: string, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>) => this;
 
@@ -124,6 +124,7 @@ export interface ISemanticMarkSpec<EncodeSpec, K extends string> {
   scale?: Partial<Record<K, ScaleSpec>>;
   style?: ISemanticStyle<EncodeSpec, K>;
   axis?: Partial<Record<K, AxisBaseAttributes | boolean>>;
+  transform?: TransformSpec[];
 }
 
 export type ParsedSimpleEncode<T, K extends string> = {
