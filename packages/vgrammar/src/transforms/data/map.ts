@@ -1,10 +1,7 @@
 import { isNil } from '@visactor/vutils';
+import type { MapTransformOption } from '../../types';
 
-export const transform = (
-  options: { callback: (entry: any, params?: any) => any; as?: string; all?: boolean },
-  upstreamData: any[],
-  params?: any
-) => {
+export const transform = (options: MapTransformOption, upstreamData: any[], params?: any) => {
   const func = options.callback;
   const as = options.as;
 

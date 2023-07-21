@@ -8,15 +8,11 @@
  */
 
 import { isNil } from '@visactor/vutils';
-import type { IView } from './../../types/';
-
-interface IdentifierOptions {
-  as: string;
-}
+import type { IView, IdentifierTransformOptions } from './../../types/';
 
 const COUNTER_NAME = ':vGrammar_identifier:';
 
-export const transform = (options: IdentifierOptions, upstreamData: any[], params: any, view?: IView) => {
+export const transform = (options: IdentifierTransformOptions, upstreamData: any[], params: any, view?: IView) => {
   if (isNil(view[COUNTER_NAME])) {
     view[COUNTER_NAME] = 0;
   }

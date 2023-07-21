@@ -1,18 +1,9 @@
 import { isNil, Logger } from '@visactor/vutils';
 import type { FieldGetterFunction } from '@visactor/vgrammar-util';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
+import type { JoinTransformOption } from '../../types';
 
-export const transform = (
-  options: {
-    from: any[];
-    key: string;
-    fields: string[];
-    values?: string[];
-    as?: string[];
-    default?: any;
-  },
-  data: any[]
-) => {
+export const transform = (options: JoinTransformOption, data: any[]) => {
   const logger = Logger.getInstance();
   let as = options.as;
   const { fields, from, key, values } = options;

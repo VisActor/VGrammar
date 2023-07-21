@@ -1,13 +1,8 @@
 import { compare } from '@visactor/vgrammar-util';
 import { isFunction } from '@visactor/vutils';
-import type { SortConfigSpec } from '../../types';
+import type { SortTransformOptions } from '../../types';
 
-export const transform = (
-  options: {
-    sort: SortConfigSpec | ((a: any, b: any) => number);
-  },
-  upstreamData: any[]
-) => {
+export const transform = (options: SortTransformOptions, upstreamData: any[]) => {
   const sort = options.sort;
 
   if (sort && upstreamData) {
