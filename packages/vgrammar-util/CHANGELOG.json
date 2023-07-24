@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-util",
   "entries": [
     {
+      "version": "0.4.1",
+      "tag": "@visactor/vgrammar-util_v0.4.1",
+      "date": "Fri, 21 Jul 2023 11:04:10 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix: upgrade vutils from ~0.13.0 to ~0.13.3, use Logger of vutils\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.0",
       "tag": "@visactor/vgrammar-util_v0.4.0",
       "date": "Wed, 19 Jul 2023 11:20:25 GMT",

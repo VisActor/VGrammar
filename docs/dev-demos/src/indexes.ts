@@ -423,6 +423,14 @@ export const indexes = [
       {
         path: 'geo-path',
         name: 'geo-path',
+      },
+      {
+        path: 'projections',
+        name: 'projections',
+      },
+      {
+        path: 'projections-2',
+        name: 'projections-2',
       }
     ]
   }

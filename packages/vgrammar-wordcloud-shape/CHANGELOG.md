@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-wordcloud-shape
 
-This log was last generated on Wed, 19 Jul 2023 11:20:25 GMT and should not be manually modified.
+This log was last generated on Fri, 21 Jul 2023 11:04:10 GMT and should not be manually modified.
+
+## 0.4.1
+Fri, 21 Jul 2023 11:04:10 GMT
+
+### Patches
+
+- fix: upgrade vutils from ~0.13.0 to ~0.13.3, use Logger of vutils
+
+
 
 ## 0.4.0
 Wed, 19 Jul 2023 11:20:25 GMT

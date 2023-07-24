@@ -1,6 +1,6 @@
-import { isNil } from '@visactor/vutils';
+import { isNil, Logger } from '@visactor/vutils';
 import type { FieldGetterFunction } from '@visactor/vgrammar-util';
-import { getLogger, field as getFieldAccessor } from '@visactor/vgrammar-util';
+import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 
 export const transform = (
   options: {
@@ -13,7 +13,7 @@ export const transform = (
   },
   data: any[]
 ) => {
-  const logger = getLogger();
+  const logger = Logger.getInstance();
   let as = options.as;
   const { fields, from, key, values } = options;
   const keyAccessor = getFieldAccessor(key);

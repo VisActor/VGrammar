@@ -7,10 +7,10 @@
  * @license
  */
 
-import { getLogger } from './logger';
+import { Logger } from '@visactor/vutils';
 
 export const error = (message: string) => {
-  const logger = getLogger();
+  const logger = Logger.getInstance();
 
   logger.error(message);
 };
