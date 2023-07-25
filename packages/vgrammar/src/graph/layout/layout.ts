@@ -39,12 +39,11 @@ export const defaultDoLayout = (layoutMarks: IMark[], options: ILayoutOptions, v
         const viewWidth = viewBounds.width();
         const viewHeight = viewBounds.height();
         const padding = {
-          top: viewBounds.y1 - bounds.y1,
-          right: bounds.x2 - viewBounds.x2,
-          left: viewBounds.x1 - bounds.x1,
-          bottom: bounds.y2 - viewBounds.y2
+          top: viewBounds.y1,
+          right: view.width() - viewBounds.x2,
+          left: viewBounds.x1,
+          bottom: view.height() - viewBounds.y2
         };
-
         (view as any).updateSignal(SIGNAL_VIEW_WIDTH, viewWidth);
         (view as any).updateSignal(SIGNAL_VIEW_HEIGHT, viewHeight);
         (view as any).updateSignal(SIGNAL_PADDING, padding);
