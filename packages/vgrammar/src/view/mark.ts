@@ -1,7 +1,7 @@
 import type { IGroup, INode } from '@visactor/vrender';
-import { isEmpty, isNil, isString } from '@visactor/vutils';
+import { isNil, isString } from '@visactor/vutils';
 import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
-import { DiffState, GrammarMarkType, LayoutState, HOOK_EVENT } from '../graph/enums';
+import { DiffState, GrammarMarkType, LayoutState, HOOK_EVENT, GrammarTypeEnum } from '../graph/enums';
 import { Differ, groupData } from '../graph/mark/differ';
 import { Animate } from '../graph/animation/animate';
 import { createGraphicItem, removeGraphicItem } from '../graph/util/graphic';
@@ -506,6 +506,18 @@ export class Mark extends GrammarBase implements IMark {
       });
     }
     return elements;
+  }
+
+  getScales() {
+    const scales = {};
+
+    this.references.forEach((count, ref) => {
+      if (ref.grammarType === GrammarTypeEnum.scale) {
+        scales[ref.id() as string] = ref.output();
+      }
+    });
+
+    return scales;
   }
 
   getScalesByChannel() {

@@ -64,7 +64,7 @@ export type ScaleEncodeType = {
 };
 
 export type FieldEncodeType = {
-  field: string;
+  field: string | ((datum: any) => any) | string[] | ((datum: any) => any)[];
 };
 
 export type ChannelEncodeType<T = any> = MarkFunctionType<T> | ScaleEncodeType | FieldEncodeType;
@@ -121,8 +121,17 @@ export type BasicEncoderSpecMap = {
   };
   richtext: GenerateBasicEncoderSpec<IRichTextGraphicAttribute>;
   interval: Omit<GenerateBasicEncoderSpec<IRectGraphicAttribute>, 'width' | 'height'> & {
-    maxSize?: number;
-    minSize?: number;
+    /**
+     * the gap for two graphic elements
+     */
+    innerGap?: number | string;
+    /**
+     * only used for rect / interval mark
+     */
+    maxWidth?: number;
+    minWidth?: number;
+    /** the gap between two category */
+    categoryGap?: number | string;
   };
   cell: GenerateBasicEncoderSpec<ISymbolGraphicAttribute> & {
     padding?: number | [number, number];

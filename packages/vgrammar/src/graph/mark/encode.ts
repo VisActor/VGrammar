@@ -146,6 +146,10 @@ export function splitEncoderInLarge(markType: string, encoder: BaseSignleEncodeS
   return { positionEncoder, themeEncoder };
 }
 
+export function isBandLikeScale(scale: IBaseScale) {
+  return scale && (scale.type === ScaleEnum.Band || scale.type === ScaleEnum.Point);
+}
+
 export function getBandWidthOfScale(scale: IBaseScale) {
   if (!scale) {
     return undefined;
