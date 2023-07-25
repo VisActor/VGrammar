@@ -1,5 +1,5 @@
 import type { DodgeTransformOptions, IElement } from '../../types';
-import { getBandWidthOfScale } from '../../graph/mark/encode';
+import { getBandWidthOfScale, isBandLikeScale } from '../../graph/mark/encode';
 import { array, isNil } from '@visactor/vutils';
 import { getter, toPercent } from '@visactor/vgrammar-util';
 
@@ -11,11 +11,23 @@ export const transform = (options: DodgeTransformOptions, upstreamData: IElement
     return upstreamData;
   }
   const mark = upstreamData[0].mark;
+  const markScales = mark.getScales();
+  const bandScale = Object.values(markScales).find(isBandLikeScale);
+
+  if (!bandScale) {
+    return upstreamData;
+  }
 
   const scales = mark.getScalesByChannel();
-  const yBandWidth = getBandWidthOfScale(scales.y);
-  const dodgeChannel = options.dodgeChannel === 'y' || (isNil(options.dodgeChannel) && yBandWidth > 0) ? 'y' : 'x';
-  const bandWidth = dodgeChannel === 'y' ? yBandWidth : getBandWidthOfScale(scales.x);
+  const bandWidth = getBandWidthOfScale(bandScale);
+  const dodgeChannel = isNil(options.dodgeChannel)
+    ? scales.y === bandScale ||
+      scales.y1 === bandScale ||
+      (scales.x && !isBandLikeScale(scales.x)) ||
+      (scales.x1 && !isBandLikeScale(scales.x1))
+      ? 'y'
+      : 'x'
+    : options.dodgeChannel;
 
   if (bandWidth > 0) {
     const innerGap = options.innerGap ?? 0;
