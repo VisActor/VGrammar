@@ -15,6 +15,7 @@ import type {
 } from '../types';
 import { SemanticMark } from './semantic-mark';
 import type { CrosshairSpec } from '../types/component';
+import { getPalette } from '../palette';
 
 export class Interval extends SemanticMark<BasicEncoderSpecMap['interval'], IntervalEncodeChannels> {
   constructor(id?: string | number) {
@@ -96,7 +97,7 @@ export class Interval extends SemanticMark<BasicEncoderSpecMap['interval'], Inte
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = 'black';
+      res.fill = getPalette()[0];
     }
 
     return res;

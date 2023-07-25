@@ -28,6 +28,8 @@ for (let i = 0; i < 8; i++) {
   playerOriginData.push(originData.filter(datum => datum.index <= i));
 }
 
+console.log(playerOriginData);
+
 export const runner = (view: IView) => {
   const data = view.data(originData);
   const playerData = view.data(playerOriginData);
@@ -162,7 +164,7 @@ export const runner = (view: IView) => {
     .target(symbol)
     .labelStyle({
       textStyle: {
-        fillColor: '#666'
+        fill: '#666'
       }
     })
     .encode({

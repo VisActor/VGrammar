@@ -490,6 +490,11 @@ export const indexes = [
         name: 'Interval图元',
         type: 'plot'
       },
+      {
+        path: 'bar-race',
+        name: '动态条形图',
+        type: 'plot'
+      },
     ]
   }
 ];

@@ -4,8 +4,8 @@ import type {
   SliderAttributes,
   DataZoomAttributes,
   BaseLabelAttrs,
-  BasePlayerAttributes,
-  BaseCrosshairAttrs
+  BaseCrosshairAttrs,
+  PlayerAttributes
 } from '@visactor/vrender-components';
 import type {
   ScaleSpec,
@@ -28,14 +28,24 @@ import type {
   SemanticTooltipOption
 } from '../types';
 import type { ILogger } from '@visactor/vutils';
-import { Logger, array, isArray, isBoolean, isNil, isPlainObject, merge } from '@visactor/vutils';
-import type { IBaseScale } from '@visactor/vscale';
+import { Logger, array, isArray, isBoolean, isNil, isPlainObject, merge, range } from '@visactor/vutils';
+import { isContinuous, type IBaseScale } from '@visactor/vscale';
 import { getPalette } from '../palette';
-import type { AxisSpec, CrosshairSpec, LegendSpec, TooltipSpec } from '../types/component';
-import { DiffState, type ComponentEnum } from '../graph/enums';
+import type {
+  AxisSpec,
+  CrosshairSpec,
+  DatazoomSpec,
+  LabelSpec,
+  LegendSpec,
+  PlayerSpec,
+  SliderSpec,
+  TooltipSpec
+} from '../types/component';
+import { DiffState, ComponentEnum } from '../graph/enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { invokeFunctionType } from '../parse/util';
 import type { ISymbolGraphicAttribute } from '@visactor/vrender';
+import { defaultTheme } from '../theme/default';
 
 let semanticMarkId = -1;
 
@@ -154,10 +164,38 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
-  slider: (channel: string, option?: SliderAttributes) => this;
-  datazoom: (channel: string, option?: DataZoomAttributes) => this;
-  label: (channel: string, option?: BaseLabelAttrs) => this;
-  player: (channel: string, option?: BasePlayerAttributes) => this;
+  slider(channel: string, option?: SliderAttributes | boolean, layout?: MarkRelativeItemSpec) {
+    if (!this.spec.slider) {
+      this.spec.slider = {};
+    }
+
+    this.spec.slider[channel] = { option, layout };
+
+    return this;
+  }
+  datazoom(channel: string, option?: DataZoomAttributes | boolean, layout?: MarkRelativeItemSpec) {
+    if (!this.spec.datazoom) {
+      this.spec.datazoom = {};
+    }
+
+    this.spec.datazoom[channel] = { option, layout };
+
+    return this;
+  }
+  label(channel: string, option?: Partial<BaseLabelAttrs> | boolean) {
+    if (!this.spec.label) {
+      this.spec.label = {};
+    }
+
+    this.spec.label[channel] = { option };
+
+    return this;
+  }
+  player(data?: any[], option?: PlayerAttributes | boolean, layout?: MarkRelativeItemSpec) {
+    this.spec.player = { data, option, layout };
+
+    return this;
+  }
 
   abstract setMarkType(): MarkType;
   abstract parseScaleByEncode(channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>): ScaleSpec | Nil;
@@ -225,8 +263,20 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return markEncoder;
   }
 
-  protected getDataId() {
+  protected getDataIdOfFiltered() {
+    return `${this.spec.id}-data-filtered`;
+  }
+
+  protected getDataIdOfMain() {
     return `${this.spec.id}-data`;
+  }
+
+  protected getDataIdOfPlayer() {
+    return `${this.spec.id}-player`;
+  }
+
+  protected getDataZoomScaleId(channel: string) {
+    return `datazoom-scale-${channel}`;
   }
 
   protected getScaleId(channel: string) {
@@ -237,13 +287,17 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return `${this.type}-${this.spec.id}`;
   }
 
+  protected getScaleSpec(scaleId: string) {
+    return this.viewSpec?.scales?.find?.(scale => scale.id === scaleId);
+  }
+
   protected parseScaleOfEncodeX(option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>): ScaleSpec | Nil {
     return {
       type: 'band',
       id: this.getScaleId('x'),
       dependency: ['viewBox'],
       domain: {
-        data: this.getDataId(),
+        data: this.getDataIdOfFiltered(),
         field: option as string
       },
       range: (scale: IBaseScale, params: any) => {
@@ -258,7 +312,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       dependency: ['viewBox'],
       id: this.getScaleId('y'),
       domain: {
-        data: this.getDataId(),
+        data: this.getDataIdOfFiltered(),
         field: option as string
       },
       range: (scale: IBaseScale, params: any) => {
@@ -272,7 +326,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       type: 'ordinal',
       id: this.getScaleId('color'),
       domain: {
-        data: this.getDataId(),
+        data: this.getDataIdOfMain(),
         field: option as string
       },
       range: getPalette()
@@ -283,7 +337,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       type: 'ordinal',
       id: this.getScaleId('group'),
       domain: {
-        data: this.getDataId(),
+        data: this.getDataIdOfMain(),
         field: option as string
       },
       range: getPalette()
@@ -329,29 +383,29 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         if (axisOption) {
           const axisMarkSpec: AxisSpec = {
             type: 'component',
-            componentType: 'axis' as ComponentEnum.axis,
+            componentType: ComponentEnum.axis,
             scale: this.getScaleId(channel),
             dependency: ['viewBox'],
             encode: {
-              update:
-                channel === 'x'
-                  ? (datum: any, elment: IElement, params: any) => {
-                      return {
+              update: (datum: any, elment: IElement, params: any) => {
+                const positionAttrs =
+                  channel === 'x'
+                    ? {
                         x: 0,
                         y: params.viewBox.height(),
                         start: { x: 0, y: 0 },
                         end: { x: params.viewBox.width(), y: 0 }
-                      };
-                    }
-                  : (datum: any, elment: IElement, params: any) => {
-                      return {
+                      }
+                    : {
                         x: 0,
                         y: params.viewBox.height(),
                         start: { x: 0, y: 0 },
                         verticalFactor: -1,
                         end: { x: 0, y: -params.viewBox.height() }
                       };
-                    }
+
+                return isPlainObject(axisOption) ? Object.assign(positionAttrs, axisOption) : positionAttrs;
+              }
             }
           };
           axisMarkSpec.layout = axisLayout ?? {
@@ -395,9 +449,13 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               : { position: 'top', align: 'center' });
           const markSpec: LegendSpec = {
             type: 'component',
-            componentType: 'legend' as ComponentEnum.legend,
+            componentType: ComponentEnum.legend,
             scale: this.getScaleId(channel),
             dependency: ['viewBox'],
+            target: {
+              data: this.getDataIdOfFiltered(),
+              filter: this.spec.encode?.[channel]
+            },
             encode: {
               update: (datum: any, elment: IElement, params: any) => {
                 const calculatedAttrs =
@@ -457,14 +515,16 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     if (crosshairKeys.length) {
       crosshairKeys.forEach(channel => {
-        const option = this.spec.crosshair?.[channel]?.option ?? defaultCrosshair[channel];
+        const userOption = this.spec.crosshair?.[channel]?.option;
+        const option = userOption ?? defaultCrosshair[channel];
 
         if (option) {
           const scaleId = this.getScaleId(channel);
-          const scaleSpec = this.viewSpec[scaleId];
+          const scaleSpec = this.getScaleSpec[scaleId];
+
           const markSpec: CrosshairSpec = {
             type: 'component',
-            componentType: 'crosshair' as ComponentEnum.crosshair,
+            componentType: ComponentEnum.crosshair,
             scale: this.getScaleId(channel),
             dependency: ['viewBox'],
             crosshairShape: isBoolean(option)
@@ -474,6 +534,12 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               : (option as CrosshairSpec).crosshairShape ?? (scaleSpec?.type === 'band' ? 'rect' : 'line'),
             crosshairType: channel === 'x' || channel === 'y' ? channel : 'x' // todo, deal with coordinate
           };
+
+          if (isPlainObject(userOption)) {
+            markSpec.encode = {
+              update: userOption
+            };
+          }
           res.push(markSpec);
         }
       });
@@ -495,7 +561,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
       return {
         type: 'component',
-        componentType: 'tooltip' as ComponentEnum.tooltip,
+        componentType: ComponentEnum.tooltip,
         target: this.getMarkId(),
         title: { visible: !!tooltipSpec.title, value: { field: tooltipSpec.title } },
         content:
@@ -528,20 +594,331 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return null;
   }
 
-  toViewSpec(): ViewSpec {
-    this.viewSpec = {};
-    const dataId = this.getDataId();
+  protected setDefaultSlider(): Record<string, Partial<SliderSpec>> {
+    return {};
+  }
 
-    const { encode, scale, data } = this.spec;
+  protected parseSliderSpec(): SliderSpec[] {
+    const slider = this.spec.slider;
+    const res: SliderSpec[] = [];
 
-    if (data) {
-      this.viewSpec.data = [
-        {
-          id: dataId,
-          values: this.spec.data.values
+    if (slider) {
+      Object.keys(slider).forEach(channel => {
+        const option = slider[channel]?.option;
+        const layout = slider[channel]?.layout;
+
+        if (option) {
+          const scaleId = this.getScaleId(channel);
+          const scaleSpec = this.getScaleSpec(scaleId);
+          const dataId = this.getDataIdOfMain();
+
+          if (!scaleSpec || !isContinuous(scaleSpec.type)) {
+            this._logger.warn(`[VGrammar]: Don't use slider in a channel which has scale type = ${scaleSpec?.type}`);
+            return;
+          }
+          const getter = getFieldAccessor(this.spec.encode?.[channel]);
+          const markLayout =
+            layout ??
+            (isPlainObject(option) && !isNil((option as SliderAttributes).layout)
+              ? (option as SliderAttributes).layout === 'horizontal'
+                ? { position: 'top', align: 'center' }
+                : (option as SliderAttributes).layout === 'vertical'
+                ? { position: 'right', align: 'middle' }
+                : { position: 'top', align: 'center' }
+              : { position: 'top', align: 'center' });
+
+          const markSpec: SliderSpec = {
+            type: 'component',
+            componentType: ComponentEnum.slider,
+            dependency: ['viewBox', dataId],
+            min: (datum: any, elment: IElement, params: any) => {
+              const data = params[dataId];
+
+              return Math.min.apply(null, data.map(getter));
+            },
+            max: (datum: any, elment: IElement, params: any) => {
+              const data = params[dataId];
+
+              return Math.max.apply(null, data.map(getter));
+            },
+            target: {
+              data: this.getDataIdOfFiltered(),
+              filter: this.spec.encode?.[channel]
+            },
+            encode: {
+              update: (datum: any, elment: IElement, params: any) => {
+                const calculatedAttrs =
+                  markLayout.position === 'left'
+                    ? {
+                        layout: 'vertical',
+                        x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
+                        y: elment.mark?.relativePosition?.top ?? 0,
+                        railWidth: defaultTheme.slider.railHeight,
+                        railHeight: params.viewBox.height()
+                      }
+                    : markLayout.position === 'right'
+                    ? {
+                        layout: 'vertical',
+                        x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
+                        y: elment.mark?.relativePosition?.top ?? 0,
+                        railWidth: defaultTheme.slider.railHeight,
+                        railHeight: params.viewBox.height()
+                      }
+                    : markLayout.position === 'bottom'
+                    ? {
+                        layout: 'horizontal',
+                        x: elment.mark?.relativePosition?.left ?? 0,
+                        y: elment.mark?.relativePosition?.top ?? params.viewBox.height(),
+                        railHeight: defaultTheme.slider.railHeight,
+                        railWidth: params.viewBox.width()
+                      }
+                    : {
+                        layout: 'horizontal',
+                        x: elment.mark?.relativePosition?.left ?? 0,
+                        y: elment.mark?.relativePosition?.top ?? 0,
+                        railHeight: defaultTheme.slider.railHeight,
+                        railWidth: params.viewBox.width()
+                      };
+                const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
+
+                return attrs;
+              }
+            }
+          };
+          markSpec.layout = markLayout;
+          res.push(markSpec);
         }
-      ];
+      });
     }
+
+    return res;
+  }
+
+  protected setDefaultDataZoom(): Record<string, Partial<DatazoomSpec>> {
+    return {};
+  }
+
+  protected parseDataZoomSpec(): DatazoomSpec[] {
+    const datazoom = this.spec.datazoom;
+    const res: DatazoomSpec[] = [];
+
+    if (datazoom) {
+      Object.keys(datazoom).forEach(channel => {
+        const option = datazoom[channel]?.option;
+        const layout = datazoom[channel]?.layout;
+
+        if (option) {
+          const scaleId = this.getScaleId(channel);
+          const scaleSpec = this.getScaleSpec(scaleId);
+          const dataId = this.getDataIdOfMain();
+
+          if (!scaleSpec || !isContinuous(scaleSpec.type)) {
+            this._logger.warn(`[VGrammar]: Don't use slider in a channel which has scale type = ${scaleSpec?.type}`);
+            return;
+          }
+          const markLayout =
+            layout ??
+            (isPlainObject(option) && !isNil((option as DataZoomAttributes).orient)
+              ? { position: (option as DataZoomAttributes).orient }
+              : { position: 'bottom' });
+
+          const markSpec: DatazoomSpec = {
+            type: 'component',
+            componentType: ComponentEnum.datazoom,
+            dependency: ['viewBox', dataId],
+            target: {
+              data: this.getDataIdOfFiltered(),
+              filter: this.spec.encode?.[channel]
+            },
+            preview: {
+              data: this.getDataIdOfMain(),
+              [channel === 'x' || channel === 'y' ? channel : 'x']: {
+                scale: this.getDataZoomScaleId(channel),
+                field: this.spec.encode[channel]
+              }
+            },
+            encode: {
+              update: (datum: any, elment: IElement, params: any) => {
+                const calculatedAttrs =
+                  markLayout.position === 'left'
+                    ? {
+                        x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
+                        y: elment.mark?.relativePosition?.top ?? 0,
+                        size: { height: params.viewBox.height(), width: defaultTheme.datazoom.size.height }
+                      }
+                    : markLayout.position === 'right'
+                    ? {
+                        x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
+                        y: elment.mark?.relativePosition?.top ?? 0,
+                        size: { height: params.viewBox.height(), width: defaultTheme.datazoom.size.height }
+                      }
+                    : markLayout.position === 'bottom'
+                    ? {
+                        x: elment.mark?.relativePosition?.left ?? 0,
+                        y: elment.mark?.relativePosition?.top ?? params.viewBox.height(),
+                        size: { width: params.viewBox.width(), height: defaultTheme.datazoom.size.height }
+                      }
+                    : {
+                        x: elment.mark?.relativePosition?.left ?? 0,
+                        y: elment.mark?.relativePosition?.top ?? 0,
+                        size: { width: params.viewBox.width(), height: defaultTheme.datazoom.size.height }
+                      };
+
+                const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
+
+                return attrs;
+              }
+            }
+          };
+          markSpec.layout = markLayout;
+          res.push(markSpec);
+        }
+      });
+    }
+
+    return res;
+  }
+
+  protected setDefaultLabel(): Record<string, Partial<LabelSpec>> {
+    return {};
+  }
+
+  protected parseLabelSpec(): LabelSpec[] {
+    const label = this.spec.label;
+    const res: LabelSpec[] = [];
+
+    if (label) {
+      Object.keys(label).forEach(channel => {
+        const option = label[channel]?.option;
+
+        if (option) {
+          const markSpec: LabelSpec = {
+            type: 'component',
+            componentType: ComponentEnum.label,
+            target: this.getMarkId(),
+            layout: {
+              position: 'content',
+              skipBeforeLayouted: true
+            },
+            labelStyle: isPlainObject(option) ? (option as BaseLabelAttrs) : null,
+            encode: {
+              update: {
+                text: { field: this.spec.encode[channel] }
+              }
+            }
+          };
+          res.push(markSpec);
+        }
+      });
+    }
+
+    return res;
+  }
+
+  protected setDefaultPlayer(): Record<string, Partial<PlayerSpec>> {
+    return {};
+  }
+
+  protected parsePlayerSpec(): PlayerSpec[] {
+    const player = this.spec.player;
+    const res: PlayerSpec[] = [];
+
+    if (player) {
+      const option = player?.option;
+      const layout = player?.layout;
+
+      if (option) {
+        const markLayout =
+          layout ??
+          (isPlainObject(option) && !isNil((option as PlayerAttributes).orient)
+            ? { position: (option as PlayerAttributes).orient }
+            : { position: 'bottom' });
+
+        const markSpec: PlayerSpec = {
+          type: 'component',
+          componentType: ComponentEnum.player,
+          dependency: ['viewBox'],
+          target: {
+            data: this.getDataIdOfMain(),
+            source: this.getDataIdOfPlayer()
+          },
+          playerType: isPlainObject(option) ? (option as any).type ?? 'auto' : 'auto',
+          encode: {
+            update: (datum: any, elment: IElement, params: any) => {
+              const calculatedAttrs =
+                markLayout.position === 'left'
+                  ? {
+                      x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
+                      y: elment.mark?.relativePosition?.top ?? 0,
+                      size: { height: params.viewBox.height(), width: 20 }
+                    }
+                  : markLayout.position === 'right'
+                  ? {
+                      x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
+                      y: elment.mark?.relativePosition?.top ?? 0,
+                      size: { height: params.viewBox.height(), width: 20 }
+                    }
+                  : markLayout.position === 'bottom'
+                  ? {
+                      x: elment.mark?.relativePosition?.left ?? 0,
+                      y: elment.mark?.relativePosition?.top ?? params.viewBox.height(),
+                      size: { width: params.viewBox.width(), height: 20 }
+                    }
+                  : {
+                      x: elment.mark?.relativePosition?.left ?? 0,
+                      y: elment.mark?.relativePosition?.top ?? 0,
+                      size: { width: params.viewBox.width(), height: 20 }
+                    };
+
+              const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
+
+              return attrs;
+            }
+          }
+        };
+        markSpec.layout = markLayout;
+        res.push(markSpec);
+      }
+    }
+
+    return res;
+  }
+
+  protected parseDataSpec() {
+    const { data, player } = this.spec;
+    const res = [];
+
+    if (player?.data) {
+      res.push({
+        id: this.getDataIdOfPlayer(),
+        values: player.data
+      });
+      res.push({
+        id: this.getDataIdOfMain(),
+        values: player.data?.[0]
+      });
+      res.push({
+        id: this.getDataIdOfFiltered(),
+        source: this.getDataIdOfMain()
+      });
+    } else if (data) {
+      const dataId = this.getDataIdOfMain();
+
+      res.push({
+        id: dataId,
+        values: data.values
+      });
+      res.push({
+        id: this.getDataIdOfFiltered(),
+        source: dataId
+      });
+    }
+
+    return res;
+  }
+
+  protected parseScaleSpec() {
+    const { encode, scale, datazoom } = this.spec;
     const scales: Record<string, ScaleSpec> = {};
     if (encode) {
       Object.keys(encode).forEach(k => {
@@ -555,7 +932,6 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         );
       });
     }
-
     if (scale) {
       Object.keys(scale).forEach(k => {
         const scaleId = this.getScaleId(k);
@@ -565,29 +941,62 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       });
     }
 
-    this.viewSpec.scales = Array.from(Object.values(scales));
-    let marks: MarkSpec[] = [];
-    if (this.spec.legend) {
-      marks = marks.concat(this.parseLegendSpec());
+    if (datazoom) {
+      Object.keys(datazoom).forEach(k => {
+        const scaleId = this.getScaleId(k);
+        const dataZoomScaleId = this.getDataZoomScaleId(k);
+
+        if ((k === 'x' || k === 'y') && encode[k]) {
+          scales[dataZoomScaleId] = {
+            type: scales[scaleId].type,
+            id: dataZoomScaleId,
+            domain: {
+              data: this.getDataIdOfMain(),
+              field: encode[k]
+            }
+          };
+        } else {
+          scales[dataZoomScaleId] = {
+            type: 'band',
+            id: dataZoomScaleId,
+            domain: {
+              data: this.getDataIdOfMain(),
+              field: k as string
+            }
+          };
+        }
+      });
     }
 
-    if (this.spec.axis) {
-      marks = marks.concat(this.parseAxisSpec());
-    }
+    return Array.from(Object.values(scales));
+  }
+
+  toViewSpec(): ViewSpec {
+    this.viewSpec = {};
+    const filteredDataId = this.getDataIdOfFiltered();
+    this.viewSpec.data = this.parseDataSpec();
+    this.viewSpec.scales = this.parseScaleSpec();
+    let marks: MarkSpec[] = [];
+
+    marks = marks.concat(this.parseLegendSpec());
+    marks = marks.concat(this.parseAxisSpec());
     marks = marks.concat(this.parseCrosshairSpec());
+    marks = marks.concat(this.parseSliderSpec());
+    marks = marks.concat(this.parseDataZoomSpec());
+    marks = marks.concat(this.parsePlayerSpec());
 
     marks.push({
       id: this.getMarkId(),
       type: this.setMarkType(),
       from: {
-        data: dataId
+        data: filteredDataId
       },
       groupBy: (this.spec.encode as any)?.group,
       layout: {
         position: 'content',
         skipBeforeLayouted: true
       },
-      dependency: Array.from(Object.keys(scales)),
+      dependency: this.viewSpec.scales.map(scale => scale.id),
       transform: this.convertMarkTransform(),
       animation: this.convertMarkAnimation(),
       encode: Object.assign({}, this.spec.state, {
@@ -595,7 +1004,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         update: this.convertMarkEncode(this.spec.encode)
       })
     });
-
+    marks = marks.concat(this.parseLabelSpec());
     marks = marks.concat(this.parseTooltipSpec());
 
     this.viewSpec.marks = [

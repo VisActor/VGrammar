@@ -108,7 +108,7 @@ export interface ISlider extends IComponent {
   setStartEndValue: (start?: number, end?: number) => this;
 }
 
-export interface SliderSpec extends ComponentSpec<SliderAttributes> {
+export interface SliderSpec extends ComponentSpec<Partial<SliderAttributes>> {
   componentType: ComponentEnum.slider;
   min?: MarkFunctionType<number>;
   max?: MarkFunctionType<number>;
@@ -139,13 +139,13 @@ export interface IDatazoom extends IComponent {
   setStartEndValue: (start?: number, end?: number) => this;
 }
 
-export type DataZoomEncoderSpec = GenerateBasicEncoderSpec<DataZoomAttributes & { x1?: number; y1?: number }>;
+export type DataZoomEncoderSpec = GenerateBasicEncoderSpec<Partial<DataZoomAttributes> & { x1?: number; y1?: number }>;
 export interface DatazoomSpec extends ComponentSpec<DataZoomEncoderSpec> {
   componentType: ComponentEnum.datazoom;
   preview?: {
     data: IData | string;
-    x: ScaleEncodeType;
-    y: ScaleEncodeType;
+    x?: ScaleEncodeType;
+    y?: ScaleEncodeType;
     x1?: ChannelEncodeType;
     y1?: ChannelEncodeType;
   };
@@ -163,9 +163,12 @@ export interface ILabel extends IComponent {
   target: (mark: IMark | IMark[] | string | string[] | Nil) => this;
 }
 
-export interface LabelSpec extends ComponentSpec<BaseLabelAttrs> {
+export type LabelEncoderSpec = GenerateBasicEncoderSpec<
+  Partial<BaseLabelAttrs> & { text?: string | number | (string | number)[] }
+>;
+export interface LabelSpec extends ComponentSpec<LabelEncoderSpec> {
   componentType: ComponentEnum.label;
-  labelStyle?: MarkFunctionType<RecursivePartial<BaseLabelAttrs>>;
+  labelStyle?: MarkFunctionType<Partial<BaseLabelAttrs>>;
   size?: MarkFunctionType<DataLabelAttrs['size']>;
   target?: IMark | IMark[] | string | string[];
 }
@@ -187,7 +190,7 @@ export interface IPlayer extends IComponent {
   forward: () => this;
 }
 
-export interface PlayerSpec extends ComponentSpec<PlayerAttributes> {
+export interface PlayerSpec extends ComponentSpec<Partial<PlayerAttributes>> {
   componentType: ComponentEnum.player;
   playerType?: PlayerType;
   target?: {

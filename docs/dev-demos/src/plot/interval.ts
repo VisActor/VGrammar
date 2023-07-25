@@ -30,7 +30,10 @@ export const runner = (plot: IPlot) => {
     .encode('group', 'type')
     .axis('x', true)
     .axis('y', true)
-    .legend('group', true, { position: 'top', align: 'middle' });
+    .legend('group', true, { position: 'top', align: 'middle' })
+    .slider('y', false)
+    .datazoom('y', true)
+    .label('y', { textStyle: { fill: 'red'} });
 };
 
 export const callback = (view: IView) => {
