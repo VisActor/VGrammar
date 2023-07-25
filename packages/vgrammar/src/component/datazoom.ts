@@ -211,7 +211,7 @@ export class Datazoom extends Component implements IDatazoom {
 
   private _getDatazoomMainScale() {
     const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as DatazoomComponent;
-    if (datazoom) {
+    if (datazoom && this.spec.preview) {
       const isHorizontal = datazoom.attribute.orient === 'top' || datazoom.attribute.orient === 'bottom';
       const scale = isHorizontal ? this.spec.preview.x?.scale : this.spec.preview.y?.scale;
       const scaleGrammar = isString(scale) ? this.view.getScaleById(scale) : scale;
