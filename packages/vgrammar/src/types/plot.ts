@@ -7,6 +7,7 @@ import type {
   BasePlayerAttributes,
   DataZoomAttributes,
   LegendBaseAttributes,
+  PlayerAttributes,
   SliderAttributes
 } from '@visactor/vrender-components';
 import type { BasicEncoderSpecMap, MarkAnimationSpec, MarkRelativeItemSpec } from './mark';
@@ -120,10 +121,10 @@ export interface ISemanticMark<EncodeSpec, K extends string> {
   crosshair: (channel: string, option?: BaseCrosshairAttrs | boolean) => this;
   tooltip: (option: SemanticTooltipOption | boolean) => this;
 
-  slider: (channel: string, option?: SliderAttributes) => this;
-  datazoom: (channel: string, option?: DataZoomAttributes) => this;
-  label: (channel: string, option?: BaseLabelAttrs) => this;
-  player: (channel: string, option?: BasePlayerAttributes) => this;
+  slider: (channel: string, option?: SliderAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
+  datazoom: (channel: string, option?: DataZoomAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
+  label: (channel: string, option?: Partial<BaseLabelAttrs> | boolean) => this;
+  player: (data?: any[], option?: PlayerAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
 
   toViewSpec: () => ViewSpec;
 }
@@ -141,6 +142,10 @@ export interface ISemanticMarkSpec<EncodeSpec, K extends string> {
   legend?: Record<string, { option?: LegendBaseAttributes | boolean; layout?: MarkRelativeItemSpec }>;
   crosshair?: Record<string, { option?: BaseCrosshairAttrs | boolean }>;
   tooltip?: SemanticTooltipOption | boolean;
+  slider?: Record<string, { option?: SliderAttributes | boolean; layout?: MarkRelativeItemSpec }>;
+  datazoom?: Record<string, { option?: DataZoomAttributes | boolean; layout?: MarkRelativeItemSpec }>;
+  label?: Record<string, { option?: Partial<BaseLabelAttrs> | boolean }>;
+  player?: { data?: any[]; option?: PlayerAttributes | boolean; layout?: MarkRelativeItemSpec };
 }
 
 export type ParsedSimpleEncode<T, K extends string> = {
