@@ -190,6 +190,7 @@ export interface MarkRelativeItemSpec extends MarkBaseLayoutSpec {
   position?: 'top' | 'bottom' | 'left' | 'right' | 'content' | 'auto' | string;
   padding?: CommonPaddingSpec;
   align?: 'left' | 'right' | 'center' | 'top' | 'bottom' | 'middle';
+  order?: number;
 }
 
 export interface MarkRelativeContainerSpec extends MarkBaseLayoutSpec {
