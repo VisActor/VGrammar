@@ -277,7 +277,7 @@ title.on('animationStart', evt => {
 动画相关事件的回调函数，会返回一下类型的参数：
 
 ```ts
-interface IAnimationEvent {
+type AnimationEvent = {
   mark: IMark;
   animationState: string;
   animationConfig: IAnimationConfig;
