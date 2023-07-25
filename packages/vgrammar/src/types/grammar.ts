@@ -262,6 +262,7 @@ export interface IMark extends IGrammarBase, IProgressiveGrammar {
   prepareRelease: () => void;
 
   layoutBounds?: IBounds;
+  relativePosition?: { top?: number; bottom?: number; left?: number; right?: number };
   needLayout: () => boolean;
   handleLayoutEnd: () => void;
   handleRenderEnd: () => void;
@@ -270,6 +271,7 @@ export interface IMark extends IGrammarBase, IProgressiveGrammar {
   getScalesByChannel: () => Record<string, IBaseScale> | undefined;
   getFieldsByChannel: () => Record<string, string> | undefined;
   getSegmentIgnoreAttributes: () => string[] | Nil;
+  getScales: () => Record<string, IBaseScale> | undefined;
 }
 
 export interface IGrammarBaseConstructor {
