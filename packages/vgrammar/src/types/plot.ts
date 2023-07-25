@@ -9,10 +9,11 @@ import type {
   LegendBaseAttributes,
   SliderAttributes
 } from '@visactor/vrender-components';
-import type { BasicEncoderSpecMap, MarkAnimationSpec } from './mark';
+import type { BasicEncoderSpecMap, MarkAnimationSpec, MarkRelativeItemSpec } from './mark';
 import type { IEnvironmentOptions, IRendererOptions, ViewSpec, srIOption3DType } from './view';
 import type { CommonPaddingSpec, ValueOf } from './base';
 import type { DataSpec } from './data';
+import type { IAnimationConfig } from './animate';
 
 export interface IPlotOptions extends IEnvironmentOptions, IRendererOptions {
   width?: number;
@@ -95,6 +96,15 @@ export type ISemanticEncodeSpec<T> = {
 };
 export type ISemanticStyle<T, K extends string> = Omit<T, K>;
 
+export type SemanticTooltipOption = {
+  title?: ISemanticEncodeValue<string | number>;
+  content?: Array<{
+    key?: ISemanticEncodeValue<string | number>;
+    value?: ISemanticEncodeValue<string | number>;
+    symbol?: ISemanticEncodeValue<string>;
+  }>;
+};
+
 export interface ISemanticMark<EncodeSpec, K extends string> {
   readonly type: string;
   data: (values: any) => this;
@@ -102,17 +112,18 @@ export interface ISemanticMark<EncodeSpec, K extends string> {
   encode: (channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>) => this;
   scale: (channel: K, option: ScaleSpec) => this;
   transform: (option: TransformSpec[]) => this;
-  animate: (state: string, option: MarkAnimationSpec) => this;
-  state: (state: string, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>) => this;
+  animate: (state: string, option: IAnimationConfig | IAnimationConfig[]) => this;
+  state: (state: string, option: Partial<EncodeSpec>) => this;
 
-  axis: (channel: string, option?: AxisBaseAttributes | boolean) => this;
-  legend: (channel: string, option?: LegendBaseAttributes) => this;
+  axis: (channel: string, option?: AxisBaseAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
+  legend: (channel: string, option?: LegendBaseAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
+  crosshair: (channel: string, option?: BaseCrosshairAttrs | boolean) => this;
+  tooltip: (option: SemanticTooltipOption | boolean) => this;
+
   slider: (channel: string, option?: SliderAttributes) => this;
   datazoom: (channel: string, option?: DataZoomAttributes) => this;
-  tooltip: (option: { title?: string; content?: Array<{ key?: string; value?: string; symbol?: string }> }) => this;
   label: (channel: string, option?: BaseLabelAttrs) => this;
   player: (channel: string, option?: BasePlayerAttributes) => this;
-  crosshair: (channel: string, option?: BaseCrosshairAttrs) => this;
 
   toViewSpec: () => ViewSpec;
 }
@@ -125,6 +136,11 @@ export interface ISemanticMarkSpec<EncodeSpec, K extends string> {
   style?: ISemanticStyle<EncodeSpec, K>;
   axis?: Partial<Record<K, AxisBaseAttributes | boolean>>;
   transform?: TransformSpec[];
+  state?: Record<string, Partial<EncodeSpec>>;
+  animation?: Record<string, IAnimationConfig | IAnimationConfig[]>;
+  legend?: Record<string, { option?: LegendBaseAttributes | boolean; layout?: MarkRelativeItemSpec }>;
+  crosshair?: Record<string, { option?: BaseCrosshairAttrs | boolean }>;
+  tooltip?: SemanticTooltipOption | boolean;
 }
 
 export type ParsedSimpleEncode<T, K extends string> = {
