@@ -83,7 +83,17 @@ import { ViewAnimate } from './animate';
 import type { IRenderer } from '../types/renderer';
 import { ComponentEnum, HOOK_EVENT, LayoutState, GrammarMarkType } from '../graph/enums';
 import { createComponent } from '../component';
-import type { IAxis, ICrosshair, IDatazoom, ILabel, ILegend, IPlayer, ISlider, ITooltip } from '../types/component';
+import type {
+  IAxis,
+  ICrosshair,
+  IDatazoom,
+  IDimensionTooltip,
+  ILabel,
+  ILegend,
+  IPlayer,
+  ISlider,
+  ITooltip
+} from '../types/component';
 import { Interval } from '../grammar-marks/interval';
 import { Cell } from '../grammar-marks/cell';
 
@@ -326,6 +336,12 @@ export default class View extends EventEmitter implements IView {
 
   tooltip(group: IGroupMark | string) {
     return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.tooltip }) as ITooltip;
+  }
+
+  dimensionTooltip(group: IGroupMark | string) {
+    return this.mark(GrammarMarkType.component, group, {
+      componentType: ComponentEnum.dimensionTooltip
+    }) as IDimensionTooltip;
   }
 
   customized(type: string, spec: any) {

@@ -8,7 +8,7 @@ import { Slider } from './slider';
 import { Label } from './label';
 import { Datazoom } from './datazoom';
 import { Player } from './player';
-import { Tooltip } from './tooltip';
+import { DimensionTooltip, Tooltip } from './tooltip';
 
 export { generateLineAxisAttributes, generateCircleAxisAttributes } from './axis';
 export {
@@ -52,6 +52,8 @@ export const createComponent = (
       return new Player(view, groupMark);
     case ComponentEnum.tooltip:
       return new Tooltip(view, groupMark);
+    case ComponentEnum.dimensionTooltip:
+      return new DimensionTooltip(view, groupMark);
   }
   return new Component(view, componentType, groupMark);
 };
