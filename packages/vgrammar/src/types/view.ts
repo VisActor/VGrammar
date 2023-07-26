@@ -23,7 +23,17 @@ import type { CommonPaddingSpec } from './base';
 import type { IMorphConfig } from './morph';
 import type { IBaseAnimate } from './animate';
 import type { IRenderer } from './renderer';
-import type { IAxis, ICrosshair, IDatazoom, ILabel, ILegend, IPlayer, ISlider, ITooltip } from './component';
+import type {
+  IAxis,
+  ICrosshair,
+  IDatazoom,
+  IDimensionTooltip,
+  ILabel,
+  ILegend,
+  IPlayer,
+  ISlider,
+  ITooltip
+} from './component';
 import type { CoordinateSpec } from './coordinate';
 
 export interface IViewThemeConfig {
@@ -171,6 +181,7 @@ export interface IView {
   datazoom: (group: IGroupMark | string) => IDatazoom;
   player: (group: IGroupMark | string) => IPlayer;
   tooltip: (group: IGroupMark | string) => ITooltip;
+  dimensionTooltip: (group: IGroupMark | string) => IDimensionTooltip;
 
   addGrammar: (grammar: IGrammarBase) => this;
   removeGrammar: (grammar: string | IGrammarBase) => this;
