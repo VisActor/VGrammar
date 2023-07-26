@@ -251,7 +251,6 @@ export interface DimensionTooltipSpec extends BaseTooltipSpec {
   avoidMark?: IMark | IMark[] | string | string[];
   componentConfig?: { center?: IPointLike };
 }
-
 // built-in components
 
 export type BuiltInComponentSpec =
