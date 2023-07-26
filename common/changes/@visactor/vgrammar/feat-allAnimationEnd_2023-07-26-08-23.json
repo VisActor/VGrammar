@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "add all animation start&end events",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
