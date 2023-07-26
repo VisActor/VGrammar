@@ -1,5 +1,5 @@
 import type { IBounds, IPointLike } from '@visactor/vutils';
-import { AABBBounds } from '@visactor/vutils';
+import { AABBBounds, isValid } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
 import { isObjectLike, throttle } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
@@ -91,13 +91,13 @@ export class Tooltip extends Component implements ITooltip {
     return this;
   }
 
-  title(title: ITooltipRow | Nil) {
-    if (this.spec.title) {
+  title(title: ITooltipRow | string | Nil) {
+    if (this.spec.title && !isString(this.spec.title)) {
       this.detach(this._parseTooltipRow(this.spec.title));
     }
     this.spec.title = title;
-    if (title) {
-      this.attach(this._parseTooltipRow(this.spec.title));
+    if (title && !isString(title)) {
+      this.attach(this._parseTooltipRow(title));
     }
     this.commit();
     return this;
@@ -248,9 +248,20 @@ export class Tooltip extends Component implements ITooltip {
     const datum = element.getDatum();
     const parameters = this.parameters();
 
-    const title = this.spec.title ? this._computeTooltipRow(this.spec.title, datum, element, parameters) : undefined;
+    const title = isValid(this.spec.title)
+      ? this._computeTooltipRow(
+          isString(this.spec.title) ? { value: this.spec.title } : this.spec.title,
+          datum,
+          element,
+          parameters
+        )
+      : undefined;
     const content = this.spec.content
-      ? array(this.spec.content).map(row => this._computeTooltipRow(row, datum, element, parameters))
+      ? array(datum).reduce((content, datumRow) => {
+          return content.concat(
+            array(this.spec.content).map(row => this._computeTooltipRow(row, datumRow, element, parameters))
+          );
+        }, [])
       : undefined;
 
     return { title, content };
