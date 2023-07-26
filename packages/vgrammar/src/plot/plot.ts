@@ -2,6 +2,7 @@ import type { IView, ViewSpec } from '../types';
 import type { IInterval, IPlot, IPlotOptions } from '../types/plot';
 import { View } from '../view';
 import { Interval } from './interval';
+import { Line } from './line';
 
 export class Plot implements IPlot {
   private _view: IView;
@@ -10,6 +11,7 @@ export class Plot implements IPlot {
 
   constructor(option?: IPlotOptions) {
     this._view = new View(option);
+    this._semanticMarks = [];
   }
   render() {
     if (this._view) {
@@ -70,11 +72,15 @@ export class Plot implements IPlot {
   interval() {
     const interval = new Interval();
 
-    if (!this._semanticMarks) {
-      this._semanticMarks = [];
-    }
     this._semanticMarks.push(interval);
 
     return interval;
+  }
+
+  line() {
+    const line = new Line();
+    this._semanticMarks.push(line);
+
+    return line;
   }
 }
