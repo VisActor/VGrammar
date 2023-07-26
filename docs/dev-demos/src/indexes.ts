@@ -491,6 +491,11 @@ export const indexes = [
         type: 'plot'
       },
       {
+        path: 'line',
+        name: 'Line图元',
+        type: 'plot'
+      },
+      {
         path: 'bar-race',
         name: '动态条形图',
         type: 'plot'

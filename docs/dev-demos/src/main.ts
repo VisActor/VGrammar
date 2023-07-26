@@ -179,7 +179,7 @@ const handleClick = (e: { target: any }, isInit?: boolean) => {
 
     triggerNode.classList.add(ACTIVE_ITEM_CLS);
     if (!isInit) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, path);
+      localStorage.setItem(LOCAL_STORAGE_KEY, `${type}:${path}`);
     }
 
     if (type === 'spec') {
@@ -243,11 +243,13 @@ const run = () => {
     {
       target:
         menuItemNodes &&
-        menuItemNodes.length &&
-        ([...menuItemNodes].find(node => {
-          return prevActivePath && node.dataset.path === prevActivePath;
-        }) ||
-          menuItemNodes[0])
+        menuItemNodes.length && (
+          prevActivePath ? Array.from(menuItemNodes).find(node => {
+            const [type, path] = prevActivePath.split(':');
+
+            return node.dataset.path === path && node.dataset.type === type;
+          }) : menuItemNodes[0]
+        )
     },
     true
   );

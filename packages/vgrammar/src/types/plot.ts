@@ -42,7 +42,7 @@ export interface IPlot {
   // cell: () => ICell;
   // area: () => ISemanticMark;
   // image: () => ISemanticMark;
-  // line: () => ISemanticMark;
+  line: () => ILine;
   // lineX: () => ISemanticMark;
   // lineY: () => ISemanticMark;
   // point: () => ISemanticMark;
@@ -106,6 +106,17 @@ export type SemanticTooltipOption = {
   }>;
 };
 
+export interface SemanticAxisOption extends Partial<AxisBaseAttributes> {
+  tickCount?: number;
+}
+
+export type SemanticDataZoomOption = Partial<DataZoomAttributes>;
+export type SemanticSliderOption = Partial<SliderAttributes>;
+export type SemanticLegendOption = Partial<LegendBaseAttributes>;
+export type SemanticCrosshairOption = Partial<BaseCrosshairAttrs>;
+export type SemanticLabelOption = Partial<BaseLabelAttrs>;
+export type SemanticPlayerOption = Partial<PlayerAttributes>;
+
 export interface ISemanticMark<EncodeSpec, K extends string> {
   readonly type: string;
   data: (values: any) => this;
@@ -116,15 +127,15 @@ export interface ISemanticMark<EncodeSpec, K extends string> {
   animate: (state: string, option: IAnimationConfig | IAnimationConfig[]) => this;
   state: (state: string, option: Partial<EncodeSpec>) => this;
 
-  axis: (channel: string, option?: AxisBaseAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
-  legend: (channel: string, option?: LegendBaseAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
-  crosshair: (channel: string, option?: BaseCrosshairAttrs | boolean) => this;
+  axis: (channel: string, option?: SemanticAxisOption | boolean, layout?: MarkRelativeItemSpec) => this;
+  legend: (channel: string, option?: SemanticLegendOption | boolean, layout?: MarkRelativeItemSpec) => this;
+  crosshair: (channel: string, option?: SemanticCrosshairOption | boolean) => this;
   tooltip: (option: SemanticTooltipOption | boolean) => this;
 
-  slider: (channel: string, option?: SliderAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
-  datazoom: (channel: string, option?: DataZoomAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
-  label: (channel: string, option?: Partial<BaseLabelAttrs> | boolean) => this;
-  player: (data?: any[], option?: PlayerAttributes | boolean, layout?: MarkRelativeItemSpec) => this;
+  slider: (channel: string, option?: SemanticSliderOption | boolean, layout?: MarkRelativeItemSpec) => this;
+  datazoom: (channel: string, option?: SemanticDataZoomOption | boolean, layout?: MarkRelativeItemSpec) => this;
+  label: (channel: string, option?: SemanticLabelOption | boolean) => this;
+  player: (data?: any[], option?: SemanticPlayerOption | boolean, layout?: MarkRelativeItemSpec) => this;
 
   toViewSpec: () => ViewSpec;
 }
@@ -135,17 +146,17 @@ export interface ISemanticMarkSpec<EncodeSpec, K extends string> {
   encode?: WithDefaultEncode<EncodeSpec, K>;
   scale?: Partial<Record<K, ScaleSpec>>;
   style?: ISemanticStyle<EncodeSpec, K>;
-  axis?: Partial<Record<K, AxisBaseAttributes | boolean>>;
+  axis?: Partial<Record<K, SemanticAxisOption | boolean>>;
   transform?: TransformSpec[];
   state?: Record<string, Partial<EncodeSpec>>;
   animation?: Record<string, IAnimationConfig | IAnimationConfig[]>;
-  legend?: Record<string, { option?: LegendBaseAttributes | boolean; layout?: MarkRelativeItemSpec }>;
-  crosshair?: Record<string, { option?: BaseCrosshairAttrs | boolean }>;
+  legend?: Record<string, { option?: SemanticLegendOption | boolean; layout?: MarkRelativeItemSpec }>;
+  crosshair?: Record<string, { option?: SemanticCrosshairOption | boolean }>;
   tooltip?: SemanticTooltipOption | boolean;
-  slider?: Record<string, { option?: SliderAttributes | boolean; layout?: MarkRelativeItemSpec }>;
-  datazoom?: Record<string, { option?: DataZoomAttributes | boolean; layout?: MarkRelativeItemSpec }>;
-  label?: Record<string, { option?: Partial<BaseLabelAttrs> | boolean }>;
-  player?: { data?: any[]; option?: PlayerAttributes | boolean; layout?: MarkRelativeItemSpec };
+  slider?: Record<string, { option?: SemanticSliderOption | boolean; layout?: MarkRelativeItemSpec }>;
+  datazoom?: Record<string, { option?: SemanticDataZoomOption | boolean; layout?: MarkRelativeItemSpec }>;
+  label?: Record<string, { option?: SemanticLabelOption | boolean }>;
+  player?: { data?: any[]; option?: SemanticPlayerOption | boolean; layout?: MarkRelativeItemSpec };
 }
 
 export type ParsedSimpleEncode<T, K extends string> = {
@@ -158,6 +169,8 @@ export type ParsedSimpleEncode<T, K extends string> = {
 export type SemanticEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type IntervalEncodeChannels = SemanticEncodeChannels;
 export type CellEncodeChannels = SemanticEncodeChannels;
+export type LineEncodeChannels = SemanticEncodeChannels;
 
-export type IInterval = ISemanticMark<BasicEncoderSpecMap['interval'], SemanticEncodeChannels>;
+export type IInterval = ISemanticMark<BasicEncoderSpecMap['interval'], IntervalEncodeChannels>;
+export type ILine = ISemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels>;
 export type ICell = ISemanticMark<BasicEncoderSpecMap['interval'], CellEncodeChannels>;
