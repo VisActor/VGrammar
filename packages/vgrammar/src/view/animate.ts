@@ -1,9 +1,10 @@
 import { HOOK_EVENT } from '../graph';
-import type { IView, IBaseAnimate, AnimationEvent, IMark } from '../types';
+import type { IView, IBaseAnimate, AnimationEvent, IMark, IAnimationConfig } from '../types';
 
 export class ViewAnimate implements IBaseAnimate {
   private _view: IView;
-  private _animatingMarks: IMark[] = [];
+  // animation start/end events are triggered on specific animation configuration
+  private _animations: { config: IAnimationConfig; mark: IMark }[] = [];
 
   constructor(view: IView) {
     this._view = view;
@@ -67,7 +68,7 @@ export class ViewAnimate implements IBaseAnimate {
     //   isAnimating = isAnimating || mark.animate?.isAnimating?.();
     // });
     // return isAnimating;
-    return this._animatingMarks.length !== 0;
+    return this._animations.length !== 0;
   }
 
   animate() {
@@ -86,15 +87,17 @@ export class ViewAnimate implements IBaseAnimate {
   }
 
   private _onAnimationStart = (event: AnimationEvent) => {
-    if (this._animatingMarks.length === 0) {
+    if (this._animations.length === 0) {
       this._view.emit(HOOK_EVENT.ALL_ANIMATION_START, {});
     }
-    this._animatingMarks = this._animatingMarks.concat(event.mark);
+    this._animations = this._animations.concat({ config: event.animationConfig, mark: event.mark });
   };
 
   private _onAnimationEnd = (event: AnimationEvent) => {
-    this._animatingMarks = this._animatingMarks.filter(mark => mark !== event.mark);
-    if (this._animatingMarks.length === 0) {
+    this._animations = this._animations.filter(animation => {
+      return animation.config !== event.animationConfig || animation.mark !== event.mark;
+    });
+    if (this._animations.length === 0) {
       this._view.emit(HOOK_EVENT.ALL_ANIMATION_END, {});
     }
   };

@@ -298,6 +298,13 @@ export const callback = (view: IView) => {
 
   let isLooping = false;
 
+  view.addEventListener('allAnimationStart', () => {
+    console.log('allAnimationStart');
+  });
+  view.addEventListener('allAnimationEnd', () => {
+    console.log('allAnimationEnd');
+  });
+
   view.addEventListener('animationStart', (event: AnimationEvent) => {
     const state = event.animationState;
     console.log('animationStart: ', state);
