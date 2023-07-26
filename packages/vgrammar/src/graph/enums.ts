@@ -63,7 +63,8 @@ export enum ComponentEnum {
   label = 'label',
   datazoom = 'datazoom',
   player = 'player',
-  tooltip = 'tooltip'
+  tooltip = 'tooltip',
+  dimensionTooltip = 'dimensionTooltip'
 }
 
 export enum ComponentDataRank {
