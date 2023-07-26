@@ -8,7 +8,8 @@ import type {
   LegendBaseAttributes,
   PlayerAttributes,
   SliderAttributes,
-  TooltipAttributes
+  TooltipAttributes,
+  TooltipRowAttrs
 } from '@visactor/vrender-components';
 import type { ComponentEnum } from '../graph';
 import type { Nil, RecursivePartial } from './base';
@@ -204,17 +205,41 @@ export interface ITooltipRow {
   symbol?: MarkFunctionType<string | Partial<ISymbolGraphicAttribute>> | FieldEncodeType;
 }
 
-export interface ITooltip extends IComponent {
-  target: (mark: IMark | IMark[] | string | string[] | Nil) => this;
+export interface IBaseTooltip extends IComponent {
   title: (title: ITooltipRow | string | Nil) => this;
   content: (content: ITooltipRow | ITooltipRow[] | Nil) => this;
 }
 
-export interface TooltipSpec extends ComponentSpec<TooltipAttributes> {
-  componentType: ComponentEnum.tooltip;
-  target?: IMark | IMark[] | string | string[];
+export interface ITooltip extends IBaseTooltip {
+  target: (mark: IMark | IMark[] | string | string[] | Nil) => this;
+}
+
+export interface BaseTooltipSpec extends ComponentSpec<TooltipAttributes> {
   title?: ITooltipRow | string;
   content?: ITooltipRow | ITooltipRow[];
+}
+
+export interface TooltipSpec extends BaseTooltipSpec {
+  componentType: ComponentEnum.tooltip;
+  target?: IMark | IMark[] | string | string[];
+}
+
+export type TooltipType = 'x' | 'y' | 'angle' | 'radius';
+
+export interface IDimensionTooltip extends IBaseTooltip {
+  scale: (scale?: IScale | string) => this;
+  tooltipType: (tooltipType: TooltipType | Nil) => this;
+  target: (data: IData | string | Nil, filter: string | ((datum: any, tooltipValue: any) => boolean) | Nil) => this;
+}
+
+export interface DimensionTooltipSpec extends BaseTooltipSpec {
+  componentType: ComponentEnum.dimensionTooltip;
+  scale?: IScale | string;
+  tooltipType?: TooltipType;
+  target?: {
+    data: IData | string;
+    filter: string | ((datum: any, tooltipValue: any) => boolean);
+  };
 }
 
 // built-in components
