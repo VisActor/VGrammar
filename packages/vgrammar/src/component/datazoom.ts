@@ -30,32 +30,14 @@ registerComponent(
 
 export const generateDatazoomAttributes = (
   data: any[],
-  x: ScaleEncodeType,
-  y: ScaleEncodeType,
-  x1: ChannelEncodeType,
-  y1: ChannelEncodeType,
-  element: IElement,
-  parameters: any,
   addition?: RecursivePartial<DataZoomAttributes>
 ): DataZoomAttributes => {
   const datazoomTheme = defaultTheme.datazoom;
   if (!data) {
     return merge({}, datazoomTheme, addition ?? {});
   }
-  const previewXCallback = x ? (datum: any) => invokeEncoder({ x }, datum, element, parameters).x : null;
-  const previewYCallback = y ? (datum: any) => invokeEncoder({ y }, datum, element, parameters).y : null;
-  const previewX1Callback = x1
-    ? (datum: any) => invokeEncoder({ x1 } as BaseSignleEncodeSpec, datum, element, parameters).x1
-    : null;
-  const previewY1Callback = y1
-    ? (datum: any) => invokeEncoder({ y1 } as BaseSignleEncodeSpec, datum, element, parameters).y1
-    : null;
-  return merge(
-    {},
-    datazoomTheme,
-    { previewData: data, previewXCallback, previewYCallback, previewX1Callback, previewY1Callback },
-    addition ?? {}
-  );
+
+  return merge({}, datazoomTheme, { previewData: data }, addition ?? {});
 };
 
 export class Datazoom extends Component implements IDatazoom {
@@ -168,6 +150,36 @@ export class Datazoom extends Component implements IDatazoom {
       }
       return state;
     });
+
+    datazoom.setPreviewCallbackX((datum: any) => {
+      if (this.spec.preview?.x && this.spec.preview?.data) {
+        return invokeEncoder({ x: this.spec.preview.x }, datum, this.elements[0], this.parameters()).x;
+      }
+
+      return undefined;
+    });
+    datazoom.setPreviewCallbackY((datum: any) => {
+      if (this.spec.preview?.y && this.spec.preview?.data) {
+        return invokeEncoder({ y: this.spec.preview.y }, datum, this.elements[0], this.parameters()).y;
+      }
+
+      return undefined;
+    });
+
+    datazoom.setPreviewCallbackX1((datum: any) => {
+      if (this.spec.preview?.x1 && this.spec.preview?.data) {
+        return invokeEncoder({ x1: this.spec.preview.x1 }, datum, this.elements[0], this.parameters()).x1;
+      }
+
+      return undefined;
+    });
+    datazoom.setPreviewCallbackY1((datum: any) => {
+      if (this.spec.preview?.y1 && this.spec.preview?.data) {
+        return invokeEncoder({ y1: this.spec.preview.y1 }, datum, this.elements[0], this.parameters()).y1;
+      }
+
+      return undefined;
+    });
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
@@ -181,16 +193,7 @@ export class Datazoom extends Component implements IDatazoom {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
-            return generateDatazoomAttributes(
-              dataGrammar?.getValue?.(),
-              this.spec.preview?.x,
-              this.spec.preview?.y,
-              this.spec.preview?.x1,
-              this.spec.preview?.y1,
-              element,
-              parameters,
-              addition
-            );
+            return generateDatazoomAttributes(dataGrammar?.getValue?.(), addition);
           }
         };
       }
