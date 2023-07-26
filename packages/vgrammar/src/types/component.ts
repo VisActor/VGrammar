@@ -206,14 +206,14 @@ export interface ITooltipRow {
 
 export interface ITooltip extends IComponent {
   target: (mark: IMark | IMark[] | string | string[] | Nil) => this;
-  title: (title: ITooltipRow | Nil) => this;
+  title: (title: ITooltipRow | string | Nil) => this;
   content: (content: ITooltipRow | ITooltipRow[] | Nil) => this;
 }
 
 export interface TooltipSpec extends ComponentSpec<TooltipAttributes> {
   componentType: ComponentEnum.tooltip;
   target?: IMark | IMark[] | string | string[];
-  title?: ITooltipRow;
+  title?: ITooltipRow | string;
   content?: ITooltipRow | ITooltipRow[];
 }
 
