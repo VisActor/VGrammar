@@ -8,7 +8,8 @@ import type {
   LegendBaseAttributes,
   PlayerAttributes,
   SliderAttributes,
-  TooltipAttributes
+  TooltipAttributes,
+  TooltipRowAttrs
 } from '@visactor/vrender-components';
 import type { ComponentEnum } from '../graph';
 import type { Nil, RecursivePartial } from './base';
