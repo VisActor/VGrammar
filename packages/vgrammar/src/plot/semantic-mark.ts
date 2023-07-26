@@ -1,11 +1,10 @@
 import type {
-  AxisBaseAttributes,
   LegendBaseAttributes,
   SliderAttributes,
   DataZoomAttributes,
   BaseLabelAttrs,
-  BaseCrosshairAttrs,
-  PlayerAttributes
+  PlayerAttributes,
+  OrientType
 } from '@visactor/vrender-components';
 import type {
   ScaleSpec,
@@ -25,7 +24,14 @@ import type {
   IAnimationConfig,
   MarkSpec,
   MarkRelativeItemSpec,
-  SemanticTooltipOption
+  SemanticTooltipOption,
+  SemanticAxisOption,
+  SemanticPlayerOption,
+  SemanticLabelOption,
+  SemanticDataZoomOption,
+  SemanticSliderOption,
+  SemanticLegendOption,
+  SemanticCrosshairOption
 } from '../types';
 import type { ILogger } from '@visactor/vutils';
 import { Logger, array, isArray, isBoolean, isNil, isPlainObject, merge, range } from '@visactor/vutils';
@@ -133,7 +139,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
-  axis(channel: string, option: AxisBaseAttributes | boolean = true, layout?: MarkRelativeItemSpec) {
+  axis(channel: string, option: SemanticAxisOption | boolean = true, layout?: MarkRelativeItemSpec) {
     if (!this.spec.axis) {
       this.spec.axis = {};
     }
@@ -141,7 +147,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
-  legend(channel: string, option: LegendBaseAttributes | boolean = true, layout?: MarkRelativeItemSpec) {
+  legend(channel: string, option: SemanticLegendOption | boolean = true, layout?: MarkRelativeItemSpec) {
     if (!this.spec.legend) {
       this.spec.legend = {};
     }
@@ -150,7 +156,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
-  crosshair(channel: string, option?: BaseCrosshairAttrs | boolean) {
+  crosshair(channel: string, option?: SemanticCrosshairOption | boolean) {
     if (!this.spec.crosshair) {
       this.spec.crosshair = {};
     }
@@ -164,7 +170,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
-  slider(channel: string, option?: SliderAttributes | boolean, layout?: MarkRelativeItemSpec) {
+  slider(channel: string, option?: SemanticSliderOption | boolean, layout?: MarkRelativeItemSpec) {
     if (!this.spec.slider) {
       this.spec.slider = {};
     }
@@ -173,7 +179,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
-  datazoom(channel: string, option?: DataZoomAttributes | boolean, layout?: MarkRelativeItemSpec) {
+  datazoom(channel: string, option?: SemanticDataZoomOption | boolean, layout?: MarkRelativeItemSpec) {
     if (!this.spec.datazoom) {
       this.spec.datazoom = {};
     }
@@ -182,7 +188,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
-  label(channel: string, option?: Partial<BaseLabelAttrs> | boolean) {
+  label(channel: string, option?: SemanticLabelOption | boolean) {
     if (!this.spec.label) {
       this.spec.label = {};
     }
@@ -191,7 +197,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
-  player(data?: any[], option?: PlayerAttributes | boolean, layout?: MarkRelativeItemSpec) {
+  player(data?: any[], option?: SemanticPlayerOption | boolean, layout?: MarkRelativeItemSpec) {
     this.spec.player = { data, option, layout };
 
     return this;
@@ -276,7 +282,10 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   }
 
   protected getDataZoomScaleId(channel: string) {
-    return `datazoom-scale-${channel}`;
+    return {
+      x: `datazoom-scale-${channel}-x`,
+      y: `datazoom-scale-${channel}-y`
+    };
   }
 
   protected getScaleId(channel: string) {
@@ -386,6 +395,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             componentType: ComponentEnum.axis,
             scale: this.getScaleId(channel),
             dependency: ['viewBox'],
+            tickCount: axisOption.tickCount,
             encode: {
               update: (datum: any, elment: IElement, params: any) => {
                 const positionAttrs =
@@ -410,8 +420,8 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           };
           axisMarkSpec.layout = axisLayout ?? {
             position:
-              isPlainObject(axisOption) && !isNil((axisOption as AxisBaseAttributes).orient)
-                ? (axisOption as AxisBaseAttributes).orient
+              isPlainObject(axisOption) && !isNil((axisOption as SemanticAxisOption).orient)
+                ? (axisOption as SemanticAxisOption).orient
                 : channel === 'x'
                 ? 'bottom'
                 : 'left'
@@ -698,6 +708,10 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return {};
   }
 
+  protected getVisiualPositionByDimension(channel: string) {
+    return channel === 'y' ? 'left' : 'bottom';
+  }
+
   protected parseDataZoomSpec(): DatazoomSpec[] {
     const datazoom = this.spec.datazoom;
     const res: DatazoomSpec[] = [];
@@ -708,19 +722,26 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         const layout = datazoom[channel]?.layout;
 
         if (option) {
-          const scaleId = this.getScaleId(channel);
-          const scaleSpec = this.getScaleSpec(scaleId);
           const dataId = this.getDataIdOfMain();
-
-          if (!scaleSpec || !isContinuous(scaleSpec.type)) {
-            this._logger.warn(`[VGrammar]: Don't use slider in a channel which has scale type = ${scaleSpec?.type}`);
-            return;
-          }
           const markLayout =
             layout ??
             (isPlainObject(option) && !isNil((option as DataZoomAttributes).orient)
               ? { position: (option as DataZoomAttributes).orient }
-              : { position: 'bottom' });
+              : { position: this.getVisiualPositionByDimension(channel) });
+          const preview: DatazoomSpec['preview'] = {
+            data: dataId
+          };
+          const { x, y } = this.getDataZoomScaleId(channel);
+
+          if (channel === 'x') {
+            preview.x = { scale: x, field: this.spec.encode?.[channel] };
+            preview.y = { scale: y, field: (this.spec.encode as any)?.y };
+          } else {
+            preview[markLayout.position === 'top' || markLayout.position === 'bottom' ? 'x' : 'y'] = {
+              scale: x,
+              field: (this.spec.encode as any)?.[channel] ?? channel
+            };
+          }
 
           const markSpec: DatazoomSpec = {
             type: 'component',
@@ -730,35 +751,33 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               data: this.getDataIdOfFiltered(),
               filter: this.spec.encode?.[channel]
             },
-            preview: {
-              data: this.getDataIdOfMain(),
-              [channel === 'x' || channel === 'y' ? channel : 'x']: {
-                scale: this.getDataZoomScaleId(channel),
-                field: this.spec.encode[channel]
-              }
-            },
+            preview,
             encode: {
               update: (datum: any, elment: IElement, params: any) => {
                 const calculatedAttrs =
                   markLayout.position === 'left'
                     ? {
+                        orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
                         y: elment.mark?.relativePosition?.top ?? 0,
                         size: { height: params.viewBox.height(), width: defaultTheme.datazoom.size.height }
                       }
                     : markLayout.position === 'right'
                     ? {
+                        orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
                         y: elment.mark?.relativePosition?.top ?? 0,
                         size: { height: params.viewBox.height(), width: defaultTheme.datazoom.size.height }
                       }
                     : markLayout.position === 'bottom'
                     ? {
+                        orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? params.viewBox.height(),
                         size: { width: params.viewBox.width(), height: defaultTheme.datazoom.size.height }
                       }
                     : {
+                        orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? 0,
                         size: { width: params.viewBox.width(), height: defaultTheme.datazoom.size.height }
@@ -944,24 +963,47 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (datazoom) {
       Object.keys(datazoom).forEach(k => {
         const scaleId = this.getScaleId(k);
-        const dataZoomScaleId = this.getDataZoomScaleId(k);
+        const { x: xScaleId, y: yScaleId } = this.getDataZoomScaleId(k);
 
-        if ((k === 'x' || k === 'y') && encode[k]) {
-          scales[dataZoomScaleId] = {
+        if (k === 'x' && encode[k]) {
+          scales[xScaleId] = {
             type: scales[scaleId].type,
-            id: dataZoomScaleId,
+            id: xScaleId,
             domain: {
               data: this.getDataIdOfMain(),
               field: encode[k]
+            },
+            dependency: ['viewBox'],
+            range: (scale: IBaseScale, params: any) => {
+              return [0, params.viewBox.width()];
             }
           };
+
+          if ((encode as any).y) {
+            scales[yScaleId] = {
+              type: scales[this.getScaleId('y')]?.type ?? 'linear',
+              id: yScaleId,
+              domain: {
+                data: this.getDataIdOfMain(),
+                field: (encode as any)?.y
+              },
+              range: (scale: IBaseScale, params: any) => {
+                return [
+                  0,
+                  isPlainObject(datazoom[k]?.option)
+                    ? (datazoom[k].option as DataZoomAttributes).size?.height ?? defaultTheme.datazoom.size.height
+                    : defaultTheme.datazoom.size.height
+                ];
+              }
+            };
+          }
         } else {
-          scales[dataZoomScaleId] = {
-            type: 'band',
-            id: dataZoomScaleId,
+          scales[xScaleId] = {
+            type: scales[scaleId].type ?? 'band',
+            id: xScaleId,
             domain: {
               data: this.getDataIdOfMain(),
-              field: k as string
+              field: (encode as any)?.[k] ?? k
             }
           };
         }
