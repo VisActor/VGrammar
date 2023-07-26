@@ -414,6 +414,11 @@ export const indexes = [
         path: 'player',
         name: '[组件]player',
         type: 'api'
+      },
+      {
+        path: 'tooltip',
+        name: '[组件]tooltip',
+        type: 'api'
       }
     ]
   },
