@@ -1,6 +1,11 @@
 # Change Log - @visactor/vgrammar-projection
 
-This log was last generated on Fri, 21 Jul 2023 11:04:10 GMT and should not be manually modified.
+This log was last generated on Thu, 27 Jul 2023 07:37:24 GMT and should not be manually modified.
+
+## 0.4.2
+Thu, 27 Jul 2023 07:37:24 GMT
+
+_Version update only_
 
 ## 0.4.1
 Fri, 21 Jul 2023 11:04:10 GMT

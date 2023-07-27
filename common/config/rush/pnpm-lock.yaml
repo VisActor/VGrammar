@@ -9,12 +9,12 @@ importers:
     specifiers:
       '@internal/eslint-config': workspace:*
       '@internal/ts-config': workspace:*
-      '@visactor/vgrammar': workspace:0.4.1
-      '@visactor/vgrammar-hierarchy': workspace:0.4.1
-      '@visactor/vgrammar-projection': workspace:0.4.1
-      '@visactor/vgrammar-sankey': workspace:0.4.1
-      '@visactor/vgrammar-wordcloud': workspace:0.4.1
-      '@visactor/vgrammar-wordcloud-shape': workspace:0.4.1
+      '@visactor/vgrammar': workspace:0.5.0
+      '@visactor/vgrammar-hierarchy': workspace:0.4.2
+      '@visactor/vgrammar-projection': workspace:0.4.2
+      '@visactor/vgrammar-sankey': workspace:0.4.2
+      '@visactor/vgrammar-wordcloud': workspace:0.4.2
+      '@visactor/vgrammar-wordcloud-shape': workspace:0.4.2
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
       d3-scale-chromatic: ^3.0.0
@@ -41,12 +41,12 @@ importers:
     specifiers:
       '@internal/eslint-config': workspace:*
       '@internal/ts-config': workspace:*
-      '@visactor/vgrammar': workspace:0.4.1
-      '@visactor/vgrammar-hierarchy': workspace:0.4.1
-      '@visactor/vgrammar-projection': workspace:0.4.1
-      '@visactor/vgrammar-sankey': workspace:0.4.1
-      '@visactor/vgrammar-wordcloud': workspace:0.4.1
-      '@visactor/vgrammar-wordcloud-shape': workspace:0.4.1
+      '@visactor/vgrammar': workspace:0.5.0
+      '@visactor/vgrammar-hierarchy': workspace:0.4.2
+      '@visactor/vgrammar-projection': workspace:0.4.2
+      '@visactor/vgrammar-sankey': workspace:0.4.2
+      '@visactor/vgrammar-wordcloud': workspace:0.4.2
+      '@visactor/vgrammar-wordcloud-shape': workspace:0.4.2
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
       axios: ^1.4.0
@@ -175,7 +175,7 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
-      '@visactor/vgrammar': workspace:0.4.1
+      '@visactor/vgrammar': workspace:0.5.0
       '@visactor/vgrammar-util': workspace:0.4.1
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
@@ -217,7 +217,7 @@ importers:
       '@types/d3-geo': ^1.11.1
       '@types/jest': ~29.5.0
       '@types/node': '*'
-      '@visactor/vgrammar': workspace:0.4.1
+      '@visactor/vgrammar': workspace:0.5.0
       '@visactor/vgrammar-util': workspace:0.4.1
       '@visactor/vutils': ~0.13.3
       d3-array: 1.x
@@ -261,7 +261,7 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
-      '@visactor/vgrammar': workspace:0.4.1
+      '@visactor/vgrammar': workspace:0.5.0
       '@visactor/vgrammar-util': workspace:0.4.1
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
@@ -337,7 +337,7 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
-      '@visactor/vgrammar': workspace:0.4.1
+      '@visactor/vgrammar': workspace:0.5.0
       '@visactor/vgrammar-util': workspace:0.4.1
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
@@ -378,7 +378,7 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
-      '@visactor/vgrammar': workspace:0.4.1
+      '@visactor/vgrammar': workspace:0.5.0
       '@visactor/vgrammar-util': workspace:0.4.1
       '@visactor/vrender': ~0.13.3
       '@visactor/vscale': ~0.13.3
@@ -3468,6 +3468,7 @@ packages:
 
   /bindings/1.5.0:
     resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
+    requiresBuild: true
     dependencies:
       file-uri-to-path: 1.0.0
     dev: false
@@ -4949,6 +4950,7 @@ packages:
 
   /file-uri-to-path/1.0.0:
     resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -8817,7 +8819,7 @@ packages:
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.5.0_@types+node@20.4.5
+      jest: 29.5.0_entyqu2pmgqmjsr4s6g2ynzypi
       jest-util: 29.6.1
       json5: 2.2.3
       lodash.memoize: 4.1.2

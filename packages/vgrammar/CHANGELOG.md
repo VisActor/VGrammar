@@ -1,6 +1,19 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Fri, 21 Jul 2023 11:04:10 GMT and should not be manually modified.
+This log was last generated on Thu, 27 Jul 2023 07:37:24 GMT and should not be manually modified.
+
+## 0.5.0
+Thu, 27 Jul 2023 07:37:24 GMT
+
+### Minor changes
+
+- add all animation start&end events
+
+### Patches
+
+- fix(vgrammar): wordcloud may return a empty value which cause a error
+
+
 
 ## 0.4.1
 Fri, 21 Jul 2023 11:04:10 GMT
