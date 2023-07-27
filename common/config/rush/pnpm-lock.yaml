@@ -10,11 +10,11 @@ importers:
       '@internal/eslint-config': workspace:*
       '@internal/ts-config': workspace:*
       '@visactor/vgrammar': workspace:0.5.0
-      '@visactor/vgrammar-hierarchy': workspace:0.4.2
-      '@visactor/vgrammar-projection': workspace:0.4.2
-      '@visactor/vgrammar-sankey': workspace:0.4.2
-      '@visactor/vgrammar-wordcloud': workspace:0.4.2
-      '@visactor/vgrammar-wordcloud-shape': workspace:0.4.2
+      '@visactor/vgrammar-hierarchy': workspace:0.5.0
+      '@visactor/vgrammar-projection': workspace:0.5.0
+      '@visactor/vgrammar-sankey': workspace:0.5.0
+      '@visactor/vgrammar-wordcloud': workspace:0.5.0
+      '@visactor/vgrammar-wordcloud-shape': workspace:0.5.0
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
       d3-scale-chromatic: ^3.0.0
@@ -42,11 +42,11 @@ importers:
       '@internal/eslint-config': workspace:*
       '@internal/ts-config': workspace:*
       '@visactor/vgrammar': workspace:0.5.0
-      '@visactor/vgrammar-hierarchy': workspace:0.4.2
-      '@visactor/vgrammar-projection': workspace:0.4.2
-      '@visactor/vgrammar-sankey': workspace:0.4.2
-      '@visactor/vgrammar-wordcloud': workspace:0.4.2
-      '@visactor/vgrammar-wordcloud-shape': workspace:0.4.2
+      '@visactor/vgrammar-hierarchy': workspace:0.5.0
+      '@visactor/vgrammar-projection': workspace:0.5.0
+      '@visactor/vgrammar-sankey': workspace:0.5.0
+      '@visactor/vgrammar-wordcloud': workspace:0.5.0
+      '@visactor/vgrammar-wordcloud-shape': workspace:0.5.0
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
       axios: ^1.4.0
@@ -87,8 +87,8 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
-      '@visactor/vgrammar-coordinate': workspace:0.4.1
-      '@visactor/vgrammar-util': workspace:0.4.1
+      '@visactor/vgrammar-coordinate': workspace:0.5.0
+      '@visactor/vgrammar-util': workspace:0.5.0
       '@visactor/vrender': ~0.13.3
       '@visactor/vrender-components': ~0.13.3
       '@visactor/vscale': ~0.13.3
@@ -138,7 +138,7 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
-      '@visactor/vgrammar-util': workspace:0.4.1
+      '@visactor/vgrammar-util': workspace:0.5.0
       '@visactor/vutils': ~0.13.3
       eslint: ~8.18.0
       jest: ~29.5.0
@@ -176,7 +176,7 @@ importers:
       '@types/jest': ~29.5.0
       '@types/node': '*'
       '@visactor/vgrammar': workspace:0.5.0
-      '@visactor/vgrammar-util': workspace:0.4.1
+      '@visactor/vgrammar-util': workspace:0.5.0
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
       eslint: ~8.18.0
@@ -218,7 +218,7 @@ importers:
       '@types/jest': ~29.5.0
       '@types/node': '*'
       '@visactor/vgrammar': workspace:0.5.0
-      '@visactor/vgrammar-util': workspace:0.4.1
+      '@visactor/vgrammar-util': workspace:0.5.0
       '@visactor/vutils': ~0.13.3
       d3-array: 1.x
       d3-geo: ^1.12.1
@@ -262,7 +262,7 @@ importers:
       '@types/jest': ~29.5.0
       '@types/node': '*'
       '@visactor/vgrammar': workspace:0.5.0
-      '@visactor/vgrammar-util': workspace:0.4.1
+      '@visactor/vgrammar-util': workspace:0.5.0
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
       eslint: ~8.18.0
@@ -338,7 +338,7 @@ importers:
       '@types/jest': ~29.5.0
       '@types/node': '*'
       '@visactor/vgrammar': workspace:0.5.0
-      '@visactor/vgrammar-util': workspace:0.4.1
+      '@visactor/vgrammar-util': workspace:0.5.0
       '@visactor/vrender': ~0.13.3
       '@visactor/vutils': ~0.13.3
       eslint: ~8.18.0
@@ -379,7 +379,7 @@ importers:
       '@types/jest': ~29.5.0
       '@types/node': '*'
       '@visactor/vgrammar': workspace:0.5.0
-      '@visactor/vgrammar-util': workspace:0.4.1
+      '@visactor/vgrammar-util': workspace:0.5.0
       '@visactor/vrender': ~0.13.3
       '@visactor/vscale': ~0.13.3
       '@visactor/vutils': ~0.13.3
