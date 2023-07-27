@@ -32,30 +32,30 @@ export interface FilterTransformOption {
 export interface FunnelTransformOption {
   /** the field to of measure */
   field: string;
-  /** 转化率（当前层到下一层的比例) **/
+  /** the filed of transform ration(the value of next level/ the value of current level)**/
   asTransformRatio?: string;
-  /** 到达率 （上一层到当前层的比例）*/
+  /**  the filed of reach ration(the value of current level/ the value of prev level)）*/
   asReachRatio?: string;
-  /** 高度轴占总量的比例 **/
+  /** the field of height ratio **/
   asHeightRatio?: string;
-  /** 当前值大小占比 */
+  /** the field of value ration(this value of current level / this value of first level ) */
   asValueRatio?: string;
-  /** 上一层值大小占比 */
+  /** the field of last value ratio(the value of last level / this value of first level) */
   asLastValueRatio?: string;
-  /** 下一层值大小占比 */
+  /** the field of next value ratio(the value of next level / this value of first level) */
   asNextValueRatio?: string;
-  /** 当前层的值 */
+  /** the field of current value */
   asCurrentValue?: string;
-  /** 上一层的值 **/
+  /** the field of last value **/
   asLastValue?: string;
-  /** 下一层的值 **/
+  /** the field of next value **/
   asNextValue?: string;
-  /** 最底层漏斗是否为锥形 */
+  /** whether or not the last level of the funnel is  a cone */
   isCone?: boolean;
-  /** 高度是否进行数据映射 **/
+  /** whether or not the height will be encode to value**/
   heightVisual?: boolean;
 
-  /** 数值范围 */
+  /** the range of value */
   range?: { min: number; max: number };
 }
 
