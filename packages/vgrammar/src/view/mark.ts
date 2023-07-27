@@ -231,7 +231,7 @@ export class Mark extends GrammarBase implements IMark {
       );
       let inputData = transformData;
 
-      if (transformData.progressive) {
+      if (transformData?.progressive) {
         this.renderContext.parameters = parameters;
         this.renderContext.beforeTransformProgressive = transformData.progressive;
         inputData = transformData.progressive.output();
