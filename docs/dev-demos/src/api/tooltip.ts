@@ -21,7 +21,6 @@ const originData = [
   { category: 'G', amount: 10, index: 6, type: 'B' },
   { category: 'H', amount: 47, index: 7, type: 'B' }
 ];
-
 export const runner = (view: IView) => {
   const data = view.data(originData);
   const markData = view.data().source(data);
@@ -86,12 +85,8 @@ export const runner = (view: IView) => {
     .animation({
       enter: {
         type: 'growPointsYIn',
-<<<<<<< HEAD
         // options: { orient: 'negative' },
         options: (...args) => { console.log(args) },
-=======
-        options: { orient: 'negative' },
->>>>>>> f5abe08 (feat: support group tooltip)
         duration: 1000
       },
       exit: {
@@ -148,19 +143,48 @@ export const runner = (view: IView) => {
     .encode({
       text: (datum: any) => `${datum.amount}`
     });
-  
-  const groupTooltip = view.tooltip(container)
-    .id('groupTooltip')
-    .target(line)
-    .title('Total Sales Statistics')
+  const targetTooltip = view.tooltip(container)
+    .id('targetTooltip')
+    .target(symbol)
+    .title({ value: 'Sales Statistics On Category' })
     .encode({ offsetX: 10, offsetY: 10 })
     .content([
+      {
+        key: 'category',
+        value: { field: 'category' },
+        symbol: { fill: 'lightGreen' }
+      },
       {
         key: { text: 'amount' },
         value: datum => datum.amount,
         symbol: { fill: 'lightGreen', symbolType: 'square' }
       }
     ]);
+  // const groupTooltip = view.tooltip(container)
+  //   .id('groupTooltip')
+  //   .target(line)
+  //   .title('Total Sales Statistics')
+  //   .encode({ offsetX: 10, offsetY: 10 })
+  //   .content([
+  //     {
+  //       key: { text: 'amount' },
+  //       value: datum => datum.amount,
+  //       symbol: { fill: 'lightGreen', symbolType: 'square' }
+  //     }
+  //   ]);
+  const groupTooltip = view.tooltip(container)
+    .id('groupTooltip')
+    .target(line)
+    .title('Total Sales Statistics')
+    .encode({ offsetX: 10, offsetY: 10 })
+    .content((datum) => {
+      return [{
+        visible: true,
+        key: { text: 'group' },
+        value: { text: 'data' },
+        shape: { fill: 'lightGreen', symbolType: 'square' }
+      }]
+    });
   const dimensionTooltip = view.dimensionTooltip(container)
     .id('dimensionTooltip')
     .scale(xScale)
