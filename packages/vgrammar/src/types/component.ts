@@ -8,8 +8,7 @@ import type {
   LegendBaseAttributes,
   PlayerAttributes,
   SliderAttributes,
-  TooltipAttributes,
-  TooltipRowAttrs
+  TooltipAttributes
 } from '@visactor/vrender-components';
 import type { ComponentEnum } from '../graph';
 import type { Nil, RecursivePartial } from './base';
@@ -27,7 +26,7 @@ import type { IPointLike } from '@visactor/vutils';
 // scale component
 
 export interface IScaleComponent extends IComponent {
-  scale: (scale?: IScale | string) => this;
+  scale: (scale?: IScale | string | Nil) => this;
 }
 
 export interface ScaleComponentSpec<
@@ -227,9 +226,10 @@ export interface TooltipSpec extends BaseTooltipSpec {
 export type TooltipType = 'x' | 'y' | 'angle' | 'radius';
 
 export interface IDimensionTooltip extends IBaseTooltip {
-  scale: (scale?: IScale | string) => this;
+  scale: (scale?: IScale | string | Nil) => this;
   tooltipType: (tooltipType: TooltipType | Nil) => this;
   target: (data: IData | string | Nil, filter: string | ((datum: any, tooltipValue: any) => boolean) | Nil) => this;
+  avoidMark: (mark: IMark | IMark[] | string | string[] | Nil) => this;
 }
 
 export interface DimensionTooltipSpec extends BaseTooltipSpec {
@@ -240,6 +240,8 @@ export interface DimensionTooltipSpec extends BaseTooltipSpec {
     data: IData | string;
     filter: string | ((datum: any, tooltipValue: any) => boolean);
   };
+  avoidMark?: IMark | IMark[] | string | string[];
+  componentConfig?: { center?: IPointLike };
 }
 
 // built-in components
