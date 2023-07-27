@@ -1,6 +1,11 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Thu, 27 Jul 2023 07:37:24 GMT and should not be manually modified.
+This log was last generated on Thu, 27 Jul 2023 09:58:52 GMT and should not be manually modified.
+
+## 0.5.1
+Thu, 27 Jul 2023 09:58:52 GMT
+
+_Version update only_
 
 ## 0.5.0
 Thu, 27 Jul 2023 07:37:24 GMT

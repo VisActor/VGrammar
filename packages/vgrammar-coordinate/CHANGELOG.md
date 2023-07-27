@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar-coordinate
 
-This log was last generated on Fri, 21 Jul 2023 11:04:10 GMT and should not be manually modified.
+This log was last generated on Thu, 27 Jul 2023 09:58:52 GMT and should not be manually modified.
+
+## 0.5.1
+Thu, 27 Jul 2023 09:58:52 GMT
+
+### Patches
+
+- fix: fix wrong
 
 ## 0.4.1
 Fri, 21 Jul 2023 11:04:10 GMT

@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-util",
   "entries": [
     {
+      "version": "0.5.1",
+      "tag": "@visactor/vgrammar-util_v0.5.1",
+      "date": "Thu, 27 Jul 2023 09:58:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix: fix wrong"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.1",
       "tag": "@visactor/vgrammar-util_v0.4.1",
       "date": "Fri, 21 Jul 2023 11:04:10 GMT",
