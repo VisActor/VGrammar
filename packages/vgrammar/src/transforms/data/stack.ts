@@ -1,17 +1,6 @@
-export const transform = (
-  options: {
-    orient: 'positive' | 'negative';
-    stackField: string;
-    dimensionField: string;
-    asStack?: string;
-    asPrevStack?: string;
-    asPercent?: string;
-    asPercentStack?: string;
-    asPrevPercentStack?: string;
-    asSum?: string;
-  },
-  upstreamData: any[]
-) => {
+import type { StackTransformOptions } from '../../types';
+
+export const transform = (options: StackTransformOptions, upstreamData: any[]) => {
   const positiveValues = new Map<string, number>();
   const negativeValues = new Map<string, number>();
   const needSum = options.asPercentStack || options.asPrevPercentStack || options.asPercent || options.asSum;

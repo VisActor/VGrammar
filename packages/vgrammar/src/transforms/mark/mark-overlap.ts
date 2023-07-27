@@ -1,5 +1,5 @@
 import { isNil } from '@visactor/vutils';
-import type { IElement } from '../../types';
+import type { IElement, MarkOverlapTransformOptions } from '../../types';
 
 function reset(elements: IElement[]) {
   elements.forEach(element => {
@@ -97,19 +97,7 @@ function overlapXY(elements: IElement[], delta: number, deltaMul: number, useRad
  * @param {data} [options.followMark]
  * @constructor
  */
-export const transform = (
-  options: {
-    direction: number;
-    delta?: number;
-    deltaMul?: number;
-    radius?: boolean;
-    hideMode?: number;
-    forceUpdate?: boolean;
-    forceUpdateStamp?: number;
-    groupBy?: string;
-  },
-  upstreamData: IElement[]
-) => {
+export const transform = (options: MarkOverlapTransformOptions, upstreamData: IElement[]) => {
   if (!upstreamData || upstreamData.length === 0) {
     return;
   }
