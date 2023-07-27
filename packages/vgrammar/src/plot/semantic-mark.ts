@@ -31,15 +31,19 @@ import type {
   SemanticDataZoomOption,
   SemanticSliderOption,
   SemanticLegendOption,
-  SemanticCrosshairOption
+  SemanticCrosshairOption,
+  CoordinateOption,
+  CoordinateSpec,
+  PolarCoordinateOption
 } from '../types';
 import type { ILogger } from '@visactor/vutils';
 import { Logger, array, isArray, isBoolean, isNil, isPlainObject, merge, range } from '@visactor/vutils';
-import { isContinuous, type IBaseScale } from '@visactor/vscale';
+import { isContinuous, type IBaseScale, isDiscrete } from '@visactor/vscale';
 import { getPalette } from '../palette';
 import type {
   AxisSpec,
   CrosshairSpec,
+  CrosshairType,
   DatazoomSpec,
   LabelSpec,
   LegendSpec,
@@ -48,10 +52,11 @@ import type {
   TooltipSpec
 } from '../types/component';
 import { DiffState, ComponentEnum } from '../graph/enums';
-import { field as getFieldAccessor } from '@visactor/vgrammar-util';
+import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import { invokeFunctionType } from '../parse/util';
 import type { ISymbolGraphicAttribute } from '@visactor/vrender';
 import { defaultTheme } from '../theme/default';
+import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 
 let semanticMarkId = -1;
 
@@ -62,6 +67,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
   private _uid: number;
   private _logger: ILogger;
+  protected _coordinate: CoordinateOption;
   readonly type: string;
 
   constructor(type: string, id?: string | number) {
@@ -70,6 +76,11 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     this._logger = Logger.getInstance();
 
     this.spec = { id: id ?? `${this.type}-${this._uid}` };
+  }
+
+  coordinate(option: CoordinateOption) {
+    this._coordinate = option;
+    return this;
   }
 
   data(values: any) {
@@ -293,7 +304,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   }
 
   protected getMarkId() {
-    return `${this.type}-${this.spec.id}`;
+    return `${this.spec.id}-mark`;
   }
 
   protected getScaleSpec(scaleId: string) {
@@ -309,9 +320,11 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         data: this.getDataIdOfFiltered(),
         field: option as string
       },
-      range: (scale: IBaseScale, params: any) => {
-        return [0, params.viewBox.width()];
-      }
+      range: this._coordinate
+        ? { coordinate: this._coordinate.id, dimension: 'x' }
+        : (scale: IBaseScale, params: any) => {
+            return [0, params.viewBox.width()];
+          }
     };
   }
 
@@ -324,9 +337,11 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         data: this.getDataIdOfFiltered(),
         field: option as string
       },
-      range: (scale: IBaseScale, params: any) => {
-        return [params.viewBox.height(), 0];
-      }
+      range: this._coordinate
+        ? { coordinate: this._coordinate.id, dimension: 'y' }
+        : (scale: IBaseScale, params: any) => {
+            return [params.viewBox.height(), 0];
+          }
     };
   }
 
@@ -398,33 +413,35 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             tickCount: axisOption.tickCount,
             encode: {
               update: (datum: any, elment: IElement, params: any) => {
-                const positionAttrs =
-                  channel === 'x'
-                    ? {
-                        x: 0,
-                        y: params.viewBox.height(),
-                        start: { x: 0, y: 0 },
-                        end: { x: params.viewBox.width(), y: 0 }
-                      }
-                    : {
-                        x: 0,
-                        y: params.viewBox.height(),
-                        start: { x: 0, y: 0 },
-                        verticalFactor: -1,
-                        end: { x: 0, y: -params.viewBox.height() }
-                      };
+                const positionAttrs = this._coordinate
+                  ? {}
+                  : channel === 'x'
+                  ? {
+                      x: 0,
+                      y: params.viewBox.height(),
+                      start: { x: 0, y: 0 },
+                      end: { x: params.viewBox.width(), y: 0 }
+                    }
+                  : {
+                      x: 0,
+                      y: params.viewBox.height(),
+                      start: { x: 0, y: 0 },
+                      verticalFactor: -1,
+                      end: { x: 0, y: -params.viewBox.height() }
+                    };
 
                 return isPlainObject(axisOption) ? Object.assign(positionAttrs, axisOption) : positionAttrs;
               }
             }
           };
           axisMarkSpec.layout = axisLayout ?? {
-            position:
-              isPlainObject(axisOption) && !isNil((axisOption as SemanticAxisOption).orient)
-                ? (axisOption as SemanticAxisOption).orient
-                : channel === 'x'
-                ? 'bottom'
-                : 'left'
+            position: this._coordinate
+              ? 'auto'
+              : isPlainObject(axisOption) && !isNil((axisOption as SemanticAxisOption).orient)
+              ? (axisOption as SemanticAxisOption).orient
+              : channel === 'x'
+              ? 'bottom'
+              : 'left'
           };
           res.push(axisMarkSpec);
         }
@@ -511,10 +528,18 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return {};
   }
 
+  protected getCrosshairType(channel: string): CrosshairType {
+    if (this._coordinate?.type === 'polar') {
+      return this._coordinate.transpose ? (channel === 'x' ? 'radius' : 'angle') : channel === 'x' ? 'angle' : 'radius';
+    }
+
+    return (this._coordinate?.transpose ? (channel === 'x' ? 'y' : 'x') : channel) as CrosshairType;
+  }
+
   protected parseCrosshairSpec(): CrosshairSpec[] {
     const defaultCrosshair = this.setDefaultCorsshair();
     const defaultKeys = Object.keys(defaultCrosshair);
-    const crosshairKeys = defaultKeys.reduce((res, key) => {
+    const crosshairKeys = Object.keys(this.spec.crosshair).reduce((res, key) => {
       if (!res.includes(key)) {
         res.push(key);
       }
@@ -530,7 +555,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
         if (option) {
           const scaleId = this.getScaleId(channel);
-          const scaleSpec = this.getScaleSpec[scaleId];
+          const scaleSpec = this.getScaleSpec(scaleId);
 
           const markSpec: CrosshairSpec = {
             type: 'component',
@@ -542,13 +567,33 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                 ? 'rect'
                 : 'line'
               : (option as CrosshairSpec).crosshairShape ?? (scaleSpec?.type === 'band' ? 'rect' : 'line'),
-            crosshairType: channel === 'x' || channel === 'y' ? channel : 'x' // todo, deal with coordinate
+            crosshairType: this.getCrosshairType(channel)
           };
 
           if (isPlainObject(userOption)) {
             markSpec.encode = {
               update: userOption
             };
+            if (userOption.type === 'polygon') {
+              markSpec.crosshairType = 'radius-polygon';
+              const anotherDimScaleId = this.getScaleId(channel === 'x' ? 'y' : 'x');
+              (markSpec.dependency as string[]).push(anotherDimScaleId);
+              (markSpec.encode.update as any).sides = (datum: any, el: IElement, params: any) => {
+                const scale = params[anotherDimScaleId];
+
+                return scale && isDiscrete(scale.type) ? scale.domain().length : undefined;
+              };
+              (markSpec.encode.update as any).startAngle = (datum: any, el: IElement, params: any) => {
+                const scale = params[anotherDimScaleId];
+
+                return scale && isDiscrete(scale.type) ? scale.range()[0] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
+              };
+              (markSpec.encode.update as any).endAngle = (datum: any, el: IElement, params: any) => {
+                const scale = params[anotherDimScaleId];
+
+                return scale && isDiscrete(scale.type) ? scale.range()[1] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
+              };
+            }
           }
           res.push(markSpec);
         }
@@ -1013,11 +1058,43 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return Array.from(Object.values(scales));
   }
 
+  protected parseCoordinateSpec(): CoordinateSpec[] {
+    if (!this._coordinate) {
+      return [];
+    }
+    const coordinate: CoordinateSpec = {
+      type: this._coordinate.type ?? 'cartesian',
+      transpose: this._coordinate.transpose,
+      id: this._coordinate.id,
+      dependency: ['viewBox'],
+      start: [0, 0],
+      end: (coord: IBaseCoordinate, params: any) => {
+        return [params.viewBox.width(), params.viewBox.height()];
+      }
+    };
+
+    if (this._coordinate.type === 'polar' && this._coordinate.origin) {
+      coordinate.origin = (coord: IBaseCoordinate, params: any) => {
+        return [
+          toPercent((this._coordinate as PolarCoordinateOption).origin[0], params.viewBox.width()),
+          toPercent((this._coordinate as PolarCoordinateOption).origin[1], params.viewBox.height())
+        ] as [number, number];
+      };
+    }
+
+    return [coordinate];
+  }
+
+  protected setMainMarkSpec() {
+    return {};
+  }
+
   toViewSpec(): ViewSpec {
     this.viewSpec = {};
     const filteredDataId = this.getDataIdOfFiltered();
     this.viewSpec.data = this.parseDataSpec();
     this.viewSpec.scales = this.parseScaleSpec();
+    this.viewSpec.coordinates = this.parseCoordinateSpec();
     let marks: MarkSpec[] = [];
 
     marks = marks.concat(this.parseLegendSpec());
@@ -1027,49 +1104,35 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     marks = marks.concat(this.parseDataZoomSpec());
     marks = marks.concat(this.parsePlayerSpec());
 
-    marks.push({
-      id: this.getMarkId(),
-      type: this.setMarkType(),
-      from: {
-        data: filteredDataId
-      },
-      groupBy: (this.spec.encode as any)?.group,
-      layout: {
-        position: 'content',
-        skipBeforeLayouted: true
-      },
-      dependency: this.viewSpec.scales.map(scale => scale.id),
-      transform: this.convertMarkTransform(),
-      animation: this.convertMarkAnimation(),
-      encode: Object.assign({}, this.spec.state, {
-        enter: this.spec.style ?? {},
-        update: this.convertMarkEncode(this.spec.encode)
-      })
-    });
+    marks.push(
+      Object.assign(
+        {
+          id: this.getMarkId(),
+          type: this.setMarkType(),
+          coordinate: this._coordinate?.id,
+          from: {
+            data: filteredDataId
+          },
+          groupBy: (this.spec.encode as any)?.group,
+          layout: {
+            position: 'content',
+            skipBeforeLayouted: true
+          },
+          dependency: this.viewSpec.scales.map(scale => scale.id),
+          transform: this.convertMarkTransform(),
+          animation: this.convertMarkAnimation(),
+          encode: Object.assign({}, this.spec.state, {
+            enter: this.spec.style ?? {},
+            update: this.convertMarkEncode(this.spec.encode)
+          })
+        },
+        this.setMainMarkSpec()
+      )
+    );
     marks = marks.concat(this.parseLabelSpec());
     marks = marks.concat(this.parseTooltipSpec());
 
-    this.viewSpec.marks = [
-      {
-        type: 'group',
-        layout: {
-          display: 'relative',
-          updateViewSignals: true
-        },
-        dependency: ['viewBox'],
-        encode: {
-          update: (datum: any, elment: IElement, params: any) => {
-            return {
-              x: params.viewBox.x1,
-              y: params.viewBox.y1,
-              width: params.viewBox.width(),
-              height: params.viewBox.height()
-            };
-          }
-        },
-        marks
-      }
-    ];
+    this.viewSpec.marks = marks;
 
     return this.viewSpec;
   }

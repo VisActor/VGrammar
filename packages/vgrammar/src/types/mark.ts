@@ -248,6 +248,8 @@ export interface IMarkConfig {
    * If not specified, we'll use the "key" of the mark by default
    */
   morphElementKey?: string;
+  /** transforms of attributes */
+  attributeTransforms?: AttributeTransform[];
 }
 
 /**

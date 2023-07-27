@@ -243,7 +243,7 @@ export class Element implements IElement {
   }
 
   protected coordinateTransformEncode(items: MarkElementItem[]) {
-    if (!this.mark.coord || this.mark.disableCoordinateTransform === true) {
+    if (!this.mark.coord || this.mark.markType === 'arc' || this.mark.disableCoordinateTransform === true) {
       return;
     }
     const coord = this.mark.coord.output() as IBaseCoordinate;
