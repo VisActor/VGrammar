@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-sankey",
+      "comment": "fix: fix wrong",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-sankey"
+}

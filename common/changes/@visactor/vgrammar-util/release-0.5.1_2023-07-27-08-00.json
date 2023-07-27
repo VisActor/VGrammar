@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-util",
+      "comment": "fix: fix wrong",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-util"
+}
