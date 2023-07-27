@@ -144,39 +144,40 @@ export const runner = (view: IView) => {
     .encode({
       text: (datum: any) => `${datum.amount}`
     });
-  // const targetTooltip = view.tooltip(container)
-  //   .id('targetTooltip')
-  //   .target(symbol)
-  //   .title({ value: 'Sales Statistics On Category' })
-  //   .encode({ offsetX: 10, offsetY: 10 })
-  //   .content([
-  //     {
-  //       key: 'category',
-  //       value: { field: 'category' },
-  //       symbol: { fill: 'lightGreen' }
-  //     },
-  //     {
-  //       key: { text: 'amount' },
-  //       value: datum => datum.amount,
-  //       symbol: { fill: 'lightGreen', symbolType: 'square' }
-  //     }
-  //   ]);
-  // const groupTooltip = view.tooltip(container)
-  //   .id('groupTooltip')
-  //   .target(line)
-  //   .title('Total Sales Statistics')
-  //   .encode({ offsetX: 10, offsetY: 10 })
-  //   .content([
-  //     {
-  //       key: { text: 'amount' },
-  //       value: datum => datum.amount,
-  //       symbol: { fill: 'lightGreen', symbolType: 'square' }
-  //     }
-  //   ]);
+  const targetTooltip = view.tooltip(container)
+    .id('targetTooltip')
+    .target(symbol)
+    .title({ value: 'Sales Statistics On Category' })
+    .encode({ offsetX: 10, offsetY: 10 })
+    .content([
+      {
+        key: 'category',
+        value: { field: 'category' },
+        symbol: { fill: 'lightGreen' }
+      },
+      {
+        key: { text: 'amount' },
+        value: datum => datum.amount,
+        symbol: { fill: 'lightGreen', symbolType: 'square' }
+      }
+    ]);
+  const groupTooltip = view.tooltip(container)
+    .id('groupTooltip')
+    .target(line)
+    .title('Total Sales Statistics')
+    .encode({ offsetX: 10, offsetY: 10 })
+    .content([
+      {
+        key: { text: 'amount' },
+        value: datum => datum.amount,
+        symbol: { fill: 'lightGreen', symbolType: 'square' }
+      }
+    ]);
   const dimensionTooltip = view.dimensionTooltip(container)
     .id('dimensionTooltip')
     .scale(xScale)
     .target(data, 'category')
+    .avoidMark([symbol, line])
     .title('Sales Statistics On Category')
     .encode({ offsetX: 10, offsetY: 10 })
     .content([
