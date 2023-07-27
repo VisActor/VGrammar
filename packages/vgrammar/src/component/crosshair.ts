@@ -213,7 +213,7 @@ export const generateRingCrosshairAttributes = (
 
   const startAngle = crosshairTheme.startAngle;
   const endAngle = crosshairTheme.endAngle;
-  const deltaRadius = getBandWidthOfScale(scale);
+  const deltaRadius = scale.type === 'band' || scale.type === 'point' ? (scale as IBandLikeScale).step() : 0;
 
   return merge(
     {},
@@ -240,7 +240,8 @@ export const generateSectorCrosshairAttributes = (
   let currentAngle = 0;
   if (isDiscrete(scale.type)) {
     const angle = clampRadian(getAngleByPoint(center, point) + Math.PI * 2);
-    currentAngle = scale.scale(scale.invert(angle));
+    currentAngle =
+      scale.scale(scale.invert(angle)) + (scale.type === 'band' ? (scale as IBandLikeScale).bandwidth() / 2 : 0);
   } else if (isContinuous(scale.type)) {
     currentAngle = getAngleByPoint(center, point);
   }
