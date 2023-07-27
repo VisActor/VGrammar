@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-sankey",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "Layout of sankey chart, used by VGrammar",
   "keywords": [
     "sankey",

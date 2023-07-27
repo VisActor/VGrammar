@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-hierarchy",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "Layout of hierarchical data for VGrammar",
   "keywords": [
     "hierarchy",

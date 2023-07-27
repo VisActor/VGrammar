@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-projection",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "Projections for map, used in VGrammar.",
   "keywords": [
     "projection",

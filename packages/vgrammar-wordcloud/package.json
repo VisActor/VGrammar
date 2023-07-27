@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-wordcloud",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "WordCloud layout transform for VGrammar",
   "keywords": [
     "wordcloud",
