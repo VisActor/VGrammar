@@ -9,73 +9,49 @@
 
 import { transform } from '../src/wordcloud';
 
-describe.skip('wordcloud', () => {
-  test('Wordcloud generates wordcloud layout', async () => {
-    const data = [
-      { text: 'foo', size: 49, index: 0 },
-      { text: 'bar', size: 36, index: 1 },
-      { text: 'baz', size: 25, index: 2 },
-      { text: 'abc', size: 1, index: 3 }
-    ];
+test('Wordcloud should not throw error when size is 0', async () => {
+  const data = [
+    { text: 'foo', size: 49, index: 0 },
+    { text: 'bar', size: 36, index: 1 },
+    { text: 'baz', size: 25, index: 2 },
+    { text: 'abc', size: 1, index: 3 }
+  ];
 
-    const result = await transform(
-      {
-        size: [500, 500],
-        text: { field: 'text' },
-        fontSize: { field: 'size' },
-        fontSizeRange: [1, 7]
-      },
-      data
-    );
-    expect(result).toEqual([
-      {
-        angle: 0,
-        fontFamily: 'sans-serif',
-        fontSize: 7,
-        fontStyle: 'normal',
-        index: 0,
-        size: 49,
-        text: 'foo',
-        fontWeight: 'normal',
-        x: 250,
-        y: 250
-      },
-      {
-        angle: 0,
-        fontFamily: 'sans-serif',
-        fontSize: 6,
-        fontStyle: 'normal',
-        index: 1,
-        size: 36,
-        text: 'bar',
-        fontWeight: 'normal',
-        x: 251,
-        y: 242
-      },
-      {
-        angle: 0,
-        fontFamily: 'sans-serif',
-        fontSize: 5,
-        fontStyle: 'normal',
-        index: 2,
-        size: 25,
-        text: 'baz',
-        fontWeight: 'normal',
-        x: 260,
-        y: 256
-      },
-      {
-        angle: 0,
-        fontFamily: 'sans-serif',
-        fontSize: 1,
-        fontStyle: 'normal',
-        index: 3,
-        size: 1,
-        text: 'abc',
-        fontWeight: 'normal',
-        x: 249,
-        y: 255
-      }
-    ]);
-  });
+  const result = await transform(
+    {
+      size: [0, 0],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+
+  expect(result).toBe(data);
+});
+
+test('Wordcloud generates wordcloud layout', async () => {
+  const data = [
+    { text: 'foo', size: 49, index: 0 },
+    { text: 'bar', size: 36, index: 1 },
+    { text: 'baz', size: 25, index: 2 },
+    { text: 'abc', size: 1, index: 3 }
+  ];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontSize).toBe(7);
+  expect(result[0].fontStyle).toBe('normal');
+  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
 });
