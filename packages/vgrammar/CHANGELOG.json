@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.5.1",
+      "tag": "@visactor/vgrammar_v0.5.1",
+      "date": "Thu, 27 Jul 2023 09:58:52 GMT",
+      "comments": {
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-coordinate\" from `0.5.0` to `0.5.1`"
+          },
+          {
+            "comment": "Updating dependency \"@visactor/vgrammar-util\" from `0.5.0` to `0.5.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.0",
       "tag": "@visactor/vgrammar_v0.5.0",
       "date": "Thu, 27 Jul 2023 07:37:24 GMT",
