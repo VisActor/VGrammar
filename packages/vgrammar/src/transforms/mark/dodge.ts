@@ -1,34 +1,12 @@
-import type { IElement } from '../../types';
+import type { DodgeTransformOptions, IElement } from '../../types';
 import { getBandWidthOfScale } from '../../graph/mark/encode';
 import { array, isNil } from '@visactor/vutils';
 import { getter, toPercent } from '@visactor/vgrammar-util';
 
-export interface DodgeOptions {
-  /**
-   * the gap for two graphic elements
-   */
-  innerGap?: number | string;
-  /**
-   * only used for rect / interval mark
-   */
-  maxWidth?: number;
-  minWidth?: number;
-  /** the gap between two category */
-  categoryGap?: number | string;
-  /**
-   * specify the field to dodge, if this field is not specified, we'll use the `groupKey` of Element to dodge
-   */
-  dodgeBy?: string | string[];
-  /**
-   * specify the channel to dodge, if this field is not specified, we'll use the channel which is associated to a band scale
-   */
-  dodgeChannel?: 'x' | 'y';
-}
-
 /**
  * 针对mark的dodge变换，支持x、y方向
  */
-export const transform = (options: DodgeOptions, upstreamData: IElement[]) => {
+export const transform = (options: DodgeTransformOptions, upstreamData: IElement[]) => {
   if (!upstreamData || upstreamData.length === 0 || !upstreamData[0]?.mark) {
     return upstreamData;
   }

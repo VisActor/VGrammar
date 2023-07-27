@@ -12,7 +12,7 @@ import type {
 import { Animator } from './animator';
 import { invokeAnimateSpec, normalizeAnimationConfig, normalizeStateAnimationConfig } from './config';
 import { DefaultAnimationParameters, ImmediateAnimationState } from '../constants';
-import type { IAnimationEvent, IElement, IMark, MarkFunctionType } from '../../types';
+import type { AnimationEvent, IElement, IMark, MarkFunctionType } from '../../types';
 import { invokeFunctionType } from '../../parse/util';
 import { Arranger } from './arranger';
 import { DiffState, HOOK_EVENT } from '../enums';
@@ -176,6 +176,14 @@ export class Animate implements IAnimate {
     return this;
   }
 
+  isAnimating() {
+    let isAnimating = false;
+    this.animators.forEach(animators => {
+      isAnimating = isAnimating || animators.some(animator => animator.isAnimating);
+    });
+    return isAnimating;
+  }
+
   isElementAnimating(element: IElement) {
     const stateAnimationCounts = this.elementRecorder.get(element)?.count;
     return isNil(stateAnimationCounts) || Object.values(stateAnimationCounts).every(count => count === 0);
@@ -272,10 +280,7 @@ export class Animate implements IAnimate {
           elementIndex: index
         };
         // add animation parameter into parameters
-        const mergedParameters = Object.assign(
-          { [DefaultAnimationParameters]: animationParameters },
-          animationParameters
-        );
+        const mergedParameters = Object.assign({ [DefaultAnimationParameters]: animationParameters }, parameters);
 
         const animationUnit = this.getAnimationUnit(
           config.timeline,
@@ -327,7 +332,7 @@ export class Animate implements IAnimate {
 
     // FIXME: handle multiple timelines with same animation state
     // emit animation start event
-    const animationEvent: IAnimationEvent = {
+    const animationEvent: AnimationEvent = {
       mark: this.mark,
       animationState: config.state,
       animationConfig: config.originConfig
@@ -479,7 +484,7 @@ export class Animate implements IAnimate {
     }
 
     // emit animation end event
-    const animationEvent: IAnimationEvent = {
+    const animationEvent: AnimationEvent = {
       mark: this.mark,
       animationState,
       animationConfig: originAnimationConfig

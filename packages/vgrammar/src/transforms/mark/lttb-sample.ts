@@ -1,4 +1,4 @@
-import type { IElement } from '../../types';
+import type { IElement, LttbSampleTransformOptions } from '../../types';
 
 function lttb(size: number, array: any[], isGroup: boolean, yfield?: string) {
   const frameSize = Math.floor(array.length / size);
@@ -80,17 +80,7 @@ function lttb(size: number, array: any[], isGroup: boolean, yfield?: string) {
  * @param {string} [options.groupBy] - The groupBy string of data.
  */
 
-export const transform = (
-  options: {
-    size: number;
-    factor?: number;
-    skipfirst?: boolean;
-    xfield?: string;
-    yfield?: string;
-    groupBy?: string;
-  },
-  upstreamData: IElement[]
-) => {
+export const transform = (options: LttbSampleTransformOptions, upstreamData: IElement[]) => {
   let size = options.size;
   const factor = options.factor || 1;
 

@@ -1,20 +1,7 @@
+import type { PieTransformOption } from '../../types';
 import { computeQuadrant } from '../util/util';
 
-export const transform = (
-  options: {
-    field: string;
-    startAngle?: number;
-    endAngle?: number;
-    asStartAngle?: string;
-    asEndAngle?: string;
-    asMiddleAngle?: string;
-    asRadian?: string;
-    asRatio?: string;
-    asQuadrant?: string;
-    asK?: string;
-  },
-  upstreamData: any[]
-) => {
+export const transform = (options: PieTransformOption, upstreamData: any[]) => {
   if (!upstreamData || upstreamData.length === 0) {
     return upstreamData;
   }

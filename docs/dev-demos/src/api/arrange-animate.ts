@@ -61,6 +61,9 @@ export const callback = (chartInstance: any) => {
   runButton.innerText = 'run';
   document.getElementById('footer')?.appendChild(runButton);
 
+  chartInstance.addListener('allAnimationStart', () => console.log('allAnimationStart'));
+  chartInstance.addListener('allAnimationEnd', () => console.log('allAnimationEnd'));
+
   runButton.addEventListener('click', () => {
     const leftBar = chartInstance.getMarkById('leftBar') as IMark;
     const bottomBar = chartInstance.getMarkById('bottomBar') as IMark;

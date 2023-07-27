@@ -300,6 +300,7 @@ export interface IBaseAnimate {
   disable: () => this;
   enableAnimationState: (state: string | string[]) => this;
   disableAnimationState: (state: string | string[]) => this;
+  isAnimating: () => boolean;
 
   release: () => void;
 }

@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "VGrammar is a visual grammar library",
   "keywords": [
     "grammar",
@@ -33,14 +33,14 @@
     "test": "jest",
     "test-cov": "jest -w 16 --coverage",
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand",
-    "ci": "node github-ci.js"
+    "ci": "ts-node --transpileOnly --skipProject ./scripts/trigger-test.ts"
   },
   "dependencies": {
     "@visactor/vgrammar-coordinate": "workspace:0.4.1",
-    "@visactor/vrender": "~0.13.2",
+    "@visactor/vrender": "~0.13.3",
     "@visactor/vgrammar-util": "workspace:0.4.1",
     "@visactor/vscale": "~0.13.3",
-    "@visactor/vrender-components": "~0.13.2",
+    "@visactor/vrender-components": "~0.13.3",
     "@visactor/vutils": "~0.13.3"
   },
   "devDependencies": {
@@ -59,7 +59,8 @@
     "typescript": "4.9.5",
     "@types/node": "*",
     "node-fetch": "2.6.7",
-    "form-data": "~4.0.0"
+    "form-data": "~4.0.0",
+    "ts-node": "10.9.0"
   },
   "publishConfig": {
     "access": "public",

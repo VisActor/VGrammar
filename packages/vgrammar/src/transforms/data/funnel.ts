@@ -1,37 +1,7 @@
 import { isValidNumber } from '@visactor/vutils';
+import type { FunnelTransformSpec } from '../../types';
 
-export const transform = (
-  options: {
-    /** the field to of measure */
-    field: string;
-    /** 转化率（当前层到下一层的比例) **/
-    asTransformRatio?: string;
-    /** 到达率 （上一层到当前层的比例）*/
-    asReachRatio?: string;
-    /** 高度轴占总量的比例 **/
-    asHeightRatio?: string;
-    /** 当前值大小占比 */
-    asValueRatio?: string;
-    /** 上一层值大小占比 */
-    asLastValueRatio?: string;
-    /** 下一层值大小占比 */
-    asNextValueRatio?: string;
-    /** 当前层的值 */
-    asCurrentValue?: string;
-    /** 上一层的值 **/
-    asLastValue?: string;
-    /** 下一层的值 **/
-    asNextValue?: string;
-    /** 最底层漏斗是否为锥形 */
-    isCone?: boolean;
-    /** 高度是否进行数据映射 **/
-    heightVisual?: boolean;
-
-    /** 数值范围 */
-    range?: { min: number; max: number };
-  },
-  upstreamData: any[]
-) => {
+export const transform = (options: FunnelTransformSpec, upstreamData: any[]) => {
   const {
     field,
     asTransformRatio,
