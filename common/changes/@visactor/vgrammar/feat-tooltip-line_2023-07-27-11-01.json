@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: support group tooltip & dimension tooltip",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
