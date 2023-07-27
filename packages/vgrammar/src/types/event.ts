@@ -2,21 +2,21 @@ import type { IAnimationConfig, IElement, IMark } from '.';
 import type { MarkType } from './mark';
 import type { SignalDependency } from './signal';
 
-export type GrammarEvent = MouseEvent | TouchEvent | KeyboardEvent;
+export type AnimationEvent = {
+  mark: IMark;
+  animationState: string;
+  animationConfig: IAnimationConfig;
+};
+
+export type GrammarEvent = MouseEvent & TouchEvent & KeyboardEvent & AnimationEvent;
 
 export type EventHandler<T> = (event?: GrammarEvent, value?: T) => void;
 export type BaseEventHandler = EventHandler<any>;
 export type ResizeHandler = EventHandler<{ width?: number; height?: number }>;
 
-export interface IAnimationEvent {
-  mark: IMark;
-  animationState: string;
-  animationConfig: IAnimationConfig;
-}
-
 export type AnimationEventType = 'animationStart' | 'animationEnd' | 'elementAnimationStart' | 'elementAnimationEnd';
 
-export type AnimationListenerHandler = (event?: IAnimationEvent, el?: IElement) => void;
+export type AnimationListenerHandler = (event?: AnimationEvent, el?: IElement) => void;
 
 export type EventType =
   | 'pointerdown'

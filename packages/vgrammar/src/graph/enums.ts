@@ -170,7 +170,10 @@ export enum HOOK_EVENT {
   ANIMATION_END = 'animationEnd',
 
   ELEMENT_ANIMATION_START = 'elementAnimationStart',
-  ELEMENT_ANIMATION_END = 'elementAnimationEnd'
+  ELEMENT_ANIMATION_END = 'elementAnimationEnd',
+
+  ALL_ANIMATION_START = 'allAnimationStart',
+  ALL_ANIMATION_END = 'allAnimationEnd'
 }
 
 export enum GrammarTypeEnum {

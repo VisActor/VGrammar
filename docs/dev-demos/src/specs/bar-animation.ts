@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { IAnimationEvent, IView } from '@visactor/vgrammar';
+import type { AnimationEvent, IView } from '@visactor/vgrammar';
 
 export const spec = {
   description: 'A basic bar chart example, with value labels shown upon mouse hover.',
@@ -298,7 +298,14 @@ export const callback = (view: IView) => {
 
   let isLooping = false;
 
-  view.addEventListener('animationStart', (event: IAnimationEvent) => {
+  view.addEventListener('allAnimationStart', () => {
+    console.log('allAnimationStart');
+  });
+  view.addEventListener('allAnimationEnd', () => {
+    console.log('allAnimationEnd');
+  });
+
+  view.addEventListener('animationStart', (event: AnimationEvent) => {
     const state = event.animationState;
     console.log('animationStart: ', state);
     if (state === 'appear') {
@@ -309,7 +316,7 @@ export const callback = (view: IView) => {
       }
     }
   });
-  view.addEventListener('animationEnd', (event: IAnimationEvent) => {
+  view.addEventListener('animationEnd', (event: AnimationEvent) => {
     const state = event.animationState;
     console.log('animationEnd: ', state);
     if (state === 'enter' || state === 'exit') {

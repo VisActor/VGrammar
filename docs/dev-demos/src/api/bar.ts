@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { View, IAnimationEvent } from '@visactor/vgrammar';
+import type { View, AnimationEvent } from '@visactor/vgrammar';
 import type { IBandLikeScale } from '@visactor/vscale';
 
 export const runner = (view: View) => {
@@ -159,14 +159,14 @@ export const callback = (chartInstance: any) => {
   disappearButton.innerText = 'disappear';
   document.getElementById('footer')?.appendChild(disappearButton);
 
-  chartInstance.addEventListener('animationStart', (event: IAnimationEvent) => {
+  chartInstance.addEventListener('animationStart', (event: AnimationEvent) => {
     const state = event.animationState;
     console.log('animationStart: ', state);
     if (state === 'appear') {
       chartInstance.getSignalById('animationState').value(null);
     }
   });
-  chartInstance.addEventListener('animationEnd', (event: IAnimationEvent) => {
+  chartInstance.addEventListener('animationEnd', (event: AnimationEvent) => {
     const state = event.animationState;
     console.log('animationEnd: ', state);
   });
