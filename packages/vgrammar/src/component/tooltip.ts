@@ -1,6 +1,16 @@
 import type { IBounds, IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { AABBBounds, isValid, isObjectLike, throttle, array, isNil, isString, merge } from '@visactor/vutils';
+import {
+  AABBBounds,
+  isValid,
+  isObjectLike,
+  throttle,
+  array,
+  isNil,
+  isString,
+  merge,
+  getAngleByPoint
+} from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
 import type { IGraphic, IGroup } from '@visactor/vrender';
 import type { TooltipAttributes, TooltipRowAttrs } from '@visactor/vrender-components';
@@ -36,6 +46,8 @@ import { defaultTheme } from '../theme/default';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType, parseFunctionType } from '../parse/util';
 import { isFieldEncode } from '../parse/mark';
+import { BridgeElementKey } from '../graph/constants';
+import type { IBaseScale } from '@visactor/vscale';
 
 registerComponent(
   ComponentEnum.tooltip,
@@ -301,11 +313,38 @@ const isEqualTooltipDatum = (current: any[], previous: any[]) => {
   );
 };
 
+const computeTooltipFilterValue = (
+  point: IPointLike,
+  scale: IBaseScale,
+  type: TooltipType,
+  groupSize: { width: number; height: number },
+  config: DimensionTooltipSpec['componentConfig']
+) => {
+  if (type === 'x') {
+    return scale.invert(point.x);
+  }
+  if (type === 'y') {
+    return scale.invert(point.y);
+  }
+  if (type === 'radius') {
+    const center = config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
+    const radius = Math.sqrt((center.x - point.x) ** 2 + (center.y - point.y) ** 2);
+    return scale.invert(radius);
+  }
+  if (type === 'angle') {
+    const center = config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
+    const angle = getAngleByPoint(center, point);
+    return scale.invert(angle);
+  }
+  return scale.invert(point.x);
+};
+
 export class DimensionTooltip extends BaseTooltip implements IDimensionTooltip {
   protected declare spec: DimensionTooltipSpec;
 
   private _lastGroup: IGroup;
   private _lastDatum: any;
+  private _avoidMarks: IMark[] = [];
   private _tooltipDataFilter: ((datum: any, filterValue: any[]) => boolean) | null = null;
 
   constructor(view: IView, group?: IGroupMark) {
@@ -319,10 +358,11 @@ export class DimensionTooltip extends BaseTooltip implements IDimensionTooltip {
     this.scale(spec.scale);
     this.tooltipType(spec.tooltipType);
     this.target(spec.target?.data, spec.target?.filter);
+    this.avoidMark(spec.avoidMark);
     return this;
   }
 
-  scale(scale?: IScale | string) {
+  scale(scale?: IScale | string | Nil) {
     if (this.spec.scale) {
       const lastScaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
       this.detach(lastScaleGrammar);
@@ -360,6 +400,19 @@ export class DimensionTooltip extends BaseTooltip implements IDimensionTooltip {
     return this;
   }
 
+  avoidMark(mark: IMark | IMark[] | string | string[] | Nil) {
+    if (this.spec.avoidMark) {
+      const prevMarks = array(this.spec.avoidMark).map(m => (isString(m) ? this.view.getMarkById(m) : m));
+      this.detach(prevMarks);
+    }
+    this.spec.avoidMark = mark;
+    const nextMarks = array(mark).map(m => (isString(m) ? this.view.getMarkById(m) : m));
+    this.attach(nextMarks);
+    this._avoidMarks = nextMarks.filter(m => !isNil(m));
+    this.commit();
+    return this;
+  }
+
   release() {
     (this._lastGroup as any)?.off?.('pointermove', this._onTooltipShow);
     (this._lastGroup as any)?.off?.('pointerleave', this._onTooltipHide);
@@ -389,7 +442,9 @@ export class DimensionTooltip extends BaseTooltip implements IDimensionTooltip {
     // FIXME: waiting for vRender to add transformed position to event
     const point = { x: 0, y: 0 };
     groupGraphicItem.globalTransMatrix.transformPoint(event.canvas, point);
+    const groupSize = { width: groupGraphicItem.attribute.width, height: groupGraphicItem.attribute.height };
 
+    // if pointer is not within the area of group, hide tooltip
     if (
       point.x < 0 ||
       point.x > groupGraphicItem.attribute.width ||
@@ -399,27 +454,24 @@ export class DimensionTooltip extends BaseTooltip implements IDimensionTooltip {
       tooltip.hideAll();
       return;
     }
+    // if pointer is hovered on the avoided marks, hide tooltip
+    const eventTargetMark = event.target?.[BridgeElementKey]?.mark;
+    if (this._avoidMarks.includes(eventTargetMark)) {
+      tooltip.hideAll();
+      return;
+    }
 
     const target = this.spec.target?.data;
     const lastDataGrammar = !target ? null : isString(target) ? this.view.getDataById(target) : target;
     const data = lastDataGrammar ? lastDataGrammar.getValue() : [];
 
-    let filterValue: any;
-    switch (this.spec.tooltipType) {
-      case 'y':
-        filterValue = scale.invert(point.y);
-        break;
-      // case 'angle':
-      //   datum = scale.invert(point.y);
-      //   break;
-      // case 'radius':
-      //   datum = scale.invert(point.y);
-      //   break;
-      case 'x':
-      default:
-        filterValue = scale.invert(point.x);
-        break;
-    }
+    const filterValue = computeTooltipFilterValue(
+      point,
+      scale,
+      this.spec.tooltipType,
+      groupSize,
+      this.spec.componentConfig
+    );
     const tooltipDatum = this._tooltipDataFilter
       ? data.filter(datum => this._tooltipDataFilter(datum, filterValue))
       : [];
