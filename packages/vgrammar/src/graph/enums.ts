@@ -90,7 +90,8 @@ export enum CrosshairEnum {
   rectCrosshair = 'rectCrosshair',
   sectorCrosshair = 'sectorCrosshair',
   circleCrosshair = 'circleCrosshair',
-  polygonCrosshair = 'polygonCrosshair'
+  polygonCrosshair = 'polygonCrosshair',
+  ringCrosshair = 'ringCrosshair'
 }
 
 export enum LabelEnum {
