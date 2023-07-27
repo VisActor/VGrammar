@@ -67,7 +67,7 @@ module.exports = function buildConfig(type) {
         parserOptions: {
           // The "project" path is resolved relative to parserOptions.tsconfigRootDir.
           // Your local .eslintrc.js must specify that parserOptions.tsconfigRootDir=__dirname.
-          project: ['./tsconfig.json', './tsconfig.eslint.json'],
+          project: ['./tsconfig.json', './tsconfig.eslint.json', './scripts/tsconfig.json', './__tests__/tsconfig.json' ],
 
           // Allow parsing of newer ECMAScript constructs used in TypeScript source code.  Although tsconfig.json
           // may allow only a small subset of ES2018 features, this liberal setting ensures that ESLint will correctly
