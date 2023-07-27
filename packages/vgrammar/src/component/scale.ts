@@ -1,5 +1,5 @@
 import { isString } from '@visactor/vutils';
-import type { IScale } from '../types';
+import type { IScale, Nil } from '../types';
 import type { IScaleComponent, ScaleComponentSpec } from '../types/component';
 import { Component } from '../view/component';
 
@@ -12,7 +12,7 @@ export abstract class ScaleComponent extends Component implements IScaleComponen
     return this;
   }
 
-  scale(scale?: IScale | string) {
+  scale(scale?: IScale | string | Nil) {
     if (this.spec.scale) {
       const lastScaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
       this.detach(lastScaleGrammar);

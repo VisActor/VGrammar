@@ -107,6 +107,26 @@ export const runner = (view: IView) => {
         duration: 2000
       }
     });
+  const dimensionTooltip = view.dimensionTooltip(view.rootMark)
+    .id('dimensionTooltip')
+    .scale(xScale)
+    .target(data, 'category')
+    .tooltipType('angle')
+    // .avoidMark([symbol, line])
+    .title('Sales Statistics On Category')
+    .encode({ offsetX: 10, offsetY: 10 })
+    .content([
+      {
+        key: 'category',
+        value: { field: 'category' },
+        symbol: { fill: 'lightGreen' }
+      },
+      {
+        key: { text: 'amount' },
+        value: datum => datum.amount,
+        symbol: { fill: 'lightGreen', symbolType: 'square' }
+      }
+    ]);
 };
 
 export const callback = (view: IView) => {
