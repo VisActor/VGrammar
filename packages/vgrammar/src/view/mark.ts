@@ -464,7 +464,8 @@ export class Mark extends GrammarBase implements IMark {
       'support3d',
       'morph',
       'morphKey',
-      'morphElementKey'
+      'morphElementKey',
+      'attributeTransforms'
     ];
     if (config === null) {
       keys.forEach(key => {
@@ -1132,7 +1133,7 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   getAttributeTransforms() {
-    return transformsByType[this.markType];
+    return this.spec.attributeTransforms ?? transformsByType[this.markType];
   }
 
   protected needSkipBeforeLayout(): boolean {

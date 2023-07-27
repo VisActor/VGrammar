@@ -4,17 +4,17 @@ import type {
   AxisBaseAttributes,
   BaseCrosshairAttrs,
   BaseLabelAttrs,
-  BasePlayerAttributes,
   DataZoomAttributes,
   LegendBaseAttributes,
   PlayerAttributes,
   SliderAttributes
 } from '@visactor/vrender-components';
-import type { BasicEncoderSpecMap, MarkAnimationSpec, MarkRelativeItemSpec } from './mark';
+import type { BasicEncoderSpecMap, MarkRelativeItemSpec } from './mark';
 import type { IEnvironmentOptions, IRendererOptions, ViewSpec, srIOption3DType } from './view';
 import type { CommonPaddingSpec, ValueOf } from './base';
 import type { DataSpec } from './data';
 import type { IAnimationConfig } from './animate';
+import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 
 export interface IPlotOptions extends IEnvironmentOptions, IRendererOptions {
   width?: number;
@@ -25,12 +25,27 @@ export interface IPlotOptions extends IEnvironmentOptions, IRendererOptions {
   theme?: string;
 }
 
+export interface CartesianCoordinateOption {
+  id?: string;
+  type: 'cartesian';
+  transpose?: boolean;
+}
+
+export interface PolarCoordinateOption {
+  id?: string;
+  type: 'polar';
+  origin?: [string | number, string | number];
+  transpose?: boolean;
+}
+
+export type CoordinateOption = CartesianCoordinateOption | PolarCoordinateOption;
+
 export interface IPlot {
   /**
    * todo: 直接接text图元还是title组件
    */
   // title: (text: ITextAttribute['text'], style: Omit<ITextAttribute, 'text'>) => this;
-  // coordinate: (type: CoordinateType, spec: CoordinateSpec) => this;
+  coordinate: (type: CoordinateType, option?: Omit<CoordinateOption, 'type'>) => this;
   // interaction: (type: string, options: boolean | any) => this;
 
   // facet: (type: string, options: any) => this;
@@ -131,6 +146,7 @@ export interface ISemanticMark<EncodeSpec, K extends string> {
   legend: (channel: string, option?: SemanticLegendOption | boolean, layout?: MarkRelativeItemSpec) => this;
   crosshair: (channel: string, option?: SemanticCrosshairOption | boolean) => this;
   tooltip: (option: SemanticTooltipOption | boolean) => this;
+  coordinate: (option: CoordinateOption) => this;
 
   slider: (channel: string, option?: SemanticSliderOption | boolean, layout?: MarkRelativeItemSpec) => this;
   datazoom: (channel: string, option?: SemanticDataZoomOption | boolean, layout?: MarkRelativeItemSpec) => this;

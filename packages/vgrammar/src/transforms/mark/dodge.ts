@@ -76,7 +76,7 @@ export const transform = (options: DodgeTransformOptions, upstreamData: IElement
 
     const markType = mark.markType;
 
-    if (markType === 'rect' || markType === 'interval') {
+    if (markType === 'rect' || markType === 'interval' || markType === 'arc') {
       upstreamData.forEach(element => {
         const groupValue = getDodgeBy(element);
         const offset = offsetByGroup[groupValue];

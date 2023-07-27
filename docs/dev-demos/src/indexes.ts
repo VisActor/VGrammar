@@ -500,6 +500,11 @@ export const indexes = [
         name: '动态条形图',
         type: 'plot'
       },
+      {
+        path: 'polar-interval',
+        name: '极坐标系下的柱图',
+        type: 'plot'
+      },
     ]
   }
 ];
