@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console  */
 import nodeFetch from 'node-fetch';
 import NodeFormData from 'form-data';
 import type { ReadStream } from 'fs';
@@ -276,7 +276,7 @@ async function trigger() {
   console.info(`[trigger] taskAmount: ${taskAmount}`);
 
   if (taskAmount) {
-    checkPhotoTestMaxCount = Math.ceil(taskAmount / 10);
+    checkPhotoTestMaxCount = Math.max(Math.ceil(taskAmount / 10), CHECK_PHOTO_TEST_MAX_COUNT);
   }
 
   const {
