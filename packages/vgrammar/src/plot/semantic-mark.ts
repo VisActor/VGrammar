@@ -43,8 +43,8 @@ import { getPalette } from '../palette';
 import type {
   AxisSpec,
   CrosshairSpec,
-  CrosshairType,
   DatazoomSpec,
+  DimensionTooltipSpec,
   LabelSpec,
   LegendSpec,
   PlayerSpec,
@@ -54,7 +54,6 @@ import type {
 import { DiffState, ComponentEnum } from '../graph/enums';
 import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import { invokeFunctionType } from '../parse/util';
-import type { ISymbolGraphicAttribute } from '@visactor/vrender';
 import { defaultTheme } from '../theme/default';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 
@@ -189,6 +188,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
+
   slider(channel: string, option?: SemanticSliderOption | boolean, layout?: MarkRelativeItemSpec) {
     if (!this.spec.slider) {
       this.spec.slider = {};
@@ -552,12 +552,12 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return {};
   }
 
-  protected getCrosshairType(channel: string): CrosshairType {
+  protected getVisualChannel(channel: 'x' | 'y'): 'x' | 'y' | 'angle' | 'radius' {
     if (this._coordinate?.type === 'polar') {
       return this._coordinate.transpose ? (channel === 'x' ? 'radius' : 'angle') : channel === 'x' ? 'angle' : 'radius';
     }
 
-    return (this._coordinate?.transpose ? (channel === 'x' ? 'y' : 'x') : channel) as CrosshairType;
+    return (this._coordinate?.transpose ? (channel === 'x' ? 'y' : 'x') : channel) as 'x' | 'y' | 'angle' | 'radius';
   }
 
   protected parseCrosshairSpec(): CrosshairSpec[] {
@@ -593,7 +593,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                 ? 'rect'
                 : 'line'
               : (option as CrosshairSpec).crosshairShape ?? (scaleSpec?.type === 'band' ? 'rect' : 'line'),
-            crosshairType: this.getCrosshairType(channel)
+            crosshairType: this.getVisualChannel(channel as 'x' | 'y')
           };
 
           if (isPlainObject(userOption)) {
@@ -633,43 +633,86 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return null;
   }
 
-  protected parseTooltipSpec(): TooltipSpec | Nil {
+  protected parseTooltipSpec(): Array<TooltipSpec | DimensionTooltipSpec> | Nil {
     const defaultTooltipSpec = this.setDefaultTooltip();
     const userTooltipSpec = this.spec.tooltip;
 
     if (userTooltipSpec !== false && userTooltipSpec !== null) {
+      const res: Array<TooltipSpec | DimensionTooltipSpec> = [];
       const tooltipSpec = Object.assign({}, defaultTooltipSpec, userTooltipSpec === true ? {} : userTooltipSpec);
-
-      return {
-        type: 'component',
-        componentType: ComponentEnum.tooltip,
-        target: this.getMarkId(),
-        title: { visible: !!tooltipSpec.title, value: { field: tooltipSpec.title } },
-        content:
-          isArray(tooltipSpec.content) && tooltipSpec.content.length
-            ? tooltipSpec.content.map(entry => {
-                return {
-                  key: { field: entry.key },
-                  value: { field: entry.value },
-                  symbol: (datum, el, params) => {
-                    return {
-                      symbolType: entry.symbol
-                        ? invokeFunctionType(
-                            {
-                              symbolType: { field: entry.symbol }
-                            },
-                            params,
-                            datum,
-                            el
-                          )?.symbolType ?? 'circle'
-                        : 'circle',
-                      fill: el.getGraphicAttribute('fill')
-                    } as Partial<ISymbolGraphicAttribute>;
-                  }
-                };
-              })
-            : null
+      const colorChannel = isNil((this.spec.encode as any).color) ? 'group' : 'color';
+      const colorEncode = (this.spec.encode as any)[colorChannel];
+      const dependency = colorEncode ? [this.getScaleId(colorChannel)] : [];
+      const colorAccessor = colorEncode ? getFieldAccessor(colorEncode) : null;
+      const title = {
+        visible: !!tooltipSpec.title || !!tooltipSpec.staticTitle,
+        key: 'title',
+        value: !isNil(tooltipSpec.staticTitle)
+          ? tooltipSpec.staticTitle
+          : {
+              field: (datum: any, el: IElement, params: any) => {
+                return tooltipSpec.title && datum?.length ? getFieldAccessor(tooltipSpec.title)(datum[0]) : undefined;
+              }
+            }
       };
+      const content =
+        isArray(tooltipSpec.content) && tooltipSpec.content.length
+          ? tooltipSpec.content.map(entry => {
+              return {
+                key: entry.key
+                  ? { field: entry.key }
+                  : !isNil(tooltipSpec.staticContentKey)
+                  ? { value: tooltipSpec.staticContentKey }
+                  : (datum: any, el: IElement, params: any) => {
+                      return colorAccessor ? colorAccessor(datum) : undefined;
+                    },
+                value: { field: entry.value },
+                symbol: (datum: any, el: IElement, params: any) => {
+                  const scale = params[this.getScaleId(colorChannel)];
+
+                  return {
+                    symbolType: entry.symbol
+                      ? invokeFunctionType(
+                          {
+                            symbolType: { field: entry.symbol }
+                          },
+                          params,
+                          datum,
+                          el
+                        )?.symbolType ?? 'circle'
+                      : 'circle',
+                    fill: scale && colorAccessor ? scale.scale(colorAccessor(datum)) : getPalette()[0]
+                  };
+                }
+              };
+            })
+          : null;
+      if (tooltipSpec.disableGraphicTooltip !== true) {
+        res.push({
+          type: 'component',
+          componentType: ComponentEnum.tooltip,
+          target: this.getMarkId(),
+          dependency,
+          title,
+          content
+        } as TooltipSpec);
+      }
+
+      if (tooltipSpec.disableDimensionTooltip !== true) {
+        res.push({
+          type: 'component',
+          tooltipType: this.getVisualChannel('x' as 'x' | 'y'),
+          scale: this.getScaleId('x'),
+          dependency,
+          componentType: ComponentEnum.dimensionTooltip,
+          target: { data: this.getDataIdOfFiltered(), filter: (this.spec.encode as any)?.x },
+          title,
+          content,
+          avoidMark: [this.getMarkId()]
+        } as DimensionTooltipSpec);
+      }
+
+      return res;
     }
 
     return null;

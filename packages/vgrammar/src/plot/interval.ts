@@ -55,7 +55,6 @@ export class Interval extends SemanticMark<BasicEncoderSpecMap['interval'], Inte
 
   setDefaultTooltip(): SemanticTooltipOption | Nil {
     return {
-      title: this.spec.encode?.x,
       content: [
         {
           value: this.spec.encode?.y

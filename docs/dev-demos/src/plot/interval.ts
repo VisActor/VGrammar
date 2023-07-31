@@ -33,7 +33,8 @@ export const runner = (plot: IPlot) => {
     .legend('group', true, { position: 'top', align: 'middle' })
     .slider('y', false)
     .datazoom('y', true)
-    .label('y', { textStyle: { fill: 'red'} });
+    .label('y', { textStyle: { fill: 'red'} })
+    .tooltip({ staticTitle: 'GMV' });
 };
 
 export const callback = (view: IView) => {
