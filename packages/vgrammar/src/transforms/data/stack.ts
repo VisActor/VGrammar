@@ -5,7 +5,8 @@ export const transform = (options: StackTransformOptions, upstreamData: any[]) =
   const negativeValues = new Map<string, number>();
   const needSum = options.asPercentStack || options.asPrevPercentStack || options.asPercent || options.asSum;
 
-  const data = options.orient === 'negative' ? upstreamData.slice().reverse() : upstreamData;
+  const orient = options.orient ?? 'positive';
+  const data = orient === 'negative' ? upstreamData.slice().reverse() : upstreamData;
   const defaultDimValue = Symbol('dim');
 
   let stackedValues = data.map(datum => {
@@ -69,5 +70,5 @@ export const transform = (options: StackTransformOptions, upstreamData: any[]) =
     });
   }
 
-  return options.orient === 'negative' ? stackedValues.reverse() : stackedValues;
+  return orient === 'negative' ? stackedValues.reverse() : stackedValues;
 };

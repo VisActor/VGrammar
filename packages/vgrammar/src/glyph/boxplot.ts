@@ -107,7 +107,7 @@ const scaleOut = (
     }
     if (isValidNumber(median)) {
       animateAttributes.to.median = center;
-      animateAttributes.from.median = q3;
+      animateAttributes.from.median = median;
     }
     return animateAttributes;
   };
@@ -217,6 +217,9 @@ const encodeBoxplotSize = (encodeValues: any, datum: any, element: IGlyphElement
   return attributes;
 };
 
+export const boxplotScaleIn = scaleIn(computeBoxplotCenter);
+export const boxplotScaleOut = scaleOut(computeBoxplotCenter);
+
 export function registerBoxplotGlyph() {
   registerGlyph<BoxPlotEncoderSpec, { direction?: 'horizontal' | 'vertical' }>('boxplot', {
     shaft: 'rule',
@@ -301,8 +304,8 @@ export function registerBoxplotGlyph() {
       };
     });
 
-  registerAnimationType('boxplotScaleIn', scaleIn(computeBoxplotCenter));
-  registerAnimationType('boxplotScaleOut', scaleOut(computeBoxplotCenter));
+  registerAnimationType('boxplotScaleIn', boxplotScaleIn);
+  registerAnimationType('boxplotScaleOut', boxplotScaleOut);
 }
 
 const computeBarBoxplotCenter = (
@@ -410,6 +413,9 @@ const encodeBarBoxplotSize = (encodeValues: any, datum: any, element: IGlyphElem
   return attributes;
 };
 
+export const barBoxplotScaleIn = scaleIn(computeBarBoxplotCenter);
+export const barBoxplotScaleOut = scaleOut(computeBarBoxplotCenter);
+
 export function registerBarBoxplotGlyph() {
   registerGlyph<BarBoxPlotEncoderSpec, { direction?: 'horizontal' | 'vertical' }>('barBoxplot', {
     minMaxBox: 'rect',
@@ -469,6 +475,6 @@ export function registerBarBoxplotGlyph() {
       };
     });
 
-  registerAnimationType('barBoxplotScaleIn', scaleIn(computeBarBoxplotCenter));
-  registerAnimationType('barBoxplotScaleOut', scaleOut(computeBarBoxplotCenter));
+  registerAnimationType('barBoxplotScaleIn', barBoxplotScaleIn);
+  registerAnimationType('barBoxplotScaleOut', barBoxplotScaleOut);
 }

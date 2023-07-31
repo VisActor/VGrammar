@@ -493,7 +493,7 @@ export class Mark extends GrammarBase implements IMark {
     const encoders = this.spec.encode;
 
     if (!encoders) {
-      return;
+      return {};
     }
 
     const res: Record<string, IBaseScale> = {};
