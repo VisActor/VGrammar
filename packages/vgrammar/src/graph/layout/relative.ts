@@ -1,7 +1,7 @@
 import { ComponentEnum } from './../enums';
 import type { IBounds } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { Bounds } from '@visactor/vutils';
+import { Bounds, pad } from '@visactor/vutils';
 import { toPercent } from '@visactor/vgrammar-util';
 import type {
   IGroupMark,
@@ -82,6 +82,13 @@ export const doRelativeLayout = (
       if (bounds.y2 > parentLayoutBounds.y2) {
         minDeltaY2 = Math.max(minDeltaY2, bounds.y2 - parentLayoutBounds.y2);
       }
+    }
+
+    if (layoutSpec.position === 'outside') {
+      viewBounds.x1 += Math.max(parentLayoutBounds.x1 - bounds.x1, 0) + padding.left;
+      viewBounds.x2 -= Math.max(bounds.x2 - parentLayoutBounds.x2, 0) + padding.right;
+      viewBounds.y1 += Math.max(parentLayoutBounds.y1 - bounds.y1, 0) + padding.top;
+      viewBounds.y2 -= Math.max(bounds.y2 - parentLayoutBounds.y2) + padding.bottom;
     }
   });
 
@@ -189,6 +196,11 @@ export const doRelativeLayout = (
           }
         }
       }
+    } else if (layoutSpec.position === 'outside') {
+      curLeftX -= Math.max(parentLayoutBounds.x1 - bounds.x1, 0) + padding.left;
+      curRightX -= Math.max(bounds.x2 - parentLayoutBounds.x2, 0) + padding.right;
+      curTopY -= Math.max(parentLayoutBounds.y1 - bounds.y1, 0) + padding.top;
+      curBottomY += Math.max(bounds.y2 - parentLayoutBounds.y2) + padding.bottom;
     } else {
       child.layoutBounds = viewBounds;
     }
