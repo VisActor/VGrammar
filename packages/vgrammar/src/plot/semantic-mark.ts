@@ -78,6 +78,14 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     this.spec = { id: id ?? `${this.type}-${this._uid}` };
   }
 
+  parseSpec(spec: Partial<ISemanticMarkSpec<EncodeSpec, K>>) {
+    if (isNil(spec.id)) {
+      spec.id = this.spec.id;
+    }
+    this.spec = spec as ISemanticMarkSpec<EncodeSpec, K>;
+    return this;
+  }
+
   coordinate(option: CoordinateOption) {
     this._coordinate = option;
     return this;
@@ -172,7 +180,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       this.spec.crosshair = {};
     }
 
-    this.spec.crosshair[channel] = { option };
+    this.spec.crosshair[channel] = option;
 
     return this;
   }
@@ -204,7 +212,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       this.spec.label = {};
     }
 
-    this.spec.label[channel] = { option };
+    this.spec.label[channel] = option;
 
     return this;
   }
@@ -401,16 +409,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     if (axis) {
       Object.keys(axis).forEach(channel => {
-        const axisOption = axis[channel]?.option;
-        const axisLayout = axis[channel]?.layout;
+        const { option, layout } = this.parseOption<SemanticAxisOption>(axis[channel]);
 
-        if (axisOption) {
+        if (option) {
           const axisMarkSpec: AxisSpec = {
             type: 'component',
             componentType: ComponentEnum.axis,
             scale: this.getScaleId(channel),
             dependency: ['viewBox'],
-            tickCount: axisOption.tickCount,
+            tickCount: (option as SemanticAxisOption).tickCount,
             encode: {
               update: (datum: any, elment: IElement, params: any) => {
                 const positionAttrs = this._coordinate
@@ -430,15 +437,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                       end: { x: 0, y: -params.viewBox.height() }
                     };
 
-                return isPlainObject(axisOption) ? Object.assign(positionAttrs, axisOption) : positionAttrs;
+                return isPlainObject(option) ? Object.assign(positionAttrs, option) : positionAttrs;
               }
             }
           };
-          axisMarkSpec.layout = axisLayout ?? {
+          axisMarkSpec.layout = layout ?? {
             position: this._coordinate
               ? 'auto'
-              : isPlainObject(axisOption) && !isNil((axisOption as SemanticAxisOption).orient)
-              ? (axisOption as SemanticAxisOption).orient
+              : isPlainObject(layout) && !isNil((layout as SemanticAxisOption).orient)
+              ? (layout as SemanticAxisOption).orient
               : channel === 'x'
               ? 'bottom'
               : 'left'
@@ -451,6 +458,24 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return res;
   }
 
+  protected parseOption<T>(spec: { option: T | boolean; layout?: MarkRelativeItemSpec } | T | boolean) {
+    let option: T | boolean;
+    let layout: MarkRelativeItemSpec;
+
+    if (isPlainObject(spec)) {
+      if (isNil((spec as any).option)) {
+        option = spec as T;
+      } else {
+        option = (spec as { option: T | boolean; layout?: MarkRelativeItemSpec }).option;
+        layout = (spec as { option: T | boolean; layout?: MarkRelativeItemSpec }).layout;
+      }
+    } else {
+      option = spec;
+    }
+
+    return { option, layout };
+  }
+
   protected setDefaultLegend(): Record<string, Partial<LegendSpec>> {
     return {};
   }
@@ -461,8 +486,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     if (legend) {
       Object.keys(legend).forEach(channel => {
-        const option = legend[channel]?.option;
-        const layout = legend[channel]?.layout;
+        const { option, layout } = this.parseOption<SemanticLegendOption>(legend[channel]);
 
         if (option) {
           const markLayout =
@@ -539,18 +563,20 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   protected parseCrosshairSpec(): CrosshairSpec[] {
     const defaultCrosshair = this.setDefaultCorsshair();
     const defaultKeys = Object.keys(defaultCrosshair);
-    const crosshairKeys = Object.keys(this.spec.crosshair).reduce((res, key) => {
-      if (!res.includes(key)) {
-        res.push(key);
-      }
+    const crosshairKeys = this.spec.crosshair
+      ? Object.keys(this.spec.crosshair).reduce((res, key) => {
+          if (!res.includes(key)) {
+            res.push(key);
+          }
 
-      return res;
-    }, defaultKeys);
+          return res;
+        }, defaultKeys)
+      : defaultKeys;
     const res: CrosshairSpec[] = [];
 
     if (crosshairKeys.length) {
       crosshairKeys.forEach(channel => {
-        const userOption = this.spec.crosshair?.[channel]?.option;
+        const userOption = this.spec.crosshair?.[channel];
         const option = userOption ?? defaultCrosshair[channel];
 
         if (option) {
@@ -659,8 +685,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     if (slider) {
       Object.keys(slider).forEach(channel => {
-        const option = slider[channel]?.option;
-        const layout = slider[channel]?.layout;
+        const { option, layout } = this.parseOption<SemanticSliderOption>(slider[channel]);
 
         if (option) {
           const scaleId = this.getScaleId(channel);
@@ -763,8 +788,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     if (datazoom) {
       Object.keys(datazoom).forEach(channel => {
-        const option = datazoom[channel]?.option;
-        const layout = datazoom[channel]?.layout;
+        const { option, layout } = this.parseOption<SemanticDataZoomOption>(datazoom[channel]);
 
         if (option) {
           const dataId = this.getDataIdOfMain();
@@ -847,13 +871,21 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return {};
   }
 
+  protected getLabelPosition(): string {
+    if (this._coordinate?.type === 'polar') {
+      return this._coordinate.transpose ? 'endAngle' : 'outer';
+    }
+
+    return this._coordinate?.transpose ? 'right' : 'top';
+  }
+
   protected parseLabelSpec(): LabelSpec[] {
     const label = this.spec.label;
     const res: LabelSpec[] = [];
 
     if (label) {
       Object.keys(label).forEach(channel => {
-        const option = label[channel]?.option;
+        const option = label[channel];
 
         if (option) {
           const markSpec: LabelSpec = {
@@ -864,7 +896,14 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               position: 'content',
               skipBeforeLayouted: true
             },
-            labelStyle: isPlainObject(option) ? (option as BaseLabelAttrs) : null,
+            labelStyle: isPlainObject(option)
+              ? Object.assign(
+                  {
+                    position: this.getLabelPosition()
+                  },
+                  option as BaseLabelAttrs
+                )
+              : { position: this.getLabelPosition() },
             encode: {
               update: {
                 text: { field: this.spec.encode[channel] }
@@ -1033,10 +1072,11 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                 field: (encode as any)?.y
               },
               range: (scale: IBaseScale, params: any) => {
+                const option = this.parseOption<SemanticDataZoomOption>(datazoom[k]).option;
                 return [
                   0,
-                  isPlainObject(datazoom[k]?.option)
-                    ? (datazoom[k].option as DataZoomAttributes).size?.height ?? defaultTheme.datazoom.size.height
+                  isPlainObject(option)
+                    ? (option as DataZoomAttributes).size?.height ?? defaultTheme.datazoom.size.height
                     : defaultTheme.datazoom.size.height
                 ];
               }
