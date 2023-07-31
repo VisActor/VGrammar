@@ -46,6 +46,7 @@ export class Line extends SemanticMark<BasicEncoderSpecMap['line'], LineEncodeCh
 
   setDefaultTooltip(): SemanticTooltipOption | Nil {
     return {
+      disableGraphicTooltip: true,
       title: this.spec.encode?.x,
       content: [
         {
