@@ -144,6 +144,10 @@ export type ISemanticEncodeSpec<T> = {
 export type ISemanticStyle<T, K extends string> = Omit<T, K>;
 
 export type SemanticTooltipOption = {
+  disableGraphicTooltip?: boolean;
+  disableDimensionTooltip?: boolean;
+  staticTitle?: string;
+  staticContentKey?: string;
   title?: ISemanticEncodeValue<string | number>;
   content?: Array<{
     key?: ISemanticEncodeValue<string | number>;
