@@ -158,7 +158,7 @@ export interface DatazoomSpec extends ComponentSpec<DataZoomEncoderSpec> {
 // label component
 
 export interface ILabel extends IComponent {
-  labelStyle: (attributes: MarkFunctionType<RecursivePartial<BaseLabelAttrs>>) => this;
+  labelStyle: (attributes: MarkFunctionType<Partial<BaseLabelAttrs>>) => this;
   size: (attributes: MarkFunctionType<DataLabelAttrs['size']>) => this;
   target: (mark: IMark | IMark[] | string | string[] | Nil) => this;
 }

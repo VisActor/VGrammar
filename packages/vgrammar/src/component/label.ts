@@ -12,7 +12,6 @@ import type {
   IView,
   MarkFunctionType,
   Nil,
-  RecursivePartial,
   StateEncodeSpec
 } from '../types';
 import { ComponentEnum, GrammarMarkType } from '../graph';
@@ -29,7 +28,7 @@ export const generateLabelAttributes = (
   marks: IMark[],
   groupSize: { width: number; height: number },
   encoder: BaseSignleEncodeSpec,
-  labelStyle: MarkFunctionType<RecursivePartial<BaseLabelAttrs>>,
+  labelStyle: MarkFunctionType<Partial<BaseLabelAttrs>>,
   parameters: any
 ): DataLabelAttrs => {
   const labelTheme = defaultTheme.dataLabel;
@@ -86,7 +85,7 @@ export class Label extends Component implements ILabel {
     return this;
   }
 
-  labelStyle(style: MarkFunctionType<RecursivePartial<BaseLabelAttrs>>) {
+  labelStyle(style: MarkFunctionType<Partial<BaseLabelAttrs>>) {
     return this.setFunctionSpec(style, 'labelStyle');
   }
 

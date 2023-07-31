@@ -15,6 +15,8 @@ import type { CommonPaddingSpec, ValueOf } from './base';
 import type { DataSpec } from './data';
 import type { IAnimationConfig } from './animate';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
+import type { IColor } from '@visactor/vrender';
+import type { BaseEventHandler } from './event';
 
 export interface IPlotOptions extends IEnvironmentOptions, IRendererOptions {
   width?: number;
@@ -39,6 +41,24 @@ export interface PolarCoordinateOption {
 }
 
 export type CoordinateOption = CartesianCoordinateOption | PolarCoordinateOption;
+export type PlotIntervalSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['interval'], IntervalEncodeChannels>> & {
+  type: 'interval';
+};
+export type PlotLineSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['line'], LineEncodeChannels>> & {
+  type: 'line';
+};
+export type PlotCellSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['cell'], CellEncodeChannels>> & {
+  type: 'cell';
+};
+
+export interface PlotSpec {
+  background?: IColor;
+  width?: number;
+  height?: number;
+  padding?: number;
+  coordinate?: CoordinateOption;
+  marks?: Array<PlotIntervalSpec | PlotLineSpec | PlotCellSpec>;
+}
 
 export interface IPlot {
   /**
@@ -50,8 +70,19 @@ export interface IPlot {
 
   // facet: (type: string, options: any) => this;
 
+  ///--------- life cycle ---------///
+
   render: () => this;
   release: () => this;
+  parseSpec: (spec: PlotSpec) => this;
+  updateSpec: (spec: PlotSpec) => this;
+  getImageBuffer: () => Buffer;
+
+  ///--------- events api ---------///
+  on: (type: string, handler: BaseEventHandler) => this;
+  off: (type: string, handler?: BaseEventHandler) => this;
+
+  ///--------- marks ---------///
 
   interval: () => IInterval;
   // cell: () => ICell;
@@ -154,6 +185,7 @@ export interface ISemanticMark<EncodeSpec, K extends string> {
   player: (data?: any[], option?: SemanticPlayerOption | boolean, layout?: MarkRelativeItemSpec) => this;
 
   toViewSpec: () => ViewSpec;
+  parseSpec: (spec: Partial<ISemanticMarkSpec<EncodeSpec, K>>) => this;
 }
 
 export interface ISemanticMarkSpec<EncodeSpec, K extends string> {
@@ -162,16 +194,27 @@ export interface ISemanticMarkSpec<EncodeSpec, K extends string> {
   encode?: WithDefaultEncode<EncodeSpec, K>;
   scale?: Partial<Record<K, ScaleSpec>>;
   style?: ISemanticStyle<EncodeSpec, K>;
-  axis?: Partial<Record<K, SemanticAxisOption | boolean>>;
+  axis?: Partial<
+    Record<K, { option?: SemanticAxisOption | boolean; layout?: MarkRelativeItemSpec } | SemanticAxisOption | boolean>
+  >;
   transform?: TransformSpec[];
   state?: Record<string, Partial<EncodeSpec>>;
   animation?: Record<string, IAnimationConfig | IAnimationConfig[]>;
-  legend?: Record<string, { option?: SemanticLegendOption | boolean; layout?: MarkRelativeItemSpec }>;
-  crosshair?: Record<string, { option?: SemanticCrosshairOption | boolean }>;
+  legend?: Record<
+    string,
+    { option: SemanticLegendOption | boolean; layout?: MarkRelativeItemSpec } | SemanticLegendOption | boolean
+  >;
+  crosshair?: Record<string, SemanticCrosshairOption | boolean>;
   tooltip?: SemanticTooltipOption | boolean;
-  slider?: Record<string, { option?: SemanticSliderOption | boolean; layout?: MarkRelativeItemSpec }>;
-  datazoom?: Record<string, { option?: SemanticDataZoomOption | boolean; layout?: MarkRelativeItemSpec }>;
-  label?: Record<string, { option?: SemanticLabelOption | boolean }>;
+  slider?: Record<
+    string,
+    { option: SemanticSliderOption | boolean; layout?: MarkRelativeItemSpec } | SemanticSliderOption | boolean
+  >;
+  datazoom?: Record<
+    string,
+    { option: SemanticDataZoomOption | boolean; layout?: MarkRelativeItemSpec } | SemanticDataZoomOption | boolean
+  >;
+  label?: Record<string, SemanticLabelOption | boolean>;
   player?: { data?: any[]; option?: SemanticPlayerOption | boolean; layout?: MarkRelativeItemSpec };
 }
 
@@ -189,4 +232,4 @@ export type LineEncodeChannels = SemanticEncodeChannels;
 
 export type IInterval = ISemanticMark<BasicEncoderSpecMap['interval'], IntervalEncodeChannels>;
 export type ILine = ISemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels>;
-export type ICell = ISemanticMark<BasicEncoderSpecMap['interval'], CellEncodeChannels>;
+export type ICell = ISemanticMark<BasicEncoderSpecMap['cell'], CellEncodeChannels>;
