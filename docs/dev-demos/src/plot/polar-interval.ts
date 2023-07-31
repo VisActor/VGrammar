@@ -22,21 +22,50 @@ const originData = [
 ];
 
 export const runner = (plot: IPlot) => {
-  plot.coordinate('polar', { transpose: false });
+  // plot.coordinate('polar', { transpose: false });
 
-  plot.interval()
-    .data(originData)
-    .encode('x', 'category')
-    .encode('y', 'amount')
-    .encode('group', 'type')
-    .axis('x', true)
-    .axis('y', true)
-    .legend('group', true, { position: 'top', align: 'middle' })
-    .slider('y', false)
-    .datazoom('y', true)
-    .crosshair('x', false)
-    .crosshair('y', { type: 'polygon' })
-    .label('y', { textStyle: { fill: 'red'} });
+  // plot.interval()
+  //   .data(originData)
+  //   .encode('x', 'category')
+  //   .encode('y', 'amount')
+  //   .encode('group', 'type')
+  //   .axis('x', true)
+  //   .axis('y', true)
+  //   .legend('group', true, { position: 'top', align: 'middle' })
+  //   .slider('y', false)
+  //   .datazoom('y', true)
+  //   .crosshair('x', true)
+  //   .crosshair('y', false)
+  //   .label('y', { textStyle: { fill: 'red'} });
+
+  plot.parseSpec({
+    coordinate: { type: 'polar',transpose: false },
+    marks: [{
+      type: 'interval',
+      data: { values: originData },
+      encode: {
+        x: 'category',
+        y: 'amount',
+        group: 'type'
+      },
+      axis: {
+        x: true,
+        y: true,
+      },
+      legend: { 
+        group: { option: true, layout: { position: 'top', align: 'center' } }
+      },
+      datazoom: {
+        y: true
+      },
+      crosshair: {
+        x:true
+      },
+      label: {
+        y: { textStyle: { fill: 'red'} } 
+      }
+    }]
+  })
 };
 
 export const callback = (view: IView) => {
