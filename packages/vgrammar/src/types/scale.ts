@@ -9,6 +9,13 @@ export type ScaleFunctionCallback<T> = (scale: IBaseScale, parameters: any) => T
 export type ScaleFunctionType<T> = GenericFunctionType<ScaleFunctionCallback<T>, T>;
 
 export type ScaleData = { data: string | IData; field: string | string[]; sort?: (datumA: any, datumB: any) => number };
+export type MultiScaleData = {
+  datas: {
+    data: string | IData;
+    field: string | string[];
+  }[];
+  sort?: (datumA: any, datumB: any) => number;
+};
 
 export type ScaleCoordinate = {
   coordinate: string;
@@ -22,7 +29,7 @@ export type GrammarScaleType = ScaleType | 'utc';
 export interface BaseScaleSpec extends GrammarSpec {
   name?: string;
   type: GrammarScaleType;
-  domain?: ScaleData | ScaleFunctionType<any[]>;
+  domain?: ScaleData | MultiScaleData | ScaleFunctionType<any[]>;
 }
 
 export interface ScaleTicksSpec {
@@ -39,7 +46,7 @@ export interface ScaleDomainSpec {
 /** Discrete Scale */
 
 export interface DiscreteScaleSpec extends BaseScaleSpec {
-  range?: ScaleFunctionType<any[]> | ScaleData | ScaleCoordinate;
+  range?: ScaleFunctionType<any[]> | ScaleData | MultiScaleData | ScaleCoordinate;
 }
 
 export interface OrdinalScaleSpec extends DiscreteScaleSpec {
@@ -65,7 +72,7 @@ export interface PointScaleSpec extends BaseBandScaleSpec {
 /** Continuous Scale */
 
 export interface ContinuousScaleSpec extends BaseScaleSpec, ScaleDomainSpec {
-  range?: ScaleFunctionType<number[]> | ScaleData | ScaleCoordinate;
+  range?: ScaleFunctionType<number[]> | ScaleData | MultiScaleData | ScaleCoordinate;
   roundRange?: ScaleFunctionType<boolean>;
   config?: {
     clamp?: boolean | ((x: number) => any);
@@ -112,7 +119,7 @@ export interface UtcTimeScaleSpec extends ContinuousScaleSpec, Pick<ScaleTicksSp
 
 export interface QuantizeScaleSpec extends BaseScaleSpec, ScaleTicksSpec, ScaleDomainSpec {
   type: 'quantize';
-  range?: ScaleFunctionType<any[]> | ScaleData;
+  range?: ScaleFunctionType<any[]> | ScaleData | MultiScaleData;
 }
 
 /**
@@ -121,7 +128,7 @@ export interface QuantizeScaleSpec extends BaseScaleSpec, ScaleTicksSpec, ScaleD
  */
 export interface QuantileScaleSpec extends BaseScaleSpec {
   type: 'quantile';
-  range?: ScaleFunctionType<any[]> | ScaleData;
+  range?: ScaleFunctionType<any[]> | ScaleData | MultiScaleData;
 }
 
 /**
@@ -129,7 +136,7 @@ export interface QuantileScaleSpec extends BaseScaleSpec {
  */
 export interface ThresholdScaleSpec extends BaseScaleSpec {
   type: 'threshold';
-  range?: ScaleFunctionType<any[]> | ScaleData;
+  range?: ScaleFunctionType<any[]> | ScaleData | MultiScaleData;
 }
 
 export type ScaleSpec =
