@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": " feat: scale can use multiple data to calculate domain and range",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
