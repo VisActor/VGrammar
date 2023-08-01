@@ -90,7 +90,7 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 
 提示信息（Tooltip）是一种临时显示的信息提示框，当用户的光标悬停在图表的某个数据项上时，提示信息会出现在光标附近，展示信息，从而帮助用户更好地了解数据。
 
-提示信息组件的 componentType 为 `'tooltip'` ，同时 View 上也提供了 `View.tooltip()` 接口以便捷的创建一个提示信息。
+提示信息组件的 componentType 为 `'tooltip' | 'dimensionTooltip'`，同时 View 上也提供了 `View.tooltip()` 以及 `View.dimensionTooltip()` 接口以便捷的创建一个提示信息。两种 tooltip 分别针对于 hover 在图元上显示以及 hover 在数据维度上显示两种情况。不同 tooltip 可以混用以适配灵活的业务场景。
 
 提示信息的示例：
 

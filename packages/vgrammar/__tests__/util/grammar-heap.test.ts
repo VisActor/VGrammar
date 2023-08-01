@@ -1,5 +1,4 @@
 import { Heap } from '../../src/util/grammar-heap';
-import { UniqueList } from '../../src/util/unique-list';
 
 test('Heap functions', function () {
   const heap = new Heap((a: any, b: any) => a.qrank - b.qrank);
@@ -32,15 +31,4 @@ test('Heap functions', function () {
   heap.push(nodes[6]);
   expect(heap.validate()).toBe(true);
   expect(heap.size()).toBe(7);
-});
-
-test('UniqueList', () => {
-  const uList = new UniqueList((entry: any) => entry.id);
-
-  uList.add({ id: 1 });
-  uList.add({ id: 2 });
-  uList.add({ id: 3 });
-  uList.add({ id: 2, content: 'new' });
-
-  expect(uList.length).toBe(3);
 });

@@ -3,20 +3,13 @@
   "configurations": [
     {
       "name": "unit test",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["${file}"],
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "internalConsoleOptions": "neverOpen",
+      "program": "${workspaceRoot}/packages/vgrammar/node_modules/jest/bin/jest.js",
+      "cwd": "${workspaceFolder}/packages/vgrammar",
+      "args": ["${fileBasenameNoExtension}", "--runInBand", "--watchAll=false"]
     }
-    // {
-    //   "name": "page test",
-    //   "request": "launch",
-    //   "cleanUp": "onlyTab",
-    //   "file": "${workspaceFolder}/packages/chartspace/test/index.html",
-    //   "preLaunchTask": "web",
-    //   "type": "pwa-chrome"
-    // }
   ]
 }
