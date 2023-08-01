@@ -68,7 +68,7 @@ export class Cell extends SemanticMark<BasicEncoderSpecMap['cell'], CellEncodeCh
     if (markEncoder.color || markEncoder.group) {
       res.stroke = markEncoder.color ?? markEncoder.group;
     } else {
-      res.stroke = getPalette()[0];
+      res.stroke = this.spec.style?.fill ?? getPalette()[0];
     }
 
     return res;

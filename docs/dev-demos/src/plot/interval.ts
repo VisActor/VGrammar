@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import type { IView, IPlot } from '@visactor/vgrammar';
-import { category10 } from '../color-utils';
 
 const originData = [
   { category: 'A', amount: 2328, index: 0, type: 'A' },
@@ -35,6 +34,16 @@ export const runner = (plot: IPlot) => {
     .datazoom('y', true)
     .label('y', { textStyle: { fill: 'red'} })
     .tooltip({ staticTitle: 'GMV' });
+
+  
+    plot.ruleX().transform([{
+      type: 'filter',
+      callback: (datum: any) => {
+        return datum.category === 'D';
+      }
+    }, {
+      type: 'dodge'
+    }]).data(originData).encode('x', 'category').style({ stroke: 'red', lineWidth: 2 });
 };
 
 export const callback = (view: IView) => {
