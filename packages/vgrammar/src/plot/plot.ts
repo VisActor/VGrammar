@@ -1,5 +1,5 @@
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
-import type { BaseEventHandler, IElement, IView, ViewSpec } from '../types';
+import type { BaseEventHandler, IElement, IView, MultiScaleData, ScaleData, ViewSpec } from '../types';
 import type { CoordinateOption, IPlot, IPlotOptions, PlotMark, PlotSpec } from '../types/plot';
 import { View } from '../view';
 import { Interval } from './interval';
@@ -9,6 +9,8 @@ import { RuleX } from './rule-x';
 import { RuleY } from './rule-y';
 import { SIGNAL_VIEW_BOX } from '../view/constants';
 import { Area } from './area';
+import { isNil } from '@visactor/vutils';
+import { mergeGrammarSpecs } from '../parse/util';
 
 export class Plot implements IPlot {
   private _view: IView;
@@ -36,7 +38,7 @@ export class Plot implements IPlot {
       const { data, marks, scales, coordinates, signals, projections, events } = mark.toViewSpec();
 
       if (data && data.length) {
-        spec.data = spec.data.concat(data);
+        spec.data = mergeGrammarSpecs(data, spec.data);
       }
       if (marks && marks.length) {
         spec.marks = spec.marks.concat(marks);
@@ -48,7 +50,46 @@ export class Plot implements IPlot {
             const prevScale = res.find(prev => prev.id === scale.id);
 
             if (prevScale) {
-              // todo combine scale
+              if ((scale.domain as ScaleData).data && (scale.domain as ScaleData).field) {
+                if ((prevScale.domain as ScaleData).data && (prevScale.domain as ScaleData).field) {
+                  if (
+                    (scale.domain as ScaleData).data === (prevScale.domain as ScaleData).data &&
+                    (scale.domain as ScaleData).field !== (prevScale.domain as ScaleData).field
+                  ) {
+                    (prevScale.domain as ScaleData).field = []
+                      .concat((prevScale.domain as ScaleData).field)
+                      .concat((scale.domain as ScaleData).field);
+                  } else if ((scale.domain as ScaleData).data !== (prevScale.domain as ScaleData).data) {
+                    (prevScale.domain as MultiScaleData) = {
+                      datas: [
+                        { data: (prevScale.domain as ScaleData).data, field: (prevScale.domain as ScaleData).field },
+                        { data: (scale.domain as ScaleData).data, field: (scale.domain as ScaleData).field }
+                      ],
+                      sort: (prevScale.domain as MultiScaleData).sort
+                    };
+                  }
+                  if (!isNil((scale.domain as ScaleData).sort)) {
+                    (prevScale.domain as ScaleData).sort = (scale.domain as ScaleData).sort;
+                  }
+                } else if ((prevScale.domain as MultiScaleData).datas) {
+                  const prevData = (prevScale.domain as MultiScaleData).datas.find(
+                    entry => entry.data !== (scale.domain as ScaleData).data
+                  );
+
+                  if (prevData && (scale.domain as ScaleData).field !== prevData.field) {
+                    prevData.field = [].concat(prevData.field).concat((scale.domain as ScaleData).field);
+                  } else if (!prevData) {
+                    (prevScale.domain as MultiScaleData).datas.push({
+                      data: (scale.domain as ScaleData).data,
+                      field: (scale.domain as ScaleData).field
+                    });
+                  }
+
+                  if (!isNil((scale.domain as ScaleData).sort)) {
+                    (prevScale.domain as ScaleData).sort = (scale.domain as ScaleData).sort;
+                  }
+                }
+              }
             } else {
               res.push(scale);
             }
@@ -58,13 +99,7 @@ export class Plot implements IPlot {
         }, spec.scales);
       }
       if (coordinates && coordinates.length) {
-        spec.coordinates = coordinates.reduce((res, coord) => {
-          if (coord.id && !res.some(prevCoord => prevCoord.id === coord.id)) {
-            res.push(coord);
-          }
-
-          return res;
-        }, spec.coordinates);
+        spec.coordinates = mergeGrammarSpecs(coordinates, spec.coordinates);
       }
       if (signals && signals.length) {
         spec.signals = spec.signals.concat(signals);
