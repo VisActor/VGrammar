@@ -16,6 +16,7 @@ import { getPalette } from '../palette';
 import { isArray } from '@visactor/vutils';
 
 export class Area extends SemanticMark<PlotAreaEncoderSpec, AreaEncodeChannels> {
+  static readonly type = 'area';
   constructor(id?: string | number) {
     super('area', id);
   }

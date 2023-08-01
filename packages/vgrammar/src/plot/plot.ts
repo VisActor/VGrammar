@@ -1,26 +1,95 @@
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
-import type { BaseEventHandler, IElement, IView, MultiScaleData, ScaleData, ViewSpec } from '../types';
-import type { CoordinateOption, IPlot, IPlotOptions, PlotMark, PlotSpec } from '../types/plot';
+import type { BaseEventHandler, IElement, IView, MultiScaleData, ScaleData, ScaleSpec, ViewSpec } from '../types';
+import type {
+  CoordinateOption,
+  IArea,
+  ICell,
+  IInterval,
+  ILine,
+  IPlot,
+  IPlotMarkConstructor,
+  IPlotOptions,
+  PlotMark,
+  PlotSpec
+} from '../types/plot';
 import { View } from '../view';
-import { Interval } from './interval';
-import { Line } from './line';
-import { Cell } from './cell';
-import { RuleX } from './rule-x';
-import { RuleY } from './rule-y';
 import { SIGNAL_VIEW_BOX } from '../view/constants';
-import { Area } from './area';
-import { isNil } from '@visactor/vutils';
+import type { ILogger } from '@visactor/vutils';
+import { Logger, isNil } from '@visactor/vutils';
 import { mergeGrammarSpecs } from '../parse/util';
+import { Factory } from '../core/factory';
 
 export class Plot implements IPlot {
+  static useMarks(marks: IPlotMarkConstructor[]) {
+    marks.forEach(mark => {
+      Factory.registerPlotMarks(mark.type, mark);
+    });
+  }
   private _view: IView;
   private _semanticMarks: PlotMark[];
   private _hasInited?: boolean;
   private _coordinate: CoordinateOption;
+  private _logger: ILogger;
 
   constructor(option?: IPlotOptions) {
     this._view = new View(option);
     this._semanticMarks = [];
+    this._logger = Logger.getInstance();
+  }
+
+  private _mergeScales(scales: ScaleSpec[], prevScales: ScaleSpec[]) {
+    return scales.reduce((res, scale) => {
+      if (scale.id) {
+        const prevScale = res.find(prev => prev.id === scale.id);
+
+        if (prevScale) {
+          if ((scale.domain as ScaleData).data && (scale.domain as ScaleData).field) {
+            if ((prevScale.domain as ScaleData).data && (prevScale.domain as ScaleData).field) {
+              if (
+                (scale.domain as ScaleData).data === (prevScale.domain as ScaleData).data &&
+                (scale.domain as ScaleData).field !== (prevScale.domain as ScaleData).field
+              ) {
+                (prevScale.domain as ScaleData).field = []
+                  .concat((prevScale.domain as ScaleData).field)
+                  .concat((scale.domain as ScaleData).field);
+              } else if ((scale.domain as ScaleData).data !== (prevScale.domain as ScaleData).data) {
+                (prevScale.domain as MultiScaleData) = {
+                  datas: [
+                    { data: (prevScale.domain as ScaleData).data, field: (prevScale.domain as ScaleData).field },
+                    { data: (scale.domain as ScaleData).data, field: (scale.domain as ScaleData).field }
+                  ],
+                  sort: (prevScale.domain as MultiScaleData).sort
+                };
+              }
+              if (!isNil((scale.domain as ScaleData).sort)) {
+                (prevScale.domain as ScaleData).sort = (scale.domain as ScaleData).sort;
+              }
+            } else if ((prevScale.domain as MultiScaleData).datas) {
+              const prevData = (prevScale.domain as MultiScaleData).datas.find(
+                entry => entry.data !== (scale.domain as ScaleData).data
+              );
+
+              if (prevData && (scale.domain as ScaleData).field !== prevData.field) {
+                prevData.field = [].concat(prevData.field).concat((scale.domain as ScaleData).field);
+              } else if (!prevData) {
+                (prevScale.domain as MultiScaleData).datas.push({
+                  data: (scale.domain as ScaleData).data,
+                  field: (scale.domain as ScaleData).field
+                });
+              }
+
+              if (!isNil((scale.domain as ScaleData).sort)) {
+                (prevScale.domain as ScaleData).sort = (scale.domain as ScaleData).sort;
+              }
+            }
+          }
+        } else {
+          res.push(scale);
+        }
+      }
+
+      return res;
+    }, prevScales);
   }
 
   protected parseViewSpec() {
@@ -35,6 +104,9 @@ export class Plot implements IPlot {
     };
 
     this._semanticMarks.forEach(mark => {
+      if (this._coordinate) {
+        mark.coordinate(this._coordinate);
+      }
       const { data, marks, scales, coordinates, signals, projections, events } = mark.toViewSpec();
 
       if (data && data.length) {
@@ -45,58 +117,8 @@ export class Plot implements IPlot {
       }
 
       if (scales && scales.length) {
-        spec.scales = scales.reduce((res, scale) => {
-          if (scale.id) {
-            const prevScale = res.find(prev => prev.id === scale.id);
-
-            if (prevScale) {
-              if ((scale.domain as ScaleData).data && (scale.domain as ScaleData).field) {
-                if ((prevScale.domain as ScaleData).data && (prevScale.domain as ScaleData).field) {
-                  if (
-                    (scale.domain as ScaleData).data === (prevScale.domain as ScaleData).data &&
-                    (scale.domain as ScaleData).field !== (prevScale.domain as ScaleData).field
-                  ) {
-                    (prevScale.domain as ScaleData).field = []
-                      .concat((prevScale.domain as ScaleData).field)
-                      .concat((scale.domain as ScaleData).field);
-                  } else if ((scale.domain as ScaleData).data !== (prevScale.domain as ScaleData).data) {
-                    (prevScale.domain as MultiScaleData) = {
-                      datas: [
-                        { data: (prevScale.domain as ScaleData).data, field: (prevScale.domain as ScaleData).field },
-                        { data: (scale.domain as ScaleData).data, field: (scale.domain as ScaleData).field }
-                      ],
-                      sort: (prevScale.domain as MultiScaleData).sort
-                    };
-                  }
-                  if (!isNil((scale.domain as ScaleData).sort)) {
-                    (prevScale.domain as ScaleData).sort = (scale.domain as ScaleData).sort;
-                  }
-                } else if ((prevScale.domain as MultiScaleData).datas) {
-                  const prevData = (prevScale.domain as MultiScaleData).datas.find(
-                    entry => entry.data !== (scale.domain as ScaleData).data
-                  );
-
-                  if (prevData && (scale.domain as ScaleData).field !== prevData.field) {
-                    prevData.field = [].concat(prevData.field).concat((scale.domain as ScaleData).field);
-                  } else if (!prevData) {
-                    (prevScale.domain as MultiScaleData).datas.push({
-                      data: (scale.domain as ScaleData).data,
-                      field: (scale.domain as ScaleData).field
-                    });
-                  }
-
-                  if (!isNil((scale.domain as ScaleData).sort)) {
-                    (prevScale.domain as ScaleData).sort = (scale.domain as ScaleData).sort;
-                  }
-                }
-              }
-            } else {
-              res.push(scale);
-            }
-          }
-
-          return res;
-        }, spec.scales);
+        // todo: optimize the following code of combine scales
+        spec.scales = this._mergeScales(scales, spec.scales);
       }
       if (coordinates && coordinates.length) {
         spec.coordinates = mergeGrammarSpecs(coordinates, spec.coordinates);
@@ -167,13 +189,10 @@ export class Plot implements IPlot {
 
     if (spec?.marks?.length) {
       spec.marks.forEach(mark => {
-        if (mark.type === 'interval') {
-          this.interval().parseSpec(mark);
-        } else if (mark.type === 'cell') {
-          this.cell().parseSpec(mark);
-        } else if (mark.type === 'line') {
-          this.line().parseSpec(mark);
-        }
+        const plotMark: PlotMark = Factory.createPlotMark(mark.type);
+        plotMark.parseSpec(mark as any);
+
+        this._semanticMarks.push(plotMark);
       });
     }
 
@@ -217,75 +236,77 @@ export class Plot implements IPlot {
   coordinate(type: CoordinateType, spec?: Omit<CoordinateOption, 'type'>) {
     this._coordinate = Object.assign({ type, id: this.getCoordinateId() }, spec);
 
-    this._semanticMarks.forEach(mark => {
-      mark.coordinate(this._coordinate);
-    });
     return this;
   }
 
   interval() {
-    const interval = new Interval();
+    const mark = Factory.createPlotMark('interval');
 
-    if (this._coordinate) {
-      interval.coordinate(this._coordinate);
+    if (!mark) {
+      this._logger.error('Please register Interval before use it');
+    } else {
+      this._semanticMarks.push(mark);
     }
 
-    this._semanticMarks.push(interval);
-
-    return interval;
+    return mark as IInterval;
   }
 
   line() {
-    const line = new Line();
+    const mark = Factory.createPlotMark('line');
 
-    if (this._coordinate) {
-      line.coordinate(this._coordinate);
+    if (!mark) {
+      this._logger.error('Please register Line before use it');
+    } else {
+      this._semanticMarks.push(mark);
     }
-    this._semanticMarks.push(line);
 
-    return line;
+    return mark as ILine;
   }
 
   area() {
-    const area = new Area();
+    const mark = Factory.createPlotMark('area');
 
-    if (this._coordinate) {
-      area.coordinate(this._coordinate);
+    if (!mark) {
+      this._logger.error('Please register Area before use it');
+    } else {
+      this._semanticMarks.push(mark);
     }
-    this._semanticMarks.push(area);
 
-    return area;
+    return mark as IArea;
   }
   cell() {
-    const cell = new Cell();
+    const mark = Factory.createPlotMark('cell');
 
-    if (this._coordinate) {
-      cell.coordinate(this._coordinate);
+    if (!mark) {
+      this._logger.error('Please register Cell before use it');
+    } else {
+      this._semanticMarks.push(mark);
     }
-    this._semanticMarks.push(cell);
 
-    return cell;
+    return mark as ICell;
   }
 
   ruleX() {
-    const mark = new RuleX();
+    const mark = Factory.createPlotMark('ruleX');
 
-    if (this._coordinate) {
-      mark.coordinate(this._coordinate);
+    if (!mark) {
+      this._logger.error('Please register RuleX before use it');
+    } else {
+      this._semanticMarks.push(mark);
     }
-    this._semanticMarks.push(mark);
 
-    return mark;
+    return mark as ICell;
   }
 
   ruleY() {
-    const mark = new RuleY();
+    const mark = Factory.createPlotMark('ruleY');
 
-    if (this._coordinate) {
-      mark.coordinate(this._coordinate);
+    if (!mark) {
+      this._logger.error('Please register RuleY before use it');
+    } else {
+      this._semanticMarks.push(mark);
     }
-    this._semanticMarks.push(mark);
 
-    return mark;
+    return mark as ICell;
   }
 }
