@@ -13,6 +13,7 @@ import { SemanticMark } from './semantic-mark';
 import { getPalette } from '../palette';
 
 export class RuleY extends SemanticMark<BasicEncoderSpecMap['rule'], RuleYEncodeChannels> {
+  static readonly type = 'ruleY';
   constructor(id?: string | number) {
     super('ruleY', id);
   }

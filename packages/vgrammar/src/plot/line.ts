@@ -14,6 +14,7 @@ import type { CrosshairSpec } from '../types/component';
 import { getPalette } from '../palette';
 
 export class Line extends SemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels> {
+  static readonly type = 'line';
   constructor(id?: string | number) {
     super('line', id);
   }

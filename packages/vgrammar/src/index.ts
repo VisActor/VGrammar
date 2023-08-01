@@ -38,4 +38,4 @@ export { registerGlyph, unregisterGlyph, unregisterAllGlyphs } from './view/regi
 export { registerGrammar, unregisterGrammar, unregisterAllGrammars } from './view/register-grammar';
 export * from './types';
 
-export { Plot } from './plot/plot';
+export { Plot } from './plot/plot-all';
