@@ -90,7 +90,7 @@ Label example:
 
 Tooltips are temporarily displayed information prompts. When the user's cursor hovers over a data item in the chart, the tooltip appears near the cursor, displaying information to help users better understand the data.
 
-The componentType of the tooltip component is `'tooltip'`. The View also provides a `View.tooltip()` interface for conveniently creating a tooltip.
+The componentType of the tooltip component is `'tooltip' | 'dimensionTooltip'`, and the View also provides `View.tooltip()` and `View.dimensionTooltip()` interfaces to easily create a tooltip. These two tooltips are respectively aimed at the cases where tooltip is displayed on primitives and tooltip is displayed on data dimensions. Different tooltips can be mixed to adapt to flexible business scenarios.
 
 Tooltip example:
 
