@@ -56,6 +56,7 @@ import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import { invokeFunctionType } from '../parse/util';
 import { defaultTheme } from '../theme/default';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
+import { SIGNAL_VIEW_BOX } from '../view/constants';
 
 let semanticMarkId = -1;
 
@@ -323,7 +324,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return {
       type: 'band',
       id: this.getScaleId('x'),
-      dependency: ['viewBox'],
+      dependency: [SIGNAL_VIEW_BOX],
       domain: {
         data: this.getDataIdOfFiltered(),
         field: option as string
@@ -339,7 +340,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   protected parseScaleOfEncodeY(option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>): ScaleSpec | Nil {
     return {
       type: 'linear',
-      dependency: ['viewBox'],
+      dependency: [SIGNAL_VIEW_BOX],
       id: this.getScaleId('y'),
       domain: {
         data: this.getDataIdOfFiltered(),
@@ -416,7 +417,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             type: 'component',
             componentType: ComponentEnum.axis,
             scale: this.getScaleId(channel),
-            dependency: ['viewBox'],
+            dependency: [SIGNAL_VIEW_BOX],
             tickCount: (option as SemanticAxisOption).tickCount,
             encode: {
               update: (datum: any, elment: IElement, params: any) => {
@@ -502,7 +503,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             type: 'component',
             componentType: ComponentEnum.legend,
             scale: this.getScaleId(channel),
-            dependency: ['viewBox'],
+            dependency: [SIGNAL_VIEW_BOX],
             target: {
               data: this.getDataIdOfFiltered(),
               filter: this.spec.encode?.[channel]
@@ -587,7 +588,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             type: 'component',
             componentType: ComponentEnum.crosshair,
             scale: this.getScaleId(channel),
-            dependency: ['viewBox'],
+            dependency: [SIGNAL_VIEW_BOX],
             crosshairShape: isBoolean(option)
               ? scaleSpec?.type === 'band'
                 ? 'rect'
@@ -637,7 +638,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     const defaultTooltipSpec = this.setDefaultTooltip();
     const userTooltipSpec = this.spec.tooltip;
 
-    if (userTooltipSpec !== false && userTooltipSpec !== null) {
+    if (userTooltipSpec !== false && userTooltipSpec !== null && defaultTooltipSpec !== null) {
       const res: Array<TooltipSpec | DimensionTooltipSpec> = [];
       const tooltipSpec = Object.assign({}, defaultTooltipSpec, userTooltipSpec === true ? {} : userTooltipSpec);
       const colorChannel = isNil((this.spec.encode as any).color) ? 'group' : 'color';
@@ -657,12 +658,14 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       };
       const content =
         isArray(tooltipSpec.content) && tooltipSpec.content.length
-          ? tooltipSpec.content.map(entry => {
+          ? tooltipSpec.content.map((entry, index) => {
               return {
                 key: entry.key
                   ? { field: entry.key }
                   : !isNil(tooltipSpec.staticContentKey)
-                  ? { value: tooltipSpec.staticContentKey }
+                  ? isArray(tooltipSpec.staticContentKey)
+                    ? tooltipSpec.staticContentKey[index]
+                    : tooltipSpec.staticContentKey
                   : (datum: any, el: IElement, params: any) => {
                       return colorAccessor ? colorAccessor(datum) : undefined;
                     },
@@ -694,28 +697,30 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           target: this.getMarkId(),
           dependency,
           title,
-          content
+          content,
+          zIndex: 1000
         } as TooltipSpec);
       }
 
       if (tooltipSpec.disableDimensionTooltip !== true) {
         res.push({
           type: 'component',
+          componentType: ComponentEnum.dimensionTooltip,
           tooltipType: this.getVisualChannel('x' as 'x' | 'y'),
           scale: this.getScaleId('x'),
           dependency,
-          componentType: ComponentEnum.dimensionTooltip,
           target: { data: this.getDataIdOfFiltered(), filter: (this.spec.encode as any)?.x },
           title,
           content,
-          avoidMark: [this.getMarkId()]
+          avoidMark: [this.getMarkId()],
+          zIndex: 1000
         } as DimensionTooltipSpec);
       }
 
       return res;
     }
 
-    return null;
+    return [];
   }
 
   protected setDefaultSlider(): Record<string, Partial<SliderSpec>> {
@@ -753,7 +758,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           const markSpec: SliderSpec = {
             type: 'component',
             componentType: ComponentEnum.slider,
-            dependency: ['viewBox', dataId],
+            dependency: [SIGNAL_VIEW_BOX, dataId],
             min: (datum: any, elment: IElement, params: any) => {
               const data = params[dataId];
 
@@ -858,7 +863,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           const markSpec: DatazoomSpec = {
             type: 'component',
             componentType: ComponentEnum.datazoom,
-            dependency: ['viewBox', dataId],
+            dependency: [SIGNAL_VIEW_BOX, dataId],
             target: {
               data: this.getDataIdOfFiltered(),
               filter: this.spec.encode?.[channel]
@@ -983,7 +988,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         const markSpec: PlayerSpec = {
           type: 'component',
           componentType: ComponentEnum.player,
-          dependency: ['viewBox'],
+          dependency: [SIGNAL_VIEW_BOX],
           target: {
             data: this.getDataIdOfMain(),
             source: this.getDataIdOfPlayer()
@@ -1100,7 +1105,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               data: this.getDataIdOfMain(),
               field: encode[k]
             },
-            dependency: ['viewBox'],
+            dependency: [SIGNAL_VIEW_BOX],
             range: (scale: IBaseScale, params: any) => {
               return [0, params.viewBox.width()];
             }
@@ -1149,7 +1154,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       type: this._coordinate.type ?? 'cartesian',
       transpose: this._coordinate.transpose,
       id: this._coordinate.id,
-      dependency: ['viewBox'],
+      dependency: [SIGNAL_VIEW_BOX],
       start: [0, 0],
       end: (coord: IBaseCoordinate, params: any) => {
         return [params.viewBox.width(), params.viewBox.height()];
@@ -1201,7 +1206,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             position: 'content',
             skipBeforeLayouted: true
           },
-          dependency: this.viewSpec.scales.map(scale => scale.id),
+          dependency: this.viewSpec.scales.map(scale => scale.id).concat(SIGNAL_VIEW_BOX),
           transform: this.convertMarkTransform(),
           animation: this.convertMarkAnimation(),
           encode: Object.assign({}, this.spec.state, {

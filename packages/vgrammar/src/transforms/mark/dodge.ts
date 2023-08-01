@@ -119,13 +119,21 @@ export const transform = (options: DodgeTransformOptions, upstreamData: IElement
         const offset = offsetByGroup[groupValue];
 
         if (dodgeChannel === 'x') {
-          const mx = (element as any).getItemAttribute('x') + bandWidth / 2;
+          const x = (element as any).getItemAttribute('x') + bandWidth / 2 + offset + size / 2;
 
-          (element as any).setItemAttributes({ x: mx + offset + size / 2 });
+          (element as any).setItemAttributes({ x });
+
+          if (markType === 'rule') {
+            (element as any).setItemAttributes({ x1: x });
+          }
         } else if (dodgeChannel === 'y') {
-          const my = (element as any).getItemAttribute('y') + bandWidth / 2;
+          const y = (element as any).getItemAttribute('y') + bandWidth / 2 + offset + size / 2;
 
-          (element as any).setItemAttributes({ y: my + offset + size / 2 });
+          (element as any).setItemAttributes({ y });
+
+          if (markType === 'rule') {
+            (element as any).setItemAttributes({ y1: y });
+          }
         }
       });
     }

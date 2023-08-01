@@ -505,6 +505,11 @@ export const indexes = [
         name: '极坐标系下的柱图',
         type: 'plot'
       },
+      {
+        path: 'area',
+        name: 'area',
+        type: 'plot'
+      },
     ]
   }
 ];

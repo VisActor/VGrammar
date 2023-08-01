@@ -69,7 +69,7 @@ export class Line extends SemanticMark<BasicEncoderSpecMap['line'], LineEncodeCh
     if (markEncoder.color || markEncoder.group) {
       res.stroke = markEncoder.color ?? markEncoder.group;
     } else {
-      res.stroke = getPalette()[0];
+      res.stroke = this.spec.style?.stroke ?? getPalette()[0];
     }
 
     return res;
