@@ -20,6 +20,7 @@ import { getPalette } from '../palette';
 import type { IPolarCoordinate } from '@visactor/vgrammar-coordinate';
 
 export class Interval extends SemanticMark<BasicEncoderSpecMap['interval'], IntervalEncodeChannels> {
+  static readonly type = 'interval';
   constructor(id?: string | number) {
     super('interval', id);
   }

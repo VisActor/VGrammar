@@ -339,3 +339,9 @@ export type PlotMark =
   | IRule
   | IImage
   | IPath;
+
+export interface IPlotMarkConstructor {
+  readonly type: string;
+
+  new (id?: string): PlotMark;
+}

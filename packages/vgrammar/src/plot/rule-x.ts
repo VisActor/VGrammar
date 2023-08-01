@@ -7,13 +7,13 @@ import type {
   ScaleSpec,
   ValueOf,
   WithDefaultEncode,
-  IElement,
-  SemanticTooltipOption
+  IElement
 } from '../types';
 import { SemanticMark } from './semantic-mark';
 import { getPalette } from '../palette';
 
 export class RuleX extends SemanticMark<BasicEncoderSpecMap['rule'], RuleXEncodeChannels> {
+  static readonly type = 'ruleX';
   constructor(id?: string | number) {
     super('ruleX', id);
   }
