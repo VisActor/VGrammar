@@ -36,14 +36,16 @@ export const runner = (plot: IPlot) => {
     .tooltip({ staticTitle: 'GMV' });
 
   
-    plot.ruleX().transform([{
-      type: 'filter',
-      callback: (datum: any) => {
-        return datum.category === 'D';
-      }
-    }, {
+    plot.ruleX().data([{ category: 'X' }], 'dataB').transform([
+    //   {
+    //   type: 'filter',
+    //   callback: (datum: any) => {
+    //     return datum.category === 'D';
+    //   }
+    // }, 
+    {
       type: 'dodge'
-    }]).data(originData).encode('x', 'category').style({ stroke: 'red', lineWidth: 2 });
+    }]).encode('x', 'category').style({ stroke: 'red', lineWidth: 2 });
 };
 
 export const callback = (view: IView) => {

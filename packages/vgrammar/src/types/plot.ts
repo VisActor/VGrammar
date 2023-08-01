@@ -230,7 +230,7 @@ export type SemanticPlayerOption = Partial<PlayerAttributes>;
 
 export interface ISemanticMark<EncodeSpec, K extends string> {
   readonly type: string;
-  data: (values: any) => this;
+  data: (values: any, id?: string) => this;
   style: (style: ISemanticStyle<EncodeSpec, K>) => this;
   encode: (channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>) => this;
   scale: (channel: K, option: ScaleSpec) => this;

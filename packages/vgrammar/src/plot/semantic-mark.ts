@@ -37,7 +37,7 @@ import type {
   PolarCoordinateOption
 } from '../types';
 import type { ILogger } from '@visactor/vutils';
-import { Logger, array, isArray, isBoolean, isNil, isPlainObject, merge, range } from '@visactor/vutils';
+import { Logger, array, isArray, isBoolean, isNil, isPlainObject } from '@visactor/vutils';
 import { isContinuous, type IBaseScale, isDiscrete } from '@visactor/vscale';
 import { getPalette } from '../palette';
 import type {
@@ -91,12 +91,12 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
 
-  data(values: any) {
+  data(values: any, id?: string) {
     if (isNil(values)) {
       return this;
     }
 
-    this.spec.data = { values };
+    this.spec.data = { values, id };
     return this;
   }
 
@@ -290,15 +290,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   }
 
   protected getDataIdOfFiltered() {
-    return `${this.spec.id}-data-filtered`;
+    return `${this.spec.data?.id ?? this.spec.id}-data-filtered`;
   }
 
   protected getDataIdOfMain() {
-    return `${this.spec.id}-data`;
+    return `${this.spec.data?.id ?? this.spec.id}-data`;
   }
 
   protected getDataIdOfPlayer() {
-    return `${this.spec.id}-player`;
+    return `${this.spec.data?.id ?? this.spec.id}-player`;
   }
 
   protected getDataZoomScaleId(channel: string) {
@@ -712,7 +712,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           target: { data: this.getDataIdOfFiltered(), filter: (this.spec.encode as any)?.x },
           title,
           content,
-          avoidMark: [this.getMarkId()],
+          avoidMark: tooltipSpec.disableGraphicTooltip ? [] : [this.getMarkId()],
           zIndex: 1000
         } as DimensionTooltipSpec);
       }
