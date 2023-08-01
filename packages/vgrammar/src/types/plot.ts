@@ -4,9 +4,11 @@ import type {
   AxisBaseAttributes,
   BaseCrosshairAttrs,
   BaseLabelAttrs,
+  ColorLegendAttributes,
   DataZoomAttributes,
-  LegendBaseAttributes,
+  DiscreteLegendAttrs,
   PlayerAttributes,
+  SizeLegendAttributes,
   SliderAttributes
 } from '@visactor/vrender-components';
 import type { BasicEncoderSpecMap, MarkRelativeItemSpec } from './mark';
@@ -40,6 +42,11 @@ export interface PolarCoordinateOption {
   transpose?: boolean;
 }
 
+export type PlotAreaEncoderSpec = Omit<BasicEncoderSpecMap['area'], 'x' | 'y'> & {
+  x?: number | number[];
+  y?: number | number[];
+};
+
 export type CoordinateOption = CartesianCoordinateOption | PolarCoordinateOption;
 export type PlotIntervalSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['interval'], IntervalEncodeChannels>> & {
   type: 'interval';
@@ -50,6 +57,42 @@ export type PlotLineSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['line']
 export type PlotCellSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['cell'], CellEncodeChannels>> & {
   type: 'cell';
 };
+export type PlotRuleXSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rule'], RuleXEncodeChannels>> & {
+  type: 'ruleX';
+};
+export type PlotRuleYSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rule'], RuleYEncodeChannels>> & {
+  type: 'ruleY';
+};
+export type PlotAreaSpec = Partial<ISemanticMarkSpec<PlotAreaEncoderSpec, AreaEncodeChannels>> & {
+  type: 'area';
+};
+export type PlotPointSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['symbol'], PointEncodeChannels>> & {
+  type: 'point';
+};
+export type PlotTextSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['text'], TextEncodeChannels>> & {
+  type: 'point';
+};
+export type PlotRectSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rect'], RectEncodeChannels>> & {
+  type: 'point';
+};
+export type PlotRectXSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rect'], RectXEncodeChannels>> & {
+  type: 'point';
+};
+export type PlotRectYSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rect'], RectYEncodeChannels>> & {
+  type: 'point';
+};
+export type PlotPolygonSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['polygon'], PolygonEncodeChannels>> & {
+  type: 'point';
+};
+export type PlotRuleSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rule'], RuleEncodeChannels>> & {
+  type: 'point';
+};
+export type PlotImageSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['image'], ImageEncodeChannels>> & {
+  type: 'point';
+};
+export type PlotPathSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['path'], PathEncodeChannels>> & {
+  type: 'point';
+};
 
 export interface PlotSpec {
   background?: IColor;
@@ -57,7 +100,23 @@ export interface PlotSpec {
   height?: number;
   padding?: number;
   coordinate?: CoordinateOption;
-  marks?: Array<PlotIntervalSpec | PlotLineSpec | PlotCellSpec>;
+  marks?: Array<
+    | PlotIntervalSpec
+    | PlotLineSpec
+    | PlotCellSpec
+    | PlotRuleXSpec
+    | PlotRuleYSpec
+    | PlotAreaSpec
+    | PlotPointSpec
+    | PlotTextSpec
+    | PlotRectSpec
+    | PlotRectXSpec
+    | PlotRectYSpec
+    | PlotPolygonSpec
+    | PlotRuleSpec
+    | PlotImageSpec
+    | PlotPathSpec
+  >;
 }
 
 export interface IPlot {
@@ -85,12 +144,12 @@ export interface IPlot {
   ///--------- marks ---------///
 
   interval: () => IInterval;
-  // cell: () => ICell;
-  // area: () => ISemanticMark;
+  cell: () => ICell;
+  area: () => IArea;
   // image: () => ISemanticMark;
   line: () => ILine;
-  // lineX: () => ISemanticMark;
-  // lineY: () => ISemanticMark;
+  ruleX: () => IRuleX;
+  ruleY: () => IRuleY;
   // point: () => ISemanticMark;
   // link: () => ISemanticMark;
   // polygon: () => ISemanticMark;
@@ -135,9 +194,11 @@ export interface IPlotConstructor {
 }
 
 export type WithDefaultEncode<T, K extends string> = {
-  [Key in K]?: Key extends keyof T ? ISemanticEncodeValue<T[Key]> : ISemanticEncodeValue<string>;
+  [Key in K]?: Key extends keyof T ? ISemanticEncodeValue<T[Key]> : ISemanticEncodeValue<string | number>;
 };
-export type ISemanticEncodeValue<T> = T extends any[] ? string[] | ((datum: any) => T)[] : string | ((datum: any) => T);
+export type ISemanticEncodeValue<T> = T extends any[]
+  ? string[] | ((datum: any) => any)[]
+  : string | ((datum: any) => T);
 export type ISemanticEncodeSpec<T> = {
   [Key in keyof T]?: ISemanticEncodeValue<T[Key]>;
 };
@@ -147,7 +208,7 @@ export type SemanticTooltipOption = {
   disableGraphicTooltip?: boolean;
   disableDimensionTooltip?: boolean;
   staticTitle?: string;
-  staticContentKey?: string;
+  staticContentKey?: string | string[];
   title?: ISemanticEncodeValue<string | number>;
   content?: Array<{
     key?: ISemanticEncodeValue<string | number>;
@@ -162,7 +223,7 @@ export interface SemanticAxisOption extends Partial<AxisBaseAttributes> {
 
 export type SemanticDataZoomOption = Partial<DataZoomAttributes>;
 export type SemanticSliderOption = Partial<SliderAttributes>;
-export type SemanticLegendOption = Partial<LegendBaseAttributes>;
+export type SemanticLegendOption = Partial<ColorLegendAttributes | DiscreteLegendAttrs | SizeLegendAttributes>;
 export type SemanticCrosshairOption = Partial<BaseCrosshairAttrs>;
 export type SemanticLabelOption = Partial<BaseLabelAttrs>;
 export type SemanticPlayerOption = Partial<PlayerAttributes>;
@@ -230,10 +291,51 @@ export type ParsedSimpleEncode<T, K extends string> = {
 };
 
 export type SemanticEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type IntervalEncodeChannels = SemanticEncodeChannels;
-export type CellEncodeChannels = SemanticEncodeChannels;
-export type LineEncodeChannels = SemanticEncodeChannels;
+export type IntervalEncodeChannels = 'x' | 'y' | 'color' | 'group';
+export type CellEncodeChannels = 'x' | 'y' | 'color' | 'group';
+export type LineEncodeChannels = 'x' | 'y' | 'color' | 'group';
+export type AreaEncodeChannels = 'x' | 'y' | 'color' | 'group';
+export type RuleXEncodeChannels = 'x' | 'color' | 'group';
+export type RuleYEncodeChannels = 'y' | 'color' | 'group';
+export type PointEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'size';
+export type TextEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'text';
+export type RectEncodeChannels = 'x' | 'y' | 'width' | 'height' | 'color' | 'group';
+export type RectXEncodeChannels = 'x' | 'color' | 'group';
+export type RectYEncodeChannels = 'y' | 'color' | 'group';
+export type PolygonEncodeChannels = 'x' | 'y' | 'color' | 'group';
+export type RuleEncodeChannels = 'x' | 'y' | 'color' | 'group';
+export type ImageEncodeChannels = 'x' | 'y' | 'width' | 'height' | 'color' | 'group' | 'src';
+export type PathEncodeChannels = null;
 
 export type IInterval = ISemanticMark<BasicEncoderSpecMap['interval'], IntervalEncodeChannels>;
 export type ILine = ISemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels>;
 export type ICell = ISemanticMark<BasicEncoderSpecMap['cell'], CellEncodeChannels>;
+export type IRuleX = ISemanticMark<BasicEncoderSpecMap['rule'], RuleXEncodeChannels>;
+export type IRuleY = ISemanticMark<BasicEncoderSpecMap['rule'], RuleYEncodeChannels>;
+export type IArea = ISemanticMark<PlotAreaEncoderSpec, AreaEncodeChannels>;
+export type IPoint = ISemanticMark<BasicEncoderSpecMap['symbol'], PointEncodeChannels>;
+export type IText = ISemanticMark<BasicEncoderSpecMap['text'], TextEncodeChannels>;
+export type IRect = ISemanticMark<BasicEncoderSpecMap['rect'], RectEncodeChannels>;
+export type IRectX = ISemanticMark<BasicEncoderSpecMap['rect'], RectXEncodeChannels>;
+export type IRectY = ISemanticMark<BasicEncoderSpecMap['rect'], RectYEncodeChannels>;
+export type IPolygon = ISemanticMark<BasicEncoderSpecMap['polygon'], PolygonEncodeChannels>;
+export type IRule = ISemanticMark<BasicEncoderSpecMap['rule'], RuleEncodeChannels>;
+export type IImage = ISemanticMark<BasicEncoderSpecMap['image'], ImageEncodeChannels>;
+export type IPath = ISemanticMark<BasicEncoderSpecMap['path'], PathEncodeChannels>;
+
+export type PlotMark =
+  | IInterval
+  | IRuleX
+  | IRuleY
+  | ICell
+  | ILine
+  | IArea
+  | IPoint
+  | IText
+  | IRect
+  | IRectX
+  | IRectY
+  | IPolygon
+  | IRule
+  | IImage
+  | IPath;

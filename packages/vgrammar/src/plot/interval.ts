@@ -127,7 +127,7 @@ export class Interval extends SemanticMark<BasicEncoderSpecMap['interval'], Inte
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = getPalette()[0];
+      res.fill = this.spec.style?.fill ?? getPalette()[0];
     }
 
     if (this._coordinate?.type === 'polar') {

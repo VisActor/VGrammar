@@ -1,14 +1,18 @@
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { BaseEventHandler, IElement, IView, ViewSpec } from '../types';
-import type { CoordinateOption, IInterval, IPlot, IPlotOptions, PlotSpec } from '../types/plot';
+import type { CoordinateOption, IPlot, IPlotOptions, PlotMark, PlotSpec } from '../types/plot';
 import { View } from '../view';
 import { Interval } from './interval';
 import { Line } from './line';
 import { Cell } from './cell';
+import { RuleX } from './rule-x';
+import { RuleY } from './rule-y';
+import { SIGNAL_VIEW_BOX } from '../view/constants';
+import { Area } from './area';
 
 export class Plot implements IPlot {
   private _view: IView;
-  private _semanticMarks: IInterval[];
+  private _semanticMarks: PlotMark[];
   private _hasInited?: boolean;
   private _coordinate: CoordinateOption;
 
@@ -39,7 +43,19 @@ export class Plot implements IPlot {
       }
 
       if (scales && scales.length) {
-        spec.scales = spec.scales.concat(scales);
+        spec.scales = scales.reduce((res, scale) => {
+          if (scale.id) {
+            const prevScale = res.find(prev => prev.id === scale.id);
+
+            if (prevScale) {
+              // todo combine scale
+            } else {
+              res.push(scale);
+            }
+          }
+
+          return res;
+        }, spec.scales);
       }
       if (coordinates && coordinates.length) {
         spec.coordinates = coordinates.reduce((res, coord) => {
@@ -68,7 +84,7 @@ export class Plot implements IPlot {
           display: 'relative',
           updateViewSignals: true
         },
-        dependency: ['viewBox'],
+        dependency: [SIGNAL_VIEW_BOX],
         encode: {
           update: (datum: any, elment: IElement, params: any) => {
             return {
@@ -194,6 +210,17 @@ export class Plot implements IPlot {
 
     return line;
   }
+
+  area() {
+    const area = new Area();
+
+    if (this._coordinate) {
+      area.coordinate(this._coordinate);
+    }
+    this._semanticMarks.push(area);
+
+    return area;
+  }
   cell() {
     const cell = new Cell();
 
@@ -203,5 +230,27 @@ export class Plot implements IPlot {
     this._semanticMarks.push(cell);
 
     return cell;
+  }
+
+  ruleX() {
+    const mark = new RuleX();
+
+    if (this._coordinate) {
+      mark.coordinate(this._coordinate);
+    }
+    this._semanticMarks.push(mark);
+
+    return mark;
+  }
+
+  ruleY() {
+    const mark = new RuleY();
+
+    if (this._coordinate) {
+      mark.coordinate(this._coordinate);
+    }
+    this._semanticMarks.push(mark);
+
+    return mark;
   }
 }
