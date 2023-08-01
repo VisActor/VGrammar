@@ -23,7 +23,7 @@ import type {
   AttributeTransform,
   BaseSignleEncodeSpec
 } from './mark';
-import type { ScaleConfigureSpec, ScaleData, ScaleFunctionType, GrammarScaleType } from './scale';
+import type { ScaleConfigureSpec, ScaleData, ScaleFunctionType, GrammarScaleType, MultiScaleData } from './scale';
 import type { IView } from './view';
 import type { BaseEventHandler } from './event';
 import type { ICartesianCoordinate, IPolarCoordinate } from '@visactor/vgrammar-coordinate';
@@ -144,8 +144,8 @@ export interface ISignal<T> extends IGrammarBase {
 
 /** 语法元素,TODO */
 export interface IScale extends IGrammarBase {
-  domain: (domain: ScaleFunctionType<any[]> | ScaleData | Nil) => this;
-  range: (range: ScaleFunctionType<any[]> | ScaleData | Nil) => this;
+  domain: (domain: ScaleFunctionType<any[]> | ScaleData | MultiScaleData | Nil) => this;
+  range: (range: ScaleFunctionType<any[]> | ScaleData | MultiScaleData | Nil) => this;
   configure: (config: ScaleConfigureSpec | Nil) => this;
 
   // scale util methods

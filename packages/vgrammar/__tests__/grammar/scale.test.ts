@@ -1,4 +1,5 @@
 import { Scale } from '../../src/view/scale';
+import { Data } from '../../src/view/data';
 import { getMockedView } from '../util';
 
 const view = getMockedView();
@@ -110,4 +111,113 @@ test('Scale sets configs by api', function () {
   expect(references1[0].reference.id()).toEqual('table');
   expect(references1[1].count).toEqual(1);
   expect(references1[1].reference.id()).toEqual('viewWidth');
+});
+
+test('set the domain ang range of a band scale by data', function () {
+  const dataA = new Data(view as any, [
+    { cat: 'A', min: 1, max: 100 },
+    { cat: 'C', min: 2, max: 200 }
+  ]).id('dataA');
+  const scale = new Scale(view as any, 'band')
+    .domain({
+      data: dataA,
+      field: 'cat'
+    })
+    .range({
+      data: dataA,
+      field: ['min', 'max']
+    });
+  expect(scale.output().type).toEqual('band');
+  expect(scale.output().domain()).toEqual([]);
+  expect(scale.output().range()).toEqual([0, 1]);
+
+  dataA.runSync();
+  scale.runSync();
+  expect(scale.output().domain()).toEqual(['A', 'C']);
+  expect(scale.output().range()).toEqual([1, 2]);
+});
+
+test('set the domain ang range of a linear scale by data', function () {
+  const dataA = new Data(view as any, [
+    { cat: 'A', min: 1, max: 100 },
+    { cat: 'C', min: 2, max: 200 }
+  ]).id('dataA');
+  const scale = new Scale(view as any, 'linear')
+    .domain({
+      data: dataA,
+      field: ['min', 'max']
+    })
+    .range([1, 100]);
+  expect(scale.output().type).toEqual('linear');
+  expect(scale.output().domain()).toEqual([0, 1]);
+  expect(scale.output().range()).toEqual([0, 1]);
+
+  dataA.runSync();
+  scale.runSync();
+  expect(scale.output().domain()).toEqual([1, 200]);
+  expect(scale.output().range()).toEqual([1, 100]);
+});
+
+test('set the domain ang range of a band scale by multi data', function () {
+  const dataA = new Data(view as any, [
+    { cat: 'A', min: 1, max: 100 },
+    { cat: 'C', min: 2, max: 200 }
+  ]).id('dataA');
+  const dataB = new Data(view as any, [
+    { cat: 'E', min: 0, max: 150 },
+    { cat: 'F', min: 1, max: 250 }
+  ]).id('dataB');
+  const scale = new Scale(view as any, 'band').domain({
+    datas: [
+      {
+        data: dataA,
+        field: 'cat'
+      },
+      {
+        data: dataB,
+        field: 'cat'
+      }
+    ]
+  });
+  expect(scale.output().type).toEqual('band');
+  expect(scale.output().domain()).toEqual([]);
+  expect(scale.output().range()).toEqual([0, 1]);
+
+  dataA.runSync();
+  dataB.runSync();
+  scale.runSync();
+  expect(scale.output().domain()).toEqual(['A', 'C', 'E', 'F']);
+});
+
+test('set the domain ang range of a linear scale by multi data', function () {
+  const dataA = new Data(view as any, [
+    { cat: 'A', min: 1, max: 100 },
+    { cat: 'C', min: 2, max: 200 }
+  ]).id('dataA');
+  const dataB = new Data(view as any, [
+    { cat: 'E', min: 0, max: 150 },
+    { cat: 'F', min: 1, max: 250 }
+  ]).id('dataB');
+  const scale = new Scale(view as any, 'linear')
+    .domain({
+      datas: [
+        {
+          data: dataA,
+          field: ['min', 'max']
+        },
+        {
+          data: dataB,
+          field: ['min', 'max']
+        }
+      ]
+    })
+    .range([1, 100]);
+  expect(scale.output().type).toEqual('linear');
+  expect(scale.output().domain()).toEqual([0, 1]);
+  expect(scale.output().range()).toEqual([0, 1]);
+
+  dataA.runSync();
+  dataB.runSync();
+  scale.runSync();
+  expect(scale.output().domain()).toEqual([0, 250]);
 });

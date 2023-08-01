@@ -1,4 +1,4 @@
-import { isFunction, isNil, isNumber, isString, isValidNumber } from '@visactor/vutils';
+import { isArray, isFunction, isNil, isNumber, isString, isValidNumber } from '@visactor/vutils';
 import type {
   IBaseScale,
   IBandLikeScale,
@@ -38,6 +38,7 @@ import type {
   PointScaleSpec,
   ScaleFunctionType,
   ScaleData,
+  MultiScaleData,
   ScaleSpec,
   ScaleConfigureSpec,
   ScaleCoordinate,
@@ -53,6 +54,7 @@ import type {
   GrammarScaleType
 } from '../types/scale';
 import { getGrammarOutput, invokeFunctionType, parseFunctionType } from './util';
+import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 
 export function createScale(type: GrammarScaleType): IBaseScale {
   switch (type) {
@@ -97,6 +99,27 @@ function parseScaleDataType(spec: ScaleData, view: IView): IGrammarBase[] {
   } else if ((spec.data as IGrammarBase)?.grammarType === 'data') {
     return [spec.data as IGrammarBase];
   }
+  return [];
+}
+
+function isMultiScaleDataType(spec: MultiScaleData | any): spec is MultiScaleData {
+  return !isNil(spec?.datas);
+}
+
+function parseMultiScaleDataType(spec: MultiScaleData, view: IView): IGrammarBase[] {
+  if (spec?.datas && spec.datas.length) {
+    const res: IGrammarBase[] = [];
+    spec.datas.forEach(data => {
+      const gramarBase = parseScaleDataType(data, view);
+
+      if (gramarBase.length) {
+        res.push(gramarBase[0]);
+      }
+    });
+
+    return res;
+  }
+
   return [];
 }
 
@@ -149,9 +172,13 @@ function parsePointScale(spec: PointScaleSpec, view: IView) {
   return parseBaseBandScale(spec, view);
 }
 
-export function parseScaleDomainRange(domain: ScaleFunctionType<any> | ScaleData, view: IView) {
+export function parseScaleDomainRange(domain: ScaleFunctionType<any> | ScaleData | MultiScaleData, view: IView) {
   if (isScaleDataType(domain)) {
     return parseScaleDataType(domain, view);
+  }
+
+  if (isMultiScaleDataType(domain)) {
+    return parseMultiScaleDataType(domain, view);
   }
 
   if (isScaleCoordinateType(domain)) {
@@ -322,21 +349,49 @@ function configurePointScale(spec: PointScaleSpec, scale: IBandLikeScale, parame
   return configureBaseBandScale(spec, scale, parameters);
 }
 
-function parseScaleDataTypeValue(spec: ScaleData, scale: IBaseScale, parameters: any, filterNumber?: boolean) {
+function parseFieldData(spec: ScaleData, parameters: any) {
   const field = spec.field;
   const refData = getGrammarOutput(spec.data, parameters) as any[];
-  const fieldData = isString(field)
-    ? refData.map(datum => datum[field])
-    : (field as string[]).reduce((res: any[], f: string) => {
+  const fieldData: any[] = [];
+
+  if (isArray(field)) {
+    field.forEach(entry => {
+      const getter = getFieldAccessor(entry);
+
+      refData &&
         refData.forEach(datum => {
-          res.push(datum[f]);
+          fieldData.push(getter(datum));
         });
+    });
+  } else {
+    const getter = getFieldAccessor(field);
 
-        return res;
-      }, []);
+    refData &&
+      refData.forEach(datum => {
+        fieldData.push(getter(datum));
+      });
+  }
 
-  if (spec.sort) {
-    fieldData.sort(spec.sort);
+  return fieldData;
+}
+function parseMultiFieldData(spec: MultiScaleData, parameters: any) {
+  let fieldData: any[] = [];
+
+  spec.datas.forEach(entry => {
+    fieldData = fieldData.concat(parseFieldData(entry, parameters));
+  });
+
+  return fieldData;
+}
+
+function parseScaleDataTypeValue(
+  fieldData: any[],
+  scale: IBaseScale,
+  sort?: (datumA: any, datumB: any) => number,
+  filterNumber?: boolean
+) {
+  if (sort) {
+    fieldData.sort(sort);
   }
 
   if (!isContinuous(scale.type)) {
@@ -351,12 +406,19 @@ function parseScaleDataTypeValue(spec: ScaleData, scale: IBaseScale, parameters:
 
 export function configureScale(spec: ScaleSpec, scale: IBaseScale, parameters: any) {
   if (isScaleDataType(spec.domain)) {
-    scale.domain(parseScaleDataTypeValue(spec.domain, scale, parameters, true), true);
+    scale.domain(parseScaleDataTypeValue(parseFieldData(spec.domain, parameters), scale, spec.domain.sort, true), true);
+  } else if (isMultiScaleDataType(spec.domain)) {
+    scale.domain(
+      parseScaleDataTypeValue(parseMultiFieldData(spec.domain, parameters), scale, spec.domain.sort, true),
+      true
+    );
   } else {
     scale.domain(invokeFunctionType(spec.domain, parameters, scale), true);
   }
   if (isScaleDataType(spec.range)) {
-    scale.range(parseScaleDataTypeValue(spec.range, scale, parameters), true);
+    scale.range(parseScaleDataTypeValue(parseFieldData(spec.range, parameters), scale), true);
+  } else if (isMultiScaleDataType(spec.range)) {
+    scale.range(parseScaleDataTypeValue(parseMultiFieldData(spec.range, parameters), scale), true);
   } else if (isScaleCoordinateType(spec.range)) {
     const coord = getGrammarOutput(spec.range.coordinate, parameters);
 
