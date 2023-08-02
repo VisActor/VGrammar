@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-wordcloud",
+      "comment": "fix(wordCloud): support wordCloud Chart with negative data and one data. fix VisActor/VChart#373 VisActor/VChart#299",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-wordcloud"
+}
