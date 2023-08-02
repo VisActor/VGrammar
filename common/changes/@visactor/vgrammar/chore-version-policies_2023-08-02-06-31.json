@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix: fix the issue of wrodCloud error reporting in non-integer canvas wh",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
