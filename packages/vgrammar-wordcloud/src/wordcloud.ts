@@ -169,13 +169,13 @@ const field = <T>(option: FieldOption | TagItemAttribute<T>) => {
   return (datum: any) => datum[(option as FieldOption).field] as T;
 };
 
+const sqrt = (x: number) => {
+  return x < 0 ? -Math.sqrt(-x) : Math.sqrt(x);
+};
+
 // 模拟sqrt scale
 const sqrtScale = (datum: any, domain: number[], range: number[]) => {
-  return (
-    ((Math.sqrt(datum) - Math.sqrt(domain[0])) / (Math.sqrt(domain[1]) - Math.sqrt(domain[0]))) *
-      (range[1] - range[0]) +
-    range[0]
-  );
+  return ((sqrt(datum) - sqrt(domain[0])) / (sqrt(domain[1]) - sqrt(domain[0]))) * (range[1] - range[0]) + range[0];
 };
 
 const extent = (field: any, data: any[]) => {
