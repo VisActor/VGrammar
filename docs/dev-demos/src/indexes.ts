@@ -91,6 +91,11 @@ export const indexes = [
       {
         path: 'simple-area-chart',
         name: '简单面积图'
+      },
+      {
+        path: 'stream',
+        name: '河流图',
+        type: 'api'
       }
     ]
   },
