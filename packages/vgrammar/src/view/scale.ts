@@ -9,7 +9,8 @@ import type {
   ScaleData,
   ScaleFunctionType,
   ScaleSpec,
-  GrammarScaleType
+  GrammarScaleType,
+  MultiScaleData
 } from '../types/scale';
 import { GrammarBase } from './grammar-base';
 import { configureScale, createScale, parseScaleConfig, parseScaleDomainRange } from '../parse/scale';
@@ -64,7 +65,7 @@ export class Scale extends GrammarBase implements IScale {
     return this.scale?.tickData?.(count) ?? [];
   }
 
-  domain(domain: ScaleFunctionType<any[]> | ScaleData | Nil) {
+  domain(domain: ScaleFunctionType<any[]> | ScaleData | MultiScaleData | Nil) {
     if (!isNil(this.spec.domain)) {
       this.detach(parseScaleDomainRange(this.spec.domain, this.view));
     }
@@ -74,7 +75,7 @@ export class Scale extends GrammarBase implements IScale {
     return this;
   }
 
-  range(range: ScaleFunctionType<any[]> | ScaleData | ScaleCoordinate | Nil) {
+  range(range: ScaleFunctionType<any[]> | ScaleData | MultiScaleData | ScaleCoordinate | Nil) {
     if (!isNil(this.spec.range)) {
       this.detach(parseScaleDomainRange(this.spec.range, this.view));
     }
