@@ -13,8 +13,8 @@ export const spec = {
   //     "right": 0
   //   },
   //   "autosize": "none",
-  width: 300,
-  height: 300,
+  width: 100,
+  height: 100,
   padding: 5,
 
   data: [
@@ -69,7 +69,7 @@ export const spec = {
       transform: [
         {
           type: 'wordcloud',
-          size: [300, 300],
+          size: [10, 10],
           // "size": [{"signal": "width"}, {"signal": "height"}],
           text: { field: 'challenge_name' },
           fontFamily: 'HuaWenHeiTi',
@@ -78,8 +78,8 @@ export const spec = {
           fontSizeRange: [10, 40], // 字体范围
           padding: { signal: 'wordPadding' },
           // rotate: { field: 'rotate' },
-          shrink: true, // ls是否支持缩小显示单词
-          enlarge: false, // 是否支持放大填满画布
+          shrink: false, // ls是否支持缩小显示单词
+          enlarge: true, // 是否支持放大填满画布
           minFontSize: 2, // 缩放时最小字号
           clip: false,
           // "spiral": "rectangular",
