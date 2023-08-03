@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-wordcloud",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-wordcloud"
+}

@@ -24,7 +24,6 @@ export const runner = (view: IView) => {
   const data = view.data(originData).transform([
     {
       type: 'stack',
-      orient: 'negative',
       dimensionField: 'category',
       stackField: 'amount',
       asStack: 'amount',

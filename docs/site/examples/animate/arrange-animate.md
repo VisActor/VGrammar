@@ -203,7 +203,6 @@ const spec = {
       transform: [
         {
           type: 'stack',
-          //orient: 'negative',
           dimensionField: 'month',
           stackField: 'value',
           asStack: 'value',
