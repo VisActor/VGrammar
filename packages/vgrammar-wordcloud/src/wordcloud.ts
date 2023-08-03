@@ -90,9 +90,7 @@ export const transform = (
   // 只有fontSize不为固定值时，fontSizeRange才生效
   if (fontSizeRange && !isNumber(fontSize)) {
     const fsize: any = fontSize;
-    fontSize = (datum: any) => {
-      return sqrtScale(fsize(datum), extent(fsize, data), fontSizeRange as number[]);
-    };
+    fontSize = datum => generateSqrtScale(extent(fsize, data), fontSizeRange as number[])(fsize(datum));
   }
 
   let Layout: any = CloudLayout;
@@ -173,9 +171,18 @@ const sqrt = (x: number) => {
   return x < 0 ? -Math.sqrt(-x) : Math.sqrt(x);
 };
 
-// 模拟sqrt scale
-const sqrtScale = (datum: any, domain: number[], range: number[]) => {
-  return ((sqrt(datum) - sqrt(domain[0])) / (sqrt(domain[1]) - sqrt(domain[0]))) * (range[1] - range[0]) + range[0];
+// simulation sqrt scale
+const generateSqrtScale = (domain: number[], range: number[]) => {
+  if (domain[0] === domain[1]) {
+    return (datum: number) => range[0]; // match smallest fontsize
+  }
+
+  const s0 = sqrt(domain[0]);
+  const s1 = sqrt(domain[1]);
+  const min = Math.min(s0, s1);
+  const max = Math.max(s0, s1);
+
+  return (datum: number) => ((sqrt(datum) - min) / (max - min)) * (range[1] - range[0]) + range[0];
 };
 
 const extent = (field: any, data: any[]) => {
@@ -197,7 +204,7 @@ const extent = (field: any, data: any[]) => {
 
   // 如果单条数据，匹配最大字号
   if (data.length === 1 && min === max) {
-    min -= 10000;
+    min = max - 1;
   }
 
   return [min, max];

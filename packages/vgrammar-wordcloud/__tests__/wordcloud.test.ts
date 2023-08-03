@@ -82,6 +82,38 @@ test('Wordcloud generates wordcloud layout with negative data', async () => {
   expect(result[0].y).toBe(250);
 });
 
+test('Wordcloud generates wordcloud layout with negative data and -domain[0] === domain[1]', async () => {
+  const data = [
+    { text: 'foo', size: -49, index: 0 },
+    { text: 'bar', size: 49, index: 1 }
+  ];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontSize).toBe(7);
+  expect(result[0].fontStyle).toBe('normal');
+  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
+
+  expect(result.length).toBe(data.length);
+  expect(result[1].fontFamily).toBe('sans-serif');
+  expect(result[1].fontSize).toBe(1);
+  expect(result[1].fontStyle).toBe('normal');
+  expect(result[1].fontWeight).toBe('normal');
+  expect(result[1].x).toBe(253);
+  expect(result[1].y).toBe(253);
+});
+
 test('Wordcloud generates wordcloud layout with one data', async () => {
   const data = [{ text: 'foo', size: 49, index: 0 }];
 
@@ -97,6 +129,54 @@ test('Wordcloud generates wordcloud layout with one data', async () => {
   expect(result.length).toBe(data.length);
   expect(result[0].fontFamily).toBe('sans-serif');
   expect(result[0].fontSize).toBe(7);
+  expect(result[0].fontStyle).toBe('normal');
+  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
+});
+
+test('Wordcloud generates wordcloud layout with domain[0] == domain[1] & domain[0] < 0', async () => {
+  const data = [
+    { text: 'foo', size: -49, index: 0 },
+    { text: 'bar', size: -49, index: 1 }
+  ];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontSize).toBe(1);
+  expect(result[0].fontStyle).toBe('normal');
+  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
+});
+
+test('Wordcloud generates wordcloud layout with domain[0] == domain[1] & domain[0] > 0', async () => {
+  const data = [
+    { text: 'foo', size: 49, index: 0 },
+    { text: 'bar', size: 49, index: 1 }
+  ];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontSize).toBe(1);
   expect(result[0].fontStyle).toBe('normal');
   expect(result[0].fontWeight).toBe('normal');
   expect(result[0].x).toBe(250);
