@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: provide silhouette & wiggle offset for stack transform to support stream graph",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
