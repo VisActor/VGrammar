@@ -1,6 +1,22 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Thu, 27 Jul 2023 09:58:52 GMT and should not be manually modified.
+This log was last generated on Thu, 03 Aug 2023 08:39:42 GMT and should not be manually modified.
+
+## 0.5.2
+Thu, 03 Aug 2023 08:39:42 GMT
+
+### Patches
+
+- fix(vgrammar-wordcloud): fix the issue of wordcloud error reporting in non-integer canvas wh
+- fix(vgrammar): glyph should merge prev attrs when add a state, fix the issue of sankey state
+
+
+
+### Updates
+
+- fix(wordcloud): wordcloud should not throw error when the size is very small, fix #91
+
+
 
 ## 0.5.1
 Thu, 27 Jul 2023 09:58:52 GMT
