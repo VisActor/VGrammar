@@ -81,8 +81,50 @@ test('CartesianCoordinate.getRangeByDimension() return the range by dimension', 
 
   expect(coord.getRangeByDimension('x')).toEqual([40, 400]);
   expect(coord.getRangeByDimension('y')).toEqual([30, 500]);
+
+  expect(coord.getRangeByDimension('x', false, true)).toEqual([400, 40]);
+
   // transpose
   coord.applyTransforms([{ type: 'transpose' }]);
   expect(coord.getRangeByDimension('x')).toEqual([30, 500]);
   expect(coord.getRangeByDimension('y')).toEqual([40, 400]);
+});
+
+test('CartesianCoordinate.getVisualPositionByDimension() return the correct visual position', function () {
+  const coord = new CartesianCoordinate().start([40, 500]).end([400, 30]);
+  expect(coord.getVisualPositionByDimension('x')).toEqual('bottom');
+  expect(coord.getVisualPositionByDimension('y')).toEqual('left');
+
+  // transpose
+  coord.applyTransforms([{ type: 'transpose' }]);
+  expect(coord.getVisualPositionByDimension('x')).toEqual('left');
+  expect(coord.getVisualPositionByDimension('y')).toEqual('bottom');
+});
+
+test('CartesianCoordinate.getAxisPointsByDimension() return the axis points', function () {
+  const coord = new CartesianCoordinate().start([40, 500]).end([400, 30]);
+
+  expect(coord.getAxisPointsByDimension('x')).toEqual([
+    { x: 40, y: 30 },
+    { x: 400, y: 30 }
+  ]);
+  expect(coord.getAxisPointsByDimension('y')).toEqual([
+    { x: 40, y: 30 },
+    { x: 40, y: 500 }
+  ]);
+  expect(coord.getAxisPointsByDimension('x', false, true, 100)).toEqual([
+    { x: 400, y: 100 },
+    { x: 40, y: 100 }
+  ]);
+
+  // transpose
+  coord.applyTransforms([{ type: 'transpose' }]);
+  expect(coord.getAxisPointsByDimension('x')).toEqual([
+    { x: 40, y: 30 },
+    { x: 40, y: 500 }
+  ]);
+  expect(coord.getAxisPointsByDimension('y')).toEqual([
+    { x: 40, y: 30 },
+    { x: 400, y: 30 }
+  ]);
 });
