@@ -1,8 +1,9 @@
 import { registerTransform } from '../src/transforms/register';
 import { transforms } from '../src/transforms/index';
-import { createGraphicItem } from '../src/graph/util/graphic';
+import { createGlyphGraphicItem, createGraphicItem } from '../src/graph/util/graphic';
 import { createElement } from '../src/graph/util/element';
 import { transformsByType } from '../src/graph/attributes';
+import type { IGlyphElement, IGlyphMeta } from '../src';
 
 const use = (...transformMaps: Record<string, any>[]) => {
   transformMaps.forEach(transformMap => {
@@ -66,6 +67,36 @@ export function createSimpleElement(
   mark.addGraphicItem = () => {
     return (createGraphicItem as any)(mark, markType, {});
   };
-  createElement(mark);
   return createElement(mark);
+}
+
+export function createSimpleBoxplotElement(
+  glyphMeta: IGlyphMeta,
+  options?: {
+    transformType?: string;
+    markSpec?: any;
+  }
+) {
+  const mark = {
+    markType: 'glyph',
+    isLargeMode: () => false,
+    isCollectionMark: () => false,
+    needAnimate: () => false,
+    graphicParent: { appendChild: emptyFunction, insertInto: emptyFunction },
+    getSpec: () => ({}),
+    parameters: () => ({}),
+    glyphMeta,
+    getGlyphMeta: () => glyphMeta,
+    emit: () => false,
+    view: getMockedView(),
+    isProgressive: () => false,
+    getGlyphConfig: () => null as any,
+    getAttributeTransforms: () => transformsByType[options?.transformType ?? 'glyph']
+  } as any;
+  mark.addGraphicItem = () => {
+    return (createGlyphGraphicItem as any)(mark, glyphMeta, {});
+  };
+  const element = createElement(mark) as IGlyphElement;
+  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  return element;
 }

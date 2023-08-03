@@ -23,49 +23,57 @@
       "packageName": "@visactor/vgrammar-wordcloud-shape",
       "projectFolder": "packages/vgrammar-wordcloud-shape",
       "tags": ["package"],
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@visactor/vgrammar-wordcloud",
       "projectFolder": "packages/vgrammar-wordcloud",
       "tags": ["package"],
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@visactor/vgrammar-sankey",
       "projectFolder": "packages/vgrammar-sankey",
       "tags": ["package"],
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@visactor/vgrammar-hierarchy",
       "projectFolder": "packages/vgrammar-hierarchy",
       "tags": ["package"],
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@visactor/vgrammar-projection",
       "projectFolder": "packages/vgrammar-projection",
       "tags": ["package"],
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@visactor/vgrammar-util",
       "projectFolder": "packages/vgrammar-util",
       "tags": ["package"],
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@visactor/vgrammar-coordinate",
       "projectFolder": "packages/vgrammar-coordinate",
       "tags": ["package"],
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@visactor/vgrammar",
       "projectFolder": "packages/vgrammar",
       "tags": ["package"],
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@internal/bundler",

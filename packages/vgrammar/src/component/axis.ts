@@ -92,6 +92,7 @@ export class Axis extends ScaleComponent implements IAxis {
   protected parseAddition(spec: AxisSpec) {
     super.parseAddition(spec);
 
+    this.axisType(spec.axisType);
     this.tickCount(spec.tickCount);
     this.inside(spec.inside);
     this.baseValue(spec.baseValue);

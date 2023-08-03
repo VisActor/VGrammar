@@ -266,12 +266,12 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
       }
     }
 
-    if (!this.options.clip && this.options.enlarge) {
+    if (!this.options.clip && this.options.enlarge && this._bounds) {
       this.shrinkBoard(this._bounds);
     }
 
     // 处理y方向偏移
-    if (['cardioid', 'triangle', 'triangle-upright'].includes(this.options.shape as string)) {
+    if (this._bounds && ['cardioid', 'triangle', 'triangle-upright'].includes(this.options.shape as string)) {
       const currentCenterY = (this._bounds[0].y + this._bounds[1].y) / 2;
       this._dy = -(currentCenterY - this._size[1] / 2);
     }

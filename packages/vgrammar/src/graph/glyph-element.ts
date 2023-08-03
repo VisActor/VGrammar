@@ -156,7 +156,13 @@ export class GlyphElement extends Element implements IGlyphElement {
     const functionEncoder = this.glyphMeta.getFunctionEncoder();
 
     if (functionEncoder) {
-      customEncodeValues = functionEncoder.call(null, nextAttrs, this.getDatum(), this, this.mark.getGlyphConfig());
+      customEncodeValues = functionEncoder.call(
+        null,
+        Object.assign({}, this.graphicItem?.attribute, nextAttrs),
+        this.getDatum(),
+        this,
+        this.mark.getGlyphConfig()
+      );
     }
     if (channelEncoder) {
       // TODO: maybe delete origin encode value?
