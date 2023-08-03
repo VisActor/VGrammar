@@ -43,7 +43,7 @@ export const spec = {
     },
     {
       id: 'direction',
-      value: 'vertical',
+      value: 'horizontal',
       bind: {
         input: 'select',
         options: ['horizontal', 'vertical']
@@ -198,7 +198,6 @@ export const spec = {
             //   fillOpacity: 0.8
             // },
             update: datum => {
-              console.log(datum);
               return {
                 direction: datum.vertical ? 'vertical' : 'horizontal',
                 x0: datum.x0,
@@ -246,7 +245,7 @@ export const binds = [
   },
   {
     id: 'direction',
-    value: 'vertical',
+    value: 'horizontal',
     bind: {
       input: 'select',
       options: ['horizontal', 'vertical']
@@ -261,11 +260,18 @@ export const callback = (chartInstance: IView) => {
     const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
     const highlightNodes: string[] = [nodeDatum.key];
 
+    console.log(allLinkElements)
+
     allLinkElements.forEach(linkEl => {
       linkEl.clearStates();
       const linkDatum = linkEl.getDatum();
+      const originalDatum = linkDatum.datum;
+      const selectedDatum = originalDatum
+      .filter((entry: any) => entry.parents.some((par: any) => par.key === nodeDatum.key));
 
-      if (linkDatum.parents.includes(nodeDatum.key)) {
+
+      if (selectedDatum && selectedDatum.length) {
+        console.log('下游节点', linkDatum)
         // 下游link
         if (!highlightNodes.includes(linkDatum.source)) {
           highlightNodes.push(linkDatum.source);
@@ -274,16 +280,16 @@ export const callback = (chartInstance: IView) => {
         if (!highlightNodes.includes(linkDatum.target)) {
           highlightNodes.push(linkDatum.target);
         }
-        const originalDatum = linkDatum.datum;
-        const val = originalDatum
-          .filter((entry: any) => entry.parents.some((par: any) => par.key === nodeDatum.key))
-          .reduce((sum: number, d: any) => {
+        
+        const val = selectedDatum.reduce((sum: number, d: any) => {
             return (sum += d.value);
           }, 0);
         const ratio = val / linkDatum.value;
 
         linkEl.addState('selected', { ratio });
       } else if (linkDatum.target === nodeDatum.key) {
+        console.log('点击节点的上游一层的节点', linkDatum)
+        // 点击节点的上游一层的节点
         if (!highlightNodes.includes(linkDatum.source)) {
           highlightNodes.push(linkDatum.source);
         }
