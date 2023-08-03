@@ -62,7 +62,7 @@ export interface IBaseCoordinate {
 
   getRangeByDimension: (dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean) => [number, number];
 
-  getVisiualPositionByDimension: (dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean) => string;
+  getVisualPositionByDimension: (dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean) => string;
 
   getAxisPointsByDimension: (
     dim: IDimensionType,
