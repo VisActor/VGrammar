@@ -90,7 +90,10 @@ export const transform = (
   // 只有fontSize不为固定值时，fontSizeRange才生效
   if (fontSizeRange && !isNumber(fontSize)) {
     const fsize: any = fontSize;
-    fontSize = datum => generateSqrtScale(extent(fsize, data), fontSizeRange as number[])(fsize(datum));
+    fontSize = datum => {
+      const fontSizeSqrtScale = generateSqrtScale(extent(fsize, data), fontSizeRange as number[]);
+      return fontSizeSqrtScale(fsize(datum));
+    };
   }
 
   let Layout: any = CloudLayout;
