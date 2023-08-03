@@ -49,10 +49,12 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
   ],
   [GrammarMarkType.area]: [
     {
-      channels: ['x', 'y', 'x1', 'y1', 'width', 'height'],
+      channels: ['x', 'y', 'x1', 'y1'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
         graphicAttributes.x = 0;
         graphicAttributes.y = 0;
+        graphicAttributes.x1 = 0;
+        graphicAttributes.y1 = 0;
       }
     }
   ],
