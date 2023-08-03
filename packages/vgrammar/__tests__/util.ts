@@ -70,7 +70,13 @@ export function createSimpleElement(
   return createElement(mark);
 }
 
-export function createSimpleBoxplotElement(glyphMeta: IGlyphMeta) {
+export function createSimpleBoxplotElement(
+  glyphMeta: IGlyphMeta,
+  options?: {
+    transformType?: string;
+    markSpec?: any;
+  }
+) {
   const mark = {
     markType: 'glyph',
     isLargeMode: () => false,
@@ -85,7 +91,7 @@ export function createSimpleBoxplotElement(glyphMeta: IGlyphMeta) {
     view: getMockedView(),
     isProgressive: () => false,
     getGlyphConfig: () => null as any,
-    getAttributeTransforms: () => transformsByType.rect
+    getAttributeTransforms: () => transformsByType[options?.transformType ?? 'glyph']
   } as any;
   mark.addGraphicItem = () => {
     return (createGlyphGraphicItem as any)(mark, glyphMeta, {});
