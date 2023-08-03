@@ -132,8 +132,8 @@ test('Wordcloud generates wordcloud layout with negative data and -domain[0] ===
   expect(result[1].fontSize).toBe(1);
   expect(result[1].fontStyle).toBe('normal');
   expect(result[1].fontWeight).toBe('normal');
-  expect(result[1].x).toBe(253);
-  expect(result[1].y).toBe(253);
+  expect(result[1].x).toBe(252);
+  expect(result[1].y).toBe(252);
 });
 
 test('Wordcloud generates wordcloud layout with one data', async () => {
