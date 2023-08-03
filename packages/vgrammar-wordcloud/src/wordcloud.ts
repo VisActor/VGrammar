@@ -204,7 +204,7 @@ const extent = (field: any, data: any[]) => {
 
   // 如果单条数据，匹配最大字号
   if (data.length === 1 && min === max) {
-    min = max - 1;
+    min -= 1000;
   }
 
   return [min, max];
