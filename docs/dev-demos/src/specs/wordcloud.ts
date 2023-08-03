@@ -13,8 +13,8 @@ export const spec = {
   //     "right": 0
   //   },
   //   "autosize": "none",
-  width: 100,
-  height: 100,
+  width: 500,
+  height: 500,
   padding: 5,
 
   data: [
@@ -69,7 +69,7 @@ export const spec = {
       transform: [
         {
           type: 'wordcloud',
-          size: [10, 10],
+          size: [500, 500],
           // "size": [{"signal": "width"}, {"signal": "height"}],
           text: { field: 'challenge_name' },
           fontFamily: 'HuaWenHeiTi',
@@ -85,7 +85,7 @@ export const spec = {
           // "spiral": "rectangular",
           randomVisible: false,
           shape: 'circle',
-          layoutType: 'cloud',
+          // layoutType: 'fast',
           progressiveStep: 50,
           rotate: () => {
             return Math.random() > 0.5 ? 90 : 0;
