@@ -93,7 +93,7 @@ export class Scale extends GrammarBase implements IScale {
       const reversed = rangeSpec.reversed;
       const coordinate = this.parameters()[coord];
 
-      return coordinate?.getVisiualPositionByDimension(dim, isSub, reversed);
+      return coordinate?.getVisualPositionByDimension(dim, isSub, reversed);
     }
 
     return null;

@@ -172,7 +172,7 @@ export class PolarCoordinate extends Coordinate implements IPolarCoordinate {
     return reversed ? [res[1], res[0]] : res;
   }
 
-  getVisiualPositionByDimension(dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean) {
+  getVisualPositionByDimension(dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean) {
     const isAngle = this.isMainDimension(dim);
 
     return isAngle ? (isSubshaft ? 'inside' : 'outside') : isSubshaft ? 'end' : 'start';
