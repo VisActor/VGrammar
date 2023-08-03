@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix(wordcloud): wordcloud should not throw error when the size is very small, fix #91\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}
