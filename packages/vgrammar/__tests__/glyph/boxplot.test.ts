@@ -82,7 +82,7 @@ test('barBoxplot encode', function () {
 });
 
 test('boxplot animation', function () {
-  const element = createSimpleBoxplotElement(getGlyph('boxplot'));
+  const element = createSimpleBoxplotElement(getGlyph('boxplot'), { transformType: 'rect' });
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(
@@ -149,7 +149,7 @@ test('boxplot animation', function () {
 });
 
 test('barBoxplot animation', function () {
-  const element = createSimpleBoxplotElement(getGlyph('barBoxplot'));
+  const element = createSimpleBoxplotElement(getGlyph('barBoxplot'), { transformType: 'rect' });
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(
