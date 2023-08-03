@@ -104,7 +104,9 @@ export interface SortTransformOptions {
 }
 
 export interface StackTransformOptions {
-  orient?: 'positive' | 'negative';
+  // TODO: provide more order option referring to d3-shape
+  order?: 'positive' | 'negative';
+  offset?: 'none' | 'diverging' | 'silhouette' | 'wiggle';
   stackField: string;
   dimensionField: string;
   asStack?: string;
@@ -168,6 +170,7 @@ export interface FilterTransformSpec extends ConvertTransformOptionToSpec<Filter
 export interface FunnelTransformSpec extends FunnelTransformOption {
   type: 'funnel';
 }
+
 export interface PieTransformSpec extends PieTransformOption {
   type: 'pie';
 }
