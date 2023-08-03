@@ -1,7 +1,7 @@
 import type { EasingType, IGraphic } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports
 import { ACustomAnimate, AttributeUpdateType } from '@visactor/vrender';
-import { has, isArray, isFunction, isNil, isObject } from '@visactor/vutils';
+import { isArray, isFunction, isNil, isObject, isValid } from '@visactor/vutils';
 import type {
   IAnimationChannelInterpolator,
   IAnimationEffect,
@@ -25,7 +25,7 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
         delete from[channel];
       }
     });
-    const computePoints = isValidPointsChannel(Object.keys(from), element.mark.markType);
+    const computePoints = isValidPointsChannel(Object.keys(from), element.mark.markType) && !isValid(from.segments);
     if (computePoints) {
       const items = element.items.map(item => Object.assign({}, item, { nextAttrs: from }));
       attributes.from = element.transformElementItems(items, element.mark.markType, computePoints);
@@ -38,7 +38,7 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
         delete to[channel];
       }
     });
-    const computePoints = isValidPointsChannel(Object.keys(to), element.mark.markType);
+    const computePoints = isValidPointsChannel(Object.keys(to), element.mark.markType) && !isValid(to.segments);
     if (computePoints) {
       const items = element.items.map(item => Object.assign({}, item, { nextAttrs: to }));
       attributes.to = element.transformElementItems(items, element.mark.markType, computePoints);
