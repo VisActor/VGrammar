@@ -1,6 +1,7 @@
 import { transform as sortTransform } from './data/sort';
 import { transform as filterTransform } from './data/filter';
 import { transform as mapTransform } from './data/map';
+import { transform as kdeTransform } from './data/kde';
 import { transform as joinTransform } from './data/join';
 import { transform as pickTransform } from './data/pick';
 import { transform as rangeTransform } from './data/range';
@@ -20,6 +21,8 @@ import type { ITransform } from '../types';
 export const transforms: Record<string, Omit<ITransform, 'type'>> = {
   sort: { transform: sortTransform, markPhase: 'beforeJoin' },
   filter: { transform: filterTransform, markPhase: 'beforeJoin' },
+  join: { transform: joinTransform, markPhase: 'beforeJoin' },
+  kde: { transform: kdeTransform, markPhase: 'beforeJoin' },
   map: { transform: mapTransform, markPhase: 'beforeJoin' },
   lookup: { transform: joinTransform, markPhase: 'beforeJoin' },
   pick: { transform: pickTransform, markPhase: 'beforeJoin' },
