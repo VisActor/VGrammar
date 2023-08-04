@@ -83,6 +83,9 @@ export class Mark extends GrammarBase implements IMark {
 
   isUpdated: boolean = true;
 
+  /** whether mark enter encode is updated  */
+  isReentered: boolean = false;
+
   private renderContext?: {
     large: boolean;
     parameters?: any;
@@ -349,10 +352,14 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   encode(channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>): this {
-    return this.encodeState('update', channel, value);
+    return this.encodeState(DiffState.update, channel, value);
   }
 
   encodeState(state: string, channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>): this {
+    if (state === DiffState.enter) {
+      this.isReentered = true;
+    }
+
     if (!this.spec.encode[state]) {
       this.spec.encode[state] = {};
     } else {
@@ -694,8 +701,9 @@ export class Mark extends GrammarBase implements IMark {
     if (encoders) {
       this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
       elements.forEach(element => {
-        element.encodeItems(element.items, encoders, parameters);
+        element.encodeItems(element.items, encoders, this.isReentered, parameters);
       });
+      this.isReentered = false;
 
       this.evaluateTransformSync(this._getTransformsAfterEncodeItems(), elements, parameters);
 
@@ -895,9 +903,11 @@ export class Mark extends GrammarBase implements IMark {
       element.encodeItems(
         element.items,
         progressiveIndex > 0 || (!isCollection && index > 0) ? positionEncoders : encoders,
+        this.isReentered,
         parameters
       );
     });
+    this.isReentered = false;
 
     this.evaluateTransformSync(this._getTransformsAfterEncodeItems(), elements, parameters);
 

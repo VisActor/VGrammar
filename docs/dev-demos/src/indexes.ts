@@ -338,8 +338,8 @@ export const indexes = [
     menu: 'api-test',
     children: [
       {
-        path: 'refresh',
-        name: '[API-TEST]refresh()测试',
+        path: 'api-test',
+        name: '[API-TEST]mark api()测试',
         type: 'api'
       },
       {
