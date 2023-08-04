@@ -18,6 +18,7 @@ test('wave encode', function () {
         wave: 0
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();
@@ -61,6 +62,7 @@ test('wave encode', function () {
         wave: 0.5
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();
@@ -78,6 +80,7 @@ test('wave encode', function () {
         wave: 1
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();

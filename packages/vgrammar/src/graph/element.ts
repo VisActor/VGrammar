@@ -210,7 +210,7 @@ export class Element implements IElement {
     };
   }
 
-  encodeItems(items: MarkElementItem[], encoders: BaseEncodeSpec, parameters?: any) {
+  encodeItems(items: MarkElementItem[], encoders: BaseEncodeSpec, isReentered: boolean = false, parameters?: any) {
     const isCollectionMark = this.mark.isCollectionMark();
     // marshall encoder functions
     const updateEncoder = encoders.update;
@@ -226,14 +226,18 @@ export class Element implements IElement {
         invokeEncoderToItems(this, items, updateEncoder, parameters, onlyFullEncodeFirst);
       }
     } else if (this.diffState === DiffState.update) {
-      if (isCollectionMark && enterEncoder) {
+      // if mark is reentered or mark is collection type, evaluate enter encode
+      if ((isCollectionMark && enterEncoder) || isReentered) {
         invokeEncoderToItems(this, items, enterEncoder, parameters, onlyFullEncodeFirst);
       }
       if (updateEncoder) {
         invokeEncoderToItems(this, items, updateEncoder, parameters, onlyFullEncodeFirst);
       }
     } else if (this.diffState === DiffState.exit && exitEncoder) {
-      // 移除的 item 不再包含状态
+      // if mark is reentered, evaluate enter encode
+      if (isReentered) {
+        invokeEncoderToItems(this, items, enterEncoder, parameters, onlyFullEncodeFirst);
+      }
       invokeEncoderToItems(this, items, exitEncoder, parameters, onlyFullEncodeFirst);
     }
   }

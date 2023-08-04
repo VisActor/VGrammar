@@ -13,6 +13,7 @@ test('cornerRadius can be set to Rect', function () {
     {
       enter: { cornerRadius: [5, 4, 3, 2] }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -24,6 +25,7 @@ test('cornerRadius can be set to Rect', function () {
     {
       update: { cornerRadius: 5 }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -47,6 +49,7 @@ test("'strokeTop', 'strokeRight', 'strokeBottom', 'strokeLeft' can be set to Rec
         strokeRight: false
       }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -74,6 +77,7 @@ test('size channels can be set to Rect', function () {
         y1: 20
       }
     },
+    false,
     {}
   );
   element.encodeGraphic();

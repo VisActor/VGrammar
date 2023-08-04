@@ -173,6 +173,7 @@ test('Element executes encoding', function () {
     {
       enter: { color: 'red' }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -186,6 +187,7 @@ test('Element executes encoding', function () {
     {
       update: { x: 10, width: 40 }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -203,6 +205,7 @@ test('Element executes encoding', function () {
         }
       }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -216,6 +219,7 @@ test('Element executes encoding', function () {
         custom: { field: 'key' }
       }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -229,6 +233,7 @@ test('Element executes encoding', function () {
         custom: { scale: 'scaleA', field: 'key' }
       }
     },
+    false,
     {
       scaleA: { scale: (v: any) => `scaled-${v}` }
     }
