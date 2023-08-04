@@ -82,6 +82,11 @@ export const indexes = [
         path: 'stack',
         name: '堆积柱图',
         type: 'api'
+      },
+      {
+        path: 'kde-bar',
+        name: 'kde柱状图',
+        type: 'api'
       }
     ]
   },
