@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Thu, 03 Aug 2023 08:39:42 GMT and should not be manually modified.
+This log was last generated on Fri, 04 Aug 2023 09:34:18 GMT and should not be manually modified.
+
+## 0.5.3
+Fri, 04 Aug 2023 09:34:18 GMT
+
+### Updates
+
+- fix(wordCloud): support wordCloud Chart with negative data and one data. fix VisActor/VChart#299, fix VisActor/VChart#373
 
 ## 0.5.2
 Thu, 03 Aug 2023 08:39:42 GMT

@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.5.3",
+      "tag": "@visactor/vgrammar_v0.5.3",
+      "date": "Fri, 04 Aug 2023 09:34:18 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix(wordCloud): support wordCloud Chart with negative data and one data. fix VisActor/VChart#299, fix VisActor/VChart#373"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.2",
       "tag": "@visactor/vgrammar_v0.5.2",
       "date": "Thu, 03 Aug 2023 08:39:42 GMT",
