@@ -90,8 +90,9 @@ export const transform = (
   // 只有fontSize不为固定值时，fontSizeRange才生效
   if (fontSizeRange && !isNumber(fontSize)) {
     const fsize: any = fontSize;
+    const fontSizeSqrtScale = generateSqrtScale(extent(fsize, data), fontSizeRange as number[]);
+
     fontSize = datum => {
-      const fontSizeSqrtScale = generateSqrtScale(extent(fsize, data), fontSizeRange as number[]);
       return fontSizeSqrtScale(fsize(datum));
     };
   }
