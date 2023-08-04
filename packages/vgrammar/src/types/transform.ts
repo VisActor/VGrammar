@@ -68,6 +68,15 @@ export interface JoinTransformOption {
   default?: any;
 }
 
+export interface KDETransformOption {
+  field: string;
+  bandwidth?: number;
+  extent?: number;
+  pad?: number | number[];
+  as?: string;
+  // kernel?: any;
+}
+
 export interface MapTransformOption {
   callback: (entry: any, params?: any) => any;
   as?: string;
@@ -179,6 +188,11 @@ export interface JoinTransformSpec extends ConvertTransformOptionToSpec<Omit<Joi
   type: 'join';
   from?: TransformFunctionType<JoinTransformOption['from']> | { data: string | IData };
 }
+
+export interface KDETransformSpec extends KDETransformOption {
+  type: 'kde';
+}
+
 export interface MapTransformSpec extends ConvertTransformOptionToSpec<Omit<MapTransformOption, 'callback'>> {
   type: 'map';
   callback: MapTransformOption['callback'];
