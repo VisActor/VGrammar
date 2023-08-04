@@ -28,14 +28,17 @@ const kde2d = (x: number, data: number[], bandwidth: number) => {
 };
 
 export const transform = (options: KDETransformOption, upstreamData: any[]) => {
+  if (!upstreamData || upstreamData.length === 0) {
+    return upstreamData;
+  }
   const field = options.field;
   const data = upstreamData.map(datum => datum[field]);
   const bandwidth = options.bandwidth ?? computeBandwidth(data);
   const as = options.as ?? 'value';
 
-  return upstreamData.map((datum, index) => {
-    const kdeDatum = Object.assign({}, datum);
-    kdeDatum[as] = kde1d(data[index], data, bandwidth);
-    return kdeDatum;
+  upstreamData.forEach((datum, index) => {
+    datum[as] = kde1d(data[index], data, bandwidth);
   });
+
+  return upstreamData;
 };
