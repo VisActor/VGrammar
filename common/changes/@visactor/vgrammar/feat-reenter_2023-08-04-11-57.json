@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: support mark reenter",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
