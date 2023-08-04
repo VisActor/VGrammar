@@ -17,7 +17,7 @@ test('addState to line', function () {
 
   // encode enter
   expect(element.getGraphicAttribute('points')).toEqual(undefined);
-  element.encodeItems(element.items, encode, {});
+  element.encodeItems(element.items, encode, false, {});
   element.encodeGraphic();
   expect(element.getGraphicAttribute('points')).toEqual([
     { x: 1, y: 2, context: 0 },

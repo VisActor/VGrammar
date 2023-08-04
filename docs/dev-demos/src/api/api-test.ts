@@ -2,7 +2,7 @@
 import type { View, IGroupMark } from '@visactor/vgrammar';
 import { IMark } from '@visactor/vgrammar';
 
-function init(view: View) {
+export const runner = (view: View) => {
   const originData = [
     { category: 'A', amount: 28, index: 0 },
     { category: 'B', amount: 75, index: 1 },
@@ -31,17 +31,18 @@ function init(view: View) {
     stroke: 'black',
     strokeWidth: 1
   }) as IGroupMark;
-  const data = view.data(originData);
+  const data = view.data(originData).id('data');
   const dataBar = view
     .mark('rect', dataGroup)
     .id('dataBar')
     .join(data)
+    .encodeState('enter', { fill: () => { console.log('enter!'); return 'lightGreen'; } })
     .encode({
       x: datum => datum.index * 50 + 10,
       y: datum => ((100 - datum.amount) / 100) * 150,
       width: 30,
       height: datum => (datum.amount / 100) * 150,
-      fill: 'lightGreen'
+      // fill: 'lightGreen'
     });
   const dataLabel = view
     .mark('text', dataGroup)
@@ -55,27 +56,29 @@ function init(view: View) {
       fontSize: 12,
       fill: 'black'
     });
-}
-
-export const runner = (view: View) => {
-  init(view);
 };
 
-export const callback = (chartInstance: any) => {
-  const refreshButton = document.createElement('button');
-  refreshButton.innerText = 'refresh';
-  document.getElementById('footer')?.appendChild(refreshButton);
+export const callback = (view: View) => {
+  const updateEnterButton = document.createElement('button');
+  updateEnterButton.innerText = 'update enter';
+  document.getElementById('footer')?.appendChild(updateEnterButton);
 
-  const initButton = document.createElement('button');
-  initButton.innerText = 'init';
-  document.getElementById('footer')?.appendChild(initButton);
+  const updateDataButton = document.createElement('button');
+  updateDataButton.innerText = 'update data';
+  document.getElementById('footer')?.appendChild(updateDataButton);
 
-  refreshButton.addEventListener('click', () => {
-    chartInstance.refresh();
+  updateEnterButton.addEventListener('click', () => {
+    const dataBar = view.getMarkById('dataBar');
+    dataBar.encodeState('enter', { fill: () => { console.log('reenter!'); return 'red'; } });
+    view.runAsync();
   });
-
-  initButton.addEventListener('click', () => {
-    init(chartInstance);
-    chartInstance.runAsync();
+  updateDataButton.addEventListener('click', () => {
+    const data = view.getDataById('data');
+    data.values([
+      { category: 'A', amount: Math.floor(100 * Math.random()), index: 0 },
+      { category: 'B', amount: Math.floor(100 * Math.random()), index: 1 },
+      { category: 'C', amount: Math.floor(100 * Math.random()), index: 2 }
+    ]);
+    view.runAsync();
   });
 };

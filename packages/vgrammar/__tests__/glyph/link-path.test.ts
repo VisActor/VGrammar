@@ -22,6 +22,7 @@ test('line path encode', function () {
         fillOpacity: 0.5
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();

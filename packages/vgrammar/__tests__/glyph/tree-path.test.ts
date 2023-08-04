@@ -24,6 +24,7 @@ test('line path encode', function () {
         lineWidth: 1
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();

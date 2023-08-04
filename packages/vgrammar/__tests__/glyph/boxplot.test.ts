@@ -25,6 +25,7 @@ test('boxplot encode', function () {
         ruleWidth: 40
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();
@@ -67,6 +68,7 @@ test('barBoxplot encode', function () {
         minMaxWidth: 40
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();
@@ -99,6 +101,7 @@ test('boxplot animation', function () {
         ruleWidth: 40
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();
@@ -166,6 +169,7 @@ test('barBoxplot animation', function () {
         minMaxWidth: 40
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();
