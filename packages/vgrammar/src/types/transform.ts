@@ -25,6 +25,14 @@ export type ConvertTransformOptionToSpec<TransformOptionType> = {
   [Key in keyof TransformOptionType]?: TransformFunctionType<TransformOptionType[Key]>;
 };
 
+export interface BinTransformOption {
+  field: string;
+  extent: [number, number];
+  step?: number;
+  bins?: number;
+  as?: [string, string];
+}
+
 export interface FilterTransformOption {
   callback: (entry: any, params: any) => boolean;
 }
@@ -71,10 +79,7 @@ export interface JoinTransformOption {
 export interface KDETransformOption {
   field: string;
   bandwidth?: number;
-  extent?: number;
-  pad?: number | number[];
   as?: string;
-  // kernel?: any;
 }
 
 export interface MapTransformOption {
@@ -170,6 +175,10 @@ export interface LttbSampleTransformOptions {
   xfield?: string;
   yfield?: string;
   groupBy?: string;
+}
+
+export interface BinTransformSpec extends BinTransformOption {
+  type: 'bind';
 }
 
 export interface FilterTransformSpec extends ConvertTransformOptionToSpec<FilterTransformOption> {

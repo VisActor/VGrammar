@@ -15,17 +15,29 @@ export const runner = (view: View) => {
   ];
 
   const data = view.data(originData);
-  const kdeData = view.data(originData).transform([{
-    type: 'kde',
-    field: "amount",
-    bandwidth: 10,
-    as: 'kde'
-  }]);
-  console.log(kdeData);
+  const binData = view.data(originData).transform([{
+    type: 'bin',
+    field: 'amount',
+    extent: [0, 100],
+    step: 10,
+    as: ['binStart', 'binEnd']
+  }])
+  const kdeData = view.data(originData).transform([
+    {
+      type: 'sort',
+      sort: (datumA, datumB) => datumA.amount - datumB.amount,
+    },
+    {
+      type: 'kde',
+      field: "amount",
+      // bandwidth: 3,
+      as: 'kde'
+    }
+  ]);
 
   const xScale = view.scale('linear').domain([0, 100]).range([0, 270]);
-  const yScale = view.scale('linear').domain([100, 0]).range([0, 270]);
-  const y2Scale = view.scale('linear').domain([1, 0]).range([0, 270]);
+  const binYScale = view.scale('linear').domain([3, 0]).range([0, 270]);
+  const kdeYScale = view.scale('linear').domain([1, 0]).range([0, 270]);
   const xAxis = view
     .axis(view.rootMark)
     .id('xAxis')
@@ -39,7 +51,8 @@ export const runner = (view: View) => {
   const yAxis = view
     .axis(view.rootMark)
     .id('yAxis')
-    .scale(yScale)
+    .scale(binYScale)
+    .tickCount(3)
     .encode({
       x: 40,
       y: 40,
@@ -50,7 +63,7 @@ export const runner = (view: View) => {
   const y2Axis = view
     .axis(view.rootMark)
     .id('y2Axis')
-    .scale(y2Scale)
+    .scale(kdeYScale)
     .encode({
       x: 310,
       y: 40,
@@ -61,40 +74,43 @@ export const runner = (view: View) => {
   const container = view.group(view.rootMark).id('container').encode({ x: 40, y: 40, width: 270, height: 270 });
   // const xLineCrosshair = view.crosshair(container).id('xLineCrosshair').scale(xScale).crosshairType('x');
   // const yLineCrosshair = view.crosshair(container).id('yLineCrosshair').scale(yScale).crosshairType('y');
-  const xRectCrosshair = view
-    .crosshair(container)
-    .id('xRectCrosshair')
-    .scale(xScale)
-    .crosshairType('x')
-    .crosshairShape('rect')
-    .encode({ rectStyle: { fillColor: 'pink' } });
-  const yRectCrosshair = view
-    .crosshair(container)
-    .id('yRectCrosshair')
-    .scale(yScale)
-    .crosshairType('y')
-    .crosshairShape('rect')
-    .encode({ rectStyle: { fillColor: 'pink' } });
+  // const xRectCrosshair = view
+  //   .crosshair(container)
+  //   .id('xRectCrosshair')
+  //   .scale(kdeXScale)
+  //   .crosshairType('x')
+  //   .crosshairShape('rect')
+  //   .encode({ rectStyle: { fillColor: 'pink' } });
+  // const yRectCrosshair = view
+  //   .crosshair(container)
+  //   .id('yRectCrosshair')
+  //   .scale(histogramYScale)
+  //   .crosshairType('y')
+  //   .crosshairShape('rect')
+  //   .encode({ rectStyle: { fillColor: 'pink' } });
 
-  // const bar = view
-  //   .mark('rect', container)
-  //   .join(data)
-  //   .encode({
-  //     // x: { scale: xScale, field: 'category' },
-  //     x: { scale: xScale, field: 'amount'},
-  //     width: 32,
-  //     y: { scale: yScale, field: 'amount' },
-  //     y1: 270,
-  //     fill: 'lightgreen'
-  //   })
-  //   .encodeState('hover', { fill: 'red' });
-
+  const bar = view
+    .mark('rect', container)
+    .join(binData, 'binStart')
+    .encode({
+      x: { scale: xScale, field: 'binStart' },
+      width: 26,
+      y: {
+        callback: (datum: any, element: any) => {
+          const count = element.data.length;
+          return binYScale.scale.scale(count);
+        },
+        dependency: binYScale
+      },
+      y1: 270,
+      fill: 'lightgreen'
+    });
   const line = view
     .mark('line', container)
     .join(kdeData)
     .encode({
-      x: { scale: xScale, field: 'category' },
-      y: { scale: y2Scale, field: 'kde' },
+      x: { scale: xScale, field: 'amount' },
+      y: { scale: kdeYScale, field: 'kde' },
       stroke: 'blue',
     })
 };
