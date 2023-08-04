@@ -42,6 +42,7 @@ test('Element executes encoding', function () {
     {
       enter: { x: 123 }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -54,6 +55,7 @@ test('Element executes encoding', function () {
     {
       update: { fill: 'red' }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -66,6 +68,7 @@ test('Element executes encoding', function () {
     {
       hover: { x: 233 }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -87,6 +90,7 @@ test('Element executes encoding', function () {
         }
       }
     },
+    false,
     {}
   );
   element.encodeGraphic();
@@ -100,6 +104,7 @@ test('Element executes encoding', function () {
         custom: { field: 'key' }
       }
     },
+    false,
     {}
   );
 
@@ -114,6 +119,7 @@ test('Element executes encoding', function () {
         custom: { scale: 'scaleA', field: 'key' }
       }
     },
+    false,
     {
       scaleA: { scale: (v: any) => `scaled-${v}` }
     }

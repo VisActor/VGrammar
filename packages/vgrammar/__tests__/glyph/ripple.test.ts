@@ -19,6 +19,7 @@ test('ripple encode', function () {
         ripple: 0
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();
@@ -46,6 +47,7 @@ test('ripple encode', function () {
         ripple: 0.5
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();
@@ -73,6 +75,7 @@ test('ripple encode', function () {
         ripple: 1
       }
     } as any,
+    false,
     {}
   );
   element.encodeGraphic();
