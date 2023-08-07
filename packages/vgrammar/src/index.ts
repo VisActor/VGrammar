@@ -39,3 +39,4 @@ export { registerGrammar, unregisterGrammar, unregisterAllGrammars } from './vie
 export * from './types';
 
 export { Plot } from './plot/plot-all';
+export { getPalette } from './palette';

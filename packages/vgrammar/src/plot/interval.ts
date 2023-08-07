@@ -39,7 +39,7 @@ export class Interval extends SemanticMark<PlotIntervalEncoderSpec, IntervalEnco
     return this.parseScaleOfCommonEncode(channel, option);
   }
 
-  setDefaultTranform(): TransformSpec[] {
+  setDefaultMarkTranform(): TransformSpec[] {
     return [
       {
         type: 'dodge',

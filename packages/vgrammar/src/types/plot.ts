@@ -11,7 +11,7 @@ import type {
   SizeLegendAttributes,
   SliderAttributes
 } from '@visactor/vrender-components';
-import type { BasicEncoderSpecMap, MarkRelativeItemSpec } from './mark';
+import type { BasicEncoderSpecMap, LinkPathEncoderSpec, MarkRelativeItemSpec } from './mark';
 import type { IEnvironmentOptions, IRendererOptions, ViewSpec, srIOption3DType } from './view';
 import type { CommonPaddingSpec, ValueOf } from './base';
 import type { DataSpec } from './data';
@@ -85,6 +85,8 @@ export type PlotPolygonEncoderSpec = Omit<BasicEncoderSpecMap['polygon'], 'x' | 
   x?: number[];
   y?: number[];
 };
+
+export type PlotSankeyEncoderSpec = LinkPathEncoderSpec;
 
 export type CoordinateOption = CartesianCoordinateOption | PolarCoordinateOption;
 export type PlotIntervalSpec = Partial<ISemanticMarkSpec<PlotIntervalEncoderSpec, IntervalEncodeChannels>> & {
@@ -182,20 +184,20 @@ export interface IPlot {
 
   ///--------- marks ---------///
 
-  interval: () => PlotMark;
-  cell: () => PlotMark;
-  area: () => PlotMark;
-  image: () => PlotMark;
-  line: () => PlotMark;
-  ruleX: () => PlotMark;
-  ruleY: () => PlotMark;
-  symbol: () => PlotMark;
-  polygon: () => PlotMark;
-  text: () => PlotMark;
-  rect: () => PlotMark;
-  rectX: () => PlotMark;
-  rectY: () => PlotMark;
-  rule: () => PlotMark;
+  interval: () => IInterval;
+  cell: () => ICell;
+  area: () => IArea;
+  image: () => IImage;
+  line: () => ILine;
+  ruleX: () => IRuleX;
+  ruleY: () => IRectY;
+  symbol: () => ISymbol;
+  polygon: () => IPolygon;
+  text: () => IText;
+  rect: () => IRect;
+  rectX: () => IRectX;
+  rectY: () => IRectY;
+  rule: () => IRule;
 
   // wordcloud 包如果没注册，会存在问题
   // wordcloud: () => ISemanticMark;
@@ -204,7 +206,7 @@ export interface IPlot {
   // treemap: () => ISemanticMark;
   // tree: () => ISemanticMark;
   // sunburst: () => ISemanticMark;
-  // sankey: () => ISemanticMark;
+  sankey: () => ISankey;
 
   // P2
   // forceGraph: () => ISemanticMark;
@@ -266,7 +268,7 @@ export interface ISemanticMark<EncodeSpec, K extends string> {
   data: (values: any, transform?: TransformSpec[], id?: string) => this;
   style: (style: ISemanticStyle<EncodeSpec, K>) => this;
   encode: (channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>) => this;
-  scale: (channel: K, option: ScaleSpec) => this;
+  scale: (channel: K, option: Partial<ScaleSpec>) => this;
   transform: (option: TransformSpec[]) => this;
   animate: (state: string, option: IAnimationConfig | IAnimationConfig[]) => this;
   state: (state: string, option: Partial<EncodeSpec>) => this;
@@ -339,6 +341,7 @@ export type PolygonEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type RuleEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type ImageEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'src';
 export type PathEncodeChannels = null;
+export type SankeyEncodeChannels = 'node' | 'value' | 'color';
 
 export type IInterval = ISemanticMark<PlotIntervalEncoderSpec, IntervalEncodeChannels>;
 export type ILine = ISemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels>;
@@ -355,6 +358,7 @@ export type IPolygon = ISemanticMark<PlotPolygonEncoderSpec, PolygonEncodeChanne
 export type IRule = ISemanticMark<BasicEncoderSpecMap['rule'], RuleEncodeChannels>;
 export type IImage = ISemanticMark<PlotImageEncoderSpec, ImageEncodeChannels>;
 export type IPath = ISemanticMark<BasicEncoderSpecMap['path'], PathEncodeChannels>;
+export type ISankey = ISemanticMark<PlotSankeyEncoderSpec, SankeyEncodeChannels>;
 
 export type PlotMark =
   | IInterval
@@ -371,7 +375,8 @@ export type PlotMark =
   | IPolygon
   | IRule
   | IImage
-  | IPath;
+  | IPath
+  | ISankey;
 
 export interface IPlotMarkConstructor {
   readonly type: string;
