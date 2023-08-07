@@ -17,6 +17,12 @@ test('dodge rect', () => {
   elementB.mark.getScalesByChannel = () => {
     return { x: scaleX, y: scaleY };
   };
+  elementA.mark.getScales = () => {
+    return { scaleX, scaleY };
+  };
+  elementB.mark.getScales = () => {
+    return { scaleX, scaleY };
+  };
   elementA.data = [{ category: 'A' }];
   elementB.data = [{ category: 'B' }];
   elementA.items = [{ nextAttrs: { x: 0, width: 20, y: 0, height: 20 } } as any];
@@ -47,6 +53,12 @@ test('dodge symbol', () => {
   };
   elementB.mark.getScalesByChannel = () => {
     return { x: scaleX, y: scaleY };
+  };
+  elementA.mark.getScales = () => {
+    return { scaleX, scaleY };
+  };
+  elementB.mark.getScales = () => {
+    return { scaleX, scaleY };
   };
   elementA.data = [{ category: 'A' }];
   elementB.data = [{ category: 'B' }];
