@@ -407,4 +407,16 @@ export class Plot implements IPlot {
 
     return mark;
   }
+
+  sankey() {
+    const mark = Factory.createPlotMark(PlotMakType.sankey);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.sankey} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
 }
