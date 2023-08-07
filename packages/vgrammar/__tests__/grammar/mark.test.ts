@@ -1,6 +1,7 @@
 import { Mark } from '../../src/view/mark';
 import { isNil } from '@visactor/vutils';
-import { getMockedView, registerDefaultTransforms } from '../util';
+import { createSimpleElement, getMockedView, registerDefaultTransforms } from '../util';
+import { DiffState } from '../../src';
 
 registerDefaultTransforms();
 
@@ -125,4 +126,48 @@ test('Mark sets configs by api', function () {
   expect(references0[0].count).toEqual(1);
   expect(references0[0].reference.id()).toEqual('table');
   expect(mark.transforms[0].type).toEqual('markoverlap');
+});
+
+test('Mark encode state', function () {
+  let enterCount = 0;
+
+  const mark = new Mark(view as any, 'rect');
+
+  mark
+    .join('table')
+    .encode({ fill: 'green' })
+    .encodeState('enter', {
+      fill: () => {
+        enterCount += 1;
+        return 'blue';
+      }
+    })
+    .encodeState('hover', { fill: () => 'red' });
+
+  const element = createSimpleElement();
+  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.initGraphicItem();
+
+  // enter
+  const encoders = (mark as any)._getEncoders();
+  (mark as any).evaluateEncode([element], encoders, {});
+  expect(element.getGraphicAttribute('fill')).toEqual('green');
+  expect(enterCount).toBe(1);
+
+  // update
+  element.diffState = DiffState.update;
+  (mark as any).evaluateEncode([element], encoders, {});
+  expect(element.getGraphicAttribute('fill')).toEqual('green');
+  expect(enterCount).toBe(1);
+
+  // reenter
+  mark.encodeState('enter', {
+    fill: () => {
+      enterCount += 1;
+      return 'blue';
+    }
+  });
+  (mark as any).evaluateEncode([element], encoders, {});
+  expect(element.getGraphicAttribute('fill')).toEqual('green');
+  expect(enterCount).toBe(2);
 });
