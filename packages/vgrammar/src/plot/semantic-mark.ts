@@ -1,3 +1,4 @@
+import { transform } from './../../../vgrammar-projection/src/geo-path';
 import type {
   LegendBaseAttributes,
   SliderAttributes,
@@ -34,7 +35,8 @@ import type {
   SemanticCrosshairOption,
   CoordinateOption,
   CoordinateSpec,
-  PolarCoordinateOption
+  PolarCoordinateOption,
+  DataSpec
 } from '../types';
 import type { ILogger } from '@visactor/vutils';
 import { Logger, array, isArray, isBoolean, isNil, isPlainObject } from '@visactor/vutils';
@@ -66,7 +68,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   viewSpec?: ViewSpec;
 
   private _uid: number;
-  private _logger: ILogger;
+  protected _logger: ILogger;
   protected _coordinate: CoordinateOption;
   readonly type: string;
 
@@ -108,7 +110,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
-  scale(channel: string, option: ScaleSpec) {
+  scale(channel: string, option: Partial<ScaleSpec>) {
     if (!this.spec.scale) {
       this.spec.scale = {};
     }
@@ -227,14 +229,19 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   abstract parseScaleByEncode(channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>): ScaleSpec | Nil;
   abstract convertMarkEncode(encode: WithDefaultEncode<EncodeSpec, K>): GenerateBaseEncodeSpec<EncodeSpec>;
 
-  protected setDefaultTranform(): TransformSpec[] {
+  protected setDefaultDataTranform(): TransformSpec[] {
     return [];
   }
 
-  protected convertMarkTransform() {
-    const defaultTransform = this.setDefaultTranform();
-    const userTransform = this.spec.transform;
+  protected setMultipleData(): DataSpec[] {
+    return null;
+  }
 
+  protected setDefaultMarkTranform(): TransformSpec[] {
+    return [];
+  }
+
+  protected convertMarkTransform(userTransform: TransformSpec[], defaultTransform: TransformSpec[] = []) {
     if (defaultTransform && defaultTransform.length) {
       if (userTransform && userTransform.length) {
         let transforms = [];
@@ -1036,13 +1043,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   }
 
   protected parseDataSpec() {
-    const { data, player } = this.spec;
-    const res = [];
+    const { data, player, transform: ut } = this.spec;
+    const res: DataSpec[] = [];
+    const transform = this.convertMarkTransform(ut, this.setDefaultDataTranform());
 
     if (player?.data) {
       res.push({
         id: this.getDataIdOfPlayer(),
-        values: player.data
+        values: player.data,
+        transform
       });
       res.push({
         id: this.getDataIdOfMain(),
@@ -1057,11 +1066,26 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
       res.push({
         id: dataId,
-        values: data.values
+        values: data.values,
+        transform
       });
       res.push({
         id: this.getDataIdOfFiltered(),
         source: dataId
+      });
+    }
+
+    const multiDatas = this.setMultipleData();
+
+    if (multiDatas) {
+      multiDatas.forEach(entry => {
+        if (entry.id) {
+          if (entry.id === this.getDataIdOfFiltered() && res.length) {
+            res[res.length - 1].transform = entry.transform;
+          } else {
+            res.push(entry);
+          }
+        }
       });
     }
 
@@ -1177,6 +1201,10 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return {};
   }
 
+  protected setMultiMarksSpec(): MarkSpec[] {
+    return null;
+  }
+
   toViewSpec(): ViewSpec {
     this.viewSpec = {};
     const filteredDataId = this.getDataIdOfFiltered();
@@ -1207,7 +1235,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             skipBeforeLayouted: true
           },
           dependency: this.viewSpec.scales.map(scale => scale.id).concat(SIGNAL_VIEW_BOX),
-          transform: this.convertMarkTransform(),
+          transform: this.convertMarkTransform(this.spec.transform, this.setDefaultMarkTranform()),
           animation: this.convertMarkAnimation(),
           encode: Object.assign({}, this.spec.state, {
             enter: this.spec.style ?? {},
@@ -1217,6 +1245,13 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         this.setMainMarkSpec()
       )
     );
+
+    const otherMarks = this.setMultiMarksSpec();
+
+    if (otherMarks) {
+      marks = marks.concat(otherMarks);
+    }
+
     marks = marks.concat(this.parseLabelSpec());
     marks = marks.concat(this.parseTooltipSpec());
 

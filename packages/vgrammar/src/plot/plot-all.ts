@@ -14,6 +14,7 @@ import { RectSemanticMark } from './rect';
 import { Rule } from './rule';
 import { SymbolSemanticMark } from './symbol';
 import { TextSemanticMark } from './text';
+import { SankeySemanticMark } from './sankey';
 
 Plot.useMarks([
   Interval,
@@ -30,7 +31,8 @@ Plot.useMarks([
   RectYSemanticMark,
   Rule,
   SymbolSemanticMark,
-  TextSemanticMark
+  TextSemanticMark,
+  SankeySemanticMark
 ]);
 
 export { Plot };
