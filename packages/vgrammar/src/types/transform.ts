@@ -77,11 +77,12 @@ export interface JoinTransformOption {
 }
 
 export interface KDETransformOption {
-  field: string;
+  dimension?: '1d' | '2d';
+  field: string | string[];
   bandwidth?: number;
-  extent?: [number, number];
-  bins?: number;
-  as?: string;
+  extent?: [number, number] | [{ x: number; y: number }, { x: number; y: number }];
+  bins?: number | number[];
+  as?: string[];
 }
 
 export interface MapTransformOption {

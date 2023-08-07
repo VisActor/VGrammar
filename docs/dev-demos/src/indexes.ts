@@ -48,6 +48,21 @@ export const indexes = [
     ]
   },
   {
+    menu: 'data',
+    children: [
+      {
+        path: 'kde-bar',
+        name: 'kde & bin',
+        type: 'api'
+      },
+      {
+        path: 'contour',
+        name: 'kde2d & contour',
+        type: 'api'
+      }
+    ]
+  },
+  {
     menu: 'rect',
     children: [
       {
@@ -81,11 +96,6 @@ export const indexes = [
       {
         path: 'stack',
         name: '堆积柱图',
-        type: 'api'
-      },
-      {
-        path: 'kde-bar',
-        name: 'kde柱状图',
         type: 'api'
       }
     ]
