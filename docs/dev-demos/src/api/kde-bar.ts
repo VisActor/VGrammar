@@ -30,14 +30,15 @@ export const runner = (view: View) => {
     {
       type: 'kde',
       field: "amount",
-      // bandwidth: 3,
+      extent: [0, 100],
+      bandwidth: 3,
       as: 'kde'
     }
   ]);
 
   const xScale = view.scale('linear').domain([0, 100]).range([0, 270]);
   const binYScale = view.scale('linear').domain([3, 0]).range([0, 270]);
-  const kdeYScale = view.scale('linear').domain([1, 0]).range([0, 270]);
+  const kdeYScale = view.scale('linear').domain([0.1, 0]).range([0, 270]);
   const xAxis = view
     .axis(view.rootMark)
     .id('xAxis')
@@ -109,7 +110,7 @@ export const runner = (view: View) => {
     .mark('line', container)
     .join(kdeData)
     .encode({
-      x: { scale: xScale, field: 'amount' },
+      x: { scale: xScale, field: 'value' },
       y: { scale: kdeYScale, field: 'kde' },
       stroke: 'blue',
     })

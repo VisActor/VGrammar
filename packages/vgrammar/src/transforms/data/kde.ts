@@ -1,9 +1,12 @@
 import type { KDETransformOption } from '../../types';
 
+const defaultBins = 100;
 const SQRT2PI = Math.sqrt(Math.PI * 2);
 
+// Only use gauss kernel for now
 const gaussKernel = (x: number) => Math.exp(-(x ** 2) / 2) / SQRT2PI;
 
+// A rule-of-thumb bandwidth estimator, referring to: https://en.wikipedia.org/wiki/Kernel_density_estimation#A_rule-of-thumb_bandwidth_estimator
 const computeBandwidth = (data: number[]) => {
   const n = data.length;
   const sum = data.reduce((sum, datum) => sum + datum, 0);
@@ -20,7 +23,7 @@ const computeBandwidth = (data: number[]) => {
 
 const kde1d = (x: number, data: number[], bandwidth: number) => {
   const n = data.length;
-  return data.reduce((v, datum) => v + gaussKernel(Math.abs(x - datum) / bandwidth)) / (n * bandwidth);
+  return data.reduce((v, datum) => v + gaussKernel(Math.abs(x - datum) / bandwidth), 0) / (n * bandwidth);
 };
 
 const kde2d = (x: number, data: number[], bandwidth: number) => {
@@ -36,9 +39,16 @@ export const transform = (options: KDETransformOption, upstreamData: any[]) => {
   const bandwidth = options.bandwidth ?? computeBandwidth(data);
   const as = options.as ?? 'value';
 
-  upstreamData.forEach((datum, index) => {
-    datum[as] = kde1d(data[index], data, bandwidth);
+  // upstreamData.forEach((datum, index) => {
+  //   datum[as] = kde1d(data[index], data, bandwidth);
+  // });
+  const extent = options.extent ?? [Math.min.apply(null, data), Math.max.apply(null, data)];
+  const bins = options.bins ?? defaultBins;
+  const step = (extent[1] - extent[0]) / bins;
+  const kdeResult = new Array(bins).fill(0).map((v, index) => {
+    const value = Math.min(extent[0] + step * index, extent[1]);
+    return { value, kde: kde1d(value, data, bandwidth) };
   });
 
-  return upstreamData;
+  return kdeResult;
 };
