@@ -510,6 +510,12 @@ export const indexes = [
         name: 'area',
         type: 'plot'
       },
+      
+      {
+        path: 'sankey',
+        name: 'sankey',
+        type: 'plot'
+      },
     ]
   }
 ];

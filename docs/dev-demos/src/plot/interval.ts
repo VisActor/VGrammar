@@ -36,7 +36,7 @@ export const runner = (plot: IPlot) => {
     .tooltip({ staticTitle: 'GMV' });
 
   
-    plot.ruleX().data([{ category: 'X' }], 'dataB').transform([
+    plot.ruleX().data([{ category: 'X' }], null, 'dataB').transform([
     //   {
     //   type: 'filter',
     //   callback: (datum: any) => {
