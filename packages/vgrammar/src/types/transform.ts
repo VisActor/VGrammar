@@ -79,6 +79,8 @@ export interface JoinTransformOption {
 export interface KDETransformOption {
   field: string;
   bandwidth?: number;
+  extent?: [number, number];
+  bins?: number;
   as?: string;
 }
 
