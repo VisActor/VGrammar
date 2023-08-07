@@ -24,15 +24,11 @@ export const runner = (view: View) => {
   }])
   const kdeData = view.data(originData).transform([
     {
-      type: 'sort',
-      sort: (datumA, datumB) => datumA.amount - datumB.amount,
-    },
-    {
       type: 'kde',
       field: "amount",
       extent: [0, 100],
-      bandwidth: 3,
-      as: 'kde'
+      bandwidth: 5,
+      as: ['value', 'kde']
     }
   ]);
 
