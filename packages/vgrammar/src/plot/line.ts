@@ -12,15 +12,17 @@ import type {
 import { SemanticMark } from './semantic-mark';
 import type { CrosshairSpec } from '../types/component';
 import { getPalette } from '../palette';
+import { PlotMakType } from './enums';
+import { GrammarMarkType } from '../graph';
 
 export class Line extends SemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels> {
-  static readonly type = 'line';
+  static readonly type = PlotMakType.line;
   constructor(id?: string | number) {
-    super('line', id);
+    super(PlotMakType.line, id);
   }
 
   setMarkType() {
-    return 'line';
+    return GrammarMarkType.line;
   }
 
   protected parseScaleOfEncodeX(
