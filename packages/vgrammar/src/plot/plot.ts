@@ -1,23 +1,13 @@
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { BaseEventHandler, IElement, IView, MultiScaleData, ScaleData, ScaleSpec, ViewSpec } from '../types';
-import type {
-  CoordinateOption,
-  IArea,
-  ICell,
-  IInterval,
-  ILine,
-  IPlot,
-  IPlotMarkConstructor,
-  IPlotOptions,
-  PlotMark,
-  PlotSpec
-} from '../types/plot';
+import type { CoordinateOption, IPlot, IPlotMarkConstructor, IPlotOptions, PlotMark, PlotSpec } from '../types/plot';
 import { View } from '../view';
 import { SIGNAL_VIEW_BOX } from '../view/constants';
 import type { ILogger } from '@visactor/vutils';
 import { Logger, isNil } from '@visactor/vutils';
 import { mergeGrammarSpecs } from '../parse/util';
 import { Factory } from '../core/factory';
+import { PlotMakType } from './enums';
 
 export class Plot implements IPlot {
   static useMarks(marks: IPlotMarkConstructor[]) {
@@ -240,73 +230,181 @@ export class Plot implements IPlot {
   }
 
   interval() {
-    const mark = Factory.createPlotMark('interval');
+    const mark = Factory.createPlotMark(PlotMakType.interval);
 
     if (!mark) {
-      this._logger.error('Please register Interval before use it');
+      this._logger.error(`Please register ${PlotMakType.interval} before use it`);
     } else {
       this._semanticMarks.push(mark);
     }
 
-    return mark as IInterval;
+    return mark;
   }
 
   line() {
-    const mark = Factory.createPlotMark('line');
+    const mark = Factory.createPlotMark(PlotMakType.line);
 
     if (!mark) {
-      this._logger.error('Please register Line before use it');
+      this._logger.error(`Please register ${PlotMakType.line} before use it`);
     } else {
       this._semanticMarks.push(mark);
     }
 
-    return mark as ILine;
+    return mark;
   }
 
   area() {
-    const mark = Factory.createPlotMark('area');
+    const mark = Factory.createPlotMark(PlotMakType.area);
 
     if (!mark) {
-      this._logger.error('Please register Area before use it');
+      this._logger.error(`Please register ${PlotMakType.area} before use it`);
     } else {
       this._semanticMarks.push(mark);
     }
 
-    return mark as IArea;
+    return mark;
   }
   cell() {
-    const mark = Factory.createPlotMark('cell');
+    const mark = Factory.createPlotMark(PlotMakType.cell);
 
     if (!mark) {
-      this._logger.error('Please register Cell before use it');
+      this._logger.error(`Please register ${PlotMakType.cell} before use it`);
     } else {
       this._semanticMarks.push(mark);
     }
 
-    return mark as ICell;
+    return mark;
   }
 
   ruleX() {
-    const mark = Factory.createPlotMark('ruleX');
+    const mark = Factory.createPlotMark(PlotMakType.ruleX);
 
     if (!mark) {
-      this._logger.error('Please register RuleX before use it');
+      this._logger.error(`Please register ${this.ruleX} before use it`);
     } else {
       this._semanticMarks.push(mark);
     }
 
-    return mark as ICell;
+    return mark;
   }
 
   ruleY() {
-    const mark = Factory.createPlotMark('ruleY');
+    const mark = Factory.createPlotMark(PlotMakType.ruleY);
 
     if (!mark) {
-      this._logger.error('Please register RuleY before use it');
+      this._logger.error(`Please register ${PlotMakType.ruleY} before use it`);
     } else {
       this._semanticMarks.push(mark);
     }
 
-    return mark as ICell;
+    return mark;
+  }
+
+  image() {
+    const mark = Factory.createPlotMark(PlotMakType.image);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.image} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  path() {
+    const mark = Factory.createPlotMark(PlotMakType.path);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.path} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  polygon() {
+    const mark = Factory.createPlotMark(PlotMakType.polygon);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.polygon} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  rectX() {
+    const mark = Factory.createPlotMark(PlotMakType.rectX);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.rectX} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  rectY() {
+    const mark = Factory.createPlotMark(PlotMakType.rectY);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.rectY} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  rect() {
+    const mark = Factory.createPlotMark(PlotMakType.rect);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.rect} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  rule() {
+    const mark = Factory.createPlotMark(PlotMakType.rule);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.rule} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  symbol() {
+    const mark = Factory.createPlotMark(PlotMakType.symbol);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.symbol} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  text() {
+    const mark = Factory.createPlotMark(PlotMakType.text);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.text} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
   }
 }

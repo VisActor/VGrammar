@@ -97,7 +97,7 @@ export type GenerateBasicEncoderSpec<T> = Partial<
 >;
 
 export type BasicEncoderSpecMap = {
-  rect: GenerateBasicEncoderSpec<IRectGraphicAttribute>;
+  rect: GenerateBasicEncoderSpec<IRectGraphicAttribute & { y1?: number; x1?: number }>;
   line: Omit<GenerateBasicEncoderSpec<ILineGraphicAttribute>, 'points' | 'segments'>;
   circle: GenerateBasicEncoderSpec<ICircleGraphicAttribute>;
   arc: GenerateBasicEncoderSpec<IArcGraphicAttribute>;

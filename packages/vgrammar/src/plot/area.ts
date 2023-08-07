@@ -14,15 +14,17 @@ import { SemanticMark } from './semantic-mark';
 import type { CrosshairSpec } from '../types/component';
 import { getPalette } from '../palette';
 import { isArray } from '@visactor/vutils';
+import { PlotMakType } from './enums';
+import { GrammarMarkType } from '../graph';
 
 export class Area extends SemanticMark<PlotAreaEncoderSpec, AreaEncodeChannels> {
-  static readonly type = 'area';
+  static readonly type = PlotMakType.area;
   constructor(id?: string | number) {
-    super('area', id);
+    super(PlotMakType.area, id);
   }
 
   setMarkType() {
-    return 'area';
+    return GrammarMarkType.area;
   }
 
   protected parseScaleOfEncodeX(

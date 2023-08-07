@@ -11,15 +11,17 @@ import type {
 } from '../types';
 import { SemanticMark } from './semantic-mark';
 import { getPalette } from '../palette';
+import { GrammarMarkType } from '../graph';
+import { PlotMakType } from './enums';
 
 export class RuleY extends SemanticMark<BasicEncoderSpecMap['rule'], RuleYEncodeChannels> {
-  static readonly type = 'ruleY';
+  static readonly type = PlotMakType.ruleX;
   constructor(id?: string | number) {
-    super('ruleY', id);
+    super(PlotMakType.ruleX, id);
   }
 
   setMarkType() {
-    return 'rule';
+    return GrammarMarkType.rule;
   }
 
   protected parseScaleOfEncodeX(

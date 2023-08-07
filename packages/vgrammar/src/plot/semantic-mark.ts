@@ -91,12 +91,12 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
 
-  data(values: any, id?: string) {
+  data(values: any, transform?: TransformSpec[], id?: string) {
     if (isNil(values)) {
       return this;
     }
 
-    this.spec.data = { values, id };
+    this.spec.data = { values, transform, id };
     return this;
   }
 

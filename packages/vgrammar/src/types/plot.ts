@@ -42,13 +42,52 @@ export interface PolarCoordinateOption {
   transpose?: boolean;
 }
 
+export type PlotIntervalEncoderSpec = Omit<BasicEncoderSpecMap['interval'], 'y'> & {
+  y?: number | number[];
+  y1?: number;
+  x1?: number;
+};
+
+export type PlotRectEncoderSpec = Omit<BasicEncoderSpecMap['rect'], 'y' | 'x'> & {
+  y?: number | number[];
+  x?: number | number[];
+  y1?: number;
+  x1?: number;
+};
+
+export type PlotRectXEncoderSpec = Omit<BasicEncoderSpecMap['rect'], 'x'> & {
+  x?: number | number[];
+  y1?: number;
+  x1?: number;
+};
+
+export type PlotRectYEncoderSpec = Omit<BasicEncoderSpecMap['rect'], 'y'> & {
+  y?: number | number[];
+  y1?: number;
+  x1?: number;
+};
+
 export type PlotAreaEncoderSpec = Omit<BasicEncoderSpecMap['area'], 'x' | 'y'> & {
   x?: number | number[];
   y?: number | number[];
 };
 
+export type PlotRuleEncoderSpec = Omit<BasicEncoderSpecMap['rule'], 'x' | 'y'> & {
+  x?: number | number[];
+  y?: number | number[];
+};
+
+export type PlotImageEncoderSpec = Omit<BasicEncoderSpecMap['image'], 'x' | 'y'> & {
+  x?: number | number[];
+  y?: number | number[];
+};
+export type PlotPolygonEncoderSpec = Omit<BasicEncoderSpecMap['polygon'], 'x' | 'y'> & {
+  x?: number[];
+  y?: number[];
+};
+
 export type CoordinateOption = CartesianCoordinateOption | PolarCoordinateOption;
-export type PlotIntervalSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['interval'], IntervalEncodeChannels>> & {
+export type PlotIntervalSpec = Partial<ISemanticMarkSpec<PlotIntervalEncoderSpec, IntervalEncodeChannels>> & {
   type: 'interval';
 };
 export type PlotLineSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['line'], LineEncodeChannels>> & {
@@ -66,32 +105,32 @@ export type PlotRuleYSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rule'
 export type PlotAreaSpec = Partial<ISemanticMarkSpec<PlotAreaEncoderSpec, AreaEncodeChannels>> & {
   type: 'area';
 };
-export type PlotPointSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['symbol'], PointEncodeChannels>> & {
-  type: 'point';
+export type PlotSymbolSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['symbol'], SymbolEncodeChannels>> & {
+  type: 'symbol';
 };
 export type PlotTextSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['text'], TextEncodeChannels>> & {
-  type: 'point';
+  type: 'text';
 };
-export type PlotRectSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rect'], RectEncodeChannels>> & {
-  type: 'point';
+export type PlotRectSpec = Partial<ISemanticMarkSpec<PlotRectEncoderSpec, RectEncodeChannels>> & {
+  type: 'rect';
 };
-export type PlotRectXSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rect'], RectXEncodeChannels>> & {
-  type: 'point';
+export type PlotRectXSpec = Partial<ISemanticMarkSpec<PlotRectXEncoderSpec, RectXEncodeChannels>> & {
+  type: 'rectX';
 };
-export type PlotRectYSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rect'], RectYEncodeChannels>> & {
-  type: 'point';
+export type PlotRectYSpec = Partial<ISemanticMarkSpec<PlotRectYEncoderSpec, RectYEncodeChannels>> & {
+  type: 'rectY';
 };
-export type PlotPolygonSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['polygon'], PolygonEncodeChannels>> & {
-  type: 'point';
+export type PlotPolygonSpec = Partial<ISemanticMarkSpec<PlotPolygonEncoderSpec, PolygonEncodeChannels>> & {
+  type: 'polygon';
 };
-export type PlotRuleSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['rule'], RuleEncodeChannels>> & {
-  type: 'point';
+export type PlotRuleSpec = Partial<ISemanticMarkSpec<PlotRuleEncoderSpec, RuleEncodeChannels>> & {
+  type: 'rule';
 };
-export type PlotImageSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['image'], ImageEncodeChannels>> & {
-  type: 'point';
+export type PlotImageSpec = Partial<ISemanticMarkSpec<PlotImageEncoderSpec, ImageEncodeChannels>> & {
+  type: 'image';
 };
 export type PlotPathSpec = Partial<ISemanticMarkSpec<BasicEncoderSpecMap['path'], PathEncodeChannels>> & {
-  type: 'point';
+  type: 'path';
 };
 
 export interface PlotSpec {
@@ -107,7 +146,7 @@ export interface PlotSpec {
     | PlotRuleXSpec
     | PlotRuleYSpec
     | PlotAreaSpec
-    | PlotPointSpec
+    | PlotSymbolSpec
     | PlotTextSpec
     | PlotRectSpec
     | PlotRectXSpec
@@ -143,26 +182,20 @@ export interface IPlot {
 
   ///--------- marks ---------///
 
-  interval: () => IInterval;
-  cell: () => ICell;
-  area: () => IArea;
-  // image: () => ISemanticMark;
-  line: () => ILine;
-  ruleX: () => IRuleX;
-  ruleY: () => IRuleY;
-  // point: () => ISemanticMark;
-  // link: () => ISemanticMark;
-  // polygon: () => ISemanticMark;
-  // text: () => ISemanticMark;
-  // rect: () => ISemanticMark;
-  // rectX: () => ISemanticMark;
-  // rectY: () => ISemanticMark;
-  /**
-   * 用于绘制区块，绘制四象限
-   */
-  // range: () => ISemanticMark;
-  // rangeX: () => ISemanticMark;
-  // rangeY: () => ISemanticMark;
+  interval: () => PlotMark;
+  cell: () => PlotMark;
+  area: () => PlotMark;
+  image: () => PlotMark;
+  line: () => PlotMark;
+  ruleX: () => PlotMark;
+  ruleY: () => PlotMark;
+  symbol: () => PlotMark;
+  polygon: () => PlotMark;
+  text: () => PlotMark;
+  rect: () => PlotMark;
+  rectX: () => PlotMark;
+  rectY: () => PlotMark;
+  rule: () => PlotMark;
 
   // wordcloud 包如果没注册，会存在问题
   // wordcloud: () => ISemanticMark;
@@ -230,7 +263,7 @@ export type SemanticPlayerOption = Partial<PlayerAttributes>;
 
 export interface ISemanticMark<EncodeSpec, K extends string> {
   readonly type: string;
-  data: (values: any, id?: string) => this;
+  data: (values: any, transform?: TransformSpec[], id?: string) => this;
   style: (style: ISemanticStyle<EncodeSpec, K>) => this;
   encode: (channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>) => this;
   scale: (channel: K, option: ScaleSpec) => this;
@@ -297,30 +330,30 @@ export type LineEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type AreaEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type RuleXEncodeChannels = 'x' | 'color' | 'group';
 export type RuleYEncodeChannels = 'y' | 'color' | 'group';
-export type PointEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'size';
+export type SymbolEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'size' | 'shape';
 export type TextEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'text';
-export type RectEncodeChannels = 'x' | 'y' | 'width' | 'height' | 'color' | 'group';
+export type RectEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type RectXEncodeChannels = 'x' | 'color' | 'group';
 export type RectYEncodeChannels = 'y' | 'color' | 'group';
 export type PolygonEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type RuleEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type ImageEncodeChannels = 'x' | 'y' | 'width' | 'height' | 'color' | 'group' | 'src';
+export type ImageEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'src';
 export type PathEncodeChannels = null;
 
-export type IInterval = ISemanticMark<BasicEncoderSpecMap['interval'], IntervalEncodeChannels>;
+export type IInterval = ISemanticMark<PlotIntervalEncoderSpec, IntervalEncodeChannels>;
 export type ILine = ISemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels>;
 export type ICell = ISemanticMark<BasicEncoderSpecMap['cell'], CellEncodeChannels>;
 export type IRuleX = ISemanticMark<BasicEncoderSpecMap['rule'], RuleXEncodeChannels>;
 export type IRuleY = ISemanticMark<BasicEncoderSpecMap['rule'], RuleYEncodeChannels>;
 export type IArea = ISemanticMark<PlotAreaEncoderSpec, AreaEncodeChannels>;
-export type IPoint = ISemanticMark<BasicEncoderSpecMap['symbol'], PointEncodeChannels>;
+export type ISymbol = ISemanticMark<BasicEncoderSpecMap['symbol'], SymbolEncodeChannels>;
 export type IText = ISemanticMark<BasicEncoderSpecMap['text'], TextEncodeChannels>;
-export type IRect = ISemanticMark<BasicEncoderSpecMap['rect'], RectEncodeChannels>;
+export type IRect = ISemanticMark<PlotRectEncoderSpec, RectEncodeChannels>;
 export type IRectX = ISemanticMark<BasicEncoderSpecMap['rect'], RectXEncodeChannels>;
 export type IRectY = ISemanticMark<BasicEncoderSpecMap['rect'], RectYEncodeChannels>;
-export type IPolygon = ISemanticMark<BasicEncoderSpecMap['polygon'], PolygonEncodeChannels>;
+export type IPolygon = ISemanticMark<PlotPolygonEncoderSpec, PolygonEncodeChannels>;
 export type IRule = ISemanticMark<BasicEncoderSpecMap['rule'], RuleEncodeChannels>;
-export type IImage = ISemanticMark<BasicEncoderSpecMap['image'], ImageEncodeChannels>;
+export type IImage = ISemanticMark<PlotImageEncoderSpec, ImageEncodeChannels>;
 export type IPath = ISemanticMark<BasicEncoderSpecMap['path'], PathEncodeChannels>;
 
 export type PlotMark =
@@ -330,7 +363,7 @@ export type PlotMark =
   | ICell
   | ILine
   | IArea
-  | IPoint
+  | ISymbol
   | IText
   | IRect
   | IRectX
