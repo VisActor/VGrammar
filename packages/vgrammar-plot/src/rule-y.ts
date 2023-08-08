@@ -1,5 +1,6 @@
-import type { RuleYEncodeChannels, WithDefaultEncode } from './interface';
 import type {
+  RuleYEncodeChannels,
+  WithDefaultEncode,
   BasicEncoderSpecMap,
   GenerateBaseEncodeSpec,
   GenerateEncoderSpec,

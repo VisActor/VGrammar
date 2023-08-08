@@ -7,9 +7,14 @@ import type {
   MultiScaleData,
   ScaleData,
   ScaleSpec,
-  ViewSpec
+  ViewSpec,
+  CoordinateOption,
+  IPlot,
+  IPlotMarkConstructor,
+  IPlotOptions,
+  PlotMark,
+  PlotSpec
 } from '@visactor/vgrammar';
-import type { CoordinateOption, IPlot, IPlotMarkConstructor, IPlotOptions, PlotMark, PlotSpec } from './interface';
 import type { ILogger } from '@visactor/vutils';
 import { Logger, isNil } from '@visactor/vutils';
 import { mergeGrammarSpecs } from './util';

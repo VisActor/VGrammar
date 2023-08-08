@@ -1,5 +1,7 @@
-import type { LineEncodeChannels, SemanticTooltipOption, WithDefaultEncode } from './interface';
 import type {
+  LineEncodeChannels,
+  SemanticTooltipOption,
+  WithDefaultEncode,
   BasicEncoderSpecMap,
   GenerateBaseEncodeSpec,
   Nil,

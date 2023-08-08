@@ -19,3 +19,4 @@ export * from './signal';
 export * from './theme';
 export * from './transform';
 export * from './view';
+export * from './plot';

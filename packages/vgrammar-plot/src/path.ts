@@ -1,6 +1,13 @@
 import { GrammarMarkType } from '@visactor/vgrammar';
-import type { PathEncodeChannels, WithDefaultEncode } from './interface';
-import type { BasicEncoderSpecMap, GenerateBaseEncodeSpec, Nil, ScaleSpec, ValueOf } from '@visactor/vgrammar';
+import type {
+  PathEncodeChannels,
+  WithDefaultEncode,
+  BasicEncoderSpecMap,
+  GenerateBaseEncodeSpec,
+  Nil,
+  ScaleSpec,
+  ValueOf
+} from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { SemanticMark } from './semantic-mark';
 

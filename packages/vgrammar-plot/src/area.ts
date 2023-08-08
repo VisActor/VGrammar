@@ -1,5 +1,8 @@
-import type { AreaEncodeChannels, SemanticTooltipOption, WithDefaultEncode, PlotAreaEncoderSpec } from './interface';
 import type {
+  AreaEncodeChannels,
+  SemanticTooltipOption,
+  WithDefaultEncode,
+  PlotAreaEncoderSpec,
   GenerateBaseEncodeSpec,
   GenerateEncoderSpec,
   Nil,

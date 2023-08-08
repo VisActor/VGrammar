@@ -1,5 +1,8 @@
-import type { SankeyEncodeChannels, WithDefaultEncode, PlotSankeyEncoderSpec, SemanticLabelOption } from './interface';
 import type {
+  SankeyEncodeChannels,
+  WithDefaultEncode,
+  PlotSankeyEncoderSpec,
+  SemanticLabelOption,
   ChannelEncodeType,
   DataSpec,
   GenerateBaseEncodeSpec,

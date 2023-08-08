@@ -1,5 +1,13 @@
-import type { RuleEncodeChannels, WithDefaultEncode, PlotRuleEncoderSpec } from './interface';
-import type { GenerateBaseEncodeSpec, GenerateEncoderSpec, Nil, ScaleSpec, ValueOf } from '@visactor/vgrammar';
+import type {
+  RuleEncodeChannels,
+  WithDefaultEncode,
+  PlotRuleEncoderSpec,
+  GenerateBaseEncodeSpec,
+  GenerateEncoderSpec,
+  Nil,
+  ScaleSpec,
+  ValueOf
+} from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 import { getPalette, GrammarMarkType } from '@visactor/vgrammar';
 import { isArray } from '@visactor/vutils';
