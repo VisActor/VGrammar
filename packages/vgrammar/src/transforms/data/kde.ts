@@ -30,6 +30,7 @@ const ruleOfThumbBandwidth = (data: IPointLike[], dimension: number = 1) => {
   // return 1.06 * sd * n ** -0.2;
 };
 
+// Adaptive bandwidth, referring to: https://www.osti.gov/biblio/1372602
 const scottBandwidth = (data: IPointLike[], dimension: number = 1) => {
   const n = data.length;
   return n ** (-1 / (dimension + 4));
@@ -105,8 +106,8 @@ export const transform = (options: KDETransformOption, upstreamData: any[]) => {
     const stepX = (extent[1].x - extent[0].x) / binsX;
     const stepY = (extent[1].y - extent[0].y) / binsY;
     const kdeResult: any[] = [];
-    for (let xIndex = 0; xIndex < binsX; xIndex++) {
-      for (let yIndex = 0; yIndex < binsY; yIndex++) {
+    for (let yIndex = 0; yIndex < binsY; yIndex++) {
+      for (let xIndex = 0; xIndex < binsX; xIndex++) {
         const x = Math.min(extent[0].x + stepX * (xIndex + 0.5), extent[1].x);
         const y = Math.min(extent[0].y + stepY * (yIndex + 0.5), extent[1].y);
         kdeResult.push({

@@ -43,6 +43,15 @@ export const runner = (view: View) => {
       as: ['x', 'y', 'kde']
     }
   ]);
+  const contourData = view.data().source(kdeData).transform([
+    {
+      type: 'contour',
+      field: 'kde',
+      row: 100,
+      column: 100,
+      levels: 2,
+    }
+  ]);
 
   const xScale = view.scale('linear').domain([0, 100]).range([0, 270]);
   const yScale = view.scale('linear').domain([100, 0]).range([0, 270]);
@@ -92,6 +101,23 @@ export const runner = (view: View) => {
       shape: 'square',
       fill: 'red'
     });
+  const contour = view
+    .mark('polygon', container)
+    .id('contour')
+    .join(contourData)
+    .depend([xScale, yScale])
+    .encode({
+      points: (datum: any) => {
+        return datum.points.map(point => {
+          return {
+            x: xScale.getScale().scale(point.x * 100),
+            y: yScale.getScale().scale(point.y * 100)
+          }
+        });
+      },
+      stroke: 'purple',
+      curveType: 'monotone'
+    })
 };
 
 export const callback = (chartInstance: any) => {
