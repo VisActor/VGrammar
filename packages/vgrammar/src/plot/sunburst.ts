@@ -28,7 +28,7 @@ export class SunburstSemanticMark extends SemanticMark<PlotSunburstEncodeSpec, S
 
     if (!getTransform('sunburst')) {
       this._logger.error(
-        `Please import registerSunburstTransforms from 'vgrammar-hierarchy', 
+        `Please add this line of code: import { registerSunburstTransforms } from 'vgrammar-hierarchy': 
         and run registerSunburstTransforms() before use sunburst chart`
       );
     }

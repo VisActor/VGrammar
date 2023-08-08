@@ -27,8 +27,8 @@ export class TreemapSemanticMark extends SemanticMark<PlotTreemapEncodeSpec, Tre
 
     if (!getTransform('treemap')) {
       this._logger.error(
-        `Please import registerTreemapTransforms from 'vgrammar-hierarchy', 
-        and run registerTreemapTransforms() before use treemap chart`
+        `Please add this line of code: import { registerTreemapTransforms } from 'vgrammar-hierarchy'; 
+        and run registerTreemapTransforms() before use treemap`
       );
     }
   }
