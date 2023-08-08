@@ -23,6 +23,10 @@ export const defaultDoLayout = (layoutMarks: IMark[], options: ILayoutOptions, v
     const layoutSpec = mark.getSpec().layout;
     const bounds = mark.layoutBounds ?? mark.getBounds();
 
+    if (!bounds) {
+      return;
+    }
+
     if (isFunction(layoutSpec)) {
       layoutSpec.call(null, mark as IGroupMark, layoutChildren, bounds, options);
     } else if (isFunction(layoutSpec.callback)) {
