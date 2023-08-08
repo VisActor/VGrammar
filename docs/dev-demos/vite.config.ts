@@ -4,11 +4,6 @@ import pkg from '../../packages/vgrammar/package.json';
 
 const vGrammarPkgs = Object.keys(pkg.dependencies).filter(pkgName => pkgName.startsWith('@visactor/vgrammar-'));
 
-vGrammarPkgs.push('@visactor/vgrammar-projection');
-vGrammarPkgs.push('@visactor/vgrammar-wordcloud');
-vGrammarPkgs.push('@visactor/vgrammar-wordcloud-shape');
-vGrammarPkgs.push('@visactor/vgrammar-sankey');
-vGrammarPkgs.push('@visactor/vgrammar-hierarchy');
 
 export default defineConfig({
   server: {

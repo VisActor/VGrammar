@@ -526,3 +526,7 @@ export const defaultTheme = {
 
   tooltip
 };
+
+export const getTheme = (themeName: string) => {
+  return defaultTheme;
+};
