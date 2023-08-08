@@ -536,7 +536,7 @@ export class Mark extends GrammarBase implements IMark {
     Object.keys(encoders).forEach(state => {
       const useEncoders = encoders[state];
 
-      if (!isFunctionType(useEncoders)) {
+      if (useEncoders && !isFunctionType(useEncoders)) {
         Object.keys(useEncoders).forEach(channel => {
           if (isScaleEncode(useEncoders[channel])) {
             res[channel] = getGrammarOutput(useEncoders[channel].scale, params);
