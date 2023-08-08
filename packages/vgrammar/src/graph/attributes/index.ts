@@ -339,12 +339,24 @@ const isSegmentAttrEqual = (prev: any, next: any, key: string) => {
     return isLineDashEqual(prev, next);
   }
 
-  if (key === 'stroke') {
+  if (key === 'stroke' || key === 'fill') {
     return isColorAttrEqual(prev, next);
   }
 
   return prev === next;
 };
+
+const fillAttrs = ['fill', 'fillOpacity', 'background', 'texture', 'texturePadding', 'textureSize', 'textureColor'];
+const strokeAttrs = [
+  'stroke',
+  'strokeOpacity',
+  'lineDash',
+  'lineDashOffset',
+  'lineCap',
+  'lineJoin',
+  'lineWidth',
+  'miterLimit'
+];
 
 /**
  * 生成用于渲染的点数组
@@ -356,10 +368,7 @@ export function getLineSegmentConfigs(items: any[], points: any[], element?: IEl
     return null;
   }
 
-  const checkAttributes =
-    element?.mark?.markType === 'area'
-      ? ['fill', 'fillOpacity', 'background', 'texture', 'texturePadding', 'textureSize', 'textureColor']
-      : ['stroke', 'strokeOpacity', 'lineDash', 'lineDashOffset', 'lineCap', 'lineJoin', 'lineWidth', 'miterLimit'];
+  const checkAttributes = element?.mark?.markType === 'area' ? fillAttrs.concat(strokeAttrs) : strokeAttrs;
 
   const segments: any[] = [];
   let prevSegmentAttrs: any = null;
