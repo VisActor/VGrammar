@@ -357,6 +357,7 @@ const strokeAttrs = [
   'lineWidth',
   'miterLimit'
 ];
+const areaAttrs = fillAttrs.concat(strokeAttrs);
 
 /**
  * 生成用于渲染的点数组
@@ -368,7 +369,7 @@ export function getLineSegmentConfigs(items: any[], points: any[], element?: IEl
     return null;
   }
 
-  const checkAttributes = element?.mark?.markType === 'area' ? fillAttrs.concat(strokeAttrs) : strokeAttrs;
+  const checkAttributes = element?.mark?.markType === 'area' ? areaAttrs : strokeAttrs;
 
   const segments: any[] = [];
   let prevSegmentAttrs: any = null;
