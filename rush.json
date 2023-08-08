@@ -20,6 +20,12 @@
   "allowedProjectTags": ["tool", "share", "package", "doc"],
   "projects": [
     {
+      "packageName": "@visactor/vgrammar-plot",
+      "projectFolder": "packages/vgrammar-plot",
+      "tags": ["package"],
+      "shouldPublish": true
+    },
+    {
       "packageName": "@visactor/vgrammar-wordcloud-shape",
       "projectFolder": "packages/vgrammar-wordcloud-shape",
       "tags": ["package"],

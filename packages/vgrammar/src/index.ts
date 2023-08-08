@@ -34,9 +34,20 @@ export { parseFunctionType, invokeFunctionType } from './parse/util';
 export { GrammarBase } from './view/grammar-base';
 export { registerAnimationType, unregisterAnimationType } from './view/register-animation';
 export { registerComponent, unregisterComponent, unregisterAllComponents } from './view/register-component';
-export { registerGlyph, unregisterGlyph, unregisterAllGlyphs } from './view/register-glyph';
+export { getGlyph, registerGlyph, unregisterGlyph, unregisterAllGlyphs } from './view/register-glyph';
 export { registerGrammar, unregisterGrammar, unregisterAllGrammars } from './view/register-grammar';
 export * from './types';
 
-export { Plot } from './plot/plot-all';
 export { getPalette } from './palette';
+export { Factory } from './core/factory';
+
+export {
+  SIGNAL_AUTOFIT,
+  SIGNAL_HEIGHT,
+  SIGNAL_PADDING,
+  SIGNAL_VIEW_HEIGHT,
+  SIGNAL_VIEW_WIDTH,
+  SIGNAL_WIDTH,
+  SIGNAL_VIEW_BOX
+} from './view/constants';
+export { getTheme } from './theme';

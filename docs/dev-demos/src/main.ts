@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import './style.css';
-import { Plot, View } from '@visactor/vgrammar';
+import { View } from '@visactor/vgrammar';
+import { Plot } from '@visactor/vgrammar-plot';
 import { indexes } from './indexes';
 import { createBinds } from './bind-helpers';
 
