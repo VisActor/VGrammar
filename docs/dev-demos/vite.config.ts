@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
 import * as path from 'path';
-import pkg from '../../packages/vgrammar/package.json';
+import pkg from './package.json';
 
-const vGrammarPkgs = Object.keys(pkg.dependencies).filter(pkgName => pkgName.startsWith('@visactor/vgrammar-'));
+const vGrammarPkgs = Object.keys(pkg.devDependencies).filter(pkgName => pkgName.startsWith('@visactor/vgrammar-'));
 
 
 export default defineConfig({
