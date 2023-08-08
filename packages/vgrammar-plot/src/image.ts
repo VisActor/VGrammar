@@ -1,6 +1,8 @@
-import type { ImageEncodeChannels, WithDefaultEncode, PlotImageEncoderSpec } from './interface';
 import { SemanticMark } from './semantic-mark';
 import type {
+  ImageEncodeChannels,
+  WithDefaultEncode,
+  PlotImageEncoderSpec,
   GenerateBaseEncodeSpec,
   GenerateEncoderSpec,
   IElement,

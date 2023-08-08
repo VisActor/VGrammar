@@ -5,9 +5,11 @@ import type {
   Nil,
   ScaleSpec,
   ValueOf,
-  CrosshairSpec
+  CrosshairSpec,
+  CellEncodeChannels,
+  SemanticTooltipOption,
+  WithDefaultEncode
 } from '@visactor/vgrammar';
-import type { CellEncodeChannels, SemanticTooltipOption, WithDefaultEncode } from './interface';
 import { SemanticMark } from './semantic-mark';
 import { getPalette, GrammarMarkType } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';

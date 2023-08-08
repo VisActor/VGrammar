@@ -4,9 +4,7 @@ import type {
   IntervalEncodeChannels,
   PlotIntervalEncoderSpec,
   SemanticTooltipOption,
-  WithDefaultEncode
-} from './interface';
-import type {
+  WithDefaultEncode,
   GenerateBaseEncodeSpec,
   Nil,
   ScaleSpec,

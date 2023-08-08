@@ -1,5 +1,6 @@
-import type { TextEncodeChannels, WithDefaultEncode } from './interface';
 import type {
+  TextEncodeChannels,
+  WithDefaultEncode,
   GenerateBaseEncodeSpec,
   GenerateEncoderSpec,
   Nil,

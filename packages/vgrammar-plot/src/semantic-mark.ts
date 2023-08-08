@@ -6,6 +6,17 @@ import type {
   PlayerAttributes,
   OrientType
 } from '@visactor/vrender-components';
+import type { ILogger } from '@visactor/vutils';
+import { Logger, array, isArray, isBoolean, isNil, isPlainObject } from '@visactor/vutils';
+import { isContinuous, type IBaseScale, isDiscrete } from '@visactor/vscale';
+import {
+  getPalette,
+  DiffState,
+  ComponentEnum,
+  invokeFunctionType,
+  getTheme,
+  SIGNAL_VIEW_BOX
+} from '@visactor/vgrammar';
 import type {
   ISemanticMark,
   ISemanticMarkSpec,
@@ -20,20 +31,7 @@ import type {
   SemanticLegendOption,
   SemanticCrosshairOption,
   CoordinateOption,
-  PolarCoordinateOption
-} from './interface';
-import type { ILogger } from '@visactor/vutils';
-import { Logger, array, isArray, isBoolean, isNil, isPlainObject } from '@visactor/vutils';
-import { isContinuous, type IBaseScale, isDiscrete } from '@visactor/vscale';
-import {
-  getPalette,
-  DiffState,
-  ComponentEnum,
-  invokeFunctionType,
-  getTheme,
-  SIGNAL_VIEW_BOX
-} from '@visactor/vgrammar';
-import type {
+  PolarCoordinateOption,
   AxisSpec,
   CrosshairSpec,
   DatazoomSpec,
@@ -63,7 +61,7 @@ import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import type { ITextAttribute } from '@visactor/vrender';
 
-const defaultTheme = getTheme();
+const defaultTheme = getTheme('default');
 
 let semanticMarkId = -1;
 

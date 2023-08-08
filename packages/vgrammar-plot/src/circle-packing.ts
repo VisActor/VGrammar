@@ -6,19 +6,17 @@ import type {
   ValueOf,
   TransformSpec,
   IElement,
-  ChannelEncodeType
+  ChannelEncodeType,
+  CirclepackingEncodeChannels,
+  WithDefaultEncode,
+  PlotCirclePackingEncodeSpec,
+  SemanticLabelOption
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 import { getPalette, GrammarMarkType, getTransform } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { ITextAttribute } from '@visactor/vrender';
-import type {
-  CirclepackingEncodeChannels,
-  WithDefaultEncode,
-  PlotCirclePackingEncodeSpec,
-  SemanticLabelOption
-} from './interface';
 
 export class CirclePackingSemanticMark extends SemanticMark<PlotCirclePackingEncodeSpec, CirclepackingEncodeChannels> {
   static readonly type = PlotMakType.circlePacking;

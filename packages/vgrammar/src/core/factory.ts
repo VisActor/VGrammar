@@ -1,4 +1,4 @@
-import type { IPlotMarkConstructor, ISemanticMark } from '../types/plot';
+import type { IPlotMarkConstructor, ISemanticMark } from '../types';
 
 export class Factory {
   private static _plotMarks: { [key: string]: IPlotMarkConstructor } = {};

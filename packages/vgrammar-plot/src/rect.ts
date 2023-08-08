@@ -1,6 +1,16 @@
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
-import type { RectEncodeChannels, PlotRectEncoderSpec, SemanticTooltipOption, WithDefaultEncode } from './interface';
-import type { GenerateBaseEncodeSpec, CrosshairSpec, Nil, ScaleSpec, ValueOf, IElement } from '@visactor/vgrammar';
+import type {
+  RectEncodeChannels,
+  PlotRectEncoderSpec,
+  SemanticTooltipOption,
+  WithDefaultEncode,
+  GenerateBaseEncodeSpec,
+  CrosshairSpec,
+  Nil,
+  ScaleSpec,
+  ValueOf,
+  IElement
+} from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 import { getPalette, GrammarMarkType } from '@visactor/vgrammar';
 import { isArray } from '@visactor/vutils';

@@ -1,5 +1,7 @@
-import type { WordcloudEncodeChannels, WithDefaultEncode, PlotWordcloudEncodeSpec } from './interface';
 import type {
+  WordcloudEncodeChannels,
+  WithDefaultEncode,
+  PlotWordcloudEncodeSpec,
   GenerateBaseEncodeSpec,
   GenerateEncoderSpec,
   Nil,

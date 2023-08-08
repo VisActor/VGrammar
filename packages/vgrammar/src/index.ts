@@ -50,4 +50,4 @@ export {
   SIGNAL_WIDTH,
   SIGNAL_VIEW_BOX
 } from './view/constants';
-export { getTheme } from './theme';
+export { getTheme } from './theme/default';

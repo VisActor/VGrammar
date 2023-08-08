@@ -1,5 +1,8 @@
-import type { TreeEncodeChannels, WithDefaultEncode, PlotTreeEncodeSpec, SemanticLabelOption } from './interface';
 import type {
+  TreeEncodeChannels,
+  WithDefaultEncode,
+  PlotTreeEncodeSpec,
+  SemanticLabelOption,
   MarkSpec,
   ChannelEncodeType,
   DataSpec,

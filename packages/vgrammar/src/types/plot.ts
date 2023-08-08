@@ -1,21 +1,4 @@
 import type {
-  ScaleSpec,
-  TransformSpec,
-  BasicEncoderSpecMap,
-  LinkPathEncoderSpec,
-  MarkRelativeItemSpec,
-  IEnvironmentOptions,
-  IRendererOptions,
-  ViewSpec,
-  srIOption3DType,
-  CommonPaddingSpec,
-  ValueOf,
-  DataSpec,
-  IAnimationConfig,
-  BaseEventHandler,
-  IMorphConfig
-} from '@visactor/vgrammar';
-import type {
   AxisBaseAttributes,
   BaseCrosshairAttrs,
   BaseLabelAttrs,
@@ -28,6 +11,15 @@ import type {
 } from '@visactor/vrender-components';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { IColor } from '@visactor/vrender';
+import type { IEnvironmentOptions, IRendererOptions, ViewSpec, srIOption3DType } from './view';
+import type { CommonPaddingSpec, ValueOf } from './base';
+import type { BasicEncoderSpecMap, LinkPathEncoderSpec, MarkRelativeItemSpec } from './mark';
+import type { IMorphConfig } from './morph';
+import type { BaseEventHandler } from './event';
+import type { TransformSpec } from './transform';
+import type { IAnimationConfig } from './animate';
+import type { ScaleSpec } from './scale';
+import type { DataSpec } from './data';
 
 export interface IPlotOptions extends IEnvironmentOptions, IRendererOptions {
   width?: number;

@@ -1,5 +1,7 @@
-import type { TreemapEncodeChannels, WithDefaultEncode, PlotTreemapEncodeSpec } from './interface';
 import type {
+  TreemapEncodeChannels,
+  WithDefaultEncode,
+  PlotTreemapEncodeSpec,
   GenerateBaseEncodeSpec,
   GenerateEncoderSpec,
   Nil,
