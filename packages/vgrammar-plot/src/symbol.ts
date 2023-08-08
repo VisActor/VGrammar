@@ -1,5 +1,6 @@
-import type { SymbolEncodeChannels, WithDefaultEncode } from './interface';
 import type {
+  SymbolEncodeChannels,
+  WithDefaultEncode,
   GenerateBaseEncodeSpec,
   GenerateEncoderSpec,
   Nil,

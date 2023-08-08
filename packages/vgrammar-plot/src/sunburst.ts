@@ -1,5 +1,7 @@
-import type { SunburstEncodeChannels, WithDefaultEncode, PlotSunburstEncodeSpec } from './interface';
 import type {
+  SunburstEncodeChannels,
+  WithDefaultEncode,
+  PlotSunburstEncodeSpec,
   GenerateBaseEncodeSpec,
   GenerateEncoderSpec,
   Nil,

@@ -1,5 +1,7 @@
-import type { PolygonEncodeChannels, WithDefaultEncode, PlotPolygonEncoderSpec } from './interface';
 import type {
+  PolygonEncodeChannels,
+  WithDefaultEncode,
+  PlotPolygonEncoderSpec,
   GenerateBaseEncodeSpec,
   Nil,
   ScaleSpec,
@@ -47,8 +49,8 @@ export class PolygonSemanticMark extends SemanticMark<PlotPolygonEncoderSpec, Po
     const res: GenerateEncoderSpec<PlotPolygonEncoderSpec> = {};
 
     if (markEncoder.x?.field?.length && markEncoder.y?.field?.length) {
-      const xAccessors = markEncoder.x.field.map(f => getFieldAccessor(f));
-      const yAccessors = markEncoder.y.field.map(f => getFieldAccessor(f));
+      const xAccessors = markEncoder.x.field.map((f: any) => getFieldAccessor(f));
+      const yAccessors = markEncoder.y.field.map((f: any) => getFieldAccessor(f));
 
       res.points = (datum: any, el: IElement, params: any) => {
         const scaleX = params[scaleXId];
