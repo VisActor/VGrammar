@@ -44,6 +44,7 @@ export class SunburstSemanticMark extends SemanticMark<PlotSunburstEncodeSpec, S
         type: 'sunburst',
         width: { signal: 'viewWidth' },
         height: { signal: 'viewHeight' },
+        nodeKey: this.spec.encode?.node,
         flatten: true
       }
     ];

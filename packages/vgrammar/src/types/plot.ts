@@ -352,9 +352,9 @@ export type ImageEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'src';
 export type PathEncodeChannels = null;
 export type SankeyEncodeChannels = 'node' | 'value' | 'color';
 export type SunburstEncodeChannels = 'node' | 'value' | 'color';
-export type TreeEncodeChannels = 'value' | 'color';
-export type TreemapEncodeChannels = 'value' | 'color';
-export type CirclepackingEncodeChannels = 'value' | 'color';
+export type TreeEncodeChannels = 'node' | 'value' | 'color';
+export type TreemapEncodeChannels = 'node' | 'value' | 'color';
+export type CirclepackingEncodeChannels = 'node' | 'value' | 'color';
 export type WordcloudEncodeChannels = 'text' | 'color';
 export type WordcloudShapeEncodeChannels = 'text' | 'color';
 
