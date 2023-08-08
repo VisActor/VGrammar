@@ -121,7 +121,7 @@ export const spec = {
       },
       encode: {
         enter: {
-          stroke: '#652c90'
+          // stroke: '#652c90'
         },
         update: {
           enableSegments: { signal: 'enableSegments' },
@@ -134,6 +134,7 @@ export const spec = {
             },
             dependency: ['defined']
           },
+          // stroke: ['pink', false, false, false],
           curveType: { signal: 'curveType' },
           tension: { signal: 'tension' },
           lineWidth: { signal: 'lineWidth' },
@@ -144,6 +145,11 @@ export const spec = {
           fill: {
             callback: (datum: any, element: any, params: any) => {
               return datum.u > 3 ? 'red' : 'green';
+            }
+          },
+          stroke: {
+            callback: (datum: any, element: any, params: any) => {
+              return datum.u > 3 ? ['pink', false, false, false] : ['dark', false, false, false];
             }
           },
           miterLimitin: { signal: 'miterLimitin' },
