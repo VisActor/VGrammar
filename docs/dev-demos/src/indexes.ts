@@ -516,6 +516,42 @@ export const indexes = [
         name: 'sankey',
         type: 'plot'
       },
+
+      {
+        path: 'sunburst',
+        name: 'sunburst',
+        type: 'plot'
+      },
+
+      {
+        path: 'treemap',
+        name: 'treemap',
+        type: 'plot'
+      },
+
+      {
+        path: 'circle-packing',
+        name: 'circle-packing',
+        type: 'plot'
+      },
+
+      {
+        path: 'tree',
+        name: 'tree',
+        type: 'plot'
+      },
+
+      {
+        path: 'wordcloud',
+        name: 'wordcloud',
+        type: 'plot'
+      },
+
+      {
+        path: 'wordcloud-shape',
+        name: 'wordcloud-shape',
+        type: 'plot'
+      },
     ]
   }
 ];
