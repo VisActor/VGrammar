@@ -4,7 +4,7 @@ import {
   isPositionOrSizeChannel,
   transformAttributes
 } from '../../src/graph/attributes';
-import { emptyFunction } from '../util';
+import { createSimpleElement, emptyFunction } from '../util';
 
 test('getLineSegmentConfigs()', () => {
   expect(getLineSegmentConfigs([], [])).toBeNull();
@@ -114,6 +114,135 @@ test('getLineSegmentConfigs()', () => {
       ]
     }
   ]);
+});
+
+test('getLineSegmentConfigs() when stroke is an array', () => {
+  const items = [
+    { stroke: ['red', false, false, false] },
+    { stroke: ['red', false, false, false] },
+    { stroke: ['red', false, false, false] },
+    { stroke: ['red', false, false, false] }
+  ];
+  const points = [
+    { x: 0, y: 0 },
+    { x: 1, y: 0 },
+    { x: 2, y: 0 },
+    { x: 3, y: 0 }
+  ];
+
+  expect(getLineSegmentConfigs(items, points)).toBeNull();
+  const area = createSimpleElement('area');
+  expect(getLineSegmentConfigs(items, points, area)).toBeNull();
+});
+
+test('getLineSegmentConfigs() when fill is an array of an area mark', () => {
+  const items = [
+    { fill: ['red', false, false, false] },
+    { fill: ['red', false, false, false] },
+    { fill: ['red', false, false, false] },
+    { fill: ['red', false, false, false] }
+  ];
+  const points = [
+    { x: 0, y: 0 },
+    { x: 1, y: 0 },
+    { x: 2, y: 0 },
+    { x: 3, y: 0 }
+  ];
+
+  expect(getLineSegmentConfigs(items, points)).toBeNull();
+  const area = createSimpleElement('area');
+  expect(getLineSegmentConfigs(items, points, area)).toBeNull();
+});
+
+test('getLineSegmentConfigs() when fill is a gradient color', () => {
+  const items = [
+    {
+      fill: {
+        gradient: 'linear',
+        x0: 0.5,
+        y0: 0,
+        x1: 0.5,
+        y1: 1,
+        stops: [
+          {
+            offset: 0,
+            opacity: 0.2
+          },
+          {
+            offset: 1,
+            opacity: 0
+          }
+        ]
+      }
+    },
+    {
+      fill: {
+        gradient: 'linear',
+        x0: 0.5,
+        y0: 0,
+        x1: 0.5,
+        y1: 1,
+        stops: [
+          {
+            offset: 0,
+            opacity: 0.2
+          },
+          {
+            offset: 1,
+            opacity: 0
+          }
+        ]
+      }
+    },
+    {
+      fill: {
+        gradient: 'linear',
+        x0: 0.5,
+        y0: 0,
+        x1: 0.5,
+        y1: 1,
+        stops: [
+          {
+            offset: 0,
+            opacity: 0.2
+          },
+          {
+            offset: 1,
+            opacity: 0
+          }
+        ]
+      }
+    },
+    {
+      fill: {
+        gradient: 'linear',
+        x0: 0.5,
+        y0: 0,
+        x1: 0.5,
+        y1: 1,
+        stops: [
+          {
+            offset: 0,
+            opacity: 0.2
+          },
+          {
+            offset: 1,
+            opacity: 0
+          }
+        ]
+      }
+    }
+  ];
+  const points = [
+    { x: 0, y: 0 },
+    { x: 1, y: 0 },
+    { x: 2, y: 0 },
+    { x: 3, y: 0 }
+  ];
+
+  expect(getLineSegmentConfigs(items, points)).toBeNull();
+  const area = createSimpleElement('area');
+  expect(getLineSegmentConfigs(items, points, area)).toBeNull();
 });
 
 test('isPositionOrSizeChannel()', () => {
