@@ -1,10 +1,8 @@
-import type { TreemapData, TreemapOptions } from '../interface';
+import { flattenNodes } from '../format';
+import type { TreemapData, TreemapNodeElement, TreemapTramsformOptions } from '../interface';
 import { TreemapLayout } from './layout';
 
-export const transform = (
-  options: TreemapOptions & ({ width: number; height: number } | { x0: number; x1: number; y0: number; y1: number }),
-  upstreamData: TreemapData
-) => {
+export const transform = (options: TreemapTramsformOptions, upstreamData: TreemapData) => {
   const layout = new TreemapLayout(options);
 
   const res = layout.layout(
@@ -21,5 +19,12 @@ export const transform = (
           y1: options.y1
         }
   );
+
+  if (options.flatten) {
+    const nodes: TreemapNodeElement[] = [];
+    flattenNodes(res, nodes, { maxDepth: options?.maxDepth });
+
+    return nodes;
+  }
   return res;
 };
