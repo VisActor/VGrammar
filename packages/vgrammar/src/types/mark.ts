@@ -19,7 +19,7 @@ import type {
   IGroupGraphicAttribute,
   IRichTextGraphicAttribute
 } from '@visactor/vrender';
-import type { Bounds } from '@visactor/vutils';
+import type { Bounds, IPointLike } from '@visactor/vutils';
 import type { IAnimationConfig, IStateAnimationConfig } from './animate';
 import type { IElement } from './element';
 import type { IMark, IScale, IGroupMark, ICoordinate, GrammarSpec, IData } from './grammar';
@@ -379,6 +379,21 @@ export interface RipplePointEncoderSpec extends BasicGlyphEncoderSpec {
   size?: number;
 }
 
+export interface ViolinEncoderSpec extends BasicGlyphEncoderSpec {
+  violinFill: string;
+  violinStroke: string;
+  medianFill?: string;
+  density?: IPointLike[];
+  boxWidth?: number;
+  q1?: number;
+  q3?: number;
+  min?: number;
+  max?: number;
+  median?: number;
+  angle?: number;
+  anchor?: [number, number];
+}
+
 export interface WaveEncoderSpec extends BasicGlyphEncoderSpec {
   wave?: number;
 }
@@ -396,6 +411,9 @@ export interface TreePathGlyphSpec extends GlyphMarkSpec<TreePathEncoderSpec> {
 }
 export interface RipplePointGlyphSpec extends GlyphMarkSpec<RipplePointEncoderSpec> {
   glyphType: 'ripplePoint';
+}
+export interface ViolinGlyphSpec extends GlyphMarkSpec<ViolinEncoderSpec> {
+  glyphType: 'violin';
 }
 export interface WaveGlyphSpec extends GlyphMarkSpec<WaveEncoderSpec> {
   glyphType: 'wave';
@@ -492,6 +510,7 @@ export type MarkSpec =
   | RipplePointGlyphSpec
   | BarBoxPlotGlyphSpec
   | BoxPlotGlyphSpec
+  | ViolinGlyphSpec
   | ComponentSpec
   | BuiltInComponentSpec;
 
