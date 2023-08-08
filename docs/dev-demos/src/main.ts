@@ -141,14 +141,15 @@ const createChartByPlot = (runner: any) => {
   }
 
   chartInstance = new Plot({
-    width: 400,
-    height: 400,
+    width: 800,
+    height: 600,
     container: 'container',
+    logLevel: 5,
   });
   (window as any).view = chartInstance;
   runner(chartInstance);
 
-  chartInstance.render();
+  chartInstance.runAsync();
 
   return chartInstance;
 };

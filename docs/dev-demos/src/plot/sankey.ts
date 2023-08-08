@@ -14,7 +14,8 @@ export const runner = (plot: IPlot) => {
     .data({ nodes: data })
     .encode('node', 'name')
     .encode('color', 'name')
-    .scale('color', { range: getPalette() });
+    .scale('color', { range: getPalette() })
+    .label('name', { textStyle: { fill: '#333' }, position: 'left' });
 };
 
 export const callback = (view: IView) => {
