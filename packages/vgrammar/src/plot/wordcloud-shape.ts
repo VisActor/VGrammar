@@ -28,8 +28,9 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
 
     if (!getTransform(PlotMakType.wordcloudShape)) {
       this._logger.error(
-        `Please add import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-shape'; 
-        and run registerWordCloudShapeTransforms() before use wordcloud chart`
+        `Please add this line of code:
+          import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-shape'; 
+        and run registerWordCloudShapeTransforms() before use wordcloud-shape`
       );
     }
   }

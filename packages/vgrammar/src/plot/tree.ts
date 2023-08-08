@@ -30,13 +30,16 @@ export class TreeSemanticMark extends SemanticMark<PlotTreeEncodeSpec, TreeEncod
 
     if (!getTransform(PlotMakType.tree)) {
       this._logger.error(
-        `Please import registerTreeTransforms from 'vgrammar-hierarchy', 
-        and run registerTreeTransforms() before use tree chart`
+        `Please add this line of code: import { registerTreeTransforms } from 'vgrammar-hierarchy', 
+        and run registerTreeTransforms() before use tree`
       );
     }
 
     if (!getGlyph('treePath')) {
-      this._logger.error(`Please run registerTreePathGlyph() before use tree chart`);
+      this._logger.error(
+        `Please add this line of code: import { registerTreePathGlyph } from '@visactor/vgrammar';
+        and run registerTreePathGlyph() before use tree`
+      );
     }
   }
 

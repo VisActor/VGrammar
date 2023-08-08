@@ -27,7 +27,7 @@ export class CirclePackingSemanticMark extends SemanticMark<PlotCirclePackingEnc
 
     if (!getTransform(PlotMakType.circlePacking)) {
       this._logger.error(
-        `Please import registerCirclePackingTransforms from 'vgrammar-hierarchy', 
+        `Please add this line of code: import { registerCirclePackingTransforms } from '@visactor/vgrammar-hierarchy'; 
         and run registerCirclePackingTransforms() before use treemap chart`
       );
     }
