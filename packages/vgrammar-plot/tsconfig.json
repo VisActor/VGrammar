@@ -1,0 +1,24 @@
+{
+  "extends": "@internal/ts-config/tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["jest", "node"],
+    "lib": ["DOM", "ESNext"],
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "composite": true,
+    "outDir": "./es"
+  },
+  "references": [
+    {
+      "path": "../vgrammar-util"
+    },
+    {
+      "path": "../vgrammar"
+    },
+    {
+      "path": "../vgrammar-coordinate"
+    }
+  ],
+  "include": ["src"],
+  "exclude": []
+}

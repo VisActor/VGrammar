@@ -12,7 +12,6 @@ export * from './hooks';
 export * from './layout';
 export * from './mark';
 export * from './morph';
-export * from './plot';
 export * from './projection';
 export * from './renderer';
 export * from './scale';
