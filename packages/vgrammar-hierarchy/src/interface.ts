@@ -1,5 +1,7 @@
 import type { ITextGraphicAttribute } from '@visactor/vrender';
 
+export type ViewBoxOptions = { width: number; height: number } | { x0: number; x1: number; y0: number; y1: number };
+
 export interface TreemapOptions {
   /**
    * The gap width between two nodes which has the same depth, two kinds of value are supported
@@ -49,6 +51,8 @@ export interface TreemapOptions {
    */
   minChildrenVisibleSize?: number | number[];
 }
+
+export type TreemapTramsformOptions = TreemapOptions & ViewBoxOptions & { flatten?: boolean };
 
 export interface HierarchicalDatum {
   value?: number;
@@ -116,6 +120,8 @@ export interface SunburstOptions {
   label?: SunburstLabelOptions | SunburstLabelOptions[];
 }
 
+export type SunburstTramsformOptions = SunburstOptions & ViewBoxOptions & { flatten?: boolean; maxDepth?: number };
+
 /**
  * The node element after sunburst layout
  */
@@ -149,6 +155,9 @@ export interface CirclePackingOptions {
   includeRoot?: boolean;
 }
 
+export type CirclePackingTramsformOptions = CirclePackingOptions &
+  ViewBoxOptions & { flatten?: boolean; maxDepth?: number };
+
 /**
  * The node element after sunburst layout
  */
@@ -179,6 +188,8 @@ export interface TreeOptions {
   /** parse the key of node */
   nodeKey?: string | number | ((datum: HierarchicalDatum) => string | number);
 }
+
+export type TreeTramsformOptions = TreeOptions & ViewBoxOptions & { flatten?: boolean; maxDepth?: number };
 
 export interface TreeNodeElement extends HierarchicalNodeElement<HierarchicalDatum> {
   children?: TreeNodeElement[];
