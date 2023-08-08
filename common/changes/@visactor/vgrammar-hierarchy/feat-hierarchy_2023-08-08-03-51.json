@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat: add option `flatten` and `maxDepth` of  hierarchy transforms\n\n",
+      "type": "patch",
+      "packageName": "@visactor/vgrammar-hierarchy"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-hierarchy",
+  "email": "dingling112@gmail.com"
+}
