@@ -321,6 +321,11 @@ export const indexes = [
         path: 'boxplot',
         name: 'boxplot',
         type: 'api'
+      },
+      {
+        path: 'violin',
+        name: 'violin',
+        type: 'api'
       }
     ]
   },
