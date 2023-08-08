@@ -1,5 +1,14 @@
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
-import type { BaseEventHandler, IElement, IView, MultiScaleData, ScaleData, ScaleSpec, ViewSpec } from '../types';
+import type {
+  BaseEventHandler,
+  IElement,
+  IMorphConfig,
+  IView,
+  MultiScaleData,
+  ScaleData,
+  ScaleSpec,
+  ViewSpec
+} from '../types';
 import type { CoordinateOption, IPlot, IPlotMarkConstructor, IPlotOptions, PlotMark, PlotSpec } from '../types/plot';
 import { View } from '../view';
 import { SIGNAL_VIEW_BOX } from '../view/constants';
@@ -148,18 +157,32 @@ export class Plot implements IPlot {
 
     return spec;
   }
-  render() {
+  run(morphConfig?: IMorphConfig) {
     if (this._view) {
       if (!this._hasInited) {
         this._view.parseSpec(this.parseViewSpec());
       }
       this._hasInited = true;
 
-      this._view.runSync();
+      this._view.runSync(morphConfig);
     }
 
     return this;
   }
+
+  async runAsync(morphConfig?: IMorphConfig) {
+    if (this._view) {
+      if (!this._hasInited) {
+        this._view.parseSpec(this.parseViewSpec());
+      }
+      this._hasInited = true;
+
+      await this._view.runAsync(morphConfig);
+    }
+
+    return this;
+  }
+
   release() {
     if (this._view) {
       this._view.release();
@@ -413,6 +436,78 @@ export class Plot implements IPlot {
 
     if (!mark) {
       this._logger.error(`Please register ${PlotMakType.sankey} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  sunburst() {
+    const mark = Factory.createPlotMark(PlotMakType.sunburst);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.sunburst} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  tree() {
+    const mark = Factory.createPlotMark(PlotMakType.tree);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.tree} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  treemap() {
+    const mark = Factory.createPlotMark(PlotMakType.treemap);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.treemap} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  circlePacking() {
+    const mark = Factory.createPlotMark(PlotMakType.circlePacking);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.circlePacking} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  wordcloud() {
+    const mark = Factory.createPlotMark(PlotMakType.wordcloud);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.wordcloud} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
+
+  wordcloudShape() {
+    const mark = Factory.createPlotMark(PlotMakType.wordcloudShape);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.wordcloudShape} before use it`);
     } else {
       this._semanticMarks.push(mark);
     }

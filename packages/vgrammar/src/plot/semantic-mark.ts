@@ -1,4 +1,3 @@
-import { transform } from './../../../vgrammar-projection/src/geo-path';
 import type {
   LegendBaseAttributes,
   SliderAttributes,
@@ -36,7 +35,8 @@ import type {
   CoordinateOption,
   CoordinateSpec,
   PolarCoordinateOption,
-  DataSpec
+  DataSpec,
+  ChannelEncodeType
 } from '../types';
 import type { ILogger } from '@visactor/vutils';
 import { Logger, array, isArray, isBoolean, isNil, isPlainObject } from '@visactor/vutils';
@@ -59,6 +59,7 @@ import { invokeFunctionType } from '../parse/util';
 import { defaultTheme } from '../theme/default';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import { SIGNAL_VIEW_BOX } from '../view/constants';
+import type { ITextAttribute } from '@visactor/vrender';
 
 let semanticMarkId = -1;
 
@@ -118,7 +119,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     this.spec.scale[channel] = option;
     return this;
   }
-  style(style: ISemanticStyle<EncodeSpec, K>) {
+  style(style: Partial<EncodeSpec & any>) {
     this.spec.style = style;
     return this;
   }
@@ -934,6 +935,13 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this._coordinate?.transpose ? 'right' : 'top';
   }
 
+  protected setLabelTextGetter(
+    channel: string,
+    option: SemanticLabelOption | boolean
+  ): ChannelEncodeType<ITextAttribute['text']> {
+    return null;
+  }
+
   protected parseLabelSpec(): LabelSpec[] {
     const label = this.spec.label;
     const res: LabelSpec[] = [];
@@ -961,7 +969,9 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               : { position: this.getLabelPosition() },
             encode: {
               update: {
-                text: { field: this.spec.encode[channel] }
+                text: this.spec.encode[channel]
+                  ? { field: this.spec.encode[channel] }
+                  : this.setLabelTextGetter(channel, option)
               }
             }
           };
@@ -1043,9 +1053,10 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   }
 
   protected parseDataSpec() {
-    const { data, player, transform: ut } = this.spec;
+    const { data, player } = this.spec;
     const res: DataSpec[] = [];
-    const transform = this.convertMarkTransform(ut, this.setDefaultDataTranform());
+    const userTransforms = data.transform;
+    const transform = this.convertMarkTransform(userTransforms, this.setDefaultDataTranform());
 
     if (player?.data) {
       res.push({
@@ -1197,6 +1208,10 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return [coordinate];
   }
 
+  protected setMainMarkEnterEncode() {
+    return this.spec.style;
+  }
+
   protected setMainMarkSpec() {
     return {};
   }
@@ -1238,7 +1253,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           transform: this.convertMarkTransform(this.spec.transform, this.setDefaultMarkTranform()),
           animation: this.convertMarkAnimation(),
           encode: Object.assign({}, this.spec.state, {
-            enter: this.spec.style ?? {},
+            enter: this.setMainMarkEnterEncode(),
             update: this.convertMarkEncode(this.spec.encode)
           })
         },

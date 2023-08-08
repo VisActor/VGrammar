@@ -15,6 +15,12 @@ import { Rule } from './rule';
 import { SymbolSemanticMark } from './symbol';
 import { TextSemanticMark } from './text';
 import { SankeySemanticMark } from './sankey';
+import { SunburstSemanticMark } from './sunburst';
+import { TreemapSemanticMark } from './treemap';
+import { CirclePackingSemanticMark } from './circle-packing';
+import { TreeSemanticMark } from './tree';
+import { WordcloudSemanticMark } from './wordcloud';
+import { WordcloudShapeSemanticMark } from './wordcloud-shape';
 
 Plot.useMarks([
   Interval,
@@ -32,7 +38,13 @@ Plot.useMarks([
   Rule,
   SymbolSemanticMark,
   TextSemanticMark,
-  SankeySemanticMark
+  SankeySemanticMark,
+  SunburstSemanticMark,
+  TreemapSemanticMark,
+  CirclePackingSemanticMark,
+  TreeSemanticMark,
+  WordcloudSemanticMark,
+  WordcloudShapeSemanticMark
 ]);
 
 export { Plot };
