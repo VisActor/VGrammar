@@ -1,29 +1,11 @@
 import { vglobal, createImage } from '@visactor/vrender';
-import { isValidUrl, Logger } from '@visactor/vutils';
+import { isNil, isValidUrl, Logger } from '@visactor/vutils';
 import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
 
 export enum WORDCLOUD_SHAPE_HOOK_EVENT {
   BEFORE_WORDCLOUD_SHAPE_LAYOUT = 'beforeWordcloudShapeLayout',
   AFTER_WORDCLOUD_SHAPE_LAYOUT = 'afterWordcloudShapeLayout'
 }
-
-const colorList = [
-  '#e5352b',
-  '#e990ab',
-  '#ffd616',
-  '#96cbb3',
-  '#91be3e',
-  '#39a6dd',
-  '#eb0973',
-  '#949483',
-  '#f47b7b',
-  '#9f1f5c',
-  '#ef9020',
-  '#00af3e',
-  '#85b7e2',
-  '#29245c',
-  '#00af3e'
-];
 
 export const colorListEqual = (arr0: string[], arr1: string[]) => {
   if (arr1.length === 1 && arr1[0] === '#537EF5') {
@@ -67,6 +49,10 @@ export const isChinese = (text: string) => {
  * 计算字符长度，中文为1，符号/字母/其他字符为0.5
  */
 export const calTextLength = (text: string, textLengthLimit?: number) => {
+  if (isNil(text)) {
+    return 0;
+  }
+
   let length = 0;
   for (const char of text) {
     isChinese(char) ? (length += 1) : (length += 0.53);
