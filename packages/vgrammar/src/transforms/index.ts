@@ -1,4 +1,5 @@
 import { transform as binTransform } from './data/bin';
+import { transform as contourTransform } from './data/contour';
 import { transform as sortTransform } from './data/sort';
 import { transform as filterTransform } from './data/filter';
 import { transform as mapTransform } from './data/map';
@@ -21,6 +22,7 @@ import type { ITransform } from '../types';
 
 export const transforms: Record<string, Omit<ITransform, 'type'>> = {
   bin: { transform: binTransform, markPhase: 'beforeJoin' },
+  contour: { transform: contourTransform, markPhase: 'beforeJoin' },
   sort: { transform: sortTransform, markPhase: 'beforeJoin' },
   filter: { transform: filterTransform, markPhase: 'beforeJoin' },
   join: { transform: joinTransform, markPhase: 'beforeJoin' },

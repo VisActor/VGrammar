@@ -33,6 +33,16 @@ export interface BinTransformOption {
   as?: [string, string];
 }
 
+export interface ContourTransformOption {
+  field: string;
+  row: number;
+  column: number;
+  thresholds?: number[];
+  levels?: number;
+  asThreshold?: string;
+  asPoints?: string;
+}
+
 export interface FilterTransformOption {
   callback: (entry: any, params: any) => boolean;
 }
@@ -182,6 +192,10 @@ export interface LttbSampleTransformOptions {
 
 export interface BinTransformSpec extends BinTransformOption {
   type: 'bind';
+}
+
+export interface ContourTransformSpec extends ContourTransformOption {
+  type: 'contour';
 }
 
 export interface FilterTransformSpec extends ConvertTransformOptionToSpec<FilterTransformOption> {
