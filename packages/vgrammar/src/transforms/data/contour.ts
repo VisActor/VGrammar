@@ -209,5 +209,4 @@ export const transform = (options: ContourTransformOption, upstreamData: any[]) 
   });
 
   return contours;
-  // return [contours[0]];
 };
