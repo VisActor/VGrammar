@@ -398,9 +398,11 @@ export class Mark extends GrammarBase implements IMark {
       this.attach(parseEncodeType(channel, this.view));
     } else {
       Object.assign(this.spec.encode[state], channel);
-      Object.values(channel).forEach(channelEncoder => {
-        this.attach(parseEncodeType(channelEncoder, this.view));
-      });
+      if (channel) {
+        Object.values(channel).forEach(channelEncoder => {
+          this.attach(parseEncodeType(channelEncoder, this.view));
+        });
+      }
     }
     this.commit();
     return this;
