@@ -46,7 +46,7 @@ const computeInteractionPoint = (
       nextCell: yIndex * cellColumn + xIndex + 1,
       point: {
         x: xIndex + 1,
-        y: yIndex + (threshold - cell[0]) / (cell[1] - cell[0])
+        y: yIndex + (threshold - cell[1]) / (cell[2] - cell[1])
       },
       siblingPoint: null
     });
@@ -57,7 +57,7 @@ const computeInteractionPoint = (
       currentCell: yIndex * cellColumn + xIndex,
       nextCell: (yIndex + 1) * cellColumn + xIndex,
       point: {
-        x: xIndex + (threshold - cell[0]) / (cell[1] - cell[0]),
+        x: xIndex + (threshold - cell[3]) / (cell[2] - cell[3]),
         y: yIndex + 1
       },
       siblingPoint: null
@@ -70,7 +70,7 @@ const computeInteractionPoint = (
       nextCell: yIndex * cellColumn + xIndex - 1,
       point: {
         x: xIndex,
-        y: yIndex + (threshold - cell[0]) / (cell[1] - cell[0])
+        y: yIndex + (threshold - cell[0]) / (cell[3] - cell[0])
       },
       siblingPoint: null
     });
@@ -105,17 +105,21 @@ const connectPoints = (point: InteractionPoint, grid: InteractionPoint[][]) => {
 };
 
 const connectNextPoints = (point: InteractionPoint, grid: InteractionPoint[][]) => {
-  const connectedPoints: InteractionPoint[] = [];
+  const connectedPoints: InteractionPoint[] = [point];
   let currentPoint: InteractionPoint = point;
   const find = (p: InteractionPoint) => p.id === currentPoint.id;
-  let result = 'loop';
+  let result = 'break';
   do {
     const nextCell = grid[currentPoint.nextCell];
     const nextCellPoint = nextCell?.find(find);
     if (nextCellPoint) {
       currentPoint = nextCellPoint.siblingPoint;
       if (connectedPoints.includes(currentPoint)) {
-        result = 'break';
+        result = 'loop';
+        // close the looped line
+        connectedPoints.push(currentPoint);
+        break;
+      } else if (!currentPoint) {
         break;
       }
       connectedPoints.push(currentPoint);
@@ -205,4 +209,5 @@ export const transform = (options: ContourTransformOption, upstreamData: any[]) 
   });
 
   return contours;
+  // return [contours[0]];
 };
