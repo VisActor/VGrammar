@@ -34,7 +34,7 @@ export const runner = (view: View) => {
 
   const xScale = view.scale('linear').domain([0, 100]).range([0, 270]);
   const binYScale = view.scale('linear').domain([3, 0]).range([0, 270]);
-  const kdeYScale = view.scale('linear').domain([0.1, 0]).range([0, 270]);
+  const kdeYScale = view.scale('linear').domain([0.05, 0]).range([0, 270]);
   const xAxis = view
     .axis(view.rootMark)
     .id('xAxis')
