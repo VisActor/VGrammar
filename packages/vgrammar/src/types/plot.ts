@@ -19,6 +19,7 @@ import type { IAnimationConfig } from './animate';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { IColor } from '@visactor/vrender';
 import type { BaseEventHandler } from './event';
+import type { IMorphConfig } from './morph';
 
 export interface IPlotOptions extends IEnvironmentOptions, IRendererOptions {
   width?: number;
@@ -27,6 +28,7 @@ export interface IPlotOptions extends IEnvironmentOptions, IRendererOptions {
   autoFit?: boolean;
   options3d?: srIOption3DType;
   theme?: string;
+  logLevel?: number;
 }
 
 export interface CartesianCoordinateOption {
@@ -86,7 +88,13 @@ export type PlotPolygonEncoderSpec = Omit<BasicEncoderSpecMap['polygon'], 'x' | 
   y?: number[];
 };
 
-export type PlotSankeyEncoderSpec = LinkPathEncoderSpec;
+export type PlotSankeyEncoderSpec = Partial<LinkPathEncoderSpec>;
+export type PlotSunburstEncodeSpec = BasicEncoderSpecMap['arc'];
+export type PlotTreeEncodeSpec = BasicEncoderSpecMap['symbol'];
+export type PlotTreemapEncodeSpec = BasicEncoderSpecMap['rect'];
+export type PlotCirclePackingEncodeSpec = BasicEncoderSpecMap['circle'];
+export type PlotWordcloudEncodeSpec = BasicEncoderSpecMap['text'];
+export type PlotWordcloudShapeEncodeSpec = BasicEncoderSpecMap['text'];
 
 export type CoordinateOption = CartesianCoordinateOption | PolarCoordinateOption;
 export type PlotIntervalSpec = Partial<ISemanticMarkSpec<PlotIntervalEncoderSpec, IntervalEncodeChannels>> & {
@@ -172,7 +180,8 @@ export interface IPlot {
 
   ///--------- life cycle ---------///
 
-  render: () => this;
+  run: (morphConfig?: IMorphConfig) => this;
+  runAsync: (morphConfig?: IMorphConfig) => Promise<this>;
   release: () => this;
   parseSpec: (spec: PlotSpec) => this;
   updateSpec: (spec: PlotSpec) => this;
@@ -200,12 +209,12 @@ export interface IPlot {
   rule: () => IRule;
 
   // wordcloud 包如果没注册，会存在问题
-  // wordcloud: () => ISemanticMark;
-  // wordcloudShape: () => ISemanticMark;
-  // circlePacking: () => ISemanticMark;
-  // treemap: () => ISemanticMark;
-  // tree: () => ISemanticMark;
-  // sunburst: () => ISemanticMark;
+  wordcloud: () => IWordcloud;
+  wordcloudShape: () => IWordcloudShape;
+  circlePacking: () => ICirclePacking;
+  treemap: () => ITreemap;
+  tree: () => ITree;
+  sunburst: () => ISunburst;
   sankey: () => ISankey;
 
   // P2
@@ -266,7 +275,7 @@ export type SemanticPlayerOption = Partial<PlayerAttributes>;
 export interface ISemanticMark<EncodeSpec, K extends string> {
   readonly type: string;
   data: (values: any, transform?: TransformSpec[], id?: string) => this;
-  style: (style: ISemanticStyle<EncodeSpec, K>) => this;
+  style: (style: Partial<EncodeSpec & any>) => this;
   encode: (channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>) => this;
   scale: (channel: K, option: Partial<ScaleSpec>) => this;
   transform: (option: TransformSpec[]) => this;
@@ -293,7 +302,7 @@ export interface ISemanticMarkSpec<EncodeSpec, K extends string> {
   data?: DataSpec;
   encode?: WithDefaultEncode<EncodeSpec, K>;
   scale?: Partial<Record<K, ScaleSpec>>;
-  style?: ISemanticStyle<EncodeSpec, K>;
+  style?: Partial<EncodeSpec & any>;
   axis?: Partial<
     Record<K, { option?: SemanticAxisOption | boolean; layout?: MarkRelativeItemSpec } | SemanticAxisOption | boolean>
   >;
@@ -342,6 +351,12 @@ export type RuleEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type ImageEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'src';
 export type PathEncodeChannels = null;
 export type SankeyEncodeChannels = 'node' | 'value' | 'color';
+export type SunburstEncodeChannels = 'node' | 'value' | 'color';
+export type TreeEncodeChannels = 'value' | 'color';
+export type TreemapEncodeChannels = 'value' | 'color';
+export type CirclepackingEncodeChannels = 'value' | 'color';
+export type WordcloudEncodeChannels = 'text' | 'color';
+export type WordcloudShapeEncodeChannels = 'text' | 'color';
 
 export type IInterval = ISemanticMark<PlotIntervalEncoderSpec, IntervalEncodeChannels>;
 export type ILine = ISemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels>;
@@ -359,6 +374,12 @@ export type IRule = ISemanticMark<BasicEncoderSpecMap['rule'], RuleEncodeChannel
 export type IImage = ISemanticMark<PlotImageEncoderSpec, ImageEncodeChannels>;
 export type IPath = ISemanticMark<BasicEncoderSpecMap['path'], PathEncodeChannels>;
 export type ISankey = ISemanticMark<PlotSankeyEncoderSpec, SankeyEncodeChannels>;
+export type ISunburst = ISemanticMark<PlotSunburstEncodeSpec, SunburstEncodeChannels>;
+export type IWordcloud = ISemanticMark<PlotWordcloudEncodeSpec, WordcloudEncodeChannels>;
+export type IWordcloudShape = ISemanticMark<PlotWordcloudShapeEncodeSpec, WordcloudShapeEncodeChannels>;
+export type ITree = ISemanticMark<PlotTreeEncodeSpec, TreeEncodeChannels>;
+export type ITreemap = ISemanticMark<PlotTreemapEncodeSpec, TreemapEncodeChannels>;
+export type ICirclePacking = ISemanticMark<PlotCirclePackingEncodeSpec, CirclepackingEncodeChannels>;
 
 export type PlotMark =
   | IInterval
@@ -376,7 +397,13 @@ export type PlotMark =
   | IRule
   | IImage
   | IPath
-  | ISankey;
+  | ISankey
+  | ISunburst
+  | ICirclePacking
+  | ITreemap
+  | ITree
+  | IWordcloud
+  | IWordcloudShape;
 
 export interface IPlotMarkConstructor {
   readonly type: string;
