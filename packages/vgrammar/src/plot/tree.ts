@@ -1,15 +1,16 @@
 import type {
   GenerateBaseEncodeSpec,
   GenerateEncoderSpec,
-  SankeyEncodeChannels,
+  TreeEncodeChannels,
   Nil,
   ScaleSpec,
   ValueOf,
   WithDefaultEncode,
-  PlotSankeyEncoderSpec,
+  PlotTreeEncodeSpec,
   TransformSpec,
   IElement,
   DataSpec,
+  MarkSpec,
   SemanticLabelOption,
   ChannelEncodeType
 } from '../types';
@@ -17,40 +18,39 @@ import { SemanticMark } from './semantic-mark';
 import { getPalette } from '../palette';
 import { PlotMakType } from './enums';
 import { GrammarMarkType } from '../graph';
-import { SIGNAL_VIEW_BOX } from '../view/constants';
 import { getTransform } from '../transforms/register';
-import { getGlyph } from '../view/register-glyph';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
+import { getGlyph } from '../view/register-glyph';
 import type { ITextAttribute } from '@visactor/vrender';
 
-export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, SankeyEncodeChannels> {
-  static readonly type = PlotMakType.sankey;
+export class TreeSemanticMark extends SemanticMark<PlotTreeEncodeSpec, TreeEncodeChannels> {
+  static readonly type = PlotMakType.tree;
   constructor(id?: string | number) {
-    super(PlotMakType.sankey, id);
+    super(PlotMakType.tree, id);
 
-    if (!getTransform('sankey')) {
+    if (!getTransform(PlotMakType.tree)) {
       this._logger.error(
-        `Please import registerSankeyTransforms from 'vgrammar-sankey', 
-        and run registerSankeyTransforms() before use sankey chart`
+        `Please import registerTreeTransforms from 'vgrammar-hierarchy', 
+        and run registerTreeTransforms() before use tree chart`
       );
     }
 
-    if (!getGlyph('linkPath')) {
-      this._logger.error(`Please run registerLinkPathGlyph() before use sankey chart`);
+    if (!getGlyph('treePath')) {
+      this._logger.error(`Please run registerTreePathGlyph() before use tree chart`);
     }
   }
 
   setMarkType() {
-    return GrammarMarkType.rect;
+    return GrammarMarkType.symbol;
   }
 
   setDefaultDataTranform(): TransformSpec[] {
     return [
       {
-        type: 'sankey',
+        type: 'tree',
         width: { signal: 'viewWidth' },
         height: { signal: 'viewHeight' },
-        nodeKey: this.spec.encode?.node
+        flatten: true
       }
     ];
   }
@@ -91,8 +91,8 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
   }
 
   parseScaleByEncode(
-    channel: SankeyEncodeChannels,
-    option: ValueOf<WithDefaultEncode<PlotSankeyEncoderSpec, SankeyEncodeChannels>, SankeyEncodeChannels>
+    channel: TreeEncodeChannels,
+    option: ValueOf<WithDefaultEncode<PlotTreeEncodeSpec, TreeEncodeChannels>, TreeEncodeChannels>
   ): ScaleSpec | Nil {
     if (channel === 'color') {
       return {
@@ -110,15 +110,13 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
   }
 
   convertMarkEncode(
-    encode: WithDefaultEncode<PlotSankeyEncoderSpec, SankeyEncodeChannels>
-  ): GenerateBaseEncodeSpec<PlotSankeyEncoderSpec> {
+    encode: WithDefaultEncode<PlotTreeEncodeSpec, TreeEncodeChannels>
+  ): GenerateBaseEncodeSpec<PlotTreeEncodeSpec> {
     const markEncoder = this.convertSimpleMarkEncode(encode);
 
-    const res: GenerateEncoderSpec<PlotSankeyEncoderSpec> = {
-      x: { field: 'x0' },
-      x1: { field: 'x1' },
-      y: { field: 'y0' },
-      y1: { field: 'y1' }
+    const res: GenerateEncoderSpec<PlotTreeEncodeSpec> = {
+      x: { field: 'x' },
+      y: { field: 'y' }
     };
 
     if (markEncoder.color) {
@@ -127,17 +125,13 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
 
       res.fill = (datum: any, el: IElement, params: any) => {
         const scale = params[scaleColorId];
-        return scale.scale(colorAccessor(datum?.datum));
+        return datum?.datum ? scale.scale(colorAccessor(datum.datum[datum.datum.length - 1])) : undefined;
       };
     } else {
-      res.fill = this.spec.style?.nodeStyle?.fill ?? getPalette()[0];
+      res.fill = this.spec.style?.fill ?? getPalette()[0];
     }
 
     return res;
-  }
-
-  setMainMarkSpec() {
-    return { key: 'key' };
   }
 
   protected setLabelTextGetter(
@@ -146,49 +140,42 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
   ): ChannelEncodeType<ITextAttribute['text']> {
     const textGetter = getFieldAccessor(channel);
     return (datum: any, el: IElement, params: any) => {
-      return textGetter(datum.datum);
+      return textGetter(datum.datum[datum.datum.length - 1]);
     };
   }
 
+  setMainMarkSpec() {
+    return { key: 'key' };
+  }
+
   setMultiMarksSpec() {
-    // TODO: optimize the default style
-    return [
-      {
-        id: `${this.getMarkId()}-link`,
-        type: 'glyph',
-        glyphType: 'linkPath',
-        from: {
-          data: this.getDataIdOfLink()
-        },
-        layout: {
-          position: 'content',
-          skipBeforeLayouted: true
-        },
-        key: 'index',
-        dependency: this.viewSpec.scales.map(scale => scale.id).concat(SIGNAL_VIEW_BOX),
-        animation: this.convertMarkAnimation(),
-        encode: Object.assign({}, this.spec.state, {
-          enter: Object.assign(
-            {
-              backgroundStyle: { fillColor: '#ccc', fillOpacity: 0.2 },
-              fillOpacity: 0.8,
-              round: true
-            },
-            this.spec.style?.linkStyle
-          ),
-          update: (datum: any, el: IElement, params: any) => {
-            return {
-              direction: datum.vertical ? 'vertical' : 'horizontal',
-              x0: datum.x0,
-              x1: datum.x1,
-              y0: datum.y0,
-              y1: datum.y1,
-              thickness: datum.thickness,
-              fill: this.spec.style?.linkStyle?.fill ?? getPalette()[0]
-            };
-          }
-        })
+    const label = this.spec.label;
+
+    if (!label) {
+      return null;
+    }
+
+    const marks: MarkSpec[] = [];
+
+    marks.push({
+      type: 'glyph',
+      glyphType: 'treePath',
+      from: { data: this.getDataIdOfLink() },
+      key: 'key',
+      zIndex: -1,
+      encode: {
+        update: {
+          x0: { field: 'x0' },
+          x1: { field: 'x1' },
+          y0: { field: 'y0' },
+          y1: { field: 'y1' },
+          thickness: 1,
+          round: true,
+          stroke: '#333'
+        }
       }
-    ];
+    });
+
+    return marks;
   }
 }
