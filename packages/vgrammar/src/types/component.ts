@@ -1,4 +1,9 @@
-import type { IGraphicAttribute, ISymbolGraphicAttribute, ITextGraphicAttribute } from '@visactor/vrender';
+import type {
+  IGraphicAttribute,
+  ISymbolGraphicAttribute,
+  ITextAttribute,
+  ITextGraphicAttribute
+} from '@visactor/vrender';
 import type {
   AxisBaseAttributes,
   BaseCrosshairAttrs,
@@ -11,7 +16,7 @@ import type {
   TooltipAttributes
 } from '@visactor/vrender-components';
 import type { ComponentEnum } from '../graph';
-import type { Nil, RecursivePartial } from './base';
+import type { Nil } from './base';
 import type { IComponent, IData, IMark, IScale } from './grammar';
 import type {
   ChannelEncodeType,
@@ -163,9 +168,7 @@ export interface ILabel extends IComponent {
   target: (mark: IMark | IMark[] | string | string[] | Nil) => this;
 }
 
-export type LabelEncoderSpec = GenerateBasicEncoderSpec<
-  Partial<BaseLabelAttrs> & { text?: string | number | (string | number)[] }
->;
+export type LabelEncoderSpec = GenerateBasicEncoderSpec<Partial<BaseLabelAttrs> & { text?: ITextAttribute['text'] }>;
 export interface LabelSpec extends ComponentSpec<LabelEncoderSpec> {
   componentType: ComponentEnum.label;
   labelStyle?: MarkFunctionType<Partial<BaseLabelAttrs>>;

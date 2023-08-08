@@ -106,7 +106,7 @@ export type BasicEncoderSpecMap = {
   pyramid3d: GenerateBasicEncoderSpec<IPyramid3dGraphicAttribute>;
   area: Omit<GenerateBasicEncoderSpec<IAreaGraphicAttribute>, 'points' | 'segments'>;
   group: GenerateBasicEncoderSpec<IGroupGraphicAttribute>;
-  glyph: GenerateBasicEncoderSpec<IGlyphGraphicAttribute>;
+  glyph: GenerateBasicEncoderSpec<IGlyphGraphicAttribute & any>;
   image: GenerateBasicEncoderSpec<IImageGraphicAttribute>;
   rect3d: GenerateBasicEncoderSpec<IRect3dGraphicAttribute>;
   path: GenerateBasicEncoderSpec<IPathGraphicAttribute>;
