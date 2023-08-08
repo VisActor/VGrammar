@@ -3,7 +3,7 @@ import type { IPointLike } from '@visactor/vutils';
 import { PointService, array, isNumber } from '@visactor/vutils';
 import type { KDETransformOption } from '../../types';
 
-const defaultBins = 100;
+const defaultBins = 256;
 const defaultAs = ['x', 'kde'];
 const defaultAs2d = ['x', 'y', 'kde'];
 const SQRT2PI = Math.sqrt(Math.PI * 2);
