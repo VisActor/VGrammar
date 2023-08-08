@@ -1057,14 +1057,11 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   protected parseDataSpec() {
     const { data, player } = this.spec;
     const res: DataSpec[] = [];
-    const userTransforms = data.transform;
-    const transform = this.convertMarkTransform(userTransforms, this.setDefaultDataTranform());
 
     if (player?.data) {
       res.push({
         id: this.getDataIdOfPlayer(),
-        values: player.data,
-        transform
+        values: player.data
       });
       res.push({
         id: this.getDataIdOfMain(),
@@ -1076,6 +1073,8 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       });
     } else if (data) {
       const dataId = this.getDataIdOfMain();
+      const userTransforms = data?.transform;
+      const transform = this.convertMarkTransform(userTransforms, this.setDefaultDataTranform());
 
       res.push({
         id: dataId,
