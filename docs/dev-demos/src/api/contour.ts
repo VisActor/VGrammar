@@ -40,6 +40,7 @@ export const runner = (view: View) => {
       field: ['x', 'y'],
       extent: [{ x: 0, y: 0 }, { x: 100, y: 100 }],
       bandwidth: 3,
+      bins: 100,
       as: ['x', 'y', 'kde']
     }
   ]);
@@ -47,15 +48,15 @@ export const runner = (view: View) => {
     {
       type: 'contour',
       field: 'kde',
-      row: 256,
-      column: 256,
+      row: 100,
+      column: 100,
       levels: 5,
     }
   ]);
 
   const xScale = view.scale('linear').domain([0, 100]).range([0, 270]);
   const yScale = view.scale('linear').domain([100, 0]).range([0, 270]);
-  const intensityScale = view.scale('linear').domain({ data: kdeData, field: 'kde' }).range([0, 0.01]);
+  const intensityScale = view.scale('linear').domain({ data: kdeData, field: 'kde' }).range([0, 0.05]);
   const xAxis = view
     .axis(view.rootMark)
     .id('xAxis')
