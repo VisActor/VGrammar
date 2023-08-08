@@ -28,15 +28,18 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
   constructor(id?: string | number) {
     super(PlotMakType.sankey, id);
 
-    if (!getTransform('sankey')) {
+    if (!getTransform(PlotMakType.sankey)) {
       this._logger.error(
-        `Please import registerSankeyTransforms from 'vgrammar-sankey', 
-        and run registerSankeyTransforms() before use sankey chart`
+        `Please add this line of code: import { registerSankeyTransforms } from '@visactor/vgrammar-sankey'; 
+        and run registerSankeyTransforms() before use sankey`
       );
     }
 
     if (!getGlyph('linkPath')) {
-      this._logger.error(`Please run registerLinkPathGlyph() before use sankey chart`);
+      this._logger.error(`
+      Please add this line of code: import { registerLinkPathGlyph } from '@visactor/vgrammar';
+      add run registerLinkPathGlyph() before use sankey
+      `);
     }
   }
 

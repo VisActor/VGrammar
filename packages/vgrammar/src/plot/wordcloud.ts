@@ -25,8 +25,9 @@ export class WordcloudSemanticMark extends SemanticMark<PlotWordcloudEncodeSpec,
 
     if (!getTransform(PlotMakType.wordcloud)) {
       this._logger.error(
-        `Please add 'import { registerWordCloudTransforms } from '@visactor/vgrammar-wordcloud'; 
-        and run registerWordCloudTransforms() before use wordcloud chart`
+        `Please add this line of code:
+         'import { registerWordCloudTransforms } from '@visactor/vgrammar-wordcloud'; 
+        and run registerWordCloudTransforms() before use wordcloud`
       );
     }
   }

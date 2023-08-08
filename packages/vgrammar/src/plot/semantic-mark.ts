@@ -17,7 +17,6 @@ import type {
   GenerateBaseEncodeSpec,
   ISemanticMark,
   ISemanticMarkSpec,
-  ISemanticStyle,
   ParsedSimpleEncode,
   WithDefaultEncode,
   IElement,
