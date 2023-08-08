@@ -43,6 +43,7 @@ export class TreemapSemanticMark extends SemanticMark<PlotTreemapEncodeSpec, Tre
         type: 'treemap',
         width: { signal: 'viewWidth' },
         height: { signal: 'viewHeight' },
+        nodeKey: this.spec.encode?.node,
         flatten: true
       }
     ];

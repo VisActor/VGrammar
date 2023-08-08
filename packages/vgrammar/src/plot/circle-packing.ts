@@ -43,6 +43,7 @@ export class CirclePackingSemanticMark extends SemanticMark<PlotCirclePackingEnc
         type: PlotMakType.circlePacking,
         width: { signal: 'viewWidth' },
         height: { signal: 'viewHeight' },
+        nodeKey: this.spec.encode?.node,
         flatten: true
       }
     ];
