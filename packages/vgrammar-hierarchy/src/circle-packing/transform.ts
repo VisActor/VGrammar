@@ -1,10 +1,8 @@
-import type { HierarchicalData, SunburstOptions } from '../interface';
+import { flattenNodes } from '../format';
+import type { CirclePackingNodeElement, HierarchicalData, SunburstTramsformOptions } from '../interface';
 import { CirclePackingLayout } from './layout';
 
-export const transform = (
-  options: SunburstOptions & ({ width: number; height: number } | { x0: number; x1: number; y0: number; y1: number }),
-  upstreamData: HierarchicalData
-) => {
+export const transform = (options: SunburstTramsformOptions, upstreamData: HierarchicalData) => {
   const layout = new CirclePackingLayout(options);
 
   const res = layout.layout(
@@ -21,5 +19,13 @@ export const transform = (
           y1: options.y1
         }
   );
+
+  if (options.flatten) {
+    const nodes: CirclePackingNodeElement[] = [];
+    flattenNodes(res, nodes, { maxDepth: options?.maxDepth });
+
+    return nodes;
+  }
+
   return res;
 };
