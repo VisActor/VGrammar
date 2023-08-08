@@ -1073,7 +1073,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       });
     } else if (data) {
       const dataId = this.getDataIdOfMain();
-      const userTransforms = data?.transform;
+      const userTransforms = data.transform;
       const transform = this.convertMarkTransform(userTransforms, this.setDefaultDataTranform());
 
       res.push({
