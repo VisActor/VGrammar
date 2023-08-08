@@ -44,6 +44,7 @@ export const generateLabelAttributes = (
           theme = defaultTheme.rectLabel;
           break;
         case GrammarMarkType.symbol:
+        case GrammarMarkType.circle:
           theme = defaultTheme.symbolLabel;
           break;
         case GrammarMarkType.arc:
