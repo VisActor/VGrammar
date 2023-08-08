@@ -1,5 +1,6 @@
 import { registerAllHierarchyTransforms } from '../src';
 import { getTransform } from '@visactor/vgrammar';
+import { mockData } from './data/tree';
 
 registerAllHierarchyTransforms();
 
@@ -17,6 +18,9 @@ test('transform of circle-packing', () => {
 
   expect(res2.length).toBe(1);
   expect(res2[0]).toEqual(res[0]);
+
+  const res3 = circlePacking.transform({ x0: 0, x1: 200, y0: 0, y1: 200, flatten: true }, mockData);
+  expect(res3.length).toBe(76);
 });
 
 test('transform of tree', () => {
@@ -35,6 +39,10 @@ test('transform of tree', () => {
 
   expect(res2.length).toBe(1);
   expect(res2[0]).toEqual(res[0]);
+
+  const res3 = tree.transform({ x0: 0, x1: 200, y0: 0, y1: 200, flatten: true }, mockData);
+  expect(res3.nodes.length).toBe(76);
+  expect(res3.links.length).toBe(75);
 });
 
 test('transform of treemap', () => {
@@ -53,6 +61,9 @@ test('transform of treemap', () => {
 
   expect(res2.length).toBe(1);
   expect(res2[0]).toEqual(res[0]);
+
+  const res3 = treemap.transform({ x0: 0, x1: 200, y0: 0, y1: 200, flatten: true }, mockData);
+  expect(res3.length).toBe(76);
 });
 
 test('transform of sunburst', () => {
@@ -71,4 +82,7 @@ test('transform of sunburst', () => {
 
   expect(res2.length).toBe(1);
   expect(res2[0]).toEqual(res[0]);
+
+  const res3 = sunburst.transform({ x0: 0, x1: 200, y0: 0, y1: 200, flatten: true }, mockData);
+  expect(res3.length).toBe(76);
 });

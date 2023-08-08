@@ -1,10 +1,8 @@
-import type { HierarchicalData, TreeOptions } from '../interface';
+import { flattenNodes, flattenTreeLinks } from '../format';
+import type { HierarchicalData, TreeLinkElement, TreeNodeElement, TreeTramsformOptions } from '../interface';
 import { TreeLayout } from './layout';
 
-export const transform = (
-  options: TreeOptions & ({ width: number; height: number } | { x0: number; x1: number; y0: number; y1: number }),
-  upstreamData: HierarchicalData
-) => {
+export const transform = (options: TreeTramsformOptions, upstreamData: HierarchicalData) => {
   const layout = new TreeLayout(options);
 
   const res = layout.layout(
@@ -21,5 +19,15 @@ export const transform = (
           y1: options.y1
         }
   );
+
+  if (options.flatten) {
+    const nodes: TreeNodeElement[] = [];
+    flattenNodes(res, nodes, { maxDepth: options?.maxDepth });
+    const links: TreeLinkElement[] = [];
+
+    flattenTreeLinks(res, links, { maxDepth: options?.maxDepth });
+
+    return { nodes, links };
+  }
   return res;
 };
