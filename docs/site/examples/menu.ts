@@ -206,6 +206,9 @@ export const examplesMenu = [
         name: 'bar-boxplot'
       },
       {
+        name: 'violin'
+      },
+      {
         name: 'ripple'
       },
       {
