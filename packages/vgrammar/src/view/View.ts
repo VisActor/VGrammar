@@ -3,7 +3,7 @@ import type { IBounds, ILogger } from '@visactor/vutils';
 import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports
-import { global } from '@visactor/vrender';
+import { vglobal } from '@visactor/vrender';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { IElement } from './../types/element';
 import type {
@@ -1167,18 +1167,18 @@ export default class View extends EventEmitter implements IView {
         };
       }
     } else if (source === EVENT_SOURCE_WINDOW) {
-      global.addEventListener(type, send);
+      vglobal.addEventListener(type, send);
       this._eventListeners.push({
         type: type,
-        source: global,
+        source: vglobal,
         handler: send
       });
 
       return () => {
-        global.removeEventListener(type, send);
+        vglobal.removeEventListener(type, send);
 
         const index = this._eventListeners.findIndex((entry: any) => {
-          return entry.type === type && entry.source === global && entry.handler === send;
+          return entry.type === type && entry.source === vglobal && entry.handler === send;
         });
 
         if (index >= 0) {
@@ -1476,7 +1476,7 @@ export default class View extends EventEmitter implements IView {
 
   private doPreProgressive() {
     if (this._progressiveMarks && this._progressiveMarks.some(mark => mark.isDoingProgressive())) {
-      const raf = global.getRequestAnimationFrame();
+      const raf = vglobal.getRequestAnimationFrame();
       this._progressiveRafId = raf(this.handleProgressiveFrame);
     }
   }
@@ -1497,7 +1497,7 @@ export default class View extends EventEmitter implements IView {
   /** 清除 */
   private clearProgressive() {
     if (this._progressiveRafId) {
-      const cancelRaf = global.getCancelAnimationFrame();
+      const cancelRaf = vglobal.getCancelAnimationFrame();
       cancelRaf(this._progressiveRafId);
     }
 

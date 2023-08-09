@@ -37,10 +37,10 @@
   },
   "dependencies": {
     "@visactor/vgrammar-coordinate": "workspace:0.5.4",
-    "@visactor/vrender": "~0.13.3",
+    "@visactor/vrender": "0.14.0-alpha.8",
     "@visactor/vgrammar-util": "workspace:0.5.4",
     "@visactor/vscale": "~0.13.3",
-    "@visactor/vrender-components": "~0.13.3",
+    "@visactor/vrender-components": "0.14.0-alpha.8",
     "@visactor/vutils": "~0.13.3"
   },
   "devDependencies": {

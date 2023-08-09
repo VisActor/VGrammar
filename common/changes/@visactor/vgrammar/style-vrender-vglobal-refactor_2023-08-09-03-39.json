@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "style: use latest vrender and rename global to vglobal",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
