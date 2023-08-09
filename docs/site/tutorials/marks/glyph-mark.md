@@ -68,6 +68,17 @@ TreePath 和 LinkPath 的含义差不多，用于展示没有宽度的连线
 <div class="examples-ref-container" id="examples-ref-tree-path" data-path="hierarchy/tree">
 </div>
 
+## 小提琴图元(Violin)
+
+Violin 图元是箱型图元与概率密度图元的组合，一组数据统计以及概率密度分布情况。它包含数据的最大值、最小值、中位数、上四分位数（Q1）、下四分位数（Q3）以及概率密度分布。
+
+小提琴图元 glyphType 为 `'violin'`。
+在使用小提琴图元之前，需要执行 `registerViolinGlyph()` 对图元进行注册。示例：
+![小提琴图元](TODO)
+
+<div class="examples-ref-container" id="examples-ref-ripple" data-path="glyph-mark/violin">
+</div>
+
 ## 自定义组合图元
 
 在 VGrammar 中，开发者不仅可以使用以上几种内置的组合图元，还可以通过组合现有的基本图元，自定义创建更丰富的可视化效果。
