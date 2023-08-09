@@ -1,8 +1,48 @@
 import { isValidNumber } from '@visactor/vutils';
 import type { IGlyphElement, ViolinEncoderSpec } from '../types';
 import { registerGlyph } from '../view/register-glyph';
+import type { IBaseScale } from '@visactor/vscale';
 
-const encodeViolinSize = (encodeValues: any, datum: any, element: IGlyphElement, config: any) => {
+const defaultDensitySize = 30;
+
+const computeViolinPoints = (density: [number, number][], densitySize: number, scale: IBaseScale, config: any) => {
+  if (!density || density.length === 0) {
+    return [];
+  }
+  const maxDensity = density.reduce((max, d) => Math.max(max, d[1]), 0);
+
+  if (config?.direction === 'horizontal') {
+    const topPoints = density.map(d => {
+      return {
+        y: -densitySize * (1 / maxDensity) * d[1],
+        x: scale.scale(d[0])
+      };
+    });
+    const bottomPoints = density.map(d => {
+      return {
+        y: densitySize * (1 / maxDensity) * d[1],
+        x: scale.scale(d[0])
+      };
+    });
+    return [...topPoints, ...bottomPoints.reverse()];
+  }
+
+  const leftPoints = density.map(d => {
+    return {
+      x: -densitySize * (1 / maxDensity) * d[1],
+      y: scale.scale(d[0])
+    };
+  });
+  const rightPoints = density.map(d => {
+    return {
+      x: densitySize * (1 / maxDensity) * d[1],
+      y: scale.scale(d[0])
+    };
+  });
+  return [...leftPoints, ...rightPoints.reverse()];
+};
+
+const encodeViolin = (encodeValues: any, datum: any, element: IGlyphElement, config: any) => {
   const attributes = {
     violin: {},
     shaft: {},
@@ -16,6 +56,15 @@ const encodeViolinSize = (encodeValues: any, datum: any, element: IGlyphElement,
   const height = encodeValues.height ?? element.getGraphicAttribute('height', false);
   const boxWidth = encodeValues.boxWidth ?? element.getGraphicAttribute('boxWidth', false);
   const boxHeight = encodeValues.boxHeight ?? element.getGraphicAttribute('boxHeight', false);
+  const densitySize =
+    encodeValues.densitySize ?? element.getGraphicAttribute('densitySize', false) ?? defaultDensitySize;
+
+  const densityScale = element.mark.getScalesByChannel().density;
+  const densityField = element.mark.getFieldsByChannel().density;
+  if (densityField && densityScale) {
+    const points = computeViolinPoints(datum[densityField], densitySize, densityScale, config);
+    Object.assign(attributes.violin, { points });
+  }
 
   if (config?.direction === 'horizontal') {
     if (isValidNumber(boxHeight)) {
@@ -40,7 +89,7 @@ export const registerViolinGlyph = () => {
     box: 'rect',
     median: 'symbol'
   })
-    .registerFunctionEncoder(encodeViolinSize)
+    .registerFunctionEncoder(encodeViolin)
     .registerChannelEncoder('x', (channel, encodeValue, encodeValues, datum, element, config) => {
       if (config?.direction === 'horizontal') {
         return null;

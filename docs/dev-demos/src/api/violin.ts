@@ -160,15 +160,7 @@ export const runner = (view: IView) => {
     x: 0,
     y: 200,
     width: 400,
-    height: 200,
-    lineWidth: 1,
-    stroke: '#aaa'
-  });
-  const group4 = view.group(view.rootMark).encode({
-    x: 0,
-    y: 400,
-    width: 400,
-    height: 200,
+    height: 400,
     lineWidth: 1,
     stroke: '#aaa'
   });
@@ -184,26 +176,8 @@ export const runner = (view: IView) => {
       median: { scale: linearScale, field: 'y3' },
       q1: { scale: linearScale, field: 'y4' },
       min: { scale: linearScale, field: 'y5' },
-      density: (datum: any) => {
-        if (!datum.density) {
-          return [];
-        }
-        const width = 40;
-        const maxDensity = 0.001;
-        const leftPoints = datum.density.map(d => {
-          return {
-            x: -width * (1 / maxDensity) * d[1],
-            y: linearScale.getScale().scale(d[0])
-          }
-        });
-        const rightPoints = datum.density.map(d => {
-          return {
-            x: width * (1 / maxDensity) * d[1],
-            y: linearScale.getScale().scale(d[0])
-          }
-        });
-        return [...leftPoints, ...rightPoints.reverse()];
-      },
+      density: { scale: linearScale, field: 'density' },
+      densitySize: 20,
       width: 10,
       size: 6,
       opacity: 1
@@ -212,17 +186,17 @@ export const runner = (view: IView) => {
       opacity: 0.7
     })
     .animation({
-      // enter: {
-      //   type: 'boxplotScaleIn',
-      //   duration: 2000
-      // },
-      // exit: {
-      //   type: 'boxplotScaleOut',
-      //   duration: 2000
-      // },
-      // state: {
-      //   duration: 1000
-      // }
+      enter: {
+        type: 'fadeIn',
+        duration: 1000
+      },
+      exit: {
+        type: 'fadeOut',
+        duration: 1000
+      },
+      state: {
+        duration: 1000
+      }
     });
 
   const horizontalViolin = view
@@ -238,26 +212,7 @@ export const runner = (view: IView) => {
       median: { scale: linearScale, field: 'y3' },
       q1: { scale: linearScale, field: 'y4' },
       min: { scale: linearScale, field: 'y5' },
-      density: (datum: any) => {
-        if (!datum.density) {
-          return [];
-        }
-        const height = 40;
-        const maxDensity = 0.001;
-        const leftPoints = datum.density.map(d => {
-          return {
-            y: -height * (1 / maxDensity) * d[1],
-            x: linearScale.getScale().scale(d[0])
-          }
-        });
-        const rightPoints = datum.density.map(d => {
-          return {
-            y: height * (1 / maxDensity) * d[1],
-            x: linearScale.getScale().scale(d[0])
-          }
-        });
-        return [...leftPoints, ...rightPoints.reverse()];
-      },
+      density: { scale: linearScale, field: 'density' },
       height: 10,
       size: 6,
       opacity: 1
@@ -266,56 +221,18 @@ export const runner = (view: IView) => {
       opacity: 0.7
     })
     .animation({
-      // enter: {
-      //   type: 'boxplotScaleIn',
-      //   options: { direction: 'horizontal' },
-      //   duration: 2000
-      // },
-      // exit: {
-      //   type: 'boxplotScaleOut',
-      //   duration: 2000
-      // },
-      // state: {
-      //   duration: 1000
-      // }
+      enter: {
+        type: 'fadeIn',
+        duration: 1000
+      },
+      exit: {
+        type: 'fadeOut',
+        duration: 1000
+      },
+      state: {
+        duration: 1000
+      }
     });
-
-  // const polarBoxplot = view
-  //   .glyph('boxplot', group4)
-  //   .id('polarBoxplot')
-  //   .join(data)
-  //   .configureGlyph({ direction: 'horizontal' })
-  //   .encode({
-  //     y: 100,
-  //     max: { scale: polarLinearScale, field: 'y1' },
-  //     q3: { scale: polarLinearScale, field: 'y2' },
-  //     median: { scale: polarLinearScale, field: 'y3' },
-  //     q1: { scale: polarLinearScale, field: 'y4' },
-  //     min: { scale: polarLinearScale, field: 'y5' },
-  //     // height: 30,
-  //     boxHeight: 20,
-  //     ruleHeight: 10,
-  //     stroke: { scale: colorScale, field: 'x' },
-  //     fill: '#aaa',
-  //     angle: { scale: angleScale, field: 'x' },
-  //     anchor: [100, 100]
-  //   })
-  //   .encodeState('hover', {
-  //     opacity: 0.7
-  //   })
-  //   .animation({
-  //     enter: {
-  //       type: 'boxplotScaleIn',
-  //       duration: 2000
-  //     },
-  //     exit: {
-  //       type: 'boxplotScaleOut',
-  //       duration: 2000
-  //     },
-  //     state: {
-  //       duration: 1000
-  //     }
-  //   });
 };
 
 export const callback = (view: IView) => {
