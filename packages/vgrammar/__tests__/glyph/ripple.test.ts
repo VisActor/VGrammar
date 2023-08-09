@@ -1,11 +1,11 @@
 import { registerRippleGlyph } from '../../src';
 import { getGlyph } from '../../src/view/register-glyph';
-import { createSimpleBoxplotElement } from '../util';
+import { createSimpleGlyphElement } from '../util';
 
 registerRippleGlyph();
 
 test('ripple encode', function () {
-  const element = createSimpleBoxplotElement(getGlyph('ripplePoint'));
+  const element = createSimpleGlyphElement(getGlyph('ripplePoint'));
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(

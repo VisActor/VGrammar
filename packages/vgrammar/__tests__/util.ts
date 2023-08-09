@@ -70,7 +70,7 @@ export function createSimpleElement(
   return createElement(mark);
 }
 
-export function createSimpleBoxplotElement(glyphMeta: IGlyphMeta) {
+export function createSimpleGlyphElement(glyphMeta: IGlyphMeta) {
   const mark = {
     markType: 'glyph',
     isLargeMode: () => false,

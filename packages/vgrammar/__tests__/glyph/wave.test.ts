@@ -1,11 +1,11 @@
 import { registerWaveGlyph } from '../../src';
 import { getGlyph } from '../../src/view/register-glyph';
-import { createSimpleBoxplotElement } from '../util';
+import { createSimpleGlyphElement } from '../util';
 
 registerWaveGlyph();
 
 test('wave encode', function () {
-  const element = createSimpleBoxplotElement(getGlyph('wave'));
+  const element = createSimpleGlyphElement(getGlyph('wave'));
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(
