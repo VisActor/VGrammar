@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: add bin & kde & contour transform",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
