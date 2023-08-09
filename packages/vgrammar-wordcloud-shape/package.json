@@ -34,13 +34,8 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@visactor/vrender": "~0.13.10",
     "@visactor/vgrammar": "workspace:0.5.5",
-=======
-    "@visactor/vrender": "0.14.0-alpha.8",
-    "@visactor/vgrammar": "workspace:0.5.4",
->>>>>>> 5d864b8 (style: use latest vrender and rename global to vglobal)
+    "@visactor/vrender": "~0.14.0",
     "@visactor/vscale": "~0.13.3",
     "@visactor/vgrammar-util": "workspace:0.5.5",
     "@visactor/vutils": "~0.13.3"
