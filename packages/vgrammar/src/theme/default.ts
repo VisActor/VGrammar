@@ -17,6 +17,7 @@ import type {
   SizeLegendAttributes,
   SliderAttributes,
   SymbolLabelAttrs,
+  ArcLabelAttrs,
   TooltipAttributes
 } from '@visactor/vrender-components';
 import type { RecursivePartial } from '../types';
@@ -463,6 +464,21 @@ export const symbolLabel: RecursivePartial<SymbolLabelAttrs> = {
   smartInvert: false
 };
 
+export const arcLabel: RecursivePartial<ArcLabelAttrs> = {
+  type: 'arc',
+  data: [
+    {
+      text: '',
+      data: {}
+    }
+  ],
+  width: 800,
+  height: 600,
+  position: 'outside',
+
+  zIndex: 302
+};
+
 export const datazoom: RecursivePartial<DataZoomAttributes> = {
   orient: 'bottom',
   showDetail: 'auto',
@@ -501,6 +517,7 @@ export const defaultTheme = {
   lineLabel,
   rectLabel,
   symbolLabel,
+  arcLabel,
 
   datazoom,
 
