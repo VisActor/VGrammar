@@ -10,7 +10,7 @@ import type {
   wordsConfigType,
   CloudWordType
 } from './interface';
-import { global } from '@visactor/vrender';
+import { vglobal } from '@visactor/vrender';
 import { segmentation } from './segmentation';
 import { LinearScale, OrdinalScale, SqrtScale } from '@visactor/vscale';
 import cloud from './cloud-shape-layout';
@@ -142,7 +142,7 @@ export const transform = async (
   };
 
   // 全局共用的临时画板，此处需要对小程序的 canvas 进行兼容
-  const tempCanvas = global.createCanvas({ width: options.size[0], height: options.size[1] });
+  const tempCanvas = vglobal.createCanvas({ width: options.size[0], height: options.size[1] });
   const tempCtx = tempCanvas.getContext('2d');
   tempCtx.textAlign = 'center';
   tempCtx.textBaseline = 'middle';

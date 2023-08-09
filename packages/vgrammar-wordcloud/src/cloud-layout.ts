@@ -10,7 +10,7 @@
 /**
  * 小程序canvas相关API，getImageData、draw都是异步的，导致渐进渲染流程处理非常麻烦，实际上小程序并未使用这个算法，所以暂时不考虑支持小程序
  */
-import { global } from '@visactor/vrender';
+import { vglobal } from '@visactor/vrender';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar';
 import { isString } from '@visactor/vutils';
 import type { Bounds, IBaseLayoutOptions, TagItemAttribute, TagItemFunction, TagOutputItem } from './interface';
@@ -213,7 +213,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     // 开始新的layout时清除旧的缓存
     this.clearCache();
     this._originSize = [...this._size];
-    const contextAndRatio = this.getContext(global.createCanvas({ width: 1, height: 1 }));
+    const contextAndRatio = this.getContext(vglobal.createCanvas({ width: 1, height: 1 }));
     this.contextAndRatio = contextAndRatio;
     this._board = new Array((this._size[0] >> 5) * this._size[1]).fill(0);
     // 已经绘制文字的最小包围盒
