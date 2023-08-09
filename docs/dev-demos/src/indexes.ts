@@ -100,6 +100,16 @@ export const indexes = [
     ]
   },
   {
+    menu: 'pie',
+    children: [
+      {
+        path: 'pie',
+        name: '简单饼图',
+        type: 'api'
+      }
+    ]
+  },
+  {
     menu: 'line',
     children: [
       {
