@@ -1,4 +1,4 @@
-import { global, createImage } from '@visactor/vrender';
+import { vglobal, createImage } from '@visactor/vrender';
 import { isValidUrl, Logger } from '@visactor/vutils';
 import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
 
@@ -115,7 +115,7 @@ export function paintLabels(segmentationOutput: SegmentationOutputType) {
     shapeBounds,
     shapeCenter
   } = segmentationOutput;
-  const paintCanvas = global.createCanvas({ width: size[0], height: size[1] });
+  const paintCanvas = vglobal.createCanvas({ width: size[0], height: size[1] });
   const ctx = paintCanvas.getContext('2d');
   const colorList = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
 
