@@ -269,6 +269,7 @@ export interface IMark extends IGrammarBase, IProgressiveGrammar {
   getAttributeTransforms: () => AttributeTransform[];
   getScalesByChannel: () => Record<string, IBaseScale> | undefined;
   getFieldsByChannel: () => Record<string, string> | undefined;
+  getSegmentIgnoreAttributes: () => string[] | Nil;
 }
 
 export interface IGrammarBaseConstructor {
