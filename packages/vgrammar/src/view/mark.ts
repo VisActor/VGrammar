@@ -1,13 +1,6 @@
 import type { IGroup, INode } from '@visactor/vrender';
 import { isNil, isString } from '@visactor/vutils';
-import {
-  BridgeElementKey,
-  CollectionMarkType,
-  DefaultGroupKeys,
-  DefaultKey,
-  DefaultMarkData,
-  Mark3DType
-} from '../graph/constants';
+import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
 import { DiffState, GrammarMarkType, LayoutState, HOOK_EVENT } from '../graph/enums';
 import { Differ, groupData } from '../graph/mark/differ';
 import { Animate } from '../graph/animation/animate';
@@ -82,6 +75,8 @@ export class Mark extends GrammarBase implements IMark {
   elementMap: Map<string, IElement> = new Map();
 
   isUpdated: boolean = true;
+
+  private _groupKeys: string[];
 
   /** whether mark enter encode is updated  */
   private _isReentered: boolean = false;
@@ -222,18 +217,19 @@ export class Mark extends GrammarBase implements IMark {
     }
 
     const stage = this.view.renderer?.stage();
-    this.renderContext = this.parseRenderContext(data, parameters);
 
     this.init(stage, parameters);
+    const transformData = this.evaluateTransformSync(
+      this._getTransformsBeforeJoin(),
+      data ?? DefaultMarkData,
+      parameters
+    );
+    let inputData = transformData?.progressive ? data : (transformData as any[]);
 
+    this.evaluateGroup(inputData);
+
+    this.renderContext = this.parseRenderContext(inputData, parameters);
     if (!this.renderContext.progressive) {
-      const transformData = this.evaluateTransformSync(
-        this._getTransformsBeforeJoin(),
-        data ?? DefaultMarkData,
-        parameters
-      );
-      let inputData = transformData;
-
       if (transformData?.progressive) {
         this.renderContext.parameters = parameters;
         this.renderContext.beforeTransformProgressive = transformData.progressive;
@@ -262,6 +258,58 @@ export class Mark extends GrammarBase implements IMark {
     this.emit(HOOK_EVENT.AFTER_MARK_UPDATE);
 
     return this;
+  }
+
+  protected evaluateGroup(data: any[]) {
+    if (this.markType === GrammarMarkType.group) {
+      return;
+    }
+
+    const currentData = data ?? DefaultMarkData;
+    const groupKeyGetter = parseField(this.spec.groupBy ?? (() => DefaultKey));
+    const res = groupData(currentData, groupKeyGetter, this.spec.groupSort);
+    const groupKeys = res.keys as string[];
+
+    this._groupKeys = groupKeys;
+
+    this.differ.setCurrentData(res);
+
+    if (this.isCollectionMark()) {
+      // todo
+    } else {
+      const prevChildren = this.graphicParent.children;
+      const prevKeys: string[] = [];
+
+      if (prevChildren.length) {
+        prevChildren.forEach((child: any) => {
+          const prevKey = child.groupKey;
+          let newIndex: number;
+
+          if (isNil(prevKey) || ((newIndex = groupKeys.indexOf(prevKey)), newIndex < 0)) {
+            this.graphicParent.removeChild(child);
+          } else {
+            prevKeys.push(prevKey);
+            child.setAttribute('zIndex', newIndex);
+          }
+        });
+      }
+
+      if (groupKeys.length > prevKeys.length) {
+        groupKeys.forEach((key, index) => {
+          if (prevKeys.length && prevKeys.includes(key)) {
+            return;
+          }
+
+          const graphicItem = createGraphicItem(this, GrammarMarkType.group, {
+            pickable: false,
+            zIndex: index // use the index to sort
+          });
+          graphicItem.name = `group-${key}`;
+          (graphicItem as any).groupKey = key;
+          (this.graphicParent as any).appendChild(graphicItem);
+        });
+      }
+    }
   }
 
   private _getTransformsAfterEncodeItems() {
@@ -639,7 +687,6 @@ export class Mark extends GrammarBase implements IMark {
     const keyGetter = parseField(this.spec.key ?? (this.grammarSource as IData)?.getDataIDKey() ?? (() => DefaultKey));
     const groupKeyGetter = parseField(this.spec.groupBy ?? (() => DefaultKey));
     const sort = this.spec.sort;
-    const groupSort = this.spec.groupSort;
     const isCollectionMark = this.isCollectionMark();
 
     const enterElements = new Set<IElement>(this.elements.filter(element => element.diffState === DiffState.enter));
@@ -682,17 +729,18 @@ export class Mark extends GrammarBase implements IMark {
     });
 
     const currentData = data ?? DefaultMarkData;
-    this.differ.setCurrentData(
-      groupData(
-        currentData,
-        isCollectionMark
-          ? groupKeyGetter
-          : (datum: any) => {
-              return `${groupKeyGetter(datum)}-${keyGetter(datum)}`;
-            },
-        isCollectionMark ? groupSort : undefined
-      )
-    );
+
+    if (!isCollectionMark) {
+      this.differ.setCurrentData(
+        groupData(
+          currentData,
+          (datum: any) => {
+            return `${groupKeyGetter(datum)}-${keyGetter(datum)}`;
+          },
+          undefined
+        )
+      );
+    }
     this.differ.doDiff();
 
     // Enter elements between dataflow start data and end data should be removed directly.
@@ -749,11 +797,11 @@ export class Mark extends GrammarBase implements IMark {
       graphicItem.name = `${this.id() || this.markType}`;
 
       this.graphicParent.insertIntoKeepIdx(graphicItem as unknown as INode, this.graphicIndex);
-    } else if (this.renderContext?.progressive) {
+    } else if (this.renderContext?.progressive || !this.isCollectionMark()) {
       let group: IGroup;
 
-      if (this.renderContext.progressive.groupKeys) {
-        const index = this.renderContext.progressive.groupKeys.indexOf(groupKey);
+      if (this._groupKeys) {
+        const index = this._groupKeys.indexOf(groupKey);
 
         if (index >= 0) {
           group = this.graphicParent.getChildAt(index) as IGroup;
@@ -762,11 +810,15 @@ export class Mark extends GrammarBase implements IMark {
         group = this.graphicParent.at(0) as IGroup;
       }
 
-      if (this.isCollectionMark()) {
-        graphicItem.incremental = 1;
-        group.appendChild(graphicItem);
+      if (this.renderContext?.progressive) {
+        if (this.isCollectionMark()) {
+          graphicItem.incremental = 1;
+          group.appendChild(graphicItem);
+        } else {
+          group.incrementalAppendChild(graphicItem);
+        }
       } else {
-        group.incrementalAppendChild(graphicItem);
+        group.appendChild(graphicItem);
       }
     } else {
       (this.graphicParent as any).appendChild(graphicItem);
@@ -785,13 +837,10 @@ export class Mark extends GrammarBase implements IMark {
     const large = this.spec.large && this.spec.largeThreshold > 0 && data.length >= this.spec.largeThreshold;
 
     if (enableProgressive) {
-      const groupedData = groupData(data, this.spec.groupBy, this.spec.groupSort);
-
-      if (this.isCollectionMark()) {
-        this.differ.setCurrentData(groupedData);
-      }
+      const groupedData = this.differ.getCurrentData();
 
       if (
+        groupedData &&
         groupedData.keys &&
         groupedData.keys.some(key => groupedData.data.get(key).length > this.spec.progressiveThreshold)
       ) {
@@ -805,8 +854,7 @@ export class Mark extends GrammarBase implements IMark {
             totalStep: groupedData.keys.reduce((total, key) => {
               return Math.max(Math.ceil(groupedData.data.get(key).length / this.spec.progressiveStep), total);
             }, 1),
-            groupedData: groupedData.data as Map<string, any[]>,
-            groupKeys: groupedData.keys as string[]
+            groupedData: groupedData.data as Map<string, any[]>
           }
         };
       }
@@ -862,7 +910,7 @@ export class Mark extends GrammarBase implements IMark {
     const elements: IElement[] = [];
 
     if (this.isCollectionMark()) {
-      this.renderContext.progressive.groupKeys.forEach((key, index) => {
+      this._groupKeys.forEach((key, index) => {
         const data = this.renderContext.progressive.groupedData.get(key);
         const groupStep = this.renderContext.progressive.step;
         const dataSlice = data.slice(currentIndex * groupStep, (currentIndex + 1) * groupStep);
@@ -883,7 +931,7 @@ export class Mark extends GrammarBase implements IMark {
     }
 
     const groupElements: Record<string, IElement[]> = {};
-    this.renderContext.progressive.groupKeys.forEach(key => {
+    this._groupKeys.forEach(key => {
       const data = this.renderContext.progressive.groupedData.get(key);
       const groupStep = this.renderContext.progressive.step;
       const dataSlice = data.slice(currentIndex * groupStep, (currentIndex + 1) * groupStep);
@@ -999,7 +1047,7 @@ export class Mark extends GrammarBase implements IMark {
     if (this.renderContext.progressive.currentIndex === 0) {
       (this.graphicParent as any).removeAllChild();
 
-      (this.renderContext.progressive.groupKeys || DefaultGroupKeys).forEach(key => {
+      this._groupKeys.forEach(key => {
         const graphicItem = createGraphicItem(this, GrammarMarkType.group, {
           pickable: false,
           zIndex: this.spec.zIndex
