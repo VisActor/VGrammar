@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import type { View, IGroupMark } from '@visactor/vgrammar';
-import { IMark } from '@visactor/vgrammar';
 
 export const runner = (view: View) => {
   const originData = [
@@ -9,8 +8,10 @@ export const runner = (view: View) => {
     { category: 'C', amount: 43, index: 2 }
   ];
 
-  // const data = view.data(originData).id('data');
-  // const data = view.data().values(originData.)
+  const data = view.data(originData);
+  const csvData = view.data().url('/data/basic.csv', { type: 'csv' });
+  const jsonData = view.data().url('/data/basic.json', { type: 'json' });
+  console.log(csvData, jsonData);
 
   const leftBar = view.mark('rect', view.rootMark).id('leftBar').encode({
     x: 0,
@@ -38,13 +39,12 @@ export const runner = (view: View) => {
     .mark('rect', dataGroup)
     .id('dataBar')
     .join(data)
-    .encodeState('enter', { fill: () => { console.log('enter!'); return 'lightGreen'; } })
     .encode({
       x: datum => datum.index * 50 + 10,
       y: datum => ((100 - datum.amount) / 100) * 150,
       width: 30,
       height: datum => (datum.amount / 100) * 150,
-      // fill: 'lightGreen'
+      fill: 'lightGreen'
     });
 };
 
