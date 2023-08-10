@@ -54,6 +54,10 @@ export class Differ<T> {
     this.currentData = currentData;
   }
 
+  getCurrentData(): GroupedData<T> {
+    return this.currentData;
+  }
+
   doDiff() {
     if (this.callback) {
       const prevMap = new Map(this.prevData.data);
