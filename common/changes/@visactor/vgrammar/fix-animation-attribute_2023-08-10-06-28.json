@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: tooltip support custom callback",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
