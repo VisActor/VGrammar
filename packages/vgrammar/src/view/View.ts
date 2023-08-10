@@ -1,4 +1,5 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
+// eslint-disable-next-line no-duplicate-imports
 import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports

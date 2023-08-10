@@ -41,7 +41,7 @@ import type {
   MarkStateSortSpec,
   BaseSignleEncodeSpec
 } from '../types';
-import { isScaleEncode, parseEncodeType } from '../parse/mark';
+import { isFieldEncode, isScaleEncode, parseEncodeType } from '../parse/mark';
 import { getGrammarOutput, parseField, isFunctionType } from '../parse/util';
 import { parseTransformSpec } from '../parse/transform';
 import { createElement } from '../graph/util/element';
@@ -513,6 +513,29 @@ export class Mark extends GrammarBase implements IMark {
         Object.keys(useEncoders).forEach(channel => {
           if (isScaleEncode(useEncoders[channel])) {
             res[channel] = getGrammarOutput(useEncoders[channel].scale, params);
+          }
+        });
+      }
+    });
+
+    return res;
+  }
+
+  getFieldsByChannel() {
+    const encoders = this.spec.encode;
+
+    if (!encoders) {
+      return {};
+    }
+
+    const res: Record<string, string> = {};
+    Object.keys(encoders).forEach(state => {
+      const useEncoders = encoders[state];
+
+      if (!isFunctionType(useEncoders)) {
+        Object.keys(useEncoders).forEach(channel => {
+          if (isFieldEncode(useEncoders[channel])) {
+            res[channel] = useEncoders[channel].field;
           }
         });
       }

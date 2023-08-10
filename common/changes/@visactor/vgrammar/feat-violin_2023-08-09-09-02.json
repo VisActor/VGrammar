@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: add violin glyph",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
