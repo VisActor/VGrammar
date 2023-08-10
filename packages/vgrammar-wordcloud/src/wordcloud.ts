@@ -90,8 +90,10 @@ export const transform = (
   // 只有fontSize不为固定值时，fontSizeRange才生效
   if (fontSizeRange && !isNumber(fontSize)) {
     const fsize: any = fontSize;
-    fontSize = (datum: any) => {
-      return sqrtScale(fsize(datum), extent(fsize, data), fontSizeRange as number[]);
+    const fontSizeSqrtScale = generateSqrtScale(extent(fsize, data), fontSizeRange as number[]);
+
+    fontSize = datum => {
+      return fontSizeSqrtScale(fsize(datum));
     };
   }
 
@@ -169,13 +171,22 @@ const field = <T>(option: FieldOption | TagItemAttribute<T>) => {
   return (datum: any) => datum[(option as FieldOption).field] as T;
 };
 
-// 模拟sqrt scale
-const sqrtScale = (datum: any, domain: number[], range: number[]) => {
-  return (
-    ((Math.sqrt(datum) - Math.sqrt(domain[0])) / (Math.sqrt(domain[1]) - Math.sqrt(domain[0]))) *
-      (range[1] - range[0]) +
-    range[0]
-  );
+const sqrt = (x: number) => {
+  return x < 0 ? -Math.sqrt(-x) : Math.sqrt(x);
+};
+
+// simulation sqrt scale
+const generateSqrtScale = (domain: number[], range: number[]) => {
+  if (domain[0] === domain[1]) {
+    return (datum: number) => range[0]; // match smallest fontsize
+  }
+
+  const s0 = sqrt(domain[0]);
+  const s1 = sqrt(domain[1]);
+  const min = Math.min(s0, s1);
+  const max = Math.max(s0, s1);
+
+  return (datum: number) => ((sqrt(datum) - min) / (max - min)) * (range[1] - range[0]) + range[0];
 };
 
 const extent = (field: any, data: any[]) => {

@@ -104,7 +104,7 @@ export interface SortTransformOptions {
 }
 
 export interface StackTransformOptions {
-  orient: 'positive' | 'negative';
+  orient?: 'positive' | 'negative';
   stackField: string;
   dimensionField: string;
   asStack?: string;

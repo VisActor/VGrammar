@@ -2,6 +2,50 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.5.4",
+      "tag": "@visactor/vgrammar_v0.5.4",
+      "date": "Thu, 10 Aug 2023 01:56:52 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix(vgrammar): fix the issue when parse segements of an area mark and fill is a gradient, fix #101\n\n"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.5.3",
+      "tag": "@visactor/vgrammar_v0.5.3",
+      "date": "Fri, 04 Aug 2023 09:34:18 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix(wordCloud): support wordCloud Chart with negative data and one data. fix VisActor/VChart#299, fix VisActor/VChart#373"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.5.2",
+      "tag": "@visactor/vgrammar_v0.5.2",
+      "date": "Thu, 03 Aug 2023 08:39:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix(vgrammar-wordcloud): fix the issue of wordcloud error reporting in non-integer canvas wh"
+          },
+          {
+            "comment": "fix(vgrammar): glyph should merge prev attrs when add a state, fix the issue of sankey state\n\n"
+          }
+        ],
+        "none": [
+          {
+            "comment": "fix(wordcloud): wordcloud should not throw error when the size is very small, fix #91\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.1",
       "tag": "@visactor/vgrammar_v0.5.1",
       "date": "Thu, 27 Jul 2023 09:58:52 GMT",

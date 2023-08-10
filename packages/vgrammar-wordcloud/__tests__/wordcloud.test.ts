@@ -30,6 +30,28 @@ test('Wordcloud should not throw error when size is 0', async () => {
   expect(result).toBe(data);
 });
 
+test('Wordcloud should not throw error when size is very small', async () => {
+  const data = [
+    { text: 'foo', size: 49, index: 0 },
+    { text: 'bar', size: 36, index: 1 },
+    { text: 'baz', size: 25, index: 2 },
+    { text: 'abc', size: 1, index: 3 }
+  ];
+
+  const result = await transform(
+    {
+      size: [10, 10],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7],
+      enlarge: true
+    },
+    data
+  );
+
+  expect(result).toEqual([]);
+});
+
 test('Wordcloud generates wordcloud layout', async () => {
   const data = [
     { text: 'foo', size: 49, index: 0 },
@@ -50,6 +72,125 @@ test('Wordcloud generates wordcloud layout', async () => {
   expect(result.length).toBe(data.length);
   expect(result[0].fontFamily).toBe('sans-serif');
   expect(result[0].fontSize).toBe(7);
+  expect(result[0].fontStyle).toBe('normal');
+  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
+});
+
+test('Wordcloud generates wordcloud layout with negative data', async () => {
+  const data = [
+    { text: 'foo', size: -49, index: 0 },
+    { text: 'bar', size: 36, index: 1 },
+    { text: 'baz', size: 25, index: 2 },
+    { text: 'abc', size: 1, index: 3 }
+  ];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontSize).toBe(7);
+  expect(result[0].fontStyle).toBe('normal');
+  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
+});
+
+test('Wordcloud generates wordcloud layout with negative data and -domain[0] === domain[1]', async () => {
+  const data = [
+    { text: 'foo', size: -49, index: 0 },
+    { text: 'bar', size: 49, index: 1 }
+  ];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontSize).toBe(7);
+  expect(result[0].fontStyle).toBe('normal');
+  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
+});
+
+test('Wordcloud generates wordcloud layout with one data', async () => {
+  const data = [{ text: 'foo', size: 49, index: 0 }];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontSize).toBe(7);
+  expect(result[0].fontStyle).toBe('normal');
+  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
+});
+
+test('Wordcloud generates wordcloud layout with domain[0] == domain[1] & domain[0] < 0', async () => {
+  const data = [
+    { text: 'foo', size: -49, index: 0 },
+    { text: 'bar', size: -49, index: 1 }
+  ];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontSize).toBe(1);
+  expect(result[0].fontStyle).toBe('normal');
+  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
+});
+
+test('Wordcloud generates wordcloud layout with domain[0] == domain[1] & domain[0] > 0', async () => {
+  const data = [
+    { text: 'foo', size: 49, index: 0 },
+    { text: 'bar', size: 49, index: 1 }
+  ];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontSize).toBe(1);
   expect(result[0].fontStyle).toBe('normal');
   expect(result[0].fontWeight).toBe('normal');
   expect(result[0].x).toBe(250);

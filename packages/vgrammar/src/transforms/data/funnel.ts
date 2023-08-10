@@ -1,7 +1,7 @@
 import { isValidNumber } from '@visactor/vutils';
-import type { FunnelTransformSpec } from '../../types';
+import type { FunnelTransformOption } from '../../types';
 
-export const transform = (options: FunnelTransformSpec, upstreamData: any[]) => {
+export const transform = (options: FunnelTransformOption, upstreamData: any[]) => {
   const {
     field,
     asTransformRatio,

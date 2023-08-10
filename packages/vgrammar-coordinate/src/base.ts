@@ -58,7 +58,7 @@ export abstract class Coordinate implements IBaseCoordinate {
 
   abstract getRangeByDimension(dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean): [number, number];
 
-  abstract getVisiualPositionByDimension(dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean): string;
+  abstract getVisualPositionByDimension(dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean): string;
 
   abstract getAxisPointsByDimension(
     dim: IDimensionType,

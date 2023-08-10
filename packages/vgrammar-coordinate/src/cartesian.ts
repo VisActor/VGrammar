@@ -43,7 +43,7 @@ export class CartesianCoordinate extends Coordinate implements ICartesianCoordin
     return reversed ? [res[1], res[0]] : res;
   }
 
-  getVisiualPositionByDimension(dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean) {
+  getVisualPositionByDimension(dim: IDimensionType, isSubshaft?: boolean, reversed?: boolean) {
     const isMain = this.isMainDimension(dim);
 
     return isMain ? (isSubshaft ? 'top' : 'bottom') : isSubshaft ? 'right' : 'left';
