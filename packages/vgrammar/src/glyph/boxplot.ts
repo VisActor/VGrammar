@@ -228,6 +228,22 @@ export function registerBoxplotGlyph() {
     min: 'rule',
     median: 'rule'
   })
+    .registerProgressiveChannels([
+      'x',
+      'y',
+      'q1',
+      'q3',
+      'min',
+      'max',
+      'median',
+      'angle',
+      'width',
+      'height',
+      'boxWidth',
+      'boxHeight',
+      'ruleWidth',
+      'ruleHeight'
+    ])
     .registerFunctionEncoder(encodeBoxplotSize)
     .registerChannelEncoder('x', (channel, encodeValue, encodeValues, datum, element, config) => {
       if (config?.direction === 'horizontal') {
@@ -422,6 +438,22 @@ export function registerBarBoxplotGlyph() {
     q1q3Box: 'rect',
     median: 'rule'
   })
+    .registerProgressiveChannels([
+      'x',
+      'y',
+      'q1',
+      'q3',
+      'min',
+      'max',
+      'median',
+      'angle',
+      'width',
+      'height',
+      'minMaxWidth',
+      'q1q3Width',
+      'minMaxHeight',
+      'q1q3Height'
+    ])
     .registerFunctionEncoder(encodeBarBoxplotSize)
     .registerChannelEncoder('q1', (channel, encodeValue, encodeValues, datum, element, config) => {
       return config?.direction === 'horizontal' ? { q1q3Box: { x: encodeValue } } : { q1q3Box: { y: encodeValue } };
