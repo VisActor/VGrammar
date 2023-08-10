@@ -273,43 +273,6 @@ export class Mark extends GrammarBase implements IMark {
     this._groupKeys = groupKeys;
 
     this.differ.setCurrentData(res);
-
-    if (this.isCollectionMark()) {
-      // todo
-    } else {
-      const prevChildren = this.graphicParent.children;
-      const prevKeys: string[] = [];
-
-      if (prevChildren.length) {
-        prevChildren.forEach((child: any) => {
-          const prevKey = child.groupKey;
-          let newIndex: number;
-
-          if (isNil(prevKey) || ((newIndex = groupKeys.indexOf(prevKey)), newIndex < 0)) {
-            this.graphicParent.removeChild(child);
-          } else {
-            prevKeys.push(prevKey);
-            child.setAttribute('zIndex', newIndex);
-          }
-        });
-      }
-
-      if (groupKeys.length > prevKeys.length) {
-        groupKeys.forEach((key, index) => {
-          if (prevKeys.length && prevKeys.includes(key)) {
-            return;
-          }
-
-          const graphicItem = createGraphicItem(this, GrammarMarkType.group, {
-            pickable: false,
-            zIndex: index // use the index to sort
-          });
-          graphicItem.name = `group-${key}`;
-          (graphicItem as any).groupKey = key;
-          (this.graphicParent as any).appendChild(graphicItem);
-        });
-      }
-    }
   }
 
   private _getTransformsAfterEncodeItems() {
@@ -769,9 +732,11 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   protected evaluateGroupEncode(elements: IElement[], groupEncode: any, parameters: any) {
-    if (!this._groupKeys) {
+    if (!this._groupKeys || !groupEncode) {
       return;
     }
+
+    const res = {};
 
     this._groupKeys.forEach(key => {
       const el = elements.find(el => el.groupKey === key);
@@ -783,24 +748,24 @@ export class Mark extends GrammarBase implements IMark {
       const nextAttrs = {};
       const items = [Object.assign({}, el.items?.[0], { nextAttrs })];
       invokeEncoderToItems(el, items, groupEncode, parameters);
-      const graphic = el.getGraphicItem();
-
-      if (isEmpty(nextAttrs)) {
-        return;
-      }
-
-      if (this.isCollectionMark()) {
-        graphic.setAttributes(nextAttrs);
-      } else if (graphic.parent) {
-        (graphic.parent as IGroup).setTheme({ common: nextAttrs });
-      }
+      res[key] = nextAttrs;
     });
+
+    return res;
   }
 
   protected evaluateEncode(elements: IElement[], encoders: any, parameters: any) {
     if (encoders) {
+      const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders.group, parameters);
+
       this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
       elements.forEach(element => {
+        if (groupEncodeAttrs?.[element.groupKey]) {
+          element.items.forEach(item => {
+            item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
+          });
+        }
+
         element.encodeItems(element.items, encoders, this._isReentered, parameters);
       });
       this._isReentered = false;
@@ -830,7 +795,7 @@ export class Mark extends GrammarBase implements IMark {
       graphicItem.name = `${this.id() || this.markType}`;
 
       this.graphicParent.insertIntoKeepIdx(graphicItem as unknown as INode, this.graphicIndex);
-    } else if (this.renderContext?.progressive || !this.isCollectionMark()) {
+    } else if (this.renderContext?.progressive) {
       let group: IGroup;
 
       if (this._groupKeys) {
@@ -843,15 +808,11 @@ export class Mark extends GrammarBase implements IMark {
         group = this.graphicParent.at(0) as IGroup;
       }
 
-      if (this.renderContext?.progressive) {
-        if (this.isCollectionMark()) {
-          graphicItem.incremental = 1;
-          group.appendChild(graphicItem);
-        } else {
-          group.incrementalAppendChild(graphicItem);
-        }
-      } else {
+      if (this.isCollectionMark()) {
+        graphicItem.incremental = 1;
         group.appendChild(graphicItem);
+      } else {
+        group.incrementalAppendChild(graphicItem);
       }
     } else {
       (this.graphicParent as any).appendChild(graphicItem);
