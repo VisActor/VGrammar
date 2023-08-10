@@ -110,7 +110,7 @@ export interface IGrammarBase {
 }
 
 export interface IData extends IGrammarBase {
-  values: (values: any[] | Nil, format?: ParameterFunctionType<DataFormatSpec>, load?: boolean) => this;
+  values: (values: any | Nil, format?: ParameterFunctionType<DataFormatSpec>, load?: boolean) => this;
   url: (
     url: ParameterFunctionType<string> | Nil,
     format?: ParameterFunctionType<DataFormatSpec>,

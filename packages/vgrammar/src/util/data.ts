@@ -2,10 +2,17 @@ import type { Parser } from '@visactor/vdataset';
 // eslint-disable-next-line no-duplicate-imports
 import { DataSet, DataView, csvParser, dsvParser, tsvParser } from '@visactor/vdataset';
 import type { DataFormatSpec, Datum } from '../types';
-import { array } from '@visactor/vutils';
+import { array, isString } from '@visactor/vutils';
 
 const jsonParser: Parser = (data: string, options: any = {}, dataView: DataView) => {
-  return [];
+  if (!isString(data)) {
+    return array(data);
+  }
+  try {
+    return array(JSON.parse(data));
+  } catch (e) {
+    return [];
+  }
 };
 
 const parsers: Record<string, Parser> = {
@@ -21,4 +28,14 @@ export const parseFormat = (data: any, format?: DataFormatSpec): Datum[] => {
   }
   const options = format.type === 'dsv' ? { delimiter: format.delimiter } : {};
   return parsers[format.type](data, options, new DataView(new DataSet()));
+};
+
+// FIXME: use ResourceLoader instead
+export const load = async (url: string) => {
+  try {
+    const response = await fetch(url);
+    return response.text();
+  } catch (error) {
+    return null;
+  }
 };
