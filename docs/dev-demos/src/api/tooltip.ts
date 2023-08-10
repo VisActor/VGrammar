@@ -161,18 +161,31 @@ export const runner = (view: IView) => {
         symbol: { fill: 'lightGreen', symbolType: 'square' }
       }
     ]);
+  // const groupTooltip = view.tooltip(container)
+  //   .id('groupTooltip')
+  //   .target(line)
+  //   .title('Total Sales Statistics')
+  //   .encode({ offsetX: 10, offsetY: 10 })
+  //   .content([
+  //     {
+  //       key: { text: 'amount' },
+  //       value: datum => datum.amount,
+  //       symbol: { fill: 'lightGreen', symbolType: 'square' }
+  //     }
+  //   ]);
   const groupTooltip = view.tooltip(container)
     .id('groupTooltip')
     .target(line)
     .title('Total Sales Statistics')
     .encode({ offsetX: 10, offsetY: 10 })
-    .content([
-      {
-        key: { text: 'amount' },
-        value: datum => datum.amount,
-        symbol: { fill: 'lightGreen', symbolType: 'square' }
-      }
-    ]);
+    .content((datum) => {
+      return [{
+        visible: true,
+        key: { text: 'group' },
+        value: { text: 'data' },
+        shape: { fill: 'lightGreen', symbolType: 'square' }
+      }]
+    });
   const dimensionTooltip = view.dimensionTooltip(container)
     .id('dimensionTooltip')
     .scale(xScale)
