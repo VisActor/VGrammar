@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: access arc label component",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
