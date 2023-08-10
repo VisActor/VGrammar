@@ -2,8 +2,8 @@ import type { EventEmitter, IBounds, IPointLike } from '@visactor/vutils';
 import type { IGraphic, IGroup } from '@visactor/vrender';
 import type { IBaseScale, TickData } from '@visactor/vscale';
 import type { ITransform, TransformSpec } from './transform';
-import type { IDataFilter } from './data';
-import type { SignalFunctionType } from './signal';
+import type { DataFormatSpec, IDataFilter } from './data';
+import type { ParameterFunctionType, SignalFunctionType } from './signal';
 import type { IAnimate } from './animate';
 import type { IGlyphMeta } from './glyph';
 import type { GrammarTypeEnum } from '../graph/enums';
@@ -109,18 +109,18 @@ export interface IGrammarBase {
   release: () => void;
 }
 
-/**
- * TODO：补充新的语法元素的定义
- * 语法元素Data对应的接口
- */
 export interface IData extends IGrammarBase {
-  values: (values: any[] | Nil, load?: boolean) => this;
-  // url: (
-  //   url: ParameterFunctionType<string> | Nil,
-  //   format?: ParameterFunctionType<DataFormatSpec>,
-  //   load?: boolean
-  // ) => this;
-  source: (source: string | string[] | IData | IData[], load?: boolean) => this;
+  values: (values: any[] | Nil, format?: ParameterFunctionType<DataFormatSpec>, load?: boolean) => this;
+  url: (
+    url: ParameterFunctionType<string> | Nil,
+    format?: ParameterFunctionType<DataFormatSpec>,
+    load?: boolean
+  ) => this;
+  source: (
+    source: string | string[] | IData | IData[],
+    format?: ParameterFunctionType<DataFormatSpec>,
+    load?: boolean
+  ) => this;
   transform: (transform: TransformSpec[] | Nil) => this;
 
   // only used in VGrammar
