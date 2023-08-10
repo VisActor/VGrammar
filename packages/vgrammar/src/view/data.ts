@@ -16,7 +16,7 @@ import { invokeParameterFunctionType, isGrammar, parseFunctionType } from '../pa
 import { parseTransformSpec } from '../parse/transform';
 import type { Nil } from '../types/base';
 import { HOOK_EVENT } from '../graph/enums';
-import { parseFormat } from '../util/data';
+import { load, parseFormat } from '../util/data';
 
 export class Data extends GrammarBase implements IData {
   readonly grammarType: GrammarType = 'data';
@@ -35,7 +35,7 @@ export class Data extends GrammarBase implements IData {
   private _loadTasks: IGrammarTask[] = [];
   private _postFilters: IDataFilter[] = [];
 
-  constructor(view: IView, values?: any[], format?: DataFormatSpec) {
+  constructor(view: IView, values?: any, format?: DataFormatSpec) {
     super(view);
     this._loadTasks = [];
 
@@ -64,15 +64,16 @@ export class Data extends GrammarBase implements IData {
     const refs: IGrammarBase[] = [];
     const transforms: IGrammarTask[] = [];
 
+    const formatRef = spec.format ? parseFunctionType(spec.format, this.view)[0] : null;
+    if (formatRef) {
+      refs.push(formatRef);
+    }
+
     if (spec.values) {
       const valuesRef = parseFunctionType(spec.values, this.view)[0];
-      const formatRef = spec.format ? parseFunctionType(spec.format, this.view)[0] : null;
 
       if (valuesRef) {
         refs.push(valuesRef);
-      }
-      if (formatRef) {
-        refs.push(formatRef);
       }
 
       transforms.push({
@@ -80,35 +81,25 @@ export class Data extends GrammarBase implements IData {
         transform: this.ingest,
         isRawOptions: true,
         options: {
-          values: spec.values
-          // format: spec.format
+          values: spec.values,
+          format: spec.format
         }
       });
-    }
-    //  else if (spec.url) {
-    //   const urlRef = parseFunctionType(spec.url, this.view)[0];
-    //   const formatRef = spec.format ? parseFunctionType(spec.format, this.view)[0] : null;
+    } else if (spec.url) {
+      const urlRef = parseFunctionType(spec.url, this.view)[0];
+      if (urlRef) {
+        refs.push(urlRef);
+      }
 
-    //   if (urlRef) {
-    //     refs.push(urlRef);
-    //   }
-    //   if (formatRef) {
-    //     refs.push(formatRef);
-    //   }
-
-    //   if (refs.length) {
-    //     transforms.push({
-    //       type: 'load',
-    //       transform: this.load,
-    //       options: {
-    //         // 只考虑单个依赖的情况
-    //         url: urlRef ?? spec.url,
-    //         format: formatRef ?? spec.format
-    //       }
-    //     });
-    //   }
-    // }
-    else if (spec.source) {
+      transforms.push({
+        type: 'load',
+        transform: this.load,
+        options: {
+          url: urlRef ?? spec.url,
+          format: formatRef ?? spec.format
+        }
+      });
+    } else if (spec.source) {
       const upstreamData: IData[] = [];
 
       array(spec.source).forEach(sourceId => {
@@ -138,18 +129,19 @@ export class Data extends GrammarBase implements IData {
     return this._input;
   };
 
-  // private load = (
-  //   options:
-  //     | { url: ParameterFunctionType<string>; format?: ParameterFunctionType<DataFormatSpec> }
-  //     | { values: any; format?: ParameterFunctionType<DataFormatSpec> }
-  // ) => {
-  //   if ((options as { values: any; format?: ParameterFunctionType<DataFormatSpec> }).values) {
-  //     return this.ingest(options as { values: any; format?: ParameterFunctionType<DataFormatSpec> });
-  //   }
-  //   const url = invokeParameterFunctionType((options as { url: ParameterFunctionType<string> }).url, this.parameters());
-  //   const format = invokeParameterFunctionType(options.format, this.parameters());
-  //   return this.view.request(url, format).then(res => this.ingest({ values: res.data }));
-  // };
+  private load = (
+    options:
+      | { url: ParameterFunctionType<string>; format?: ParameterFunctionType<DataFormatSpec> }
+      | { values: any; format?: ParameterFunctionType<DataFormatSpec> }
+  ) => {
+    if ((options as { values: any; format?: ParameterFunctionType<DataFormatSpec> }).values) {
+      return this.ingest(options as { values: any; format?: ParameterFunctionType<DataFormatSpec> });
+    }
+    const url = invokeParameterFunctionType((options as { url: ParameterFunctionType<string> }).url, this.parameters());
+    // default format for loaded data is json
+    const format = invokeParameterFunctionType(options.format, this.parameters()) ?? { type: 'json' };
+    return load(url).then(data => this.ingest({ values: data, format }));
+  };
 
   private relay = (options: any[]) => {
     return options[0];
@@ -195,8 +187,8 @@ export class Data extends GrammarBase implements IData {
     return this._dataIDKey;
   }
 
-  values(values: any[] | Nil, format?: ParameterFunctionType<DataFormatSpec>, load: boolean = true) {
-    const spec = Object.assign({}, this.spec, { values });
+  values(values: any | Nil, format?: ParameterFunctionType<DataFormatSpec>, load: boolean = true) {
+    const spec = Object.assign({}, this.spec, { values, format });
     if (!isNil(values)) {
       spec.url = undefined;
       spec.source = undefined;
@@ -218,7 +210,7 @@ export class Data extends GrammarBase implements IData {
     format?: ParameterFunctionType<DataFormatSpec>,
     load: boolean = true
   ) {
-    const spec = Object.assign({}, this.spec, { source });
+    const spec = Object.assign({}, this.spec, { source, format });
     if (!isNil(source)) {
       spec.values = undefined;
       spec.url = undefined;
