@@ -122,7 +122,7 @@ export default class View extends EventEmitter implements IView {
   animate: IViewAnimate;
   rootMark: IGroupMark;
 
-  /** 生命周期相关的钩子 */
+  /** life circle hooks */
   hooks: Hooks;
 
   logger: ILogger;
@@ -1460,12 +1460,12 @@ export default class View extends EventEmitter implements IView {
     if (this._options.logger) {
       Logger.setInstance(this._options.logger);
     }
-
     this.logger = Logger.getInstance(this._options.logLevel ?? 0);
 
     this._dataflow = new Dataflow();
 
     this.animate = new ViewAnimate(this);
+
     this._morph = new Morph();
 
     this._theme = ThemeManager.getDefaultTheme();
