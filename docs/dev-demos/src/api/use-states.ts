@@ -36,7 +36,7 @@ export const runner = (view: View) => {
       callback: (scale, params) => {
         return [0, params.viewWidth];
       },
-      dependency: view.getSignalById('viewWidth') as ISignal
+      dependency: view.getSignalById('viewWidth') as ISignal<number>
     });
   const yScale = view
     .scale('linear')
@@ -45,8 +45,9 @@ export const runner = (view: View) => {
       callback: (scale, params) => {
         return [params.viewHeight, 0];
       },
-      dependency: view.getSignalById('viewHeight') as ISignal
+      dependency: view.getSignalById('viewHeight') as ISignal<number>
     });
+
   const bar = view
     .mark('rect', view.rootMark)
     .join(data)
@@ -54,7 +55,7 @@ export const runner = (view: View) => {
       x: { scale: xScale, field: 'category' },
       width: 40,
       y: { scale: yScale, field: 'amount' },
-      y2: { signal: view.getSignalById('viewHeight') },
+      y1: { signal: view.getSignalById('viewHeight') },
       fill: 'lightgreen'
     })
     // .encodeState('hover', { fill: 'red', width: 60 })

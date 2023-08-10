@@ -141,7 +141,7 @@ export const runner = (view: IView) => {
       median: { scale: linearScale, field: 'y3' },
       q1: { scale: linearScale, field: 'y4' },
       min: { scale: linearScale, field: 'y5' },
-      // width: 30,
+       // width: 30,
       boxWidth: 30,
       ruleWidth: 20,
       stroke: { scale: colorScale, field: 'x' },
