@@ -461,7 +461,7 @@ export class Element implements IElement {
 
       // Apply next attributes to current graphic item immediately.
       // Scene graph tree should be handled like no animation exists in dataflow procedure.
-      this.graphicItem.setAttributes(nextGraphicAttributes);
+      this.graphicItem.setAttributes(finalGraphicAttributes);
     } else {
       // Otherwise, directly apply all attributes.
       this.graphicItem.setAttributes(graphicAttributes);
