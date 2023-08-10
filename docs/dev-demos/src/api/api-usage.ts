@@ -26,7 +26,7 @@ export const runner = (view: IView) => {
   console.log('empty signal spec: ', signal.getSpec());
 
   const data = view.data(originData).id('data');
-  const emptyData = view.data([]).transform([]).transform(null).url('https').url(null).source('data').source(null);
+  const emptyData = view.data([]).transform([]).transform(null).source('data').source(null);
   console.log('empty data spec: ', emptyData.getSpec());
 
   const xScale = view
@@ -110,8 +110,6 @@ export const runner = (view: IView) => {
     .layout(null)
     .transform([])
     .transform(null)
-    .afterLayoutTransform([])
-    .afterLayoutTransform(null)
     .configure({});
 
   console.log('bar spec: ', bar.getSpec());
