@@ -59,6 +59,11 @@ export const indexes = [
         path: 'contour',
         name: 'kde2d & contour',
         type: 'api'
+      },
+      {
+        path: 'data',
+        name: 'data load & parse',
+        type: 'api'
       }
     ]
   },

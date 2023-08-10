@@ -12,10 +12,11 @@ import type {
   IDataFilter
 } from '../types';
 import { GrammarBase } from './grammar-base';
-import { isGrammar, parseFunctionType } from '../parse/util';
+import { invokeParameterFunctionType, isGrammar, parseFunctionType } from '../parse/util';
 import { parseTransformSpec } from '../parse/transform';
 import type { Nil } from '../types/base';
 import { HOOK_EVENT } from '../graph/enums';
+import { parseFormat } from '../util/data';
 
 export class Data extends GrammarBase implements IData {
   readonly grammarType: GrammarType = 'data';
@@ -34,12 +35,13 @@ export class Data extends GrammarBase implements IData {
   private _loadTasks: IGrammarTask[] = [];
   private _postFilters: IDataFilter[] = [];
 
-  constructor(view: IView, values?: any[]) {
+  constructor(view: IView, values?: any[], format?: DataFormatSpec) {
     super(view);
     this._loadTasks = [];
 
     if (!isNil(values)) {
-      this.ingest({ values });
+      this.values(values, format);
+      // this.ingest({ values });
     }
   }
 
@@ -47,9 +49,9 @@ export class Data extends GrammarBase implements IData {
     super.parse(spec);
     this._isLoaded = false;
 
-    this.source(spec.source, false);
-    // this.url(spec.url, spec.format, false);
-    this.values(spec.values, false);
+    this.source(spec.source, spec.format, false);
+    this.url(spec.url, spec.format, false);
+    this.values(spec.values, spec.format, false);
     this.transform(spec.transform);
 
     this.parseLoad(spec);
@@ -64,14 +66,14 @@ export class Data extends GrammarBase implements IData {
 
     if (spec.values) {
       const valuesRef = parseFunctionType(spec.values, this.view)[0];
-      // const formatRef = spec.format ? parseFunctionType(spec.format, this.view)[0] : null;
+      const formatRef = spec.format ? parseFunctionType(spec.format, this.view)[0] : null;
 
       if (valuesRef) {
         refs.push(valuesRef);
       }
-      // if (formatRef) {
-      //   refs.push(formatRef);
-      // }
+      if (formatRef) {
+        refs.push(formatRef);
+      }
 
       transforms.push({
         type: 'ingest',
@@ -131,9 +133,8 @@ export class Data extends GrammarBase implements IData {
   }
 
   private ingest = (options: { values?: any; format?: ParameterFunctionType<DataFormatSpec> }) => {
-    // const format = invokeParameterFunctionType(options.format, this.parameters());
-    // this._input = read(options.values, format);
-    this._input = options.values;
+    const format = invokeParameterFunctionType(options.format, this.parameters());
+    this._input = parseFormat(options.values, format);
     return this._input;
   };
 
@@ -194,29 +195,33 @@ export class Data extends GrammarBase implements IData {
     return this._dataIDKey;
   }
 
-  values(values: any[] | Nil, load: boolean = true) {
+  values(values: any[] | Nil, format?: ParameterFunctionType<DataFormatSpec>, load: boolean = true) {
     const spec = Object.assign({}, this.spec, { values });
     if (!isNil(values)) {
-      // spec.url = undefined;
+      spec.url = undefined;
       spec.source = undefined;
     }
     return load ? this.parseLoad(spec) : this;
   }
 
-  // url(url: ParameterFunctionType<string> | Nil, format?: ParameterFunctionType<DataFormatSpec>, load: boolean = true) {
-  //   const spec = Object.assign({}, this.spec, { url, format });
-  //   if (!isNil(url)) {
-  //     spec.values = undefined;
-  //     spec.source = undefined;
-  //   }
-  //   return load ? this.parseLoad(spec) : this;
-  // }
+  url(url: ParameterFunctionType<string> | Nil, format?: ParameterFunctionType<DataFormatSpec>, load: boolean = true) {
+    const spec = Object.assign({}, this.spec, { url, format });
+    if (!isNil(url)) {
+      spec.values = undefined;
+      spec.source = undefined;
+    }
+    return load ? this.parseLoad(spec) : this;
+  }
 
-  source(source: string | string[] | IData | IData[] | Nil, load: boolean = true) {
+  source(
+    source: string | string[] | IData | IData[] | Nil,
+    format?: ParameterFunctionType<DataFormatSpec>,
+    load: boolean = true
+  ) {
     const spec = Object.assign({}, this.spec, { source });
     if (!isNil(source)) {
       spec.values = undefined;
-      // spec.url = undefined;
+      spec.url = undefined;
     }
     return load ? this.parseLoad(spec) : this;
   }

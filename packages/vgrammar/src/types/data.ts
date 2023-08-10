@@ -43,12 +43,9 @@ export type FormatTopoJSONSpec = {
       filter: 'interior' | 'exterior' | null;
     }
 );
-export type DataFormatSpec =
-  | FormatJSONSpec
-  | FormatSVSpec
-  | FormatDSVSpec
-  | FormatTopoJSONSpec
-  | { parse: DataParseSpec };
+export type DataFormatSpec = FormatJSONSpec | FormatSVSpec | FormatDSVSpec;
+// | FormatTopoJSONSpec
+// | { parse: DataParseSpec };
 
 export interface IDataFilter {
   source?: string;
@@ -69,8 +66,7 @@ export interface DataSpec extends GrammarSpec {
   /**
    * 数据url配置，解析优先级第二
    */
-  // TODO: 暂不支持数据加载
-  // url?: ParameterFunctionType<string>;
+  url?: ParameterFunctionType<string>;
   /**
    * 数据源配置，对应的其他Data元素的name
    */
@@ -78,7 +74,7 @@ export interface DataSpec extends GrammarSpec {
   /**
    * 格式化方法
    */
-  // format?: ParameterFunctionType<DataFormatSpec>;
+  format?: ParameterFunctionType<DataFormatSpec>;
 }
 /**
  * the type of sort
