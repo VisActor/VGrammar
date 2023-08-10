@@ -1,6 +1,6 @@
 import type { IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { PointService, array, isNumber } from '@visactor/vutils';
+import { PointService, array, isNumber, quantileSorted } from '@visactor/vutils';
 import type { KDETransformOption } from '../../types';
 
 const defaultBins = 256;
@@ -21,9 +21,9 @@ const ruleOfThumbBandwidth = (data: IPointLike[], dimension: number = 1) => {
   const sum = data.reduce((sum, datum) => sum + datum.x, 0);
   const mean = sum / n;
   const sd = Math.sqrt(data.reduce((v, datum) => v + (datum.x - mean) ** 2, 0) / n);
-  const sortedData = data.sort((a, b) => a.x - b.x);
-  const q1 = (sortedData[Math.floor(n / 4)].x + sortedData[Math.ceil(n / 4)].x) / 2;
-  const q3 = (sortedData[Math.floor((3 * n) / 4)].x + sortedData[Math.ceil((3 * n) / 4)].x) / 2;
+  const sortedData = data.sort((a, b) => a.x - b.x).map(datum => datum.x);
+  const q1 = quantileSorted(sortedData, 0.25);
+  const q3 = quantileSorted(sortedData, 0.75);
   const iqr = q3 - q1;
   return 0.9 * Math.min(sd, iqr / 1.34) * n ** -0.2;
   // OR:

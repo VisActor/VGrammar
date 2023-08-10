@@ -191,7 +191,7 @@ export interface LttbSampleTransformOptions {
 }
 
 export interface BinTransformSpec extends BinTransformOption {
-  type: 'bind';
+  type: 'bin';
 }
 
 export interface ContourTransformSpec extends ContourTransformOption {
