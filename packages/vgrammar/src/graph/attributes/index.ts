@@ -356,10 +356,15 @@ export function getLineSegmentConfigs(items: any[], points: any[], element?: IEl
     return null;
   }
 
-  const checkAttributes =
+  let checkAttributes =
     element?.mark?.markType === 'area'
       ? ['fill', 'fillOpacity', 'background', 'texture', 'texturePadding', 'textureSize', 'textureColor']
       : ['stroke', 'strokeOpacity', 'lineDash', 'lineDashOffset', 'lineCap', 'lineJoin', 'lineWidth', 'miterLimit'];
+  const ignoreAttrs: string[] = element?.mark?.getSegmentIgnoreAttributes?.();
+
+  if (ignoreAttrs) {
+    checkAttributes = checkAttributes.filter(entry => !ignoreAttrs.includes(entry));
+  }
 
   const segments: any[] = [];
   let prevSegmentAttrs: any = null;

@@ -77,6 +77,7 @@ export class Mark extends GrammarBase implements IMark {
   isUpdated: boolean = true;
 
   private _groupKeys: string[];
+  private _segmentIgnoreAttributes: string[];
 
   /** whether mark enter encode is updated  */
   private _isReentered: boolean = false;
@@ -731,6 +732,10 @@ export class Mark extends GrammarBase implements IMark {
     });
   }
 
+  getSegmentIgnoreAttributes() {
+    return this._segmentIgnoreAttributes;
+  }
+
   protected evaluateGroupEncode(elements: IElement[], groupEncode: any, parameters: any) {
     if (!this._groupKeys || !groupEncode) {
       return;
@@ -768,6 +773,15 @@ export class Mark extends GrammarBase implements IMark {
 
         element.encodeItems(element.items, encoders, this._isReentered, parameters);
       });
+      // optimize segments parsing
+      if (
+        (groupEncodeAttrs && this.isCollectionMark() && elements[0].items[0].nextAttrs?.enableSegments) ??
+        elements[0].getGraphicAttribute('enableSegments', false)
+      ) {
+        this._segmentIgnoreAttributes = Object.keys(groupEncodeAttrs);
+      } else {
+        this._segmentIgnoreAttributes = null;
+      }
       this._isReentered = false;
 
       this.evaluateTransformSync(this._getTransformsAfterEncodeItems(), elements, parameters);
@@ -776,10 +790,6 @@ export class Mark extends GrammarBase implements IMark {
         element.encodeGraphic();
       });
       this.emit(HOOK_EVENT.AFTER_ELEMENT_ENCODE, { encoders, parameters }, this);
-
-      if (encoders.group) {
-        this.evaluateGroupEncode(elements, encoders.group, parameters);
-      }
     } else {
       elements.forEach(element => {
         element.initGraphicItem();
