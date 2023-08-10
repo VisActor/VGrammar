@@ -11,6 +11,7 @@ importers:
       '@internal/ts-config': workspace:*
       '@visactor/vgrammar': workspace:0.5.5
       '@visactor/vgrammar-hierarchy': workspace:0.5.5
+      '@visactor/vgrammar-plot': workspace:0.5.5
       '@visactor/vgrammar-projection': workspace:0.5.5
       '@visactor/vgrammar-sankey': workspace:0.5.5
       '@visactor/vgrammar-wordcloud': workspace:0.5.5
@@ -26,6 +27,7 @@ importers:
       '@internal/ts-config': link:../../share/ts-config
       '@visactor/vgrammar': link:../../packages/vgrammar
       '@visactor/vgrammar-hierarchy': link:../../packages/vgrammar-hierarchy
+      '@visactor/vgrammar-plot': link:../../packages/vgrammar-plot
       '@visactor/vgrammar-projection': link:../../packages/vgrammar-projection
       '@visactor/vgrammar-sankey': link:../../packages/vgrammar-sankey
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
@@ -8871,7 +8873,7 @@ packages:
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.5.0_@types+node@20.4.9
+      jest: 29.5.0_jkw3ahpkaoitik5hzupbblp4ry
       jest-util: 29.6.2
       json5: 2.2.3
       lodash.memoize: 4.1.2
