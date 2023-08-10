@@ -91,7 +91,7 @@ export function invokeFunctionType<Callback extends FunctionCallback<T>, T>(
   return spec as T;
 }
 
-export function invokeParameterFunctionType<T>(spec: ParameterFunctionType<T>, parameters: any) {
+export function invokeParameterFunctionType<T>(spec: ParameterFunctionType<T>, parameters: any): T {
   if (isNil(spec)) {
     return spec as T;
   }
