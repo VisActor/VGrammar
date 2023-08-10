@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.5.4",
+      "tag": "@visactor/vgrammar_v0.5.4",
+      "date": "Thu, 10 Aug 2023 01:56:52 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix(vgrammar): fix the issue when parse segements of an area mark and fill is a gradient, fix #101\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.3",
       "tag": "@visactor/vgrammar_v0.5.3",
       "date": "Fri, 04 Aug 2023 09:34:18 GMT",

@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Fri, 04 Aug 2023 09:34:18 GMT and should not be manually modified.
+This log was last generated on Thu, 10 Aug 2023 01:56:52 GMT and should not be manually modified.
+
+## 0.5.4
+Thu, 10 Aug 2023 01:56:52 GMT
+
+### Updates
+
+- fix(vgrammar): fix the issue when parse segements of an area mark and fill is a gradient, fix #101
+
+
 
 ## 0.5.3
 Fri, 04 Aug 2023 09:34:18 GMT
