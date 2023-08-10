@@ -429,7 +429,15 @@ export const indexes = [
         path: 'large-boxplot',
         name: '大数据箱线图',
         type: 'api'
-      }
+      },
+      {
+        path: 'large-bar-group-encode',
+        name: '分组柱图-group-encode'
+      },
+      {
+        path: 'large-line-group-encode',
+        name: '分组线图-group-encode'
+      },
     ]
   },
   {
