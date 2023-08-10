@@ -9,7 +9,9 @@ import {
   isNil,
   isString,
   merge,
-  getAngleByPoint
+  getAngleByPoint,
+  isFunction,
+  isArray
 } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
 import type { IGraphic, IGroup } from '@visactor/vrender';
@@ -34,6 +36,7 @@ import type {
 import { ComponentEnum } from '../graph';
 import type {
   BaseTooltipSpec,
+  CustomTooltipCallback,
   DimensionTooltipSpec,
   IDimensionTooltip,
   ITooltip,
@@ -94,25 +97,25 @@ export abstract class BaseTooltip extends Component {
     return this;
   }
 
-  title(title: ITooltipRow | string | Nil) {
-    if (this.spec.title && !isString(this.spec.title)) {
+  title(title: ITooltipRow | string | CustomTooltipCallback | Nil) {
+    if (this.spec.title && !isString(this.spec.title) && !isFunction(this.spec.title)) {
       this.detach(this._parseTooltipRow(this.spec.title));
     }
     this.spec.title = title;
-    if (title && !isString(title)) {
+    if (title && !isString(title) && !isFunction(title)) {
       this.attach(this._parseTooltipRow(title));
     }
     this.commit();
     return this;
   }
 
-  content(content: ITooltipRow | ITooltipRow[] | Nil) {
-    if (this.spec.content) {
+  content(content: ITooltipRow | ITooltipRow[] | CustomTooltipCallback | Nil) {
+    if (this.spec.content && !isFunction(this.spec.content)) {
       this.detach(this._parseTooltipRow(this.spec.content));
     }
     this.spec.content = content;
-    if (content) {
-      this.attach(this._parseTooltipRow(this.spec.content));
+    if (content && !isFunction(content)) {
+      this.attach(this._parseTooltipRow(content));
     }
     this.commit();
     return this;
@@ -196,24 +199,30 @@ export abstract class BaseTooltip extends Component {
   }
 
   protected _computeTitleContent(datum: any) {
+    const tooltip = this.elements[0];
     const parameters = this.parameters();
 
     const title = isValid(this.spec.title)
-      ? this._computeTooltipRow(
-          isString(this.spec.title) ? { value: this.spec.title } : this.spec.title,
-          datum,
-          parameters
-        )
+      ? isFunction(this.spec.title)
+        ? this.spec.title.call(null, datum, tooltip, parameters)
+        : this._computeTooltipRow(
+            isString(this.spec.title) ? { value: this.spec.title } : this.spec.title,
+            datum,
+            parameters
+          )
       : undefined;
-    const content = this.spec.content
-      ? array(datum).reduce((content, datumRow) => {
-          return content.concat(
-            array(this.spec.content).map(row => this._computeTooltipRow(row, datumRow, parameters))
-          );
-        }, [])
+    const content = isValid(this.spec.content)
+      ? isFunction(this.spec.content)
+        ? array(this.spec.content.call(null, datum, tooltip, parameters))
+        : array(datum).reduce((content, datumRow) => {
+            return content.concat(
+              array(this.spec.content).map(row => this._computeTooltipRow(row as ITooltipRow, datumRow, parameters))
+            );
+          }, [])
       : undefined;
 
-    return { title, content };
+    // only display one single row in title
+    return { title: isArray(title) ? title[0] : title, content };
   }
 }
 

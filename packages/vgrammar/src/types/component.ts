@@ -8,7 +8,8 @@ import type {
   LegendBaseAttributes,
   PlayerAttributes,
   SliderAttributes,
-  TooltipAttributes
+  TooltipAttributes,
+  TooltipRowAttrs
 } from '@visactor/vrender-components';
 import type { ComponentEnum } from '../graph';
 import type { Nil, RecursivePartial } from './base';
@@ -22,6 +23,7 @@ import type {
   ScaleEncodeType
 } from './mark';
 import type { IPointLike } from '@visactor/vutils';
+import type { IElement } from './element';
 
 // scale component
 
@@ -197,6 +199,12 @@ export interface PlayerSpec extends ComponentSpec<PlayerAttributes> {
 
 // tooltip component
 
+export type CustomTooltipCallback = (
+  datum: any,
+  element: IElement,
+  parameters: any
+) => TooltipRowAttrs | TooltipRowAttrs[];
+
 export interface ITooltipRow {
   visible?: boolean;
   key?: MarkFunctionType<string | Partial<ITextGraphicAttribute>> | FieldEncodeType;
@@ -205,8 +213,8 @@ export interface ITooltipRow {
 }
 
 export interface IBaseTooltip extends IComponent {
-  title: (title: ITooltipRow | string | Nil) => this;
-  content: (content: ITooltipRow | ITooltipRow[] | Nil) => this;
+  title: (title: ITooltipRow | string | CustomTooltipCallback | Nil) => this;
+  content: (content: ITooltipRow | ITooltipRow[] | CustomTooltipCallback | Nil) => this;
 }
 
 export interface ITooltip extends IBaseTooltip {
@@ -214,8 +222,8 @@ export interface ITooltip extends IBaseTooltip {
 }
 
 export interface BaseTooltipSpec extends ComponentSpec<TooltipAttributes> {
-  title?: ITooltipRow | string;
-  content?: ITooltipRow | ITooltipRow[];
+  title?: ITooltipRow | string | CustomTooltipCallback;
+  content?: ITooltipRow | ITooltipRow[] | CustomTooltipCallback;
 }
 
 export interface TooltipSpec extends BaseTooltipSpec {
