@@ -45,7 +45,7 @@ jobs:
       - name: update nextBump of version policies
         uses: xile611/set-next-bump-of-rush@main
         with:
-          release_version: ${{ steps.semver_parser.outputs.version }}
+          release_version: ${{ steps.semver_parser.outputs.full }}
           write_next_bump: true
 
       - name: Update version
