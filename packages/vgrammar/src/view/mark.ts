@@ -1,5 +1,5 @@
 import type { IGroup, INode } from '@visactor/vrender';
-import { isNil, isString } from '@visactor/vutils';
+import { isEmpty, isNil, isString } from '@visactor/vutils';
 import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
 import { DiffState, GrammarMarkType, LayoutState, HOOK_EVENT } from '../graph/enums';
 import { Differ, groupData } from '../graph/mark/differ';
@@ -38,7 +38,7 @@ import { isFieldEncode, isScaleEncode, parseEncodeType } from '../parse/mark';
 import { getGrammarOutput, parseField, isFunctionType } from '../parse/util';
 import { parseTransformSpec } from '../parse/transform';
 import { createElement } from '../graph/util/element';
-import { splitEncoderInLarge } from '../graph/mark/encode';
+import { invokeEncoderToItems, splitEncoderInLarge } from '../graph/mark/encode';
 import { isPositionOrSizeChannel, transformsByType } from '../graph/attributes';
 import getExtendedEvents from '../graph/util/events-extend';
 import type { IBaseScale } from '@visactor/vscale';
@@ -768,6 +768,35 @@ export class Mark extends GrammarBase implements IMark {
     });
   }
 
+  protected evaluateGroupEncode(elements: IElement[], groupEncode: any, parameters: any) {
+    if (!this._groupKeys) {
+      return;
+    }
+
+    this._groupKeys.forEach(key => {
+      const el = elements.find(el => el.groupKey === key);
+
+      if (!el) {
+        return;
+      }
+
+      const nextAttrs = {};
+      const items = [Object.assign({}, el.items?.[0], { nextAttrs })];
+      invokeEncoderToItems(el, items, groupEncode, parameters);
+      const graphic = el.getGraphicItem();
+
+      if (isEmpty(nextAttrs)) {
+        return;
+      }
+
+      if (this.isCollectionMark()) {
+        graphic.setAttributes(nextAttrs);
+      } else if (graphic.parent) {
+        (graphic.parent as IGroup).setTheme({ common: nextAttrs });
+      }
+    });
+  }
+
   protected evaluateEncode(elements: IElement[], encoders: any, parameters: any) {
     if (encoders) {
       this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
@@ -782,6 +811,10 @@ export class Mark extends GrammarBase implements IMark {
         element.encodeGraphic();
       });
       this.emit(HOOK_EVENT.AFTER_ELEMENT_ENCODE, { encoders, parameters }, this);
+
+      if (encoders.group) {
+        this.evaluateGroupEncode(elements, encoders.group, parameters);
+      }
     } else {
       elements.forEach(element => {
         element.initGraphicItem();
