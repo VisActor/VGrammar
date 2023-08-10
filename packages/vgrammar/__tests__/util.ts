@@ -40,7 +40,12 @@ export const getMockedView = () => {
     getScaleById: lookup,
     getCoordinateById: lookup,
     getMarkById: lookup,
-    commit: emptyFunction
+    commit: emptyFunction,
+    renderer: {
+      stage: () => ({
+        on: () => ({})
+      })
+    }
   };
 };
 
