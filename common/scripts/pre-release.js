@@ -5,6 +5,7 @@
 const { spawnSync } = require('child_process')
 const fs = require('fs')
 const path = require('path')
+const checkAndUpdateNextBump = require('./version-policies');
 
 function getPackageJson(pkgJsonPath) {
   const pkgJson = fs.readFileSync(pkgJsonPath, { encoding: 'utf-8' })
@@ -20,7 +21,7 @@ function run() {
   let preReleaseName = process.argv.slice(2)[0];
   let preReleaseType = '';
   const cwd = process.cwd();
-  const rushJson = getPackageJson(`${cwd}/rush.json`)
+  const rushJson = getPackageJson(path.join(__dirname, '../../rush.json'))
   const package = rushJson.projects.find((project) => project.packageName === '@visactor/vgrammar');
   let regRes = null;
 
@@ -55,6 +56,9 @@ function run() {
   }
 
   if (preReleaseName && preReleaseType) {
+    // 0. update `nextBump`
+    checkAndUpdateNextBump(true);
+    
     // 1. apply version and update version of package.json
     spawnSync('sh', ['-c', `rush publish --apply --prerelease-name ${preReleaseName} --partial-prerelease`], {
       stdio: 'inherit',
