@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Thu, 10 Aug 2023 01:56:52 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Aug 2023 09:49:40 GMT and should not be manually modified.
+
+## 0.5.5
+Fri, 11 Aug 2023 09:49:40 GMT
+
+### Updates
+
+- fix(wordcloud): minFontSize should be greater than 0 in CloudLayout, dont try infinity, fix #117
 
 ## 0.5.4
 Thu, 10 Aug 2023 01:56:52 GMT
