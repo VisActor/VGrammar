@@ -3,6 +3,13 @@
  * Don't import any type, this may lead to CIRCULAR_DEPENDENCY
  */
 
+export enum BuiltInEncodeNames {
+  enter = 'enter',
+  update = 'update',
+  exit = 'exit',
+  group = 'group'
+}
+
 /**
  * state of diff
  */
