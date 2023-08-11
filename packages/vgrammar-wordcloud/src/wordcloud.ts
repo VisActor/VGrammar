@@ -3,6 +3,7 @@ import { isFunction, isNumber, isString, toNumber } from '@visactor/vutils';
 import type { TagOutputItem, TagItemAttribute } from './interface';
 import { GridLayout } from './grid-layout';
 import { FastLayout } from './fast-layout';
+import { error } from '@visactor/vgrammar-util';
 
 const OUTPUT = {
   x: 'x',
@@ -55,10 +56,10 @@ export const transform = (
   },
   upstreamData: any[]
 ) => {
-  if (options.size && !(options.size[0] && options.size[1])) {
-    // error('Wordcloud size dimensions must be non-zero.');
+  if (options.size && (options.size[0] <= 0 || options.size[1] <= 0)) {
+    error('Wordcloud size dimensions must be greater than 0');
     // size非法不报错，不进行布局，ChartSpace层会有用户初始化size为0的情况
-    return upstreamData;
+    return [];
   }
 
   /** 输入数据转换 */
