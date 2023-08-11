@@ -1,7 +1,14 @@
 import type { IGroup, INode } from '@visactor/vrender';
 import { isNil, isString } from '@visactor/vutils';
 import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
-import { DiffState, GrammarMarkType, LayoutState, HOOK_EVENT, GrammarTypeEnum } from '../graph/enums';
+import {
+  DiffState,
+  GrammarMarkType,
+  LayoutState,
+  HOOK_EVENT,
+  GrammarTypeEnum,
+  BuiltInEncodeNames
+} from '../graph/enums';
 import { Differ, groupData } from '../graph/mark/differ';
 import { Animate } from '../graph/animation/animate';
 import { createGraphicItem, removeGraphicItem } from '../graph/util/graphic';
@@ -776,7 +783,7 @@ export class Mark extends GrammarBase implements IMark {
 
   protected evaluateEncode(elements: IElement[], encoders: any, parameters: any) {
     if (encoders) {
-      const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders.group, parameters);
+      const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
 
       this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
       elements.forEach(element => {

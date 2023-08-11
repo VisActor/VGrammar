@@ -11,11 +11,11 @@ import { Logger, array, isArray, isBoolean, isNil, isPlainObject } from '@visact
 import { isContinuous, type IBaseScale, isDiscrete } from '@visactor/vscale';
 import {
   getPalette,
-  DiffState,
   ComponentEnum,
   invokeFunctionType,
   getTheme,
-  SIGNAL_VIEW_BOX
+  SIGNAL_VIEW_BOX,
+  BuiltInEncodeNames
 } from '@visactor/vgrammar';
 import type {
   ISemanticMark,
@@ -131,7 +131,16 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
   state(state: string, option: Partial<EncodeSpec>) {
-    if (([DiffState.enter, DiffState.update, DiffState.exit] as string[]).includes(state)) {
+    if (
+      (
+        [
+          BuiltInEncodeNames.enter,
+          BuiltInEncodeNames.update,
+          BuiltInEncodeNames.exit,
+          BuiltInEncodeNames.group
+        ] as string[]
+      ).includes(state)
+    ) {
       this._logger.warn(
         `[VGrammar]: ${state} is a reserved keyword to specify the encode of different data state, 
         don't use this keyword`

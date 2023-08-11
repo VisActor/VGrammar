@@ -4,7 +4,7 @@ import { array, has, isBoolean, isNil, isFunction, isString, isArray, get, isEmp
 import { isEqual } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import { BridgeElementKey } from './constants';
-import { DiffState, HOOK_EVENT, GrammarMarkType } from './enums';
+import { DiffState, HOOK_EVENT, GrammarMarkType, BuiltInEncodeNames } from './enums';
 import { invokeEncoderToItems } from './mark/encode';
 import { removeGraphicItem } from './util/graphic';
 import { transformAttributes, getLineSegmentConfigs, isPointsMarkType, getLinePointsFromSegments } from './attributes';
@@ -213,9 +213,9 @@ export class Element implements IElement {
   encodeItems(items: MarkElementItem[], encoders: BaseEncodeSpec, isReentered: boolean = false, parameters?: any) {
     const isCollectionMark = this.mark.isCollectionMark();
     // marshall encoder functions
-    const updateEncoder = encoders.update;
-    const enterEncoder = encoders.enter;
-    const exitEncoder = encoders.exit;
+    const updateEncoder = encoders[BuiltInEncodeNames.update];
+    const enterEncoder = encoders[BuiltInEncodeNames.enter];
+    const exitEncoder = encoders[BuiltInEncodeNames.exit];
     const onlyFullEncodeFirst = this.mark.isLargeMode();
 
     if (this.diffState === DiffState.enter) {
