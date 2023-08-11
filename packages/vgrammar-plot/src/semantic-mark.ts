@@ -692,17 +692,9 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                 symbol: (datum: any, el: IElement, params: any) => {
                   const scale = params[this.getScaleId(colorChannel)];
 
+                  // TODO: parse symbol scale in same case
                   return {
-                    symbolType: entry.symbol
-                      ? invokeFunctionType(
-                          {
-                            symbolType: { field: entry.symbol }
-                          },
-                          params,
-                          datum,
-                          el
-                        )?.symbolType ?? 'circle'
-                      : 'circle',
+                    symbolType: entry.symbol ? getFieldAccessor(entry.symbol)(datum) ?? 'circle' : 'circle',
                     fill: scale && colorAccessor ? scale.scale(colorAccessor(datum)) : getPalette()[0]
                   };
                 }
