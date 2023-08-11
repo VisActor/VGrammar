@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix: fix log level of wordcloud when size is smaller than zero",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
