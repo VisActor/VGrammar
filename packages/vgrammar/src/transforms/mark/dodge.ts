@@ -80,7 +80,7 @@ export const transform = (options: DodgeTransformOptions, upstreamData: IElement
       upstreamData.forEach(element => {
         const groupValue = getDodgeBy(element);
         const offset = offsetByGroup[groupValue];
-        const attrs = (element as any).getItemAttribute();
+        const attrs = element.getItemAttribute();
 
         if (dodgeChannel === 'x') {
           const x = isNil(attrs.width) && !isNil(attrs.x1) ? Math.min(attrs.x, attrs.x1) : attrs.x;
@@ -93,7 +93,7 @@ export const transform = (options: DodgeTransformOptions, upstreamData: IElement
             newAttrs.x1 = newAttrs.x + size;
           }
 
-          (element as any).setItemAttributes(newAttrs);
+          element.setItemAttributes(newAttrs);
         } else if (dodgeChannel === 'y') {
           const y = isNil(attrs.height) && !isNil(attrs.y1) ? Math.min(attrs.y, attrs.y1) : attrs.y;
           const height = !isNil(attrs.height)
@@ -110,7 +110,7 @@ export const transform = (options: DodgeTransformOptions, upstreamData: IElement
             newAttrs.y1 = newAttrs.y + size;
           }
 
-          (element as any).setItemAttributes(newAttrs);
+          element.setItemAttributes(newAttrs);
         }
       });
     } else {
@@ -119,20 +119,20 @@ export const transform = (options: DodgeTransformOptions, upstreamData: IElement
         const offset = offsetByGroup[groupValue];
 
         if (dodgeChannel === 'x') {
-          const x = (element as any).getItemAttribute('x') + bandWidth / 2 + offset + size / 2;
+          const x = element.getItemAttribute('x') + bandWidth / 2 + offset + size / 2;
 
-          (element as any).setItemAttributes({ x });
+          element.setItemAttributes({ x });
 
           if (markType === 'rule') {
-            (element as any).setItemAttributes({ x1: x });
+            element.setItemAttributes({ x1: x });
           }
         } else if (dodgeChannel === 'y') {
-          const y = (element as any).getItemAttribute('y') + bandWidth / 2 + offset + size / 2;
+          const y = element.getItemAttribute('y') + bandWidth / 2 + offset + size / 2;
 
-          (element as any).setItemAttributes({ y });
+          element.setItemAttributes({ y });
 
           if (markType === 'rule') {
-            (element as any).setItemAttributes({ y1: y });
+            element.setItemAttributes({ y1: y });
           }
         }
       });
