@@ -27,7 +27,28 @@ test('Wordcloud should not throw error when size is 0', async () => {
     data
   );
 
-  expect(result).toBe(data);
+  expect(result).toEqual([]);
+});
+
+test('Wordcloud should not throw error when size is negative', async () => {
+  const data = [
+    { text: 'foo', size: 49, index: 0 },
+    { text: 'bar', size: 36, index: 1 },
+    { text: 'baz', size: 25, index: 2 },
+    { text: 'abc', size: 1, index: 3 }
+  ];
+
+  const result = await transform(
+    {
+      size: [-10, 100],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7]
+    },
+    data
+  );
+
+  expect(result).toEqual([]);
 });
 
 test('Wordcloud should not throw error when size is very small', async () => {

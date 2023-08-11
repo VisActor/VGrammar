@@ -98,11 +98,16 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
   cacheMap = new Map();
 
   static defaultOptions: Partial<ICloudLayoutOptions> = {
-    enlarge: false
+    enlarge: false,
+    minFontSize: 2
   };
 
   constructor(options: ICloudLayoutOptions) {
     super(Object.assign({}, CloudLayout.defaultOptions, options));
+
+    if (this.options.minFontSize <= CloudLayout.defaultOptions.minFontSize) {
+      this.options.minFontSize = CloudLayout.defaultOptions.minFontSize;
+    }
 
     this.spiral = isString(this.options.spiral)
       ? spirals[this.options.spiral as string] ?? spirals.archimedean
@@ -172,7 +177,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     // 后续尺寸较小的词语再画在borad后，其实际大小就会远远小于minFontSize，
     // 是不是应该先遍历数据，找到最小的词语尺寸，按照minFontSize算出board能扩大的最大尺寸，
     // 后面再绘制时board扩大不能超过这个尺寸。
-    this.updateBoardExpandStatus(d.fontSize * (this._originSize[0] / this._size[0]) < this.options.minFontSize);
+    this.updateBoardExpandStatus(d.fontSize);
     if (d.hasText && this.shouldShrinkContinue()) {
       // 不需要为hasText为false时扩大画布
       if (this._placeStatus === 1) {
@@ -197,7 +202,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
         this.expandBoard(this._board);
       }
       // 更新一次状态，下次大尺寸词语进入裁剪
-      this.updateBoardExpandStatus(d.fontSize * (this._originSize[0] / this._size[0]) < this.options.minFontSize);
+      this.updateBoardExpandStatus(d.fontSize);
       return false;
     }
     this._tTemp = null; // 初始化t缓存
@@ -253,12 +258,17 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
       });
 
     this.data = data;
+    const maxSingleWordTryCount = 2;
+    let curWordTryCount = 0;
 
     while (i < n) {
       const drawn = this.layoutWord(i);
 
-      if (drawn) {
+      if (drawn || curWordTryCount >= maxSingleWordTryCount) {
         i++;
+        curWordTryCount = 0;
+      } else {
+        curWordTryCount++;
       }
       this.progressiveIndex = i;
       if (this.exceedTime()) {
@@ -320,8 +330,8 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
       : this.formatTagItem(this.progressiveResult);
   }
   // 词语尺寸是否达小于最小尺寸，true时不能继续扩大画布“
-  private updateBoardExpandStatus(status: boolean) {
-    this._isBoardExpandCompleted = status;
+  private updateBoardExpandStatus(fontSize: number) {
+    this._isBoardExpandCompleted = fontSize * (this._originSize[0] / this._size[0]) < this.options.minFontSize;
   }
 
   // 是否可以继续扩大画布，true可以继续扩大
@@ -396,7 +406,6 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
   }
 
   private place(board: number[], tag: TagItem, bounds: Bounds, maxRadius: number) {
-    let placeCount = 0;
     let isCollide = false;
     // 情况1，超长词语
     if (this.shouldShrinkContinue() && (tag.width > this._size[0] || tag.height > this._size[1])) {
@@ -422,8 +431,6 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     this._tTemp = null; // 初始化t缓存
     this._dtTemp = null; // 初始化dt缓存
     while ((dxdy = s((t += dt)))) {
-      placeCount++;
-
       dx = dxdy[0];
       dy = dxdy[1];
 
