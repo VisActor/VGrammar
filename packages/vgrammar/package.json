@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "description": "VGrammar is a visual grammar library",
   "keywords": [
     "grammar",
@@ -36,8 +36,8 @@
     "ci": "ts-node --transpileOnly --skipProject ./scripts/trigger-test.ts"
   },
   "dependencies": {
-    "@visactor/vgrammar-coordinate": "workspace:0.5.5",
-    "@visactor/vgrammar-util": "workspace:0.5.5",
+    "@visactor/vgrammar-coordinate": "workspace:0.6.0",
+    "@visactor/vgrammar-util": "workspace:0.6.0",
     "@visactor/vscale": "~0.15.5",
     "@visactor/vrender": "~0.14.2",
     "@visactor/vrender-components": "~0.14.2",
