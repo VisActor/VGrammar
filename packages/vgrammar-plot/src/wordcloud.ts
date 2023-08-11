@@ -34,7 +34,7 @@ export class WordcloudSemanticMark extends SemanticMark<PlotWordcloudEncodeSpec,
     return GrammarMarkType.text;
   }
 
-  setDefaultMarkTranform(): TransformSpec[] {
+  setDefaultMarkTransform(): TransformSpec[] {
     return [
       {
         type: 'wordcloud',

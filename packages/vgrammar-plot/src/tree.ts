@@ -44,7 +44,7 @@ export class TreeSemanticMark extends SemanticMark<PlotTreeEncodeSpec, TreeEncod
     return GrammarMarkType.symbol;
   }
 
-  setDefaultDataTranform(): TransformSpec[] {
+  setDefaultDataTransform(): TransformSpec[] {
     return [
       {
         type: 'tree',

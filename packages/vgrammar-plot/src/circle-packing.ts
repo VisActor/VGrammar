@@ -35,7 +35,7 @@ export class CirclePackingSemanticMark extends SemanticMark<PlotCirclePackingEnc
     return GrammarMarkType.circle;
   }
 
-  setDefaultDataTranform(): TransformSpec[] {
+  setDefaultDataTransform(): TransformSpec[] {
     return [
       {
         type: PlotMakType.circlePacking,

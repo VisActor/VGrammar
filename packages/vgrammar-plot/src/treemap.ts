@@ -34,7 +34,7 @@ export class TreemapSemanticMark extends SemanticMark<PlotTreemapEncodeSpec, Tre
     return GrammarMarkType.rect;
   }
 
-  setDefaultDataTranform(): TransformSpec[] {
+  setDefaultDataTransform(): TransformSpec[] {
     return [
       {
         type: 'treemap',
