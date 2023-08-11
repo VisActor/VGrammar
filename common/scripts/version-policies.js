@@ -1,6 +1,13 @@
 
 const fs = require('fs')
 const path = require('path')
+const SEMVER_REG = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/gm;
+const PRERELEASE = 'prerelease';
+const MINOR = 'minor';
+const MAJOR = 'major';
+const PATCH = 'patch';
+const NEXT_BUMPMS = [PRERELEASE, PATCH, MINOR, MAJOR];
+
 
 const readVersionPolicies = (
 ) => {
@@ -11,15 +18,24 @@ const readVersionPolicies = (
 const parseNextBumpFromVersion = (
   versionString
 ) => {
-  if (versionString.indexOf('.0.0') > 0) {
-    return 'major';
+  const res = SEMVER_REG.exec(versionName);
+  const formatted = {
+    major: res[1],
+    minor: res[2],
+    patch: res[3],
+    preReleaseName: res[4],
+    preReleaseType: res[4].includes('.') ? res[4].split('.')[0] : res[4]
+  };
+
+  if (formatted.preReleaseName) {
+    return PRERELEASE;
   }
 
-  if (versionString.indexOf('.0') > 0) {
-    return 'minor';
+  if (formatted.patch === 0) {
+    return formatted.minor === 0 ? MAJOR : MINOR;
   }
 
-  return 'patch'
+  return PATCH
 }
 
 const writeNextBump = (
@@ -54,7 +70,7 @@ const readNextBumpFromChanges = () => {
     }
   });
 
-  return changeType.includes('major') ? 'major' : changeType.includes('minor') ? 'minor' : 'patch';
+  return changeType.includes(MAJOR) ? MAJOR : changeType.includes(MINOR) ? MINOR : PATCH;
  } else {
   process.exit(1);
  }
@@ -62,9 +78,11 @@ const readNextBumpFromChanges = () => {
 
 const checkAndUpdateNextBump = (isPre, version) => {
   if (isPre) {
-    writeNextBump('prerelease');
+    writeNextBump(PRERELEASE);
+  } else if (version && NEXT_BUMPMS.includes(version)) {
+    writeNextBump(version);
   } else if (version) {
-    writeNextBump(parseNextBumpFromVersion(version));
+    writeNextBump(parseNextBumpFromVersion);
   } else {
     writeNextBump(readNextBumpFromChanges());
   }
