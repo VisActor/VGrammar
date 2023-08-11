@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Fri, 11 Aug 2023 09:49:40 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Aug 2023 13:30:34 GMT and should not be manually modified.
+
+## 0.5.6
+Fri, 11 Aug 2023 13:30:34 GMT
+
+### Updates
+
+- fix: fix log level of wordcloud when size is smaller than zero
 
 ## 0.5.5
 Fri, 11 Aug 2023 09:49:40 GMT

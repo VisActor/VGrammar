@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.5.6",
+      "tag": "@visactor/vgrammar_v0.5.6",
+      "date": "Fri, 11 Aug 2023 13:30:34 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix log level of wordcloud when size is smaller than zero"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.5",
       "tag": "@visactor/vgrammar_v0.5.5",
       "date": "Fri, 11 Aug 2023 09:49:40 GMT",
