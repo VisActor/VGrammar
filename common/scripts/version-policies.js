@@ -36,13 +36,14 @@ const writeNextBump = (
 }
 
 const readNextBumpFromChanges = () => {
- const filenames = fs.readdirSync(path.join(__dirname, '../changes/@visactor/vgrammar'));
+  const changeRoot = path.join(__dirname, '../changes/@visactor/vgrammar');
+  const filenames = fs.readdirSync(changeRoot);
 
- if (filenames && filenames.length) {
+  if (filenames && filenames.length) {
   const changeType = [];
 
   filenames.forEach(fileName => {
-    const json = JSON.parse(fs.readFileSync(fileName).toString());
+    const json = JSON.parse(fs.readFileSync(path.join(changeRoot, fileName)).toString());
 
     if (json.changes && json.changes.length) {
       json.changes.forEach(change => {

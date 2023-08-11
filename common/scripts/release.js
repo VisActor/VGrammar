@@ -5,6 +5,7 @@
 const { spawnSync } = require('child_process')
 const fs = require('fs')
 const path = require('path')
+const checkAndUpdateNextBump = require('./version-policies');
 
 function getPackageJson(pkgJsonPath) {
   const pkgJson = fs.readFileSync(pkgJsonPath, { encoding: 'utf-8' })
