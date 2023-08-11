@@ -23,7 +23,8 @@
       "packageName": "@visactor/vgrammar-plot",
       "projectFolder": "packages/vgrammar-plot",
       "tags": ["package"],
-      "shouldPublish": true
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@visactor/vgrammar-wordcloud-shape",
