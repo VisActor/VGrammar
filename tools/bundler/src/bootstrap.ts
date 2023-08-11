@@ -88,8 +88,8 @@ async function bootstrap() {
 
   if (Array.isArray(config.formats) && config.formats) {
     const subBuildTasks: string[] = [];
-    const moduleKind: Record<'es' | 'cjs', 'esnext' | 'commonjs'> = {
-      es: 'esnext',
+    const moduleKind: Record<'es' | 'cjs', 'es2015' | 'commonjs'> = {
+      es: 'es2015', // default module of es is 'es2015'
       cjs: 'commonjs'
     };
     config.formats.forEach((format: _ModuleKind) => {
