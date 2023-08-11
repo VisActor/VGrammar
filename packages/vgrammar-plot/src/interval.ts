@@ -38,7 +38,7 @@ export class Interval extends SemanticMark<PlotIntervalEncoderSpec, IntervalEnco
     return this.parseScaleOfCommonEncode(channel, option);
   }
 
-  setDefaultMarkTranform(): TransformSpec[] {
+  setDefaultMarkTransform(): TransformSpec[] {
     return [
       {
         type: 'dodge',
@@ -50,7 +50,7 @@ export class Interval extends SemanticMark<PlotIntervalEncoderSpec, IntervalEnco
     ];
   }
 
-  setDefaultCorsshair(): Record<string, Pick<CrosshairSpec, 'crosshairShape' | 'crosshairType'>> {
+  setDefaultCrosshair(): Record<string, Pick<CrosshairSpec, 'crosshairShape' | 'crosshairType'>> {
     return {
       x: { crosshairShape: 'rect' }
     };

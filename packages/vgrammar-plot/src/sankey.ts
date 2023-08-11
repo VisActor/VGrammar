@@ -43,7 +43,7 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
     return GrammarMarkType.rect;
   }
 
-  setDefaultDataTranform(): TransformSpec[] {
+  setDefaultDataTransform(): TransformSpec[] {
     return [
       {
         type: 'sankey',

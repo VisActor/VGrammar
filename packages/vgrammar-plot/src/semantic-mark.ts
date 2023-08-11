@@ -70,17 +70,17 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   spec: ISemanticMarkSpec<EncodeSpec, K>;
   viewSpec?: ViewSpec;
 
-  private _uid: number;
+  readonly uid: number;
   protected _logger: ILogger;
   protected _coordinate: CoordinateOption;
   readonly type: string;
 
   constructor(type: string, id?: string | number) {
     this.type = type;
-    this._uid = ++semanticMarkId;
+    this.uid = ++semanticMarkId;
     this._logger = Logger.getInstance();
 
-    this.spec = { id: id ?? `${this.type}-${this._uid}` };
+    this.spec = { id: id ?? `${this.type}-${this.uid}` };
   }
 
   parseSpec(spec: Partial<ISemanticMarkSpec<EncodeSpec, K>>) {
@@ -232,7 +232,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   abstract parseScaleByEncode(channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>): ScaleSpec | Nil;
   abstract convertMarkEncode(encode: WithDefaultEncode<EncodeSpec, K>): GenerateBaseEncodeSpec<EncodeSpec>;
 
-  protected setDefaultDataTranform(): TransformSpec[] {
+  protected setDefaultDataTransform(): TransformSpec[] {
     return [];
   }
 
@@ -240,7 +240,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return null;
   }
 
-  protected setDefaultMarkTranform(): TransformSpec[] {
+  protected setDefaultMarkTransform(): TransformSpec[] {
     return [];
   }
 
@@ -519,30 +519,30 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               filter: this.spec.encode?.[channel]
             },
             encode: {
-              update: (datum: any, elment: IElement, params: any) => {
+              update: (datum: any, element: IElement, params: any) => {
                 const calculatedAttrs =
                   markLayout.position === 'left'
                     ? {
                         layout: 'vertical',
-                        x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
-                        y: elment.mark?.relativePosition?.top ?? 0
+                        x: element.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
+                        y: element.mark?.relativePosition?.top ?? 0
                       }
                     : markLayout.position === 'right'
                     ? {
                         layout: 'vertical',
-                        x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
-                        y: elment.mark?.relativePosition?.top ?? 0
+                        x: element.mark?.relativePosition?.left ?? params.viewBox.width(),
+                        y: element.mark?.relativePosition?.top ?? 0
                       }
                     : markLayout.position === 'bottom'
                     ? {
                         layout: 'horizontal',
-                        x: elment.mark?.relativePosition?.left ?? 0,
-                        y: elment.mark?.relativePosition?.top ?? params.viewBox.height()
+                        x: element.mark?.relativePosition?.left ?? 0,
+                        y: element.mark?.relativePosition?.top ?? params.viewBox.height()
                       }
                     : {
                         layout: 'horizontal',
-                        x: elment.mark?.relativePosition?.left ?? 0,
-                        y: elment.mark?.relativePosition?.top ?? 0
+                        x: element.mark?.relativePosition?.left ?? 0,
+                        y: element.mark?.relativePosition?.top ?? 0
                       };
                 const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
 
@@ -559,7 +559,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return res;
   }
 
-  protected setDefaultCorsshair(): Record<string, Pick<CrosshairSpec, 'crosshairShape' | 'crosshairType'>> {
+  protected setDefaultCrosshair(): Record<string, Pick<CrosshairSpec, 'crosshairShape' | 'crosshairType'>> {
     return {};
   }
 
@@ -572,7 +572,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   }
 
   protected parseCrosshairSpec(): CrosshairSpec[] {
-    const defaultCrosshair = this.setDefaultCorsshair();
+    const defaultCrosshair = this.setDefaultCrosshair();
     const defaultKeys = Object.keys(defaultCrosshair);
     const crosshairKeys = this.spec.crosshair
       ? Object.keys(this.spec.crosshair).reduce((res, key) => {
@@ -1074,7 +1074,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     } else if (data) {
       const dataId = this.getDataIdOfMain();
       const userTransforms = data.transform;
-      const transform = this.convertMarkTransform(userTransforms, this.setDefaultDataTranform());
+      const transform = this.convertMarkTransform(userTransforms, this.setDefaultDataTransform());
 
       res.push({
         id: dataId,
@@ -1251,7 +1251,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             skipBeforeLayouted: true
           },
           dependency: this.viewSpec.scales.map(scale => scale.id).concat(SIGNAL_VIEW_BOX),
-          transform: this.convertMarkTransform(this.spec.transform, this.setDefaultMarkTranform()),
+          transform: this.convertMarkTransform(this.spec.transform, this.setDefaultMarkTransform()),
           animation: this.convertMarkAnimation(),
           encode: Object.assign({}, this.spec.state, {
             enter: this.setMainMarkEnterEncode(),

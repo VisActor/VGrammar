@@ -33,7 +33,7 @@ export class RectSemanticMark extends SemanticMark<PlotRectEncoderSpec, RectEnco
     return this.parseScaleOfCommonEncode(channel, option);
   }
 
-  setDefaultCorsshair(): Record<string, Pick<CrosshairSpec, 'crosshairShape' | 'crosshairType'>> {
+  setDefaultCrosshair(): Record<string, Pick<CrosshairSpec, 'crosshairShape' | 'crosshairType'>> {
     return {
       x: { crosshairShape: 'rect' }
     };

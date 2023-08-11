@@ -37,7 +37,7 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
     return GrammarMarkType.text;
   }
 
-  setDefaultDataTranform(): TransformSpec[] {
+  setDefaultDataTransform(): TransformSpec[] {
     return [
       {
         type: 'wordcloudShape',

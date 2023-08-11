@@ -40,7 +40,7 @@ export class Line extends SemanticMark<BasicEncoderSpecMap['line'], LineEncodeCh
     return this.parseScaleOfCommonEncode(channel, option);
   }
 
-  setDefaultCorsshair(): Record<string, Pick<CrosshairSpec, 'crosshairShape' | 'crosshairType'>> {
+  setDefaultCrosshair(): Record<string, Pick<CrosshairSpec, 'crosshairShape' | 'crosshairType'>> {
     return {
       x: { crosshairShape: 'line' }
     };
