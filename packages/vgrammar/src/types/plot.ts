@@ -273,6 +273,7 @@ export type SemanticLabelOption = Partial<BaseLabelAttrs>;
 export type SemanticPlayerOption = Partial<PlayerAttributes>;
 
 export interface ISemanticMark<EncodeSpec, K extends string> {
+  readonly uid: number;
   readonly type: string;
   data: (values: any, transform?: TransformSpec[], id?: string) => this;
   style: (style: Partial<EncodeSpec & any>) => this;

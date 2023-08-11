@@ -35,7 +35,7 @@ export class SunburstSemanticMark extends SemanticMark<PlotSunburstEncodeSpec, S
     return GrammarMarkType.arc;
   }
 
-  setDefaultDataTranform(): TransformSpec[] {
+  setDefaultDataTransform(): TransformSpec[] {
     return [
       {
         type: 'sunburst',
