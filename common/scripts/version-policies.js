@@ -18,24 +18,31 @@ const readVersionPolicies = (
 const parseNextBumpFromVersion = (
   versionString
 ) => {
-  const res = SEMVER_REG.exec(versionName);
-  const formatted = {
-    major: res[1],
-    minor: res[2],
-    patch: res[3],
-    preReleaseName: res[4],
-    preReleaseType: res[4].includes('.') ? res[4].split('.')[0] : res[4]
-  };
+  const res = SEMVER_REG.exec(versionString);
 
-  if (formatted.preReleaseName) {
-    return PRERELEASE;
+  if (res) {
+    const formatted = {
+      major: res[1],
+      minor: res[2],
+      patch: res[3],
+      preReleaseName: res[4],
+      preReleaseType: res[4] ? (res[4].includes('.') ? res[4].split('.')[0] : res[4]) : ''
+    };
+
+  
+    if (formatted.preReleaseName) {
+      return PRERELEASE;
+    }
+  
+    if (formatted.patch === '0') {
+      return formatted.minor == '0' ? MAJOR : MINOR;
+    }
+  
+    return PATCH
   }
 
-  if (formatted.patch === 0) {
-    return formatted.minor === 0 ? MAJOR : MINOR;
-  }
-
-  return PATCH
+  console.error(`can parse nextBump from version: ${versionString}`)
+  process.exit(1);
 }
 
 const writeNextBump = (
@@ -82,7 +89,7 @@ const checkAndUpdateNextBump = (isPre, version) => {
   } else if (version && NEXT_BUMPMS.includes(version)) {
     writeNextBump(version);
   } else if (version) {
-    writeNextBump(parseNextBumpFromVersion);
+    writeNextBump(parseNextBumpFromVersion(version));
   } else {
     writeNextBump(readNextBumpFromChanges());
   }
