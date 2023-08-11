@@ -1,6 +1,27 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Fri, 11 Aug 2023 09:49:40 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Aug 2023 12:36:20 GMT and should not be manually modified.
+
+## 0.6.0
+Fri, 11 Aug 2023 12:36:20 GMT
+
+### Minor changes
+
+- feat: add bin & kde & contour transform
+-  feat: scale can use multiple data to calculate domain and range
+- feat: provide silhouette & wiggle offset for stack transform to support stream graph
+- feat: support group tooltip & dimension tooltip
+- feat: add violin glyph
+- feat: tooltip support custom callback
+- feat: access arc label component
+
+### Patches
+
+- feat: add option `flatten` and `maxDepth` of  hierarchy transforms
+
+
+- feat: support mark reenter
+- style: use latest vrender and rename global to vglobal
 
 ## 0.5.5
 Fri, 11 Aug 2023 09:49:40 GMT

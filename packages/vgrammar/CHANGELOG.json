@@ -2,6 +2,47 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.6.0",
+      "tag": "@visactor/vgrammar_v0.6.0",
+      "date": "Fri, 11 Aug 2023 12:36:20 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "feat: add bin & kde & contour transform"
+          },
+          {
+            "comment": " feat: scale can use multiple data to calculate domain and range"
+          },
+          {
+            "comment": "feat: provide silhouette & wiggle offset for stack transform to support stream graph"
+          },
+          {
+            "comment": "feat: support group tooltip & dimension tooltip"
+          },
+          {
+            "comment": "feat: add violin glyph"
+          },
+          {
+            "comment": "feat: tooltip support custom callback"
+          },
+          {
+            "comment": "feat: access arc label component"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "feat: add option `flatten` and `maxDepth` of  hierarchy transforms\n\n"
+          },
+          {
+            "comment": "feat: support mark reenter"
+          },
+          {
+            "comment": "style: use latest vrender and rename global to vglobal"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.5",
       "tag": "@visactor/vgrammar_v0.5.5",
       "date": "Fri, 11 Aug 2023 09:49:40 GMT",
