@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.5.5",
+      "tag": "@visactor/vgrammar_v0.5.5",
+      "date": "Fri, 11 Aug 2023 09:49:40 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix(wordcloud): minFontSize should be greater than 0 in CloudLayout, dont try infinity, fix #117"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.4",
       "tag": "@visactor/vgrammar_v0.5.4",
       "date": "Thu, 10 Aug 2023 01:56:52 GMT",

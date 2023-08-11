@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-coordinate",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Coordinates for VGrammar",
   "keywords": [
     "coordinate",
@@ -34,7 +34,7 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vgrammar-util": "workspace:0.5.4",
+    "@visactor/vgrammar-util": "workspace:0.5.5",
     "@visactor/vutils": "~0.13.3"
   },
   "devDependencies": {
