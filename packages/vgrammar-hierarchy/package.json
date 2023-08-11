@@ -41,7 +41,7 @@
     "@visactor/vgrammar": "workspace:0.5.4",
     "@visactor/vgrammar-util": "workspace:0.5.4",
     "@visactor/vutils": "~0.13.3",
-    "@visactor/vrender": "~0.13.3"
+    "@visactor/vrender": "~0.13.10"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
