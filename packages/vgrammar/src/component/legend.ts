@@ -7,12 +7,12 @@ import type { DiscreteLegendAttrs, ColorLegendAttributes, SizeLegendAttributes }
 import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend, LegendEvent } from '@visactor/vrender-components';
 import { array, isString, merge, last } from '@visactor/vutils';
 import { ComponentDataRank, ComponentEnum, LegendEnum } from '../graph';
-import { defaultTheme } from '../theme/default';
 import type {
   BaseSignleEncodeSpec,
   IData,
   IElement,
   IGroupMark,
+  ITheme,
   IView,
   Nil,
   RecursivePartial,
@@ -39,9 +39,10 @@ registerComponent(
 
 export const generateDiscreteLegendAttributes = (
   scale: IBaseScale,
+  theme?: ITheme,
   addition?: RecursivePartial<DiscreteLegendAttrs>
 ): DiscreteLegendAttrs => {
-  const legendTheme = defaultTheme.discreteLegend;
+  const legendTheme = theme?.components?.discreteLegend;
   if (!scale) {
     return merge({}, legendTheme, addition ?? {});
   }
@@ -52,11 +53,11 @@ export const generateDiscreteLegendAttributes = (
     const color = parseColor(value);
     const shape = color
       ? {
-          ...defaultTheme.discreteLegend.items[0].shape,
+          ...(theme?.components?.discreteLegend?.items?.[0]?.shape ?? {}),
           fill: color,
           stroke: color
         }
-      : defaultTheme.discreteLegend.items[0].shape;
+      : theme?.components?.discreteLegend?.items?.[0]?.shape ?? {};
     return {
       label: item.toString(),
       id: item,
@@ -69,9 +70,10 @@ export const generateDiscreteLegendAttributes = (
 
 export const generateColorLegendAttributes = (
   scale: IBaseScale,
+  theme?: ITheme,
   addition?: RecursivePartial<ColorLegendAttributes>
 ): ColorLegendAttributes => {
-  const legendTheme = defaultTheme.colorLegend;
+  const legendTheme = theme?.components?.colorLegend;
   if (!scale) {
     return merge({}, legendTheme, addition ?? {});
   }
@@ -81,9 +83,10 @@ export const generateColorLegendAttributes = (
 
 export const generateSizeLegendAttributes = (
   scale: IBaseScale,
+  theme?: ITheme,
   addition?: RecursivePartial<SizeLegendAttributes>
 ): SizeLegendAttributes => {
-  const legendTheme = defaultTheme.sizeLegend;
+  const legendTheme = theme?.components?.sizeLegend;
   if (!scale) {
     return merge({}, legendTheme, addition ?? {});
   }
@@ -180,15 +183,16 @@ export class Legend extends ScaleComponent implements ILegend {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
+            const theme = this.view.getCurrentTheme();
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const scale = scaleGrammar?.getScale?.();
             switch (this._getLegendComponentType()) {
               case LegendEnum.discreteLegend:
-                return generateDiscreteLegendAttributes(scale, addition);
+                return generateDiscreteLegendAttributes(scale, theme, addition);
               case LegendEnum.colorLegend:
-                return generateColorLegendAttributes(scale, addition);
+                return generateColorLegendAttributes(scale, theme, addition);
               case LegendEnum.sizeLegend:
-                return generateSizeLegendAttributes(scale, addition);
+                return generateSizeLegendAttributes(scale, theme, addition);
             }
             return addition;
           }

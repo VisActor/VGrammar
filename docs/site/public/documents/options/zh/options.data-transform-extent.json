@@ -1,0 +1,1 @@
+{"type":{"desc":"<p>将数据变换类型设置为<code class=\"codespan\">&#39;extent&#39;</code></p>\n"},"field":{"desc":"<p>设置数据字段，支持两种类型：</p>\n<ul>\n<li>string - 字符串，获取数组元素指定字段下的值，支持&#39;a.b&#39;的格式，获取数据元素 <code class=\"codespan\">{ a: { b: 12 } }</code> 中的值</li>\n<li>function - 函数类型，自定义获取数据的回调函数</li>\n</ul>\n"}}

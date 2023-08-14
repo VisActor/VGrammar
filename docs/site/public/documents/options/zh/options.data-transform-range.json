@@ -1,0 +1,1 @@
+{"type":{"desc":"<p>将数据变换的类型设置为<code class=\"codespan\">&#39;range&#39;</code>，用于创建从给定的起始值到但不包括结束值的数字数组</p>\n"},"start":{"desc":"<p>设置起始值</p>\n"},"stop":{"desc":"<p>设置结束值</p>\n"},"step":{"desc":"<p>步长值，默认值为 1</p>\n"},"as":{"desc":"<p>设置结果写入的字段名称</p>\n"}}
