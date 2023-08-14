@@ -61,7 +61,10 @@ test('GridLayout() when clip is true, some words will be drop', async () => {
   const result = layout.layout(data, { width: 100, height: 100 });
 
   expect(result.length).toBe(4);
-  expect(result[0].text).toBe('this ');
+  result.forEach((entry, index) => {
+    expect(entry.datum).toBe(data[index]);
+    expect(entry.text).not.toBe(data[index].text);
+  });
   expect(result[1].text).toBe('this te');
   expect(result[2].text).toBe('a lo');
   expect(result[3].text).toBe('a sim');
