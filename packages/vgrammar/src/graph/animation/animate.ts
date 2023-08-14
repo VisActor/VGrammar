@@ -190,7 +190,9 @@ export class Animate implements IAnimate {
   }
 
   getAnimatorCount() {
-    return this.animators.size;
+    let count = 0;
+    this.animators.forEach(animators => (count += animators.length));
+    return count;
   }
 
   getElementAnimators(element: IElement | IElement[], animationState?: string) {

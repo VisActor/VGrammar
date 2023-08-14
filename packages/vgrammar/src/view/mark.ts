@@ -95,6 +95,8 @@ export class Mark extends GrammarBase implements IMark {
 
   private _delegateEvent: (event: any, type: string) => void;
 
+  private _finalParameters: any;
+
   constructor(view: IView, markType: MarkType, group?: IGroupMark) {
     super(view);
     this.markType = markType;
@@ -146,6 +148,11 @@ export class Mark extends GrammarBase implements IMark {
 
     this.commit();
     return this;
+  }
+
+  parameters() {
+    // apply last parameters after prepareRelease
+    return this._finalParameters ?? super.parameters();
   }
 
   protected parseAddition(spec: MarkSpec) {
@@ -476,8 +483,9 @@ export class Mark extends GrammarBase implements IMark {
   getAllElements(): IElement[] {
     const elements = this.elements.slice();
     this.elementMap.forEach(element => {
-      // exit elements will not be included in this.elements
-      if (element.diffState === DiffState.exit) {
+      // For most of time, exit elements will not be included in this.elements.
+      // After prepareRelease is invoked, elements will all be marked as exited.
+      if (element.diffState === DiffState.exit && !elements.includes(element)) {
         elements.push(element);
       }
     });
@@ -1084,12 +1092,14 @@ export class Mark extends GrammarBase implements IMark {
   prepareRelease() {
     this.animate.stop();
     this.elementMap.forEach(element => (element.diffState = DiffState.exit));
+    this._finalParameters = this.parameters();
   }
 
   release() {
     this.releaseEvent();
     this.elements.forEach(element => element.release());
     this.elementMap.clear();
+    this._finalParameters = null;
 
     if (this.animate) {
       this.animate.release();

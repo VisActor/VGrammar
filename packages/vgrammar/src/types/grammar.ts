@@ -180,6 +180,7 @@ export interface IGroupMark extends IMark {
 
   appendChild: (mark: IMark | IGroupMark | IGlyphMark) => this;
   removeChild: (mark: IMark | IGroupMark | IGlyphMark) => this;
+  includesChild: (mark: IMark, descendant?: boolean) => boolean;
 
   updateLayoutChildren: () => this;
 }
