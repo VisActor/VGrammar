@@ -7,8 +7,12 @@ import type {
   IMark,
   IScale,
   ISignal,
-  IRecordedGrammars
+  IRecordedGrammars,
+  IGroupMark,
+  IMarkTreeNode,
+  IRecordedTreeGrammars
 } from '../types';
+import { GrammarMarkType } from '../graph';
 
 export class RecordedGrammars implements IRecordedGrammars {
   private _warning: (key: string, grammar: IGrammarBase) => void;
@@ -65,7 +69,7 @@ export class RecordedGrammars implements IRecordedGrammars {
       }
     }
     this._size += 1;
-    return;
+    return this;
   }
 
   unrecord(grammar: IGrammarBase) {
@@ -193,3 +197,69 @@ export class RecordedGrammars implements IRecordedGrammars {
     this._grammarMap = null;
   }
 }
+
+export class RecordedTreeGrammars extends RecordedGrammars implements IRecordedTreeGrammars {
+  private _markNodes: IMarkTreeNode[] = [];
+
+  record(grammar: IGrammarBase) {
+    super.record(grammar);
+    if (grammar.grammarType === 'mark') {
+      const mark = grammar as IMark;
+      const currentNode: IMarkTreeNode = {
+        mark: mark,
+        parent: null,
+        children: []
+      };
+      this._markNodes.forEach(node => {
+        const targetMark = node.mark;
+        if (targetMark.markType === GrammarMarkType.group && (targetMark as IGroupMark).includesChild(mark, false)) {
+          node.children.push(currentNode);
+          currentNode.parent = node;
+        } else if (mark.markType === GrammarMarkType.group && (mark as IGroupMark).includesChild(targetMark, false)) {
+          currentNode.children.push(node);
+          node.parent = currentNode;
+        }
+      });
+      this._markNodes.push(currentNode);
+    }
+    return this;
+  }
+
+  unrecord(grammar: IGrammarBase) {
+    super.unrecord(grammar);
+    if (grammar.grammarType === 'mark') {
+      const mark = grammar as IMark;
+      const currentNode = this._markNodes.find(node => node.mark === mark);
+      this._markNodes.forEach(node => {
+        const targetMark = node.mark;
+        if (targetMark.markType === GrammarMarkType.group && (targetMark as IGroupMark).includesChild(mark, false)) {
+          node.children = node.children.filter(n => n !== currentNode);
+          currentNode.parent = null;
+        } else if (mark.markType === GrammarMarkType.group && (mark as IGroupMark).includesChild(targetMark, false)) {
+          currentNode.children = currentNode.children.filter(n => n !== node);
+          node.parent = null;
+        }
+      });
+      this._markNodes = this._markNodes.filter(n => n !== currentNode);
+    }
+    return this;
+  }
+
+  getAllMarkNodes() {
+    return this._markNodes;
+  }
+
+  clear() {
+    super.clear();
+    this._markNodes = [];
+  }
+
+  release() {
+    super.release();
+    this._markNodes = null;
+  }
+}
+
+export const releaseUpMarkNode = (node: IMarkTreeNode) => {
+  // if (node.mark.get)
+};

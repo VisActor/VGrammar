@@ -33,7 +33,9 @@ import type {
   IBaseAnimate,
   IRecordedGrammars,
   IComponent,
-  ComponentSpec
+  ComponentSpec,
+  IRecordedTreeGrammars,
+  IMarkTreeNode
 } from '../types/';
 import { unregisterRuntimeTransforms } from '../transforms/register';
 import { Data } from './data';
@@ -79,7 +81,7 @@ import { GlyphMark } from './glyph';
 import { Coordinate } from './coordinate';
 import type { IMorph, IMorphConfig } from '../types/morph';
 import { Morph } from '../graph/animation/morph';
-import { RecordedGrammars } from './grammar-record';
+import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
 import { ViewAnimate } from './animate';
 import type { IRenderer } from '../types/renderer';
 import { ComponentEnum, HOOK_EVENT, LayoutState, GrammarMarkType } from '../graph/enums';
@@ -128,7 +130,7 @@ export default class View extends EventEmitter implements IView {
   private _config: IViewThemeConfig;
   private _options: IViewOptions;
 
-  private _cachedGrammars: IRecordedGrammars;
+  private _cachedGrammars: IRecordedTreeGrammars;
   private _willMorphMarks: { prev: IMark[]; next: IMark[] }[];
 
   /** morph animate */
@@ -372,10 +374,11 @@ export default class View extends EventEmitter implements IView {
     if (!recordedGrammar || !this.grammars.find(storedGrammar => storedGrammar.uid === recordedGrammar.uid)) {
       return this;
     }
+    if (recordedGrammar.grammarType === 'mark') {
+      (recordedGrammar as IMark).prepareRelease();
+    }
     this._cachedGrammars.record(recordedGrammar);
     this._dataflow.remove(recordedGrammar);
-    // clear grammar after next running
-    // recordedGrammar.clear();
     this.grammars.unrecord(recordedGrammar);
     return this;
   }
@@ -927,22 +930,43 @@ export default class View extends EventEmitter implements IView {
   }
 
   private releaseCachedGrammars() {
+    // directly release all grammars except from marks
     this._cachedGrammars.traverse(grammar => {
-      if (grammar.grammarType === 'mark') {
-        const mark = grammar as IMark;
-        mark.prepareRelease();
-        mark.animate.animate();
-        if (mark.animate.getAnimatorCount() === 0) {
-          mark.release();
-        } else {
-          mark.addEventListener('animationEnd', event => {
-            if (mark.animate.getAnimatorCount() === 0) {
-              mark.release();
-            }
-          });
-        }
-      } else {
+      if (grammar.grammarType !== 'mark') {
         grammar.release();
+      }
+    });
+    const markNodes = this._cachedGrammars.getAllMarkNodes();
+    const releaseUp = (node: IMarkTreeNode) => {
+      // do nothing when mark is already released or is still animating
+      if (!node.mark.view || node.mark.animate.getAnimatorCount() !== 0) {
+        return;
+      }
+      // release when current node is leaf node
+      if (!node.children || node.children.length === 0) {
+        node.mark.release();
+        // detach current node from tree and traverse above
+        const parent = node.parent;
+        if (parent) {
+          node.parent.children = node.parent.children.filter(n => n !== node);
+          node.parent = null;
+          releaseUp(parent);
+        }
+      }
+    };
+    markNodes.forEach(node => {
+      node.mark.animate.animate();
+    });
+    markNodes.forEach(node => {
+      const mark = node.mark;
+      if (mark.animate.getAnimatorCount() === 0) {
+        releaseUp(node);
+      } else {
+        mark.addEventListener('animationEnd', () => {
+          if (mark.animate.getAnimatorCount() === 0) {
+            releaseUp(node);
+          }
+        });
       }
     });
     this._cachedGrammars.clear();
@@ -1381,7 +1405,7 @@ export default class View extends EventEmitter implements IView {
       grammar => grammar.id(),
       (key, grammar) => this.logger.warn(`Grammar id '${key}' has been occupied`, grammar)
     );
-    this._cachedGrammars = new RecordedGrammars(grammar => grammar.id());
+    this._cachedGrammars = new RecordedTreeGrammars(grammar => grammar.id());
 
     if (this._options.logger) {
       Logger.setInstance(this._options.logger);

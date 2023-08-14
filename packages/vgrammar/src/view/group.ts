@@ -23,6 +23,21 @@ export class GroupMark extends Mark implements IGroupMark {
     return this;
   }
 
+  includesChild(mark: IMark, descendant: boolean = true) {
+    if (this.children.includes(mark)) {
+      return true;
+    }
+    if (!descendant) {
+      return false;
+    }
+    return this.children.some(child => {
+      if (child.markType === GrammarMarkType.group) {
+        return (child as IGroupMark).includesChild(mark, true);
+      }
+      return false;
+    });
+  }
+
   updateLayoutChildren() {
     if (!this.children.length) {
       return this;
