@@ -3,6 +3,35 @@ import { defaultComponentTheme } from './common/component';
 import { DEFAULT_PADDING } from './common/constants';
 import { defaultMarkTheme } from './common/mark';
 
+const darkComponents = Object.assign({}, defaultComponentTheme);
+darkComponents.rectLabel = Object.assign({}, darkComponents.rectLabel, {
+  data: [
+    {
+      text: '',
+      fill: '#888c93',
+      data: {}
+    }
+  ]
+});
+darkComponents.lineLabel = Object.assign({}, darkComponents.lineLabel, {
+  data: [
+    {
+      text: '',
+      fill: '#888c93',
+      data: {}
+    }
+  ]
+});
+darkComponents.symbolLabel = Object.assign({}, darkComponents.symbolLabel, {
+  data: [
+    {
+      text: '',
+      fill: '#888c93',
+      data: {}
+    }
+  ]
+});
+
 export const darkTheme: ITheme = {
   name: 'dark',
   padding: DEFAULT_PADDING,
@@ -24,5 +53,5 @@ export const darkTheme: ITheme = {
     ]
   },
   marks: defaultMarkTheme,
-  components: defaultComponentTheme
+  components: darkComponents
 };

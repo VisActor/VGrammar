@@ -228,7 +228,7 @@ export interface IView {
 
   // --- Theme API ---
   getCurrentTheme: () => ITheme;
-  setCurrentTheme: (theme: ITheme | string, noRender?: boolean) => void;
+  setCurrentTheme: (theme: ITheme | string, render?: boolean) => Promise<this>;
 
   // --- Global Config API ---
   background: (value?: IColor) => IColor;
