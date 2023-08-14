@@ -1467,6 +1467,8 @@ export default class View extends EventEmitter implements IView {
     this.animate = new ViewAnimate(this);
     this._morph = new Morph();
 
+    this._theme = ThemeManager.getDefaultTheme();
+
     // 执行钩子
     if (this._options.hooks) {
       Object.keys(this._options.hooks).forEach(key => {
