@@ -17,9 +17,12 @@ export interface IBaseLayoutOptions {
   fontSize?: TagItemAttribute<number>;
   fontStyle?: TagItemAttribute<string>;
 
-  color?: TagItemAttribute<string>;
+  color?: 'random-dark' | 'random-light' | TagItemAttribute<string>;
 
   drawOutOfBound?: boolean;
+  /**
+   * shrink to fit when the words are to many or to great
+   */
   shrink?: boolean;
   /** clip text to fit */
   clip?: boolean;
@@ -54,4 +57,5 @@ export interface TagOutputItem {
   width: number;
   height: number;
   text: string;
+  color?: string;
 }

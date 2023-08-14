@@ -110,6 +110,8 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
         }
         return minRotation + Math.random() * rotationRange;
       };
+    } else {
+      this.getTextRotate = () => 0;
     }
   }
 
@@ -157,6 +159,7 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
   ): any[];
 
   initProgressive() {
+    this.progressiveIndex = -1;
     if (this.options.progressiveStep > 0) {
       this.currentStepIndex = 0;
     } else if (this.options.progressiveTime > 0) {
