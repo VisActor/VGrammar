@@ -217,3 +217,31 @@ test('Wordcloud generates wordcloud layout with domain[0] == domain[1] & domain[
   expect(result[0].x).toBe(250);
   expect(result[0].y).toBe(250);
 });
+
+test('Wordcloud of 3d', () => {
+  const data = [
+    { text: 'foo', size: 49, index: 0 },
+    { text: 'bar', size: 36, index: 1 },
+    { text: 'baz', size: 25, index: 2 },
+    { text: 'abc', size: 1, index: 3 }
+  ];
+
+  const result = transform(
+    {
+      size: [400, 400],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [20, 40],
+      postProjection: 'StereographicProjection',
+      depth_3d: 10
+    },
+    data
+  );
+
+  expect(result.length).toBe(data.length);
+  result.forEach((el: any) => {
+    expect(el.z).not.toBeUndefined();
+    expect(el.fontSize).toBeGreaterThanOrEqual(20);
+    expect(el.fontSize).toBeLessThanOrEqual(40);
+  });
+});
