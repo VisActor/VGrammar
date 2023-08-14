@@ -8,13 +8,13 @@
     "ci": "ts-node --transpileOnly --skipProject ./scripts/trigger-test.ts"
   },
   "dependencies": {
-    "@visactor/vgrammar": "workspace:0.6.0",
-    "@visactor/vgrammar-hierarchy": "workspace:0.6.0",
-    "@visactor/vgrammar-sankey": "workspace:0.6.0",
-    "@visactor/vgrammar-projection": "workspace:0.6.0",
-    "@visactor/vgrammar-wordcloud": "workspace:0.6.0",
-    "@visactor/vgrammar-wordcloud-shape": "workspace:0.6.0",
-    "@visactor/vgrammar-plot": "workspace:0.6.0",
+    "@visactor/vgrammar": "workspace:0.6.1",
+    "@visactor/vgrammar-hierarchy": "workspace:0.6.1",
+    "@visactor/vgrammar-sankey": "workspace:0.6.1",
+    "@visactor/vgrammar-projection": "workspace:0.6.1",
+    "@visactor/vgrammar-wordcloud": "workspace:0.6.1",
+    "@visactor/vgrammar-wordcloud-shape": "workspace:0.6.1",
+    "@visactor/vgrammar-plot": "workspace:0.6.1",
     "@visactor/vutils": "~0.15.5",
     "@visactor/vrender": "~0.14.2"
   },

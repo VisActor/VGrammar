@@ -1,6 +1,19 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Fri, 11 Aug 2023 12:36:20 GMT and should not be manually modified.
+This log was last generated on Mon, 14 Aug 2023 14:32:16 GMT and should not be manually modified.
+
+## 0.6.1
+Mon, 14 Aug 2023 14:32:16 GMT
+
+### Updates
+
+- fix: fix the exit animation parameters, fix #111
+- fix: fix the grow animation problem caused by x1y1 channel
+- fix: group encode may throw error when data is empty in line/area
+
+
+- fix: fix the error of undefined stage
+- fix(wordcloud): fix type of wordcloud and same bad cases
 
 ## 0.6.0
 Fri, 11 Aug 2023 12:36:20 GMT
