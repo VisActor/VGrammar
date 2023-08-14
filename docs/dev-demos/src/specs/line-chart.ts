@@ -82,25 +82,45 @@ export const spec = {
               type: 'clipIn',
               duration: 2000
             },
+            // enter: {
+            //   channel: {
+            //     strokeOpacity: {
+            //       from: 0,
+            //       to: (datum, element, params) => { console.log('viewBox:', params.viewBox); return 1; }
+            //     }
+            //   },
+            //   duration: 1000,
+            // },
             update: {
               type: 'update',
               duration: 1000
             },
             exit: {
-              type: 'clipOut',
-              duration: 2000
+              channel: {
+                strokeOpacity: {
+                  from: 1,
+                  to: (datum, element, params) => { console.log('viewBox:', params.viewBox); return 0; }
+                }
+              },
+              easing: 'linear',
+              duration: 500,
             }
+            // exit: {
+            //   type: 'clipOut',
+            //   duration: 2000
+            // }
           },
           from: {
             data: 'table'
           },
           groupBy: 'c',
+          dependency: ['viewBox'],
           encode: {
             enter: {
               x: { scale: 'x', field: 'x' },
               y: { scale: 'y', field: 'y' },
               stroke: { scale: 'color', field: 'c' },
-              lineWidth: 2
+              lineWidth: 2,
             },
             update: {
               // interpolate: { signal: 'interpolate' },
@@ -151,4 +171,15 @@ export const spec = {
       ]
     }
   ]
+};
+
+export const callback = (chartInstance: any) => {
+  const updateButton = document.createElement('button');
+  updateButton.innerText = 'update spec';
+  document.getElementById('footer')?.appendChild(updateButton);
+
+  updateButton.addEventListener('click', () => {
+    chartInstance.updateSpec(spec);
+    chartInstance.runAsync();
+  });
 };

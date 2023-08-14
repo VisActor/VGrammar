@@ -270,9 +270,8 @@ export interface ViewSpec {
 }
 
 export interface IRecordedGrammars {
-  record: (grammar: IGrammarBase) => void;
-
-  unrecord: (grammar: IGrammarBase) => void;
+  record: (grammar: IGrammarBase) => this;
+  unrecord: (grammar: IGrammarBase) => this;
 
   size: () => number;
 
@@ -298,4 +297,14 @@ export interface IRecordedGrammars {
   filter: (func: (grammar: IGrammarBase) => boolean) => IGrammarBase[];
 
   release: () => void;
+}
+
+export interface IMarkTreeNode {
+  mark: IMark;
+  parent: IMarkTreeNode;
+  children: IMarkTreeNode[];
+}
+
+export interface IRecordedTreeGrammars extends IRecordedGrammars {
+  getAllMarkNodes: () => IMarkTreeNode[];
 }
