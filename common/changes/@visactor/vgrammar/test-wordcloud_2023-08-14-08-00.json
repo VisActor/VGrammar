@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix(wordcloud): fix type of wordcloud and same bad cases",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
