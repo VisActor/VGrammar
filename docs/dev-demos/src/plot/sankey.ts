@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { type IView, type IPlot, registerLinkPathGlyph, getPalette } from '@visactor/vgrammar';
+import { type IView, type IPlot, registerLinkPathGlyph, ThemeManager } from '@visactor/vgrammar';
 import data from '../data/hierarchy.json';
 import { registerSankeyTransforms } from '@visactor/vgrammar-sankey';
 
@@ -14,7 +14,7 @@ export const runner = (plot: IPlot) => {
     .data({ nodes: data })
     .encode('node', 'name')
     .encode('color', 'name')
-    .scale('color', { range: getPalette() })
+    .scale('color', { range: ThemeManager.getDefaultTheme().palette?.default })
     .label('name', { textStyle: { fill: '#333' }, position: 'left' });
 };
 

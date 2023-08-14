@@ -12,7 +12,8 @@ import type {
 import { SemanticMark } from './semantic-mark';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { PlotMakType } from './enums';
-import { getPalette, GrammarMarkType } from '@visactor/vgrammar';
+// eslint-disable-next-line no-duplicate-imports
+import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
 
 export class PolygonSemanticMark extends SemanticMark<PlotPolygonEncoderSpec, PolygonEncodeChannels> {
   static readonly type = PlotMakType.polygon;
@@ -72,7 +73,7 @@ export class PolygonSemanticMark extends SemanticMark<PlotPolygonEncoderSpec, Po
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = this.spec.style?.fill ?? getPalette()[0];
+      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
     }
 
     return res;
