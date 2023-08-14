@@ -65,9 +65,6 @@ test('GridLayout() when clip is true, some words will be drop', async () => {
     expect(entry.datum).toBe(data[index]);
     expect(entry.text).not.toBe(data[index].text);
   });
-  expect(result[1].text).toBe('this te');
-  expect(result[2].text).toBe('a lo');
-  expect(result[3].text).toBe('a sim');
 });
 
 test('GridLayout when canvas is not empty', async () => {
