@@ -15,6 +15,7 @@ import type {
   IData,
   IElement,
   IGroupMark,
+  ITheme,
   IView,
   Nil,
   RecursivePartial,
@@ -23,7 +24,6 @@ import type {
 import { ComponentDataRank, ComponentEnum, PlayerEnum } from '../graph';
 import type { IPlayer, PlayerFilterValue, PlayerSpec, PlayerType } from '../types/component';
 import { Component } from '../view/component';
-import { defaultTheme } from '../theme/default';
 import { invokeEncoder } from '../graph/mark/encode';
 
 registerComponent(
@@ -37,17 +37,19 @@ registerComponent(
 
 export const generateContinuousPlayerAttributes = (
   data: any[],
+  theme?: ITheme,
   addition?: RecursivePartial<ContinuousPlayerAttributes>
 ): ContinuousPlayerAttributes => {
-  const playerTheme = defaultTheme.continuousPlayer;
+  const playerTheme = theme?.components?.continuousPlayer;
   return merge({}, playerTheme, { data, dataIndex: 0 }, addition ?? {});
 };
 
 export const generateDiscretePlayerAttributes = (
   data: any[],
+  theme?: ITheme,
   addition?: RecursivePartial<DiscretePlayerAttributes>
 ): DiscretePlayerAttributes => {
-  const playerTheme = defaultTheme.discretePlayer;
+  const playerTheme = theme?.components?.discretePlayer;
   return merge({}, playerTheme, { data, dataIndex: 0 }, addition ?? {});
 };
 
@@ -159,6 +161,7 @@ export class Player extends Component implements IPlayer {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
+            const theme = this.view.getCurrentTheme();
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const source = this.spec.target?.source;
             const sourceDataGrammar = isArray(source)
@@ -169,9 +172,9 @@ export class Player extends Component implements IPlayer {
             const sourceData = isArray(source) ? source : sourceDataGrammar?.getValue() ?? [];
             switch (this._getPlayerComponentType()) {
               case 'continuousPlayer':
-                return generateContinuousPlayerAttributes(sourceData, addition);
+                return generateContinuousPlayerAttributes(sourceData, theme, addition);
               case 'discretePlayer':
-                return generateDiscretePlayerAttributes(sourceData, addition);
+                return generateDiscretePlayerAttributes(sourceData, theme, addition);
             }
           }
         };
