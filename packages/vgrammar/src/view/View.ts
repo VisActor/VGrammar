@@ -35,7 +35,8 @@ import type {
   IComponent,
   ComponentSpec,
   IRecordedTreeGrammars,
-  IMarkTreeNode
+  IMarkTreeNode,
+  ITheme
 } from '../types/';
 import { unregisterRuntimeTransforms } from '../transforms/register';
 import { Data } from './data';
@@ -99,6 +100,7 @@ import type {
 } from '../types/component';
 import { Interval } from '../grammar-marks/interval';
 import { Cell } from '../grammar-marks/cell';
+import { ThemeManager } from '../theme/theme-manager';
 
 /**
  * Create a new View instance from a VGrammar dataflow runtime specification.
@@ -144,6 +146,8 @@ export default class View extends EventEmitter implements IView {
     source: any;
     handler: any;
   }>;
+
+  private _theme: ITheme;
 
   private _dataflow: Dataflow;
   /** 正在执行的dataflow */
@@ -529,6 +533,20 @@ export default class View extends EventEmitter implements IView {
     (spec as GroupMarkSpec).marks?.forEach(childSpec => {
       this.parseMarkSpec(childSpec);
     });
+  }
+
+  // --- Theme API ---
+
+  getCurrentTheme() {
+    return this._theme;
+  }
+  setCurrentTheme(theme: ITheme | string, noRender?: boolean) {
+    if (isString(theme)) {
+      this._theme = ThemeManager.getTheme(theme) ?? ThemeManager.getDefaultTheme();
+    } else {
+      this._theme = theme;
+    }
+    // TODO: rerender
   }
 
   // --- Global Configure ---
@@ -1417,6 +1435,8 @@ export default class View extends EventEmitter implements IView {
 
     this.animate = new ViewAnimate(this);
     this._morph = new Morph();
+
+    this._theme = ThemeManager.getDefaultTheme();
 
     // 执行钩子
     if (this._options.hooks) {
