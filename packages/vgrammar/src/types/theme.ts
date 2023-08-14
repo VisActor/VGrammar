@@ -25,7 +25,7 @@ import type {
 } from '@visactor/vrender-components';
 import type { IPadding } from '@visactor/vutils';
 import type { RecursivePartial } from './base';
-import type { BasicEncoderSpecMap } from '.';
+import type { BasicEncoderSpecMap } from './mark';
 
 // glyph mark includes multiple types, not support theme for glyph for now
 export type IMarkTheme = Partial<Omit<BasicEncoderSpecMap, 'glyph'>>;
