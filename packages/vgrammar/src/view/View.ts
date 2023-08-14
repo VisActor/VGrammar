@@ -539,13 +539,29 @@ export default class View extends EventEmitter implements IView {
   getCurrentTheme() {
     return this._theme;
   }
-  setCurrentTheme(theme: ITheme | string, noRender?: boolean) {
+  async setCurrentTheme(theme: ITheme | string, render: boolean = true) {
     if (isString(theme)) {
       this._theme = ThemeManager.getTheme(theme) ?? ThemeManager.getDefaultTheme();
     } else {
       this._theme = theme;
     }
-    // TODO: rerender
+
+    this.background(this._spec?.background ?? this._options.background ?? this._theme.background);
+    this.padding(this._spec?.padding ?? this._options.padding ?? this._theme.padding);
+    // trigger encode for all marks
+    this.grammars.getAllMarks().forEach(mark => {
+      mark.commit();
+    });
+
+    if (render) {
+      await this.evaluate();
+      // FIXME: trigger render
+      this.renderer.render(true);
+    } else {
+      await this._dataflow.evaluate();
+    }
+
+    return this;
   }
 
   // --- Global Configure ---
