@@ -65,7 +65,7 @@ export interface TagItem {
 }
 
 interface ICloudLayoutOptions extends IBaseLayoutOptions {
-  spiral?: string | ((size: [number, number]) => (t: number) => [number, number]);
+  spiral?: 'archimedean' | 'rectangular' | ((size: [number, number]) => (t: number) => [number, number]);
 
   padding?: TagItemAttribute<number>;
   enlarge?: boolean;
