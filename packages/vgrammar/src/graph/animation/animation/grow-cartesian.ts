@@ -26,7 +26,7 @@ export const growCenterIn: TypeAnimation<IElement> = (
       return {
         from: {
           x: computedX + computedWidth / 2,
-          x1: computedX + computedWidth / 2,
+          x1: isNil(x1) ? undefined : computedX + computedWidth / 2,
           width: isNil(width) ? undefined : 0
         },
         to: { x, x1, width }
@@ -35,7 +35,7 @@ export const growCenterIn: TypeAnimation<IElement> = (
       return {
         from: {
           y: computedY + computedHeight / 2,
-          y1: computedY + computedHeight / 2,
+          y1: isNil(y1) ? undefined : computedY + computedHeight / 2,
           height: isNil(height) ? undefined : 0
         },
         to: { y, y1, height }
@@ -45,9 +45,9 @@ export const growCenterIn: TypeAnimation<IElement> = (
       return {
         from: {
           x: computedX + computedWidth / 2,
-          x1: computedX + computedWidth / 2,
           y: computedY + computedHeight / 2,
-          y1: computedY + computedHeight / 2,
+          x1: isNil(x1) ? undefined : computedX + computedWidth / 2,
+          y1: isNil(y1) ? undefined : computedY + computedHeight / 2,
           width: isNil(width) ? undefined : 0,
           height: isNil(height) ? undefined : 0
         },
@@ -61,6 +61,8 @@ export const growCenterOut: TypeAnimation<IElement> = (
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
+  const x1 = element.getGraphicAttribute('x1', false);
+  const y1 = element.getGraphicAttribute('y1', false);
   const width = element.getGraphicAttribute('width', false);
   const height = element.getGraphicAttribute('height', false);
 
@@ -73,16 +75,15 @@ export const growCenterOut: TypeAnimation<IElement> = (
       return {
         to: {
           x: computedX + computedWidth / 2,
-          x1: computedX + computedWidth / 2,
-          width: isNil(width) ? undefined : 0,
-          height
+          x1: isNil(x1) ? undefined : computedX + computedWidth / 2,
+          width: isNil(width) ? undefined : 0
         }
       };
     case 'y':
       return {
         to: {
           y: computedY + computedHeight / 2,
-          y1: computedY + computedHeight / 2,
+          y1: isNil(y1) ? undefined : computedY + computedHeight / 2,
           height: isNil(height) ? undefined : 0
         }
       };
@@ -91,9 +92,9 @@ export const growCenterOut: TypeAnimation<IElement> = (
       return {
         to: {
           x: computedX + computedWidth / 2,
-          x1: computedX + computedWidth / 2,
           y: computedY + computedHeight / 2,
-          y1: computedY + computedHeight / 2,
+          x1: isNil(x1) ? undefined : computedX + computedWidth / 2,
+          y1: isNil(y1) ? undefined : computedY + computedHeight / 2,
           width: isNil(width) ? undefined : 0,
           height: isNil(height) ? undefined : 0
         }
@@ -116,12 +117,12 @@ function growWidthInIndividual(
   const computedX1 = computedX + computedWidth;
   if (options?.orient === 'negative') {
     return {
-      from: { x: computedX1, x1: computedX1, width: isNil(width) ? undefined : 0 },
+      from: { x: computedX1, x1: isNil(x1) ? undefined : computedX1, width: isNil(width) ? undefined : 0 },
       to: { x: x, x1: x1, width: width }
     };
   }
   return {
-    from: { x: computedX, x1: computedX, width: isNil(width) ? undefined : 0 },
+    from: { x: computedX, x1: isNil(x1) ? undefined : computedX, width: isNil(width) ? undefined : 0 },
     to: { x: x, x1: x1, width: width }
   };
 }
@@ -145,7 +146,7 @@ function growWidthInOverall(
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }
   return {
-    from: { x: overallValue, x1: overallValue, width: isNil(width) ? undefined : 0 },
+    from: { x: overallValue, x1: isNil(x1) ? undefined : overallValue, width: isNil(width) ? undefined : 0 },
     to: { x: x, x1: x1, width: width }
   };
 }
@@ -165,6 +166,7 @@ function growWidthOutIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
+  const x1 = element.getGraphicAttribute('x1', false);
   const width = element.getGraphicAttribute('width', false);
 
   const computedX = (element.getGraphicItem().attribute as IRectGraphicAttribute).x;
@@ -172,11 +174,11 @@ function growWidthOutIndividual(
   const computedX1 = computedX + computedWidth;
   if (options?.orient === 'negative') {
     return {
-      to: { x: computedX1, x1: computedX1, width: isNil(width) ? undefined : 0 }
+      to: { x: computedX1, x1: isNil(x1) ? undefined : computedX1, width: isNil(width) ? undefined : 0 }
     };
   }
   return {
-    to: { x: computedX, x1: computedX, width: isNil(width) ? undefined : 0 }
+    to: { x: computedX, x1: isNil(x1) ? undefined : computedX, width: isNil(width) ? undefined : 0 }
   };
 }
 
@@ -185,7 +187,9 @@ function growWidthOutOverall(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
+  const x1 = element.getGraphicAttribute('x1', false);
   const width = element.getGraphicAttribute('width', false);
+
   let overallValue: number;
   if (options?.orient === 'negative') {
     const groupRight = animationParameters.group
@@ -196,7 +200,7 @@ function growWidthOutOverall(
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }
   return {
-    to: { x: overallValue, x1: overallValue, width: isNil(width) ? undefined : 0 }
+    to: { x: overallValue, x1: isNil(x1) ? undefined : overallValue, width: isNil(width) ? undefined : 0 }
   };
 }
 
@@ -226,12 +230,12 @@ function growHeightInIndividual(
   const computedY1 = computedY + computedHeight;
   if (options?.orient === 'negative') {
     return {
-      from: { y: computedY1, y1: computedY1, height: isNil(height) ? undefined : 0 },
+      from: { y: computedY1, y1: isNil(y1) ? undefined : computedY1, height: isNil(height) ? undefined : 0 },
       to: { y: y, y1: y1, height: height }
     };
   }
   return {
-    from: { y: computedY, y1: computedY, height: isNil(height) ? undefined : 0 },
+    from: { y: computedY, y1: isNil(y1) ? undefined : computedY, height: isNil(height) ? undefined : 0 },
     to: { y: y, y1: y1, height: height }
   };
 }
@@ -244,6 +248,7 @@ function growHeightInOverall(
   const y = element.getGraphicAttribute('y', false);
   const y1 = element.getGraphicAttribute('y1', false);
   const height = element.getGraphicAttribute('height', false);
+
   let overallValue: number;
   if (options?.orient === 'negative') {
     const groupBottom = animationParameters.group
@@ -254,7 +259,7 @@ function growHeightInOverall(
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }
   return {
-    from: { y: overallValue, y1: overallValue, height: isNil(height) ? undefined : 0 },
+    from: { y: overallValue, y1: isNil(y1) ? undefined : overallValue, height: isNil(height) ? undefined : 0 },
     to: { y: y, y1: y1, height: height }
   };
 }
@@ -274,6 +279,7 @@ function growHeightOutIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
+  const y1 = element.getGraphicAttribute('y1', false);
   const height = element.getGraphicAttribute('height', false);
 
   const computedY = (element.getGraphicItem().attribute as IRectGraphicAttribute).y;
@@ -281,11 +287,11 @@ function growHeightOutIndividual(
   const computedY1 = computedY + computedHeight;
   if (options?.orient === 'negative') {
     return {
-      to: { y: computedY1, y1: computedY1, height: isNil(height) ? undefined : 0 }
+      to: { y: computedY1, y1: isNil(y1) ? undefined : computedY1, height: isNil(height) ? undefined : 0 }
     };
   }
   return {
-    to: { y: computedY, y1: computedY, height: isNil(height) ? undefined : 0 }
+    to: { y: computedY, y1: isNil(y1) ? undefined : computedY, height: isNil(height) ? undefined : 0 }
   };
 }
 
@@ -294,6 +300,7 @@ function growHeightOutOverall(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
+  const y1 = element.getGraphicAttribute('y1', false);
   const height = element.getGraphicAttribute('height', false);
 
   let overallValue: number;
@@ -306,7 +313,7 @@ function growHeightOutOverall(
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }
   return {
-    to: { y: overallValue, y1: overallValue, height: isNil(height) ? undefined : 0 }
+    to: { y: overallValue, y1: isNil(y1) ? undefined : overallValue, height: isNil(height) ? undefined : 0 }
   };
 }
 
