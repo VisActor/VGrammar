@@ -88,7 +88,6 @@ importers:
       '@jest/globals': ~29.5.0
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
-      '@types/node': '*'
       '@visactor/vgrammar-coordinate': workspace:0.6.0
       '@visactor/vgrammar-util': workspace:0.6.0
       '@visactor/vrender': ~0.14.2
@@ -96,12 +95,9 @@ importers:
       '@visactor/vscale': ~0.15.5
       '@visactor/vutils': ~0.15.5
       eslint: ~8.18.0
-      form-data: ~4.0.0
       jest: ~29.5.0
       jest-environment-jsdom: ~29.5.0
-      node-fetch: 2.6.7
       ts-jest: ~29.1.0
-      ts-node: 10.9.0
       typescript: 4.9.5
       vite: 3.2.6
     dependencies:
@@ -119,16 +115,12 @@ importers:
       '@jest/globals': 29.5.0
       '@rushstack/eslint-patch': 1.1.4
       '@types/jest': 29.5.3
-      '@types/node': 20.5.0
       eslint: 8.18.0
-      form-data: 4.0.0
-      jest: 29.5.0_zl5u333o6fx2hhmxs64gqt7zhi
+      jest: 29.5.0
       jest-environment-jsdom: 29.5.0
-      node-fetch: 2.6.7
       ts-jest: 29.1.1_doipufordlnvh5g4adbwayvyvy
-      ts-node: 10.9.0_cexlby4oa6uys4e6r2ufkcpuca
       typescript: 4.9.5
-      vite: 3.2.6_@types+node@20.5.0
+      vite: 3.2.6
 
   ../../packages/vgrammar-coordinate:
     specifiers:
@@ -508,6 +500,51 @@ importers:
 
   ../../share/ts-config:
     specifiers: {}
+
+  ../../tools/bugserver-trigger:
+    specifiers:
+      '@internal/bundler': workspace:*
+      '@internal/eslint-config': workspace:*
+      '@internal/ts-config': workspace:*
+      '@rushstack/eslint-patch': ~1.1.4
+      '@types/node': '*'
+      '@types/node-fetch': 2.6.4
+      '@visactor/vgrammar': workspace:0.6.0
+      '@visactor/vgrammar-hierarchy': workspace:0.6.0
+      '@visactor/vgrammar-plot': workspace:0.6.0
+      '@visactor/vgrammar-projection': workspace:0.6.0
+      '@visactor/vgrammar-sankey': workspace:0.6.0
+      '@visactor/vgrammar-wordcloud': workspace:0.6.0
+      '@visactor/vgrammar-wordcloud-shape': workspace:0.6.0
+      '@visactor/vrender': ~0.14.2
+      '@visactor/vutils': ~0.15.5
+      eslint: ~8.18.0
+      form-data: ~4.0.0
+      node-fetch: 2.6.7
+      ts-node: 10.9.0
+      typescript: 4.9.5
+    dependencies:
+      '@visactor/vgrammar': link:../../packages/vgrammar
+      '@visactor/vgrammar-hierarchy': link:../../packages/vgrammar-hierarchy
+      '@visactor/vgrammar-plot': link:../../packages/vgrammar-plot
+      '@visactor/vgrammar-projection': link:../../packages/vgrammar-projection
+      '@visactor/vgrammar-sankey': link:../../packages/vgrammar-sankey
+      '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
+      '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
+      '@visactor/vrender': 0.14.2
+      '@visactor/vutils': 0.15.5
+    devDependencies:
+      '@internal/bundler': link:../bundler
+      '@internal/eslint-config': link:../../share/eslint-config
+      '@internal/ts-config': link:../../share/ts-config
+      '@rushstack/eslint-patch': 1.1.4
+      '@types/node': 20.5.0
+      '@types/node-fetch': 2.6.4
+      eslint: 8.18.0
+      form-data: 4.0.0
+      node-fetch: 2.6.7
+      ts-node: 10.9.0_cexlby4oa6uys4e6r2ufkcpuca
+      typescript: 4.9.5
 
   ../../tools/bundler:
     specifiers:
@@ -2042,49 +2079,6 @@ packages:
       - ts-node
     dev: true
 
-  /@jest/core/29.6.2_ts-node@10.9.0:
-    resolution: {integrity: sha512-Oj+5B+sDMiMWLhPFF+4/DvHOf+U10rgvCLGPHP8Xlsy/7QxS51aU/eBngudHlJXnaWD5EohAgJ4js+T6pa+zOg==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    peerDependencies:
-      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
-    peerDependenciesMeta:
-      node-notifier:
-        optional: true
-    dependencies:
-      '@jest/console': 29.6.2
-      '@jest/reporters': 29.6.2
-      '@jest/test-result': 29.6.2
-      '@jest/transform': 29.6.2
-      '@jest/types': 29.6.1
-      '@types/node': 20.5.0
-      ansi-escapes: 4.3.2
-      chalk: 4.1.2
-      ci-info: 3.8.0
-      exit: 0.1.2
-      graceful-fs: 4.2.11
-      jest-changed-files: 29.5.0
-      jest-config: 29.6.2_zl5u333o6fx2hhmxs64gqt7zhi
-      jest-haste-map: 29.6.2
-      jest-message-util: 29.6.2
-      jest-regex-util: 29.4.3
-      jest-resolve: 29.6.2
-      jest-resolve-dependencies: 29.6.2
-      jest-runner: 29.6.2
-      jest-runtime: 29.6.2
-      jest-snapshot: 29.6.2
-      jest-util: 29.6.2
-      jest-validate: 29.6.2
-      jest-watcher: 29.6.2
-      micromatch: 4.0.5
-      pretty-format: 29.6.2
-      slash: 3.0.0
-      strip-ansi: 6.0.1
-    transitivePeerDependencies:
-      - babel-plugin-macros
-      - supports-color
-      - ts-node
-    dev: true
-
   /@jest/environment/29.6.2:
     resolution: {integrity: sha512-AEcW43C7huGd/vogTddNNTDRpO6vQ2zaQNrttvWV18ArBx9Z56h7BIsXkNFJVOO4/kblWEQz30ckw0+L3izc+Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -2699,6 +2693,13 @@ packages:
 
   /@types/ms/0.7.31:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
+    dev: true
+
+  /@types/node-fetch/2.6.4:
+    resolution: {integrity: sha512-1ZX9fcN4Rvkvgv4E6PAY5WXUFWFcRWxZa3EW83UjycOB9ljJCedb2CupIP4RZMEwF/M3eTcCihbBRgwtGbg5Rg==}
+    dependencies:
+      '@types/node': 20.5.0
+      form-data: 3.0.1
     dev: true
 
   /@types/node/20.5.0:
@@ -5115,6 +5116,15 @@ packages:
     resolution: {integrity: sha512-Pqq5NnT78ehvUnAk/We/Jr22vSvanRlFTpAmQ88xBY/M1TlHe+P0ILuEyXS595ysdGfaj22634LBkGMA2GTcpA==}
     dev: false
 
+  /form-data/3.0.1:
+    resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
+    engines: {node: '>= 6'}
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      mime-types: 2.1.35
+    dev: true
+
   /form-data/4.0.0:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
     engines: {node: '>= 6'}
@@ -6192,35 +6202,6 @@ packages:
       - ts-node
     dev: true
 
-  /jest-cli/29.6.2_zl5u333o6fx2hhmxs64gqt7zhi:
-    resolution: {integrity: sha512-TT6O247v6dCEX2UGHGyflMpxhnrL0DNqP2fRTKYm3nJJpCTfXX3GCMQPGFjXDoj0i5/Blp3jriKXFgdfmbYB6Q==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    hasBin: true
-    peerDependencies:
-      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
-    peerDependenciesMeta:
-      node-notifier:
-        optional: true
-    dependencies:
-      '@jest/core': 29.6.2_ts-node@10.9.0
-      '@jest/test-result': 29.6.2
-      '@jest/types': 29.6.1
-      chalk: 4.1.2
-      exit: 0.1.2
-      graceful-fs: 4.2.11
-      import-local: 3.1.0
-      jest-config: 29.6.2_zl5u333o6fx2hhmxs64gqt7zhi
-      jest-util: 29.6.2
-      jest-validate: 29.6.2
-      prompts: 2.4.2
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - '@types/node'
-      - babel-plugin-macros
-      - supports-color
-      - ts-node
-    dev: true
-
   /jest-config/29.6.2:
     resolution: {integrity: sha512-VxwFOC8gkiJbuodG9CPtMRjBUNZEHxwfQXmIudSTzFWxaci3Qub1ddTRbFNQlD/zUeaifLndh/eDccFX4wCMQw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -6295,47 +6276,6 @@ packages:
       pretty-format: 29.6.2
       slash: 3.0.0
       strip-json-comments: 3.1.1
-    transitivePeerDependencies:
-      - babel-plugin-macros
-      - supports-color
-    dev: true
-
-  /jest-config/29.6.2_zl5u333o6fx2hhmxs64gqt7zhi:
-    resolution: {integrity: sha512-VxwFOC8gkiJbuodG9CPtMRjBUNZEHxwfQXmIudSTzFWxaci3Qub1ddTRbFNQlD/zUeaifLndh/eDccFX4wCMQw==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    peerDependencies:
-      '@types/node': '*'
-      ts-node: '>=9.0.0'
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      ts-node:
-        optional: true
-    dependencies:
-      '@babel/core': 7.20.12
-      '@jest/test-sequencer': 29.6.2
-      '@jest/types': 29.6.1
-      '@types/node': 20.5.0
-      babel-jest: 29.6.2_@babel+core@7.20.12
-      chalk: 4.1.2
-      ci-info: 3.8.0
-      deepmerge: 4.3.1
-      glob: 7.2.3
-      graceful-fs: 4.2.11
-      jest-circus: 29.6.2
-      jest-environment-node: 29.6.2
-      jest-get-type: 29.4.3
-      jest-regex-util: 29.4.3
-      jest-resolve: 29.6.2
-      jest-runner: 29.6.2
-      jest-util: 29.6.2
-      jest-validate: 29.6.2
-      micromatch: 4.0.5
-      parse-json: 5.2.0
-      pretty-format: 29.6.2
-      slash: 3.0.0
-      strip-json-comments: 3.1.1
-      ts-node: 10.9.0_cexlby4oa6uys4e6r2ufkcpuca
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -6671,27 +6611,6 @@ packages:
       '@jest/types': 29.6.1
       import-local: 3.1.0
       jest-cli: 29.6.2_@types+node@20.5.0
-    transitivePeerDependencies:
-      - '@types/node'
-      - babel-plugin-macros
-      - supports-color
-      - ts-node
-    dev: true
-
-  /jest/29.5.0_zl5u333o6fx2hhmxs64gqt7zhi:
-    resolution: {integrity: sha512-juMg3he2uru1QoXX078zTa7pO85QyB9xajZc6bU+d9yEGwrKX6+vGmJQ3UdVZsvTEUARIdObzH68QItim6OSSQ==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    hasBin: true
-    peerDependencies:
-      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
-    peerDependenciesMeta:
-      node-notifier:
-        optional: true
-    dependencies:
-      '@jest/core': 29.6.2_ts-node@10.9.0
-      '@jest/types': 29.6.1
-      import-local: 3.1.0
-      jest-cli: 29.6.2_zl5u333o6fx2hhmxs64gqt7zhi
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -8873,7 +8792,7 @@ packages:
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.5.0_zl5u333o6fx2hhmxs64gqt7zhi
+      jest: 29.5.0
       jest-util: 29.6.2
       json5: 2.2.3
       lodash.memoize: 4.1.2
