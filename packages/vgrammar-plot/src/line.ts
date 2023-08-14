@@ -11,7 +11,8 @@ import type {
   GenerateEncoderSpec
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
-import { getPalette, GrammarMarkType } from '@visactor/vgrammar';
+// eslint-disable-next-line no-duplicate-imports
+import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 
 export class Line extends SemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels> {
@@ -71,7 +72,7 @@ export class Line extends SemanticMark<BasicEncoderSpecMap['line'], LineEncodeCh
     if (markEncoder.color || markEncoder.group) {
       res.stroke = markEncoder.color ?? markEncoder.group;
     } else {
-      res.stroke = this.spec.style?.stroke ?? getPalette()[0];
+      res.stroke = this.spec.style?.stroke ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
     }
 
     return res;

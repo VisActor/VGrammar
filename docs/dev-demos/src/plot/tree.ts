@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { type IView, type IPlot, getPalette, registerTreePathGlyph } from '@visactor/vgrammar';
+import { type IView, type IPlot, registerTreePathGlyph, ThemeManager } from '@visactor/vgrammar';
 import data from '../data/coffee.json';
 import { registerTreeTransforms } from '@visactor/vgrammar-hierarchy';
 
@@ -13,7 +13,7 @@ export const runner = (plot: IPlot) => {
   plot.tree()
     .data({ children: data, itemStyle: { color: '#000' } })
     .encode('color', 'name')
-    .scale('color', { range: getPalette() })
+    .scale('color', { range: ThemeManager.getDefaultTheme().palette?.default })
     .label('name', { textStyle: { fill: '#333' } });
 };
 

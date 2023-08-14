@@ -35,11 +35,11 @@ export const BuiltInSignalID = [
   SIGNAL_AUTOFIT
 ];
 
-export const builtInSignals = (spec: IViewOptions, config: IViewThemeConfig): SignalSpec<any>[] => {
+export const builtInSignals = (option: IViewOptions, config: IViewThemeConfig): SignalSpec<any>[] => {
   return [
-    { id: SIGNAL_WIDTH, value: spec[SIGNAL_WIDTH] ?? 0 },
-    { id: SIGNAL_HEIGHT, value: spec[SIGNAL_HEIGHT] ?? 0 },
-    { id: SIGNAL_PADDING, value: normalizePadding(spec[SIGNAL_PADDING] ?? config[SIGNAL_PADDING]) },
+    { id: SIGNAL_WIDTH, value: option[SIGNAL_WIDTH] ?? 0 },
+    { id: SIGNAL_HEIGHT, value: option[SIGNAL_HEIGHT] ?? 0 },
+    { id: SIGNAL_PADDING, value: normalizePadding(option[SIGNAL_PADDING] ?? config[SIGNAL_PADDING]) },
     {
       id: SIGNAL_VIEW_WIDTH,
       update: {
@@ -77,7 +77,7 @@ export const builtInSignals = (spec: IViewOptions, config: IViewThemeConfig): Si
     },
     {
       id: SIGNAL_AUTOFIT,
-      value: spec[SIGNAL_AUTOFIT] ?? config[SIGNAL_AUTOFIT]
+      value: option[SIGNAL_AUTOFIT] ?? config[SIGNAL_AUTOFIT]
     }
   ];
 };

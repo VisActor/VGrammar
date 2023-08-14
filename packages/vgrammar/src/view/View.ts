@@ -58,7 +58,6 @@ import {
   DEFAULT_HOVER_STATE,
   SIGNAL_VIEW_WIDTH,
   SIGNAL_VIEW_HEIGHT,
-  DEFAULT_PADDING,
   EVENT_SOURCE_VIEW,
   EVENT_SOURCE_WINDOW,
   SIGNAL_VIEW_BOX
@@ -178,7 +177,6 @@ export default class View extends EventEmitter implements IView {
     this._options = Object.assign(
       {
         mode: BROWSER,
-        padding: DEFAULT_PADDING,
         cursor: true
       },
       options
@@ -1121,7 +1119,6 @@ export default class View extends EventEmitter implements IView {
     const width = this.width();
     const height = this.height();
 
-    // this.renderer.background(this._background);
     if (this.renderer.shouldResize(width, height)) {
       this.renderer.resize(width, height);
       this.emit('resize', {}, { width, height });
@@ -1449,8 +1446,6 @@ export default class View extends EventEmitter implements IView {
     this.animate = new ViewAnimate(this);
     this._morph = new Morph();
 
-    this._theme = ThemeManager.getDefaultTheme();
-
     // 执行钩子
     if (this._options.hooks) {
       Object.keys(this._options.hooks).forEach(key => {
@@ -1472,8 +1467,11 @@ export default class View extends EventEmitter implements IView {
     // If true, the cursor is set globally for the entire document body.
     this.globalCursor(this._eventConfig.globalCursor);
 
+    this._theme = ThemeManager.getDefaultTheme();
+
     // initialize background color
-    this._background = this._options.background;
+    this._background = this._options.background ?? this._theme?.background;
+    this._options.padding = this._options.padding ?? this._theme?.padding;
 
     this.parseBuiltIn();
 

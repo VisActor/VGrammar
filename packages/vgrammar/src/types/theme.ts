@@ -3,6 +3,7 @@ import type {
   IArcGraphicAttribute,
   IAreaGraphicAttribute,
   ICircleGraphicAttribute,
+  IColor,
   IGroupGraphicAttribute,
   IImageGraphicAttribute,
   ILineGraphicAttribute,
@@ -106,9 +107,9 @@ export interface IComponentTheme {
 
 export interface ITheme {
   name?: string;
-  background?: string;
+  background?: IColor;
   padding?: IPadding | number;
-  palette?: Record<string, string[]>;
+  palette?: Record<string, IColor[]>;
   marks?: IMarkTheme;
   components?: IComponentTheme;
 }
