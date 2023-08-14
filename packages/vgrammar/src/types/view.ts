@@ -35,6 +35,7 @@ import type {
   ITooltip
 } from './component';
 import type { CoordinateSpec } from './coordinate';
+import type { ITheme } from './theme';
 
 export interface IViewThemeConfig {
   labelMonospace?: boolean;
@@ -224,6 +225,10 @@ export interface IView {
   runSync: (runningConfig?: IRunningConfig) => this;
   runBefore: (callback: (view: IView) => void) => this;
   runAfter: (callback: (view: IView) => void) => this;
+
+  // --- Theme API ---
+  getCurrentTheme: () => ITheme;
+  setCurrentTheme: (theme: ITheme | string, noRender?: boolean) => void;
 
   // --- Global Config API ---
   background: (value?: IColor) => IColor;
