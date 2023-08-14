@@ -7,16 +7,9 @@ import type {
   OrientType
 } from '@visactor/vrender-components';
 import type { ILogger } from '@visactor/vutils';
+// eslint-disable-next-line no-duplicate-imports
 import { Logger, array, isArray, isBoolean, isNil, isPlainObject } from '@visactor/vutils';
 import { isContinuous, type IBaseScale, isDiscrete } from '@visactor/vscale';
-import {
-  getPalette,
-  ComponentEnum,
-  invokeFunctionType,
-  getTheme,
-  SIGNAL_VIEW_BOX,
-  BuiltInEncodeNames
-} from '@visactor/vgrammar';
 import type {
   ISemanticMark,
   ISemanticMarkSpec,
@@ -57,11 +50,13 @@ import type {
   MarkSpec,
   MarkRelativeItemSpec
 } from '@visactor/vgrammar';
+// eslint-disable-next-line no-duplicate-imports
+import { getPalette, ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager } from '@visactor/vgrammar';
 import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import type { ITextAttribute } from '@visactor/vrender';
 
-const defaultTheme = getTheme('default');
+const defaultTheme = ThemeManager.getDefaultTheme();
 
 let semanticMarkId = -1;
 
@@ -792,7 +787,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                         layout: 'vertical',
                         x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        railWidth: defaultTheme.slider.railHeight,
+                        railWidth: defaultTheme.components.slider.railHeight,
                         railHeight: params.viewBox.height()
                       }
                     : markLayout.position === 'right'
@@ -800,7 +795,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                         layout: 'vertical',
                         x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        railWidth: defaultTheme.slider.railHeight,
+                        railWidth: defaultTheme.components.slider.railHeight,
                         railHeight: params.viewBox.height()
                       }
                     : markLayout.position === 'bottom'
@@ -808,14 +803,14 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                         layout: 'horizontal',
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? params.viewBox.height(),
-                        railHeight: defaultTheme.slider.railHeight,
+                        railHeight: defaultTheme.components.slider.railHeight,
                         railWidth: params.viewBox.width()
                       }
                     : {
                         layout: 'horizontal',
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        railHeight: defaultTheme.slider.railHeight,
+                        railHeight: defaultTheme.components.slider.railHeight,
                         railWidth: params.viewBox.width()
                       };
                 const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
@@ -888,27 +883,27 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                         orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        size: { height: params.viewBox.height(), width: defaultTheme.datazoom.size.height }
+                        size: { height: params.viewBox.height(), width: defaultTheme.components.datazoom.size.height }
                       }
                     : markLayout.position === 'right'
                     ? {
                         orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        size: { height: params.viewBox.height(), width: defaultTheme.datazoom.size.height }
+                        size: { height: params.viewBox.height(), width: defaultTheme.components.datazoom.size.height }
                       }
                     : markLayout.position === 'bottom'
                     ? {
                         orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? params.viewBox.height(),
-                        size: { width: params.viewBox.width(), height: defaultTheme.datazoom.size.height }
+                        size: { width: params.viewBox.width(), height: defaultTheme.components.datazoom.size.height }
                       }
                     : {
                         orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        size: { width: params.viewBox.width(), height: defaultTheme.datazoom.size.height }
+                        size: { width: params.viewBox.width(), height: defaultTheme.components.datazoom.size.height }
                       };
 
                 const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
@@ -1161,8 +1156,8 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                 return [
                   0,
                   isPlainObject(option)
-                    ? (option as DataZoomAttributes).size?.height ?? defaultTheme.datazoom.size.height
-                    : defaultTheme.datazoom.size.height
+                    ? (option as DataZoomAttributes).size?.height ?? defaultTheme.components.datazoom.size.height
+                    : defaultTheme.components.datazoom.size.height
                 ];
               }
             };
