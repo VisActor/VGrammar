@@ -790,11 +790,22 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   protected evaluateEncode(elements: IElement[], encoders: any, parameters: any) {
+    const markTheme = this.view.getCurrentTheme().marks?.[this.markType];
+    // set theme to group container if mark is not group
+    if (markTheme && this.markType !== 'group') {
+      this.graphicItem.setTheme({ common: Object.assign({}, markTheme) });
+    }
     if (encoders) {
       this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
       const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
 
       elements.forEach(element => {
+        // directly set theme to element if mark is group
+        if (markTheme && this.markType === 'group') {
+          element.items.forEach(item => {
+            item.nextAttrs = Object.assign(item.nextAttrs, markTheme);
+          });
+        }
         if (groupEncodeAttrs?.[element.groupKey]) {
           element.items.forEach(item => {
             item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
@@ -1037,8 +1048,9 @@ export class Mark extends GrammarBase implements IMark {
       const group = firstChild?.parent;
 
       if (group) {
+        const markTheme = this.view.getCurrentTheme().marks?.[this.markType];
         const attrs = firstChild.attribute;
-        const theme = {};
+        const theme = Object.assign({}, markTheme);
         const itemAttrs = {};
 
         Object.keys(attrs).forEach(key => {

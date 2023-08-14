@@ -4,13 +4,13 @@ import type { DataZoomAttributes } from '@visactor/vrender-components';
 import { DataZoom as DatazoomComponent } from '@visactor/vrender-components';
 import { isNil, isString, merge } from '@visactor/vutils';
 import { ComponentDataRank, ComponentEnum } from '../graph';
-import { defaultTheme } from '../theme/default';
 import type {
   BaseSignleEncodeSpec,
   ChannelEncodeType,
   IData,
   IElement,
   IGroupMark,
+  ITheme,
   IView,
   Nil,
   RecursivePartial,
@@ -30,9 +30,10 @@ registerComponent(
 
 export const generateDatazoomAttributes = (
   data: any[],
+  theme?: ITheme,
   addition?: RecursivePartial<DataZoomAttributes>
 ): DataZoomAttributes => {
-  const datazoomTheme = defaultTheme.datazoom;
+  const datazoomTheme = theme?.components?.datazoom;
   if (!data) {
     return merge({}, datazoomTheme, addition ?? {});
   }
@@ -135,7 +136,8 @@ export class Datazoom extends Component implements IDatazoom {
   }
 
   addGraphicItem(attrs: any, groupKey?: string) {
-    const initialAttributes = Object.assign({}, defaultTheme.datazoom, attrs);
+    const theme = this.view.getCurrentTheme();
+    const initialAttributes = Object.assign({}, theme?.components?.datazoom, attrs);
     const graphicItem = getComponent(this.componentType).creator(initialAttributes);
     const datazoom = graphicItem as unknown as DatazoomComponent;
     // FIXME: remove this logic when datazoom provides update event.
@@ -192,8 +194,9 @@ export class Datazoom extends Component implements IDatazoom {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
+            const theme = this.view.getCurrentTheme();
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
-            return generateDatazoomAttributes(dataGrammar?.getValue?.(), addition);
+            return generateDatazoomAttributes(dataGrammar?.getValue?.(), theme, addition);
           }
         };
       }

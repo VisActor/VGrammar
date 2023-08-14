@@ -9,6 +9,7 @@ import type {
   BaseSignleEncodeSpec,
   IElement,
   IGroupMark,
+  ITheme,
   IView,
   MarkFunctionType,
   MarkRelativeItemSpec,
@@ -18,7 +19,6 @@ import type {
 } from '../types';
 import { AxisEnum, ComponentEnum } from '../graph';
 import type { AxisSpec, AxisType, IAxis } from '../types/component';
-import { defaultTheme } from '../theme/default';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
@@ -35,10 +35,11 @@ registerComponent(
 
 export const generateLineAxisAttributes = (
   scale: IBaseScale,
+  theme?: ITheme,
   addition?: RecursivePartial<LineAxisAttributes>,
   tickCount?: number
 ): LineAxisAttributes => {
-  const axisTheme = defaultTheme.axis;
+  const axisTheme = theme?.components?.axis ?? {};
   if (!scale) {
     return merge({}, axisTheme, addition ?? {});
   }
@@ -56,10 +57,11 @@ export const generateLineAxisAttributes = (
 
 export const generateCircleAxisAttributes = (
   scale: IBaseScale,
+  theme?: ITheme,
   addition?: RecursivePartial<CircleAxisAttributes>,
   tickCount?: number
 ): CircleAxisAttributes => {
-  const axisTheme = defaultTheme.circleAxis;
+  const axisTheme = theme?.components?.circleAxis ?? {};
   if (!scale) {
     return merge({}, axisTheme, addition ?? {});
   }
@@ -135,6 +137,7 @@ export class Axis extends ScaleComponent implements IAxis {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
+            const theme = this.view.getCurrentTheme();
             let addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const inside = invokeFunctionType(this.spec.inside, parameters, datum, element);
             const coord = scaleGrammar?.getCoordinate?.();
@@ -187,9 +190,9 @@ export class Axis extends ScaleComponent implements IAxis {
             const tickCount = invokeFunctionType(this.spec.tickCount, parameters, datum, element);
             switch (this._getAxisComponentType()) {
               case AxisEnum.lineAxis:
-                return generateLineAxisAttributes(scale, addition, tickCount);
+                return generateLineAxisAttributes(scale, theme, addition, tickCount);
               case AxisEnum.circleAxis:
-                return generateCircleAxisAttributes(scale, addition, tickCount);
+                return generateCircleAxisAttributes(scale, theme, addition, tickCount);
             }
             return addition;
           }
