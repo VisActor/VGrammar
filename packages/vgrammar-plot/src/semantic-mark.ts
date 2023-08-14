@@ -51,7 +51,7 @@ import type {
   MarkRelativeItemSpec
 } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
-import { getPalette, ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager } from '@visactor/vgrammar';
+import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager } from '@visactor/vgrammar';
 import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -376,7 +376,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         data: this.getDataIdOfMain(),
         field: option as string
       },
-      range: getPalette()
+      range: ThemeManager.getDefaultTheme().palette?.default
     };
   }
   protected parseScaleOfEncodeGroup(option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>): ScaleSpec | Nil {
@@ -387,7 +387,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         data: this.getDataIdOfMain(),
         field: option as string
       },
-      range: getPalette()
+      range: ThemeManager.getDefaultTheme().palette?.default
     };
   }
 
@@ -690,7 +690,10 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                   // TODO: parse symbol scale in same case
                   return {
                     symbolType: entry.symbol ? getFieldAccessor(entry.symbol)(datum) ?? 'circle' : 'circle',
-                    fill: scale && colorAccessor ? scale.scale(colorAccessor(datum)) : getPalette()[0]
+                    fill:
+                      scale && colorAccessor
+                        ? scale.scale(colorAccessor(datum))
+                        : ThemeManager.getDefaultTheme().palette?.default?.[0]
                   };
                 }
               };

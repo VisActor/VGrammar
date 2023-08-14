@@ -12,7 +12,8 @@ import type {
   LabelSpec
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
-import { getPalette, GrammarMarkType, getTransform } from '@visactor/vgrammar';
+// eslint-disable-next-line no-duplicate-imports
+import { GrammarMarkType, getTransform, ThemeManager } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 
@@ -60,7 +61,7 @@ export class WordcloudSemanticMark extends SemanticMark<PlotWordcloudEncodeSpec,
           data: this.getDataIdOfFiltered(),
           field: option as string
         },
-        range: getPalette()
+        range: ThemeManager.getDefaultTheme().palette?.default
       };
     }
 
@@ -92,7 +93,7 @@ export class WordcloudSemanticMark extends SemanticMark<PlotWordcloudEncodeSpec,
         return scale.scale(colorAccessor(datum));
       };
     } else {
-      res.fill = this.spec.style?.fill ?? getPalette()[0];
+      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
     }
 
     return res;

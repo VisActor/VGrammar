@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { type IView, type IPlot, getPalette } from '@visactor/vgrammar';
+import { type IView, type IPlot, ThemeManager } from '@visactor/vgrammar';
 import data from '../data/wordcloud/fewData.json';
 import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-shape';
 
@@ -16,7 +16,7 @@ export const runner = (plot: IPlot) => {
     }])
     .encode('text', 'challenge_name')
     .encode('color', 'challenge_name')
-    .scale('color', { range: getPalette() });
+    .scale('color', { range: ThemeManager.getDefaultTheme().palette?.default });
 };
 
 export const callback = (view: IView) => {
