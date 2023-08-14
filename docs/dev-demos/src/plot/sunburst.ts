@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { type IView, type IPlot, getPalette } from '@visactor/vgrammar';
+import { type IView, type IPlot, ThemeManager } from '@visactor/vgrammar';
 import data from '../data/coffee.json';
 import { registerSunburstTransforms } from '@visactor/vgrammar-hierarchy';
 
@@ -24,7 +24,7 @@ export const runner = (plot: IPlot) => {
       ]
     }])
     .encode('color', 'itemStyle.color')
-    .scale('color', { range: getPalette() })
+    .scale('color', { range: ThemeManager.getDefaultTheme().palette?.default })
     .label('name', { textStyle: { fill: '#333' } });
 };
 

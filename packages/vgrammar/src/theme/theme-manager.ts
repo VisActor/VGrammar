@@ -1,4 +1,5 @@
 import type { ITheme } from '../types';
+import { darkTheme } from './dark';
 import { defaultTheme } from './default';
 
 export class ThemeManager {
@@ -25,3 +26,4 @@ export class ThemeManager {
 }
 
 ThemeManager.registerTheme('default', defaultTheme);
+ThemeManager.registerTheme('dark', darkTheme);

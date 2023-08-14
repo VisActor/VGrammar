@@ -5,7 +5,6 @@ export const NO_TRAP = { trap: false };
 
 export const DEFAULT_WIDTH = 500;
 export const DEFAULT_HEIGHT = 500;
-export const DEFAULT_PADDING = 5;
 
 export const CURSOR_DEFAULT = 'default';
 

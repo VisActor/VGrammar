@@ -10,7 +10,8 @@ import type {
   ScaleSpec,
   ValueOf
 } from '@visactor/vgrammar';
-import { getPalette, GrammarMarkType } from '@visactor/vgrammar';
+// eslint-disable-next-line no-duplicate-imports
+import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
 import { isArray } from '@visactor/vutils';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { PlotMakType } from './enums';
@@ -120,7 +121,7 @@ export class ImageSemanticMark extends SemanticMark<PlotImageEncoderSpec, ImageE
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = this.spec.style?.fill ?? getPalette()[0];
+      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
     }
 
     return res;
