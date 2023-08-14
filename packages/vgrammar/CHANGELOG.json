@@ -2,6 +2,30 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.6.1",
+      "tag": "@visactor/vgrammar_v0.6.1",
+      "date": "Mon, 14 Aug 2023 14:32:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix the exit animation parameters, fix #111"
+          },
+          {
+            "comment": "fix: fix the grow animation problem caused by x1y1 channel"
+          },
+          {
+            "comment": "fix: group encode may throw error when data is empty in line/area\n\n"
+          },
+          {
+            "comment": "fix: fix the error of undefined stage"
+          },
+          {
+            "comment": "fix(wordcloud): fix type of wordcloud and same bad cases"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.0",
       "tag": "@visactor/vgrammar_v0.6.0",
       "date": "Fri, 11 Aug 2023 12:36:20 GMT",
