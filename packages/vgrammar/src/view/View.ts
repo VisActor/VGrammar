@@ -1317,7 +1317,7 @@ export default class View extends EventEmitter implements IView {
   private initEvent() {
     // 基于 vRender 事件系统提供的委托机制
     const stage = this.renderer.stage();
-    stage.on('*', this.delegateEvent);
+    stage && stage.on('*', this.delegateEvent);
   }
 
   private delegateEvent = (event: any, type: string) => {
