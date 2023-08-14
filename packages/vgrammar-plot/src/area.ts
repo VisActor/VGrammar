@@ -12,7 +12,8 @@ import type {
   CrosshairSpec
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
-import { getPalette, GrammarMarkType } from '@visactor/vgrammar';
+// eslint-disable-next-line no-duplicate-imports
+import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
 import { isArray } from '@visactor/vutils';
 import { PlotMakType } from './enums';
 
@@ -107,7 +108,7 @@ export class Area extends SemanticMark<PlotAreaEncoderSpec, AreaEncodeChannels> 
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = this.spec.style?.fill ?? getPalette()[0];
+      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
     }
 
     return res;

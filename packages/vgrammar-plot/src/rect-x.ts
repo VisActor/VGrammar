@@ -14,7 +14,8 @@ import type {
 import { SemanticMark } from './semantic-mark';
 import { isArray } from '@visactor/vutils';
 import { PlotMakType } from './enums';
-import { getPalette, GrammarMarkType } from '@visactor/vgrammar';
+// eslint-disable-next-line no-duplicate-imports
+import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
 
 export class RectXSemanticMark extends SemanticMark<PlotRectXEncoderSpec, RectXEncodeChannels> {
   static readonly type = PlotMakType.rectX;
@@ -99,7 +100,7 @@ export class RectXSemanticMark extends SemanticMark<PlotRectXEncoderSpec, RectXE
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = this.spec.style?.fill ?? getPalette()[0];
+      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
     }
 
     return res;

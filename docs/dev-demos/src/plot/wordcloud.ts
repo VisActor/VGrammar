@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { type IView, type IPlot, getPalette } from '@visactor/vgrammar';
+import { type IView, type IPlot, ThemeManager } from '@visactor/vgrammar';
 import data from '../data/wordcloud/social-media.json';
 import { registerWordCloudTransforms } from '@visactor/vgrammar-wordcloud'
 
@@ -13,7 +13,7 @@ export const runner = (plot: IPlot) => {
     .data(data)
     .encode('text', 'challenge_name')
     .encode('color', 'challenge_name')
-    .scale('color', { range: getPalette() })
+    .scale('color', { range: ThemeManager.getDefaultTheme().palette?.default })
     .transform([{
       type: 'wordcloud',
       shape: 'circle',
