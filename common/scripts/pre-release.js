@@ -60,7 +60,7 @@ function run() {
     checkAndUpdateNextBump(true);
     
     // 1. apply version and update version of package.json
-    spawnSync('sh', ['-c', `rush publish --apply --prerelease-name ${preReleaseName} --partial-prerelease`], {
+    spawnSync('sh', ['-c', `rush publish --apply --prerelease-name ${preReleaseName}`], {
       stdio: 'inherit',
       shell: false,
     });
