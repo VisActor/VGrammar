@@ -1187,7 +1187,7 @@ export class Mark extends GrammarBase implements IMark {
   private releaseEvent() {
     if (this._delegateEvent) {
       const stage = this.view.renderer.stage();
-      stage.off('*', this._delegateEvent);
+      stage && stage.off('*', this._delegateEvent);
     }
   }
 
