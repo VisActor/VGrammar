@@ -28,6 +28,7 @@ import type {
   IGroupMark,
   IMark,
   IScale,
+  ITheme,
   IView,
   Nil,
   RecursivePartial,
@@ -45,7 +46,6 @@ import type {
   TooltipType
 } from '../types/component';
 import { Component } from '../view/component';
-import { defaultTheme } from '../theme/default';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType, parseFunctionType } from '../parse/util';
 import { isFieldEncode } from '../parse/mark';
@@ -66,9 +66,10 @@ export const generateTooltipAttributes = (
   title: TooltipRowAttrs,
   content: TooltipRowAttrs[],
   bounds: IBounds,
+  theme?: ITheme,
   addition?: RecursivePartial<TooltipAttributes>
 ): TooltipAttributes => {
-  const tooltipTheme = defaultTheme.tooltip;
+  const tooltipTheme = theme?.components?.tooltip;
 
   return merge(
     {},
@@ -300,7 +301,8 @@ export class Tooltip extends BaseTooltip implements ITooltip {
     );
     const bounds = new AABBBounds().set(boundsStart.x, boundsStart.y, boundsEnd.x, boundsEnd.y);
     const { title, content } = this._computeTitleContent(element.getDatum());
-    const attributes = generateTooltipAttributes(point, title, content, bounds, this._additionalEncodeResult);
+    const theme = this.view.getCurrentTheme();
+    const attributes = generateTooltipAttributes(point, title, content, bounds, theme, this._additionalEncodeResult);
     tooltip.setAttributes(attributes);
   }, 10);
 
@@ -506,7 +508,8 @@ export class DimensionTooltip extends BaseTooltip implements IDimensionTooltip {
     );
     const bounds = new AABBBounds().set(boundsStart.x, boundsStart.y, boundsEnd.x, boundsEnd.y);
     const { title, content } = this._computeTitleContent(tooltipDatum);
-    const attributes = generateTooltipAttributes(point, title, content, bounds, this._additionalEncodeResult);
+    const theme = this.view.getCurrentTheme();
+    const attributes = generateTooltipAttributes(point, title, content, bounds, theme, this._additionalEncodeResult);
     tooltip.setAttributes(attributes);
   }, 10);
 

@@ -23,10 +23,17 @@ import { isContinuous, isDiscrete } from '@visactor/vscale';
 import { ComponentEnum, CrosshairEnum } from '../graph';
 import type { CrosshairType, CrosshairSpec, CrosshairShape, ICrosshair } from '../types/component';
 import { getComponent, registerComponent } from '../view/register-component';
-import type { BaseSignleEncodeSpec, IElement, IGroupMark, IView, RecursivePartial, StateEncodeSpec } from '../types';
-import { defaultTheme } from '../theme/default';
+import type {
+  BaseSignleEncodeSpec,
+  IElement,
+  IGroupMark,
+  ITheme,
+  IView,
+  RecursivePartial,
+  StateEncodeSpec
+} from '../types';
 import { ScaleComponent } from './scale';
-import { getBandWidthOfScale, invokeEncoder } from '../graph/mark/encode';
+import { invokeEncoder } from '../graph/mark/encode';
 
 registerComponent(
   CrosshairEnum.lineCrosshair,
@@ -141,9 +148,10 @@ export const generateLineCrosshairAttributes = (
   type: CrosshairType,
   groupSize: { width: number; height: number },
   config: CrosshairSpec['componentConfig'],
+  theme?: ITheme,
   addition?: RecursivePartial<LineCrosshairAttrs> & CrosshairSpec['componentConfig']
 ): LineCrosshairAttrs => {
-  const crosshairTheme = defaultTheme.lineCrosshair;
+  const crosshairTheme = theme?.components?.lineCrosshair;
   const offset = scale.type === 'band' ? (scale as IBandLikeScale).bandwidth() / 2 : 0;
   const points = computeCrosshairStartEnd(
     point,
@@ -165,9 +173,10 @@ export const generateRectCrosshairAttributes = (
   type: CrosshairType,
   groupSize: { width: number; height: number },
   config: CrosshairSpec['componentConfig'],
+  theme?: ITheme,
   addition?: RecursivePartial<RectCrosshairAttrs>
 ): RectCrosshairAttrs => {
-  const crosshairTheme = defaultTheme.rectCrosshair;
+  const crosshairTheme = theme?.components?.rectCrosshair;
   const defaultSize = scale.type === 'band' || scale.type === 'point' ? (scale as IBandLikeScale).step() : undefined;
   const customRectStyle = addition?.rectStyle;
   const size =
@@ -206,9 +215,10 @@ export const generateRingCrosshairAttributes = (
   type: CrosshairType,
   groupSize: { width: number; height: number },
   config: CrosshairSpec['componentConfig'],
+  theme?: ITheme,
   addition?: RecursivePartial<SectorCrosshairAttrs>
 ): SectorCrosshairAttrs => {
-  const crosshairTheme = defaultTheme.circleCrosshair;
+  const crosshairTheme = theme?.components?.circleCrosshair;
   const { center, radius } = computeRadiusOfTangential(point, scale, type, groupSize, config, addition);
 
   const startAngle = crosshairTheme.startAngle;
@@ -229,9 +239,10 @@ export const generateSectorCrosshairAttributes = (
   type: CrosshairType,
   groupSize: { width: number; height: number },
   config: CrosshairSpec['componentConfig'],
+  theme?: ITheme,
   addition?: RecursivePartial<SectorCrosshairAttrs>
 ): SectorCrosshairAttrs => {
-  const crosshairTheme = defaultTheme.sectorCrosshair;
+  const crosshairTheme = theme?.components?.sectorCrosshair;
   const radius = addition?.radius ?? config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2;
   const center = (addition?.center ??
     config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 }) as IPointLike;
@@ -256,9 +267,10 @@ export const generateCircleCrosshairAttributes = (
   type: CrosshairType,
   groupSize: { width: number; height: number },
   config: CrosshairSpec['componentConfig'],
+  theme?: ITheme,
   addition?: RecursivePartial<CircleCrosshairAttrs>
 ): CircleCrosshairAttrs => {
-  const crosshairTheme = defaultTheme.circleCrosshair;
+  const crosshairTheme = theme?.components?.circleCrosshair;
   const { center, radius } = computeRadiusOfTangential(point, scale, type, groupSize, config, addition);
 
   const startAngle = crosshairTheme.startAngle;
@@ -273,9 +285,10 @@ export const generatePolygonCrosshairAttributes = (
   type: CrosshairType,
   groupSize: { width: number; height: number },
   config: CrosshairSpec['componentConfig'],
+  theme?: ITheme,
   addition?: RecursivePartial<PolygonCrosshairAttrs>
 ): PolygonCrosshairAttrs => {
-  const crosshairTheme = defaultTheme.circleCrosshair;
+  const crosshairTheme = theme?.components?.circleCrosshair;
   const { center, radius } = computeRadiusOfTangential(point, scale, type, groupSize, config, addition);
 
   const startAngle = crosshairTheme.startAngle;
@@ -386,27 +399,36 @@ export class Crosshair extends ScaleComponent implements ICrosshair {
     const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
     const scale = scaleGrammar.getScale();
     const config = this.spec.componentConfig;
+    const theme = this.view.getCurrentTheme();
     const addition = this._additionalEncodeResult ?? {};
 
     let attributes = {};
     switch (this._getCrosshairComponentType()) {
       case CrosshairEnum.lineCrosshair:
-        attributes = generateLineCrosshairAttributes(point, scale, crosshairType, groupSize, config, addition);
+        attributes = generateLineCrosshairAttributes(point, scale, crosshairType, groupSize, config, theme, addition);
         break;
       case CrosshairEnum.rectCrosshair:
-        attributes = generateRectCrosshairAttributes(point, scale, crosshairType, groupSize, config, addition);
+        attributes = generateRectCrosshairAttributes(point, scale, crosshairType, groupSize, config, theme, addition);
         break;
       case CrosshairEnum.sectorCrosshair:
-        attributes = generateSectorCrosshairAttributes(point, scale, crosshairType, groupSize, config, addition);
+        attributes = generateSectorCrosshairAttributes(point, scale, crosshairType, groupSize, config, theme, addition);
         break;
       case CrosshairEnum.circleCrosshair:
-        attributes = generateCircleCrosshairAttributes(point, scale, crosshairType, groupSize, config, addition);
+        attributes = generateCircleCrosshairAttributes(point, scale, crosshairType, groupSize, config, theme, addition);
         break;
       case CrosshairEnum.polygonCrosshair:
-        attributes = generatePolygonCrosshairAttributes(point, scale, crosshairType, groupSize, config, addition);
+        attributes = generatePolygonCrosshairAttributes(
+          point,
+          scale,
+          crosshairType,
+          groupSize,
+          config,
+          theme,
+          addition
+        );
         break;
       case CrosshairEnum.ringCrosshair:
-        attributes = generateRingCrosshairAttributes(point, scale, crosshairType, groupSize, config, addition);
+        attributes = generateRingCrosshairAttributes(point, scale, crosshairType, groupSize, config, theme, addition);
         break;
     }
     crosshair.showAll();

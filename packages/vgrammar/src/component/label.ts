@@ -9,6 +9,7 @@ import type {
   IElement,
   IGroupMark,
   IMark,
+  ITheme,
   IView,
   MarkFunctionType,
   Nil,
@@ -17,7 +18,6 @@ import type {
 import { ComponentEnum, GrammarMarkType } from '../graph';
 import type { ILabel, LabelSpec } from '../types/component';
 import { Component } from '../view/component';
-import { defaultTheme } from '../theme/default';
 import { invokeEncoder } from '../graph/mark/encode';
 import { BridgeElementKey } from '../graph/constants';
 import { invokeFunctionType } from '../parse/util';
@@ -29,26 +29,27 @@ export const generateLabelAttributes = (
   groupSize: { width: number; height: number },
   encoder: BaseSignleEncodeSpec,
   labelStyle: MarkFunctionType<Partial<BaseLabelAttrs>>,
-  parameters: any
+  parameters: any,
+  theme?: ITheme
 ): DataLabelAttrs => {
-  const labelTheme = defaultTheme.dataLabel;
+  const labelTheme = theme?.components?.dataLabel;
 
   const dataLabels = marks
     .map(mark => {
-      let theme: any = {};
+      let currentTheme: any = {};
       switch (mark.markType) {
         case GrammarMarkType.line:
-          theme = defaultTheme.lineLabel;
+          currentTheme = theme?.components?.lineLabel;
           break;
         case GrammarMarkType.rect:
-          theme = defaultTheme.rectLabel;
+          currentTheme = theme?.components?.rectLabel;
           break;
         case GrammarMarkType.symbol:
         case GrammarMarkType.circle:
-          theme = defaultTheme.symbolLabel;
+          currentTheme = theme?.components?.symbolLabel;
           break;
         case GrammarMarkType.arc:
-          theme = defaultTheme.arcLabel;
+          currentTheme = theme?.components?.arcLabel;
           break;
         default:
           return null;
@@ -59,13 +60,13 @@ export const generateLabelAttributes = (
         const graphicItem = element.getGraphicItem();
         if ((graphicItem as any).releaseStatus !== 'willRelease') {
           const attributes = invokeEncoder(encoder, element.getDatum(), element, parameters);
-          const datum = merge({}, theme.data[0], attributes);
+          const datum = merge({}, currentTheme?.data?.[0] ?? {}, attributes);
           data.push(datum);
         }
       });
       const addition = invokeFunctionType(labelStyle, parameters, mark);
       const graphicItemName = mark.graphicItem?.name;
-      return merge({}, theme, { data, baseMarkGroupName: graphicItemName }, addition ?? {});
+      return merge({}, currentTheme, { data, baseMarkGroupName: graphicItemName }, addition ?? {});
     })
     .filter(label => !isNil(label));
   return merge({}, labelTheme, { size: groupSize, dataLabels });
@@ -124,13 +125,15 @@ export class Label extends Component implements ILabel {
                 ? { width: groupGraphicItem.attribute.width, height: groupGraphicItem.attribute.height }
                 : { width: Infinity, height: Infinity };
             }
+            const theme = this.view.getCurrentTheme();
 
             return generateLabelAttributes(
               marks,
               size,
               encoder as BaseSignleEncodeSpec,
               this.spec.labelStyle,
-              parameters
+              parameters,
+              theme
             );
           }
         };
