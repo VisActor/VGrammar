@@ -159,6 +159,13 @@ export const callback = (chartInstance: any) => {
   disappearButton.innerText = 'disappear';
   document.getElementById('footer')?.appendChild(disappearButton);
 
+  const darkThemeButton = document.createElement('button');
+  darkThemeButton.innerText = 'dark theme';
+  document.getElementById('footer')?.appendChild(darkThemeButton);
+  const defaultThemeButton = document.createElement('button');
+  defaultThemeButton.innerText = 'default theme';
+  document.getElementById('footer')?.appendChild(defaultThemeButton);
+
   chartInstance.addEventListener('animationStart', (event: AnimationEvent) => {
     const state = event.animationState;
     console.log('animationStart: ', state);
@@ -182,6 +189,14 @@ export const callback = (chartInstance: any) => {
   });
   disappearButton.addEventListener('click', () => {
     chartInstance.getSignalById('animationState').value('disappear');
-    chartInstance.run();
+    chartInstance.runAsync();
+  });
+  darkThemeButton.addEventListener('click', () => {
+    chartInstance.setCurrentTheme('dark');
+    chartInstance.runAsync();
+  });
+  defaultThemeButton.addEventListener('click', () => {
+    chartInstance.setCurrentTheme('default');
+    chartInstance.runAsync();
   });
 };
