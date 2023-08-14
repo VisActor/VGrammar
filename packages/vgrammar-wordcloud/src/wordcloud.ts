@@ -3,7 +3,6 @@ import { isFunction, isNumber, isString, toNumber, Logger } from '@visactor/vuti
 import type { TagOutputItem, TagItemAttribute } from './interface';
 import { GridLayout } from './grid-layout';
 import { FastLayout } from './fast-layout';
-import { error } from '@visactor/vgrammar-util';
 
 const OUTPUT = {
   x: 'x',
