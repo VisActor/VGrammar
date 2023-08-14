@@ -14,7 +14,8 @@ import type {
   IElement
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
-import { getPalette, GrammarMarkType, SIGNAL_VIEW_BOX, getTransform, getGlyph } from '@visactor/vgrammar';
+// eslint-disable-next-line no-duplicate-imports
+import { GrammarMarkType, SIGNAL_VIEW_BOX, getTransform, getGlyph, ThemeManager } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -101,7 +102,7 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
           data: this.getDataIdOfFiltered(),
           field: option as string
         },
-        range: getPalette()
+        range: ThemeManager.getDefaultTheme().palette?.default
       };
     }
 
@@ -129,7 +130,7 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
         return scale.scale(colorAccessor(datum?.datum));
       };
     } else {
-      res.fill = this.spec.style?.nodeStyle?.fill ?? getPalette()[0];
+      res.fill = this.spec.style?.nodeStyle?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
     }
 
     return res;
@@ -183,7 +184,7 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
               y0: datum.y0,
               y1: datum.y1,
               thickness: datum.thickness,
-              fill: this.spec.style?.linkStyle?.fill ?? getPalette()[0]
+              fill: this.spec.style?.linkStyle?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0]
             };
           }
         })

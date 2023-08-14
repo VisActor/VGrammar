@@ -38,7 +38,6 @@ export { getGlyph, registerGlyph, unregisterGlyph, unregisterAllGlyphs } from '.
 export { registerGrammar, unregisterGrammar, unregisterAllGrammars } from './view/register-grammar';
 export * from './types';
 
-export { getPalette } from './palette';
 export { Factory } from './core/factory';
 
 export {
