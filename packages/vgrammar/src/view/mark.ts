@@ -791,9 +791,9 @@ export class Mark extends GrammarBase implements IMark {
 
   protected evaluateEncode(elements: IElement[], encoders: any, parameters: any) {
     if (encoders) {
+      this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
       const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
 
-      this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
       elements.forEach(element => {
         if (groupEncodeAttrs?.[element.groupKey]) {
           element.items.forEach(item => {
@@ -805,10 +805,12 @@ export class Mark extends GrammarBase implements IMark {
       });
       // optimize segments parsing
       if (
-        (groupEncodeAttrs && this.isCollectionMark() && elements[0].items[0].nextAttrs?.enableSegments) ??
-        elements[0].getGraphicAttribute('enableSegments', false)
+        groupEncodeAttrs &&
+        this.isCollectionMark() &&
+        elements.length &&
+        (elements[0]?.items?.[0]?.nextAttrs?.enableSegments ?? elements[0].getGraphicAttribute('enableSegments', false))
       ) {
-        this._segmentIgnoreAttributes = Object.keys(groupEncodeAttrs);
+        this._segmentIgnoreAttributes = Object.keys(groupEncodeAttrs[Object.keys(groupEncodeAttrs)[0]]);
       } else {
         this._segmentIgnoreAttributes = null;
       }
@@ -995,7 +997,10 @@ export class Mark extends GrammarBase implements IMark {
     }
 
     const positionEncoders = Object.keys(encoders).reduce((res, state) => {
-      if (encoders[state]) {
+      if (
+        encoders[state] &&
+        (state === BuiltInEncodeNames.enter || state === BuiltInEncodeNames.exit || state === BuiltInEncodeNames.update)
+      ) {
         res[state] = splitEncoderInLarge(this.markType, encoders[state], (this as any).glyphType).positionEncoder;
       }
       return res;
@@ -1004,13 +1009,17 @@ export class Mark extends GrammarBase implements IMark {
     const isCollection = this.isCollectionMark();
 
     this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
+    const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
+
     elements.forEach((element, index) => {
-      element.encodeItems(
-        element.items,
-        progressiveIndex > 0 || (!isCollection && index > 0) ? positionEncoders : encoders,
-        this._isReentered,
-        parameters
-      );
+      const onlyPos = progressiveIndex > 0 || (!isCollection && index > 0);
+      if (!onlyPos && groupEncodeAttrs?.[element.groupKey]) {
+        element.items.forEach(item => {
+          item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
+        });
+      }
+
+      element.encodeItems(element.items, onlyPos ? positionEncoders : encoders, this._isReentered, parameters);
     });
     this._isReentered = false;
 
