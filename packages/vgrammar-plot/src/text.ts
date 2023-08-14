@@ -9,7 +9,8 @@ import type {
   BasicEncoderSpecMap
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
-import { getPalette, GrammarMarkType } from '@visactor/vgrammar';
+// eslint-disable-next-line no-duplicate-imports
+import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 
 export class TextSemanticMark extends SemanticMark<BasicEncoderSpecMap['text'], TextEncodeChannels> {
@@ -48,7 +49,7 @@ export class TextSemanticMark extends SemanticMark<BasicEncoderSpecMap['text'], 
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = this.spec.style?.fill ?? getPalette()[0];
+      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
     }
 
     return res;

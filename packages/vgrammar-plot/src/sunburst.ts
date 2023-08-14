@@ -13,7 +13,7 @@ import type {
   LabelSpec
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
-import { getPalette, GrammarMarkType, SIGNAL_VIEW_BOX, getTransform } from '@visactor/vgrammar';
+import { GrammarMarkType, SIGNAL_VIEW_BOX, getTransform, ThemeManager } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { BaseLabelAttrs } from '@visactor/vrender-components';
@@ -84,7 +84,7 @@ export class SunburstSemanticMark extends SemanticMark<PlotSunburstEncodeSpec, S
           data: this.getDataIdOfFiltered(),
           field: option as string
         },
-        range: getPalette()
+        range: ThemeManager.getDefaultTheme().palette?.default
       };
     }
 
@@ -114,7 +114,7 @@ export class SunburstSemanticMark extends SemanticMark<PlotSunburstEncodeSpec, S
         return datum?.datum ? scale.scale(colorAccessor(datum.datum[datum.datum.length - 1])) : undefined;
       };
     } else {
-      res.fill = this.spec.style?.fill ?? getPalette()[0];
+      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
     }
 
     return res;
