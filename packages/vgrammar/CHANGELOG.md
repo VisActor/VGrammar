@@ -1,6 +1,14 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Fri, 11 Aug 2023 13:30:34 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Aug 2023 03:52:58 GMT and should not be manually modified.
+
+## 0.5.7
+Tue, 15 Aug 2023 03:52:58 GMT
+
+### Updates
+
+- fix: fix the exit animation parameters, fix #111
+- fix: fix the grow animation problem caused by x1y1 channel
 
 ## 0.5.6
 Fri, 11 Aug 2023 13:30:34 GMT

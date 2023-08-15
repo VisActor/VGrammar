@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.5.7",
+      "tag": "@visactor/vgrammar_v0.5.7",
+      "date": "Tue, 15 Aug 2023 03:52:58 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix the exit animation parameters, fix #111"
+          },
+          {
+            "comment": "fix: fix the grow animation problem caused by x1y1 channel"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.6",
       "tag": "@visactor/vgrammar_v0.5.6",
       "date": "Fri, 11 Aug 2023 13:30:34 GMT",
