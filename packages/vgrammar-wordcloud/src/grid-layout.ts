@@ -9,7 +9,7 @@ import type { IProgressiveTransformResult } from '@visactor/vgrammar';
 
 import type { IBaseLayoutOptions } from './interface';
 import { getMaxRadiusAndCenter } from './shapes';
-import { shuffleArray } from '@visactor/vutils';
+import { merge, shuffleArray } from '@visactor/vutils';
 import { BaseLayout } from './base';
 
 interface IGridLayoutOptions extends IBaseLayoutOptions {
@@ -56,7 +56,7 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
   private maxRadius: number;
 
   constructor(options: IGridLayoutOptions) {
-    super(Object.assign({}, GridLayout.defaultOptions, options));
+    super(merge({}, GridLayout.defaultOptions, options));
 
     this.gridSize = Math.max(Math.floor(this.options.gridSize), 4);
   }
