@@ -274,6 +274,7 @@ export interface IViewConstructor {
 
 export interface ViewSpec {
   /** 梳理详细配置 */
+  theme?: string;
   background?: IColor;
   width?: number;
   height?: number;
