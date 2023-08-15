@@ -4,6 +4,7 @@ import { createGlyphGraphicItem, createGraphicItem } from '../src/graph/util/gra
 import { createElement } from '../src/graph/util/element';
 import { transformsByType } from '../src/graph/attributes';
 import type { IGlyphElement, IGlyphMeta } from '../src';
+import { defaultTheme } from '../src/theme/default';
 
 const use = (...transformMaps: Record<string, any>[]) => {
   transformMaps.forEach(transformMap => {
@@ -45,7 +46,8 @@ export const getMockedView = () => {
       stage: () => ({
         on: () => ({})
       })
-    }
+    },
+    getCurrentTheme: () => defaultTheme
   };
 };
 
