@@ -1,4 +1,4 @@
-import { degreeToRadian, isFunction, isNil } from '@visactor/vutils';
+import { degreeToRadian, isFunction, isNil, merge } from '@visactor/vutils';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar';
 import type { IBaseLayoutOptions, TagItemFunction, TagOutputItem } from './interface';
 import { getShapeFunction } from './shapes';
@@ -48,7 +48,7 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
   progressiveResult?: TagOutputItem[];
 
   constructor(options: Partial<T>) {
-    this.options = Object.assign({}, BaseLayout.defaultOptions, options);
+    this.options = merge({}, BaseLayout.defaultOptions, options);
 
     if (!isFunction(this.options.shape)) {
       this.shape = getShapeFunction(this.options.shape as string);
