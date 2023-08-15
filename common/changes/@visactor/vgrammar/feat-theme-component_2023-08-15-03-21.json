@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: support theme config",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
