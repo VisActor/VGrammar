@@ -405,7 +405,22 @@ export default class View extends EventEmitter implements IView {
     this._spec = spec;
     normalizeMarkTree(spec);
 
-    this.parseGlobalSpec(spec);
+    if (spec.theme) {
+      this._theme = ThemeManager.getTheme(spec.theme) ?? ThemeManager.getDefaultTheme();
+    }
+
+    this._background = spec.background ?? this._options.background ?? this._theme?.background;
+    this.renderer.background(this._background);
+
+    if (spec.width) {
+      this.width(spec.width);
+    }
+
+    if (spec.height) {
+      this.height(spec.height);
+    }
+
+    this.padding(spec.padding ?? this._options.padding ?? this._theme.padding);
 
     if (!this.width() || !this.height()) {
       const size = this._getContainerSize();
@@ -480,7 +495,7 @@ export default class View extends EventEmitter implements IView {
 
   private parseBuiltIn() {
     // 创建内置的 Signal
-    builtInSignals(this._options, this._config).map(signalSpec => {
+    builtInSignals(this._options, this._config, this.getCurrentTheme()).map(signalSpec => {
       const signal = this.signal().parse(signalSpec);
       if (signalSpec.value) {
         signal.set(signalSpec.value);
@@ -500,25 +515,6 @@ export default class View extends EventEmitter implements IView {
     };
     this.parseMarkSpec(rootMark);
     this.rootMark = this.getMarkById('root') as IGroupMark;
-  }
-
-  private parseGlobalSpec(spec: ViewSpec) {
-    if (spec.background) {
-      this._background = spec.background;
-      this.renderer.background(this._background);
-    }
-
-    if (spec.width) {
-      this.width(spec.width);
-    }
-
-    if (spec.height) {
-      this.height(spec.height);
-    }
-
-    if (spec.padding) {
-      this.padding(spec.padding);
-    }
   }
 
   private parseMarkSpec(spec: MarkSpec) {
@@ -1478,10 +1474,6 @@ export default class View extends EventEmitter implements IView {
     this.globalCursor(this._eventConfig.globalCursor);
 
     this._theme = ThemeManager.getDefaultTheme();
-
-    // initialize background color
-    this._background = this._options.background ?? this._theme?.background;
-    this._options.padding = this._options.padding ?? this._theme?.padding;
 
     this.parseBuiltIn();
 
