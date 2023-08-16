@@ -361,6 +361,10 @@ export const examplesMenu = [
         name: 'progressive-line'
       }
     ]
+<<<<<<< HEAD
+=======
+
+>>>>>>> cd6636b (docs: update demos of plot.line)
   },
   {
     menu: 'plot',
@@ -368,6 +372,7 @@ export const examplesMenu = [
     children: [
       {
         name: 'plot-line'
+<<<<<<< HEAD
       },
       {
         name: 'connected-scatter-line'
@@ -385,6 +390,13 @@ export const examplesMenu = [
         name: 'plot-diverging-color-point'
       }
     ]
+=======
+      },{
+        name: 'connected-scatter-line'
+      },
+    ]
+
+>>>>>>> cd6636b (docs: update demos of plot.line)
   }
   // {
   //   menu: '布局',
