@@ -19,7 +19,7 @@ export const DefaultReuse = true;
 export const DefaultMorph = true;
 export const DefaultMorphAll = false;
 export const DefaultSplitPath: null | 'clone' = null;
-export const DefaultEnableExitAnimation = false;
+export const DefaultEnableExitAnimation = true;
 
 export const ImmediateAnimationState = 'VGRAMMAR_IMMEDIATE_ANIMATION';
 
