@@ -940,7 +940,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     channel: string,
     option: SemanticLabelOption | boolean
   ): ChannelEncodeType<ITextAttribute['text']> {
-    return null;
+    return { field: channel };
   }
 
   protected parseLabelSpec(): LabelSpec[] {
