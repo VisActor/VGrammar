@@ -910,12 +910,14 @@ export default class View extends EventEmitter implements IView {
     diffedMark.update.forEach(diff => {
       const matched =
         diff.prev.length === 1 && diff.next.length === 1 && diff.prev[0].markType === diff.next[0].markType;
+      const enableMarkMorphConfig =
+        diff.prev.every(mark => mark.getMorphConfig().morph) && diff.next.every(mark => mark.getMorphConfig().morph);
       if (matched && runningConfig.reuse) {
         diff.next[0].reuse(diff.prev[0]);
         diff.prev[0].detachAll();
         diff.prev[0].clear();
         this._cachedGrammars.unrecord(diff.prev[0]);
-      } else if (runningConfig.morph) {
+      } else if ((runningConfig.morph && enableMarkMorphConfig) || runningConfig.morphAll) {
         this._willMorphMarks.push({ prev: diff.prev, next: diff.next });
       }
     });
