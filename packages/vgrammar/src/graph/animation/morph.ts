@@ -1,8 +1,8 @@
 import { morphPath, multiToOneMorph, oneToMultiMorph } from '@visactor/vrender';
 import { isNil, isNumber, isValidNumber } from '@visactor/vutils';
-import type { IElement, IGrammarBase, IMark, MarkSpec } from '../../types';
+import type { IElement, IGrammarBase, IMark, IRunningConfig, MarkSpec } from '../../types';
 import type { DiffResult } from '../../types/base';
-import type { IMorph, IMorphConfig, MorphData, MorphElements } from '../../types/morph';
+import type { IMorph, MorphData, MorphElements } from '../../types/morph';
 import { invokeFunctionType, parseField } from '../../parse/util';
 import { diffMultiple, diffSingle, groupData } from '../mark/differ';
 import { GrammarMarkType } from '../enums';
@@ -15,7 +15,7 @@ export class Morph implements IMorph {
     return diffSingle(prevGrammars, nextGrammars, key);
   }
 
-  diffMark(prevMarks: IMark[], nextMarks: IMark[], morphConfig: IMorphConfig): DiffResult<IMark[], IMark[]> {
+  diffMark(prevMarks: IMark[], nextMarks: IMark[], runningConfig: IRunningConfig): DiffResult<IMark[], IMark[]> {
     const diffResult: DiffResult<IMark[], IMark[]> = {
       enter: [],
       exit: [],
@@ -28,8 +28,8 @@ export class Morph implements IMorph {
     // filter out marks & specs which will not morph
     prevMarks.forEach(mark => {
       if (
-        morphConfig.morph &&
-        (morphConfig.morphAll || mark.getMorphConfig().morph) &&
+        runningConfig.morph &&
+        (runningConfig.morphAll || mark.getMorphConfig().morph) &&
         mark.markType !== GrammarMarkType.group
       ) {
         prevMorphMarks.push(mark);
@@ -39,8 +39,8 @@ export class Morph implements IMorph {
     });
     nextMarks.forEach(mark => {
       if (
-        morphConfig.morph &&
-        (morphConfig.morphAll || mark.getMorphConfig().morph) &&
+        runningConfig.morph &&
+        (runningConfig.morphAll || mark.getMorphConfig().morph) &&
         mark.markType !== GrammarMarkType.group
       ) {
         nextMorphMarks.push(mark);
@@ -119,7 +119,7 @@ export class Morph implements IMorph {
     }
   }
 
-  morph(prevMarks: IMark[], nextMarks: IMark[], morphConfig: IMorphConfig) {
+  morph(prevMarks: IMark[], nextMarks: IMark[], runningConfig: IRunningConfig) {
     const prevElements = prevMarks.reduce((elements, mark) => {
       this._appendMorphKeyToElements(mark);
 
@@ -155,7 +155,7 @@ export class Morph implements IMorph {
     // no animation for exit result
     diffResult.enter.forEach(diff => {
       diff.next.forEach(element => {
-        this.doMorph([], [element], morphConfig, onMorphEnd, parameters);
+        this.doMorph([], [element], runningConfig, onMorphEnd, parameters);
       });
       morphCount += 1;
     });
@@ -164,7 +164,7 @@ export class Morph implements IMorph {
       const prevDivide = this.divideElements(diff.prev, divideCount);
       const nextDivide = this.divideElements(diff.next, divideCount);
       for (let i = 0; i < divideCount; i++) {
-        this.doMorph(prevDivide[i], nextDivide[i], morphConfig, onMorphEnd, parameters);
+        this.doMorph(prevDivide[i], nextDivide[i], runningConfig, onMorphEnd, parameters);
         morphCount += 1;
       }
     });
@@ -200,7 +200,13 @@ export class Morph implements IMorph {
     };
   }
 
-  private doMorph(prev: IElement[], next: IElement[], morphConfig: IMorphConfig, onEnd: () => void, parameters: any) {
+  private doMorph(
+    prev: IElement[],
+    next: IElement[],
+    runningConfig: IRunningConfig,
+    onEnd: () => void,
+    parameters: any
+  ) {
     const morphData: MorphData = {
       prev: prev.map(element => element.getDatum()),
       next: next.map(element => element.getDatum())
@@ -209,11 +215,11 @@ export class Morph implements IMorph {
       prev: prev.slice(),
       next: next.slice()
     };
-    const easing = morphConfig.animation.easing;
-    const delay = invokeFunctionType(morphConfig.animation.delay, parameters, morphData, morphElements);
-    const duration = invokeFunctionType(morphConfig.animation.duration, parameters, morphData, morphElements);
-    const oneByOne = invokeFunctionType(morphConfig.animation.oneByOne, parameters, morphData, morphElements);
-    const splitPath = invokeFunctionType(morphConfig.animation.splitPath, parameters, morphData, morphElements);
+    const easing = runningConfig.animation.easing;
+    const delay = invokeFunctionType(runningConfig.animation.delay, parameters, morphData, morphElements);
+    const duration = invokeFunctionType(runningConfig.animation.duration, parameters, morphData, morphElements);
+    const oneByOne = invokeFunctionType(runningConfig.animation.oneByOne, parameters, morphData, morphElements);
+    const splitPath = invokeFunctionType(runningConfig.animation.splitPath, parameters, morphData, morphElements);
     const individualDelay =
       isValidNumber(oneByOne) && oneByOne > 0
         ? (index: number) => {

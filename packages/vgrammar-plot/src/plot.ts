@@ -2,7 +2,7 @@ import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type {
   BaseEventHandler,
   IElement,
-  IMorphConfig,
+  IRunningConfig,
   IView,
   MultiScaleData,
   ScaleData,
@@ -160,27 +160,27 @@ export class Plot implements IPlot {
 
     return spec;
   }
-  run(morphConfig?: IMorphConfig) {
+  run(runningConfig?: IRunningConfig) {
     if (this._view) {
       if (!this._hasInited) {
         this._view.parseSpec(this.parseViewSpec());
       }
       this._hasInited = true;
 
-      this._view.runSync(morphConfig);
+      this._view.runSync(runningConfig);
     }
 
     return this;
   }
 
-  async runAsync(morphConfig?: IMorphConfig) {
+  async runAsync(runningConfig?: IRunningConfig) {
     if (this._view) {
       if (!this._hasInited) {
         this._view.parseSpec(this.parseViewSpec());
       }
       this._hasInited = true;
 
-      await this._view.runAsync(morphConfig);
+      await this._view.runAsync(runningConfig);
     }
 
     return this;

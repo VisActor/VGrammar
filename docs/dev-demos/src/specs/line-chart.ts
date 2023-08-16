@@ -180,6 +180,6 @@ export const callback = (chartInstance: any) => {
 
   updateButton.addEventListener('click', () => {
     chartInstance.updateSpec(spec);
-    chartInstance.runAsync();
+    chartInstance.runAsync({ enableExitAnimation: false });
   });
 };
