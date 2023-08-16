@@ -5,13 +5,13 @@ import {
   DefaultAnimationDuration,
   DefaultAnimationEasing,
   DefaultAnimationOneByOne,
+  DefaultEnableExitAnimation,
   DefaultMorph,
   DefaultMorphAll,
   DefaultReuse,
   DefaultSplitPath
 } from '../graph/constants';
-import type { GroupMarkSpec, MarkSpec, SignalSpec } from '../types';
-import type { IMorphConfig } from '../types/morph';
+import type { GroupMarkSpec, IRunningConfig, MarkSpec, SignalSpec } from '../types';
 import type { IViewOptions, IViewThemeConfig, ViewSpec } from '../types/view';
 import {
   SIGNAL_AUTOFIT,
@@ -102,17 +102,18 @@ export const normalizeMarkTree = (spec: ViewSpec) => {
   return spec;
 };
 
-export const normalizeMorphConfig = (morph: IMorphConfig): IMorphConfig => {
+export const normalizeRunningConfig = (runningConfig: IRunningConfig): IRunningConfig => {
   return {
-    reuse: morph?.reuse ?? DefaultReuse,
-    morph: morph?.morph ?? DefaultMorph,
-    morphAll: morph?.morphAll ?? DefaultMorphAll,
+    reuse: runningConfig?.reuse ?? DefaultReuse,
+    morph: runningConfig?.morph ?? DefaultMorph,
+    morphAll: runningConfig?.morphAll ?? DefaultMorphAll,
     animation: {
-      easing: morph?.animation?.easing ?? DefaultAnimationEasing,
-      delay: morph?.animation?.delay ?? DefaultAnimationDelay,
-      duration: morph?.animation?.duration ?? DefaultAnimationDuration,
-      oneByOne: morph?.animation?.oneByOne ?? DefaultAnimationOneByOne,
-      splitPath: morph?.animation?.splitPath ?? DefaultSplitPath
-    }
+      easing: runningConfig?.animation?.easing ?? DefaultAnimationEasing,
+      delay: runningConfig?.animation?.delay ?? DefaultAnimationDelay,
+      duration: runningConfig?.animation?.duration ?? DefaultAnimationDuration,
+      oneByOne: runningConfig?.animation?.oneByOne ?? DefaultAnimationOneByOne,
+      splitPath: runningConfig?.animation?.splitPath ?? DefaultSplitPath
+    },
+    enableExitAnimation: runningConfig?.enableExitAnimation ?? DefaultEnableExitAnimation
   };
 };

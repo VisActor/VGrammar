@@ -35,7 +35,8 @@ import type {
   IComponent,
   ComponentSpec,
   IRecordedTreeGrammars,
-  IMarkTreeNode
+  IMarkTreeNode,
+  IRunningConfig
 } from '../types/';
 import { unregisterRuntimeTransforms } from '../transforms/register';
 import { Data } from './data';
@@ -67,7 +68,7 @@ import {
   BuiltInSignalID,
   builtInSignals,
   normalizeMarkTree,
-  normalizeMorphConfig,
+  normalizeRunningConfig,
   normalizePadding
 } from '../parse/view';
 import { parseHandler, parseEventSelector, generateFilterByMark } from '../parse/event';
@@ -79,7 +80,7 @@ import { Mark } from './mark';
 import { defaultDoLayout } from '../graph/layout/layout';
 import { GlyphMark } from './glyph';
 import { Coordinate } from './coordinate';
-import type { IMorph, IMorphConfig } from '../types/morph';
+import type { IMorph } from '../types/morph';
 import { Morph } from '../graph/animation/morph';
 import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
 import { ViewAnimate } from './animate';
@@ -686,14 +687,14 @@ export default class View extends EventEmitter implements IView {
     return this;
   }
 
-  run(morphConfig?: IMorphConfig) {
-    this.evaluate(morphConfig);
+  run(runningConfig?: IRunningConfig) {
+    this.evaluate(runningConfig);
 
     return this;
   }
 
-  runSync(morphConfig?: IMorphConfig) {
-    this.evaluateSync(morphConfig);
+  runSync(runningConfig?: IRunningConfig) {
+    this.evaluateSync(runningConfig);
 
     return this;
   }
@@ -702,7 +703,7 @@ export default class View extends EventEmitter implements IView {
     return this._running;
   }
 
-  async runAsync(morphConfig?: IMorphConfig) {
+  async runAsync(runningConfig?: IRunningConfig) {
     // await previously queued functions
     while (this._running) {
       await this._running;
@@ -713,16 +714,16 @@ export default class View extends EventEmitter implements IView {
       this._running = null;
     };
 
-    (this._running = this.evaluate(morphConfig)).then(clear, clear);
+    (this._running = this.evaluate(runningConfig)).then(clear, clear);
 
     return this._running;
   }
 
-  async runNextTick(morphConfig?: IMorphConfig) {
+  async runNextTick(runningConfig?: IRunningConfig) {
     // delay the evaluate progress to next tick
     if (!this._currentDataflow) {
       this._currentDataflow = Promise.resolve().then(() => {
-        return this.runAsync(morphConfig)
+        return this.runAsync(runningConfig)
           .then(() => {
             this._currentDataflow = null;
           })
@@ -751,10 +752,10 @@ export default class View extends EventEmitter implements IView {
     this.emit(HOOK_EVENT.AFTER_DO_RENDER);
   }
 
-  private async evaluate(morphConfig?: IMorphConfig) {
-    const normalizedMorphConfig = normalizeMorphConfig(morphConfig);
+  private async evaluate(runningConfig?: IRunningConfig) {
+    const normalizedRunningConfig = normalizeRunningConfig(runningConfig);
 
-    this.reuseCachedGrammars(normalizedMorphConfig);
+    this.reuseCachedGrammars(normalizedRunningConfig);
     const grammarWillDetach = this._cachedGrammars.size() > 0;
     this.detachCachedGrammar();
     // For most of time, width & height signal won't be modified duration dataflow,
@@ -800,23 +801,24 @@ export default class View extends EventEmitter implements IView {
     this.doRender(false);
 
     this._willMorphMarks?.forEach(morphMarks => {
-      this._morph.morph(morphMarks.prev, morphMarks.next, normalizedMorphConfig);
+      this._morph.morph(morphMarks.prev, morphMarks.next, normalizedRunningConfig);
     });
     this._willMorphMarks = null;
 
-    this.releaseCachedGrammars();
+    this.releaseCachedGrammars(normalizedRunningConfig);
 
     this.doPreProgressive();
 
     return this;
   }
 
-  private evaluateSync(morphConfig?: IMorphConfig) {
-    const normalizedMorphConfig = normalizeMorphConfig(morphConfig);
+  private evaluateSync(runningConfig?: IRunningConfig) {
+    const normalizedRunningConfig = normalizeRunningConfig(runningConfig);
 
-    this.reuseCachedGrammars(normalizedMorphConfig);
+    this.reuseCachedGrammars(normalizedRunningConfig);
     const grammarWillDetach = this._cachedGrammars.size() > 0;
-    this.releaseCachedGrammars();
+    this.detachCachedGrammar();
+
     const hasResize = this._resizeRenderer();
     const hasUpdate = this._dataflow.hasCommitted();
 
@@ -855,23 +857,23 @@ export default class View extends EventEmitter implements IView {
     this.doRender(true);
 
     this._willMorphMarks?.forEach(morphMarks => {
-      this._morph.morph(morphMarks.prev, morphMarks.next, normalizedMorphConfig);
+      this._morph.morph(morphMarks.prev, morphMarks.next, normalizedRunningConfig);
     });
     this._willMorphMarks = null;
 
-    this.releaseCachedGrammars();
+    this.releaseCachedGrammars(normalizedRunningConfig);
 
     this.doPreProgressive();
 
     return this;
   }
 
-  private reuseCachedGrammars(morphConfig: IMorphConfig) {
+  private reuseCachedGrammars(runningConfig: IRunningConfig) {
     if (!this._willMorphMarks) {
       this._willMorphMarks = [];
     }
 
-    if (morphConfig.reuse) {
+    if (runningConfig.reuse) {
       const reuseDiffUpdate = (diff: { prev: IGrammarBase; next: IGrammarBase }) => {
         diff.next.reuse(diff.prev);
         diff.prev.detachAll();
@@ -903,17 +905,17 @@ export default class View extends EventEmitter implements IView {
     const diffedMark = this._morph.diffMark(
       this._cachedGrammars.getAllMarks(),
       this.grammars.getAllMarks().filter(mark => mark.id() !== 'root'),
-      morphConfig
+      runningConfig
     );
     diffedMark.update.forEach(diff => {
       const matched =
         diff.prev.length === 1 && diff.next.length === 1 && diff.prev[0].markType === diff.next[0].markType;
-      if (matched && morphConfig.reuse) {
+      if (matched && runningConfig.reuse) {
         diff.next[0].reuse(diff.prev[0]);
         diff.prev[0].detachAll();
         diff.prev[0].clear();
         this._cachedGrammars.unrecord(diff.prev[0]);
-      } else if (morphConfig.morph) {
+      } else if (runningConfig.morph) {
         this._willMorphMarks.push({ prev: diff.prev, next: diff.next });
       }
     });
@@ -929,7 +931,7 @@ export default class View extends EventEmitter implements IView {
     });
   }
 
-  private releaseCachedGrammars() {
+  private releaseCachedGrammars(runningConfig?: IRunningConfig) {
     // directly release all grammars except from marks
     this._cachedGrammars.traverse(grammar => {
       if (grammar.grammarType !== 'mark') {
@@ -937,6 +939,12 @@ export default class View extends EventEmitter implements IView {
       }
     });
     const markNodes = this._cachedGrammars.getAllMarkNodes();
+    markNodes.forEach(node => {
+      node.mark.animate.stop();
+      if (runningConfig.enableExitAnimation) {
+        node.mark.animate.animate();
+      }
+    });
     const releaseUp = (node: IMarkTreeNode) => {
       // do nothing when mark is already released or is still animating
       if (!node.mark.view || node.mark.animate.getAnimatorCount() !== 0) {
@@ -954,9 +962,6 @@ export default class View extends EventEmitter implements IView {
         }
       }
     };
-    markNodes.forEach(node => {
-      node.mark.animate.animate();
-    });
     markNodes.forEach(node => {
       const mark = node.mark;
       if (mark.animate.getAnimatorCount() === 0) {
