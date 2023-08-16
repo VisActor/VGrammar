@@ -1,4 +1,4 @@
-import { isFunction, toNumber } from '@visactor/vutils';
+import { Logger, isFunction, toNumber } from '@visactor/vutils';
 import { error } from '@visactor/vgrammar-util';
 import type {
   TagItemAttribute,
@@ -105,10 +105,11 @@ export const transform = async (
   view?: IView
 ) => {
   /** options 配置错误提示 */
-  if (options.size && !(options.size[0] && options.size[1])) {
-    // error('Wordcloud size dimensions must be non-zero.');
+  if (!options.size || options.size[0] <= 0 || options.size[1] <= 0) {
+    const logger = Logger.getInstance();
+    logger.info('Wordcloud size dimensions must be greater than 0');
     // size非法不报错，不进行布局，ChartSpace层会有用户初始化size为0的情况
-    return upstreamData;
+    return [];
   }
   if (!options.shape) {
     error('WordcloudShape shape must be specified.');
@@ -161,6 +162,10 @@ export const transform = async (
   }
 
   const shapeImage = await loadAndHandleImage(segmentationInput);
+
+  if (!shapeImage) {
+    return [];
+  }
 
   // 对用户输入的图形进行预处理
   const segmentationOutput: SegmentationOutputType = segmentation(shapeImage, segmentationInput);

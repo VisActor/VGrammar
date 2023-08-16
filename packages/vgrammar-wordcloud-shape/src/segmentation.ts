@@ -4,7 +4,7 @@ import { loadImage } from './util';
 export async function loadAndHandleImage(segmentationInput: SegmentationInputType): Promise<CanvasImageSource> {
   const shapeImage = (await loadImage(segmentationInput.shapeUrl)) as CanvasImageSource;
 
-  if (segmentationInput.removeWhiteBorder) {
+  if (segmentationInput.removeWhiteBorder && shapeImage) {
     return removeBorder(shapeImage, segmentationInput.tempCanvas, segmentationInput.tempCtx);
   }
 
