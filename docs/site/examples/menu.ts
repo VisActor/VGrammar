@@ -353,6 +353,18 @@ export const examplesMenu = [
       }
     ]
 
+  },
+  {
+    menu: 'plot',
+    path: 'plot',
+    children: [
+      {
+        name: 'plot-line'
+      },{
+        name: 'connected-scatter-line'
+      },
+    ]
+
   }
   // {
   //   menu: '布局',

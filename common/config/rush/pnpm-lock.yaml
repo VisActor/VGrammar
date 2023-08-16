@@ -50,6 +50,7 @@ importers:
       '@visactor/vgrammar': workspace:0.6.5
       '@visactor/vgrammar-hierarchy': workspace:0.6.5
       '@visactor/vgrammar-projection': workspace:0.6.5
+      '@visactor/vgrammar-plot': workspace:0.6.5
       '@visactor/vgrammar-sankey': workspace:0.6.5
       '@visactor/vgrammar-wordcloud': workspace:0.6.5
       '@visactor/vgrammar-wordcloud-shape': workspace:0.6.5
@@ -68,6 +69,7 @@ importers:
       '@internal/ts-config': link:../../share/ts-config
       '@visactor/vgrammar': link:../../packages/vgrammar
       '@visactor/vgrammar-hierarchy': link:../../packages/vgrammar-hierarchy
+      '@visactor/vgrammar-plot': link:../../packages/vgrammar-plot
       '@visactor/vgrammar-projection': link:../../packages/vgrammar-projection
       '@visactor/vgrammar-sankey': link:../../packages/vgrammar-sankey
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
