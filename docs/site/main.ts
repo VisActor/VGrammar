@@ -5,12 +5,14 @@ import * as VGrammarSankey from '@visactor/vgrammar-sankey';
 import * as VGrammarWordcloud from '@visactor/vgrammar-wordcloud';
 import * as VGrammarWordcloudShape from '@visactor/vgrammar-wordcloud-shape';
 import * as VisUtil from '@visactor/vutils';
+import { Plot } from '@visactor/vgrammar-plot'
 import { menus } from './menu';
 import { default as MarkdownIt } from 'markdown-it';
 import { colorSchemeForLight, colorSchemeForDark } from './utils';
 
 (window as any).VRender = VRender;
 (window as any).View = VGrammar.View;
+(window as any).Plot = Plot;
 (window as any).VGrammar = VGrammar;
 (window as any).VGrammarHierarchy = VGrammarHierarchy;
 (window as any).VGrammarSankey = VGrammarSankey;
