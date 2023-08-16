@@ -3,6 +3,7 @@ import type { DiffResult, Nil } from './base';
 import type { IElement } from './element';
 import type { IGrammarBase, IMark } from './grammar';
 import type { GenericFunctionType } from './signal';
+import type { IRunningConfig } from './view';
 
 export type MorphData = { prev: any[]; next: any[] };
 export type MorphElements = { prev: IElement[]; next: IElement[] };
@@ -12,17 +13,6 @@ export type MorphFunctionCallback<T> = (datum: MorphData, element: MorphElements
 export type MorphFunctionType<T> = GenericFunctionType<MorphFunctionCallback<T>, T>;
 
 export type MorphFunctionValueType<T> = MorphFunctionType<T> | T;
-
-export interface IMorphConfig {
-  /** whether enable reusing of grammar */
-  reuse?: boolean;
-  /** whether enable morph */
-  morph?: boolean;
-  /** force all marks to participate in morphing */
-  morphAll?: boolean;
-  /** morphing animation config */
-  animation?: IMorphAnimationConfig;
-}
 
 export interface IMorphAnimationConfig {
   easing?: EasingType;
@@ -34,7 +24,7 @@ export interface IMorphAnimationConfig {
 
 export interface IMorph {
   diffGrammar: <U extends IGrammarBase>(prevGrammars: U[], nextGrammars: U[]) => DiffResult<U, U>;
-  diffMark: (prevMarks: IMark[], nextMarks: IMark[], morphConfig: IMorphConfig) => DiffResult<IMark[], IMark[]>;
+  diffMark: (prevMarks: IMark[], nextMarks: IMark[], runningConfig: IRunningConfig) => DiffResult<IMark[], IMark[]>;
 
-  morph: (prevMarks: IMark[], nextMarks: IMark[], morphConfig: IMorphConfig) => void;
+  morph: (prevMarks: IMark[], nextMarks: IMark[], runningConfig: IRunningConfig) => void;
 }

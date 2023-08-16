@@ -20,7 +20,7 @@ import type { Hooks } from './hooks';
 import type { ProjectionSpec } from './projection';
 import type { BaseEventHandler, EventSpec } from './event';
 import type { CommonPaddingSpec } from './base';
-import type { IMorphConfig } from './morph';
+import type { IMorphAnimationConfig } from './morph';
 import type { IBaseAnimate } from './animate';
 import type { IRenderer } from './renderer';
 import type {
@@ -153,6 +153,19 @@ export interface IViewOptions extends IEnvironmentOptions, IRendererOptions, ILa
   eventConfig?: IViewEventConfig;
 }
 
+export interface IRunningConfig {
+  /** whether enable reusing of grammar */
+  reuse?: boolean;
+  /** whether enable morph */
+  morph?: boolean;
+  /** force all marks to participate in morphing */
+  morphAll?: boolean;
+  /** morphing animation config */
+  animation?: IMorphAnimationConfig;
+  /** whether apply exit animations for released marks */
+  enableExitAnimation?: boolean;
+}
+
 export interface IView {
   readonly renderer: IRenderer;
   readonly rootMark: IGroupMark;
@@ -205,10 +218,10 @@ export interface IView {
   updateSpec: (spec: ViewSpec) => this;
 
   // --- Evaluate API ---
-  run: (morphConfig?: IMorphConfig) => this;
-  runNextTick: (morphConfig?: IMorphConfig) => Promise<this>;
-  runAsync: (morphConfig?: IMorphConfig) => Promise<this>;
-  runSync: (morphConfig?: IMorphConfig) => this;
+  run: (runningConfig?: IRunningConfig) => this;
+  runNextTick: (runningConfig?: IRunningConfig) => Promise<this>;
+  runAsync: (runningConfig?: IRunningConfig) => Promise<this>;
+  runSync: (runningConfig?: IRunningConfig) => this;
   runBefore: (callback: (view: IView) => void) => this;
   runAfter: (callback: (view: IView) => void) => this;
 

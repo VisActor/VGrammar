@@ -11,10 +11,9 @@ import type {
 } from '@visactor/vrender-components';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { IColor } from '@visactor/vrender';
-import type { IEnvironmentOptions, IRendererOptions, ViewSpec, srIOption3DType } from './view';
+import type { IEnvironmentOptions, IRendererOptions, IRunningConfig, ViewSpec, srIOption3DType } from './view';
 import type { CommonPaddingSpec, ValueOf } from './base';
 import type { BasicEncoderSpecMap, LinkPathEncoderSpec, MarkRelativeItemSpec } from './mark';
-import type { IMorphConfig } from './morph';
 import type { BaseEventHandler } from './event';
 import type { TransformSpec } from './transform';
 import type { IAnimationConfig } from './animate';
@@ -180,8 +179,8 @@ export interface IPlot {
 
   ///--------- life cycle ---------///
 
-  run: (morphConfig?: IMorphConfig) => this;
-  runAsync: (morphConfig?: IMorphConfig) => Promise<this>;
+  run: (runningConfig?: IRunningConfig) => this;
+  runAsync: (runningConfig?: IRunningConfig) => Promise<this>;
   release: () => this;
   parseSpec: (spec: PlotSpec) => this;
   updateSpec: (spec: PlotSpec) => this;

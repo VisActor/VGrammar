@@ -625,10 +625,10 @@ Update `spec` configuration, ts type definition is as follows:
 Run the entire View, ts type definition is as follows:
 
 ```ts
-(morphConfig?: IMorphConfig) => this;
+(runningConfig?: IRunningConfig) => this;
 ```
 
-Where `morphConfig` is used to set global transition animation related configurations when updating the `view`
+Where `runningConfig` is used to set global transition and other animation related configurations when updating the `view`
 
 ### runNextTick
 
