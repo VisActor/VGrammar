@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix(wordcloud-shape): fix the shapeurl of wordcloud-shape, add some test case\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}
