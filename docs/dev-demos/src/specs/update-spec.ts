@@ -682,6 +682,7 @@ const reuseSpec: ViewSpec = {
       id: 'bar',
       from: { data: 'table' },
       key: 'category',
+      groupBy: 'category',
       morph: true,
       animation: {
         enter: {

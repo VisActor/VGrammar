@@ -22,28 +22,27 @@ export class Morph implements IMorph {
       update: []
     };
 
-    let prevMorphMarks: IMark[] = [];
-    let nextMorphMarks: IMark[] = [];
+    let prevDiffMarks: IMark[] = [];
+    let nextDiffMarks: IMark[] = [];
 
     // filter out marks & specs which will not morph
     prevMarks.forEach(mark => {
       if (
-        runningConfig.morph &&
-        (runningConfig.morphAll || mark.getMorphConfig().morph) &&
-        mark.markType !== GrammarMarkType.group
+        // group mark does not support reusing or morphing
+        mark.markType !== GrammarMarkType.group &&
+        ((runningConfig.morph && mark.getMorphConfig().morph) || runningConfig.morphAll || runningConfig.reuse)
       ) {
-        prevMorphMarks.push(mark);
+        prevDiffMarks.push(mark);
       } else {
         diffResult.exit.push({ prev: [mark] });
       }
     });
     nextMarks.forEach(mark => {
       if (
-        runningConfig.morph &&
-        (runningConfig.morphAll || mark.getMorphConfig().morph) &&
-        mark.markType !== GrammarMarkType.group
+        mark.markType !== GrammarMarkType.group &&
+        ((runningConfig.morph && mark.getMorphConfig().morph) || runningConfig.morphAll || runningConfig.reuse)
       ) {
-        nextMorphMarks.push(mark);
+        nextDiffMarks.push(mark);
       } else {
         diffResult.enter.push({ next: [mark] });
       }
@@ -51,31 +50,31 @@ export class Morph implements IMorph {
 
     // 1. match by custom key
     const keyDiffResult = this.diffUpdateByGroup(
-      prevMorphMarks,
-      nextMorphMarks,
+      prevDiffMarks,
+      nextDiffMarks,
       mark => mark.getMorphConfig().morphKey,
       mark => mark.getMorphConfig().morphKey
     );
-    prevMorphMarks = keyDiffResult.prev;
-    nextMorphMarks = keyDiffResult.next;
+    prevDiffMarks = keyDiffResult.prev;
+    nextDiffMarks = keyDiffResult.next;
     diffResult.update = diffResult.update.concat(keyDiffResult.update);
 
     // 2. match by name
     const nameDiffResult = this.diffUpdateByGroup(
-      prevMorphMarks,
-      nextMorphMarks,
+      prevDiffMarks,
+      nextDiffMarks,
       mark => mark.id(),
       mark => mark.id()
     );
-    prevMorphMarks = nameDiffResult.prev;
-    nextMorphMarks = nameDiffResult.next;
+    prevDiffMarks = nameDiffResult.prev;
+    nextDiffMarks = nameDiffResult.next;
     diffResult.update = diffResult.update.concat(nameDiffResult.update);
 
     // 3. match by index
 
     // FIXME: mark index cannot be get before executing, index is decided by remove/order for now
-    const prevParentGroup = groupData(prevMorphMarks, mark => mark.group?.id?.());
-    const nextParentGroup = groupData(nextMorphMarks, mark => mark.group?.id?.());
+    const prevParentGroup = groupData(prevDiffMarks, mark => mark.group?.id?.());
+    const nextParentGroup = groupData(nextDiffMarks, mark => mark.group?.id?.());
 
     Object.keys(nextParentGroup).forEach(groupName => {
       const prevChildren = prevParentGroup.data.get(groupName);
@@ -93,14 +92,14 @@ export class Morph implements IMorph {
           }
         }
 
-        prevMorphMarks = prevMorphMarks.filter(mark => !prevChildren.includes(mark));
-        nextMorphMarks = nextMorphMarks.filter(mark => !nextChildren.includes(mark));
+        prevDiffMarks = prevDiffMarks.filter(mark => !prevChildren.includes(mark));
+        nextDiffMarks = nextDiffMarks.filter(mark => !nextChildren.includes(mark));
       }
     });
 
     // 4. handle unmatched marks
-    prevMorphMarks.forEach(mark => diffResult.exit.push({ prev: [mark] }));
-    nextMorphMarks.forEach(mark => diffResult.enter.push({ next: [mark] }));
+    prevDiffMarks.forEach(mark => diffResult.exit.push({ prev: [mark] }));
+    nextDiffMarks.forEach(mark => diffResult.enter.push({ next: [mark] }));
 
     return diffResult;
   }

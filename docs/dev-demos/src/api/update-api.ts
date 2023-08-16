@@ -259,7 +259,7 @@ const reuseExample = (view: IView) => {
       morph: true,
       morphKey: 'MORPH'
     })
-    .join(data, 'category')
+    .join(data, 'category', undefined, 'category')
     .encode({
       x: { scale: xScale, field: 'category' },
       width: 40,
