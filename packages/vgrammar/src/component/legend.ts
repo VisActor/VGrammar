@@ -40,7 +40,8 @@ registerComponent(
 export const generateDiscreteLegendAttributes = (
   scale: IBaseScale,
   theme?: ITheme,
-  addition?: RecursivePartial<DiscreteLegendAttrs>
+  addition?: RecursivePartial<DiscreteLegendAttrs>,
+  shapeScale?: IBaseScale
 ): DiscreteLegendAttrs => {
   const legendTheme = theme?.components?.discreteLegend;
   if (!scale) {
@@ -58,6 +59,11 @@ export const generateDiscreteLegendAttributes = (
           stroke: color
         }
       : theme?.components?.discreteLegend?.items?.[0]?.shape ?? {};
+
+    if (shapeScale) {
+      Object.assign(shape, { symbolType: shapeScale.scale(item) });
+    }
+
     return {
       label: item.toString(),
       id: item,
@@ -111,9 +117,26 @@ export class Legend extends ScaleComponent implements ILegend {
   }
 
   protected parseAddition(spec: LegendSpec) {
+    this.shapeScale(spec.shapeScale);
     super.parseAddition(spec);
     this.target(spec.target?.data, spec.target?.filter);
     this.legendType(spec.legendType);
+    return this;
+  }
+
+  shapeScale(shapeScale: LegendSpec['shapeScale']) {
+    if (this.spec.shapeScale) {
+      const lastScaleGrammar = isString(this.spec.shapeScale)
+        ? this.view.getScaleById(this.spec.shapeScale)
+        : this.spec.shapeScale;
+      this.detach(lastScaleGrammar);
+      this.spec.shapeScale = undefined;
+    }
+    const scaleGrammar = isString(shapeScale) ? this.view.getScaleById(shapeScale) : shapeScale;
+    this.spec.shapeScale = scaleGrammar;
+    this.attach(scaleGrammar);
+
+    this.commit();
     return this;
   }
 
@@ -177,6 +200,9 @@ export class Legend extends ScaleComponent implements ILegend {
 
   protected _updateComponentEncoders() {
     const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
+    const shapeScaleGrammar = isString(this.spec.shapeScale)
+      ? this.view.getScaleById(this.spec.shapeScale)
+      : this.spec.shapeScale;
     const encoders = Object.assign({ update: {} }, this.spec.encode);
     const componentEncoders: StateEncodeSpec = Object.keys(encoders).reduce((res, state) => {
       const encoder = encoders[state];
@@ -188,7 +214,7 @@ export class Legend extends ScaleComponent implements ILegend {
             const scale = scaleGrammar?.getScale?.();
             switch (this._getLegendComponentType()) {
               case LegendEnum.discreteLegend:
-                return generateDiscreteLegendAttributes(scale, theme, addition);
+                return generateDiscreteLegendAttributes(scale, theme, addition, shapeScaleGrammar?.getScale?.());
               case LegendEnum.colorLegend:
                 return generateColorLegendAttributes(scale, theme, addition);
               case LegendEnum.sizeLegend:
