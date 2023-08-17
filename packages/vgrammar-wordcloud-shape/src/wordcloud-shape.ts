@@ -1,4 +1,4 @@
-import { Logger, isFunction, toNumber } from '@visactor/vutils';
+import { Logger, degreeToRadian, isFunction, toNumber } from '@visactor/vutils';
 import { error } from '@visactor/vgrammar-util';
 import type {
   TagItemAttribute,
@@ -50,7 +50,7 @@ export const transform = async (
     padding?: FieldOption | TagItemAttribute<number> | number;
 
     // font color 相关
-    colorMode?: string;
+    colorMode?: 'linear' | 'ordinal';
     colorField?: FieldOption;
     colorHexField?: FieldOption;
     colorList?: string[];
@@ -330,29 +330,12 @@ export const transform = async (
     t[as.fontSize] = w.fontSize;
     t[as.fontStyle] = w.fontStyle;
     t[as.fontWeight] = w.fontWeight;
-    t[as.angle] = w.rotate;
+    t[as.angle] = degreeToRadian(w.rotate);
     t[as.opacity] = w.opacity;
     t[as.visible] = w.visible;
     t[as.isFillingWord] = false;
     t[as.color] = w.color;
-    // if (w.text.endsWith('…')) {
-    //   const ctx = config.tempCtx;
-    //   ctx.font =
-    //     w.fontStyle +
-    //     ' ' +
-    //     w.fontWeight +
-    //     ' ' +
-    //     w.fontSize +
-    //     'px ' +
-    //     w.font;
-    //   const ellipsisWidth = ctx.measureText('…').width;
-    //   t[as[11]] = w.wordSize[0] - ellipsisWidth;
-    // }
-    // t[as[11]] = 100
-    // 上游数据相关，待去除 @chensiji
-    // if (!w.isInAdd) {
     modKeywords.push(t);
-    // }
   }
 
   const textKey = (options.text as FieldOption)?.field ?? 'textKey'; // 记录用户是用什么 key 存储 text 信息
@@ -366,28 +349,15 @@ export const transform = async (
     t[as.fontSize] = word.fontSize;
     t[as.fontStyle] = word.fontStyle;
     t[as.fontWeight] = word.fontWeight;
-    t[as.angle] = word.rotate;
+    t[as.angle] = degreeToRadian(word.rotate);
     t[as.opacity] = word.opacity;
     t[as.visible] = word.visible;
     t[as.isFillingWord] = true;
-    // 随机填充词配色
-    // t[as.color] =
-    //   config.fillingColorList[
-    //     ~~(config.randomGenerator() * config.fillingColorList.length)
-    //   ]
-    // t[as.color] =
-    //   (colorHexField && colorHexField(word)) ||
-    //   (fillingColorScale && fillingColorScale(colorField(word))) ||
-    //   'black',
-    // t[as.color] = word.color
     t[as.color] = !getFillingColor
       ? layoutConfig.fillingColorList[~~(segmentationInput.randomGenerator() * layoutConfig.fillingColorList.length)]
       : options.colorField?.field !== options.fillingColorField?.field || !sameColorList
       ? word.fillingColor
       : word.color;
-
-    // if (w.text.endsWith('…')) t[as[11]] = word.wordSize[0];
-
     t[textKey] = word.text;
 
     // 保证绘制时，mark的唯一性
@@ -428,34 +398,27 @@ const initColorScale = (data: any[], wordsConfig: wordsConfigType, layoutConfig:
       };
     }
   } else {
-    // 线性着色模式下
-    const valueScale = new LinearScale().domain(extent(getColor, data)).range([0, 1]);
     // 如果用户只输入了一个 color，无法构成 colorRange，则进行兜底
     if (colorList.length === 1) {
       colorList = [colorList[0], colorList[0]];
     }
-    // 颜色插值 待支持 @chensiji
-    // const interpolate = interpolateColors(colorList)
+    // 线性着色模式下
+    const valueScale = new LinearScale().domain(extent(getColor, data)).range(colorList);
 
     colorScale = (i: any) => {
-      // 先用 liner scale 转换到 0～1，再用interpolateColors转换到颜色
-      // return interpolate(valueScale.scale(i))
-      return 'black';
+      return valueScale.scale(i);
     };
 
     if (getFillingColor && (options.colorField?.field !== options.fillingColorField?.field || !sameColorList)) {
       // 线性着色模式下
-      const fillingValueScale = new LinearScale().domain(extent(getFillingColor, data)).range([0, 1]);
       // 如果用户只输入了一个 color，无法构成 colorRange，则进行兜底
       if (fillingColorList.length === 1) {
         fillingColorList = [fillingColorList[0], fillingColorList[0]];
       }
-      // const fillInterpolate = interpolateColors(fillingColorList)
+      const fillingValueScale = new LinearScale().domain(extent(getFillingColor, data)).range(fillingColorList);
 
       fillingColorScale = (i: any) => {
-        // 先用 liner scale 转换到 0～1，再用interpolateColors转换到颜色
-        // return fillInterpolate(fillingValueScale.scale(i))
-        return 'black';
+        return fillingValueScale.scale(i);
       };
     }
   }
@@ -489,7 +452,6 @@ const initFontSizeScale = (data: any[], wordsConfig: wordsConfigType, segmentati
      * 目的为 求 x，从而得到最适合的 fontSizeRange
      * 更详细的算法解析看文档
      */
-    const b = 1.7;
     const words = data.map(word => ({
       text: getText(word)
     }));
@@ -523,8 +485,6 @@ const initFontSizeScale = (data: any[], wordsConfig: wordsConfigType, segmentati
      * 更详细的算法解析看文档
      */
     const a = 0.5;
-    const b = 1.7;
-    const shapeArea = segmentationOutput.shapeArea;
     const [min, max] = extent(getFontSize, data);
     const words = data.map(datum => ({
       text: getText(datum),

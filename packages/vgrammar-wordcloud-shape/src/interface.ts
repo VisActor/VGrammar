@@ -72,7 +72,7 @@ export type wordsConfigType = {
   getFontSize?: TagItemFunction<number>;
   fontSizeRange?: [number, number];
 
-  colorMode: string;
+  colorMode: 'linear' | 'ordinal';
   getColor: TagItemFunction<string>;
   getFillingColor?: TagItemFunction<string>;
   colorList?: string[];
