@@ -6,7 +6,8 @@ import type {
   Nil,
   ScaleSpec,
   ValueOf,
-  BasicEncoderSpecMap
+  BasicEncoderSpecMap,
+  FieldEncodeType
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
@@ -45,6 +46,10 @@ export class TextSemanticMark extends SemanticMark<BasicEncoderSpecMap['text'], 
     const markEncoder = this.convertSimpleMarkEncode(encode);
 
     const res: GenerateEncoderSpec<BasicEncoderSpecMap['text']> = markEncoder;
+
+    if (res.text) {
+      res.text = { field: (res.text as FieldEncodeType).field };
+    }
 
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;

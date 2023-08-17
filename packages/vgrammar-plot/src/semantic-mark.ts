@@ -297,7 +297,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     const markEncoder = {};
 
     Object.keys(encode).map(channel => {
-      markEncoder[channel] = { field: encode[channel], scale: this.getScaleId(channel) };
+      markEncoder[channel] = { field: encode[channel], scale: this.getScaleId(channel), band: 0.5 };
     });
 
     return markEncoder;
@@ -517,6 +517,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             type: 'component',
             componentType: ComponentEnum.legend,
             scale: this.getScaleId(channel),
+            shapeScale: this.getScaleId('shape'),
             dependency: [SIGNAL_VIEW_BOX],
             target: {
               data: this.getDataIdOfFiltered(),
@@ -666,10 +667,16 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           ? tooltipSpec.staticTitle
           : {
               field: (datum: any, el: IElement, params: any) => {
-                return tooltipSpec.title && datum?.length ? getFieldAccessor(tooltipSpec.title)(datum[0]) : undefined;
+                return tooltipSpec.title
+                  ? getFieldAccessor(tooltipSpec.title)(isArray(datum) ? datum[0] : datum)
+                  : undefined;
               }
             }
       };
+
+      if ((this.spec.encode as any).shape) {
+        dependency.push(this.getScaleId('shape'));
+      }
       const content =
         isArray(tooltipSpec.content) && tooltipSpec.content.length
           ? tooltipSpec.content.map((entry, index) => {
@@ -686,14 +693,21 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                 value: { field: entry.value },
                 symbol: (datum: any, el: IElement, params: any) => {
                   const scale = params[this.getScaleId(colorChannel)];
+                  const shapeScale = params[this.getScaleId('shape')];
+                  let symbolType = 'circle';
 
-                  // TODO: parse symbol scale in same case
+                  if (shapeScale && entry.symbol) {
+                    symbolType = shapeScale.scale(getFieldAccessor(entry.symbol)(datum));
+                  } else if (entry.symbol) {
+                    symbolType = getFieldAccessor(entry.symbol)(datum);
+                  }
+
                   return {
-                    symbolType: entry.symbol ? getFieldAccessor(entry.symbol)(datum) ?? 'circle' : 'circle',
                     fill:
                       scale && colorAccessor
                         ? scale.scale(colorAccessor(datum))
-                        : ThemeManager.getDefaultTheme().palette?.default?.[0]
+                        : ThemeManager.getDefaultTheme().palette?.default?.[0],
+                    symbolType
                   };
                 }
               };
@@ -712,13 +726,14 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       }
 
       if (tooltipSpec.disableDimensionTooltip !== true) {
+        const channel = tooltipSpec.dimensionTooltipChannel ?? 'x';
         res.push({
           type: 'component',
           componentType: ComponentEnum.dimensionTooltip,
-          tooltipType: this.getVisualChannel('x' as 'x' | 'y'),
-          scale: this.getScaleId('x'),
+          tooltipType: this.getVisualChannel(channel as 'x' | 'y'),
+          scale: this.getScaleId(channel),
           dependency,
-          target: { data: this.getDataIdOfFiltered(), filter: (this.spec.encode as any)?.x },
+          target: { data: this.getDataIdOfFiltered(), filter: (this.spec.encode as any)?.[channel] },
           title,
           content,
           avoidMark: tooltipSpec.disableGraphicTooltip ? [] : [this.getMarkId()],
@@ -1105,17 +1120,20 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
   protected parseScaleSpec() {
     const { encode, scale, datazoom } = this.spec;
-    const scales: Record<string, ScaleSpec> = {};
+    const scales: Record<string, ScaleSpec & { userScale?: ScaleSpec }> = {};
     if (encode) {
       Object.keys(encode).forEach(k => {
         const encodeOption = encode[k];
         const scaleId = this.getScaleId(k);
+        const userScale = this.spec.scale?.[k];
 
-        scales[scaleId] = Object.assign(
-          { id: scaleId },
-          this.parseScaleByEncode(k as K, encodeOption),
-          this.spec.scale?.[k]
-        );
+        if (userScale) {
+          scales[scaleId] = Object.assign({ id: scaleId }, this.parseScaleByEncode(k as K, encodeOption), userScale, {
+            userScale
+          });
+        } else {
+          scales[scaleId] = Object.assign({ id: scaleId }, this.parseScaleByEncode(k as K, encodeOption));
+        }
       });
     }
     if (scale) {
@@ -1123,6 +1141,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         const scaleId = this.getScaleId(k);
         if (!scales[scaleId]) {
           scales[scaleId] = scale[k];
+          scales[scaleId].userScale = scale[k];
         }
       });
     }
