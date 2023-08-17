@@ -7,7 +7,9 @@ import type {
   ScaleSpec,
   ValueOf,
   BasicEncoderSpecMap,
-  ScaleFunctionType
+  ScaleFunctionType,
+  SemanticTooltipOption,
+  CrosshairSpec
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
@@ -34,6 +36,28 @@ export class SymbolSemanticMark extends SemanticMark<BasicEncoderSpecMap['symbol
 
     res.type = 'point';
     return res;
+  }
+
+  setDefaultCrosshair(): Record<string, Pick<CrosshairSpec, 'crosshairShape' | 'crosshairType'>> {
+    return {
+      x: { crosshairShape: 'line' },
+      y: { crosshairShape: 'line' }
+    };
+  }
+
+  setDefaultTooltip(): SemanticTooltipOption | Nil {
+    return {
+      disableDimensionTooltip: true,
+      title: this.spec.encode?.group,
+      content: [
+        {
+          value: this.spec.encode?.x
+        },
+        {
+          value: this.spec.encode?.y
+        }
+      ]
+    };
   }
 
   parseScaleByEncode(

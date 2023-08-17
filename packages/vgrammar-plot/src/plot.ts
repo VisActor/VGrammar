@@ -16,7 +16,7 @@ import type {
   PlotSpec
 } from '@visactor/vgrammar';
 import type { ILogger } from '@visactor/vutils';
-import { Logger, isNil } from '@visactor/vutils';
+import { Logger, isNil, merge } from '@visactor/vutils';
 import { mergeGrammarSpecs } from './util';
 import { PlotMakType } from './enums';
 import { Factory, SIGNAL_VIEW_BOX, View } from '@visactor/vgrammar';
@@ -42,9 +42,10 @@ export class Plot implements IPlot {
   private _mergeScales(scales: ScaleSpec[], prevScales: ScaleSpec[]) {
     return scales.reduce((res, scale) => {
       if (scale.id) {
-        const prevScale = res.find(prev => prev.id === scale.id);
+        const prevIndex = res.findIndex(prev => prev.id === scale.id);
 
-        if (prevScale) {
+        if (prevIndex >= 0) {
+          const prevScale = res[prevIndex];
           if ((scale.domain as ScaleData).data && (scale.domain as ScaleData).field) {
             if ((prevScale.domain as ScaleData).data && (prevScale.domain as ScaleData).field) {
               if (
@@ -68,7 +69,7 @@ export class Plot implements IPlot {
               }
             } else if ((prevScale.domain as MultiScaleData).datas) {
               const prevData = (prevScale.domain as MultiScaleData).datas.find(
-                entry => entry.data !== (scale.domain as ScaleData).data
+                entry => entry.data === (scale.domain as ScaleData).data
               );
 
               if (prevData && (scale.domain as ScaleData).field !== prevData.field) {
@@ -85,7 +86,12 @@ export class Plot implements IPlot {
               }
             }
           }
+
+          if ((scale as any).userScale) {
+            res[prevIndex] = merge(prevScale, (scale as any).userScale);
+          }
         } else {
+          (scale as any).userScale = null;
           res.push(scale);
         }
       }

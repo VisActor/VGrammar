@@ -253,6 +253,7 @@ export type SemanticTooltipOption = {
   staticTitle?: string;
   staticContentKey?: string | string[];
   title?: ISemanticEncodeValue<string | number>;
+  dimensionTooltipChannel?: 'x' | 'y';
   content?: Array<{
     key?: ISemanticEncodeValue<string | number>;
     value?: ISemanticEncodeValue<string | number>;
@@ -339,8 +340,8 @@ export type IntervalEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type CellEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type LineEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type AreaEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type RuleXEncodeChannels = 'x' | 'color' | 'group';
-export type RuleYEncodeChannels = 'y' | 'color' | 'group';
+export type RuleXEncodeChannels = 'x' | 'x' | 'color' | 'group';
+export type RuleYEncodeChannels = 'x' | 'y' | 'color' | 'group';
 export type SymbolEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'size' | 'shape';
 export type TextEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'text';
 export type RectEncodeChannels = 'x' | 'y' | 'color' | 'group';
