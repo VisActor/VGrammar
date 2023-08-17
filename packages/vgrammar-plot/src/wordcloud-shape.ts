@@ -16,6 +16,7 @@ import { SemanticMark } from './semantic-mark';
 import { GrammarMarkType, getTransform, ThemeManager } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
+import { merge } from '@visactor/vutils';
 
 export class WordcloudShapeSemanticMark extends SemanticMark<
   PlotWordcloudShapeEncodeSpec,
@@ -52,6 +53,16 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
         text: { field: this.spec.encode?.text }
       }
     ];
+  }
+
+  protected setMainMarkEnterEncode() {
+    return merge(
+      {
+        textAlign: 'center',
+        textBaseline: 'middle'
+      },
+      this.spec.style
+    );
   }
 
   parseScaleByEncode(
