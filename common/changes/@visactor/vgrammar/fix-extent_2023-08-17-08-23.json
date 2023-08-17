@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix(vgrammar-util): extent() should return right min, max when input string numbers\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}
