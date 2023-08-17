@@ -39,7 +39,7 @@ export const examplesMenu = [
       {
         name: 'spiral'
       }
-    ],
+    ]
   },
   {
     menu: '基础图元 - area',
@@ -72,9 +72,9 @@ export const examplesMenu = [
       {
         name: 'bubble'
       }
-    ],
+    ]
   },
-  
+
   {
     menu: '基础图元 - arc',
     path: 'basic-mark-arc',
@@ -83,7 +83,7 @@ export const examplesMenu = [
         name: 'basic-arc'
       },
       {
-        name: 'simple-pie',
+        name: 'simple-pie'
       },
       {
         name: 'radial-arc'
@@ -103,7 +103,7 @@ export const examplesMenu = [
       },
       {
         name: 'rule-symbol'
-      },
+      }
     ]
   },
 
@@ -128,7 +128,7 @@ export const examplesMenu = [
     children: [
       {
         name: 'relation-circle'
-      },
+      }
     ]
   },
   {
@@ -138,7 +138,7 @@ export const examplesMenu = [
       {
         name: 'basic-text'
       }
-    ],
+    ]
   },
   {
     menu: '基础图元 - richtext',
@@ -146,17 +146,17 @@ export const examplesMenu = [
     children: [
       {
         name: 'basic-richtext'
-      },
+      }
     ]
   },
-  
+
   {
     menu: '基础图元 - image',
     path: 'basic-mark-image',
     children: [
       {
         name: 'basic-image'
-      },
+      }
     ]
   },
   {
@@ -168,7 +168,7 @@ export const examplesMenu = [
       },
       {
         name: 'calender-cell'
-      },
+      }
     ]
   },
   {
@@ -186,7 +186,7 @@ export const examplesMenu = [
       },
       {
         name: 'radial-interval'
-      },
+      }
     ]
   },
   {
@@ -222,7 +222,7 @@ export const examplesMenu = [
       }
     ]
   },
-  
+
   {
     menu: '3D图元',
     path: '3d-mark',
@@ -352,7 +352,6 @@ export const examplesMenu = [
         name: 'progressive-line'
       }
     ]
-
   },
   {
     menu: 'plot',
@@ -360,11 +359,17 @@ export const examplesMenu = [
     children: [
       {
         name: 'plot-line'
-      },{
+      },
+      {
         name: 'connected-scatter-line'
       },
+      {
+        name: 'plot-symbol'
+      },
+      {
+        name: 'plot-symbol-rule'
+      }
     ]
-
   }
   // {
   //   menu: '布局',
