@@ -74,6 +74,7 @@ export interface ILegend extends IScaleComponent {
 export interface LegendSpec extends ScaleComponentSpec<LegendBaseAttributes> {
   componentType: ComponentEnum.legend;
   legendType?: LegendType;
+  shapeScale?: IScale | string;
   target?: {
     data: IData | string;
     filter: string | ((datum: any, legendValues: any[]) => boolean);
