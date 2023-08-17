@@ -1,20 +1,23 @@
 import type { CloudWordType, SegmentationInputType, SegmentationOutputType } from './interface';
-import { segmentationType, wordsConfigType } from './interface';
 import { loadImage } from './util';
+
+export async function loadAndHandleImage(segmentationInput: SegmentationInputType): Promise<CanvasImageSource> {
+  const shapeImage = (await loadImage(segmentationInput.shapeUrl)) as CanvasImageSource;
+
+  if (segmentationInput.removeWhiteBorder && shapeImage) {
+    return removeBorder(shapeImage, segmentationInput.tempCanvas, segmentationInput.tempCtx);
+  }
+
+  return shapeImage;
+}
 
 /**
  * 求图像连通区域的个数、面积、边界、中心点
  * @param {*} shape 图像 base64
  * @param {*} size 画布大小
  */
-export async function segmentation(segmentationInput: SegmentationInputType) {
-  const { shapeUrl, size, tempCanvas, tempCtx: ctx, removeWhiteBorder } = segmentationInput;
-
-  let shapeImage = (await loadImage(shapeUrl)) as CanvasImageSource;
-  if (removeWhiteBorder) {
-    shapeImage = (await removeBorder(shapeImage, tempCanvas, ctx)) as CanvasImageSource;
-    // document.body.prepend(shapeImage)
-  }
+export function segmentation(shapeImage: CanvasImageSource, segmentationInput: SegmentationInputType) {
+  const { size, tempCanvas, tempCtx: ctx } = segmentationInput;
   const shapeConfig = scaleAndMiddleShape(shapeImage, size);
   //   config.shapeConfig = shapeConfig
 
@@ -265,7 +268,7 @@ function isEmptyPixel(imageData: ImageData, i: number, j: number) {
 /**
  * 移除图像中的白边
  */
-async function removeBorder(image: any, canvas: HTMLCanvasElement | any, ctx: CanvasRenderingContext2D | null) {
+function removeBorder(image: any, canvas: HTMLCanvasElement | any, ctx: CanvasRenderingContext2D | null) {
   canvas.width = image.width;
   canvas.height = image.height;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -296,7 +299,7 @@ async function removeBorder(image: any, canvas: HTMLCanvasElement | any, ctx: Ca
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.putImageData(trimmed, 0, 0);
 
-  return await loadImage(canvas.toDataURL('imgage/png'));
+  return canvas;
 }
 
 function rowBlank(imageData: ImageData, width: number, y: number) {

@@ -1,4 +1,4 @@
-import { isFunction, toNumber } from '@visactor/vutils';
+import { Logger, isFunction, toNumber } from '@visactor/vutils';
 import { error } from '@visactor/vgrammar-util';
 import type {
   TagItemAttribute,
@@ -11,7 +11,7 @@ import type {
   CloudWordType
 } from './interface';
 import { vglobal } from '@visactor/vrender';
-import { segmentation } from './segmentation';
+import { loadAndHandleImage, segmentation } from './segmentation';
 import { LinearScale, OrdinalScale, SqrtScale } from '@visactor/vscale';
 import cloud from './cloud-shape-layout';
 import { calTextLength, colorListEqual, fakeRandom, functor, WORDCLOUD_SHAPE_HOOK_EVENT } from './util';
@@ -105,10 +105,11 @@ export const transform = async (
   view?: IView
 ) => {
   /** options 配置错误提示 */
-  if (options.size && !(options.size[0] && options.size[1])) {
-    // error('Wordcloud size dimensions must be non-zero.');
+  if (!options.size || options.size[0] <= 0 || options.size[1] <= 0) {
+    const logger = Logger.getInstance();
+    logger.info('Wordcloud size dimensions must be greater than 0');
     // size非法不报错，不进行布局，ChartSpace层会有用户初始化size为0的情况
-    return upstreamData;
+    return [];
   }
   if (!options.shape) {
     error('WordcloudShape shape must be specified.');
@@ -160,8 +161,14 @@ export const transform = async (
     segmentationInput.randomGenerator = fakeRandom();
   }
 
+  const shapeImage = await loadAndHandleImage(segmentationInput);
+
+  if (!shapeImage) {
+    return [];
+  }
+
   // 对用户输入的图形进行预处理
-  const segmentationOutput: SegmentationOutputType = await segmentation(segmentationInput);
+  const segmentationOutput: SegmentationOutputType = segmentation(shapeImage, segmentationInput);
 
   /** step2: 收集 wordsConfig, 并计算fontSizeScale */
   const colorMode = options.colorMode || 'ordinal';
@@ -308,7 +315,7 @@ export const transform = async (
   words.sort((a, b) => b.weight - a.weight);
 
   // 进行布局
-  const { fillingWords, successedWords, failedWords } = await cloud(words, layoutConfig, segmentationOutput);
+  const { fillingWords, successedWords, failedWords } = cloud(words, layoutConfig, segmentationOutput);
 
   /** step5: 将单词信息转换为输出 */
   let w;

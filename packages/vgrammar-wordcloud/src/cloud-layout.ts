@@ -12,7 +12,7 @@
  */
 import { vglobal } from '@visactor/vrender';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar';
-import { isString } from '@visactor/vutils';
+import { isString, merge } from '@visactor/vutils';
 import type { Bounds, IBaseLayoutOptions, TagItemAttribute, TagItemFunction, TagOutputItem } from './interface';
 import { getMaxRadiusAndCenter } from './shapes';
 import { BaseLayout } from './base';
@@ -103,7 +103,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
   };
 
   constructor(options: ICloudLayoutOptions) {
-    super(Object.assign({}, CloudLayout.defaultOptions, options));
+    super(merge({}, CloudLayout.defaultOptions, options));
 
     if (this.options.minFontSize <= CloudLayout.defaultOptions.minFontSize) {
       this.options.minFontSize = CloudLayout.defaultOptions.minFontSize;

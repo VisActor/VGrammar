@@ -6,6 +6,7 @@ import { getTextBounds } from '@visactor/vrender';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar';
 import type { IBaseLayoutOptions, TagItemAttribute } from './interface';
 import { BaseLayout } from './base';
+import { merge } from '@visactor/vutils';
 export interface TagItem {
   datum: any;
   width: number;
@@ -42,7 +43,7 @@ export class FastLayout extends BaseLayout<IFastLayoutOptions> implements IProgr
   };
 
   constructor(options: IFastLayoutOptions) {
-    super(Object.assign({}, FastLayout.defaultOptions, options));
+    super(merge({}, FastLayout.defaultOptions, options));
     this.random = this.options.random ? Math.random : () => 0;
     this.aspectRatio = 1;
   }

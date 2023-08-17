@@ -1,9 +1,9 @@
-import { allocateWords, segmentation } from './segmentation';
+import { allocateWords } from './segmentation';
 import { layout, layoutGlobalShrink, layoutSelfEnlarge } from './wordle';
 import { filling } from './filling';
 import type { LayoutConfigType, SegmentationOutputType } from './interface';
 
-export default async function (words: any, layoutConfig: LayoutConfigType, segmentationOutput: SegmentationOutputType) {
+export default function (words: any, layoutConfig: LayoutConfigType, segmentationOutput: SegmentationOutputType) {
   // 将单词分配到各个连通区域中
   allocateWords(words, segmentationOutput);
   if (layoutConfig.layoutMode === 'ensureMapping') {

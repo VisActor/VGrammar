@@ -1,5 +1,5 @@
 import { vglobal, createImage } from '@visactor/vrender';
-import { isNil, isValidUrl, Logger } from '@visactor/vutils';
+import { isBase64, isNil, isValidUrl, Logger } from '@visactor/vutils';
 import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
 
 export enum WORDCLOUD_SHAPE_HOOK_EVENT {
@@ -65,7 +65,7 @@ export const calTextLength = (text: string, textLengthLimit?: number) => {
  * 使用 ResourceLoader 加载图片
  */
 export function loadImage(url: string) {
-  if (!isValidUrl(url)) {
+  if (!url || (!isValidUrl(url) && !isBase64(url) && !url.startsWith('<svg'))) {
     return null;
   }
   return new Promise((resolve, reject) => {
