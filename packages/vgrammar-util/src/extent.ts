@@ -24,8 +24,8 @@ export const extent = (array: any[], func?: ReturnNumberFunction) => {
 
     // find first valid value
     for (let i = 0; i < n; i += 1) {
-      const value = valueGetter(array[i]);
-      if (isNumber(value) && !Number.isNaN(value)) {
+      let value = valueGetter(array[i]);
+      if (!isNil(value) && isNumber((value = +value)) && !Number.isNaN(value)) {
         if (isNil(min)) {
           min = value;
           max = value;
