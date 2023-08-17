@@ -331,6 +331,10 @@ export const indexes = [
       {
         path: 'wordcloud-shape',
         name: '形状词云'
+      },
+      {
+        path: 'wordcloud-shape-linear-color',
+        name: '形状词云颜色插值'
       }
     ]
   },
