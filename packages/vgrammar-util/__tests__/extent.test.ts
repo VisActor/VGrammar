@@ -13,6 +13,12 @@ test('extent(arr)', () => {
   expect(extent([NaN, undefined, null, 'test'])).toEqual([undefined, undefined]);
 });
 
+test('extent() of string number', () => {
+  expect(extent(['1', '2'])).toEqual([1, 2]);
+
+  expect(extent(['1222', '2', 0])).toEqual([0, 1222]);
+});
+
 test('extent(arr, func)', () => {
   const func = (entry: any) => {
     return entry?.value;
