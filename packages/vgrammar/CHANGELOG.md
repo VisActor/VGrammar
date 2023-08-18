@@ -1,6 +1,29 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Mon, 14 Aug 2023 14:32:16 GMT and should not be manually modified.
+This log was last generated on Fri, 18 Aug 2023 11:16:01 GMT and should not be manually modified.
+
+## 0.6.2
+Fri, 18 Aug 2023 11:16:01 GMT
+
+### Patches
+
+- fix: fix the invocation time for reuse
+- feat: support enableExitAnimation running config
+
+### Updates
+
+- fix(vgrammar-util): extent() should return right min, max when input string numbers
+
+
+- fix(vgrammar): the runtime state should not read encode from cache
+
+
+- fix(wordcloud-shape): fix angle of word and fix linear colorMode
+
+
+- fix(wordcloud-shape): fix the shapeurl of wordcloud-shape, add some test case
+
+
 
 ## 0.6.1
 Mon, 14 Aug 2023 14:32:16 GMT

@@ -2,6 +2,35 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.6.2",
+      "tag": "@visactor/vgrammar_v0.6.2",
+      "date": "Fri, 18 Aug 2023 11:16:01 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix(vgrammar-util): extent() should return right min, max when input string numbers\n\n"
+          },
+          {
+            "comment": "fix(vgrammar): the runtime state should not read encode from cache\n\n"
+          },
+          {
+            "comment": "fix(wordcloud-shape): fix angle of word and fix linear colorMode\n\n"
+          },
+          {
+            "comment": "fix(wordcloud-shape): fix the shapeurl of wordcloud-shape, add some test case\n\n"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "fix: fix the invocation time for reuse"
+          },
+          {
+            "comment": "feat: support enableExitAnimation running config"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.1",
       "tag": "@visactor/vgrammar_v0.6.1",
       "date": "Mon, 14 Aug 2023 14:32:16 GMT",
