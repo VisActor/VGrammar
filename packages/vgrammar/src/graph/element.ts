@@ -1,6 +1,17 @@
 import type { IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { array, has, isBoolean, isNil, isFunction, isString, isArray, get, isEmpty } from '@visactor/vutils';
+import {
+  array,
+  has,
+  isBoolean,
+  isNil,
+  isFunction,
+  isString,
+  isArray,
+  get,
+  isEmpty,
+  isEqual as isObjEqual
+} from '@visactor/vutils';
 import { isEqual } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import { BridgeElementKey } from './constants';
@@ -265,6 +276,10 @@ export class Element implements IElement {
     if (this.graphicItem) {
       this.graphicItem.clearStates(stateAnimation);
     }
+
+    if (this.runtimeStatesEncoder) {
+      this.runtimeStatesEncoder = {};
+    }
   }
 
   private _updateRuntimeStates(state: string, attrs: any) {
@@ -287,13 +302,21 @@ export class Element implements IElement {
       }
       return nextStates;
     }, this.states.slice());
+
+    const isRuntimeStateUpdate = attrs && isString(state) && !isObjEqual(attrs, this.runtimeStatesEncoder?.[state]);
+    if (isRuntimeStateUpdate) {
+      this._updateRuntimeStates(state, attrs);
+    }
+
     if (nextStates.length === this.states.length) {
+      if (isRuntimeStateUpdate && this.graphicItem) {
+        this.graphicItem.clearStates();
+        this.useStates(nextStates);
+      }
+
       return;
     }
 
-    if (attrs && isString(state)) {
-      this._updateRuntimeStates(state, attrs);
-    }
     this.useStates(nextStates);
   }
 
@@ -303,11 +326,20 @@ export class Element implements IElement {
     if (nextStates.length === this.states.length) {
       return;
     }
+
+    if (this.runtimeStatesEncoder) {
+      states.forEach(state => {
+        this.runtimeStatesEncoder[state] = null;
+      });
+    }
     this.useStates(nextStates);
   }
 
   protected getStateAttrs = (stateName: string, nextStates: string[]) => {
-    const encoder = this.runtimeStatesEncoder?.[stateName] ?? (this.mark.getSpec() as MarkSpec).encode?.[stateName];
+    const isRuntimeState = !isNil(this.runtimeStatesEncoder?.[stateName]);
+    const encoder = isRuntimeState
+      ? this.runtimeStatesEncoder[stateName]
+      : (this.mark.getSpec() as MarkSpec).encode?.[stateName];
 
     if (!encoder) {
       return {};
@@ -317,7 +349,7 @@ export class Element implements IElement {
       return (encoder as StateProxyEncodeSpec)(this.getDatum(), this, stateName, nextStates);
     }
 
-    if (this.graphicItem.states?.[stateName]) {
+    if (!isRuntimeState && this.graphicItem.states?.[stateName]) {
       return this.graphicItem.states[stateName];
     }
 
