@@ -281,7 +281,7 @@ export interface ViewSpec {
   background?: IColor;
   width?: number;
   height?: number;
-  padding?: number;
+  padding?: number | { left?: number; right?: number; top?: number; bottom?: number };
   signals?: SignalSpec<any>[];
   projections?: ProjectionSpec[];
   data?: DataSpec[];
