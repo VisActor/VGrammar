@@ -271,7 +271,7 @@ export const callback = (chartInstance: IView) => {
 
 
       if (selectedDatum && selectedDatum.length) {
-        console.log('下游节点', linkDatum)
+        console.log('下游节点', linkDatum, selectedDatum)
         // 下游link
         if (!highlightNodes.includes(linkDatum.source)) {
           highlightNodes.push(linkDatum.source);
@@ -285,6 +285,7 @@ export const callback = (chartInstance: IView) => {
             return (sum += d.value);
           }, 0);
         const ratio = val / linkDatum.value;
+        console.log(linkEl, ratio)
 
         linkEl.addState('selected', { ratio });
       } else if (linkDatum.target === nodeDatum.key) {
@@ -361,11 +362,25 @@ export const callback = (chartInstance: IView) => {
     });
   };
 
+  const handleClearEmpty = () => {
+    const allNodeElements = chartInstance.getMarkById('sankeyNode').elements;
+    const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
+
+    allNodeElements.forEach(el => {
+      el.clearStates();
+    });
+    allLinkElements.forEach(el => {
+      el.clearStates();
+    });
+  }
+
   chartInstance.addEventListener('click', (e: any) => {
     if (e.element && e.element.mark.id() === 'sankeyNode') {
       handleNodeClick(e.element);
     } else if (e.element && e.element.mark.id() === 'sankeyLink') {
       handleLinkClick(e.element);
+    } else {
+      handleClearEmpty();
     }
   });
 };
