@@ -25,3 +25,4 @@ export { toPercent } from './toPercent';
 export * from './types';
 
 export { regressionLinear } from './regression-linear';
+export { parseViewBox } from './view-box';
