@@ -1,22 +1,4 @@
-import type {
-  IArc3dGraphicAttribute,
-  IArcGraphicAttribute,
-  IAreaGraphicAttribute,
-  ICircleGraphicAttribute,
-  IColor,
-  IGroupGraphicAttribute,
-  IImageGraphicAttribute,
-  ILineGraphicAttribute,
-  IPathGraphicAttribute,
-  IPolygonGraphicAttribute,
-  IPyramid3dGraphicAttribute,
-  IRect3dGraphicAttribute,
-  IRectGraphicAttribute,
-  IRichTextGraphicAttribute,
-  ISymbolAttribute,
-  ISymbolGraphicAttribute,
-  ITextGraphicAttribute
-} from '@visactor/vrender';
+import type { IColor } from '@visactor/vrender';
 import type {
   ArcLabelAttrs,
   CircleAxisAttributes,
@@ -41,39 +23,10 @@ import type {
 } from '@visactor/vrender-components';
 import type { IPadding } from '@visactor/vutils';
 import type { RecursivePartial } from './base';
+import type { BasicEncoderSpecMap } from '.';
 
-export interface IMarkTheme {
-  rect?: IRectGraphicAttribute & { y1?: number; x1?: number };
-  line?: Omit<ILineGraphicAttribute, 'points' | 'segments'>;
-  circle?: ICircleGraphicAttribute;
-  arc?: IArcGraphicAttribute;
-  polygon?: IPolygonGraphicAttribute;
-  arc3d?: IArc3dGraphicAttribute;
-  pyramid3d?: IPyramid3dGraphicAttribute;
-  area?: Omit<IAreaGraphicAttribute, 'points' | 'segments'>;
-  group?: IGroupGraphicAttribute;
-  image?: IImageGraphicAttribute;
-  rect3d?: IRect3dGraphicAttribute;
-  path?: IPathGraphicAttribute;
-  rule?: Omit<ILineGraphicAttribute, 'points' | 'segments'> & { x1?: number; y1?: number };
-  shape?: IPathGraphicAttribute;
-  symbol?: ISymbolGraphicAttribute & { shape?: ISymbolAttribute['symbolType'] };
-  text?: ITextGraphicAttribute & {
-    limit?: number;
-    autoLimit?: number;
-  };
-  richtext?: IRichTextGraphicAttribute;
-  interval?: Omit<IRectGraphicAttribute, 'width' | 'height'> & {
-    innerGap?: number | string;
-    maxWidth?: number;
-    minWidth?: number;
-    categoryGap?: number | string;
-  };
-  cell?: ISymbolGraphicAttribute & {
-    padding?: number | [number, number];
-    shape?: ISymbolAttribute['symbolType'];
-  };
-}
+// glyph mark includes multiple types, not support theme for glyph for now
+export type IMarkTheme = Partial<Omit<BasicEncoderSpecMap, 'glyph'>>;
 
 export interface IComponentTheme {
   axis?: RecursivePartial<LineAxisAttributes>;
