@@ -307,7 +307,10 @@ export class Element implements IElement {
   }
 
   protected getStateAttrs = (stateName: string, nextStates: string[]) => {
-    const encoder = this.runtimeStatesEncoder?.[stateName] ?? (this.mark.getSpec() as MarkSpec).encode?.[stateName];
+    const isRuntimeState = !isNil(this.runtimeStatesEncoder?.[stateName]);
+    const encoder = isRuntimeState
+      ? this.runtimeStatesEncoder[stateName]
+      : (this.mark.getSpec() as MarkSpec).encode?.[stateName];
 
     if (!encoder) {
       return {};
@@ -317,7 +320,7 @@ export class Element implements IElement {
       return (encoder as StateProxyEncodeSpec)(this.getDatum(), this, stateName, nextStates);
     }
 
-    if (this.graphicItem.states?.[stateName]) {
+    if (!isRuntimeState && this.graphicItem.states?.[stateName]) {
       return this.graphicItem.states[stateName];
     }
 
