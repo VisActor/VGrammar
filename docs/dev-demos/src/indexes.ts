@@ -143,6 +143,10 @@ export const indexes = [
       {
         path: 'symbol-chart',
         name: '简单散点图'
+      },
+      {
+        path: 'relation-chart',
+        name: '相关性图表'
       }
     ]
   },
