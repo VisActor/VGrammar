@@ -1,4 +1,4 @@
-import type { FieldGetterFunction } from '@visactor/vgrammar-util';
+import type { FieldGetterFunction, LayoutViewBox } from '@visactor/vgrammar-util';
 import type { SignalFunction, SignalReference } from './signal';
 import type { IView } from './view';
 import type { IData } from './grammar';
@@ -164,6 +164,40 @@ export interface DodgeTransformOptions {
    * specify the channel to dodge, if this field is not specified, we'll use the channel which is associated to a band scale
    */
   dodgeChannel?: 'x' | 'y';
+}
+
+export interface JitterTransformOptions {
+  width?: number;
+  height?: number;
+  widthRatio?: number;
+  heightRatio?: number;
+}
+
+export interface JitterXTransformOptions {
+  width?: number;
+  widthRatio?: number;
+}
+export interface JitterYTransformOptions {
+  height?: number;
+  heightRatio?: number;
+}
+
+export type CircularRelationTransformOptions = LayoutViewBox & {
+  field: string;
+  radiusField?: string;
+  radiusRange?: [number, number];
+  center?: [string | number, string | number];
+  startAngle?: number;
+  endAngle?: number;
+  innerRadius?: string | number;
+  outerRadius?: string | number;
+};
+
+export interface CircularRelationItem {
+  x: number;
+  y: number;
+  radius: number;
+  datum: any;
 }
 
 export interface IdentifierTransformOptions {
