@@ -8,7 +8,7 @@ import type {
 } from '@visactor/vrender-components';
 import type { ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { Logger, array, isArray, isBoolean, isNil, isPlainObject } from '@visactor/vutils';
+import { Logger, array, isArray, isBoolean, isNil, isPlainObject, merge } from '@visactor/vutils';
 import { isContinuous, type IBaseScale, isDiscrete } from '@visactor/vscale';
 import type {
   ISemanticMark,
@@ -48,15 +48,14 @@ import type {
   IElement,
   IAnimationConfig,
   MarkSpec,
-  MarkRelativeItemSpec
+  MarkRelativeItemSpec,
+  IPlot
 } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
 import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager } from '@visactor/vgrammar';
 import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import type { ITextAttribute } from '@visactor/vrender';
-
-const defaultTheme = ThemeManager.getDefaultTheme();
 
 let semanticMarkId = -1;
 
@@ -69,11 +68,13 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   protected _logger: ILogger;
   protected _coordinate: CoordinateOption;
   readonly type: string;
+  readonly plot: IPlot;
 
-  constructor(type: string, id?: string | number) {
+  constructor(type: string, id?: string | number, plot?: IPlot) {
     this.type = type;
     this.uid = ++semanticMarkId;
     this._logger = Logger.getInstance();
+    this.plot = plot;
 
     this.spec = { id: id ?? `${this.type}-${this.uid}` };
   }
@@ -259,7 +260,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           const index = defaultTransform.findIndex(entry => entry.type === customizedSpec.type);
 
           if (index >= 0) {
-            transforms.push(Object.assign({}, defaultTransform[index], customizedSpec));
+            transforms.push(merge({}, defaultTransform[index], customizedSpec));
             excludeIndex.push(index);
           } else {
             transforms.push(customizedSpec);
@@ -452,7 +453,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                       end: { x: 0, y: -params.viewBox.height() }
                     };
 
-                return isPlainObject(option) ? Object.assign(positionAttrs, option) : positionAttrs;
+                return isPlainObject(option) ? merge(positionAttrs, option) : positionAttrs;
               }
             }
           };
@@ -549,7 +550,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                         x: element.mark?.relativePosition?.left ?? 0,
                         y: element.mark?.relativePosition?.top ?? 0
                       };
-                const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
+                const attrs = isPlainObject(option) ? merge({}, calculatedAttrs, option) : calculatedAttrs;
 
                 return attrs;
               }
@@ -655,7 +656,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     if (userTooltipSpec !== false && userTooltipSpec !== null && defaultTooltipSpec !== null) {
       const res: Array<TooltipSpec | DimensionTooltipSpec> = [];
-      const tooltipSpec = Object.assign({}, defaultTooltipSpec, userTooltipSpec === true ? {} : userTooltipSpec);
+      const tooltipSpec = merge({}, defaultTooltipSpec, userTooltipSpec === true ? {} : userTooltipSpec);
       const colorChannel = isNil((this.spec.encode as any).color) ? 'group' : 'color';
       const colorEncode = (this.spec.encode as any)[colorChannel];
       const dependency = colorEncode ? [this.getScaleId(colorChannel)] : [];
@@ -768,6 +769,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             this._logger.warn(`[VGrammar]: Don't use slider in a channel which has scale type = ${scaleSpec?.type}`);
             return;
           }
+          const theme = this.plot ? this.plot.view.getCurrentTheme() : ThemeManager.getDefaultTheme();
           const getter = getFieldAccessor(this.spec.encode?.[channel]);
           const markLayout =
             layout ??
@@ -805,7 +807,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                         layout: 'vertical',
                         x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        railWidth: defaultTheme.components.slider.railHeight,
+                        railWidth: theme.components.slider.railHeight,
                         railHeight: params.viewBox.height()
                       }
                     : markLayout.position === 'right'
@@ -813,7 +815,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                         layout: 'vertical',
                         x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        railWidth: defaultTheme.components.slider.railHeight,
+                        railWidth: theme.components.slider.railHeight,
                         railHeight: params.viewBox.height()
                       }
                     : markLayout.position === 'bottom'
@@ -821,17 +823,17 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                         layout: 'horizontal',
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? params.viewBox.height(),
-                        railHeight: defaultTheme.components.slider.railHeight,
+                        railHeight: theme.components.slider.railHeight,
                         railWidth: params.viewBox.width()
                       }
                     : {
                         layout: 'horizontal',
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        railHeight: defaultTheme.components.slider.railHeight,
+                        railHeight: theme.components.slider.railHeight,
                         railWidth: params.viewBox.width()
                       };
-                const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
+                const attrs = isPlainObject(option) ? merge({}, calculatedAttrs, option) : calculatedAttrs;
 
                 return attrs;
               }
@@ -884,6 +886,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             };
           }
 
+          const theme = this.plot ? this.plot.view.getCurrentTheme() : ThemeManager.getDefaultTheme();
           const markSpec: DatazoomSpec = {
             type: 'component',
             componentType: ComponentEnum.datazoom,
@@ -901,30 +904,30 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                         orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        size: { height: params.viewBox.height(), width: defaultTheme.components.datazoom.size.height }
+                        size: { height: params.viewBox.height(), width: theme.components.datazoom.size.height }
                       }
                     : markLayout.position === 'right'
                     ? {
                         orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        size: { height: params.viewBox.height(), width: defaultTheme.components.datazoom.size.height }
+                        size: { height: params.viewBox.height(), width: theme.components.datazoom.size.height }
                       }
                     : markLayout.position === 'bottom'
                     ? {
                         orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? params.viewBox.height(),
-                        size: { width: params.viewBox.width(), height: defaultTheme.components.datazoom.size.height }
+                        size: { width: params.viewBox.width(), height: theme.components.datazoom.size.height }
                       }
                     : {
                         orient: markLayout.position as OrientType,
                         x: elment.mark?.relativePosition?.left ?? 0,
                         y: elment.mark?.relativePosition?.top ?? 0,
-                        size: { width: params.viewBox.width(), height: defaultTheme.components.datazoom.size.height }
+                        size: { width: params.viewBox.width(), height: theme.components.datazoom.size.height }
                       };
 
-                const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
+                const attrs = isPlainObject(option) ? merge({}, calculatedAttrs, option) : calculatedAttrs;
 
                 return attrs;
               }
@@ -976,7 +979,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               skipBeforeLayouted: true
             },
             labelStyle: isPlainObject(option)
-              ? Object.assign(
+              ? merge(
                   {
                     position: this.getLabelPosition()
                   },
@@ -1054,7 +1057,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                       size: { width: params.viewBox.width(), height: 20 }
                     };
 
-              const attrs = isPlainObject(option) ? Object.assign({}, calculatedAttrs, option) : calculatedAttrs;
+              const attrs = isPlainObject(option) ? merge({}, calculatedAttrs, option) : calculatedAttrs;
 
               return attrs;
             }
@@ -1166,6 +1169,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           };
 
           if ((encode as any).y) {
+            const theme = this.plot ? this.plot.view.getCurrentTheme() : ThemeManager.getDefaultTheme();
             scales[yScaleId] = {
               type: scales[this.getScaleId('y')]?.type ?? 'linear',
               id: yScaleId,
@@ -1178,8 +1182,8 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                 return [
                   0,
                   isPlainObject(option)
-                    ? (option as DataZoomAttributes).size?.height ?? defaultTheme.components.datazoom.size.height
-                    : defaultTheme.components.datazoom.size.height
+                    ? (option as DataZoomAttributes).size?.height ?? theme.components.datazoom.size.height
+                    : theme.components.datazoom.size.height
                 ];
               }
             };
