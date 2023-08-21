@@ -16,15 +16,15 @@
 VGrammar, not only generate charts, but also provide data visualization tools.
 
 <p align="center">
-  <a href="">Introduction</a> •
-  <a href="">Demo</a> •
-  <a href="">Tutorial</a> •
-  <a href="">API</a>•
-  <a href="">Cross-Platform</a>
+  <a href="https://www.visactor.io/vgrammar">Introduction</a> •
+  <a href="https://www.visactor.io/vgrammar/example">Demo</a> •
+  <a href="https://www.visactor.io/vgrammar/guide/guides/quick-start">Tutorial</a> •
+  <a href="https://www.visactor.io/vgrammar/api/API/View">API</a>•
+  <a href="https://www.visactor.io/vgrammar/option/">Option</a>
 </p>
 
-![image test](https://github.com/visactor/vchart/actions/workflows/bug-server.yml/badge.svg?event=push)
-![unit test](https://github.com/visactor/vchart/actions/workflows/unit-test.yml/badge.svg?event=push)
+![image test](https://github.com/visactor/vgrammar/actions/workflows/bug-server.yml/badge.svg?event=push)
+![unit test](https://github.com/visactor/vgrammar/actions/workflows/unit-test.yml/badge.svg?event=push)
 [![npm Version](https://img.shields.io/npm/v/@visactor/vgrammar.svg)](https://www.npmjs.com/package/@visactor/vgrammar)
 [![npm Download](https://img.shields.io/npm/dm/@visactor/vgrammar.svg)](https://www.npmjs.com/package/@visactor/vgrammar)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/visactor/vgrammar/blob/main/LICENSE)
