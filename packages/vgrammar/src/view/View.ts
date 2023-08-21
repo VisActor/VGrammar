@@ -97,8 +97,8 @@ import type {
   ISlider,
   ITooltip
 } from '../types/component';
-import { Interval } from '../grammar-marks/interval';
-import { Cell } from '../grammar-marks/cell';
+import { Interval } from '../semantic-marks/interval';
+import { Cell } from '../semantic-marks/cell';
 import { ThemeManager } from '../theme/theme-manager';
 
 /**
