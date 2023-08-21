@@ -113,7 +113,8 @@ export type BasicEncoderSpecMap = {
   rule: Omit<GenerateBasicEncoderSpec<ILineGraphicAttribute>, 'points' | 'segments'> & { x1?: number; y1?: number };
   shape: GenerateBasicEncoderSpec<IPathGraphicAttribute>;
   symbol: GenerateBasicEncoderSpec<ISymbolGraphicAttribute> & {
-    shape?: ISymbolAttribute['symbolType'];
+    shape?: ISymbolGraphicAttribute['symbolType'];
+    image?: ISymbolGraphicAttribute['background'];
   };
   text: GenerateBasicEncoderSpec<ITextGraphicAttribute> & {
     limit?: number;
