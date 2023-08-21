@@ -8,7 +8,7 @@ const jitterByChannel = (options: JitterTransformOptions, upstreamData: IElement
   const scale = mark.getScalesByChannel()?.[channel];
   const random = options.random ?? Math.random;
   const ratio = Math.min((channel === 'x' ? options.widthRatio : options.heightRatio) ?? 0.4, 0.5);
-  const bandSize = (channel === 'x' ? options.width : options.height) ?? getBandWidthOfScale(scale);
+  const bandSize = (channel === 'x' ? options.bandWidth : options.bandHeight) ?? getBandWidthOfScale(scale);
 
   if (isNil(bandSize)) {
     let domain = extent(upstreamData, el => el.getItemAttribute(channel));

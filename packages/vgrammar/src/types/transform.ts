@@ -167,20 +167,20 @@ export interface DodgeTransformOptions {
 }
 
 export interface JitterTransformOptions {
-  width?: number;
-  height?: number;
+  bandWidth?: number;
+  bandHeight?: number;
   widthRatio?: number;
   heightRatio?: number;
   random?: (index?: number, total?: number) => number;
 }
 
 export interface JitterXTransformOptions {
-  width?: number;
+  bandWidth?: number;
   widthRatio?: number;
   random?: (index?: number, total?: number) => number;
 }
 export interface JitterYTransformOptions {
-  height?: number;
+  bandHeight?: number;
   heightRatio?: number;
   random?: (index?: number, total?: number) => number;
 }
@@ -289,6 +289,22 @@ export interface LttbSampleTransformSpec extends ConvertTransformOptionToSpec<Lt
   type: 'lttbsample';
 }
 
+export interface JitterTransformSpec extends ConvertTransformOptionToSpec<JitterTransformOptions> {
+  type: 'jitter';
+}
+
+export interface JitterXTransformSpec extends ConvertTransformOptionToSpec<JitterXTransformOptions> {
+  type: 'jitterX';
+}
+
+export interface JitterYTransformSpec extends ConvertTransformOptionToSpec<JitterYTransformOptions> {
+  type: 'jitterY';
+}
+
+export type CircularRelationTransformSpec = ConvertTransformOptionToSpec<CircularRelationTransformOptions> & {
+  type: 'circularRelation';
+};
+
 export interface BaseTransformSpec {
   /** the type of transform */
   type: string;
@@ -309,7 +325,11 @@ export type TransformSpec =
   | IdentifierTransformSpec
   | BaseTransformSpec
   | MarkOverlapTransformSpec
-  | LttbSampleTransformSpec;
+  | LttbSampleTransformSpec
+  | JitterTransformSpec
+  | JitterXTransformSpec
+  | JitterYTransformSpec
+  | CircularRelationTransformSpec;
 
 export interface IProgressiveTransformResult<Output = any> {
   /** is progressive finished */
