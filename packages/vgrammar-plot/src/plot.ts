@@ -27,16 +27,23 @@ export class Plot implements IPlot {
       Factory.registerPlotMarks(mark.type, mark);
     });
   }
-  private _view: IView;
+  readonly view: IView;
   private _semanticMarks: PlotMark[];
   private _hasInited?: boolean;
   private _coordinate: CoordinateOption;
   private _logger: ILogger;
+  private _theme?: string;
 
   constructor(option?: IPlotOptions) {
-    this._view = new View(option);
+    this.view = new View(option);
     this._semanticMarks = [];
     this._logger = Logger.getInstance();
+  }
+
+  theme(theme: string) {
+    this._theme = theme;
+
+    return this;
   }
 
   private _mergeScales(scales: ScaleSpec[], prevScales: ScaleSpec[]) {
@@ -102,6 +109,7 @@ export class Plot implements IPlot {
 
   protected parseViewSpec() {
     const spec: ViewSpec = {
+      theme: this._theme,
       data: [],
       marks: [],
       scales: [],
@@ -167,34 +175,38 @@ export class Plot implements IPlot {
     return spec;
   }
   run(morphConfig?: IMorphConfig) {
-    if (this._view) {
+    if (this.view) {
       if (!this._hasInited) {
-        this._view.parseSpec(this.parseViewSpec());
+        this.view.parseSpec(this.parseViewSpec());
+      } else {
+        this.view.updateSpec(this.parseViewSpec());
       }
       this._hasInited = true;
 
-      this._view.runSync(morphConfig);
+      this.view.runSync(morphConfig);
     }
 
     return this;
   }
 
   async runAsync(morphConfig?: IMorphConfig) {
-    if (this._view) {
+    if (this.view) {
       if (!this._hasInited) {
-        this._view.parseSpec(this.parseViewSpec());
+        this.view.parseSpec(this.parseViewSpec());
+      } else {
+        this.view.updateSpec(this.parseViewSpec());
       }
       this._hasInited = true;
 
-      await this._view.runAsync(morphConfig);
+      await this.view.runAsync(morphConfig);
     }
 
     return this;
   }
 
   release() {
-    if (this._view) {
-      this._view.release();
+    if (this.view) {
+      this.view.release();
     }
 
     return this;
@@ -225,9 +237,9 @@ export class Plot implements IPlot {
     viewSpec.padding = spec.padding;
 
     if (isUpdate) {
-      this._view.updateSpec(viewSpec);
+      this.view.updateSpec(viewSpec);
     } else {
-      this._view.parseSpec(viewSpec);
+      this.view.parseSpec(viewSpec);
     }
     this._hasInited = true;
 
@@ -235,18 +247,18 @@ export class Plot implements IPlot {
   }
 
   getImageBuffer() {
-    return this._view?.getImageBuffer?.();
+    return this.view?.getImageBuffer?.();
   }
 
   on(type: string, handler: BaseEventHandler) {
-    if (this._view) {
-      this._view.addEventListener(type, handler);
+    if (this.view) {
+      this.view.addEventListener(type, handler);
     }
     return this;
   }
   off(type: string, handler?: BaseEventHandler) {
-    if (this._view) {
-      this._view.removeEventListener(type, handler);
+    if (this.view) {
+      this.view.removeEventListener(type, handler);
     }
     return this;
   }
