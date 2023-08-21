@@ -102,7 +102,7 @@ const getPartialAngles = (minAngle: number, maxAngle: number, count: number) => 
 
   while (i < count) {
     if (j < stepCount) {
-      res.push(startAngle + j * stepAngle * stepSign);
+      res.push(startAngle + (j % 2 ? Math.floor(j / 2) + Math.floor(stepCount / 2) : j / 2) * stepAngle * stepSign);
       j++;
     }
 
@@ -120,7 +120,7 @@ const getPartialAngles = (minAngle: number, maxAngle: number, count: number) => 
       }
       startAngle = stepSign === -1 ? maxAngle - offsetAngle : minAngle + offsetAngle;
 
-      if (stepIndex === 2) {
+      if (stepIndex >= 2) {
         stepAngle /= 2;
         stepCount *= 2;
       }
