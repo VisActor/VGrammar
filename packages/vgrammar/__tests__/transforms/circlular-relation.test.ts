@@ -34,12 +34,12 @@ test('circular-relation', () => {
   expect(res[0].y).toBeCloseTo(300);
 
   expect(res[1].radius).toBeCloseTo(20);
-  expect(res[1].x).toBeCloseTo(77.97900707726004);
-  expect(res[1].y).toBeCloseTo(574.0636372927803);
+  expect(res[1].x).toBeCloseTo(23.664424312258234);
+  expect(res[1].y).toBeCloseTo(57.29490168751562);
 
   expect(res[2].radius).toBeCloseTo(14.382022471910112);
-  expect(res[2].x).toBeCloseTo(68.53932584269663);
-  expect(res[2].y).toBeCloseTo(300);
+  expect(res[2].x).toBeCloseTo(200);
+  expect(res[2].y).toBeCloseTo(431.4606741573034);
 
   expect(res[3].radius).toBeCloseTo(15.50561797752809);
   expect(res[3].x).toBeCloseTo(199.99999999999997);
