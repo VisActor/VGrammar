@@ -171,15 +171,18 @@ export interface JitterTransformOptions {
   height?: number;
   widthRatio?: number;
   heightRatio?: number;
+  random?: (index?: number, total?: number) => number;
 }
 
 export interface JitterXTransformOptions {
   width?: number;
   widthRatio?: number;
+  random?: (index?: number, total?: number) => number;
 }
 export interface JitterYTransformOptions {
   height?: number;
   heightRatio?: number;
+  random?: (index?: number, total?: number) => number;
 }
 
 export type CircularRelationTransformOptions = LayoutViewBox & {
