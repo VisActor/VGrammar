@@ -11,7 +11,7 @@ import type {
 } from '@visactor/vrender-components';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { IColor } from '@visactor/vrender';
-import type { IEnvironmentOptions, IRendererOptions, IRunningConfig, ViewSpec, srIOption3DType } from './view';
+import type { IEnvironmentOptions, IRendererOptions, IRunningConfig, ViewSpec, srIOption3DType, IView } from './view';
 import type { CommonPaddingSpec, ValueOf } from './base';
 import type { BasicEncoderSpecMap, LinkPathEncoderSpec, MarkRelativeItemSpec } from './mark';
 import type { BaseEventHandler } from './event';
@@ -168,6 +168,9 @@ export interface PlotSpec {
 }
 
 export interface IPlot {
+  readonly view: IView;
+
+  theme: (theme: string) => this;
   /**
    * todo: 直接接text图元还是title组件
    */
