@@ -19,9 +19,7 @@ import { transform as markoverlapTransform } from './mark/mark-overlap';
 import { transform as identifierTransform } from './view/identifier';
 
 import { transform as dodgeTransform } from './mark/dodge';
-import { transform as jitterTransform } from './mark/jitter';
-import { transform as jitterXTransform } from './mark/jitter-x';
-import { transform as jitterYTransform } from './mark/jitter-y';
+import { transform as jitterTransform, jitterX as jitterXTransform, jitterY as jitterYTransform } from './mark/jitter';
 
 import type { ITransform } from '../types';
 
