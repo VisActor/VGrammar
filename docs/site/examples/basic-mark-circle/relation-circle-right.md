@@ -2,7 +2,7 @@
 category: examples
 group: basic-mark-circle
 title: 相关性图表
-order: 6-0
+order: 6-2
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-circle-relation-circle.png
 ---
 
@@ -64,7 +64,26 @@ const spec = {
           radiusField: 'pv',
           width: { signal: 'viewWidth' },
           height: { signal: 'viewHeight' },
-          innerRadius: '40%'
+          center: {
+            callback: params => {
+              return [params.viewBox.x1, params.viewBox.y1 + params.viewBox.height() / 2];
+            },
+            dependency: ['viewBox']
+          },
+          innerRadius: {
+            callback: params => {
+              return Math.max(params.viewBox.width(), params.viewBox.height() / 2) * 0.3;
+            },
+            dependency: ['viewBox']
+          },
+          outerRadius: {
+            callback: params => {
+              return Math.max(params.viewBox.width(), params.viewBox.height() / 2);
+            },
+            dependency: ['viewBox']
+          },
+          startAngle: -Math.PI / 2,
+          endAngle: Math.PI / 2
         }
       ]
     }
@@ -78,13 +97,13 @@ const spec = {
       encode: {
         update: {
           x: (datum, element, params) => {
-            return params.viewBox.x1 + params.viewBox.width() / 2;
+            return params.viewBox.x1;
           },
           y: (datum, element, params) => {
             return params.viewBox.y1 + params.viewBox.height() / 2;
           },
           size: (datum, element, params) => {
-            return Math.max(params.viewBox.width(), params.viewBox.height()) / 2;
+            return Math.max(params.viewBox.width(), params.viewBox.height() / 2);
           },
           fill: '#6690F2',
           opacity: 0.2,
@@ -98,13 +117,13 @@ const spec = {
       encode: {
         update: {
           x: (datum, element, params) => {
-            return params.viewBox.x1 + params.viewBox.width() / 2;
+            return params.viewBox.x1;
           },
           y: (datum, element, params) => {
             return params.viewBox.y1 + params.viewBox.height() / 2;
           },
           radius: (datum, element, params) => {
-            return (0.2 * Math.max(params.viewBox.width(), params.viewBox.height())) / 2;
+            return 0.2 * Math.max(params.viewBox.width(), params.viewBox.height() / 2);
           },
           fill: '#6690F2'
         }
@@ -116,14 +135,15 @@ const spec = {
       encode: {
         update: {
           x: (datum, element, params) => {
-            return params.viewBox.x1 + params.viewBox.width() / 2;
+            return params.viewBox.x1;
           },
           y: (datum, element, params) => {
             return params.viewBox.y1 + params.viewBox.height() / 2;
           },
           fill: '#fff',
           fontSize: 20,
-          textAlign: 'center',
+          textAlign: 'start',
+          dx: 10,
           textBaseline: 'middle',
           text: '输入法'
         }
