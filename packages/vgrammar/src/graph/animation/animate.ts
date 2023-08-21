@@ -195,6 +195,14 @@ export class Animate implements IAnimate {
     return count;
   }
 
+  getAllAnimators() {
+    const allAnimators: IAnimator[] = [];
+    this.animators.forEach(animators => {
+      allAnimators.push(...animators);
+    });
+    return allAnimators;
+  }
+
   getElementAnimators(element: IElement | IElement[], animationState?: string) {
     const elements = array(element);
     let animators: IAnimator[] = [];
