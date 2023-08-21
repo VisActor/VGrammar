@@ -30,13 +30,13 @@ import type {
   ICoordinate,
   BaseEventHandler,
   GlyphMarkSpec,
-  IBaseAnimate,
   IRecordedGrammars,
   IComponent,
   ComponentSpec,
   IRecordedTreeGrammars,
   IMarkTreeNode,
-  IRunningConfig
+  IRunningConfig,
+  IViewAnimate
 } from '../types/';
 import { unregisterRuntimeTransforms } from '../transforms/register';
 import { Data } from './data';
@@ -117,7 +117,7 @@ export default class View extends EventEmitter implements IView {
 
   /** renderer */
   renderer: IRenderer;
-  animate: IBaseAnimate;
+  animate: IViewAnimate;
   rootMark: IGroupMark;
 
   /** 生命周期相关的钩子 */
@@ -944,7 +944,7 @@ export default class View extends EventEmitter implements IView {
     markNodes.forEach(node => {
       node.mark.animate.stop();
       if (runningConfig.enableExitAnimation) {
-        node.mark.animate.animate();
+        this.animate.animateAddition(node.mark);
       }
     });
     const releaseUp = (node: IMarkTreeNode) => {

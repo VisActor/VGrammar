@@ -113,7 +113,7 @@ const performanceTimes = {
 };
 
 const createChartBySpec = (spec: any) => {
-  if (chartInstance) {
+  if (chartInstance && chartInstance._dataflow) {
     chartInstance.release();
   }
   const start = performance.now();
@@ -325,7 +325,7 @@ const createChartBySpec = (spec: any) => {
 };
 
 const createChartByAPI = (runner: any) => {
-  if (chartInstance) {
+  if (chartInstance && chartInstance._dataflow) {
     chartInstance.release();
   }
 
@@ -347,7 +347,7 @@ const createChartByAPI = (runner: any) => {
 };
 
 const createChartByPlot = (runner: any) => {
-  if (chartInstance) {
+  if (chartInstance && chartInstance._dataflow) {
     chartInstance.release();
   }
 
@@ -426,7 +426,7 @@ const handleClick = (e: { target: any }, isInit?: boolean) => {
 };
 
 const handleRelease = () => {
-  if (chartInstance) {
+  if (chartInstance && chartInstance._dataflow) {
     chartInstance.release();
   }
   chartInstance = null;
