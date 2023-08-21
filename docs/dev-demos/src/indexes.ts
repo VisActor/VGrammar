@@ -147,6 +147,10 @@ export const indexes = [
       {
         path: 'relation-chart',
         name: '相关性图表'
+      },
+      {
+        path: 'jitter-x-symbols',
+        name: '扰动散点'
       }
     ]
   },
