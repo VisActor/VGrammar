@@ -21,13 +21,13 @@ export const spec = {
     {
       id: 'data',
       values: [
-        { value: 10000, url: 'https://img.hanabi.cn/_6675700130928132318.png?x-oss-process=style/hanabi_icon' },
-        { value: 15000, url: 'https://img.hanabi.cn/_6675700227397124319.png?x-oss-process=style/hanabi_icon' },
-        { value: 12000, url: 'https://img.hanabi.cn/_6675700311283204321.png?x-oss-process=style/hanabi_icon' },
-        { value: 16000, url: 'https://img.hanabi.cn/_6675700386780676324.png?x-oss-process=style/hanabi_icon' },
-        { value: 10800, url: 'https://img.hanabi.cn/_6675700596495876328.png?x-oss-process=style/hanabi_icon' },
-        { value: 13000, url: 'https://img.hanabi.cn/_6675700709742084329.png?x-oss-process=style/hanabi_icon' },
-        { value: 19000, url: 'https://img.hanabi.cn/_6675700806211076331.png?x-oss-process=style/hanabi_icon' }
+        { value: 10000, url: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg' },
+        { value: 15000, url: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/shape_motuo.jpeg' },
+        { value: 12000, url: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg' },
+        { value: 16000, url: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/shape_motuo.jpeg' },
+        { value: 10800, url: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg' },
+        { value: 13000, url: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/shape_motuo.jpeg' },
+        { value: 19000, url: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg' }
       ],
       dependency: ['padding'],
       transform: [

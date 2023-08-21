@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat(vgrammar): support channel `image` of symbol\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}
