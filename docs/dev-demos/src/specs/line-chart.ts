@@ -103,7 +103,7 @@ export const spec = {
                 }
               },
               easing: 'linear',
-              duration: 500,
+              duration: 1000,
             }
             // exit: {
             //   type: 'clipOut',
@@ -178,9 +178,22 @@ export const callback = (chartInstance: any) => {
   updateButton.innerText = 'update spec';
   document.getElementById('footer')?.appendChild(updateButton);
 
+  const releaseButton = document.createElement('button');
+  releaseButton.innerText = 'release';
+  document.getElementById('footer')?.appendChild(releaseButton);
+
   updateButton.addEventListener('click', () => {
     chartInstance.updateSpec(spec);
     chartInstance.runAsync({ reuse: false });
+    // chartInstance.runAsync();
+  });
+
+  releaseButton.addEventListener('click', () => {
+    chartInstance.updateSpec(spec);
+    chartInstance.runAsync({ reuse: false });
+    setTimeout(() => {
+      chartInstance.release();
+    }, 500);
     // chartInstance.runAsync();
   });
 };
