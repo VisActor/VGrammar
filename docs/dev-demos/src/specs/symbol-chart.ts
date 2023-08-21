@@ -118,11 +118,15 @@ export const spec = {
           direction: 1
         }
       ],
+      animation:{enter: {
+        type: 'scaleIn'
+      }},
       encode: {
         enter: {
           x: { scale: 'xscale', field: 'key' },
           y: { scale: 'yscale', field: 'amount' },
-          size: 10
+          size: 50,
+          image: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg'
         },
         update: {
           fill: {
