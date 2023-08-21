@@ -71,6 +71,9 @@ export const examplesMenu = [
       },
       {
         name: 'bubble'
+      },
+      {
+        name: 'jitter-symbol'
       }
     ]
   },
@@ -128,7 +131,13 @@ export const examplesMenu = [
     children: [
       {
         name: 'relation-circle'
-      }
+      },
+      {
+        name: 'relation-circle-top'
+      },
+      {
+        name: 'relation-circle-right'
+      },
     ]
   },
   {

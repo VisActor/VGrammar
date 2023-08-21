@@ -89,7 +89,7 @@ export const spec: ViewSpec = {
     },
     {
       type: 'circle',
-      dependency: ['viewBox', 'radiusScale'],
+      dependency: ['viewBox'],
       encode: {
         update: (datum: any, element: IElement, params: any) => {
           return {
