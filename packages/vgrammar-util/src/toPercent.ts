@@ -5,5 +5,5 @@ export const toPercent = (percent: string | number, total: number) => {
     return total;
   }
 
-  return Math.min(isString(percent) ? (total * parseFloat(percent as string)) / 100 : percent, total);
+  return isString(percent) ? (total * parseFloat(percent as string)) / 100 : percent;
 };
