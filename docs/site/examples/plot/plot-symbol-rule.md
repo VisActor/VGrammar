@@ -6,7 +6,9 @@ order: 120-4
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png
 ---
 
-# 饼图
+# 点、线组合图
+
+数据和图表引用自[observable](https://observablehq.com/@observablehq/plot-dot-plot?intent=fork)
 
 ## 代码演示
 
