@@ -13,7 +13,7 @@ import type {
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 
 export class SymbolSemanticMark extends SemanticMark<BasicEncoderSpecMap['symbol'], SymbolEncodeChannels> {
@@ -108,10 +108,14 @@ export class SymbolSemanticMark extends SemanticMark<BasicEncoderSpecMap['symbol
       res.size = markEncoder.size;
     }
 
+    if (markEncoder.stroke) {
+      res.stroke = markEncoder.stroke;
+    }
+
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
+      res.fill = this.spec.style?.fill ?? this.getPalette()?.[0];
     }
 
     return res;
