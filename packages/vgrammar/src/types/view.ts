@@ -227,6 +227,7 @@ export interface IView {
   runAfter: (callback: (view: IView) => void) => this;
 
   // --- Theme API ---
+  theme: (theme: ITheme | string) => this;
   getCurrentTheme: () => ITheme;
   setCurrentTheme: (theme: ITheme | string, render?: boolean) => Promise<this>;
 
