@@ -368,6 +368,12 @@ export const examplesMenu = [
       },
       {
         name: 'plot-symbol-rule'
+      },
+      {
+        name: 'plot-stack-point'
+      },
+      {
+        name: 'plot-diverging-color-point'
       }
     ]
   }
