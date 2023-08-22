@@ -12,7 +12,7 @@ import type {
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 
 export class Cell extends SemanticMark<BasicEncoderSpecMap['cell'], CellEncodeChannels> {
@@ -68,10 +68,14 @@ export class Cell extends SemanticMark<BasicEncoderSpecMap['cell'], CellEncodeCh
       x: markEncoder.x
     } as GenerateEncoderSpec<BasicEncoderSpecMap['cell']>;
 
+    if (markEncoder.stroke) {
+      res.stroke = markEncoder.stroke;
+    }
+
     if (markEncoder.color || markEncoder.group) {
-      res.stroke = markEncoder.color ?? markEncoder.group;
+      res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.stroke = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
+      res.fill = this.spec.style?.fill ?? this.getPalette()?.[0];
     }
 
     return res;

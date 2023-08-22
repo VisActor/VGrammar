@@ -14,7 +14,7 @@ import type {
 import { SemanticMark } from './semantic-mark';
 import { isArray } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 
 export class RectYSemanticMark extends SemanticMark<PlotRectYEncoderSpec, RectYEncodeChannels> {
@@ -98,10 +98,14 @@ export class RectYSemanticMark extends SemanticMark<PlotRectYEncoderSpec, RectYE
       };
     }
 
+    if (markEncoder.stroke) {
+      res.stroke = markEncoder.stroke;
+    }
+
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
+      res.fill = this.spec.style?.fill ?? this.getPalette()?.[0];
     }
 
     return res;

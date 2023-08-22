@@ -43,6 +43,8 @@ export class Plot implements IPlot {
   theme(theme: string) {
     this._theme = theme;
 
+    this.view.parseSpec({ theme });
+
     return this;
   }
 
