@@ -6,7 +6,8 @@ import type {
   GenerateBaseEncodeSpec,
   Nil,
   ScaleSpec,
-  ValueOf
+  ValueOf,
+  GenerateEncoderSpec
 } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { SemanticMark } from './semantic-mark';
@@ -30,6 +31,14 @@ export class PathSemanticMark extends SemanticMark<BasicEncoderSpecMap['path'], 
   convertMarkEncode(
     encode: WithDefaultEncode<BasicEncoderSpecMap['path'], PathEncodeChannels>
   ): GenerateBaseEncodeSpec<BasicEncoderSpecMap['path']> {
+    const markEncoder = this.convertSimpleMarkEncode(encode);
+    const res: GenerateEncoderSpec<BasicEncoderSpecMap['path']> = {};
+
+    if (markEncoder.stroke) {
+      res.stroke = markEncoder.stroke;
+    }
+    res.fill = markEncoder.color ?? this.spec.style?.fill ?? this.getPalette()?.[0];
+
     return null;
   }
 }
