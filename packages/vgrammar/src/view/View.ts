@@ -406,11 +406,10 @@ export default class View extends EventEmitter implements IView {
     normalizeMarkTree(spec);
 
     if (spec.theme) {
-      this._theme = ThemeManager.getTheme(spec.theme) ?? ThemeManager.getDefaultTheme();
+      this.theme(spec.theme);
+    } else {
+      this.theme(ThemeManager.getDefaultTheme());
     }
-
-    this._background = spec.background ?? this._options.background ?? this._theme?.background;
-    this.renderer.background(this._background);
 
     if (spec.width) {
       this.width(spec.width);
@@ -531,11 +530,7 @@ export default class View extends EventEmitter implements IView {
   }
 
   // --- Theme API ---
-
-  getCurrentTheme() {
-    return this._theme;
-  }
-  async setCurrentTheme(theme: ITheme | string, render: boolean = true) {
+  theme(theme: ITheme | string) {
     if (isString(theme)) {
       this._theme = ThemeManager.getTheme(theme) ?? ThemeManager.getDefaultTheme();
     } else {
@@ -544,6 +539,15 @@ export default class View extends EventEmitter implements IView {
 
     this.background(this._spec?.background ?? this._options.background ?? this._theme.background);
     this.padding(this._spec?.padding ?? this._options.padding ?? this._theme.padding);
+
+    return this;
+  }
+
+  getCurrentTheme() {
+    return this._theme;
+  }
+  async setCurrentTheme(theme: ITheme | string, render: boolean = true) {
+    this.theme(theme);
     // trigger encode for all marks
     this.grammars.getAllMarks().forEach(mark => {
       mark.commit();
