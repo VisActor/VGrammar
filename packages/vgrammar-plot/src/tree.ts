@@ -16,7 +16,7 @@ import type {
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, getTransform, getGlyph, ThemeManager } from '@visactor/vgrammar';
+import { GrammarMarkType, getTransform, getGlyph } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -104,7 +104,7 @@ export class TreeSemanticMark extends SemanticMark<PlotTreeEncodeSpec, TreeEncod
           data: this.getDataIdOfFiltered(),
           field: option as string
         },
-        range: ThemeManager.getDefaultTheme().palette?.default
+        range: this.getPalette()
       };
     }
 
@@ -121,6 +121,10 @@ export class TreeSemanticMark extends SemanticMark<PlotTreeEncodeSpec, TreeEncod
       y: { field: 'y' }
     };
 
+    if (markEncoder.stroke) {
+      res.stroke = markEncoder.stroke;
+    }
+
     if (markEncoder.color) {
       const scaleColorId = this.getScaleId('color');
       const colorAccessor = getFieldAccessor(markEncoder.color.field);
@@ -130,7 +134,7 @@ export class TreeSemanticMark extends SemanticMark<PlotTreeEncodeSpec, TreeEncod
         return datum?.datum ? scale.scale(colorAccessor(datum.datum[datum.datum.length - 1])) : undefined;
       };
     } else {
-      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
+      res.fill = this.spec.style?.fill ?? this.getPalette()?.[0];
     }
 
     return res;

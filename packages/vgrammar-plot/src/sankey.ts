@@ -102,7 +102,7 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
           data: this.getDataIdOfFiltered(),
           field: option as string
         },
-        range: ThemeManager.getDefaultTheme().palette?.default
+        range: this.getPalette()
       };
     }
 
@@ -121,6 +121,10 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
       y1: { field: 'y1' }
     };
 
+    if (markEncoder.stroke) {
+      res.stroke = markEncoder.stroke;
+    }
+
     if (markEncoder.color) {
       const scaleColorId = this.getScaleId('color');
       const colorAccessor = getFieldAccessor(markEncoder.color.field);
@@ -130,7 +134,7 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
         return scale.scale(colorAccessor(datum?.datum));
       };
     } else {
-      res.fill = this.spec.style?.nodeStyle?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
+      res.fill = this.spec.style?.nodeStyle?.fill ?? this.getPalette()?.[0];
     }
 
     return res;
@@ -184,7 +188,7 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
               y0: datum.y0,
               y1: datum.y1,
               thickness: datum.thickness,
-              fill: this.spec.style?.linkStyle?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0]
+              fill: this.spec.style?.linkStyle?.fill ?? this.getPalette()?.[0]
             };
           }
         })
