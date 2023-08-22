@@ -13,7 +13,7 @@ import type {
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, getTransform, ThemeManager } from '@visactor/vgrammar';
+import { GrammarMarkType, getTransform } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { merge } from '@visactor/vutils';
@@ -49,7 +49,7 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
           },
           dependency: ['viewBox']
         },
-        colorList: ThemeManager.getDefaultTheme().palette?.default,
+        colorList: this.getPalette(),
         text: { field: this.spec.encode?.text }
       }
     ];
@@ -80,7 +80,7 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
           data: this.getDataIdOfFiltered(),
           field: option as string
         },
-        range: ThemeManager.getDefaultTheme().palette?.default
+        range: this.getPalette()
       };
     }
 
@@ -104,6 +104,10 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
       text: { field: this.spec.encode?.text }
     };
 
+    if (markEncoder.stroke) {
+      res.stroke = markEncoder.stroke;
+    }
+
     if (markEncoder.color) {
       const scaleColorId = this.getScaleId('color');
       const colorAccessor = getFieldAccessor(markEncoder.color.field);
@@ -113,7 +117,7 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
         return scale.scale(colorAccessor(datum));
       };
     } else {
-      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
+      res.fill = this.spec.style?.fill ?? this.getPalette()?.[0];
     }
 
     return res;

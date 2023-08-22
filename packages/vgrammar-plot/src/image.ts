@@ -11,7 +11,7 @@ import type {
   ValueOf
 } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar';
 import { isArray } from '@visactor/vutils';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { PlotMakType } from './enums';
@@ -118,10 +118,14 @@ export class ImageSemanticMark extends SemanticMark<PlotImageEncoderSpec, ImageE
       res.height = height;
     }
 
+    if (markEncoder.stroke) {
+      res.stroke = markEncoder.stroke;
+    }
+
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
+      res.fill = this.spec.style?.fill ?? this.getPalette()?.[0];
     }
 
     return res;

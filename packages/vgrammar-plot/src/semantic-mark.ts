@@ -49,7 +49,8 @@ import type {
   IAnimationConfig,
   MarkSpec,
   MarkRelativeItemSpec,
-  IPlot
+  IPlot,
+  SemanticTooltipContentItem
 } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
 import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager } from '@visactor/vgrammar';
@@ -233,6 +234,10 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
 
+  protected getPalette() {
+    return (this.plot ? this.plot.view.getCurrentTheme() : ThemeManager.getDefaultTheme()).palette?.default;
+  }
+
   abstract setMarkType(): MarkType;
   abstract parseScaleByEncode(channel: K, option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>): ScaleSpec | Nil;
   abstract convertMarkEncode(encode: WithDefaultEncode<EncodeSpec, K>): GenerateBaseEncodeSpec<EncodeSpec>;
@@ -377,9 +382,22 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         data: this.getDataIdOfMain(),
         field: option as string
       },
-      range: ThemeManager.getDefaultTheme().palette?.default
+      range: this.getPalette()
     };
   }
+
+  protected parseScaleOfEncodeStroke(option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>): ScaleSpec | Nil {
+    return {
+      type: 'ordinal',
+      id: this.getScaleId('stroke'),
+      domain: {
+        data: this.getDataIdOfMain(),
+        field: option as string
+      },
+      range: this.getPalette()
+    };
+  }
+
   protected parseScaleOfEncodeGroup(option: ValueOf<WithDefaultEncode<EncodeSpec, K>, K>): ScaleSpec | Nil {
     return {
       type: 'ordinal',
@@ -388,7 +406,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
         data: this.getDataIdOfMain(),
         field: option as string
       },
-      range: ThemeManager.getDefaultTheme().palette?.default
+      range: this.getPalette()
     };
   }
 
@@ -410,6 +428,10 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     if (channel === 'group') {
       return this.parseScaleOfEncodeGroup(option);
+    }
+
+    if (channel === 'stroke') {
+      return this.parseScaleOfEncodeStroke(option);
     }
 
     return null;
@@ -657,7 +679,11 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (userTooltipSpec !== false && userTooltipSpec !== null && defaultTooltipSpec !== null) {
       const res: Array<TooltipSpec | DimensionTooltipSpec> = [];
       const tooltipSpec = merge({}, defaultTooltipSpec, userTooltipSpec === true ? {} : userTooltipSpec);
-      const colorChannel = isNil((this.spec.encode as any).color) ? 'group' : 'color';
+      const colorChannel = isNil((this.spec.encode as any).color)
+        ? isNil((this.spec.encode as any).group)
+          ? 'stroke'
+          : 'group'
+        : 'color';
       const colorEncode = (this.spec.encode as any)[colorChannel];
       const dependency = colorEncode ? [this.getScaleId(colorChannel)] : [];
       const colorAccessor = colorEncode ? getFieldAccessor(colorEncode) : null;
@@ -680,7 +706,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       }
       const content =
         isArray(tooltipSpec.content) && tooltipSpec.content.length
-          ? tooltipSpec.content.map((entry, index) => {
+          ? tooltipSpec.content.map((entry: SemanticTooltipContentItem, index: number) => {
               return {
                 key: entry.key
                   ? { field: entry.key }
@@ -704,10 +730,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                   }
 
                   return {
-                    fill:
-                      scale && colorAccessor
-                        ? scale.scale(colorAccessor(datum))
-                        : ThemeManager.getDefaultTheme().palette?.default?.[0],
+                    fill: scale && colorAccessor ? scale.scale(colorAccessor(datum)) : this.getPalette()?.[0],
                     symbolType
                   };
                 }
