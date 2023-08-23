@@ -18,7 +18,8 @@ import type {
   SliderAttributes,
   SymbolLabelAttrs,
   ArcLabelAttrs,
-  TooltipAttributes
+  TooltipAttributes,
+  BaseLabelAttrs
 } from '@visactor/vrender-components';
 import type { RecursivePartial } from '../types';
 
@@ -392,6 +393,25 @@ export const dataLabel: RecursivePartial<DataLabelAttrs> = {
   dataLabels: []
 };
 
+export const pointLabel:RecursivePartial<BaseLabelAttrs> = {
+  data: [
+    {
+      text: '',
+      data: {}
+    }
+  ],
+  overlap: {
+    avoidBaseMark: false,
+    clampForce: false,
+    size: {
+      width: 1000,
+      height: 1000
+    },
+  },
+  smartInvert: false
+
+}
+
 export const lineLabel: RecursivePartial<LineLabelAttrs> = {
   type: 'line',
   data: [
@@ -518,6 +538,7 @@ export const defaultTheme = {
   rectLabel,
   symbolLabel,
   arcLabel,
+  pointLabel,
 
   datazoom,
 
