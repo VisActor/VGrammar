@@ -87,11 +87,14 @@ export default class CanvasRenderer implements IRenderer {
   }
 
   resize(width: number, height: number) {
+    this._view.emit(HOOK_EVENT.BEFORE_STAGE_RESIZE);
     if (this.shouldResize(width, height)) {
       this._width = width;
       this._height = height;
       this._stage && this._stage.resize(width, height);
     }
+
+    this._view.emit(HOOK_EVENT.AFTER_STAGE_RESIZE);
 
     return this;
   }
@@ -117,6 +120,8 @@ export default class CanvasRenderer implements IRenderer {
   }
 
   render(immediately: boolean = false) {
+    this._view.emit(HOOK_EVENT.BEFORE_VRENDER_DRAW);
+
     this.initStage();
 
     // disable dirty bounds when render is called
@@ -124,7 +129,11 @@ export default class CanvasRenderer implements IRenderer {
     this._stage.afterNextRender(this.handleAfterNextRender);
 
     // render immediately and skip render in next frame
-    immediately && this._stage.render();
+    if (immediately) {
+      this._stage.render();
+
+      this._view.emit(HOOK_EVENT.AFTER_VRENDER_DRAW);
+    }
     return this;
   }
 
@@ -242,6 +251,7 @@ export default class CanvasRenderer implements IRenderer {
       this._stage.enableDirtyBounds();
     }
 
+    this._view.emit(HOOK_EVENT.AFTER_VRENDER_DRAW);
     this._view.emit(HOOK_EVENT.AFTER_VRENDER_NEXT_RENDER);
   };
 }
