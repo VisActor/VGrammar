@@ -15,6 +15,7 @@ import { GrammarBase } from './grammar-base';
 import { isGrammar, parseFunctionType } from '../parse/util';
 import { parseTransformSpec } from '../parse/transform';
 import type { Nil } from '../types/base';
+import { HOOK_EVENT } from '../graph/enums';
 
 export class Data extends GrammarBase implements IData {
   readonly grammarType: GrammarType = 'data';
@@ -154,6 +155,7 @@ export class Data extends GrammarBase implements IData {
   };
 
   async evaluate(upstream: any, parameters: any) {
+    this.view.emit(HOOK_EVENT.BEFORE_EVALUATE_DATA);
     const tasks = this._isLoaded ? this.transforms : this._loadTasks.concat(this.transforms);
     if (this.grammarSource) {
       this._input = upstream;
@@ -164,11 +166,13 @@ export class Data extends GrammarBase implements IData {
     this.setValues(filteredValues);
 
     this._isLoaded = true;
+    this.view.emit(HOOK_EVENT.AFTER_EVALUATE_DATA);
 
     return this;
   }
 
   evaluateSync = (upstream: any, parameters: any) => {
+    this.view.emit(HOOK_EVENT.BEFORE_EVALUATE_DATA);
     const tasks = this._isLoaded ? this.transforms : this._loadTasks.concat(this.transforms);
 
     const values = this.evaluateTransformSync(tasks, this.grammarSource ? upstream : this._input, parameters);
@@ -176,6 +180,8 @@ export class Data extends GrammarBase implements IData {
     this.setValues(filteredValues);
 
     this._isLoaded = true;
+
+    this.view.emit(HOOK_EVENT.AFTER_EVALUATE_DATA);
 
     return this;
   };
