@@ -1,7 +1,6 @@
 import type { HOOK_EVENT } from '../graph/enums';
 
 export interface Hooks {
-  // Scope
   [HOOK_EVENT.BEFORE_PARSE_VIEW]?: () => void;
   [HOOK_EVENT.AFTER_PARSE_VIEW]?: () => void;
 
@@ -16,6 +15,20 @@ export interface Hooks {
   [HOOK_EVENT.AFTER_MARK_STATE]?: () => void;
   [HOOK_EVENT.BEFORE_MARK_ENCODE]?: () => void;
   [HOOK_EVENT.AFTER_MARK_ENCODE]?: () => void;
+  [HOOK_EVENT.BEFORE_ELEMENT_UPDATE_DATA]?: () => void;
+  [HOOK_EVENT.AFTER_ELEMENT_UPDATE_DATA]?: () => void;
+  [HOOK_EVENT.BEFORE_ELEMENT_STATE]?: () => void;
+  [HOOK_EVENT.AFTER_ELEMENT_STATE]?: () => void;
+  [HOOK_EVENT.BEFORE_ELEMENT_ENCODE]?: () => void;
+  [HOOK_EVENT.AFTER_ELEMENT_ENCODE]?: () => void;
+
+  [HOOK_EVENT.BEFORE_EVALUATE_DATA]?: () => void;
+  [HOOK_EVENT.AFTER_EVALUATE_DATA]?: () => void;
+  [HOOK_EVENT.BEFORE_EVALUATE_SCALE]?: () => void;
+  [HOOK_EVENT.AFTER_EVALUATE_SCALE]?: () => void;
+
+  [HOOK_EVENT.BEFORE_STAGE_RESIZE]?: () => void;
+  [HOOK_EVENT.AFTER_STAGE_RESIZE]?: () => void;
 
   [HOOK_EVENT.BEFORE_DO_LAYOUT]?: () => void;
   [HOOK_EVENT.AFTER_DO_LAYOUT]?: () => void;
@@ -38,4 +51,6 @@ export interface Hooks {
   [HOOK_EVENT.AFTER_VRENDER_DRAW]?: () => void;
   [HOOK_EVENT.BEFORE_CREATE_VRENDER_MARK]?: () => void;
   [HOOK_EVENT.AFTER_CREATE_VRENDER_MARK]?: () => void;
+  [HOOK_EVENT.BEFORE_ADD_VRENDER_MARK]?: () => void;
+  [HOOK_EVENT.AFTER_ADD_VRENDER_MARK]?: () => void;
 }
