@@ -122,6 +122,12 @@ export enum LayoutState {
 }
 
 export enum HOOK_EVENT {
+  BEFORE_EVALUATE_DATA = 'beforeEvaluateData',
+  AFTER_EVALUATE_DATA = 'afterEvaluateData',
+
+  BEFORE_EVALUATE_SCALE = 'beforeEvaluateScale',
+  AFTER_EVALUATE_SCALE = 'afterEvaluateScale',
+
   BEFORE_PARSE_VIEW = 'beforeParseView',
   AFTER_PARSE_VIEW = 'afterParseView',
 
@@ -133,6 +139,9 @@ export enum HOOK_EVENT {
 
   BEFORE_CREATE_VRENDER_LAYER = 'beforeCreateVRenderLayer',
   AFTER_CREATE_VRENDER_LAYER = 'afterCreateVRenderLayer',
+
+  BEFORE_STAGE_RESIZE = 'beforeStageResize',
+  AFTER_STAGE_RESIZE = 'afterStageResize',
 
   BEFORE_VRENDER_DRAW = 'beforeVRenderDraw',
   AFTER_VRENDER_DRAW = 'afterVRenderDraw',
