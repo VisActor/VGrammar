@@ -12,7 +12,7 @@ import {
   isEmpty,
   isEqual as isObjEqual
 } from '@visactor/vutils';
-import { isEqual } from '@visactor/vgrammar-util';
+import { extend, extendToNew, isEqual } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import { BridgeElementKey } from './constants';
 import { DiffState, HOOK_EVENT, GrammarMarkType, BuiltInEncodeNames } from './enums';
@@ -67,7 +67,7 @@ export class Element implements IElement {
       return;
     }
     // 统一读取mark中是否可交互的配置
-    const attrs = Object.assign({}, attributes);
+    const attrs = extendToNew(attributes);
     this.graphicItem = this.mark.addGraphicItem(attrs, this.groupKey);
     // 统一读取mark中是否可交互的配置
     this.graphicItem[BridgeElementKey] = this;
@@ -261,7 +261,7 @@ export class Element implements IElement {
     items.forEach(item => {
       const nextAttrs = item.nextAttrs;
       const convertedPoint: IPointLike = coord.convert(nextAttrs);
-      Object.assign(nextAttrs, convertedPoint);
+      extend(nextAttrs, convertedPoint);
     });
   }
 
@@ -352,7 +352,7 @@ export class Element implements IElement {
       return this.graphicItem.states[stateName];
     }
 
-    const stateItems = this.items.map(item => Object.assign({}, item, { nextAttrs: {} }));
+    const stateItems = this.items.map(item => extendToNew<MarkElementItem>(item, { nextAttrs: {} }));
     // collection图元，暂时不支持在state更新中，支持更新points更新
     invokeEncoderToItems(this, stateItems, encoder, (this.mark as any).parameters());
 
@@ -429,7 +429,7 @@ export class Element implements IElement {
       const enableSegments = item.nextAttrs.enableSegments ?? this.getGraphicAttribute('enableSegments', false);
       const itemNextAttrs = items.map(item => item.nextAttrs);
       const isProgressive = this.mark.isProgressive();
-      nextAttrs = Object.assign({}, nextAttrs);
+      nextAttrs = extendToNew(nextAttrs);
       delete nextAttrs.x;
       delete nextAttrs.y;
 
@@ -442,22 +442,22 @@ export class Element implements IElement {
           const segments = getLineSegmentConfigs(itemNextAttrs, points, this);
 
           if (segments) {
-            Object.assign(nextAttrs, {
+            extend(nextAttrs, {
               segments: segments,
               points: null
             });
           } else {
-            Object.assign(nextAttrs, {
+            extend(nextAttrs, {
               points: points,
               segments: null
             });
           }
         } else if (isProgressive) {
-          Object.assign(nextAttrs, {
+          extend(nextAttrs, {
             segments: ((this.graphicItem as ILine)?.attribute?.segments ?? []).concat([{ points: linePoints }])
           });
         } else {
-          Object.assign(nextAttrs, {
+          extend(nextAttrs, {
             points: linePoints,
             segments: null
           });
@@ -660,11 +660,11 @@ export class Element implements IElement {
     if (this.mark.isCollectionMark()) {
       if (isArray(attributes)) {
         this.items.forEach((item, index) => {
-          Object.assign(item.nextAttrs, attributes[index]);
+          extend(item.nextAttrs, attributes[index]);
         });
       }
     } else {
-      Object.assign(this.items[0].nextAttrs, attributes);
+      extend(this.items[0].nextAttrs, attributes);
     }
   }
   /**

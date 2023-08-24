@@ -8,10 +8,12 @@ import type {
   IAnimationParameters,
   IElement,
   IGlyphElement,
-  IParsedAnimationAttrs
+  IParsedAnimationAttrs,
+  MarkElementItem
 } from '../../types';
 import { getAnimationType } from '../../view/register-animation';
 import { isValidPointsChannel } from '../attributes/helpers';
+import { extendToNew } from '@visactor/vgrammar-util';
 
 const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element: IElement): IParsedAnimationAttrs => {
   if (!attributes) {
@@ -27,7 +29,7 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
     });
     const computePoints = isValidPointsChannel(Object.keys(from), element.mark.markType) && !isValid(from.segments);
     if (computePoints) {
-      const items = element.items.map(item => Object.assign({}, item, { nextAttrs: from }));
+      const items = element.items.map(item => extendToNew<MarkElementItem>(item, { nextAttrs: from }));
       attributes.from = element.transformElementItems(items, element.mark.markType, computePoints);
     }
   }
@@ -40,7 +42,7 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
     });
     const computePoints = isValidPointsChannel(Object.keys(to), element.mark.markType) && !isValid(to.segments);
     if (computePoints) {
-      const items = element.items.map(item => Object.assign({}, item, { nextAttrs: to }));
+      const items = element.items.map(item => extendToNew<MarkElementItem>(item, { nextAttrs: to }));
       attributes.to = element.transformElementItems(items, element.mark.markType, computePoints);
     }
   }
@@ -175,8 +177,8 @@ export class AttributeAnimate extends ACustomAnimate<any> {
   }
 
   onStart(): void {
-    const from = Object.assign({}, this.from);
-    const to = Object.assign({}, this.to);
+    const from = extendToNew(this.from);
+    const to = extendToNew(this.to);
     Object.keys(to).forEach(k => {
       if (isNil(from[k])) {
         from[k] = this.target.getComputedAttribute(k);

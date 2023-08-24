@@ -1,5 +1,5 @@
 import { isFunction, isNil, isNumber, isString } from '@visactor/vutils';
-import { field as getFieldAccessor } from '@visactor/vgrammar-util';
+import { extend, field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type {
   BaseSignleEncodeSpec,
   FunctionCallback,
@@ -34,17 +34,17 @@ export function invokeEncoderToItems(
 
   if (isFunction(encoder)) {
     items.forEach(item => {
-      Object.assign(item.nextAttrs, (encoder as FunctionCallback<any>).call(null, item.datum, element, parameters));
+      extend(item.nextAttrs, (encoder as FunctionCallback<any>).call(null, item.datum, element, parameters));
     });
   } else if (encoder.signal) {
     const signal = (encoder as SignalReference).signal;
     const res = isString(signal) ? parameters?.[signal as string] : (signal as IGrammarBase).output();
     items.forEach(item => {
-      Object.assign(item.nextAttrs, res);
+      extend(item.nextAttrs, res);
     });
   } else if ((encoder as SignalFunction<FunctionCallback<any>, any>).callback) {
     items.forEach(item => {
-      Object.assign(
+      extend(
         item.nextAttrs,
         (encoder as SignalFunction<FunctionCallback<any>, any>).callback.call(null, item.datum, element, parameters)
       );

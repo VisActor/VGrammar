@@ -39,7 +39,8 @@ import type {
   Nil,
   IAnimate,
   MarkStateSortSpec,
-  BaseSignleEncodeSpec
+  BaseSignleEncodeSpec,
+  MarkElementItem
 } from '../types';
 import { isFieldEncode, isScaleEncode, parseEncodeType } from '../parse/mark';
 import { getGrammarOutput, parseField, isFunctionType } from '../parse/util';
@@ -50,6 +51,7 @@ import { isPositionOrSizeChannel, transformsByType } from '../graph/attributes';
 import getExtendedEvents from '../graph/util/events-extend';
 import type { IBaseScale } from '@visactor/vscale';
 import { EVENT_SOURCE_VIEW } from './constants';
+import { extend, extendToNew } from '@visactor/vgrammar-util';
 
 export class Mark extends GrammarBase implements IMark {
   readonly grammarType: GrammarType = 'mark';
@@ -411,7 +413,7 @@ export class Mark extends GrammarBase implements IMark {
       this.spec.encode[state] = channel;
       this.attach(parseEncodeType(channel, this.view));
     } else {
-      Object.assign(this.spec.encode[state], channel);
+      extend(this.spec.encode[state], channel);
       if (channel) {
         Object.values(channel).forEach(channelEncoder => {
           this.attach(parseEncodeType(channelEncoder, this.view));
@@ -781,7 +783,7 @@ export class Mark extends GrammarBase implements IMark {
       }
 
       const nextAttrs = {};
-      const items = [Object.assign({}, el.items?.[0], { nextAttrs })];
+      const items = [extendToNew<MarkElementItem>(el.items?.[0], { nextAttrs })];
       invokeEncoderToItems(el, items, groupEncode, parameters);
       res[key] = nextAttrs;
     });
@@ -797,7 +799,7 @@ export class Mark extends GrammarBase implements IMark {
       elements.forEach(element => {
         if (groupEncodeAttrs?.[element.groupKey]) {
           element.items.forEach(item => {
-            item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
+            extend(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
           });
         }
 
@@ -1015,7 +1017,7 @@ export class Mark extends GrammarBase implements IMark {
       const onlyPos = progressiveIndex > 0 || (!isCollection && index > 0);
       if (!onlyPos && groupEncodeAttrs?.[element.groupKey]) {
         element.items.forEach(item => {
-          item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
+          extend(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
         });
       }
 

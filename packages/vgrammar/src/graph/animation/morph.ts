@@ -6,6 +6,7 @@ import type { IMorph, MorphData, MorphElements } from '../../types/morph';
 import { invokeFunctionType, parseField } from '../../parse/util';
 import { diffMultiple, diffSingle, groupData } from '../mark/differ';
 import { GrammarMarkType } from '../enums';
+import { extend } from '@visactor/vgrammar-util';
 
 const EmptyKey = Symbol.for('key');
 
@@ -138,7 +139,7 @@ export class Morph implements IMorph {
     nextMarks.forEach(mark => mark.animate?.disable?.());
 
     const parameters = prevMarks.concat(nextMarks).reduce((parameters, mark) => {
-      Object.assign(parameters, mark.parameters());
+      extend(parameters, mark.parameters());
       return parameters;
     }, {});
 

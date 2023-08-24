@@ -8,6 +8,7 @@ import type {
   IGrowPointsAnimationOptions,
   TypeAnimation
 } from '../../../types';
+import { extendToNew } from '@visactor/vgrammar-util';
 
 const getCenterPoints = (
   element: IElement,
@@ -32,7 +33,7 @@ const getCenterPoints = (
     }
   }
 
-  return points.map(() => Object.assign(center));
+  return points.map(() => extendToNew(center));
 };
 
 export const growPointsIn: TypeAnimation<IElement> = (
