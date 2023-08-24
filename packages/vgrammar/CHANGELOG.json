@@ -2,6 +2,27 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.6.3",
+      "tag": "@visactor/vgrammar_v0.6.3",
+      "date": "Thu, 24 Aug 2023 06:39:36 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix the exit mark animation error"
+          },
+          {
+            "comment": "fix(vgrammar): fix hooks of vgrammar\n\n"
+          },
+          {
+            "comment": "fix: when a symbol has `symbolType` and `shape` at the same time, use `shape` in higher Priority\n\n"
+          },
+          {
+            "comment": "fix: fix `maxLineWidth` of text attributes, the order of attribute may produce different result\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.2",
       "tag": "@visactor/vgrammar_v0.6.2",
       "date": "Fri, 18 Aug 2023 11:16:01 GMT",

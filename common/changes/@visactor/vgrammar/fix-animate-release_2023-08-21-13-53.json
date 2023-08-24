@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix: fix the exit mark animation error",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}

@@ -49,8 +49,71 @@ const resetFooterContent = (
   }
 };
 
+const performanceTimes = {
+  parseViewTime: 0,
+  parseViewTimeTemp: -1,
+
+  stageResizeTime: 0,
+  stageResizeTimeTemp: -1,
+
+  evaluateDataTime: 0,
+  evaluateDataTimeTemp: -1,
+
+  evaluateScaleTime: 0,
+  evaluateScaleTimeTemp: -1,
+
+  markJoinSeq: 0,
+  markJoinTime: 0,
+  markJoinTimeTemp: -1,
+
+  markUpdateSeq: 0,
+  markUpdateTime: 0,
+  markUpdateTimeTemp: -1,
+
+  markStateSeq: 0,
+  markStateTime: 0,
+  markStateTimeTemp: -1,
+
+  markEncodeSeq: 0,
+  markEncodeTime: 0,
+  markEncodeTimeTemp: -1,
+
+  layoutTime: 0,
+  layoutTimeTemp: -1,
+
+  handleLayoutEndTime: 0,
+  handleLayoutEndTimeTemp: -1,
+
+  handleRenderEndTime: 0,
+  handleRenderEndTimeTemp: -1,
+
+  doRenderTimeTemp: -1,
+  doRenderTime: 0,
+
+  createVRenderMarkTimeTemp: -1,
+  createVRenderMarkTime: 0,
+
+  addVRenderMarkTimeTemp: -1,
+  addVRenderMarkTime: -1,
+
+  createLayerTime: 0,
+  createLayerTimeTemp: -1,
+
+  createStageTime: 0,
+  createStageTimeTemp: -1,
+
+  canopusDrawTime: 0,
+  canopusDrawTimeTemp: -1,
+
+  transformTime: {
+    timeTemp: {},
+    time: {},
+    seq: {}
+  }
+};
+
 const createChartBySpec = (spec: any) => {
-  if (chartInstance) {
+  if (chartInstance && chartInstance._dataflow) {
     chartInstance.release();
   }
   const start = performance.now();
@@ -60,47 +123,173 @@ const createChartBySpec = (spec: any) => {
   chartInstance = new View({
     width: spec.width,
     height: spec.height,
-    renderer: 'canvas',
     container: 'container',
     hover: true,
-    logLevel: 5
-    // hooks: {
-    //   beforeParseView: () => {
-    //     console.log('beforeParseView');
-    //   },
-    //   afterParseView: () => {
-    //     console.log('afterParseView');
-    //   },
+    logLevel: 0,
+    hooks: {
+      beforeParseView: () => {
+        performanceTimes.parseViewTimeTemp = performance.now();
+      },
+      afterParseView: () => {
+        performanceTimes.parseViewTime += performance.now() - performanceTimes.parseViewTimeTemp;
+        performanceTimes.parseViewTimeTemp = -1;
+      },
 
-    //   // View
-    //   beforeTransform: (key: string) => {
-    //     console.log('beforeTransform', key);
-    //   },
-    //   afterTransform: (key: string) => {
-    //     console.log('afterTransform', key);
-    //   },
+      beforeEvaluateData: () => {
+        performanceTimes.evaluateDataTimeTemp = performance.now();
+      },
+      afterEvaluateData: () => {
+        performanceTimes.evaluateDataTime += performance.now() - performanceTimes.evaluateDataTimeTemp;
+        performanceTimes.evaluateDataTimeTemp = -1;
+      },
 
-    //   beforeCreateVRenderStage: () => {
-    //     console.log('beforeCreateVRenderStage');
-    //   },
-    //   afterCreateVRenderStage: () => {
-    //     console.log('afterCreateVRenderStage');
-    //   },
-    //   beforeVRenderDraw: () => {
-    //     console.log('beforeVRenderDraw');
-    //   },
-    //   afterVRenderDraw: () => {
-    //     console.log('afterVRenderDraw');
-    //   },
+      beforeEvaluateScale: () => {
+        performanceTimes.evaluateScaleTimeTemp = performance.now();
+      },
+      afterEvaluateScale: () => {
+        performanceTimes.evaluateScaleTime += performance.now() - performanceTimes.evaluateScaleTimeTemp;
+        performanceTimes.evaluateScaleTimeTemp = -1;
+      },
 
-    //   // Scenegraph
-    //   beforeCreateVRenderMark: () => {
-    //     console.log('beforeCreateVRenderMark');
-    //   },
-    //   afterCreateVRenderMark: () => {
-    //     console.log('afterCreateVRenderMark');
-    //   }
-    // }
+      beforeStageResize: () => {
+        performanceTimes.stageResizeTimeTemp = performance.now();
+      },
+      afterStageResize: () => {
+        
+        performanceTimes.stageResizeTime += performance.now() - performanceTimes.stageResizeTimeTemp;
+        performanceTimes.stageResizeTimeTemp = -1;
+      },
+
+      beforeTransform: name => {
+        performanceTimes.transformTime.timeTemp[name] = performance.now();
+      },
+      afterTransform: name => {
+        if (typeof performanceTimes.transformTime.time[name] !== 'number') {
+          performanceTimes.transformTime.time[name] = 0;
+        }
+        performanceTimes.transformTime.time[name] +=
+          performance.now() - performanceTimes.transformTime.timeTemp[name];
+        performanceTimes.transformTime.timeTemp[name] = -1;
+
+        if (typeof performanceTimes.transformTime.seq[name] !== 'number') {
+          performanceTimes.transformTime.seq[name] = 0;
+        }
+        performanceTimes.transformTime.seq[name]++;
+      },
+
+      // Create Canopus Stage 时间
+      beforeCreateVRenderStage: () => {
+        performanceTimes.createStageTimeTemp = performance.now();
+      },
+      afterCreateVRenderStage: () => {
+        performanceTimes.createStageTime += performance.now() - performanceTimes.createStageTimeTemp;
+        performanceTimes.createStageTimeTemp = -1;
+      },
+
+      // Create Canopus Mark 时间
+      beforeCreateVRenderLayer: () => {
+        performanceTimes.createLayerTimeTemp = performance.now();
+      },
+      afterCreateVRenderLayer: () => {
+        performanceTimes.createLayerTime += performance.now() - performanceTimes.createLayerTimeTemp;
+        performanceTimes.createLayerTimeTemp = -1;
+      },
+
+      // mark 具体执行时间
+      beforeMarkJoin: () => {
+        performanceTimes.markJoinTimeTemp = performance.now();
+      },
+      afterMarkJoin: () => {
+        performanceTimes.markJoinSeq += 1;
+        performanceTimes.markJoinTime += performance.now() - performanceTimes.markJoinTimeTemp;
+        performanceTimes.markJoinTimeTemp = -1;
+      },
+
+      beforeMarkUpdate: () => {
+        performanceTimes.markUpdateTimeTemp = performance.now();
+      },
+      afterMarkUpdate: () => {
+        performanceTimes.markUpdateSeq += 1;
+        performanceTimes.markUpdateTime += performance.now() - performanceTimes.markUpdateTimeTemp;
+        performanceTimes.markUpdateTimeTemp = -1;
+      },
+
+      beforeMarkState: () => {
+        performanceTimes.markStateTimeTemp = performance.now();
+      },
+      afterMarkState: () => {
+        performanceTimes.markStateSeq += 1;
+        performanceTimes.markStateTime += performance.now() - performanceTimes.markStateTimeTemp;
+        performanceTimes.markStateTimeTemp = -1;
+      },
+
+      beforeMarkEncode: () => {
+        performanceTimes.markEncodeTimeTemp = performance.now();
+      },
+      afterMarkEncode: () => {
+        performanceTimes.markEncodeSeq += 1;
+        performanceTimes.markEncodeTime += performance.now() - performanceTimes.markEncodeTimeTemp;
+        performanceTimes.markEncodeTimeTemp = -1;
+      },
+
+      beforeDoLayout: () => {
+        performanceTimes.layoutTimeTemp = performance.now();
+      },
+      afterDoLayout: () => {
+        performanceTimes.layoutTime += performance.now() - performanceTimes.layoutTimeTemp;
+        performanceTimes.layoutTimeTemp = -1;
+      },
+      beforeMarkLayoutEnd: () => {
+        performanceTimes.handleLayoutEndTimeTemp = performance.now();
+      },
+      afterMarkLayoutEnd: () => {
+        performanceTimes.handleLayoutEndTime += performance.now() - performanceTimes.handleLayoutEndTimeTemp;
+        performanceTimes.handleLayoutEndTimeTemp = -1;
+      },
+      beforeMarkRenderEnd: () => {
+        performanceTimes.handleRenderEndTimeTemp = performance.now();
+      },
+      afterMarkRenderEnd: () => {
+        performanceTimes.handleRenderEndTime += performance.now() - performanceTimes.handleRenderEndTimeTemp;
+        performanceTimes.handleRenderEndTimeTemp = -1;
+      },
+
+      beforeDoRender: () => {
+        performanceTimes.doRenderTimeTemp = performance.now();
+      },
+      afterDoRender: () => {
+
+        performanceTimes.doRenderTime += performance.now() - performanceTimes.doRenderTimeTemp;
+        performanceTimes.doRenderTimeTemp = -1;
+      },
+
+
+      beforeCreateVRenderMark: () => {
+        performanceTimes.createVRenderMarkTimeTemp = performance.now();
+      },
+      afterCreateVRenderMark: () => {
+
+        performanceTimes.createVRenderMarkTime += performance.now() - performanceTimes.createVRenderMarkTimeTemp;
+        performanceTimes.createVRenderMarkTimeTemp = -1;
+      },
+
+      beforeAddVRenderMark: () => {
+        performanceTimes.addVRenderMarkTimeTemp = performance.now();
+      },
+      afterAddVRenderMark: () => {
+        performanceTimes.addVRenderMarkTime += performance.now() - performanceTimes.addVRenderMarkTimeTemp;
+        performanceTimes.addVRenderMarkTimeTemp = -1;
+      },
+
+      // Canopus Draw 时间
+      beforeVRenderDraw: () => {
+        performanceTimes.canopusDrawTimeTemp = performance.now();
+      },
+      afterVRenderDraw: () => {
+        performanceTimes.canopusDrawTime += performance.now() - performanceTimes.canopusDrawTimeTemp;
+        performanceTimes.canopusDrawTimeTemp = -1;
+      }
+    }
   });
   chartInstance.parseSpec(spec);
 
@@ -109,13 +298,34 @@ const createChartBySpec = (spec: any) => {
   chartInstance.runAsync().then(() => {
     const runFinish = performance.now();
     console.log('================ all time =====================', runFinish - start);
+    let sum = 0;
+    console.table(
+      Object.keys(performanceTimes).reduce((res: any, key) => {
+        if (!key.includes('TimeTemp') && !key.includes('Seq') && typeof performanceTimes[key] === 'number') {
+          res[key] = performanceTimes[key];
+          sum += res[key];
+        } else if (key === 'transformTime') {
+          const time = performanceTimes.transformTime.time;
+
+          Object.keys(time).forEach(k => {
+            res[`transform-${k}-time`] = time[k];
+            sum += time[k];
+          })
+        }
+
+        return res;
+      }, {})
+    );
+
+    console.log('sum', sum);
+
   });
 
   return chartInstance;
 };
 
 const createChartByAPI = (runner: any) => {
-  if (chartInstance) {
+  if (chartInstance && chartInstance._dataflow) {
     chartInstance.release();
   }
 
@@ -137,7 +347,7 @@ const createChartByAPI = (runner: any) => {
 };
 
 const createChartByPlot = (runner: any) => {
-  if (chartInstance) {
+  if (chartInstance && chartInstance._dataflow) {
     chartInstance.release();
   }
 
@@ -216,7 +426,7 @@ const handleClick = (e: { target: any }, isInit?: boolean) => {
 };
 
 const handleRelease = () => {
-  if (chartInstance) {
+  if (chartInstance && chartInstance._dataflow) {
     chartInstance.release();
   }
   chartInstance = null;

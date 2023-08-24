@@ -305,6 +305,10 @@ export interface IBaseAnimate {
   release: () => void;
 }
 
+export interface IViewAnimate extends IBaseAnimate {
+  animateAddition: (mark: IMark) => this;
+}
+
 export interface IAnimate extends IBaseAnimate {
   mark: IMark;
 
