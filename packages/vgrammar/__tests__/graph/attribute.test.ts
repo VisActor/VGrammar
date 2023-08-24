@@ -326,3 +326,107 @@ test('transformAttributes()', () => {
     y: 0
   });
 });
+
+test('transformAttributes() of "text"', () => {
+  expect(
+    transformAttributes('text', { x: 10, y: 20, maxLineWidth: 50, text: '测试文本' }, {
+      getGraphicAttribute: emptyFunction
+    } as any)
+  ).toEqual({
+    x: 10,
+    y: 20,
+    maxLineWidth: 50,
+    text: '测试文本',
+    limitAttrs: {
+      text: '测试文本',
+      limit: undefined,
+      autoLimit: undefined,
+      maxLineWidth: 50
+    }
+  });
+
+  expect(
+    transformAttributes('text', { maxLineWidth: 50, x: 10, y: 20, text: '测试文本' }, {
+      getGraphicAttribute: emptyFunction
+    } as any)
+  ).toEqual({
+    x: 10,
+    y: 20,
+    maxLineWidth: 50,
+    text: '测试文本',
+    limitAttrs: {
+      text: '测试文本',
+      limit: undefined,
+      autoLimit: undefined,
+      maxLineWidth: 50
+    }
+  });
+
+  expect(
+    transformAttributes('text', { limit: 20, maxLineWidth: 50, x: 10, y: 20, text: '测试文本' }, {
+      getGraphicAttribute: emptyFunction
+    } as any)
+  ).toEqual({
+    x: 10,
+    y: 20,
+    maxLineWidth: 20,
+    text: '测试文本',
+    limitAttrs: {
+      text: '测试文本',
+      limit: 20,
+      autoLimit: undefined,
+      maxLineWidth: 50
+    }
+  });
+
+  expect(
+    transformAttributes('text', { limit: 20, autoLimit: 10, maxLineWidth: 50, x: 10, y: 20, text: '测试文本' }, {
+      getGraphicAttribute: emptyFunction
+    } as any)
+  ).toEqual({
+    x: 10,
+    y: 20,
+    maxLineWidth: 10,
+    text: '测试文本',
+    limitAttrs: {
+      text: '测试文本',
+      limit: 20,
+      autoLimit: 10,
+      maxLineWidth: 50
+    }
+  });
+
+  expect(
+    transformAttributes('text', { maxLineWidth: 50, x: 10, y: 20, text: ['测试文本', '测试文本'] }, {
+      getGraphicAttribute: emptyFunction
+    } as any)
+  ).toEqual({
+    x: 10,
+    y: 20,
+    maxLineWidth: 50,
+    text: ['测试文本', '测试文本'],
+    limitAttrs: {
+      text: ['测试文本', '测试文本'],
+      limit: undefined,
+      autoLimit: undefined,
+      maxLineWidth: 50
+    }
+  });
+
+  expect(
+    transformAttributes('text', { x: 10, y: 20, text: ['测试文本', '测试文本'] }, {
+      getGraphicAttribute: emptyFunction
+    } as any)
+  ).toEqual({
+    x: 10,
+    y: 20,
+    maxLineWidth: undefined,
+    text: ['测试文本', '测试文本'],
+    limitAttrs: {
+      text: ['测试文本', '测试文本'],
+      limit: undefined,
+      autoLimit: undefined,
+      maxLineWidth: undefined
+    }
+  });
+});

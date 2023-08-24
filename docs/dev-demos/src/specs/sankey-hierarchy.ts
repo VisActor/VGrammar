@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { registerSankeyTransforms } from '@visactor/vgrammar-sankey';
+import { SankeyLinkDatum, registerSankeyTransforms } from '@visactor/vgrammar-sankey';
 import type { IElement, IView, IGlyphElement } from '@visactor/vgrammar';
 // eslint-disable-next-line
 import { registerLinkPathGlyph } from '@visactor/vgrammar';
@@ -259,19 +259,33 @@ export const callback = (chartInstance: IView) => {
     const allNodeElements = chartInstance.getMarkById('sankeyNode').elements;
     const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
     const highlightNodes: string[] = [nodeDatum.key];
+    const upstreamLinks = nodeDatum.targetLinks.reduce((res: any[], link: SankeyLinkDatum) => {
+      const parents = (link as any).parents;
+      const len = parents.length;
 
-    console.log(allLinkElements)
+      for (let i = 0; i < len; i++) {
+        res.push({
+          source: parents[i],
+          target: parents[i + 1] ?? nodeDatum.key,
+          value: link.value
+        });
+      }
+
+      return res;
+    }, []);
+
+    console.log(allLinkElements, upstreamLinks, nodeDatum);
 
     allLinkElements.forEach(linkEl => {
       linkEl.clearStates();
       const linkDatum = linkEl.getDatum();
       const originalDatum = linkDatum.datum;
-      const selectedDatum = originalDatum
-      .filter((entry: any) => entry.parents.some((par: any) => par.key === nodeDatum.key));
-
+      const selectedDatum = originalDatum.filter((entry: any) =>
+        entry.parents.some((par: any) => par.key === nodeDatum.key)
+      );
 
       if (selectedDatum && selectedDatum.length) {
-        console.log('下游节点', linkDatum, selectedDatum)
+        console.log('下游的边', linkDatum, selectedDatum);
         // 下游link
         if (!highlightNodes.includes(linkDatum.source)) {
           highlightNodes.push(linkDatum.source);
@@ -280,23 +294,39 @@ export const callback = (chartInstance: IView) => {
         if (!highlightNodes.includes(linkDatum.target)) {
           highlightNodes.push(linkDatum.target);
         }
-        
+
         const val = selectedDatum.reduce((sum: number, d: any) => {
-            return (sum += d.value);
-          }, 0);
+          return (sum += d.value);
+        }, 0);
         const ratio = val / linkDatum.value;
-        console.log(linkEl, ratio)
+        console.log(linkEl, ratio);
 
         linkEl.addState('selected', { ratio });
-      } else if (linkDatum.target === nodeDatum.key) {
-        console.log('点击节点的上游一层的节点', linkDatum)
+
+        return;
+      }
+
+      const upSelectedLink = upstreamLinks.find(
+        (upLink: any) => upLink.source === linkDatum.source && upLink.target === linkDatum.target
+      );
+
+      if (upSelectedLink) {
+        console.log('上游的边', linkDatum, upSelectedLink);
         // 点击节点的上游一层的节点
         if (!highlightNodes.includes(linkDatum.source)) {
           highlightNodes.push(linkDatum.source);
         }
-      } else {
-        linkEl.useStates(['blur']);
+        if (!highlightNodes.includes(linkDatum.target)) {
+          highlightNodes.push(linkDatum.target);
+        }
+
+        linkEl.addState('selected', { ratio: upSelectedLink.value / linkDatum.value });
+
+        return;
       }
+      linkEl.useStates(['blur']);
+
+      return;
     });
 
     allNodeElements.forEach(el => {
@@ -314,15 +344,38 @@ export const callback = (chartInstance: IView) => {
     const allNodeElements = chartInstance.getMarkById('sankeyNode').elements;
     const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
     const highlightNodes: string[] = [curLinkDatum.source, curLinkDatum.target];
+    const upstreamLinks: Array<{ source: string, target: string, value: number }> = [];
+
+    const parents = (curLinkDatum as any).parents;
+    const len = parents.length;
+
+    for (let i = 0; i < len - 1; i++) {
+      upstreamLinks.push({
+        source: parents[i],
+        target: parents[i + 1],
+        value: curLinkDatum.value
+      });
+    }
+
 
     allLinkElements.forEach(linkEl => {
       linkEl.clearStates();
       const linkDatum = linkEl.getDatum();
+      const originalDatum = linkDatum.datum;
 
-      if (
-        linkDatum.source === curLinkDatum.target ||
-        (linkDatum.parents.includes(curLinkDatum.source) && linkDatum.parents.includes(curLinkDatum.target))
-      ) {
+      if (linkDatum.source === curLinkDatum.source && linkDatum.target === curLinkDatum.target) {
+        // 自身
+        linkEl.addState('selected', { ratio: 1 });
+        return;
+      }
+
+
+      const selectedDatum = originalDatum.filter((entry: any) =>
+        entry.parents.some((par: any) => par.key === curLinkDatum.target)
+      );
+
+      if (selectedDatum && selectedDatum.length) {
+        console.log('下游的边', linkDatum, selectedDatum);
         // 下游link
         if (!highlightNodes.includes(linkDatum.source)) {
           highlightNodes.push(linkDatum.source);
@@ -331,25 +384,39 @@ export const callback = (chartInstance: IView) => {
         if (!highlightNodes.includes(linkDatum.target)) {
           highlightNodes.push(linkDatum.target);
         }
-        const originalDatum = linkDatum.datum;
-        const val = originalDatum
-          .filter((entry: any) =>
-            entry.parents.some(
-              (par: any, index: number) =>
-                par.key === curLinkDatum.source && entry.parents[index + 1]?.key === curLinkDatum.target
-            )
-          )
-          .reduce((sum: number, d: any) => {
-            return (sum += d.value);
-          }, 0);
+
+        const val = selectedDatum.reduce((sum: number, d: any) => {
+          return (sum += d.value);
+        }, 0);
         const ratio = val / linkDatum.value;
+        console.log(linkEl, ratio);
 
         linkEl.addState('selected', { ratio });
-      } else if (linkEl === element) {
-        // linkEl.addState('selected', { ratio: 1 });
-      } else {
-        linkEl.useStates(['blur']);
+
+        return;
       }
+
+      const upSelectedLink = upstreamLinks.find(
+        (upLink: any) => upLink.source === linkDatum.source && upLink.target === linkDatum.target
+      );
+
+      if (upSelectedLink) {
+        console.log('上游的边', linkDatum, upSelectedLink);
+        // 点击节点的上游一层的节点
+        if (!highlightNodes.includes(linkDatum.source)) {
+          highlightNodes.push(linkDatum.source);
+        }
+        if (!highlightNodes.includes(linkDatum.target)) {
+          highlightNodes.push(linkDatum.target);
+        }
+
+        linkEl.addState('selected', { ratio: upSelectedLink.value / linkDatum.value });
+
+        return;
+      }
+      linkEl.useStates(['blur']);
+
+      return;
     });
 
     allNodeElements.forEach(el => {
@@ -372,7 +439,7 @@ export const callback = (chartInstance: IView) => {
     allLinkElements.forEach(el => {
       el.clearStates();
     });
-  }
+  };
 
   chartInstance.addEventListener('click', (e: any) => {
     if (e.element && e.element.mark.id() === 'sankeyNode') {
