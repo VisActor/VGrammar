@@ -68,8 +68,6 @@ export interface MarkElementItem {
   key: string;
   /** 原始数据 */
   datum: any;
-  /** VGrammar view */
-  view: any;
   /** 当前渲染帧下graphicItem对应的最新属性 */
   nextAttrs?: any;
   /** 是否初始化过，用于解决collection mark对应的item，可能跳过enter状态的问题 */

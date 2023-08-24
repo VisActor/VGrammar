@@ -139,7 +139,6 @@ export class Element implements IElement {
       const item = {
         datum,
         key,
-        view: this.mark.view,
         nextAttrs: {}
       };
 
