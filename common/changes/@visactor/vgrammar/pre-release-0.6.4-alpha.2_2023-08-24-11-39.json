@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat(vgrammar): access simple polygon and point label",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
