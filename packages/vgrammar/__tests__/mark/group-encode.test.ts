@@ -88,5 +88,5 @@ test('group encode of collection mark', () => {
       y: 20
     }
   ]);
-  expect(mark.getSegmentIgnoreAttributes()).toEqual(['enableSegments', 'fill', 'stroke']);
+  expect(mark.getSegmentIgnoreAttributes()).toEqual(['stroke', 'fill', 'enableSegments']);
 });
