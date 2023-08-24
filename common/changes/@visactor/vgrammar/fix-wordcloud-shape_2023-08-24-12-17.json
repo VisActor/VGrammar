@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "ix(wordCloud): layout stack when size is decimal. fix VisActor/VChart #561",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
