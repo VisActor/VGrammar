@@ -1,6 +1,14 @@
-import { isNil, isNumber, isString } from '@visactor/vutils';
+import { isFunction, isNil, isNumber, isString } from '@visactor/vutils';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
-import type { BaseSignleEncodeSpec, IElement, MarkElementItem } from '../../types';
+import type {
+  BaseSignleEncodeSpec,
+  FunctionCallback,
+  IElement,
+  IGrammarBase,
+  MarkElementItem,
+  SignalFunction,
+  SignalReference
+} from '../../types';
 import { isFieldEncode, isScaleEncode } from '../../parse/mark';
 import { getGrammarOutput, invokeFunctionType, isFunctionType } from '../../parse/util';
 import { getGlyph } from '../../view/register-glyph';
@@ -26,8 +34,7 @@ export function invokeEncoderToItems(
 
   if (isFunctionType(encoder)) {
     items.forEach(item => {
-      const attributes = invokeFunctionType(encoder, parameters, item.datum, element);
-      Object.assign(item.nextAttrs, attributes);
+      Object.assign(item.nextAttrs, (encoder as FunctionCallback<any>).call(null, item.datum, element, parameters));
     });
   } else {
     Object.keys(encoder).forEach(channel => {
@@ -56,9 +63,28 @@ export function invokeEncoderToItems(
         encodeItems.forEach(item => {
           item.nextAttrs[channel] = fieldAccessor(item.datum);
         });
+      } else if (isFunction(encode)) {
+        encodeItems.forEach(item => {
+          item.nextAttrs[channel] = (encode as FunctionCallback<any>).call(null, item.datum, element, parameters);
+        });
+      } else if ((encode as SignalReference).signal) {
+        const signal = (encode as SignalReference).signal;
+        const res = isString(signal) ? parameters?.[signal as string] : (signal as IGrammarBase).output();
+        encodeItems.forEach(item => {
+          item.nextAttrs[channel] = res;
+        });
+      } else if ((encode as SignalFunction<FunctionCallback<any>, any>).callback) {
+        encodeItems.forEach(item => {
+          item.nextAttrs[channel] = (encode as SignalFunction<FunctionCallback<any>, any>).callback.call(
+            null,
+            item.datum,
+            element,
+            parameters
+          );
+        });
       } else {
         encodeItems.forEach(item => {
-          item.nextAttrs[channel] = invokeFunctionType(encode, parameters, item.datum, element);
+          item.nextAttrs[channel] = encode;
         });
       }
     });
