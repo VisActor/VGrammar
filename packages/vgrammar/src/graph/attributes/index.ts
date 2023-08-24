@@ -173,9 +173,9 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
   ],
   [GrammarMarkType.symbol]: [
     {
-      channels: ['shape'],
+      channels: ['shape', 'symbolType'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        graphicAttributes.symbolType = nextAttrs.shape;
+        graphicAttributes.symbolType = nextAttrs.shape ?? nextAttrs.symbolType;
       }
     }
   ]
