@@ -14,6 +14,7 @@ import type {
 } from '../types/scale';
 import { GrammarBase } from './grammar-base';
 import { configureScale, createScale, parseScaleConfig, parseScaleDomainRange } from '../parse/scale';
+import { HOOK_EVENT } from '../graph/enums';
 
 export class Scale extends GrammarBase implements IScale {
   readonly grammarType: GrammarType = 'scale';
@@ -39,6 +40,7 @@ export class Scale extends GrammarBase implements IScale {
   }
 
   evaluate(upstream: any, parameters: any) {
+    this.view.emit(HOOK_EVENT.BEFORE_EVALUATE_SCALE);
     if (!this.spec.type) {
       this.spec.type = 'linear';
     }
@@ -46,6 +48,8 @@ export class Scale extends GrammarBase implements IScale {
       this.scale = createScale(this.spec.type);
     }
     configureScale(this.spec as ScaleSpec, this.scale, parameters);
+
+    this.view.emit(HOOK_EVENT.BEFORE_EVALUATE_SCALE);
     return this;
   }
 
