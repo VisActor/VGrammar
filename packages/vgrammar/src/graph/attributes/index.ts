@@ -143,16 +143,16 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
   ],
   [GrammarMarkType.text]: [
     {
-      channels: ['text', 'limit', 'autoLimit'],
+      channels: ['text', 'limit', 'autoLimit', 'maxLineWidth'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
         const limit = storedAttrs.limit ?? Infinity;
         const autoLimit = storedAttrs.autoLimit ?? Infinity;
         const maxWidth = Math.min(limit, autoLimit);
 
         if (Array.isArray(storedAttrs.text)) {
-          graphicAttributes.maxLineWidth = maxWidth === Infinity ? undefined : maxWidth;
+          graphicAttributes.maxLineWidth = maxWidth === Infinity ? storedAttrs.maxLineWidth : maxWidth;
         } else {
-          graphicAttributes.maxLineWidth = maxWidth || Infinity;
+          graphicAttributes.maxLineWidth = maxWidth === Infinity ? storedAttrs.maxLineWidth : maxWidth;
         }
         graphicAttributes.text = storedAttrs.text;
       },
