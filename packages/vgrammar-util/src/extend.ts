@@ -1,9 +1,11 @@
 export function extend<T = any>(target: Partial<T>, source: Partial<T>) {
   if (source) {
     const keys = Object.keys(source);
-    let i = keys.length;
-    while (i--) {
+    let i = 0;
+    const len = keys.length;
+    while (i < len) {
       target[keys[i]] = source[keys[i]];
+      i++;
     }
   }
 
@@ -13,17 +15,22 @@ export function extend<T = any>(target: Partial<T>, source: Partial<T>) {
 export function extendToNew<T = any>(target: Partial<T>, source?: Partial<T>) {
   const result = {};
   let keys = Object.keys(target);
-  let i = keys.length;
-  while (i--) {
+  let i = 0;
+  let len = keys.length;
+
+  while (i < len) {
     result[keys[i]] = target[keys[i]];
+    i++;
   }
 
   if (source) {
     keys = Object.keys(source);
 
-    i = keys.length;
-    while (i--) {
+    i = 0;
+    len = keys.length;
+    while (i < len) {
       result[keys[i]] = source[keys[i]];
+      i++;
     }
   }
 
