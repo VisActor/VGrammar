@@ -418,6 +418,10 @@ export const indexes = [
         name: '大数据分组线图'
       },
       {
+        path: 'large-group-line-chart-vchart',
+        name: 'vchart大数据分组线图'
+      },
+      {
         path: 'large-group-area-chart',
         name: '大数据分组面积图'
       },
