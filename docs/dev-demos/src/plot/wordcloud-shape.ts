@@ -12,7 +12,9 @@ export const runner = (plot: IPlot) => {
   plot.wordcloudShape()
     .data(data, [{
       type: 'wordcloudShape',
-      shape: `${window.location.origin}/src/image/shape_logo.png`,
+      shape: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg',
+      size: [600.5, 800.5]
+      // shape: `${window.location.origin}/src/image/shape_logo.png`,
     }])
     .encode('text', 'challenge_name')
     .encode('color', 'challenge_name')
