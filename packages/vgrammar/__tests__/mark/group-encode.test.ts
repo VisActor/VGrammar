@@ -88,5 +88,34 @@ test('group encode of collection mark', () => {
       y: 20
     }
   ]);
-  expect(mark.getSegmentIgnoreAttributes()).toEqual(['enableSegments', 'fill', 'stroke']);
+});
+
+test('group encode of group mark', () => {
+  const mockView = getMockedView();
+  const mark = new (Mark as any)(mockView, 'group') as IMark;
+
+  mark.encodeState('group', {
+    fill: 'red',
+    stroke: 'black'
+  });
+
+  mark.encodeState('update', {
+    x: (datum: any) => datum.x,
+    y: (datum: any) => datum.y
+  });
+  const data = new (Data as any)(mockView, [
+    { x: 1, y: 10, key: '0' },
+    { x: 2, y: 20, key: '1' }
+  ]).id('testData');
+
+  mark.join(data, 'key');
+
+  (data as any).runSync();
+  (mark as any).runSync();
+
+  expect(mark.elements.length).toBe(2);
+  expect(mark.elements[0].getGraphicAttribute('fill')).toEqual('red');
+  expect(mark.elements[0].getGraphicAttribute('stroke')).toEqual('black');
+  expect(mark.elements[0].getGraphicAttribute('x')).toEqual(1);
+  expect(mark.elements[0].getGraphicAttribute('y')).toEqual(10);
 });

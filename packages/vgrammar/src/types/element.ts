@@ -132,7 +132,7 @@ export interface IElement {
   updateData: (groupKey: string, data: any[], keyGenerator: MarkKeySpec, view: any) => void;
   state: (markState: MarkFunctionType<string | string[]>, parameters?: any) => void;
   encodeItems: (items: MarkElementItem[], encoders: BaseEncodeSpec, isReentered?: boolean, parameters?: any) => void;
-  encodeGraphic: () => void;
+  encodeGraphic: (attributes?: any) => void;
   transformElementItems: (items: MarkElementItem[], markType: MarkType, computePoints?: boolean) => Record<string, any>;
   remove: () => void;
   release: () => void;

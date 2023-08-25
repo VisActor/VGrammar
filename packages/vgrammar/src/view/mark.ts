@@ -84,7 +84,6 @@ export class Mark extends GrammarBase implements IMark {
   isUpdated: boolean = true;
 
   private _groupKeys: string[];
-  private _segmentIgnoreAttributes: string[];
 
   /** whether mark enter encode is updated  */
   private _isReentered: boolean = false;
@@ -276,10 +275,6 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   protected evaluateGroup(data: any[]) {
-    if (this.markType === GrammarMarkType.group) {
-      return;
-    }
-
     const currentData = data ?? DefaultMarkData;
     const groupKeyGetter = parseField(this.spec.groupBy ?? (() => DefaultKey));
     const res = groupData(currentData, groupKeyGetter, this.spec.groupSort);
@@ -762,10 +757,6 @@ export class Mark extends GrammarBase implements IMark {
     });
   }
 
-  getSegmentIgnoreAttributes() {
-    return this._segmentIgnoreAttributes;
-  }
-
   protected evaluateGroupEncode(elements: IElement[], groupEncode: any, parameters: any) {
     if (!this._groupKeys || !groupEncode) {
       return;
@@ -795,7 +786,7 @@ export class Mark extends GrammarBase implements IMark {
       const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
 
       elements.forEach(element => {
-        if (groupEncodeAttrs?.[element.groupKey]) {
+        if (groupEncodeAttrs?.[element.groupKey] && !this.isCollectionMark()) {
           element.items.forEach(item => {
             item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
           });
@@ -803,23 +794,13 @@ export class Mark extends GrammarBase implements IMark {
 
         element.encodeItems(element.items, encoders, this._isReentered, parameters);
       });
-      // optimize segments parsing
-      if (
-        groupEncodeAttrs &&
-        this.isCollectionMark() &&
-        elements.length &&
-        (elements[0]?.items?.[0]?.nextAttrs?.enableSegments ?? elements[0].getGraphicAttribute('enableSegments', false))
-      ) {
-        this._segmentIgnoreAttributes = Object.keys(groupEncodeAttrs[Object.keys(groupEncodeAttrs)[0]]);
-      } else {
-        this._segmentIgnoreAttributes = null;
-      }
+
       this._isReentered = false;
 
       this.evaluateTransformSync(this._getTransformsAfterEncodeItems(), elements, parameters);
 
       elements.forEach(element => {
-        element.encodeGraphic();
+        element.encodeGraphic(this.isCollectionMark() ? groupEncodeAttrs?.[element.groupKey] : null);
       });
       this.emit(HOOK_EVENT.AFTER_ELEMENT_ENCODE, { encoders, parameters }, this);
     } else {
