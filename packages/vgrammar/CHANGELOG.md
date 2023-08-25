@@ -1,6 +1,26 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Thu, 24 Aug 2023 06:39:36 GMT and should not be manually modified.
+This log was last generated on Fri, 25 Aug 2023 10:01:25 GMT and should not be manually modified.
+
+## 0.6.4
+Fri, 25 Aug 2023 10:01:25 GMT
+
+### Updates
+
+- fix: fix the exit mark animation error
+- fix: group mark should support group encode
+
+
+- fix(vgrammar): fix hooks of vgrammar
+
+
+- fix: when a symbol has `symbolType` and `shape` at the same time, use `shape` in higher Priority
+
+
+- fix: fix `maxLineWidth` of text attributes, the order of attribute may produce different result
+
+
+- ix(wordCloud): layout stack when size is decimal. fix VisActor/VChart #561
 
 ## 0.6.3
 Thu, 24 Aug 2023 06:39:36 GMT

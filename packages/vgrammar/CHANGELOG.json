@@ -2,6 +2,33 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.6.4",
+      "tag": "@visactor/vgrammar_v0.6.4",
+      "date": "Fri, 25 Aug 2023 10:01:25 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix the exit mark animation error"
+          },
+          {
+            "comment": "fix: group mark should support group encode\n\n"
+          },
+          {
+            "comment": "fix(vgrammar): fix hooks of vgrammar\n\n"
+          },
+          {
+            "comment": "fix: when a symbol has `symbolType` and `shape` at the same time, use `shape` in higher Priority\n\n"
+          },
+          {
+            "comment": "fix: fix `maxLineWidth` of text attributes, the order of attribute may produce different result\n\n"
+          },
+          {
+            "comment": "ix(wordCloud): layout stack when size is decimal. fix VisActor/VChart #561"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.3",
       "tag": "@visactor/vgrammar_v0.6.3",
       "date": "Thu, 24 Aug 2023 06:39:36 GMT",
