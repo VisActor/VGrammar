@@ -16,7 +16,7 @@ import type {
   PlotSpec
 } from '@visactor/vgrammar';
 import type { ILogger } from '@visactor/vutils';
-import { Logger, isNil } from '@visactor/vutils';
+import { Logger, isNil, merge } from '@visactor/vutils';
 import { mergeGrammarSpecs } from './util';
 import { PlotMakType } from './enums';
 import { Factory, SIGNAL_VIEW_BOX, View } from '@visactor/vgrammar';
@@ -27,24 +27,34 @@ export class Plot implements IPlot {
       Factory.registerPlotMarks(mark.type, mark);
     });
   }
-  private _view: IView;
+  readonly view: IView;
   private _semanticMarks: PlotMark[];
   private _hasInited?: boolean;
   private _coordinate: CoordinateOption;
   private _logger: ILogger;
+  private _theme?: string;
 
   constructor(option?: IPlotOptions) {
-    this._view = new View(option);
+    this.view = new View(option);
     this._semanticMarks = [];
     this._logger = Logger.getInstance();
+  }
+
+  theme(theme: string) {
+    this._theme = theme;
+
+    this.view.parseSpec({ theme });
+
+    return this;
   }
 
   private _mergeScales(scales: ScaleSpec[], prevScales: ScaleSpec[]) {
     return scales.reduce((res, scale) => {
       if (scale.id) {
-        const prevScale = res.find(prev => prev.id === scale.id);
+        const prevIndex = res.findIndex(prev => prev.id === scale.id);
 
-        if (prevScale) {
+        if (prevIndex >= 0) {
+          const prevScale = res[prevIndex];
           if ((scale.domain as ScaleData).data && (scale.domain as ScaleData).field) {
             if ((prevScale.domain as ScaleData).data && (prevScale.domain as ScaleData).field) {
               if (
@@ -68,7 +78,7 @@ export class Plot implements IPlot {
               }
             } else if ((prevScale.domain as MultiScaleData).datas) {
               const prevData = (prevScale.domain as MultiScaleData).datas.find(
-                entry => entry.data !== (scale.domain as ScaleData).data
+                entry => entry.data === (scale.domain as ScaleData).data
               );
 
               if (prevData && (scale.domain as ScaleData).field !== prevData.field) {
@@ -85,7 +95,12 @@ export class Plot implements IPlot {
               }
             }
           }
+
+          if ((scale as any).userScale) {
+            res[prevIndex] = merge(prevScale, (scale as any).userScale);
+          }
         } else {
+          (scale as any).userScale = null;
           res.push(scale);
         }
       }
@@ -96,6 +111,7 @@ export class Plot implements IPlot {
 
   protected parseViewSpec() {
     const spec: ViewSpec = {
+      theme: this._theme,
       data: [],
       marks: [],
       scales: [],
@@ -161,34 +177,38 @@ export class Plot implements IPlot {
     return spec;
   }
   run(morphConfig?: IMorphConfig) {
-    if (this._view) {
+    if (this.view) {
       if (!this._hasInited) {
-        this._view.parseSpec(this.parseViewSpec());
+        this.view.parseSpec(this.parseViewSpec());
+      } else {
+        this.view.updateSpec(this.parseViewSpec());
       }
       this._hasInited = true;
 
-      this._view.runSync(morphConfig);
+      this.view.runSync(morphConfig);
     }
 
     return this;
   }
 
   async runAsync(morphConfig?: IMorphConfig) {
-    if (this._view) {
+    if (this.view) {
       if (!this._hasInited) {
-        this._view.parseSpec(this.parseViewSpec());
+        this.view.parseSpec(this.parseViewSpec());
+      } else {
+        this.view.updateSpec(this.parseViewSpec());
       }
       this._hasInited = true;
 
-      await this._view.runAsync(morphConfig);
+      await this.view.runAsync(morphConfig);
     }
 
     return this;
   }
 
   release() {
-    if (this._view) {
-      this._view.release();
+    if (this.view) {
+      this.view.release();
     }
 
     return this;
@@ -219,9 +239,9 @@ export class Plot implements IPlot {
     viewSpec.padding = spec.padding;
 
     if (isUpdate) {
-      this._view.updateSpec(viewSpec);
+      this.view.updateSpec(viewSpec);
     } else {
-      this._view.parseSpec(viewSpec);
+      this.view.parseSpec(viewSpec);
     }
     this._hasInited = true;
 
@@ -229,18 +249,18 @@ export class Plot implements IPlot {
   }
 
   getImageBuffer() {
-    return this._view?.getImageBuffer?.();
+    return this.view?.getImageBuffer?.();
   }
 
   on(type: string, handler: BaseEventHandler) {
-    if (this._view) {
-      this._view.addEventListener(type, handler);
+    if (this.view) {
+      this.view.addEventListener(type, handler);
     }
     return this;
   }
   off(type: string, handler?: BaseEventHandler) {
-    if (this._view) {
-      this._view.removeEventListener(type, handler);
+    if (this.view) {
+      this.view.removeEventListener(type, handler);
     }
     return this;
   }

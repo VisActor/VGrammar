@@ -6,11 +6,12 @@ import type {
   Nil,
   ScaleSpec,
   ValueOf,
-  BasicEncoderSpecMap
+  BasicEncoderSpecMap,
+  FieldEncodeType
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, ThemeManager } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 
 export class TextSemanticMark extends SemanticMark<BasicEncoderSpecMap['text'], TextEncodeChannels> {
@@ -46,10 +47,18 @@ export class TextSemanticMark extends SemanticMark<BasicEncoderSpecMap['text'], 
 
     const res: GenerateEncoderSpec<BasicEncoderSpecMap['text']> = markEncoder;
 
+    if (res.text) {
+      res.text = { field: (res.text as FieldEncodeType).field };
+    }
+
+    if (markEncoder.stroke) {
+      res.stroke = markEncoder.stroke;
+    }
+
     if (markEncoder.color || markEncoder.group) {
       res.fill = markEncoder.color ?? markEncoder.group;
     } else {
-      res.fill = this.spec.style?.fill ?? ThemeManager.getDefaultTheme().palette?.default?.[0];
+      res.fill = this.spec.style?.fill ?? this.getPalette()?.[0];
     }
 
     return res;

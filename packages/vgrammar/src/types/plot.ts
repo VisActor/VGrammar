@@ -11,7 +11,7 @@ import type {
 } from '@visactor/vrender-components';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { IColor } from '@visactor/vrender';
-import type { IEnvironmentOptions, IRendererOptions, ViewSpec, srIOption3DType } from './view';
+import type { IEnvironmentOptions, IRendererOptions, IView, ViewSpec, srIOption3DType } from './view';
 import type { CommonPaddingSpec, ValueOf } from './base';
 import type { BasicEncoderSpecMap, LinkPathEncoderSpec, MarkRelativeItemSpec } from './mark';
 import type { IMorphConfig } from './morph';
@@ -169,6 +169,9 @@ export interface PlotSpec {
 }
 
 export interface IPlot {
+  readonly view: IView;
+
+  theme: (theme: string) => this;
   /**
    * todo: 直接接text图元还是title组件
    */
@@ -248,17 +251,19 @@ export type ISemanticEncodeSpec<T> = {
 };
 export type ISemanticStyle<T, K extends string> = Omit<T, K>;
 
+export interface SemanticTooltipContentItem {
+  key?: ISemanticEncodeValue<string | number>;
+  value?: ISemanticEncodeValue<string | number>;
+  symbol?: ISemanticEncodeValue<string>;
+}
 export type SemanticTooltipOption = {
   disableGraphicTooltip?: boolean;
   disableDimensionTooltip?: boolean;
   staticTitle?: string;
   staticContentKey?: string | string[];
   title?: ISemanticEncodeValue<string | number>;
-  content?: Array<{
-    key?: ISemanticEncodeValue<string | number>;
-    value?: ISemanticEncodeValue<string | number>;
-    symbol?: ISemanticEncodeValue<string>;
-  }>;
+  dimensionTooltipChannel?: 'x' | 'y';
+  content?: SemanticTooltipContentItem[];
 };
 
 export interface SemanticAxisOption extends Partial<AxisBaseAttributes> {
@@ -335,29 +340,29 @@ export type ParsedSimpleEncode<T, K extends string> = {
   };
 };
 
-export type SemanticEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type IntervalEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type CellEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type LineEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type AreaEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type RuleXEncodeChannels = 'x' | 'color' | 'group';
-export type RuleYEncodeChannels = 'y' | 'color' | 'group';
-export type SymbolEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'size' | 'shape';
-export type TextEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'text';
-export type RectEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type RectXEncodeChannels = 'x' | 'color' | 'group';
-export type RectYEncodeChannels = 'y' | 'color' | 'group';
-export type PolygonEncodeChannels = 'x' | 'y' | 'color' | 'group';
+export type SemanticEncodeChannels = 'x' | 'y' | 'group' | 'color';
+export type IntervalEncodeChannels = 'x' | 'y' | 'group' | 'color' | 'stroke';
+export type CellEncodeChannels = 'x' | 'y' | 'group' | 'color' | 'stroke';
+export type LineEncodeChannels = 'x' | 'y' | 'group' | 'color';
+export type AreaEncodeChannels = 'x' | 'y' | 'group' | 'color' | 'stroke';
+export type RuleXEncodeChannels = 'x' | 'x' | 'color' | 'group';
+export type RuleYEncodeChannels = 'x' | 'y' | 'color' | 'group';
+export type SymbolEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'size' | 'shape' | 'stroke';
+export type TextEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'text' | 'stroke';
+export type RectEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'stroke';
+export type RectXEncodeChannels = 'x' | 'color' | 'group' | 'stroke';
+export type RectYEncodeChannels = 'y' | 'color' | 'group' | 'stroke';
+export type PolygonEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'stroke';
 export type RuleEncodeChannels = 'x' | 'y' | 'color' | 'group';
-export type ImageEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'src';
-export type PathEncodeChannels = null;
-export type SankeyEncodeChannels = 'node' | 'value' | 'color';
-export type SunburstEncodeChannels = 'node' | 'value' | 'color';
-export type TreeEncodeChannels = 'node' | 'value' | 'color';
-export type TreemapEncodeChannels = 'node' | 'value' | 'color';
-export type CirclepackingEncodeChannels = 'node' | 'value' | 'color';
-export type WordcloudEncodeChannels = 'text' | 'color';
-export type WordcloudShapeEncodeChannels = 'text' | 'color';
+export type ImageEncodeChannels = 'x' | 'y' | 'color' | 'group' | 'src' | 'stroke';
+export type PathEncodeChannels = 'color' | 'stroke';
+export type SankeyEncodeChannels = 'node' | 'value' | 'color' | 'stroke';
+export type SunburstEncodeChannels = 'node' | 'value' | 'color' | 'stroke';
+export type TreeEncodeChannels = 'node' | 'value' | 'color' | 'stroke';
+export type TreemapEncodeChannels = 'node' | 'value' | 'color' | 'stroke';
+export type CirclepackingEncodeChannels = 'node' | 'value' | 'color' | 'stroke';
+export type WordcloudEncodeChannels = 'text' | 'color' | 'stroke';
+export type WordcloudShapeEncodeChannels = 'text' | 'color' | 'stroke';
 
 export type IInterval = ISemanticMark<PlotIntervalEncoderSpec, IntervalEncodeChannels>;
 export type ILine = ISemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels>;
