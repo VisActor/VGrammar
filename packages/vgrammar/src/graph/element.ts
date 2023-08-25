@@ -175,9 +175,13 @@ export class Element implements IElement {
     }
   }
 
-  encodeGraphic() {
+  encodeGraphic(attrs?: any) {
     this.coordinateTransformEncode(this.items);
     const graphicAttributes = this.transformElementItems(this.items, this.mark.markType);
+
+    if (attrs) {
+      Object.assign(graphicAttributes, attrs);
+    }
 
     if (!this.graphicItem) {
       this.initGraphicItem(graphicAttributes);
@@ -443,25 +447,19 @@ export class Element implements IElement {
           const segments = getLineSegmentConfigs(itemNextAttrs, points, this);
 
           if (segments) {
-            Object.assign(nextAttrs, {
-              segments: segments,
-              points: null
-            });
+            nextAttrs.segments = segments;
+            nextAttrs.points = null;
           } else {
-            Object.assign(nextAttrs, {
-              points: points,
-              segments: null
-            });
+            nextAttrs.segments = null;
+            nextAttrs.points = points;
           }
         } else if (isProgressive) {
-          Object.assign(nextAttrs, {
-            segments: ((this.graphicItem as ILine)?.attribute?.segments ?? []).concat([{ points: linePoints }])
-          });
+          nextAttrs.segments = ((this.graphicItem as ILine)?.attribute?.segments ?? []).concat([
+            { points: linePoints }
+          ]);
         } else {
-          Object.assign(nextAttrs, {
-            points: linePoints,
-            segments: null
-          });
+          nextAttrs.points = linePoints;
+          nextAttrs.segments = null;
         }
       } else if (markType === GrammarMarkType.largeRects) {
         nextAttrs.points = getLargeRectsPoints(items, true, lastPoints);

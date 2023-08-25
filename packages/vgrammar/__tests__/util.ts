@@ -3,7 +3,8 @@ import { transforms } from '../src/transforms/index';
 import { createGlyphGraphicItem, createGraphicItem } from '../src/graph/util/graphic';
 import { createElement } from '../src/graph/util/element';
 import { transformsByType } from '../src/graph/attributes';
-import type { IGlyphElement, IGlyphMeta } from '../src';
+import type { IGlyphElement, IGlyphMeta, IView } from '../src';
+import CanvasRenderer from '../src/graph/canvas-renderer';
 
 const use = (...transformMaps: Record<string, any>[]) => {
   transformMaps.forEach(transformMap => {
@@ -32,7 +33,7 @@ export const getMockedView = () => {
     }
     return (grammars[id] = { id: () => id, targets: [], output: () => ({}) });
   };
-  return {
+  const view = {
     emit: emptyFunction,
     grammars: grammars,
     getGrammarById: lookup,
@@ -41,12 +42,12 @@ export const getMockedView = () => {
     getCoordinateById: lookup,
     getMarkById: lookup,
     commit: emptyFunction,
-    renderer: {
-      stage: () => ({
-        on: () => ({})
-      })
-    }
+    background: () => 'white'
   };
+  (view as any).renderer = new CanvasRenderer(view as any);
+  (view as any).renderer.initialize(500, 500, {}, {});
+
+  return view;
 };
 
 export function createSimpleElement(

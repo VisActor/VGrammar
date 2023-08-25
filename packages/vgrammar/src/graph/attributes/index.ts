@@ -369,12 +369,7 @@ export function getLineSegmentConfigs(items: any[], points: any[], element?: IEl
     return null;
   }
 
-  let checkAttributes = element?.mark?.markType === 'area' ? areaAttrs : strokeAttrs;
-  const ignoreAttrs: string[] = element?.mark?.getSegmentIgnoreAttributes?.();
-
-  if (ignoreAttrs) {
-    checkAttributes = checkAttributes.filter(entry => !ignoreAttrs.includes(entry));
-  }
+  const checkAttributes = element?.mark?.markType === 'area' ? areaAttrs : strokeAttrs;
 
   const segments: any[] = [];
   let prevSegmentAttrs: any = null;
