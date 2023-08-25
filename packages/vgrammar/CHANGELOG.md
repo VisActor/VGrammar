@@ -1,6 +1,22 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Fri, 18 Aug 2023 11:16:01 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Aug 2023 06:39:36 GMT and should not be manually modified.
+
+## 0.6.3
+Thu, 24 Aug 2023 06:39:36 GMT
+
+### Updates
+
+- fix: fix the exit mark animation error
+- fix(vgrammar): fix hooks of vgrammar
+
+
+- fix: when a symbol has `symbolType` and `shape` at the same time, use `shape` in higher Priority
+
+
+- fix: fix `maxLineWidth` of text attributes, the order of attribute may produce different result
+
+
 
 ## 0.6.2
 Fri, 18 Aug 2023 11:16:01 GMT
