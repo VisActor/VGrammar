@@ -144,6 +144,7 @@ export interface ThresholdScaleSpec extends BaseScaleSpec {
  */
 export interface IdentityScaleSpec extends BaseScaleSpec {
   type: 'identity';
+  range?: ScaleFunctionType<any[]> | ScaleData | MultiScaleData;
 }
 
 export type ScaleSpec =
