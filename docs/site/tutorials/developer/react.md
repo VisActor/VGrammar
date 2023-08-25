@@ -9,7 +9,7 @@
 
 ## Class Component 封装
 
-使用 React Component 封装 VGrammar，可以参考下列核心代码：
+使用 React Class Component 封装 VGrammar，可以参考下列核心代码：
 
 ```ts
 export class BarChart extends Component<BarChartProps> {
