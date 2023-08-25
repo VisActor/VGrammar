@@ -139,6 +139,13 @@ export interface ThresholdScaleSpec extends BaseScaleSpec {
   range?: ScaleFunctionType<any[]> | ScaleData | MultiScaleData;
 }
 
+/**
+ * the threshold scale
+ */
+export interface IdentityScaleSpec extends BaseScaleSpec {
+  type: 'identity';
+}
+
 export type ScaleSpec =
   | OrdinalScaleSpec
   | BandScaleSpec
@@ -152,6 +159,7 @@ export type ScaleSpec =
   | UtcTimeScaleSpec
   | QuantizeScaleSpec
   | QuantileScaleSpec
-  | ThresholdScaleSpec;
+  | ThresholdScaleSpec
+  | IdentityScaleSpec;
 
 export type ScaleConfigureSpec = DistributiveOmit<ScaleSpec, 'type'>;
