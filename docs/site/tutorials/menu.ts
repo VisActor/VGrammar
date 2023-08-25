@@ -64,5 +64,19 @@ export const tutorialsMenu = [
     menu: '高级指引',
     path: '',
     name: 'advanced-guide'
+  },
+  {
+    menu: '开发者生态',
+    path: 'developer',
+    children: [
+      {
+        name: 'react',
+        menu: 'react'
+      },
+      {
+        name: 'vue',
+        menu: 'vue'
+      },
+    ]
   }
 ]
