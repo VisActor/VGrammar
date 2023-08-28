@@ -1,1 +1,9 @@
-[{"definitionName":"lockStepVersion","policyName":"vgrammarMain","version":"0.6.4","mainProject":"@visactor/vgrammar","nextBump":"patch"}]
+[
+  {
+    "definitionName": "lockStepVersion",
+    "policyName": "vgrammarMain",
+    "version": "0.6.4",
+    "mainProject": "@visactor/vgrammar",
+    "nextBump": "patch"
+  }
+]
