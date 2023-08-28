@@ -516,7 +516,7 @@ const initFontSizeScale = (data: any[], wordsConfig: wordsConfigType, segmentati
     // 有了 range 后求解 fontSizeScale
     const sizeScale = new SqrtScale().domain(extent(getFontSize, data)).range(range);
     fontSizeScale = (datum: any) => {
-      return sizeScale.scale(getFontSize(datum));
+      return Math.max(10, sizeScale.scale(getFontSize(datum))); // 最小核心词初始字号10px
     };
     // console.log('自动计算的 range', range)
   }

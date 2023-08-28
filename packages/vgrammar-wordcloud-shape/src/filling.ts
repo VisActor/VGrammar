@@ -36,7 +36,7 @@ export function filling(
     filling1Time(fontSize, opacity);
 
     // 完成一次填充，则更新一下填充词的属性，继续下一次填充
-    fontSize = fontSize > fillingDeltaFontSize ? fontSize - fillingDeltaFontSize : fillingDeltaFontSize;
+    fontSize = Math.max(fontSize > fillingDeltaFontSize ? fontSize - fillingDeltaFontSize : fillingDeltaFontSize, 4); // 填充词最小字号4px
     opacity = opacity > fillingDeltaOpacity ? opacity - fillingDeltaOpacity : fillingDeltaOpacity;
   }
 
