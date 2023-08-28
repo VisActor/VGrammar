@@ -1,8 +1,17 @@
 export interface SankeyOptions {
   /**
+   * divide the value of node to link when link not specify value
+   */
+  divideNodeValueToLink?: boolean;
+  /**
    * The layout direction of chart
    */
   direction?: 'horizontal' | 'vertical';
+  /**
+   * the align type of y position of nodes is differnt layer when the direction is `hotizontal`
+   * the align type of x position of nodes is differnt layer when the direction is `hotizontal`
+   */
+  crossNodeAlign?: 'start' | 'end' | 'middle';
   /**
    * The align type of all the nodes
    */
@@ -10,7 +19,11 @@ export interface SankeyOptions {
   /**
    * The gap size between two nodes in the same layer
    */
-  nodeGap?: number;
+  nodeGap?: number | ((node: SankeyNodeElement) => number);
+  /**
+   * the position of gap
+   */
+  gapPosition?: 'start' | 'end' | 'middle';
   /**
    * The width of each node, three kinds of value are supported
    * 1. percent string, eg: { nodeWidth: '12%' }
