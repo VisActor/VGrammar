@@ -7,6 +7,7 @@ const MINOR = 'minor';
 const MAJOR = 'major';
 const PATCH = 'patch';
 const NEXT_BUMPMS = [PRERELEASE, PATCH, MINOR, MAJOR];
+const setJsonFileByKey = require('./set-json-file');
 
 
 const readVersionPolicies = (
@@ -48,13 +49,15 @@ const parseNextBumpFromVersion = (
 const writeNextBump = (
   nextBump,
 ) => {
-  const json = readVersionPolicies();
-  console.log(json)
+  const filePath = path.join(__dirname, '../config/rush/version-policies.json');
+  let fileContent = fs.readFileSync(filePath).toString()
+  const json = JSON.parse(fileContent);
   const curNextBump = json[0].nextBump
 
   if (nextBump !== curNextBump) {
-    json[0].nextBump = nextBump;
-    fs.writeFileSync(path.join(__dirname, '../config/rush/version-policies.json'), JSON.stringify(json))
+    fileContent = setJsonFileByKey(fileContent, json, ['0', 'nextBump'], nextBump);
+
+    fs.writeFileSync(path.join(__dirname, '../config/rush/version-policies.json'), fileContent)
   }
 }
 
@@ -84,15 +87,20 @@ const readNextBumpFromChanges = () => {
 }
 
 const checkAndUpdateNextBump = (isPre, version) => {
+  let nextBump = PATCH;
+
   if (isPre) {
-    writeNextBump(PRERELEASE);
+    nextBump = PRERELEASE;
   } else if (version && NEXT_BUMPMS.includes(version)) {
-    writeNextBump(version);
+    nextBump = version;
   } else if (version) {
-    writeNextBump(parseNextBumpFromVersion(version));
+    nextBump = parseNextBumpFromVersion(version);
   } else {
-    writeNextBump(readNextBumpFromChanges());
+    nextBump = readNextBumpFromChanges();
   }
+  writeNextBump(nextBump);
+
+  return nextBump;
 }
 
 module.exports = checkAndUpdateNextBump;
