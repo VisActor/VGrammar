@@ -41,7 +41,7 @@ export function layout(
       if (!word.hasPlaced) {
         word.hasText = false;
         word.sprite = null;
-        word.fontSize = ~~(word.fontSize * layoutConfig.fontSizeShrinkFactor);
+        word.fontSize = Math.max(~~(word.fontSize * layoutConfig.fontSizeShrinkFactor), 4);
       }
 
       return !word.hasPlaced;
@@ -102,7 +102,7 @@ export function layoutSelfShrink(
         for (let j = i; j < regionWords.length; j++) {
           word.hasText = false;
           word.sprite = null;
-          word.fontSize = ~~(word.fontSize * fontFactor);
+          word.fontSize = Math.max(~~(word.fontSize * fontFactor), 4);
         }
         i--;
       }
@@ -202,7 +202,7 @@ export function layoutGlobalShrink(
         words.forEach(word => {
           word.hasText = false;
           word.sprite = null;
-          word.fontSize = word.fontSize * fontFactor;
+          word.fontSize = word.fontSize * fontFactor; // 这里因为存在字号缩小-还原逻辑，因此不加最小字号限制
         });
 
         // 清空布局画布
@@ -243,7 +243,7 @@ export function layoutGlobalShrink(
       if (!word.hasPlaced) {
         word.hasText = false;
         word.sprite = null;
-        word.fontSize = ~~(word.fontSize * layoutConfig.fontSizeShrinkFactor);
+        word.fontSize = Math.max(~~(word.fontSize * layoutConfig.fontSizeShrinkFactor), 4);
       }
 
       return !word.hasPlaced;
@@ -331,7 +331,7 @@ export function layoutSelfEnlarge(
           words.forEach(word => {
             word.hasText = false;
             word.sprite = null;
-            word.fontSize = word.fontSize * fontFactor;
+            word.fontSize = word.fontSize * fontFactor; // 这里因为存在字号缩小-还原逻辑，因此不加最小字号限制
           });
 
           // 清空布局画布
@@ -381,7 +381,7 @@ export function layoutSelfEnlarge(
       if (!word.hasPlaced) {
         word.hasText = false;
         word.sprite = null;
-        word.fontSize = ~~(word.fontSize * layoutConfig.fontSizeShrinkFactor);
+        word.fontSize = Math.max(~~(word.fontSize * layoutConfig.fontSizeShrinkFactor), 4);
       }
 
       return !word.hasPlaced;
@@ -577,12 +577,13 @@ export function measureSprite(
   --wi;
   while (++wi < n) {
     const word = words[wi];
+    const fontSize = Math.max(word.fontSize, 4); // 最小字号4px
     ctx.save();
-    ctx.font = word.fontStyle + ' ' + word.fontWeight + ' ' + word.fontSize + 'px ' + word.fontFamily;
+    ctx.font = word.fontStyle + ' ' + word.fontWeight + ' ' + fontSize + 'px ' + word.fontFamily;
 
     // 计算单词盒子宽高
     wordW = ctx.measureText(word.text + 'm').width + word.padding * 2;
-    wordH = word.fontSize * 2 + word.padding * 2;
+    wordH = fontSize * 2 + word.padding * 2;
 
     if (word.rotate !== 0) {
       const sr = Math.sin(word.rotate * radians);
