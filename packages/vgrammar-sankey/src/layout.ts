@@ -374,6 +374,7 @@ export class SankeyLayout {
       const node = nodes[i];
 
       node.value = Math.max(
+        isNil(node.value) ? 0 : node.value,
         node.sourceLinks.reduce((sum, link: SankeyLinkElement) => {
           return sum + (link.value ?? 0);
         }, 0),
