@@ -41,7 +41,7 @@ export function layout(
       if (!word.hasPlaced) {
         word.hasText = false;
         word.sprite = null;
-        word.fontSize = Math.max(~~(word.fontSize * layoutConfig.fontSizeShrinkFactor), 4);
+        word.fontSize = Math.max(~~(word.fontSize * layoutConfig.fontSizeShrinkFactor), layoutConfig.minFontSize);
       }
 
       return !word.hasPlaced;
@@ -102,7 +102,7 @@ export function layoutSelfShrink(
         for (let j = i; j < regionWords.length; j++) {
           word.hasText = false;
           word.sprite = null;
-          word.fontSize = Math.max(~~(word.fontSize * fontFactor), 4);
+          word.fontSize = Math.max(~~(word.fontSize * fontFactor), layoutConfig.minFontSize);
         }
         i--;
       }
@@ -243,7 +243,7 @@ export function layoutGlobalShrink(
       if (!word.hasPlaced) {
         word.hasText = false;
         word.sprite = null;
-        word.fontSize = Math.max(~~(word.fontSize * layoutConfig.fontSizeShrinkFactor), 4);
+        word.fontSize = Math.max(~~(word.fontSize * layoutConfig.fontSizeShrinkFactor), layoutConfig.minFontSize);
       }
 
       return !word.hasPlaced;
@@ -381,7 +381,7 @@ export function layoutSelfEnlarge(
       if (!word.hasPlaced) {
         word.hasText = false;
         word.sprite = null;
-        word.fontSize = Math.max(~~(word.fontSize * layoutConfig.fontSizeShrinkFactor), 4);
+        word.fontSize = Math.max(~~(word.fontSize * layoutConfig.fontSizeShrinkFactor), layoutConfig.minFontSize);
       }
 
       return !word.hasPlaced;
@@ -577,7 +577,7 @@ export function measureSprite(
   --wi;
   while (++wi < n) {
     const word = words[wi];
-    const fontSize = Math.max(word.fontSize, 4); // 最小字号4px
+    const fontSize = Math.max(word.fontSize, 2); // 最小字号2px
     ctx.save();
     ctx.font = word.fontStyle + ' ' + word.fontWeight + ' ' + fontSize + 'px ' + word.fontFamily;
 
