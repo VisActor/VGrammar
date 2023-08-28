@@ -1,5 +1,6 @@
 import { calculateNodeValue } from './hierarchy';
-import { isNil, clamp, minInArray, isFunction, isNumber, isString } from '@visactor/vutils';
+import type { ILogger } from '@visactor/vutils';
+import { isNil, clamp, minInArray, isFunction, isNumber, isString, Logger, isValid, isNumeric } from '@visactor/vutils';
 import type {
   SankeyData,
   SankeyOptions,
@@ -9,7 +10,7 @@ import type {
   SankeyNodeElement,
   HierarchyNodeDatum
 } from './interface';
-import { field, error } from '@visactor/vgrammar-util';
+import { field } from '@visactor/vgrammar-util';
 
 function left(node: SankeyNodeElement) {
   return node.depth;
@@ -33,6 +34,27 @@ function center(node: SankeyNodeElement, maxDepth: number, nodeMap: Record<strin
 
 const ascendingNodeBreadth = (a: SankeyNodeElement, b: SankeyNodeElement) => {
   return a.y0 - b.y0;
+};
+
+const calcDivideValue = (node: SankeyNodeElement, isTarget?: boolean) => {
+  if (isNil(node.value)) {
+    return null;
+  }
+
+  const res = (isTarget ? node.targetLinks : node.sourceLinks).reduce(
+    (res, sLink) => {
+      if (isNil(sLink.value)) {
+        res.count += 1;
+      } else {
+        res.sum += sLink.value;
+      }
+
+      return res;
+    },
+    { sum: 0, count: 0 }
+  );
+
+  return res.count > 0 ? (node.value - res.sum) / res.count : null;
 };
 
 const alignFunctions = {
@@ -60,13 +82,15 @@ export class SankeyLayout {
   private _viewBox: { x0: number; x1: number; y0: number; y1: number; width: number; height: number };
   private _nodeMap: Record<string | number, SankeyNodeElement>;
   private _isHierarchic?: boolean;
+  private _logger: ILogger;
 
   static defaultOptions: Partial<SankeyOptions> = {
     iterations: 6,
     nodeAlign: 'justify',
     direction: 'horizontal',
     nodeWidth: 24,
-    nodeGap: 8
+    nodeGap: 8,
+    crossNodeAlign: 'middle'
   };
   constructor(options?: SankeyOptions) {
     this.options = Object.assign({}, SankeyLayout.defaultOptions, options);
@@ -74,6 +98,7 @@ export class SankeyLayout {
     const keyFunc = isFunction(keyOption) ? keyOption : keyOption ? field(keyOption as string) : null;
 
     this._getNodeKey = keyFunc;
+    this._logger = Logger.getInstance();
     this._alignFunc = isFunction(this.options.setNodeLayer)
       ? (node: SankeyNodeElement) => {
           return this.options.setNodeLayer(node.datum);
@@ -189,7 +214,7 @@ export class SankeyLayout {
             datum: node,
             index: index,
             key: nodeKey,
-            value: node.value,
+            value: node.value ?? 0,
             sourceLinks: [] as SankeyLinkElement[],
             targetLinks: [] as SankeyLinkElement[]
           };
@@ -201,7 +226,7 @@ export class SankeyLayout {
           originalLinks.push({
             source: parents[parents.length - 1].key,
             target: nodeKey,
-            value: node.value,
+            value: node.value ?? 0,
             parents
           });
         }
@@ -269,6 +294,7 @@ export class SankeyLayout {
         nodes.push(nodeElement);
       });
     }
+    const invalidLinks: SankeyLinkDatum[] = [];
 
     data.links.forEach((link: SankeyLinkDatum, index) => {
       if (isNil(link.source) || isNil(link.target)) {
@@ -312,10 +338,26 @@ export class SankeyLayout {
         value: link.value
       };
 
+      if (this.options.divideNodeValueToLink && isNil(link.value)) {
+        invalidLinks.push(linkElement);
+      }
+
       links.push(linkElement);
       nodeMap[link.source].sourceLinks.push(linkElement);
       nodeMap[link.target].targetLinks.push(linkElement);
     });
+
+    if (this.options.divideNodeValueToLink && invalidLinks.length) {
+      invalidLinks.forEach(link => {
+        const values = [calcDivideValue(nodeMap[link.source]), calcDivideValue(nodeMap[link.target], true)].filter(
+          entry => !isNil(entry)
+        );
+
+        if (values.length) {
+          link.value = Math.min.apply(null, values);
+        }
+      });
+    }
 
     if (this.options.linkSortBy) {
       for (let i = 0, len = nodes.length; i < len; i++) {
@@ -331,16 +373,14 @@ export class SankeyLayout {
     for (let i = 0, len = nodes.length; i < len; i++) {
       const node = nodes[i];
 
-      if (isNil(node.value) || this._isHierarchic) {
-        node.value = Math.max(
-          node.sourceLinks.reduce((sum, link: SankeyLinkElement) => {
-            return sum + (link.value ?? 0);
-          }, 0),
-          node.targetLinks.reduce((sum, link: SankeyLinkElement) => {
-            return sum + (link.value ?? 0);
-          }, 0)
-        );
-      }
+      node.value = Math.max(
+        node.sourceLinks.reduce((sum, link: SankeyLinkElement) => {
+          return sum + (link.value ?? 0);
+        }, 0),
+        node.targetLinks.reduce((sum, link: SankeyLinkElement) => {
+          return sum + (link.value ?? 0);
+        }, 0)
+      );
     }
   }
 
@@ -371,7 +411,7 @@ export class SankeyLayout {
     }
 
     if (depth > n) {
-      error('Error: there is a circular link');
+      this._logger.warn('Error: there is a circular link');
     }
 
     this._maxDepth = depth;
@@ -404,7 +444,7 @@ export class SankeyLayout {
     }
 
     if (depth > n) {
-      error('Error: there is a circular link');
+      this._logger.warn('Error: there is a circular link');
     }
   }
 
@@ -513,31 +553,61 @@ export class SankeyLayout {
     if (isNil(minNodeHeight) || minNodeHeight < minLinkHeight) {
       minNodeHeight = minLinkHeight;
     }
-    const maxRowCount = columns.reduce((cnt: number, column: SankeyNodeElement[]) => {
-      return Math.max(cnt, column.length);
-    }, 0);
-    let gapY = Math.min(
-      minNodeHeight > 0 ? Math.max(this.options.nodeGap, minNodeHeight) : this.options.nodeGap,
-      this._viewBox.height / maxRowCount
-    );
+    let ky = 0;
+    let getGapY: (node: SankeyNodeElement) => number = null;
 
-    const ky = columns.reduce((val: number, column: SankeyNodeElement[]) => {
-      const sumValue = column.reduce((sum, node) => {
-        return sum + node.value;
+    if (isFunction(this.options.nodeGap)) {
+      getGapY = this.options.nodeGap;
+      ky = columns.reduce((val: number, column: SankeyNodeElement[]) => {
+        const sumValue = column.reduce((sum, node) => {
+          return sum + node.value;
+        }, 0);
+        const sumGapY = column.reduce((sum, node) => {
+          return sum + (this.options.nodeGap as (node: SankeyNodeElement) => number)(node);
+        }, 0);
+
+        return Math.min(val, (this._viewBox.height - sumGapY) / sumValue);
+      }, Infinity);
+    } else {
+      const maxRowCount = columns.reduce((cnt: number, column: SankeyNodeElement[]) => {
+        return Math.max(cnt, column.length);
       }, 0);
+      const gapY = Math.min(
+        minNodeHeight > 0 ? Math.max(this.options.nodeGap, minNodeHeight) : this.options.nodeGap,
+        this._viewBox.height / maxRowCount
+      );
+      getGapY = () => gapY;
+      this._gapY = gapY;
 
-      return Math.min(val, (this._viewBox.height - (column.length - 1) * gapY) / sumValue);
-    }, Infinity);
+      ky = columns.reduce((val: number, column: SankeyNodeElement[]) => {
+        const sumValue = column.reduce((sum, node) => {
+          return sum + node.value;
+        }, 0);
+
+        return Math.min(val, (this._viewBox.height - (column.length - 1) * gapY) / sumValue);
+      }, Infinity);
+    }
+
+    const isStartGap = this.options.gapPosition === 'start';
+    const isMiddleGap = !isStartGap && this.options.gapPosition !== 'end';
 
     for (let i = 0, columnCount = columns.length; i < columnCount; i++) {
       const nodes = columns[i];
 
       let y = this._viewBox.y0;
+      let gapY = 0;
       for (let j = 0, len = nodes.length; j < len; j++) {
         const node = nodes[j];
+        gapY = getGapY(node);
+
+        if (isStartGap) {
+          y += gapY;
+        }
+
         node.y0 = y;
         node.y1 = y + (minNodeHeight > 0 ? Math.max(node.value * ky, minNodeHeight) : node.value * ky);
-        y = node.y1 + gapY;
+
+        y = isStartGap ? node.y1 : node.y1 + gapY;
 
         for (let k = 0, linkLen = node.sourceLinks.length; k < linkLen; k++) {
           const link = node.sourceLinks[k];
@@ -545,14 +615,24 @@ export class SankeyLayout {
         }
       }
 
-      let deltaY = this._viewBox.y1 - y + gapY;
+      let deltaY = this._viewBox.y1 - y + (isMiddleGap ? gapY : 0);
 
       if (deltaY > 0) {
-        deltaY = deltaY / (nodes.length + 1);
-        for (let j = 0, len = nodes.length; j < len; ++j) {
-          const node = nodes[j];
-          node.y0 += deltaY * (j + 1);
-          node.y1 += deltaY * (j + 1);
+        if (this.options.crossNodeAlign === 'start') {
+          // do nothing
+        } else if (this.options.crossNodeAlign === 'end') {
+          for (let j = 0, len = nodes.length; j < len; ++j) {
+            const node = nodes[j];
+            node.y0 += deltaY;
+            node.y1 += deltaY;
+          }
+        } else {
+          deltaY = deltaY / (nodes.length + 1);
+          for (let j = 0, len = nodes.length; j < len; ++j) {
+            const node = nodes[j];
+            node.y0 += deltaY * (j + 1);
+            node.y1 += deltaY * (j + 1);
+          }
         }
       } else if (deltaY < 0 && nodes.length > 1) {
         deltaY = deltaY / (nodes.length - 1);
@@ -569,8 +649,6 @@ export class SankeyLayout {
       }
       this.reorderLinks(nodes);
     }
-
-    this._gapY = gapY;
   }
 
   computeNodeBreadths(nodes: SankeyNodeElement[]) {
@@ -579,7 +657,10 @@ export class SankeyLayout {
     this.initializeNodeBreadths(columns);
     const iterations = this.options.iterations;
 
-    if (!this._isHierarchic) {
+    /**
+     * don't adjust the order of node when the data is hierarchy data or the layer of node is set customizedly
+     */
+    if (!this._isHierarchic && !isFunction(this.options.setNodeLayer) && !isFunction(this.options.nodeGap)) {
       for (let i = 0; i < iterations; ++i) {
         const alpha = Math.pow(0.99, i);
         const beta = Math.max(1 - alpha, (i + 1) / iterations);
