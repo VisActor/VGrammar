@@ -49,6 +49,7 @@ export const generateLabelAttributes = (
           currentTheme = theme?.components?.symbolLabel;
           break;
         case GrammarMarkType.arc:
+        case GrammarMarkType.arc3d:
           currentTheme = theme?.components?.arcLabel;
           break;
         case GrammarMarkType.polygon:
