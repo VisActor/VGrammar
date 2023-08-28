@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: add fontSize limit in shape wordcloud",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
