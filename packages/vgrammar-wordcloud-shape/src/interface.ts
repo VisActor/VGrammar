@@ -126,6 +126,10 @@ export type LayoutConfigType = {
   // 经过计算，补充的内容
   sameColorList: boolean;
   board?: number[];
+
+  minInitFontSize: number;
+  minFontSize: number;
+  minFillFoontSize: number;
 };
 export type CloudWordType = {
   x: number;
