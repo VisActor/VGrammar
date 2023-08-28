@@ -1,6 +1,7 @@
 import { transformsByType } from '../graph/attributes';
-import { DefaultMarkData } from '../graph/constants';
+import { DefaultKey, DefaultMarkData } from '../graph/constants';
 import { GrammarMarkType } from '../graph/enums';
+import { createElement } from '../graph/util/element';
 import type { IGlyphMark, IGroupMark, IMark, IView } from '../types';
 import { Mark } from './mark';
 
@@ -56,7 +57,12 @@ export class GroupMark extends Mark implements IGroupMark {
   }
 
   protected evaluateJoin(data: any[]) {
-    // group mark do not support data join
-    return super.evaluateJoin(DefaultMarkData);
+    if (!this.elements.length) {
+      const el = createElement(this);
+
+      el.updateData(DefaultKey, DefaultMarkData, () => '', this.view);
+      this.elements = [el];
+      this.elementMap.set(DefaultKey, el);
+    }
   }
 }
