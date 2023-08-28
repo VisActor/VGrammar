@@ -99,6 +99,13 @@ export const transform = async (
     fillingRotateList?: number[];
 
     as?: AsType;
+
+    // 核心词最小初始布局字号
+    minInitFontSize?: number;
+    // 核心词最小布局字号
+    minFontSize?: number;
+    // 填充词词最小布局字号
+    minFillFoontSize?: number;
   },
   upstreamData: any[],
   parameters?: any,
@@ -258,7 +265,11 @@ export const transform = async (
     fillingColorList: options.fillingColorList || ['#537EF5'],
 
     // 经过计算，补充的内容
-    sameColorList: false
+    sameColorList: false,
+
+    minInitFontSize: options.minInitFontSize || 10,
+    minFontSize: options.minFontSize || 4,
+    minFillFoontSize: options.minFillFoontSize || 2
   };
   // 核心词与填充词colorList和colorField不一致时，会给填充词设置独立scale
   const sameColorList = colorListEqual(wordsConfig.colorList, layoutConfig.fillingColorList);
@@ -300,7 +311,7 @@ export const transform = async (
       fontWeight: getFontWeight(datum),
       fontStyle: getFontStyle(datum),
       rotate: rotateList[~~(segmentationInput.randomGenerator() * rotateList.length)],
-      fontSize: ~~fontSizeScale(datum),
+      fontSize: Math.max(layoutConfig.minInitFontSize, ~~fontSizeScale(datum)),
       opacity: getFontOpacity(datum),
       padding: getPadding(datum),
       color: (getColorHex && getColorHex(datum)) || (colorScale && colorScale(getColor(datum))) || 'black',
@@ -516,7 +527,7 @@ const initFontSizeScale = (data: any[], wordsConfig: wordsConfigType, segmentati
     // 有了 range 后求解 fontSizeScale
     const sizeScale = new SqrtScale().domain(extent(getFontSize, data)).range(range);
     fontSizeScale = (datum: any) => {
-      return Math.max(10, sizeScale.scale(getFontSize(datum))); // 最小核心词初始字号10px
+      return sizeScale.scale(getFontSize(datum)); // 最小核心词初始字号10px
     };
     // console.log('自动计算的 range', range)
   }
