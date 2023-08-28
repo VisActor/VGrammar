@@ -275,6 +275,9 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   protected evaluateGroup(data: any[]) {
+    if (this.markType === GrammarMarkType.group) {
+      return;
+    }
     const currentData = data ?? DefaultMarkData;
     const groupKeyGetter = parseField(this.spec.groupBy ?? (() => DefaultKey));
     const res = groupData(currentData, groupKeyGetter, this.spec.groupSort);
@@ -758,6 +761,14 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   protected evaluateGroupEncode(elements: IElement[], groupEncode: any, parameters: any) {
+    if (this.markType === GrammarMarkType.group) {
+      const el = this.elements[0];
+      const nextAttrs = {};
+      const items = [Object.assign({}, el.items?.[0], { nextAttrs })];
+      invokeEncoderToItems(el, items, groupEncode, parameters);
+      return nextAttrs;
+    }
+
     if (!this._groupKeys || !groupEncode) {
       return;
     }
@@ -786,7 +797,11 @@ export class Mark extends GrammarBase implements IMark {
       const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
 
       elements.forEach(element => {
-        if (groupEncodeAttrs?.[element.groupKey] && !this.isCollectionMark()) {
+        if (this.markType === GrammarMarkType.group && groupEncodeAttrs) {
+          element.items.forEach(item => {
+            item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs);
+          });
+        } else if (groupEncodeAttrs?.[element.groupKey] && !this.isCollectionMark()) {
           element.items.forEach(item => {
             item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
           });
