@@ -3,14 +3,11 @@
  */
 
 const { spawnSync } = require('child_process')
-const fs = require('fs')
 const path = require('path')
 const checkAndUpdateNextBump = require('./version-policies');
+const getPackageJson = require('./get-package-json');
+const writePrereleaseVersion = require('./set-prelease-version');
 
-function getPackageJson(pkgJsonPath) {
-  const pkgJson = fs.readFileSync(pkgJsonPath, { encoding: 'utf-8' })
-  return JSON.parse(pkgJson);
-}
 
 const semverRegex = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-(alpha|beta|rc)(?:\.(?:(0|[1-9])))*)$/;
 
@@ -56,14 +53,8 @@ function run() {
   }
 
   if (preReleaseName && preReleaseType) {
-    // 0. update `nextBump`
-    checkAndUpdateNextBump(true);
-    
     // 1. apply version and update version of package.json
-    spawnSync('sh', ['-c', `rush publish --apply --prerelease-name ${preReleaseName}`], {
-      stdio: 'inherit',
-      shell: false,
-    });
+    writePrereleaseVersion(checkAndUpdateNextBump(false, process.argv.slice(2)[1]), preReleaseName)
 
     // 2. build all the packages
     spawnSync('sh', ['-c', `rush build --only tag:package`], {

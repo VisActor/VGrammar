@@ -26,7 +26,7 @@ function run() {
   });
 
 
-  // 2. build all the packages
+  2. build all the packages
   spawnSync('sh', ['-c', `rush build --only tag:package`], {
     stdio: 'inherit',
     shell: false,
