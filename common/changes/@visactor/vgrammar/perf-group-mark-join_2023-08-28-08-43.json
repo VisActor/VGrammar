@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "perf: group mark use simple evaluateJoin()\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar"
+    }
+  ],
+  "packageName": "@visactor/vgrammar",
+  "email": "dingling112@gmail.com"
+}
