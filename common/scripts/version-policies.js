@@ -16,10 +16,6 @@ const parseNextBumpFromVersion = (
   const res = parseVersion(versionString);
 
   if (res) {  
-    if (res.preReleaseName) {
-      return PRERELEASE;
-    }
-  
     if (res.patch === 0) {
       return formatted.minor == 0 ? MAJOR : MINOR;
     }
@@ -71,12 +67,10 @@ const readNextBumpFromChanges = () => {
  }
 }
 
-const checkAndUpdateNextBump = (isPre, version) => {
+const checkAndUpdateNextBump = (version) => {
   let nextBump = PATCH;
 
-  if (isPre) {
-    nextBump = PRERELEASE;
-  } else if (version && NEXT_BUMPMS.includes(version)) {
+   if (version && NEXT_BUMPMS.includes(version)) {
     nextBump = version;
   } else if (version) {
     nextBump = parseNextBumpFromVersion(version);
