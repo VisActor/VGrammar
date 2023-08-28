@@ -293,6 +293,10 @@ export const indexes = [
       {
         path: 'sankey-hierarchy',
         name: 'sankey-hierarchy'
+      },
+      {
+        path: 'sankey-gap',
+        name: 'sankey-gap'
       }
     ]
   },
