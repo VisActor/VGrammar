@@ -1,5 +1,6 @@
 /**
  * prelease 
+ * node release.js [alpha.0] [patch | major | minor | 1.0.0]
  */
 
 const { spawnSync } = require('child_process')
@@ -17,7 +18,6 @@ const preReleaseNameReg = /^((alpha|beta|rc)(?:\.(?:0|[1-9]))*)$/;
 function run() {
   let preReleaseName = process.argv.slice(2)[0];
   let preReleaseType = '';
-  const cwd = process.cwd();
   const rushJson = getPackageJson(path.join(__dirname, '../../rush.json'))
   const package = rushJson.projects.find((project) => project.packageName === '@visactor/vgrammar');
   let regRes = null;
@@ -27,7 +27,7 @@ function run() {
     preReleaseType = regRes[2]; 
   } else if (!preReleaseName) {
     if (package) {
-      const pkgJsonPath = path.resolve(package.projectFolder, 'package.json')
+      const pkgJsonPath = path.join(__dirname, '../../', package.projectFolder, 'package.json')
       const pkgJson = getPackageJson(pkgJsonPath)
       const currentVersion = pkgJson.version;
 
@@ -75,7 +75,7 @@ function run() {
     });
     
     if (package) {
-      const pkgJsonPath = path.resolve(package.projectFolder, 'package.json')
+      const pkgJsonPath = path.join(__dirname, '../../', package.projectFolder, 'package.json');
       const pkgJson = getPackageJson(pkgJsonPath)
 
       // 5. add the the changes
