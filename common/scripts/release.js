@@ -1,5 +1,6 @@
 /**
  * prelease 
+ * node release.js [alpha.0] [patch | major | minor | 1.0.0]
  */
 
 const { spawnSync } = require('child_process')
@@ -26,7 +27,7 @@ function run() {
   });
 
 
-  2. build all the packages
+  // 2. build all the packages
   spawnSync('sh', ['-c', `rush build --only tag:package`], {
     stdio: 'inherit',
     shell: false,
@@ -48,7 +49,7 @@ function run() {
   const package = rushJson.projects.find((project) => project.name === '@visactor/vgrammar');
 
   if (package) {
-    const pkgJsonPath = path.resolve(project.projectFolder, 'package.json')
+    const pkgJsonPath = path.join(__dirname, '../../', project.projectFolder, 'package.json')
     const pkgJson = getPackageJson(pkgJsonPath)
 
     // 5. add tag

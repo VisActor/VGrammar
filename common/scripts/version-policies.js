@@ -1,7 +1,7 @@
 
 const fs = require('fs')
 const path = require('path')
-const SEMVER_REG = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/gm;
+const parseVersion = require('./parse-version');
 const PRERELEASE = 'prerelease';
 const MINOR = 'minor';
 const MAJOR = 'major';
@@ -10,33 +10,18 @@ const NEXT_BUMPMS = [PRERELEASE, PATCH, MINOR, MAJOR];
 const setJsonFileByKey = require('./set-json-file');
 
 
-const readVersionPolicies = (
-) => {
-  const filePath = path.join(__dirname, '../config/rush/version-policies.json');
-  return JSON.parse(fs.readFileSync(filePath).toString())
-}
-
 const parseNextBumpFromVersion = (
   versionString
 ) => {
-  const res = SEMVER_REG.exec(versionString);
+  const res = parseVersion(versionString);
 
-  if (res) {
-    const formatted = {
-      major: res[1],
-      minor: res[2],
-      patch: res[3],
-      preReleaseName: res[4],
-      preReleaseType: res[4] ? (res[4].includes('.') ? res[4].split('.')[0] : res[4]) : ''
-    };
-
-  
-    if (formatted.preReleaseName) {
+  if (res) {  
+    if (res.preReleaseName) {
       return PRERELEASE;
     }
   
-    if (formatted.patch === '0') {
-      return formatted.minor == '0' ? MAJOR : MINOR;
+    if (res.patch === 0) {
+      return formatted.minor == 0 ? MAJOR : MINOR;
     }
   
     return PATCH
