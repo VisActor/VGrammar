@@ -21,7 +21,8 @@ export function filling(
     fillingRotateList,
     getFillingPadding,
     random,
-    board
+    board,
+    minFillFoontSize
   } = layoutConfig;
 
   const { boardSize, shapeBounds, tempCtx: ctx, tempCanvas: canvas, randomGenerator } = segmentationOutput;
@@ -36,7 +37,10 @@ export function filling(
     filling1Time(fontSize, opacity);
 
     // 完成一次填充，则更新一下填充词的属性，继续下一次填充
-    fontSize = Math.max(fontSize > fillingDeltaFontSize ? fontSize - fillingDeltaFontSize : fillingDeltaFontSize, 4); // 填充词最小字号4px
+    fontSize = Math.max(
+      fontSize > fillingDeltaFontSize ? fontSize - fillingDeltaFontSize : fillingDeltaFontSize,
+      minFillFoontSize
+    ); // 填充词最小字号4px
     opacity = opacity > fillingDeltaOpacity ? opacity - fillingDeltaOpacity : fillingDeltaOpacity;
   }
 
