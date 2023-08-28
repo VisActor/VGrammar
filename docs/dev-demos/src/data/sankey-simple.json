@@ -1,0 +1,46 @@
+{
+  "nodes": [
+    {
+      "name": "A",
+      "value": 10000
+    },
+    {
+      "name": "B"
+    },
+    {
+      "name": "C"
+    },
+    {
+      "name": "top",
+      "value": 2000
+    },
+    {
+      "name": "middle"
+    },
+    {
+      "name": "bottom"
+    },
+    {
+      "name": "0"
+    },
+    {
+      "name": "1"
+    },
+    {
+      "name": "2"
+    },
+    {
+      "name": "3"
+    },
+    {
+      "name": "4"
+    }
+  ],
+  "links": [
+    { "source": "A", "target": "top" },
+    { "source": "A", "target": "0" },
+    { "source": "A", "target": "1" },
+    { "source": "A", "target": "2", "value": 1000 },
+    { "source": "top", "target": "3", "value": 3000 }
+  ]
+}
