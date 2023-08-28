@@ -54,7 +54,7 @@ function run() {
 
   if (preReleaseName && preReleaseType) {
     // 1. apply version and update version of package.json
-    writePrereleaseVersion(checkAndUpdateNextBump(false, process.argv.slice(2)[1]), preReleaseName)
+    writePrereleaseVersion(checkAndUpdateNextBump(process.argv.slice(2)[1]), preReleaseName)
 
     // 2. build all the packages
     spawnSync('sh', ['-c', `rush build --only tag:package`], {
