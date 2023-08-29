@@ -2,6 +2,7 @@ import { ComponentEnum } from '../graph';
 import type { IComponent, IGroupMark, IView } from '../types';
 import { Component } from '../view/component';
 import { Axis } from './axis';
+import { Grid } from './grid';
 import { Legend } from './legend';
 import { Crosshair } from './crosshair';
 import { Slider } from './slider';
@@ -12,6 +13,7 @@ import { DimensionTooltip, Tooltip } from './tooltip';
 import { Title } from './title';
 
 export { generateLineAxisAttributes, generateCircleAxisAttributes } from './axis';
+export { generateLineAxisGridAttributes, generateCircleAxisGridAttributes } from './grid';
 export {
   generateDiscreteLegendAttributes,
   generateColorLegendAttributes,
@@ -39,6 +41,8 @@ export const createComponent = (
   switch (componentType) {
     case ComponentEnum.axis:
       return new Axis(view, groupMark, mode);
+    case ComponentEnum.grid:
+      return new Grid(view, groupMark, mode);
     case ComponentEnum.legend:
       return new Legend(view, groupMark);
     case ComponentEnum.crosshair:

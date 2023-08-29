@@ -55,8 +55,12 @@ export const runner = (view: IView) => {
       y: 40,
       start: { x: 0, y: 0 },
       end: { x: 0, y: 270 },
-      grid: { visible: true, length: 270 }
+      // grid: { visible: true, length: 270 }
     });
+  const grid = view
+    .grid(view.rootMark)
+    .id('yGrid')
+    .target(yAxis);
   // const rightLegend = view
   //   .legend(view.rootMark)
   //   .id('rightLegend')
