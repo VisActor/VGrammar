@@ -30,6 +30,7 @@ export interface BaseScaleSpec extends GrammarSpec {
   name?: string;
   type: GrammarScaleType;
   domain?: ScaleData | MultiScaleData | ScaleFunctionType<any[]>;
+  unknown?: ScaleFunctionType<any>;
 }
 
 export interface ScaleTicksSpec {
