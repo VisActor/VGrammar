@@ -1,6 +1,7 @@
 import type { IColor } from '@visactor/vrender';
 import type {
   ArcLabelAttrs,
+  BaseLabelAttrs,
   CircleAxisAttributes,
   CircleCrosshairAttrs,
   ColorLegendAttributes,
@@ -49,6 +50,7 @@ export interface IComponentTheme {
   rectLabel?: RecursivePartial<RectLabelAttrs>;
   arcLabel?: RecursivePartial<ArcLabelAttrs>;
   symbolLabel?: RecursivePartial<SymbolLabelAttrs>;
+  pointLabel?: RecursivePartial<BaseLabelAttrs>;
 
   datazoom?: RecursivePartial<DataZoomAttributes>;
 
