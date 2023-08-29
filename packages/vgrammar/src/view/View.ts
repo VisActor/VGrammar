@@ -92,6 +92,7 @@ import type {
   ICrosshair,
   IDatazoom,
   IDimensionTooltip,
+  IGrid,
   ILabel,
   ILegend,
   IPlayer,
@@ -315,6 +316,10 @@ export default class View extends EventEmitter implements IView {
 
   axis(group: IGroupMark | string, mode: '2d' | '3d' = '2d') {
     return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.axis, mode }) as IAxis;
+  }
+
+  grid(group: IGroupMark | string, mode: '2d' | '3d' = '2d') {
+    return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.grid, mode }) as IGrid;
   }
 
   legend(group: IGroupMark | string) {
