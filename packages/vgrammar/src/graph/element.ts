@@ -177,6 +177,11 @@ export class Element implements IElement {
 
   encodeGraphic(attrs?: any) {
     this.coordinateTransformEncode(this.items);
+
+    if (!isNil(attrs?.enableSegments) && this.items?.[0]?.nextAttrs) {
+      this.items[0].nextAttrs.enableSegments = attrs.enableSegments;
+    }
+
     const graphicAttributes = this.transformElementItems(this.items, this.mark.markType);
 
     if (attrs) {
