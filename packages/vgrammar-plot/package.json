@@ -40,13 +40,23 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@visactor/vgrammar-util": "workspace:0.6.5",
     "@visactor/vgrammar-coordinate": "workspace:0.6.5",
     "@visactor/vgrammar": "workspace:0.6.5",
-    "@visactor/vscale": "~0.15.8",
+    "@visactor/vscale": "~0.15.9",
     "@visactor/vrender-components": "~0.14.6",
     "@visactor/vrender": "~0.14.6",
-    "@visactor/vutils": "~0.15.8"
+    "@visactor/vutils": "~0.15.9"
+=======
+    "@visactor/vgrammar-util": "workspace:0.6.4",
+    "@visactor/vgrammar-coordinate": "workspace:0.6.4",
+    "@visactor/vgrammar": "workspace:0.6.4",
+    "@visactor/vscale": "~0.15.9",
+    "@visactor/vrender-components": "~0.14.5",
+    "@visactor/vrender": "~0.14.5",
+    "@visactor/vutils": "~0.15.9"
+>>>>>>> 8a1e824 (fix: upgrade vscale from ~0.15.8 to ~0.15.9, fix identity scale)
   },
   "devDependencies": {
     "d3-array": "1.x",
