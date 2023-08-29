@@ -51,8 +51,11 @@ export const generateLabelAttributes = (
         case GrammarMarkType.arc:
           currentTheme = theme?.components?.arcLabel;
           break;
+        case GrammarMarkType.polygon:
+        case GrammarMarkType.path:
         default:
-          return null;
+          currentTheme = theme?.components?.pointLabel;
+          break;
       }
       const data: any[] = [];
       mark.graphicItem.forEachChildren(child => {
