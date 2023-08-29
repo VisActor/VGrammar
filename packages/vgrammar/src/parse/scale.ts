@@ -26,7 +26,8 @@ import {
   QuantileScale,
   PowScale,
   LogScale,
-  isDiscretizing
+  isDiscretizing,
+  IdentityScale
 } from '@visactor/vscale';
 import type { IView } from '../types/view';
 import type { IGrammarBase } from '../types/grammar';
@@ -84,6 +85,8 @@ export function createScale(type: GrammarScaleType): IBaseScale {
       return new TimeScale();
     case 'utc':
       return new TimeScale(true);
+    case 'identity':
+      return new IdentityScale();
   }
   return new LinearScale();
 }
@@ -137,7 +140,7 @@ function parseScaleCoordinateType(spec: ScaleCoordinate, view: IView): IGrammarB
   return [];
 }
 
-function parseLinearScale(spec: LinearScaleSpec, view: IView) {
+function parseLinearScale(spec: Omit<LinearScaleSpec, 'type'>, view: IView) {
   let dependencies: IGrammarBase[] = [];
   dependencies = dependencies.concat(parseFunctionType(spec.nice, view));
   dependencies = dependencies.concat(parseFunctionType(spec.niceMin, view));
@@ -146,6 +149,37 @@ function parseLinearScale(spec: LinearScaleSpec, view: IView) {
   dependencies = dependencies.concat(parseFunctionType(spec.max, view));
   dependencies = dependencies.concat(parseFunctionType(spec.zero, view));
   dependencies = dependencies.concat(parseFunctionType(spec.roundRange, view));
+  return dependencies;
+}
+
+function parsePowScale(spec: PowScaleSpec, view: IView) {
+  const dependencies = parseLinearScale(spec, view);
+  return dependencies.concat(parseFunctionType(spec.exponent, view));
+}
+
+function parseSymlogScale(spec: SymlogScaleSpec, view: IView) {
+  const dependencies = parseLinearScale(spec, view);
+  return dependencies.concat(parseFunctionType(spec.constant, view));
+}
+
+function parseLogScale(spec: Omit<LogScaleSpec, 'type'>, view: IView) {
+  let dependencies: IGrammarBase[] = [];
+  dependencies = dependencies.concat(parseFunctionType(spec.nice, view));
+  dependencies = dependencies.concat(parseFunctionType(spec.min, view));
+  dependencies = dependencies.concat(parseFunctionType(spec.max, view));
+  dependencies = dependencies.concat(parseFunctionType(spec.zero, view));
+  dependencies = dependencies.concat(parseFunctionType(spec.roundRange, view));
+  return dependencies;
+}
+
+function parseQuantizeScale(spec: QuantizeScaleSpec, view: IView) {
+  let dependencies: IGrammarBase[] = [];
+  dependencies = dependencies.concat(parseFunctionType(spec.nice, view));
+  dependencies = dependencies.concat(parseFunctionType(spec.niceMin, view));
+  dependencies = dependencies.concat(parseFunctionType(spec.niceMax, view));
+  dependencies = dependencies.concat(parseFunctionType(spec.min, view));
+  dependencies = dependencies.concat(parseFunctionType(spec.max, view));
+  dependencies = dependencies.concat(parseFunctionType(spec.zero, view));
   return dependencies;
 }
 
@@ -191,17 +225,29 @@ export function parseScaleConfig(type: GrammarScaleType, config: ScaleConfigureS
   if (isNil(config)) {
     return [];
   }
+  const deps: IGrammarBase[] = parseFunctionType(config.unknown, view);
   switch (type) {
     case 'linear':
-      return parseLinearScale(config as LinearScaleSpec, view);
+    case 'sqrt':
+      return deps.concat(parseLinearScale(config as LinearScaleSpec, view));
     case 'ordinal':
-      return parseOrdinalScale(config as OrdinalScaleSpec, view);
+      return deps.concat(parseOrdinalScale(config as OrdinalScaleSpec, view));
     case 'band':
-      return parseBandScale(config as BandScaleSpec, view);
+      return deps.concat(parseBandScale(config as BandScaleSpec, view));
     case 'point':
-      return parsePointScale(config as PointScaleSpec, view);
+      return deps.concat(parsePointScale(config as PointScaleSpec, view));
+    case 'pow':
+      return deps.concat(parsePowScale(config as PowScaleSpec, view));
+    case 'log':
+    case 'time':
+    case 'utc':
+      return deps.concat(parseLogScale(config as LogScaleSpec, view));
+    case 'symlog':
+      return deps.concat(parseSymlogScale(config as SymlogScaleSpec, view));
+    case 'quantize':
+      return deps.concat(parseQuantizeScale(config as QuantizeScaleSpec, view));
   }
-  return [];
+  return deps;
 }
 
 function configureScaleNice(spec: Pick<ScaleTicksSpec, 'nice'>, scale: IContinuesScaleTicks, parameters: any) {
@@ -415,18 +461,24 @@ export function configureScale(spec: ScaleSpec, scale: IBaseScale, parameters: a
   } else {
     scale.domain(invokeFunctionType(spec.domain, parameters, scale), true);
   }
-  if (isScaleDataType(spec.range)) {
-    scale.range(parseScaleDataTypeValue(parseFieldData(spec.range, parameters), scale), true);
-  } else if (isMultiScaleDataType(spec.range)) {
-    scale.range(parseScaleDataTypeValue(parseMultiFieldData(spec.range, parameters), scale), true);
-  } else if (isScaleCoordinateType(spec.range)) {
-    const coord = getGrammarOutput(spec.range.coordinate, parameters);
 
-    if (!isDiscretizing(scale.type) && coord) {
-      scale.range(coord.getRangeByDimension(spec.range.dimension, spec.range.isSubshaft, spec.range.reversed));
+  if (spec.type !== 'identity') {
+    if (isScaleDataType(spec.range)) {
+      scale.range(parseScaleDataTypeValue(parseFieldData(spec.range, parameters), scale), true);
+    } else if (isMultiScaleDataType(spec.range)) {
+      scale.range(parseScaleDataTypeValue(parseMultiFieldData(spec.range, parameters), scale), true);
+    } else if (isScaleCoordinateType(spec.range)) {
+      const coord = getGrammarOutput(spec.range.coordinate, parameters);
+
+      if (!isDiscretizing(scale.type) && coord) {
+        scale.range(coord.getRangeByDimension(spec.range.dimension, spec.range.isSubshaft, spec.range.reversed));
+      }
+    } else {
+      scale.range(invokeFunctionType(spec.range, parameters, scale), true);
     }
-  } else {
-    scale.range(invokeFunctionType(spec.range, parameters, scale), true);
+  }
+  if (!isNil(spec.unknown)) {
+    scale.unknown(invokeFunctionType(spec.unknown, parameters, scale));
   }
 
   switch (spec.type) {
