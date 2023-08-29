@@ -221,3 +221,62 @@ test('set the domain ang range of a linear scale by multi data', function () {
   scale.runSync();
   expect(scale.output().domain()).toEqual([0, 250]);
 });
+
+test('identity scale dont set domain', function () {
+  const dataA = new Data(view as any, [
+    { cat: 'A', min: 1, max: 100 },
+    { cat: 'C', min: 2, max: 200 }
+  ]).id('dataA');
+  const dataB = new Data(view as any, [
+    { cat: 'E', min: 0, max: 150 },
+    { cat: 'F', min: 1, max: 250 }
+  ]).id('dataB');
+
+  const scale = new Scale(view as any, 'identity');
+  expect(scale.output().type).toEqual('identity');
+  expect(scale.output().domain()).toBeUndefined();
+  expect(scale.output().range()).toBeUndefined();
+
+  dataA.runSync();
+  dataB.runSync();
+  scale.runSync();
+  expect(scale.output().scale(1)).toEqual(1);
+  expect(scale.output().scale(10)).toEqual(10);
+});
+
+test('identity scale has domain', function () {
+  const dataA = new Data(view as any, [
+    { cat: 'A', min: 1, max: 100 },
+    { cat: 'C', min: 2, max: 200 }
+  ]).id('dataA');
+  const dataB = new Data(view as any, [
+    { cat: 'E', min: 0, max: 150 },
+    { cat: 'F', min: 1, max: 250 }
+  ]).id('dataB');
+
+  const scale = new Scale(view as any, 'identity')
+    .domain({
+      datas: [
+        {
+          data: dataA,
+          field: ['min', 'max']
+        },
+        {
+          data: dataB,
+          field: ['min', 'max']
+        }
+      ]
+    })
+    .configure({ unknown: 'test' });
+  expect(scale.output().type).toBe('identity');
+  expect(scale.output().domain()).toBeUndefined();
+  expect(scale.output().range()).toBeUndefined();
+
+  dataA.runSync();
+  dataB.runSync();
+  scale.runSync();
+  expect(scale.output().domain()).toEqual([1, 2, 100, 200, 0, 1, 150, 250]);
+  expect(scale.output().range()).toEqual([1, 2, 100, 200, 0, 1, 150, 250]);
+  expect(scale.output().scale(1)).toBe(1);
+  expect(scale.output().scale(10)).toBe('test');
+});
