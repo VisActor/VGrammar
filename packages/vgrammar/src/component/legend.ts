@@ -12,6 +12,7 @@ import type {
   IData,
   IElement,
   IGroupMark,
+  IScale,
   ITheme,
   IView,
   Nil,
@@ -121,6 +122,12 @@ export class Legend extends ScaleComponent implements ILegend {
     super.parseAddition(spec);
     this.target(spec.target?.data, spec.target?.filter);
     this.legendType(spec.legendType);
+    return this;
+  }
+
+  scale(scale?: IScale | string | Nil) {
+    super.scale(scale);
+    this._legendComponentType = null;
     return this;
   }
 

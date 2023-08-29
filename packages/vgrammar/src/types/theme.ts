@@ -3,6 +3,7 @@ import type {
   ArcLabelAttrs,
   BaseLabelAttrs,
   CircleAxisAttributes,
+  CircleAxisGridAttributes,
   CircleCrosshairAttrs,
   ColorLegendAttributes,
   ContinuousPlayerAttributes,
@@ -11,6 +12,7 @@ import type {
   DiscreteLegendAttrs,
   DiscretePlayerAttributes,
   LineAxisAttributes,
+  LineAxisGridAttributes,
   LineCrosshairAttrs,
   LineLabelAttrs,
   PolygonCrosshairAttrs,
@@ -33,6 +35,9 @@ export type IMarkTheme = Partial<Omit<BasicEncoderSpecMap, 'glyph'>>;
 export interface IComponentTheme {
   axis?: RecursivePartial<LineAxisAttributes>;
   circleAxis?: RecursivePartial<CircleAxisAttributes>;
+
+  grid?: RecursivePartial<LineAxisGridAttributes>;
+  circleGrid?: RecursivePartial<CircleAxisGridAttributes>;
 
   discreteLegend?: RecursivePartial<DiscreteLegendAttrs>;
   colorLegend?: RecursivePartial<ColorLegendAttributes>;

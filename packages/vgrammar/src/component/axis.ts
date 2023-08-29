@@ -9,6 +9,7 @@ import type {
   BaseSignleEncodeSpec,
   IElement,
   IGroupMark,
+  IScale,
   ITheme,
   IView,
   MarkFunctionType,
@@ -87,7 +88,6 @@ export class Axis extends ScaleComponent implements IAxis {
   constructor(view: IView, group?: IGroupMark, mode?: '2d' | '3d') {
     super(view, ComponentEnum.axis, group);
     this.spec.componentType = ComponentEnum.axis;
-    this.spec.axisType = 'line';
     this.mode = mode;
   }
 
@@ -99,6 +99,12 @@ export class Axis extends ScaleComponent implements IAxis {
     this.inside(spec.inside);
     this.baseValue(spec.baseValue);
 
+    return this;
+  }
+
+  scale(scale?: IScale | string | Nil) {
+    super.scale(scale);
+    this._axisComponentType = null;
     return this;
   }
 
@@ -129,6 +135,10 @@ export class Axis extends ScaleComponent implements IAxis {
     return this.setFunctionSpec(baseValue, 'baseValue');
   }
 
+  getAxisComponentType() {
+    return this._axisComponentType;
+  }
+
   protected _updateComponentEncoders() {
     const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
     const encoders = Object.assign({ update: {} }, this.spec.encode);
@@ -157,7 +167,6 @@ export class Axis extends ScaleComponent implements IAxis {
                 const end = axisPoints[1];
 
                 addition = Object.assign(
-                  {},
                   {
                     start,
                     end,
@@ -172,7 +181,6 @@ export class Axis extends ScaleComponent implements IAxis {
                 const radius = (coord as IPolarCoordinate).radius();
                 const angle = (coord as IPolarCoordinate).angle();
                 addition = Object.assign(
-                  {},
                   {
                     center: (coord as IPolarCoordinate).origin(),
                     radius: radius[1],

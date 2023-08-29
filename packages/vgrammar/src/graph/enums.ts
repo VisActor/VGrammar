@@ -64,6 +64,7 @@ export enum GrammarMarkType {
  */
 export enum ComponentEnum {
   axis = 'axis',
+  grid = 'grid',
   crosshair = 'crosshair',
   legend = 'legend',
   slider = 'slider',
@@ -85,6 +86,11 @@ export enum ComponentDataRank {
 export enum AxisEnum {
   lineAxis = 'lineAxis',
   circleAxis = 'circleAxis'
+}
+
+export enum GridEnum {
+  lineAxisGrid = 'lineAxisGrid',
+  circleAxisGrid = 'circleAxisGrid'
 }
 
 export enum LegendEnum {

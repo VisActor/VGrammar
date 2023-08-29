@@ -28,6 +28,7 @@ import type {
   ICrosshair,
   IDatazoom,
   IDimensionTooltip,
+  IGrid,
   ILabel,
   ILegend,
   IPlayer,
@@ -189,6 +190,7 @@ export interface IView {
   glyph: (glyphType: string, group: IGroupMark | string) => IGlyphMark;
   component: (componentType: string, group: IGroupMark | string, mode?: '2d' | '3d') => IComponent;
   axis: (group: IGroupMark | string, mode?: '2d' | '3d') => IAxis;
+  grid: (group: IGroupMark | string, mode?: '2d' | '3d') => IGrid;
   legend: (group: IGroupMark | string) => ILegend;
   crosshair: (group: IGroupMark | string) => ICrosshair;
   slider: (group: IGroupMark | string) => ISlider;
