@@ -1,4 +1,4 @@
-import { array, EventEmitter, isNil, isString } from '@visactor/vutils';
+import { array, EventEmitter, isNil, isString, isValid } from '@visactor/vutils';
 import type { GrammarType, IGrammarBase, IView, IGrammarTask, BaseEventHandler } from '../types';
 import { parseOptions } from '../parse/option';
 import { parseFunctionType } from '../parse/util';
@@ -241,7 +241,10 @@ export abstract class GrammarBase extends EventEmitter implements IGrammarBase {
   parameters() {
     const params: any = {};
     this.references.forEach((count, ref) => {
-      params[ref.id() as string] = ref.output();
+      // upstream reference with no valid id will not be recorded in parameters
+      if (isValid(ref.id())) {
+        params[ref.id() as string] = ref.output();
+      }
     });
     return params;
   }
