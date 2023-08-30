@@ -550,6 +550,7 @@ export default class View extends EventEmitter implements IView {
 
     this.background(this._spec?.background ?? this._options.background ?? this._theme.background);
     this.padding(this._spec?.padding ?? this._options.padding ?? this._theme.padding);
+    this.renderer.stage()?.setTheme?.(Object.assign({}, this._theme.marks));
 
     return this;
   }
@@ -1490,6 +1491,7 @@ export default class View extends EventEmitter implements IView {
     // If true, the cursor is set globally for the entire document body.
     this.globalCursor(this._eventConfig.globalCursor);
 
+    // set default theme
     this._theme = ThemeManager.getDefaultTheme();
 
     this.parseBuiltIn();
@@ -1507,6 +1509,9 @@ export default class View extends EventEmitter implements IView {
     // update layout tree after initialization
     this._needBuildLayoutTree = true;
     this._layoutState = LayoutState.before;
+
+    // apply theme value after initialization
+    this.theme(this._theme);
   }
 
   // --- Others ---
