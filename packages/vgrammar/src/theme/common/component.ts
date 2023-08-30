@@ -19,7 +19,8 @@ import type {
   SymbolLabelAttrs,
   ArcLabelAttrs,
   TooltipAttributes,
-  BaseLabelAttrs
+  BaseLabelAttrs,
+  TitleAttrs
 } from '@visactor/vrender-components';
 import type { IComponentTheme, RecursivePartial } from '../../types';
 
@@ -515,6 +516,8 @@ export const discretePlayer: RecursivePartial<DiscretePlayerAttributes> = {};
 
 export const tooltip: RecursivePartial<TooltipAttributes> = {};
 
+export const title: RecursivePartial<TitleAttrs> = {};
+
 export const defaultComponentTheme: IComponentTheme = {
   axis,
   circleAxis,
@@ -543,5 +546,7 @@ export const defaultComponentTheme: IComponentTheme = {
   continuousPlayer,
   discretePlayer,
 
-  tooltip
+  tooltip,
+
+  title
 };
