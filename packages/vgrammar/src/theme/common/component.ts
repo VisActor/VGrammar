@@ -516,7 +516,14 @@ export const discretePlayer: RecursivePartial<DiscretePlayerAttributes> = {};
 
 export const tooltip: RecursivePartial<TooltipAttributes> = {};
 
-export const title: RecursivePartial<TitleAttrs> = {};
+export const title: RecursivePartial<TitleAttrs> = {
+  textStyle: {
+    fill: '#21252c'
+  },
+  subtextStyle: {
+    fill: '#606773'
+  }
+};
 
 export const defaultComponentTheme: IComponentTheme = {
   axis,
