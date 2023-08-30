@@ -1,4 +1,4 @@
-import { PointService, isNil, isString, merge } from '@visactor/vutils';
+import { PointService, isString, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
 import type { CircleAxisGridAttributes, LineAxisGridAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
@@ -19,11 +19,11 @@ import type {
   StateEncodeSpec
 } from '../types';
 import { AxisEnum, ComponentEnum, GridEnum } from '../graph';
-import type { AxisSpec, AxisType, GridShape, GridSpec, GridType, IAxis, IGrid } from '../types/component';
+import type { GridShape, GridSpec, GridType, IAxis, IGrid } from '../types/component';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
-import type { IPolarCoordinate } from '@visactor/vgrammar-coordinate';
+import { generateCoordinateAxisAttribute } from './axis';
 
 registerComponent(
   GridEnum.lineAxisGrid,
@@ -96,6 +96,12 @@ export class Grid extends ScaleComponent implements IGrid {
     return this;
   }
 
+  scale(scale?: IScale | string | Nil) {
+    super.scale(scale);
+    this._gridComponentType = null;
+    return this;
+  }
+
   gridType(gridType: GridType | Nil) {
     this.spec.gridType = gridType;
     this._gridComponentType = null;
@@ -133,8 +139,20 @@ export class Grid extends ScaleComponent implements IGrid {
     return this;
   }
 
+  tickCount(tickCount: MarkFunctionType<number> | Nil) {
+    return this.setFunctionSpec(tickCount, 'tickCount');
+  }
+
+  inside(inside: MarkFunctionType<boolean> | Nil) {
+    return this.setFunctionSpec(inside, 'inside');
+  }
+
+  baseValue(baseValue: MarkFunctionType<number> | Nil) {
+    return this.setFunctionSpec(baseValue, 'baseValue');
+  }
+
   addGraphicItem(attrs: any, groupKey?: string) {
-    const defaultAttributes = { x: 0, y: 0, start: { x: 0, y: 0 }, end: { x: 0, y: 0 }, visible: true };
+    const defaultAttributes = { x: 0, y: 0, start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
     const initialAttributes = merge(defaultAttributes, attrs);
     const graphicItem = getComponent(this._getGridComponentType()).creator(initialAttributes, this.mode);
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
@@ -189,6 +207,26 @@ export class Grid extends ScaleComponent implements IGrid {
                 }
               }
             }
+            // compute attribute by spec
+            else {
+              scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
+              const inside = invokeFunctionType(this.spec.inside, parameters, datum, element);
+              const baseValue = invokeFunctionType(this.spec.baseValue, parameters, datum, element);
+
+              const coordinate = scaleGrammar?.getCoordinate?.();
+              if (coordinate) {
+                addition = Object.assign(
+                  generateCoordinateAxisAttribute(
+                    scaleGrammar,
+                    coordinate,
+                    inside,
+                    baseValue,
+                    this.spec.layout as MarkRelativeItemSpec
+                  ),
+                  addition
+                );
+              }
+            }
 
             // compute addition shape attributes for line grid
             if (this._getGridComponentType() === GridEnum.lineAxisGrid) {
@@ -215,11 +253,12 @@ export class Grid extends ScaleComponent implements IGrid {
             }
 
             const scale = scaleGrammar?.getScale?.();
+            const tickCount = invokeFunctionType(this.spec.tickCount, parameters, datum, element);
             switch (this._getGridComponentType()) {
               case GridEnum.lineAxisGrid:
-                return generateLineAxisGridAttributes(scale, theme, addition);
+                return generateLineAxisGridAttributes(scale, theme, addition, tickCount);
               case GridEnum.circleAxisGrid:
-                return generateCircleAxisGridAttributes(scale, theme, addition);
+                return generateCircleAxisGridAttributes(scale, theme, addition, tickCount);
             }
             return addition;
           }
@@ -254,6 +293,13 @@ export class Grid extends ScaleComponent implements IGrid {
         default:
           this._gridComponentType = GridEnum.lineAxisGrid;
       }
+    } else if (this.spec.scale) {
+      const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
+      this._gridComponentType = scaleGrammar?.getCoordinate?.()
+        ? scaleGrammar.getCoordinateAxisPoints()
+          ? GridEnum.lineAxisGrid
+          : GridEnum.circleAxisGrid
+        : GridEnum.lineAxisGrid;
     } else {
       this._gridComponentType = GridEnum.lineAxisGrid;
     }
