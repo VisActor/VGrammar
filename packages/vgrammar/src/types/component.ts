@@ -13,6 +13,7 @@ import type {
   LegendBaseAttributes,
   PlayerAttributes,
   SliderAttributes,
+  TitleAttrs,
   TooltipAttributes,
   TooltipRowAttrs
 } from '@visactor/vrender-components';
@@ -258,6 +259,20 @@ export interface DimensionTooltipSpec extends BaseTooltipSpec {
   avoidMark?: IMark | IMark[] | string | string[];
   componentConfig?: { center?: IPointLike };
 }
+
+// title component
+
+export interface ITitle extends IComponent {
+  title: (text: MarkFunctionType<string> | Nil) => this;
+  subTitle: (text: MarkFunctionType<string> | Nil) => this;
+}
+
+export interface TitleSpec extends ComponentSpec<Partial<TitleAttrs>> {
+  componentType: ComponentEnum.title;
+  title?: MarkFunctionType<string>;
+  subTitle?: MarkFunctionType<string>;
+}
+
 // built-in components
 
 export type BuiltInComponentSpec =
