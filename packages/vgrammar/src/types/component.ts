@@ -63,7 +63,7 @@ export interface AxisSpec extends ScaleComponentSpec<Partial<AxisBaseAttributes>
   axisType?: AxisType;
   tickCount?: MarkFunctionType<number>;
   inside?: MarkFunctionType<boolean>;
-  baseValue?: MarkFunctionType<number> | Nil;
+  baseValue?: MarkFunctionType<number>;
 }
 
 // grid component
@@ -76,7 +76,9 @@ export interface IGrid extends IScaleComponent {
   gridType: (gridType: GridType | Nil) => this;
   gridShape: (gridShape: GridShape | Nil) => this;
   target: (axis: IAxis | string | Nil) => this;
-  // tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
+  tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
+  inside: (inside: MarkFunctionType<boolean> | Nil) => this;
+  baseValue: (baseValue: MarkFunctionType<number> | Nil) => this;
 }
 
 export interface GridSpec extends ScaleComponentSpec<Partial<GridBaseAttributes>> {
@@ -84,7 +86,9 @@ export interface GridSpec extends ScaleComponentSpec<Partial<GridBaseAttributes>
   gridType?: GridType;
   gridShape?: GridShape;
   target?: IAxis | string;
-  // tickCount?: MarkFunctionType<number>;
+  tickCount?: MarkFunctionType<number>;
+  inside?: MarkFunctionType<boolean>;
+  baseValue?: MarkFunctionType<number>;
 }
 
 // legend component

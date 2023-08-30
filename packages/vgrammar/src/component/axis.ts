@@ -23,7 +23,7 @@ import type { AxisSpec, AxisType, IAxis } from '../types/component';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
-import type { IPolarCoordinate } from '@visactor/vgrammar-coordinate';
+import type { IBaseCoordinate, IPolarCoordinate } from '@visactor/vgrammar-coordinate';
 
 registerComponent(
   AxisEnum.lineAxis,
@@ -76,6 +76,45 @@ export const generateCircleAxisAttributes = (
     }))
   ];
   return merge({}, axisTheme, { items }, addition ?? {});
+};
+
+export const generateCoordinateAxisAttribute = (
+  scale: IScale,
+  coordinate: IBaseCoordinate,
+  inside: boolean,
+  baseValue: number,
+  layout: MarkRelativeItemSpec
+) => {
+  const axisPosition = scale.getCoordinateAxisPosition();
+  if (layout?.position === 'auto') {
+    // FIXME: too hack
+    layout.position = inside ? 'content' : axisPosition;
+  }
+
+  const axisPoints = scale.getCoordinateAxisPoints(baseValue);
+
+  if (axisPoints) {
+    const start = axisPoints[0];
+    const end = axisPoints[1];
+    return {
+      start,
+      end,
+      verticalFactor:
+        (axisPosition === 'top' || axisPosition === 'left' ? -1 : 1) *
+        (inside ? -1 : 1) *
+        (scale.getSpec().range?.reversed ? -1 : 1)
+    };
+  }
+  const radius = (coordinate as IPolarCoordinate).radius();
+  const angle = (coordinate as IPolarCoordinate).angle();
+  return {
+    center: (coordinate as IPolarCoordinate).origin(),
+    radius: radius[1],
+    innerRadius: radius[0],
+    inside: inside,
+    startAngle: angle[0],
+    endAngle: angle[1]
+  };
 };
 
 export class Axis extends ScaleComponent implements IAxis {
@@ -150,48 +189,20 @@ export class Axis extends ScaleComponent implements IAxis {
             const theme = this.view.getCurrentTheme();
             let addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const inside = invokeFunctionType(this.spec.inside, parameters, datum, element);
-            const coord = scaleGrammar?.getCoordinate?.();
+            const baseValue = invokeFunctionType(this.spec.baseValue, parameters, datum, element);
 
-            if (coord) {
-              const axisPosition = scaleGrammar.getCoordinateAxisPosition();
-              if ((this.spec.layout as MarkRelativeItemSpec)?.position === 'auto') {
-                // FIXME: too hack
-                (this.spec.layout as MarkRelativeItemSpec).position = inside ? 'content' : axisPosition;
-              }
-              const baseValue = invokeFunctionType(this.spec.baseValue, parameters, datum, element);
-
-              const axisPoints = scaleGrammar.getCoordinateAxisPoints(baseValue);
-
-              if (axisPoints) {
-                const start = axisPoints[0];
-                const end = axisPoints[1];
-
-                addition = Object.assign(
-                  {
-                    start,
-                    end,
-                    verticalFactor:
-                      (axisPosition === 'top' || axisPosition === 'left' ? -1 : 1) *
-                      (inside ? -1 : 1) *
-                      (scaleGrammar.getSpec().range?.reversed ? -1 : 1)
-                  },
-                  addition
-                );
-              } else {
-                const radius = (coord as IPolarCoordinate).radius();
-                const angle = (coord as IPolarCoordinate).angle();
-                addition = Object.assign(
-                  {
-                    center: (coord as IPolarCoordinate).origin(),
-                    radius: radius[1],
-                    innerRadius: radius[0],
-                    inside: inside,
-                    startAngle: angle[0],
-                    endAngle: angle[1]
-                  },
-                  addition
-                );
-              }
+            const coordinate = scaleGrammar?.getCoordinate?.();
+            if (coordinate) {
+              addition = Object.assign(
+                generateCoordinateAxisAttribute(
+                  scaleGrammar,
+                  coordinate,
+                  inside,
+                  baseValue,
+                  this.spec.layout as MarkRelativeItemSpec
+                ),
+                addition
+              );
             }
 
             const scale = scaleGrammar?.getScale?.();
