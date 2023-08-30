@@ -466,6 +466,11 @@ export const indexes = [
         path: 'tooltip',
         name: '[组件]tooltip',
         type: 'api'
+      },
+      {
+        path: 'title',
+        name: '[组件]title',
+        type: 'api'
       }
     ]
   },
