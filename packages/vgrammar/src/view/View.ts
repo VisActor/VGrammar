@@ -96,6 +96,7 @@ import type {
   ILegend,
   IPlayer,
   ISlider,
+  ITitle,
   ITooltip
 } from '../types/component';
 import { Interval } from '../semantic-marks/interval';
@@ -348,6 +349,10 @@ export default class View extends EventEmitter implements IView {
     return this.mark(GrammarMarkType.component, group, {
       componentType: ComponentEnum.dimensionTooltip
     }) as IDimensionTooltip;
+  }
+
+  title(group: IGroupMark | string) {
+    return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.title }) as ITitle;
   }
 
   customized(type: string, spec: any) {
