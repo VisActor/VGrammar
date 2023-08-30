@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix: fix unit animation parameters",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}

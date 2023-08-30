@@ -297,7 +297,7 @@ export class Animate implements IAnimate {
           element,
           index,
           animatedElements.length,
-          parameters
+          mergedParameters
         );
         animators.push(this.animateElement(config, animationUnit, element, animationParameters, mergedParameters));
       });
