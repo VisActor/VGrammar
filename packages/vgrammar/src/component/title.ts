@@ -24,8 +24,8 @@ import { invokeFunctionType } from '../parse/util';
 registerComponent(ComponentEnum.title, (attrs: TitleAttrs) => new TitleComponent(attrs) as unknown as IGraphic);
 
 export const generateTitleAttributes = (
-  title?: string,
-  subTitle?: string,
+  title?: string | string[],
+  subTitle?: string | string[],
   theme?: ITheme,
   addition?: RecursivePartial<TitleAttrs>
 ): TitleAttrs => {
@@ -53,11 +53,11 @@ export class Title extends Component implements ITitle {
     return this;
   }
 
-  title(text: MarkFunctionType<string> | Nil) {
+  title(text: MarkFunctionType<string | string[]> | Nil) {
     return this.setFunctionSpec(text, 'title');
   }
 
-  subTitle(text: MarkFunctionType<string> | Nil) {
+  subTitle(text: MarkFunctionType<string | string[]> | Nil) {
     return this.setFunctionSpec(text, 'subTitle');
   }
 

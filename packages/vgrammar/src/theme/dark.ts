@@ -31,6 +31,14 @@ darkComponents.symbolLabel = Object.assign({}, darkComponents.symbolLabel, {
     }
   ]
 });
+darkComponents.title = Object.assign({}, darkComponents.title, {
+  textStyle: {
+    fill: '#fdfdfd'
+  },
+  subtextStyle: {
+    fill: '#888c93'
+  }
+});
 
 export const darkTheme: ITheme = {
   name: 'dark',
