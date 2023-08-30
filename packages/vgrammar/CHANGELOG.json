@@ -2,6 +2,24 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.6.5",
+      "tag": "@visactor/vgrammar_v0.6.5",
+      "date": "Wed, 30 Aug 2023 02:56:06 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: when add `enableSegments` in group encode, the area should be render rightly\n\n"
+          },
+          {
+            "comment": "fix: group mark has no groupKey, but can still has group encode\n\n"
+          },
+          {
+            "comment": "perf: group mark use simple evaluateJoin()\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.4",
       "tag": "@visactor/vgrammar_v0.6.4",
       "date": "Fri, 25 Aug 2023 10:01:25 GMT",

@@ -1,6 +1,21 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Fri, 25 Aug 2023 10:01:25 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Aug 2023 02:56:06 GMT and should not be manually modified.
+
+## 0.6.5
+Wed, 30 Aug 2023 02:56:06 GMT
+
+### Updates
+
+- fix: when add `enableSegments` in group encode, the area should be render rightly
+
+
+- fix: group mark has no groupKey, but can still has group encode
+
+
+- perf: group mark use simple evaluateJoin()
+
+
 
 ## 0.6.4
 Fri, 25 Aug 2023 10:01:25 GMT
