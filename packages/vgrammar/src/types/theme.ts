@@ -20,6 +20,7 @@ import type {
   SizeLegendAttributes,
   SliderAttributes,
   SymbolLabelAttrs,
+  TitleAttrs,
   TooltipAttributes
 } from '@visactor/vrender-components';
 import type { IPadding } from '@visactor/vutils';
@@ -58,6 +59,8 @@ export interface IComponentTheme {
   discretePlayer?: RecursivePartial<DiscretePlayerAttributes>;
 
   tooltip?: RecursivePartial<TooltipAttributes>;
+
+  title?: RecursivePartial<TitleAttrs>;
 }
 
 export interface ITheme {

@@ -32,6 +32,7 @@ import type {
   ILegend,
   IPlayer,
   ISlider,
+  ITitle,
   ITooltip
 } from './component';
 import type { CoordinateSpec } from './coordinate';
@@ -196,6 +197,7 @@ export interface IView {
   player: (group: IGroupMark | string) => IPlayer;
   tooltip: (group: IGroupMark | string) => ITooltip;
   dimensionTooltip: (group: IGroupMark | string) => IDimensionTooltip;
+  title: (group: IGroupMark | string) => ITitle;
 
   addGrammar: (grammar: IGrammarBase) => this;
   removeGrammar: (grammar: string | IGrammarBase) => this;
