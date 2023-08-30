@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat: support data loading for data grammar",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}

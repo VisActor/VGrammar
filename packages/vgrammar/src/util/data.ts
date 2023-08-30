@@ -30,7 +30,8 @@ export const parseFormat = (data: any, format?: DataFormatSpec): Datum[] => {
   return parsers[format.type](data, options, new DataView(new DataSet()));
 };
 
-// FIXME: use ResourceLoader instead
+// TODO: use ResourceLoader instead
+// resource loader do not support plain text loading for now
 export const load = async (url: string) => {
   try {
     const response = await fetch(url);

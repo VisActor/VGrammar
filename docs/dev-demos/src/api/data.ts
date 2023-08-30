@@ -8,7 +8,7 @@ export const runner = (view: View) => {
     { category: 'C', amount: 43, index: 2 }
   ];
 
-  const data = view.data(originData);
+  const data = view.data(originData).id('data');
   const csvData = view.data().url('/data/basic.csv', { type: 'csv' });
   const jsonData = view.data().url('/data/basic.json', { type: 'json' });
   console.log(csvData, jsonData);
