@@ -16,7 +16,7 @@
     "@visactor/vgrammar-wordcloud-shape": "workspace:0.6.4",
     "@visactor/vgrammar-plot": "workspace:0.6.4",
     "@visactor/vutils": "~0.15.8",
-    "@visactor/vrender": "~0.14.5"
+    "@visactor/vrender": "~0.14.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "~1.1.4",
