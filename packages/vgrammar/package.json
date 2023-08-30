@@ -37,8 +37,8 @@
     "@visactor/vgrammar-coordinate": "workspace:0.6.4",
     "@visactor/vgrammar-util": "workspace:0.6.4",
     "@visactor/vscale": "~0.15.8",
-    "@visactor/vrender": "~0.14.5",
-    "@visactor/vrender-components": "~0.14.5",
+    "@visactor/vrender": "~0.14.6",
+    "@visactor/vrender-components": "~0.14.6",
     "@visactor/vutils": "~0.15.8"
   },
   "devDependencies": {
