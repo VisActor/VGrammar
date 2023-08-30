@@ -35,6 +35,12 @@ export const runner = (view: IView) => {
       end: { x: 160, y: 0 },
       grid: { visible: true, center: { x: 0, y: 0 }, type: 'circle', closed: true, sides: 10 }
     });
+  const radiusGrid = view
+    .grid(view.rootMark)
+    .id('radiusGrid')
+    .target(radiusAxis)
+    // .gridShape('polygon');
+    .gridShape('circle');
   const angleAxis = view
     .axis(view.rootMark)
     .id('angleAxis')
@@ -45,6 +51,10 @@ export const runner = (view: IView) => {
       radius: 160,
       grid: { visible: true }
     });
+  const angleGrid = view
+    .grid(view.rootMark)
+    .id('angleGrid')
+    .target(angleAxis);
   const angleLineCrosshair = view
     .crosshair(view.rootMark)
     .scale(thetaScale)
