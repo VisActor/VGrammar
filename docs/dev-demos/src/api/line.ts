@@ -46,6 +46,10 @@ export const runner = (view: IView) => {
       start: { x: 0, y: 0 },
       end: { x: 270, y: 0 }
     });
+  // const xGrid = view
+  //   .grid(view.rootMark)
+  //   .id('xGrid')
+  //   .target(xAxis);
   const yAxis = view
     .axis(view.rootMark)
     .id('yAxis')
@@ -57,10 +61,10 @@ export const runner = (view: IView) => {
       end: { x: 0, y: 270 },
       // grid: { visible: true, length: 270 }
     });
-  const grid = view
-    .grid(view.rootMark)
-    .id('yGrid')
-    .target(yAxis);
+  // const yGrid = view
+  //   .grid(view.rootMark)
+  //   .id('yGrid')
+  //   .target(yAxis);
   // const rightLegend = view
   //   .legend(view.rootMark)
   //   .id('rightLegend')

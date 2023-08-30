@@ -70,17 +70,21 @@ export interface AxisSpec extends ScaleComponentSpec<Partial<AxisBaseAttributes>
 
 export type GridType = 'line' | 'circle';
 
+export type GridShape = 'line' | 'circle' | 'polygon';
+
 export interface IGrid extends IScaleComponent {
-  // gridType: (axisType: GridType | Nil) => this;
-  // tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
+  gridType: (gridType: GridType | Nil) => this;
+  gridShape: (gridShape: GridShape | Nil) => this;
   target: (axis: IAxis | string | Nil) => this;
+  // tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
 }
 
 export interface GridSpec extends ScaleComponentSpec<Partial<GridBaseAttributes>> {
   componentType: ComponentEnum.grid;
-  // gridType?: GridType;
-  // tickCount?: MarkFunctionType<number>;
+  gridType?: GridType;
+  gridShape?: GridShape;
   target?: IAxis | string;
+  // tickCount?: MarkFunctionType<number>;
 }
 
 // legend component
