@@ -8,6 +8,8 @@ import { transform as joinTransform } from './data/join';
 import { transform as pickTransform } from './data/pick';
 import { transform as rangeTransform } from './data/range';
 import { transform as stackTransform } from './data/stack';
+import { transform as foldTransform } from './data/fold';
+import { transform as unfoldTransform } from './data/unfold';
 
 import { transform as funnelTransform } from './data/funnel';
 import { transform as pieTransform } from './data/pie';
@@ -38,6 +40,8 @@ export const transforms: Record<string, Omit<ITransform, 'type'>> = {
   funnel: { transform: funnelTransform, markPhase: 'beforeJoin' },
   pie: { transform: pieTransform, markPhase: 'beforeJoin' },
   circularRelation: { transform: circularRelation, markPhase: 'beforeJoin' },
+  fold: { transform: foldTransform, markPhase: 'beforeJoin' },
+  unfold: { transform: unfoldTransform, markPhase: 'beforeJoin' },
 
   lttbsample: { transform: lttbsampleTransform, markPhase: 'afterEncode' },
   markoverlap: { transform: markoverlapTransform, markPhase: 'afterEncode' },

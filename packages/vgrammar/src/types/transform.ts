@@ -130,6 +130,20 @@ export interface SortTransformOptions {
   sort: SortConfigSpec | ((a: any, b: any) => number);
 }
 
+export interface FoldTransformOptions {
+  fields: string[];
+  asKey?: string;
+  asValue?: string;
+  retains?: string[];
+}
+
+export interface UnfoldTransformOptions {
+  groupBy?: string[] | string;
+  keyField: string;
+  valueField: string;
+  aggregateType?: 'sum' | 'min' | 'max' | 'count' | 'mean';
+}
+
 export interface StackTransformOptions {
   // TODO: provide more order option referring to d3-shape
   order?: 'positive' | 'negative';
@@ -305,6 +319,14 @@ export type CircularRelationTransformSpec = ConvertTransformOptionToSpec<Circula
   type: 'circularRelation';
 };
 
+export interface FoldTransformSpec extends ConvertTransformOptionToSpec<FoldTransformOptions> {
+  type: 'fold';
+}
+
+export interface UnfoldTransformSpec extends ConvertTransformOptionToSpec<UnfoldTransformOptions> {
+  type: 'unfold';
+}
+
 export interface BaseTransformSpec {
   /** the type of transform */
   type: string;
@@ -329,7 +351,9 @@ export type TransformSpec =
   | JitterTransformSpec
   | JitterXTransformSpec
   | JitterYTransformSpec
-  | CircularRelationTransformSpec;
+  | CircularRelationTransformSpec
+  | FoldTransformSpec
+  | UnfoldTransformSpec;
 
 export interface IProgressiveTransformResult<Output = any> {
   /** is progressive finished */
