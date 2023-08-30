@@ -263,14 +263,14 @@ export interface DimensionTooltipSpec extends BaseTooltipSpec {
 // title component
 
 export interface ITitle extends IComponent {
-  title: (text: MarkFunctionType<string> | Nil) => this;
-  subTitle: (text: MarkFunctionType<string> | Nil) => this;
+  title: (text: MarkFunctionType<string | string[]> | Nil) => this;
+  subTitle: (text: MarkFunctionType<string | string[]> | Nil) => this;
 }
 
 export interface TitleSpec extends ComponentSpec<Partial<TitleAttrs>> {
   componentType: ComponentEnum.title;
-  title?: MarkFunctionType<string>;
-  subTitle?: MarkFunctionType<string>;
+  title?: MarkFunctionType<string | string[]>;
+  subTitle?: MarkFunctionType<string | string[]>;
 }
 
 // built-in components

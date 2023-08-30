@@ -33,7 +33,7 @@ export const runner = (view: IView) => {
   const title = view
     .title(view.rootMark)
     .title('主标题')
-    .subTitle('副标题 balabala')
+    .subTitle(['副标题 balabala', '嘿嘿嘿'])
     .encode({
       x: 100,
       y: 0
