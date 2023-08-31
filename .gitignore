@@ -113,10 +113,5 @@ common/scripts/pre-commit
 
 # docs
 
-docs/site/examples/**.js
-docs/site/tutorials/**.js
-docs/site/api/**.js
-docs/site/examples/preview-image
-docs/site/examples/preview-fail.json
-docs/site/*_translate
-docs/site/**.js
+docs/site/scripts/
+docs/site/public/documents
