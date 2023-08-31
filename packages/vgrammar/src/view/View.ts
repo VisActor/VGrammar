@@ -367,6 +367,9 @@ export default class View extends EventEmitter implements IView {
     this.grammars.record(grammar);
     this._dataflow.add(grammar);
     grammar.parse(grammar.getSpec());
+
+    // update layout tree after grammar update
+    this._needBuildLayoutTree = true;
     return this;
   }
 
@@ -381,6 +384,9 @@ export default class View extends EventEmitter implements IView {
     this._cachedGrammars.record(recordedGrammar);
     this._dataflow.remove(recordedGrammar);
     this.grammars.unrecord(recordedGrammar);
+
+    // update layout tree after grammar update
+    this._needBuildLayoutTree = true;
     return this;
   }
 
@@ -464,7 +470,7 @@ export default class View extends EventEmitter implements IView {
 
     this.emit(HOOK_EVENT.AFTER_PARSE_VIEW);
 
-    // 更新spec后，需要更新布局树
+    // update layout tree after update spec
     this._needBuildLayoutTree = true;
     this._layoutState = LayoutState.before;
 
@@ -1461,6 +1467,7 @@ export default class View extends EventEmitter implements IView {
     this.initializeBuiltEvents();
 
     this._currentDataflow = null;
+    // update layout tree after initialization
     this._needBuildLayoutTree = true;
     this._layoutState = LayoutState.before;
   }
