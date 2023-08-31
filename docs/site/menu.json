@@ -1,0 +1,24 @@
+[
+  {
+    "menu": "examples",
+    "type": "markdown"
+  },
+  {
+    "menu": "tutorials",
+    "type": "markdown"
+  },
+  {
+    "menu": "options",
+    "type": "markdown-template",
+    "entry": "options",
+    "sectionMap": {
+      "marks-component.componentType": "marks-component",
+      "marks-glyph.glyphType": "marks-glyph",
+      "data.transform": "data-transform"
+    }
+  },
+  {
+    "menu": "api",
+    "type": "markdown"
+  }
+]

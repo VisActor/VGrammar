@@ -1,9 +1,8 @@
 import pkg from './package.json';
 import * as path from 'path';
+import react from '@vitejs/plugin-react';
 
-const { plugin: mdPlugin, Mode } = require('vite-plugin-markdown')
-
-const vGrammarPkgs = Object.keys(pkg.devDependencies).filter(pkgName => pkgName.startsWith('@visactor/vgrammar-'));
+const vGrammarPkgs = Object.keys(pkg.dependencies).filter(pkgName => pkgName.startsWith('@visactor/vgrammar-'));
 
 
 export default {
@@ -31,5 +30,5 @@ export default {
       }, {})
     }
   },
-  plugins: [mdPlugin({ mode: [Mode.HTML, Mode.MARKDOWN, Mode.TOC] })]
+  plugins: [react()]
 };
