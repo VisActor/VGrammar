@@ -1,4 +1,4 @@
-import { has, isNil, isString, isValidNumber } from '@visactor/vutils';
+import { has, isNil, isPlainObject, isString, isValidNumber } from '@visactor/vutils';
 import type { IColor, IColorStop } from '@visactor/vrender';
 import { transformCommonAttribute, commonAttributes } from './common';
 import { getRulePoints } from './helpers';
@@ -150,13 +150,32 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
         const limit = storedAttrs.limit ?? Infinity;
         const autoLimit = storedAttrs.autoLimit ?? Infinity;
         const maxWidth = Math.min(limit, autoLimit);
+        const isTextConfig = isPlainObject(storedAttrs.text) && !isNil(storedAttrs.text.text);
+        const text = isTextConfig ? storedAttrs.text.text : storedAttrs.text;
 
-        if (Array.isArray(storedAttrs.text)) {
+        if (Array.isArray(text)) {
           graphicAttributes.maxLineWidth = maxWidth === Infinity ? storedAttrs.maxLineWidth : maxWidth;
         } else {
           graphicAttributes.maxLineWidth = maxWidth === Infinity ? storedAttrs.maxLineWidth : maxWidth;
         }
-        graphicAttributes.text = storedAttrs.text;
+
+        if (isTextConfig) {
+          if (storedAttrs.text.type === 'html') {
+            graphicAttributes.html = {
+              dom: text,
+              width: nextAttrs.width ?? maxWidth,
+              height: nextAttrs.height ?? nextAttrs.fontSize,
+              anchorType: 'position'
+            };
+            graphicAttributes.text = null;
+          } else if (storedAttrs.text.type === 'rich') {
+            graphicAttributes.textConfig = text;
+          } else {
+            graphicAttributes.text = text;
+          }
+        } else {
+          graphicAttributes.text = text;
+        }
       },
       storedAttrs: 'limitAttrs'
     }

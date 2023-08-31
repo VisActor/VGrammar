@@ -202,7 +202,8 @@ export default class CanvasRenderer implements IRenderer {
         afterRender: viewOptions.afterRender,
         disableDirtyBounds: !!viewOptions.disableDirtyBounds,
         autoRender: true,
-        pluginList: viewOptions.pluginList
+        pluginList: viewOptions.pluginList,
+        enableHtmlAttribute: viewOptions.enableHtmlAttribute
       });
 
     if (viewOptions.options3d?.enable) {
