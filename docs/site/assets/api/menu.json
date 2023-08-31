@@ -1,0 +1,75 @@
+{
+  "menu": "api",
+  "children": [
+    {
+      "path": "view",
+      "title": {
+        "zh": "View",
+        "en": "View"
+      }
+    },
+    {
+      "path": "signal",
+      "title": {
+        "zh": "Signal",
+        "en": "Signal"
+      }
+    },
+    {
+      "path": "data",
+      "title": {
+        "zh": "Data",
+        "en": "Data"
+      }
+    },
+    {
+      "path": "scale",
+      "title": {
+        "zh": "Scale",
+        "en": "Scale"
+      }
+    },
+    {
+      "path": "coordinate",
+      "title": {
+        "zh": "Coordinate",
+        "en": "Coordinate"
+      }
+    },
+    {
+      "path": "projection",
+      "title": {
+        "zh": "Projection",
+        "en": "Projection"
+      }
+    },
+    {
+      "path": "mark",
+      "title": {
+        "zh": "Mark",
+        "en": "Mark"
+      }
+    },
+    {
+      "path": "group-mark",
+      "title": {
+        "zh": "GroupMark",
+        "en": "GroupMark"
+      }
+    },
+    {
+      "path": "glyph-mark",
+      "title": {
+        "zh": "GlyphMark",
+        "en": "GlyphMark"
+      }
+    },
+    {
+      "path": "component",
+      "title": {
+        "zh": "Component",
+        "en": "Component"
+      }
+    }
+  ]
+}
