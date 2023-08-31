@@ -6,6 +6,7 @@ export * from './graph';
 export { View } from './view';
 export { parseFunctionType, invokeFunctionType } from './parse/util';
 export { GrammarBase } from './view/grammar-base';
+export * from './util/text';
 export * from './types';
 export { Factory } from './core/factory';
 export {

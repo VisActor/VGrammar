@@ -121,6 +121,7 @@ const createChartBySpec = (spec: any) => {
   const containerRect = containerNode?.getBoundingClientRect();
 
   chartInstance = new View({
+    enableHtmlAttribute: true,
     width: spec.width,
     height: spec.height,
     container: 'container',
@@ -393,9 +394,10 @@ const handleClick = (e: { target: any }, isInit?: boolean) => {
     if (!isInit) {
       localStorage.setItem(LOCAL_STORAGE_KEY, `${type}:${path}`);
     }
+    const filePath = path.includes('.tsx') ? path :  `${path}.ts`;
 
     if (type === 'spec') {
-      import(`./specs/${path}.ts`)
+      import(`./specs/${filePath}`)
         .then(module => {
           createChartBySpec(module.spec);
           resetFooterContent(module.callback, module.binds);
@@ -404,7 +406,7 @@ const handleClick = (e: { target: any }, isInit?: boolean) => {
           console.log(err);
         });
     } else if (type === 'api') {
-      import(`./api/${path}.ts`)
+      import(`./api/${filePath}`)
         .then(module => {
           createChartByAPI(module.runner);
           resetFooterContent(module.callback, module.binds);
@@ -413,7 +415,7 @@ const handleClick = (e: { target: any }, isInit?: boolean) => {
           console.log(err);
         });
     } else if (type === 'plot') {
-      import(`./plot/${path}.ts`)
+      import(`./plot/${filePath}`)
         .then(module => {
           createChartByPlot(module.runner);
           resetFooterContent(module.callback, module.binds);
