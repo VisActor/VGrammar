@@ -10,6 +10,15 @@
       "program": "${workspaceRoot}/packages/vgrammar/node_modules/jest/bin/jest.js",
       "cwd": "${workspaceFolder}/packages/vgrammar",
       "args": ["${fileBasenameNoExtension}", "--runInBand", "--watchAll=false"]
+    },
+    {
+      "name": "generate documents",
+      "port": 9229,
+      "program": "${workspaceFolder}/docs/site/libs/template-parse/build.js",
+      "args": ["--env", "dev", "--watch"],
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
     }
   ]
 }

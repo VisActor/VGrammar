@@ -36,7 +36,7 @@ importers:
       '@visactor/vgrammar-util': link:../../packages/vgrammar-util
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
-      '@visactor/vrender': 0.14.6
+      '@visactor/vrender': 0.14.7
       '@visactor/vutils': 0.15.9
       d3-scale-chromatic: 3.0.0
       lodash: 4.17.21
@@ -92,7 +92,7 @@ importers:
       '@visactor/vgrammar-util': link:../../packages/vgrammar-util
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
-      '@visactor/vrender': 0.14.6
+      '@visactor/vrender': 0.14.7
       '@visactor/vutils': 0.15.9
       axios: 1.5.0
       canvas: 2.11.2
@@ -150,8 +150,8 @@ importers:
       '@visactor/vdataset': 0.15.9
       '@visactor/vgrammar-coordinate': link:../vgrammar-coordinate
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.14.6
-      '@visactor/vrender-components': 0.14.6
+      '@visactor/vrender': 0.14.7
+      '@visactor/vrender-components': 0.14.7
       '@visactor/vscale': 0.15.9
       '@visactor/vutils': 0.15.9
     devDependencies:
@@ -230,7 +230,7 @@ importers:
     dependencies:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.14.6
+      '@visactor/vrender': 0.14.7
       '@visactor/vutils': 0.15.9
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
@@ -277,8 +277,8 @@ importers:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-coordinate': link:../vgrammar-coordinate
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.14.6
-      '@visactor/vrender-components': 0.14.6
+      '@visactor/vrender': 0.14.7
+      '@visactor/vrender-components': 0.14.7
       '@visactor/vscale': 0.15.9
       '@visactor/vutils': 0.15.9
     devDependencies:
@@ -367,7 +367,7 @@ importers:
     dependencies:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.14.6
+      '@visactor/vrender': 0.14.7
       '@visactor/vutils': 0.15.9
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
@@ -443,7 +443,7 @@ importers:
     dependencies:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.14.6
+      '@visactor/vrender': 0.14.7
       '@visactor/vutils': 0.15.9
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
@@ -485,7 +485,7 @@ importers:
     dependencies:
       '@visactor/vgrammar': link:../vgrammar
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender': 0.14.6
+      '@visactor/vrender': 0.14.7
       '@visactor/vscale': 0.15.9
       '@visactor/vutils': 0.15.9
     devDependencies:
@@ -579,7 +579,7 @@ importers:
       '@visactor/vgrammar-sankey': link:../../packages/vgrammar-sankey
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
-      '@visactor/vrender': 0.14.6
+      '@visactor/vrender': 0.14.7
       '@visactor/vutils': 0.15.9
     devDependencies:
       '@internal/bundler': link:../bundler
@@ -765,7 +765,7 @@ packages:
       react-dom: '>=16'
     dependencies:
       '@arco-design/color': 0.4.0
-      '@babel/runtime': 7.22.10
+      '@babel/runtime': 7.22.11
       b-tween: 0.3.3
       b-validate: 1.5.3
       compute-scroll-into-view: 1.0.20
@@ -783,8 +783,8 @@ packages:
       - '@types/react'
     dev: false
 
-  /@babel/code-frame/7.22.10:
-    resolution: {integrity: sha512-/KKIMG4UEL35WmI9OlvMhurwtytjvXoFcGNrOvyG9zIzA8YmPjVtIZUf7b05+TPO7G7/GEmLHDaoCgACHl9hhA==}
+  /@babel/code-frame/7.22.13:
+    resolution: {integrity: sha512-XktuhWlJ5g+3TJXc5upd9Ks1HutSArik6jf2eAjYFyIOf4ej3RN+184cZbzDvbPnuTJIUhPKKJE3cIsYTiAT3w==}
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/highlight': 7.22.13
@@ -804,7 +804,7 @@ packages:
       '@babel/helper-compilation-targets': 7.22.10
       '@babel/helper-module-transforms': 7.22.9_@babel+core@7.20.12
       '@babel/helpers': 7.22.11
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/template': 7.22.5
       '@babel/traverse': 7.22.11
       '@babel/types': 7.22.11
@@ -1040,8 +1040,8 @@ packages:
       chalk: 2.4.2
       js-tokens: 4.0.0
 
-  /@babel/parser/7.22.13:
-    resolution: {integrity: sha512-3l6+4YOvc9wx7VlCSw4yQfcBo01ECA8TicQfbnCPuCEpRQrf+gTUyGdxNw+pyTUyywp6JRD1w0YQs9TpBXYlkw==}
+  /@babel/parser/7.22.14:
+    resolution: {integrity: sha512-1KucTHgOvaw/LzCVrEOAyXkr9rQlp0A1HiHRYnSUE9dmb8PvPW7o5sscg+5169r54n3vGlbx6GevTE/Iw/P3AQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -2004,7 +2004,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.22.13
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/types': 7.22.11
 
   /@babel/traverse/7.22.11:
@@ -2017,7 +2017,7 @@ packages:
       '@babel/helper-function-name': 7.22.5
       '@babel/helper-hoist-variables': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.6
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/types': 7.22.11
       debug: 4.3.4
       globals: 11.12.0
@@ -2645,7 +2645,7 @@ packages:
   /@types/babel__core/7.20.0:
     resolution: {integrity: sha512-+n8dL/9GWblDO0iU6eZAwEIJVr5DWigtle+Q6HLOrh/pdbXOhOtqzq8VPPE2zvNJzSKY4vH/z3iT3tn0A3ypiQ==}
     dependencies:
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/types': 7.22.11
       '@types/babel__generator': 7.6.4
       '@types/babel__template': 7.4.1
@@ -2659,7 +2659,7 @@ packages:
   /@types/babel__template/7.4.1:
     resolution: {integrity: sha512-azBFKemX6kMg5Io+/rdGT0dkGreboUVR0Cdm3fz9QJWpaQGJRQXl7C+6hOTCZcMll7KFyEQpgbYI2lHdsS4U7g==}
     dependencies:
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/types': 7.22.11
 
   /@types/babel__traverse/7.20.1:
@@ -2903,15 +2903,15 @@ packages:
   /@types/tough-cookie/4.0.2:
     resolution: {integrity: sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==}
 
-  /@types/undertaker-registry/1.0.1:
-    resolution: {integrity: sha512-Z4TYuEKn9+RbNVk1Ll2SS4x1JeLHecolIbM/a8gveaHsW0Hr+RQMraZACwTO2VD7JvepgA6UO1A1VrbktQrIbQ==}
+  /@types/undertaker-registry/1.0.2:
+    resolution: {integrity: sha512-O9CqcXYnCsHUSd71+hohlhEaP57dThYQQ8/cDwskhTCJ1kA3E5CVaK1sbEnukP2eWlpSgae/8KqgJBw3w/DmoQ==}
     dev: true
 
   /@types/undertaker/1.2.8:
     resolution: {integrity: sha512-gW3PRqCHYpo45XFQHJBhch7L6hytPsIe0QeLujlnFsjHPnXLhJcPdN6a9368d7aIQgH2I/dUTPFBlGeSNA3qOg==}
     dependencies:
       '@types/node': 20.5.7
-      '@types/undertaker-registry': 1.0.1
+      '@types/undertaker-registry': 1.0.2
       async-done: 1.3.2
     dev: true
 
@@ -3085,17 +3085,17 @@ packages:
       topojson-client: 3.1.0
     dev: false
 
-  /@visactor/vrender-components/0.14.6:
-    resolution: {integrity: sha512-iFMv7mpcVRo8+MqYmZU4vYDVKHqfhdQIVI/ifmiiqTZxJdRjGFZ+G05AmEJKXIk7GeKCO8p/zkBWdsCoQ+NINw==}
+  /@visactor/vrender-components/0.14.7:
+    resolution: {integrity: sha512-iMOsjUszEJ8eF1L8WIDhJoEZjJAs+NMxEYSQ5EjBDbuPnbQ9GP20E0kaClnEQfRPwS4dc3q+HolUdlIwuEOrYA==}
     dependencies:
-      '@visactor/vrender': 0.14.6
+      '@visactor/vrender': 0.14.7
       '@visactor/vscale': 0.15.9
       '@visactor/vutils': 0.15.9
       inversify: 6.0.1
     dev: false
 
-  /@visactor/vrender/0.14.6:
-    resolution: {integrity: sha512-Uvfx/MPyxeUYjaLdfF3ugXgkhx+JIDFDUG1GHLcPMyloO7G/qwjGYC03c4XLti/RCmVcMJaBwCw5wnCXstVUqA==}
+  /@visactor/vrender/0.14.7:
+    resolution: {integrity: sha512-q4dbO0r9DaCEWt7rkPV1NdAi4FFd55MiGx3ojax1vw/3KjWBXWWJIJZPDE+vZGQPLO8+fQP7jsLOaiHYOGi+IA==}
     dependencies:
       '@visactor/vutils': 0.15.9
       color-convert: 2.0.1
@@ -3514,8 +3514,8 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.10
-      caniuse-lite: 1.0.30001524
-      fraction.js: 4.3.1
+      caniuse-lite: 1.0.30001525
+      fraction.js: 4.3.4
       normalize-range: 0.1.2
       picocolors: 1.0.0
       postcss: 8.4.21
@@ -3753,8 +3753,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001524
-      electron-to-chromium: 1.4.505
+      caniuse-lite: 1.0.30001525
+      electron-to-chromium: 1.4.506
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11_browserslist@4.21.10
 
@@ -4426,6 +4426,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /detect-node-es/1.1.0:
+    resolution: {integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==}
+    dev: false
+
   /diff-sequences/29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -4457,7 +4461,7 @@ packages:
   /dom-helpers/5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
     dependencies:
-      '@babel/runtime': 7.22.10
+      '@babel/runtime': 7.22.11
       csstype: 3.1.2
     dev: false
 
@@ -5351,7 +5355,7 @@ packages:
     resolution: {integrity: sha512-KSuV3ur4gf2KqMNoZx3nXNVhqCkn42GuTYCX4tXPEwf0MjpFQmNMiN6m7dXaUXgIoivL6/65agoUMg4RLS0Vbg==}
     engines: {node: '>=10'}
     dependencies:
-      tslib: 2.6.1
+      tslib: 2.6.2
     dev: false
 
   /follow-redirects/1.15.2:
@@ -6353,7 +6357,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@babel/core': 7.20.12
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.0
       semver: 6.3.1
@@ -6365,7 +6369,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@babel/core': 7.20.12
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.0
       semver: 7.5.4
@@ -7482,12 +7486,6 @@ packages:
       is-extendable: 1.0.1
     dev: false
 
-  /mkdirp/1.0.4:
-    resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dev: true
-
   /mlly/1.4.1:
     resolution: {integrity: sha512-SCDs78Q2o09jiZiE2WziwVBEqXQ02XkGdUy45cbJf+BpYRIjArXRJ1Wbowxkb+NaM9DWvS3UC9GiO/6eqvQ/pg==}
     dependencies:
@@ -8150,7 +8148,7 @@ packages:
     peerDependencies:
       react: ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@babel/runtime': 7.22.10
+      '@babel/runtime': 7.22.11
       react: 18.2.0
     dev: false
 
@@ -8183,7 +8181,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.10
+      '@babel/runtime': 7.22.11
       '@types/react': 18.2.21
       focus-lock: 0.11.6
       prop-types: 15.8.1
@@ -8238,7 +8236,7 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
     dependencies:
-      '@babel/runtime': 7.22.10
+      '@babel/runtime': 7.22.11
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -9571,7 +9569,7 @@ packages:
     dependencies:
       '@types/react': 18.2.21
       react: 18.2.0
-      tslib: 2.6.1
+      tslib: 2.6.2
     dev: false
 
   /use-sidecar/1.1.2_gq4reeurwxuj4hvyerswzzqthy:
@@ -9587,7 +9585,7 @@ packages:
       '@types/react': 18.2.21
       detect-node-es: 1.1.0
       react: 18.2.0
-      tslib: 2.6.1
+      tslib: 2.6.2
     dev: false
 
   /use/3.1.1:

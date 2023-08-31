@@ -1477,7 +1477,7 @@
   Engine.prototype.getRenderer = function (name) {
     var target = this.targets[name];
     if (!target) {
-      console.log(`[Error] can'n get target ${name}`);
+      console.log(name);
     }
     if (target) {
       return target.getRenderer();

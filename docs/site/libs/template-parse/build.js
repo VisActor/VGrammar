@@ -67,12 +67,11 @@ async function md2jsonAsync(opt) {
   function run(cb) {
     md2json(newOpt)
       .then(schema => {
-        writeSingleSchemaPartioned(schema, opt.language, opt.entry, false);
+        writeSingleSchemaPartioned(schema, opt.language, opt.entry, false, opt.arrayKeys);
         console.log(chalk.green('generated: ' + opt.language + '/' + opt.entry));
         cb && cb();
       })
       .catch(e => {
-        console.log(chalk.red('[Error] convert md to json error'));
         console.log(e);
       });
   }
@@ -104,7 +103,8 @@ async function run() {
     }
     for (const language of languages) {
       await md2jsonAsync({
-        sectionsAnyOf: menuItem.sections,
+        sectionsAnyOf: menuItem.sections ?? [],
+        arrayKeys: menuItem.arrayKeys ?? [],
         entry: menuItem.entry,
         assetPath: `../../assets/${menuItem.menu}/`,
         language
@@ -117,8 +117,8 @@ async function run() {
   console.log('All done.');
 }
 
-function writeSingleSchemaPartioned(schema, language, docName, format) {
-  const { outline, descriptions } = extractDesc(schema, docName);
+function writeSingleSchemaPartioned(schema, language, docName, format, arrayItemKeys) {
+  const { outline, descriptions } = extractDesc(schema, docName, arrayItemKeys);
 
   const outlineBasename = `outline.json`;
   const outlineDestPath = path.resolve(config.releaseDestDir, `${docName}/${language}/${outlineBasename}`);
