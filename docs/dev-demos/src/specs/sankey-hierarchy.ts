@@ -32,6 +32,14 @@ export const spec = {
       }
     },
     {
+      id: 'crossNodeAlign',
+      value: 'center',
+      bind: {
+        input: 'select',
+        options: ['center', 'start', 'end']
+      }
+    },
+    {
       id: 'nodeGap',
       value: 8,
       bind: { input: 'range', min: 0, max: 20, step: 1 }
@@ -69,7 +77,8 @@ export const spec = {
           nodeGap: { signal: 'nodeGap' },
           direction: { signal: 'direction' },
           minNodeHeight: 4,
-          nodeKey: (datum: any) => datum.name
+          nodeKey: (datum: any) => datum.name,
+          crossNodeAlign:  { signal: 'crossNodeAlign' },
         }
       ]
     },
@@ -231,6 +240,14 @@ export const binds = [
     bind: {
       input: 'select',
       options: ['justify', 'center', 'start', 'end', 'left', 'right']
+    }
+  },
+  {
+    id: 'crossNodeAlign',
+    value: 'center',
+    bind: {
+      input: 'select',
+      options: ['center', 'start', 'end']
     }
   },
   {

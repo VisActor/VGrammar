@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat(sankey): support options `divideNodeValueToLink`, `crossNodeAlign`, `gapPosition` of sankey",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
