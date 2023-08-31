@@ -12,7 +12,7 @@
     "type": "markdown-template",
     "entry": "options",
     "sections": ["marks", "scales", "coordinates", "marks.componentType", "marks.glyphType", "data.transform"],
-    "arrayKeys": [["glyphType", "componentType", "type"]],
+    "arrayKeys": ["glyphType", "componentType", "type"],
     "sectionMap": {
       "marks-component.componentType": "marks-component",
       "marks-glyph.glyphType": "marks-glyph",
