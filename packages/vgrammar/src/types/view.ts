@@ -1,5 +1,5 @@
 import type { EventEmitter, IBounds, IBoundsLike, ILogger } from '@visactor/vutils';
-import type { EnvType, IStage, IColor, IOption3D, ILayer } from '@visactor/vrender';
+import type { EnvType, IStage, IColor, IOption3D, ILayer, IStageParams } from '@visactor/vrender';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { DataSpec } from './data';
 import type { SignalFunctionType, SignalSpec } from './signal';
@@ -62,28 +62,14 @@ export interface IEnvironmentOptions {
   modeParams?: any;
 }
 
-export interface IRendererOptions {
-  dpr?: number;
-  viewBox?: IBoundsLike;
-  container?: string | HTMLElement;
-  /** 背景颜色 */
-  background?: IColor;
+export interface IRendererOptions extends Partial<IStageParams> {
   /** 非浏览器环境下，如小程序，需要传入经过包装的伪 canvas 实例 */
   renderCanvas?: string | HTMLCanvasElement;
-  /** 是否是受控制的canvas，如果不是的话，不会进行resize等操作 */
-  canvasControled?: boolean;
   /** vRender stage */
   stage?: IStage;
+  rendererTitle?: string;
   /** vRender layer */
   layer?: ILayer;
-  rendererTitle?: string;
-  /* 渲染风格 */
-  renderStyle?: string;
-  /* 是否关闭dirtyBounds */
-  disableDirtyBounds?: boolean;
-  beforeRender?: (stage: IStage) => void;
-  afterRender?: (stage: IStage) => void;
-  pluginList?: string[];
 }
 
 export interface ILayoutOptions {

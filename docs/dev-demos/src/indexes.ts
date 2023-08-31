@@ -7,8 +7,8 @@ export const indexes = [
         name: 'group-mark'
       },
       {
-        path: 'text',
-        name: 'text'
+        path: 'text.tsx',
+        name: 'text',
       },
       {
         path: 'line-mark',

@@ -102,6 +102,7 @@ import type {
 } from '../types/component';
 import { Interval } from '../semantic-marks/interval';
 import { Cell } from '../semantic-marks/cell';
+import { Text } from '../semantic-marks/text';
 import { ThemeManager } from '../theme/theme-manager';
 import { Factory } from '../core/factory';
 
@@ -306,6 +307,9 @@ export default class View extends EventEmitter implements IView {
         break;
       case GrammarMarkType.cell:
         mark = new Cell(this, type, groupMark);
+        break;
+      case GrammarMarkType.text:
+        mark = new Text(this, type, groupMark);
         break;
       default:
         mark = new Mark(this, type, groupMark);
