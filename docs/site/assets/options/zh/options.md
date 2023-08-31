@@ -1,4 +1,4 @@
-{{ target: option }}
+{{ target: options }}
 
 {{ import: signals-index }}
 
@@ -55,18 +55,18 @@
 
 # width(number)
 
-The total width of the canvas
+画布的总宽度
 
 # height(number)
 
-The total height of the canvas
+画布的总高度
 
 # padding(number)
 
 {{ use: common-padding(
-  componentName = 'canvas'
+  componentName = '画布'
 ) }}
 
 # background
 
-Set the background of the canvas
+设置画布的背景
