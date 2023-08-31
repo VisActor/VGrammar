@@ -1,0 +1,128 @@
+{
+  "menu": "tutorials",
+  "children": [
+    {
+      "path": "website-guide",
+      "title": {
+        "zh": "站点指引",
+        "en": "website-guide"
+      }
+    },
+    {
+      "path": "quick-start",
+      "title": {
+        "zh": "快速上手",
+        "en": "quick-start"
+      }
+    },
+    {
+      "path": "grammar-element",
+      "title": {
+        "zh": "语法元素",
+        "en": "grammar-element"
+      }
+    },
+    {
+      "path": "marks",
+      "title": {
+        "zh": "图元",
+        "en": "marks"
+      },
+      "children": [
+        {
+          "path": "base",
+          "title": {
+            "zh": "图元概览",
+            "en": "base"
+          }
+        },
+        {
+          "path": "basic-mark",
+          "title": {
+            "zh": "基础图元",
+            "en": "basic-mark"
+          }
+        },
+        {
+          "path": "semantic-mark",
+          "title": {
+            "zh": "语义图元",
+            "en": "semantic-mark"
+          }
+        },
+        {
+          "path": "glyph-mark",
+          "title": {
+            "zh": "组合图元",
+            "en": "glyph-mark"
+          }
+        },
+        {
+          "path": "component",
+          "title": {
+            "zh": "组件图元",
+            "en": "component"
+          }
+        }
+      ]
+    },
+    {
+      "path": "chart",
+      "title": {
+        "zh": "图表",
+        "en": "chart"
+      }
+    },
+    {
+      "path": "event",
+      "title": {
+        "zh": "事件与交互",
+        "en": "event"
+      }
+    },
+    {
+      "path": "layout",
+      "title": {
+        "zh": "布局",
+        "en": "layout"
+      }
+    },
+    {
+      "path": "animation",
+      "title": {
+        "zh": "动画",
+        "en": "animation"
+      }
+    },
+    {
+      "path": "advanced-guide",
+      "title": {
+        "zh": "高级指引",
+        "en": "advanced-guide"
+      }
+    },
+    {
+      "path": "developer",
+      "title": {
+        "zh": "开发者生态",
+        "en": "develop"
+      },
+      "children": [
+        {
+          "path": "react",
+          "title": {
+            "zh": "react",
+            "en": "react"
+          }
+        },
+        {
+          "path": "vue",
+          "title": {
+            "zh": "vue",
+            "en": "vue"
+          }
+        }
+      ]
+    }
+  ]
+}

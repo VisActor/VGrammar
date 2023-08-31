@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src", "assets/demos"],
+  "references": [
+    {
+      "path": "../../packages/vgrammar-util"
+    },
+    {
+      "path": "../../packages/vgrammar"
+    },
+    {
+      "path": "../../packages/vgrammar-coordinate"
+    },
+    {
+      "path": "../../packages/vgrammar-hierarchy"
+    },
+    {
+      "path": "../../packages/vgrammar-projection"
+    },
+    {
+      "path": "../../packages/vgrammar-sankey"
+    },
+    {
+      "path": "../../packages/vgrammar-wordcloud"
+    },
+    {
+      "path": "../../packages/vgrammar-wordcloud-shape"
+    },
+    {
+      "path": "../../packages/vgrammar-plot"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
