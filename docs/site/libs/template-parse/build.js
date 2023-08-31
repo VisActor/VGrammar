@@ -72,6 +72,7 @@ async function md2jsonAsync(opt) {
         cb && cb();
       })
       .catch(e => {
+        console.log(chalk.red('[Error] convert md to json error'));
         console.log(e);
       });
   }
