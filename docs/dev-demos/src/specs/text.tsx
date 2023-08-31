@@ -1,3 +1,6 @@
+import { jsx, VRichText, Fragment } from '@visactor/vrender'
+import { textHtml, version, richXul } from "@visactor/vgrammar";
+
 export const spec = {
   width: 400,
   height: 200,
@@ -14,7 +17,7 @@ export const spec = {
     { id: 'dx', value: 0, bind: { input: 'range', min: -20, max: 20, step: 1 } },
     { id: 'angle', value: 0, bind: { input: 'range', min: -180, max: 180, step: 1 } },
     { id: 'fontSize', value: 18, bind: { input: 'range', min: 1, max: 36, step: 1 } },
-    { id: 'limit', value: 0, bind: { input: 'range', min: 0, max: 150, step: 1 } },
+    { id: 'limit', value: 150, bind: { input: 'range', min: 0, max: 150, step: 1 } },
     { id: 'align', value: 'left', bind: { input: 'select', options: ['left', 'center', 'right'] } },
     {
       id: 'baseline',
@@ -87,9 +90,20 @@ export const spec = {
           strokeOpacity: 0.8
         },
         update: {
-          text: {
-            signal: 'text'
-          },
+          // text: {
+          //   type: 'rich',
+          //   text: (
+          //     <VRichText>
+          //       <VRichText.Text attribute={{ fill: 'red', text: '测试文本' }}>富文本全局</VRichText.Text>
+          //       <VRichText.Image  attribute={{ image: `${window.location.origin}/src/image/shape_logo.png`,width: 30, height: 30,id: 'circle-0' }}/>
+          //     </VRichText>
+          //   ),
+          // },
+          // text: textHtml`<p>这是一个html字符串${version}</p>`,
+          text: richXul`<tc>
+          <text attribute="fill: red;">富文本全局</text>
+          <image attribute="image: ${window.location.origin}/src/image/shape_logo.png; width: 30; height: 30; id: circle-0;"></image>
+          </tc>`,
           opacity: 1,
           x: {
             signal: 'x'
