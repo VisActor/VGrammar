@@ -22,6 +22,7 @@ export function getTSCompilerOptions(
   const res: Settings = {
     moduleResolution: 'node',
     target: 'es2016',
+    lib: ['es2015', 'es2017', 'dom'],
     noEmit: false,
     emitDeclarationOnly: false,
     declaration: true,
