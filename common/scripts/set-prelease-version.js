@@ -17,8 +17,9 @@ function writePrereleaseVersion(nextBump, preReleaseName) {
   const mainPkgJsonPath = path.join(__dirname, '../../', mainPackage.projectFolder, 'package.json')
   const mainPkgJson = getPackageJson(mainPkgJsonPath)
   const mainVersion = mainPkgJson.version;
+  console.log(`The version of main project is ${mainVersion}`);
   const version = parseVersion(mainVersion);
-  console.log(`The version of main project is ${mainVersion}`, 'parsed version:', version)
+  console.log('parsed version:', version)
 
   if (!version) {
     return;
