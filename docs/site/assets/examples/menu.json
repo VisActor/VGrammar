@@ -352,7 +352,7 @@
           "path": "relation-circle-top",
           "title": {
             "zh": "顶部半圆相关性图表",
-            "en": "Correlation Chart"
+            "en": "Correlation Chart in top half circle"
           },
           "meta": {
             "title": "Correlation Chart in top half circle",
@@ -368,7 +368,7 @@
           "path": "relation-circle-right",
           "title": {
             "zh": "右侧半圆相关性图表",
-            "en": "Correlation Chart"
+            "en": "Correlation Chart in right half circle"
           },
           "meta": {
             "title": "Correlation Chart in right half circle",
