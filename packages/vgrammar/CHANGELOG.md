@@ -1,6 +1,14 @@
 # Change Log - @visactor/vgrammar
 
-This log was last generated on Wed, 30 Aug 2023 02:56:06 GMT and should not be manually modified.
+This log was last generated on Fri, 01 Sep 2023 07:09:07 GMT and should not be manually modified.
+
+## 0.6.6
+Fri, 01 Sep 2023 07:09:07 GMT
+
+### Updates
+
+- fix(grammar): rebuild layout tree when grammar updated
+- fix: fix unit animation parameters
 
 ## 0.6.5
 Wed, 30 Aug 2023 02:56:06 GMT

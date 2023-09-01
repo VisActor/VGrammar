@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar",
   "entries": [
     {
+      "version": "0.6.6",
+      "tag": "@visactor/vgrammar_v0.6.6",
+      "date": "Fri, 01 Sep 2023 07:09:07 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix(grammar): rebuild layout tree when grammar updated"
+          },
+          {
+            "comment": "fix: fix unit animation parameters"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.6.5",
       "tag": "@visactor/vgrammar_v0.6.5",
       "date": "Wed, 30 Aug 2023 02:56:06 GMT",
