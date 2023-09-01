@@ -43,10 +43,10 @@
     "@visactor/vgrammar-util": "workspace:0.6.5",
     "@visactor/vgrammar-coordinate": "workspace:0.6.5",
     "@visactor/vgrammar": "workspace:0.6.5",
-    "@visactor/vscale": "~0.15.8",
+    "@visactor/vscale": "~0.15.9",
     "@visactor/vrender-components": "~0.14.6",
     "@visactor/vrender": "~0.14.6",
-    "@visactor/vutils": "~0.15.8"
+    "@visactor/vutils": "~0.15.9"
   },
   "devDependencies": {
     "d3-array": "1.x",
