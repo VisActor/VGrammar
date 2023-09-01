@@ -1,21 +1,9 @@
----
-category: examples
-group: basic-mark-circle
-title: 相关性图表
-order: 6-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-circle-relation-circle.png
----
+import { IElement, ViewSpec, registerRippleGlyph } from '@visactor/vgrammar'
 
-# 相关性图表
 
-在这个图表中，我们通过`circle` 的半径表示相关性的大小，越靠近中心点，越相关
-
-## 代码演示
-
-```javascript livedemo template=vgrammar
-VGrammar.registerRippleGlyph();
-const spec = {
-  padding: 0,
+registerRippleGlyph();
+export const spec: ViewSpec = {
+  padding: { top: 5, right: 5, bottom: 30, left: 60 },
 
   data: [
     {
@@ -56,18 +44,25 @@ const spec = {
     {
       id: 'relation',
       source: 'table',
-      transform: [
-        {
-          type: 'circularRelation',
-          field: 'sim',
-          radiusRange: [12, 30],
-          radiusField: 'pv',
-          width: { signal: 'viewWidth' },
-          height: { signal: 'viewHeight' },
-          innerRadius: '40%'
-        }
-      ]
+      transform: [{
+        type: 'circularRelation',
+        field: 'sim',
+        radiusRange: [12, 30],
+        radiusField: 'pv',
+        width: { signal: 'viewWidth' },
+        height: { signal: 'viewHeight' },
+        innerRadius: '20%',
+      }]
     }
+  ],
+
+  scales: [
+    {
+      id: 'sizeScale',
+      type: 'linear',
+      domain: { data: 'table', field: 'pv' },
+      range: [12, 30]
+    },
   ],
 
   marks: [
@@ -77,13 +72,13 @@ const spec = {
       dependency: ['viewBox'],
       encode: {
         update: {
-          x: (datum, element, params) => {
+          x: (datum: any, element: IElement, params: any) => {
             return params.viewBox.x1 + params.viewBox.width() / 2;
           },
-          y: (datum, element, params) => {
+          y: (datum: any, element: IElement, params: any) => {
             return params.viewBox.y1 + params.viewBox.height() / 2;
           },
-          size: (datum, element, params) => {
+          size: (datum: any, element: IElement, params: any) => {
             return Math.max(params.viewBox.width(), params.viewBox.height()) / 2;
           },
           fill: '#6690F2',
@@ -96,17 +91,13 @@ const spec = {
       type: 'circle',
       dependency: ['viewBox'],
       encode: {
-        update: {
-          x: (datum, element, params) => {
-            return params.viewBox.x1 + params.viewBox.width() / 2;
-          },
-          y: (datum, element, params) => {
-            return params.viewBox.y1 + params.viewBox.height() / 2;
-          },
-          radius: (datum, element, params) => {
-            return (0.2 * Math.max(params.viewBox.width(), params.viewBox.height())) / 2;
-          },
-          fill: '#6690F2'
+        update: (datum: any, element: IElement, params: any) => {
+          return {
+            x: params.viewBox.x1 + params.viewBox.width() / 2,
+            y: params.viewBox.y1 + params.viewBox.height() / 2,
+            radius: 0.1 * Math.max(params.viewBox.width(), params.viewBox.height()) / 2,
+            fill: '#6690F2'
+          };
         }
       }
     },
@@ -115,10 +106,10 @@ const spec = {
       dependency: ['viewBox'],
       encode: {
         update: {
-          x: (datum, element, params) => {
+          x: (datum: any, element: IElement, params: any) => {
             return params.viewBox.x1 + params.viewBox.width() / 2;
           },
-          y: (datum, element, params) => {
+          y: (datum: any, element: IElement, params: any) => {
             return params.viewBox.y1 + params.viewBox.height() / 2;
           },
           fill: '#fff',
@@ -164,19 +155,3 @@ const spec = {
     }
   ]
 };
-
-const vGrammarView = new View({
-  autoFit: true,
-  container: document.getElementById(CONTAINER_ID),
-  hover: true,
-  logLevel: 5
-});
-vGrammarView.parseSpec(spec);
-
-vGrammarView.runAsync();
-
-// 只为了方便控制太调试用，不要拷贝
-window.vGrammarView = vGrammarView;
-```
-
-## 相关教程

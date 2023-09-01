@@ -143,6 +143,22 @@ export const indexes = [
       {
         path: 'symbol-chart',
         name: '简单散点图'
+      },
+      {
+        path: 'relation-chart',
+        name: '相关性图表'
+      },
+      {
+        path: 'relation-chart-right',
+        name: '相关性-右侧'
+      },
+      {
+        path: 'relation-chart-top',
+        name: '相关性-顶部'
+      },
+      {
+        path: 'jitter-x-symbols',
+        name: '扰动散点'
       }
     ]
   },

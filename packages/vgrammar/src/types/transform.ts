@@ -1,4 +1,4 @@
-import type { FieldGetterFunction } from '@visactor/vgrammar-util';
+import type { FieldGetterFunction, LayoutViewBox } from '@visactor/vgrammar-util';
 import type { SignalFunction, SignalReference } from './signal';
 import type { IView } from './view';
 import type { IData } from './grammar';
@@ -166,6 +166,43 @@ export interface DodgeTransformOptions {
   dodgeChannel?: 'x' | 'y';
 }
 
+export interface JitterTransformOptions {
+  bandWidth?: number;
+  bandHeight?: number;
+  widthRatio?: number;
+  heightRatio?: number;
+  random?: (index?: number, total?: number) => number;
+}
+
+export interface JitterXTransformOptions {
+  bandWidth?: number;
+  widthRatio?: number;
+  random?: (index?: number, total?: number) => number;
+}
+export interface JitterYTransformOptions {
+  bandHeight?: number;
+  heightRatio?: number;
+  random?: (index?: number, total?: number) => number;
+}
+
+export type CircularRelationTransformOptions = LayoutViewBox & {
+  field: string;
+  radiusField?: string;
+  radiusRange?: [number, number];
+  center?: [string | number, string | number];
+  startAngle?: number;
+  endAngle?: number;
+  innerRadius?: string | number;
+  outerRadius?: string | number;
+};
+
+export interface CircularRelationItem {
+  x: number;
+  y: number;
+  radius: number;
+  datum: any;
+}
+
 export interface IdentifierTransformOptions {
   as: string;
 }
@@ -252,6 +289,22 @@ export interface LttbSampleTransformSpec extends ConvertTransformOptionToSpec<Lt
   type: 'lttbsample';
 }
 
+export interface JitterTransformSpec extends ConvertTransformOptionToSpec<JitterTransformOptions> {
+  type: 'jitter';
+}
+
+export interface JitterXTransformSpec extends ConvertTransformOptionToSpec<JitterXTransformOptions> {
+  type: 'jitterX';
+}
+
+export interface JitterYTransformSpec extends ConvertTransformOptionToSpec<JitterYTransformOptions> {
+  type: 'jitterY';
+}
+
+export type CircularRelationTransformSpec = ConvertTransformOptionToSpec<CircularRelationTransformOptions> & {
+  type: 'circularRelation';
+};
+
 export interface BaseTransformSpec {
   /** the type of transform */
   type: string;
@@ -272,7 +325,11 @@ export type TransformSpec =
   | IdentifierTransformSpec
   | BaseTransformSpec
   | MarkOverlapTransformSpec
-  | LttbSampleTransformSpec;
+  | LttbSampleTransformSpec
+  | JitterTransformSpec
+  | JitterXTransformSpec
+  | JitterYTransformSpec
+  | CircularRelationTransformSpec;
 
 export interface IProgressiveTransformResult<Output = any> {
   /** is progressive finished */

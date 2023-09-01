@@ -8798,7 +8798,7 @@ packages:
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.5.0
+      jest: 29.5.0_@types+node@20.5.0
       jest-util: 29.6.2
       json5: 2.2.3
       lodash.memoize: 4.1.2

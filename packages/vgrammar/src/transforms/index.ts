@@ -11,6 +11,7 @@ import { transform as stackTransform } from './data/stack';
 
 import { transform as funnelTransform } from './data/funnel';
 import { transform as pieTransform } from './data/pie';
+import { transform as circularRelation } from './data/circular-relation';
 
 import { transform as lttbsampleTransform } from './mark/lttb-sample';
 import { transform as markoverlapTransform } from './mark/mark-overlap';
@@ -18,6 +19,8 @@ import { transform as markoverlapTransform } from './mark/mark-overlap';
 import { transform as identifierTransform } from './view/identifier';
 
 import { transform as dodgeTransform } from './mark/dodge';
+import { transform as jitterTransform, jitterX as jitterXTransform, jitterY as jitterYTransform } from './mark/jitter';
+
 import type { ITransform } from '../types';
 
 export const transforms: Record<string, Omit<ITransform, 'type'>> = {
@@ -34,10 +37,14 @@ export const transforms: Record<string, Omit<ITransform, 'type'>> = {
   stack: { transform: stackTransform, markPhase: 'beforeJoin' },
   funnel: { transform: funnelTransform, markPhase: 'beforeJoin' },
   pie: { transform: pieTransform, markPhase: 'beforeJoin' },
+  circularRelation: { transform: circularRelation, markPhase: 'beforeJoin' },
 
   lttbsample: { transform: lttbsampleTransform, markPhase: 'afterEncode' },
   markoverlap: { transform: markoverlapTransform, markPhase: 'afterEncode' },
 
   identifier: { transform: identifierTransform, markPhase: 'beforeJoin' },
-  dodge: { transform: dodgeTransform, markPhase: 'afterEncodeItems' }
+  dodge: { transform: dodgeTransform, markPhase: 'afterEncodeItems' },
+  jitter: { transform: jitterTransform, markPhase: 'afterEncodeItems' },
+  jitterX: { transform: jitterXTransform, markPhase: 'afterEncodeItems' },
+  jitterY: { transform: jitterYTransform, markPhase: 'afterEncodeItems' }
 };
