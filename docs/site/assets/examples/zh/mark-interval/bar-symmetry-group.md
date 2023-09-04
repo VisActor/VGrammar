@@ -1,7 +1,7 @@
 ---
 category: examples
 group: mark-interval
-title: 对称条形图
+title: 分组对称条形图
 order: 21-4
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-basic-bar.png
 ---
@@ -29,7 +29,16 @@ const spec = {
         { category: 'E', amount: 81, index: 4, group: 'new' },
         { category: 'F', amount: 53, index: 5, group: 'new' },
         { category: 'G', amount: 19, index: 6, group: 'new' },
-        { category: 'H', amount: 87, index: 7, group: 'new' }
+        { category: 'H', amount: 87, index: 7, group: 'new' },
+
+        { category: 'A', amount: 28, index: 0, group: 'old' },
+        { category: 'B', amount: 65, index: 1, group: 'old' },
+        { category: 'C', amount: 43, index: 2, group: 'old' },
+        { category: 'D', amount: 41, index: 3, group: 'old' },
+        { category: 'E', amount: 61, index: 4, group: 'old' },
+        { category: 'F', amount: 23, index: 5, group: 'old' },
+        { category: 'G', amount: 39, index: 6, group: 'old' },
+        { category: 'H', amount: 47, index: 7, group: 'old' }
       ]
     },
     {
@@ -47,8 +56,7 @@ const spec = {
       },
       end: (coord, params) => {
         return [params.viewBox.x2, params.viewBox.y2];
-      },
-      transpose: true
+      }
     }
   ],
 
@@ -102,13 +110,18 @@ const spec = {
             position: 'content',
             skipBeforeLayouted: true
           },
-          // groupBy: 'group',
+          groupBy: 'group',
           coordinate: 'coord',
           from: { data: 'markData' },
           transform: [
             {
               type: 'symmetry',
-              channel: 'y'
+              channel: 'y',
+              align: 'min'
+            },
+            {
+              type: 'dodge',
+              maxWidth: 24
             }
           ],
           encode: {
