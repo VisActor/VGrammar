@@ -655,6 +655,22 @@
             "link": "",
             "option": ""
           }
+        },
+        {
+          "path": "symmetry-rect",
+          "title": {
+            "zh": "对称矩形",
+            "en": "Symmetry rect"
+          },
+          "meta": {
+            "title": "Symmetry rect",
+            "keywords": "",
+            "category": "examples",
+            "group": "basic-mark-rect",
+            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-stack-rect.png",
+            "link": "",
+            "option": ""
+          }
         }
       ]
     },
@@ -1225,6 +1241,22 @@
           },
           "meta": {
             "title": "Symmetry bar",
+            "keywords": "",
+            "category": "examples",
+            "group": "mark-interval",
+            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-radial-interval.png",
+            "link": "",
+            "option": ""
+          }
+        },
+        {
+          "path": "bar-symmetry-group",
+          "title": {
+            "zh": "分组对称条形图",
+            "en": "Grouped symmetric bar"
+          },
+          "meta": {
+            "title": "Grouped symmetric bar",
             "keywords": "",
             "category": "examples",
             "group": "mark-interval",
