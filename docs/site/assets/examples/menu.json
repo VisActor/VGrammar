@@ -1216,6 +1216,22 @@
             "link": "",
             "option": ""
           }
+        },
+        {
+          "path": "bar-symmetry",
+          "title": {
+            "zh": "对称条形图",
+            "en": "Symmetric bar"
+          },
+          "meta": {
+            "title": "Symmetry bar",
+            "keywords": "",
+            "category": "examples",
+            "group": "mark-interval",
+            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-radial-interval.png",
+            "link": "",
+            "option": ""
+          }
         }
       ]
     },
