@@ -6,10 +6,6 @@ import { transformsByType } from '../src/graph/attributes';
 import type { IGlyphElement, IGlyphMeta } from '../src';
 import CanvasRenderer from '../src/graph/canvas-renderer';
 import { defaultTheme } from '../src/theme/default';
-import { vglobal } from '@visactor/vrender';
-
-// set environment to node
-vglobal.setEnv('node');
 
 const use = (...transformMaps: Record<string, any>[]) => {
   transformMaps.forEach(transformMap => {
