@@ -243,6 +243,7 @@ export interface LttbSampleTransformOptions {
 
 export interface SymmetryTransformOptions {
   channel?: 'x' | 'y';
+  align?: 'min' | 'max';
 }
 
 export interface BinTransformSpec extends BinTransformOption {
