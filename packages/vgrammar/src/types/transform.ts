@@ -241,6 +241,10 @@ export interface LttbSampleTransformOptions {
   groupBy?: string;
 }
 
+export interface SymmetryTransformOptions {
+  channel?: 'x' | 'y';
+}
+
 export interface BinTransformSpec extends BinTransformOption {
   type: 'bin';
 }
@@ -325,6 +329,10 @@ export interface FoldTransformSpec extends ConvertTransformOptionToSpec<FoldTran
 
 export interface UnfoldTransformSpec extends ConvertTransformOptionToSpec<UnfoldTransformOptions> {
   type: 'unfold';
+}
+
+export interface SymmetryTransformSpec extends ConvertTransformOptionToSpec<SymmetryTransformOptions> {
+  type: 'symmetry';
 }
 
 export interface BaseTransformSpec {
