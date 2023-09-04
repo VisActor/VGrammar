@@ -1,73 +1,31 @@
 import { isNil, isValidNumber } from '@visactor/vutils';
 import type { IElement, SymmetryTransformOptions } from '../../types';
-import { extent } from '@visactor/vgrammar-util';
 
-const symmetryByChannel = (upstreamData: IElement[], channel: 'x' | 'y') => {
-  const groupMap: Record<string, { els: IElement[]; mid?: number }> = {};
-  const groupKey = channel === 'x' ? 'y' : 'x';
-
-  upstreamData.forEach(element => {
-    const groupValue = element.getItemAttribute(groupKey);
-
-    if (groupMap[groupValue]) {
-      groupMap[groupValue].els.push(element);
-    } else {
-      groupMap[groupValue] = {
-        els: [element]
-      };
-    }
-  });
+const symmetryByChannel = (upstreamData: IElement[], channel: 'x' | 'y', align?: 'min' | 'max') => {
   const baseChannel = `${channel}1`;
-  const middleValuesByGroup: number[] = [];
+  const hasRangeValue = upstreamData.some(el => !isNil(el.getItemAttribute(baseChannel)));
+  const middleValues = hasRangeValue
+    ? upstreamData.map(el => (el.getItemAttribute(baseChannel) + el.getItemAttribute(channel)) / 2)
+    : upstreamData.map(el => el.getItemAttribute(channel));
+  const maxMid = align === 'min' ? Math.min.apply(null, middleValues) : Math.max.apply(null, middleValues);
 
-  Object.keys(groupMap).forEach(groupKey => {
-    const els = groupMap[groupKey].els;
-    const values: number[] = [];
-    let el: IElement;
-    for (let i = 0, len = els.length; i < len; i++) {
-      el = els[i];
-
-      values.push(el.getItemAttribute(channel));
-      values.push(el.getItemAttribute(baseChannel));
-    }
-
-    const ext = extent(values);
-
-    if (!isNil(ext[0]) && !isNil(ext[1])) {
-      groupMap[groupKey].mid = (ext[0] + ext[1]) / 2;
-      middleValuesByGroup.push(groupMap[groupKey].mid);
-    }
-  });
-
-  const maxMidY = Math.max.apply(null, middleValuesByGroup);
-
-  if (isValidNumber(maxMidY)) {
-    Object.keys(groupMap).forEach(groupKey => {
-      const els = groupMap[groupKey].els;
-      const offset = maxMidY - groupMap[groupKey].mid;
-      let el: IElement;
-      let value1: number;
-
-      if (offset) {
-        for (let i = 0, len = els.length; i < len; i++) {
-          el = els[i];
-
-          value1 = el.getItemAttribute(baseChannel);
-
-          if (!isNil(value1)) {
-            el.setItemAttributes({
-              [baseChannel]: el.getItemAttribute(baseChannel) + offset,
-              [channel]: el.getItemAttribute(channel) + offset
-            });
-          } else {
-            el.setItemAttributes({
-              [channel]: el.getItemAttribute(channel) + offset
-            });
-          }
-        }
+  if (isValidNumber(maxMid)) {
+    upstreamData.forEach((el, index) => {
+      const offset = maxMid - middleValues[index];
+      if (hasRangeValue) {
+        el.setItemAttributes({
+          [baseChannel]: el.getItemAttribute(baseChannel) + offset,
+          [channel]: el.getItemAttribute(channel) + offset
+        });
+      } else {
+        el.setItemAttributes({
+          [channel]: el.getItemAttribute(channel) + offset
+        });
       }
     });
   }
+
+  return upstreamData;
 };
 
 /**
@@ -78,5 +36,5 @@ export const symmetry = (options: SymmetryTransformOptions, upstreamData: IEleme
     return upstreamData;
   }
 
-  return symmetryByChannel(upstreamData, options.channel ?? 'y');
+  return symmetryByChannel(upstreamData, options.channel ?? 'y', options.align);
 };
