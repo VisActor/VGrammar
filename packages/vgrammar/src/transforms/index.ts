@@ -22,6 +22,7 @@ import { transform as identifierTransform } from './view/identifier';
 
 import { transform as dodgeTransform } from './mark/dodge';
 import { transform as jitterTransform, jitterX as jitterXTransform, jitterY as jitterYTransform } from './mark/jitter';
+import { symmetry } from './mark/symmetry';
 
 import type { ITransform } from '../types';
 
@@ -50,5 +51,6 @@ export const transforms: Record<string, Omit<ITransform, 'type'>> = {
   dodge: { transform: dodgeTransform, markPhase: 'afterEncodeItems' },
   jitter: { transform: jitterTransform, markPhase: 'afterEncodeItems' },
   jitterX: { transform: jitterXTransform, markPhase: 'afterEncodeItems' },
-  jitterY: { transform: jitterYTransform, markPhase: 'afterEncodeItems' }
+  jitterY: { transform: jitterYTransform, markPhase: 'afterEncodeItems' },
+  symmetry: { transform: symmetry, markPhase: 'afterEncodeItems' }
 };
