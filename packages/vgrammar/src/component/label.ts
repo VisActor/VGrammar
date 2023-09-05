@@ -42,10 +42,12 @@ export const generateLabelAttributes = (
           currentTheme = theme?.components?.lineLabel;
           break;
         case GrammarMarkType.rect:
+        case GrammarMarkType.interval:
           currentTheme = theme?.components?.rectLabel;
           break;
         case GrammarMarkType.symbol:
         case GrammarMarkType.circle:
+        case GrammarMarkType.cell:
           currentTheme = theme?.components?.symbolLabel;
           break;
         case GrammarMarkType.arc:
@@ -125,7 +127,10 @@ export class Label extends Component implements ILabel {
             let size = invokeFunctionType(this.spec.size, parameters);
             if (!size) {
               size = groupGraphicItem
-                ? { width: groupGraphicItem.attribute.width, height: groupGraphicItem.attribute.height }
+                ? {
+                    width: groupGraphicItem.attribute.width ?? groupGraphicItem.AABBBounds.width(),
+                    height: groupGraphicItem.attribute.height ?? groupGraphicItem.AABBBounds.height()
+                  }
                 : { width: Infinity, height: Infinity };
             }
             const theme = this.view.getCurrentTheme();
