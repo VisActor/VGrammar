@@ -95,6 +95,12 @@ export class Animator implements IAnimator {
     return this.unit.totalTime ?? timeLineDuration;
   }
 
+  getEndAttributes() {
+    return this.runnings.reduce((attributes, running) => {
+      return Object.assign(attributes, running.getEndProps());
+    }, {} as Record<string, any>);
+  }
+
   private animationEnd(invokeCallback: boolean = true) {
     this.isAnimating = false;
     this.runnings = null;

@@ -485,6 +485,7 @@ export class Element implements IElement {
       // If mark need animate, diff attributes.
       const nextGraphicAttributes = this.diffAttributes(graphicAttributes);
       const prevGraphicAttributes = this.getPrevGraphicAttributes();
+
       const finalGraphicAttributes = this.getFinalGraphicAttributes();
       Object.keys(nextGraphicAttributes).forEach(channel => {
         prevGraphicAttributes[channel] = this.getGraphicAttribute(channel);
@@ -494,9 +495,15 @@ export class Element implements IElement {
       this.setPrevGraphicAttributes(prevGraphicAttributes);
       this.setFinalGraphicAttributes(finalGraphicAttributes);
 
+      const currentAnimators = this.mark.animate.getElementAnimators(this);
+      const animateGraphicAttributes = currentAnimators.reduce((attributes, animator) => {
+        return Object.assign(attributes, animator.getEndAttributes());
+      }, {});
+      const currentGraphicAttributes = Object.assign({}, animateGraphicAttributes, finalGraphicAttributes);
+
       // Apply next attributes to current graphic item immediately.
       // Scene graph tree should be handled like no animation exists in dataflow procedure.
-      this.graphicItem.setAttributes(finalGraphicAttributes);
+      this.graphicItem.setAttributes(currentGraphicAttributes);
     } else {
       // Otherwise, directly apply all attributes.
       this.graphicItem.setAttributes(graphicAttributes);
