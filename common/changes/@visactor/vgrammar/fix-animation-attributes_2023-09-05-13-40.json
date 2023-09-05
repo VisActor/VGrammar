@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "fix(vgrammar): apply animation end attribute after dataflow",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
