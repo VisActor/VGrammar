@@ -271,6 +271,8 @@ export interface IAnimator {
   startAt: (startTime: number) => this;
   /** get total animation execution time */
   getTotalAnimationTime: () => number;
+
+  getEndAttributes: () => Record<string, any>;
 }
 
 export interface IAnimateArranger {
