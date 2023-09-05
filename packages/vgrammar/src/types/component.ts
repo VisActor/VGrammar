@@ -10,6 +10,7 @@ import type {
   BaseLabelAttrs,
   DataLabelAttrs,
   DataZoomAttributes,
+  GridBaseAttributes,
   LegendBaseAttributes,
   PlayerAttributes,
   SliderAttributes,
@@ -17,7 +18,7 @@ import type {
   TooltipAttributes,
   TooltipRowAttrs
 } from '@visactor/vrender-components';
-import type { ComponentEnum } from '../graph';
+import type { AxisEnum, ComponentEnum } from '../graph';
 import type { Nil } from './base';
 import type { IComponent, IData, IMark, IScale } from './grammar';
 import type {
@@ -50,6 +51,11 @@ export type AxisType = 'line' | 'circle';
 export interface IAxis extends IScaleComponent {
   axisType: (axisType: AxisType | Nil) => this;
   tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
+  inside: (inside: MarkFunctionType<boolean> | Nil) => this;
+  baseValue: (baseValue: MarkFunctionType<number> | Nil) => this;
+
+  // internal interface
+  getAxisComponentType: () => keyof typeof AxisEnum;
 }
 
 export interface AxisSpec extends ScaleComponentSpec<Partial<AxisBaseAttributes>> {
@@ -57,7 +63,32 @@ export interface AxisSpec extends ScaleComponentSpec<Partial<AxisBaseAttributes>
   axisType?: AxisType;
   tickCount?: MarkFunctionType<number>;
   inside?: MarkFunctionType<boolean>;
-  baseValue?: number;
+  baseValue?: MarkFunctionType<number>;
+}
+
+// grid component
+
+export type GridType = 'line' | 'circle';
+
+export type GridShape = 'line' | 'circle' | 'polygon';
+
+export interface IGrid extends IScaleComponent {
+  gridType: (gridType: GridType | Nil) => this;
+  gridShape: (gridShape: GridShape | Nil) => this;
+  target: (axis: IAxis | string | Nil) => this;
+  tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
+  inside: (inside: MarkFunctionType<boolean> | Nil) => this;
+  baseValue: (baseValue: MarkFunctionType<number> | Nil) => this;
+}
+
+export interface GridSpec extends ScaleComponentSpec<Partial<GridBaseAttributes>> {
+  componentType: ComponentEnum.grid;
+  gridType?: GridType;
+  gridShape?: GridShape;
+  target?: IAxis | string;
+  tickCount?: MarkFunctionType<number>;
+  inside?: MarkFunctionType<boolean>;
+  baseValue?: MarkFunctionType<number>;
 }
 
 // legend component

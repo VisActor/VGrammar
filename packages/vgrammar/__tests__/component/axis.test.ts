@@ -26,17 +26,6 @@ test('line axis', function () {
       x: 270,
       y: 0
     },
-    grid: {
-      length: 100,
-      style: {
-        lineDash: [4, 4],
-        lineWidth: 1,
-        stroke: '#dfdfdf',
-        strokeOpacity: 1
-      },
-      type: 'line',
-      visible: false
-    },
     items: [
       [
         {
@@ -58,7 +47,7 @@ test('line axis', function () {
       padding: 0,
       space: 4,
       style: {
-        fill: '#6F6F6F',
+        fill: '#89909d',
         fillOpacity: 1,
         fontSize: 12,
         fontWeight: 'normal'
@@ -68,7 +57,7 @@ test('line axis', function () {
     line: {
       style: {
         lineWidth: 1,
-        stroke: '#dfdfdf',
+        stroke: '#D9DDE4',
         strokeOpacity: 1
       },
       visible: true
@@ -77,22 +66,13 @@ test('line axis', function () {
       x: 0,
       y: 0
     },
-    subGrid: {
-      style: {
-        lineDash: [4, 4],
-        lineWidth: 1,
-        stroke: '#dfdfdf',
-        strokeOpacity: 1
-      },
-      visible: false
-    },
     subTick: {
       count: 4,
       inside: false,
       length: 2,
       style: {
         lineWidth: 1,
-        stroke: '#D8DCE3',
+        stroke: '#D9DDE4',
         strokeOpacity: 1
       },
       visible: false
@@ -103,7 +83,7 @@ test('line axis', function () {
       length: 4,
       style: {
         lineWidth: 1,
-        stroke: '#D8DCE3',
+        stroke: '#D9DDE4',
         strokeOpacity: 1
       },
       visible: true
@@ -153,14 +133,6 @@ test('circle axis', function () {
     },
     endAngle: Math.PI * 2,
     grid: {
-      smoothLink: true,
-      style: {
-        lineDash: [4, 4],
-        lineWidth: 1,
-        stroke: '#dfdfdf',
-        strokeOpacity: 1
-      },
-      type: 'line',
       visible: true
     },
     innerRadius: 0,
@@ -195,7 +167,7 @@ test('circle axis', function () {
     line: {
       style: {
         lineWidth: 1,
-        stroke: '#dfdfdf',
+        stroke: '#D9DDE4',
         strokeOpacity: 1
       },
       visible: true
@@ -206,22 +178,13 @@ test('circle axis', function () {
       y: 0
     },
     startAngle: 0,
-    subGrid: {
-      style: {
-        lineDash: [4, 4],
-        lineWidth: 1,
-        stroke: '#dfdfdf',
-        strokeOpacity: 1
-      },
-      visible: false
-    },
     subTick: {
       count: 4,
       inside: false,
       length: 2,
       style: {
         lineWidth: 1,
-        stroke: '#D8DCE3',
+        stroke: '#D9DDE4',
         strokeOpacity: 1
       },
       visible: false
@@ -232,7 +195,7 @@ test('circle axis', function () {
       length: 4,
       style: {
         lineWidth: 1,
-        stroke: '#D8DCE3',
+        stroke: '#D9DDE4',
         strokeOpacity: 1
       },
       visible: true

@@ -20,7 +20,9 @@ import type {
   ArcLabelAttrs,
   TooltipAttributes,
   BaseLabelAttrs,
-  TitleAttrs
+  TitleAttrs,
+  LineAxisGridAttributes,
+  CircleAxisGridAttributes
 } from '@visactor/vrender-components';
 import type { IComponentTheme, RecursivePartial } from '../../types';
 
@@ -31,7 +33,7 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     space: 4,
     style: {
       fontSize: 12,
-      fill: '#6F6F6F',
+      fill: '#89909d',
       fontWeight: 'normal',
       fillOpacity: 1
     }
@@ -43,7 +45,7 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     length: 4,
     style: {
       lineWidth: 1,
-      stroke: '#D8DCE3',
+      stroke: '#D9DDE4',
       strokeOpacity: 1
     }
   },
@@ -54,7 +56,7 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     length: 2,
     style: {
       lineWidth: 1,
-      stroke: '#D8DCE3',
+      stroke: '#D9DDE4',
       strokeOpacity: 1
     }
   },
@@ -62,28 +64,8 @@ const axis: RecursivePartial<LineAxisAttributes> = {
     visible: true,
     style: {
       lineWidth: 1,
-      stroke: '#dfdfdf',
+      stroke: '#D9DDE4',
       strokeOpacity: 1
-    }
-  },
-  grid: {
-    visible: false,
-    style: {
-      lineWidth: 1,
-      stroke: '#dfdfdf',
-      strokeOpacity: 1,
-      lineDash: [4, 4]
-    },
-    length: 100,
-    type: 'line'
-  },
-  subGrid: {
-    visible: false,
-    style: {
-      lineWidth: 1,
-      stroke: '#dfdfdf',
-      strokeOpacity: 1,
-      lineDash: [4, 4]
     }
   },
   items: [],
@@ -123,7 +105,7 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     length: 4,
     style: {
       lineWidth: 1,
-      stroke: '#D8DCE3',
+      stroke: '#D9DDE4',
       strokeOpacity: 1
     }
   },
@@ -134,7 +116,7 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     length: 2,
     style: {
       lineWidth: 1,
-      stroke: '#D8DCE3',
+      stroke: '#D9DDE4',
       strokeOpacity: 1
     }
   },
@@ -142,28 +124,8 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
     visible: true,
     style: {
       lineWidth: 1,
-      stroke: '#dfdfdf',
+      stroke: '#D9DDE4',
       strokeOpacity: 1
-    }
-  },
-  grid: {
-    style: {
-      lineWidth: 1,
-      stroke: '#dfdfdf',
-      strokeOpacity: 1,
-      lineDash: [4, 4]
-    },
-    type: 'line',
-    visible: false,
-    smoothLink: true
-  },
-  subGrid: {
-    visible: false,
-    style: {
-      lineWidth: 1,
-      stroke: '#dfdfdf',
-      strokeOpacity: 1,
-      lineDash: [4, 4]
     }
   },
   items: [],
@@ -175,6 +137,14 @@ const circleAxis: RecursivePartial<CircleAxisAttributes> = {
   x: 0,
   y: 0
 };
+
+const grid: RecursivePartial<LineAxisGridAttributes> = {
+  style: {
+    stroke: '#f1f2f5'
+  }
+};
+
+const circleGrid: RecursivePartial<CircleAxisGridAttributes> = {};
 
 const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
   layout: 'vertical',
@@ -424,6 +394,7 @@ export const rectLabel: RecursivePartial<RectLabelAttrs> = {
   data: [
     {
       text: '',
+      fill: '#606773',
       data: {}
     }
   ],
@@ -447,6 +418,7 @@ export const symbolLabel: RecursivePartial<SymbolLabelAttrs> = {
   data: [
     {
       text: '',
+      fill: '#606773',
       data: {}
     }
   ],
@@ -471,6 +443,7 @@ export const arcLabel: RecursivePartial<ArcLabelAttrs> = {
   data: [
     {
       text: '',
+      fill: '#606773',
       data: {}
     }
   ],
@@ -485,6 +458,7 @@ export const pointLabel: RecursivePartial<BaseLabelAttrs> = {
   data: [
     {
       text: '',
+      fill: '#606773',
       data: {}
     }
   ],
@@ -528,6 +502,9 @@ export const title: RecursivePartial<TitleAttrs> = {
 export const defaultComponentTheme: IComponentTheme = {
   axis,
   circleAxis,
+
+  grid,
+  circleGrid,
 
   discreteLegend,
   colorLegend,

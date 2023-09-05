@@ -40,12 +40,28 @@ export const runner = (view: IView) => {
     .axis(view.rootMark)
     .id('xAxis')
     .scale(xScale)
+    // .tickCount(3)
     .encode({
       x: 40,
       y: 310,
       start: { x: 0, y: 0 },
       end: { x: 270, y: 0 }
     });
+  // const xGrid = view
+  //   .grid(view.rootMark)
+  //   .id('xGrid')
+  //   .target(xAxis);
+  // const xGrid = view
+  //   .grid(view.rootMark)
+  //   .id('xGrid')
+  //   .scale(xScale)
+  //   .tickCount(3)
+  //   .encode({
+  //     x: 40,
+  //     y: 310,
+  //     start: { x: 0, y: 0 },
+  //     end: { x: 270, y: 0 }
+  //   });
   const yAxis = view
     .axis(view.rootMark)
     .id('yAxis')
@@ -55,8 +71,22 @@ export const runner = (view: IView) => {
       y: 40,
       start: { x: 0, y: 0 },
       end: { x: 0, y: 270 },
-      grid: { visible: true, length: 270 }
     });
+  const yGrid = view
+    .grid(view.rootMark)
+    .id('yGrid')
+    .target(yAxis);
+  // const yGrid = view
+  //   .grid(view.rootMark)
+  //   .id('yGrid')
+  //   .scale(yScale)
+  //   .tickCount(5)
+  //   .encode({
+  //     x: 40,
+  //     y: 40,
+  //     start: { x: 0, y: 0 },
+  //     end: { x: 0, y: 270 },
+  //   });
   // const rightLegend = view
   //   .legend(view.rootMark)
   //   .id('rightLegend')

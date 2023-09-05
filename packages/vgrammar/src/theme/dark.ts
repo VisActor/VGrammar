@@ -4,6 +4,24 @@ import { DEFAULT_PADDING } from './common/constants';
 import { defaultMarkTheme } from './common/mark';
 
 const darkComponents = Object.assign({}, defaultComponentTheme);
+darkComponents.axis = Object.assign({}, darkComponents.axis, {
+  label: { style: { fill: '#bbbdc3' } },
+  line: { style: { stroke: '#4b4f54' } },
+  tick: { style: { stroke: '#4b4f54' } },
+  subTick: { style: { stroke: '#4b4f54' } }
+});
+darkComponents.circleAxis = Object.assign({}, darkComponents.circleAxis, {
+  label: { style: { fill: '#bbbdc3' } },
+  line: { style: { stroke: '#4b4f54' } },
+  tick: { style: { stroke: '#4b4f54' } },
+  subTick: { style: { stroke: '#4b4f54' } }
+});
+darkComponents.grid = Object.assign({}, darkComponents.grid, {
+  style: { stroke: '#404349' }
+});
+darkComponents.circleGrid = Object.assign({}, darkComponents.circleGrid, {
+  style: { stroke: '#404349' }
+});
 darkComponents.rectLabel = Object.assign({}, darkComponents.rectLabel, {
   data: [
     {
@@ -43,7 +61,7 @@ darkComponents.title = Object.assign({}, darkComponents.title, {
 export const darkTheme: ITheme = {
   name: 'dark',
   padding: DEFAULT_PADDING,
-  background: '#202020',
+  background: '#202226',
   palette: {
     default: [
       '#5383F4',
