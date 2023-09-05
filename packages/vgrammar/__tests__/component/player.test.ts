@@ -27,7 +27,8 @@ test('player', function () {
           size: 20,
           x: 0,
           y: 0
-        }
+        },
+        visible: true
       },
       forward: {
         key: 'forward',
@@ -40,7 +41,8 @@ test('player', function () {
           size: 20,
           x: 0,
           y: 0
-        }
+        },
+        visible: true
       },
       pause: {
         key: 'pause',
@@ -53,7 +55,8 @@ test('player', function () {
           size: 20,
           x: 0,
           y: 0
-        }
+        },
+        visible: true
       },
       start: {
         key: 'start',
@@ -66,8 +69,10 @@ test('player', function () {
           size: 20,
           x: 0,
           y: 0
-        }
-      }
+        },
+        visible: true
+      },
+      visible: true
     },
     data: [],
     dataIndex: 0,
@@ -87,7 +92,8 @@ test('player', function () {
         cornerRadius: 5
       },
       space: 10,
-      trackStyle: {}
+      trackStyle: {},
+      visible: true
     },
     visible: true,
     x: 40,
