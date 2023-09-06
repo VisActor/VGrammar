@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rect
 title: Stacked Bar Chart
 order: 0-3
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-stack-rect.png
+cover: /vgrammar/preview/basic-mark-rect-stack-rect_0.6.5.png
 ---
 
 # Stacked Bar Chart

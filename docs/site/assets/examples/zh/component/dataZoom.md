@@ -1,12 +1,12 @@
 ---
 category: examples
 group: component
-title: 大数据量线图
+title: DataZoom
 order: 50-3
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-dataZoom.png
+cover: /vgrammar/preview/component-dataZoom_0.6.5.png
 ---
 
-# 大数据量线图
+# DataZoom
 
 ## 代码演示
 

@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: Custom Animation
 order: 60-3
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-custom-animate.gif
+cover: /vgrammar/preview/animate-custom-animate_0.6.5.png
 ---
 
 # Custom Animation

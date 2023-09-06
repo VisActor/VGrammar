@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: Water Wave Chart
 order: 30-5
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-wave.png
+cover: /vgrammar/preview/glyph-mark-wave_0.6.5.png
 ---
 
 # Water Wave Chart

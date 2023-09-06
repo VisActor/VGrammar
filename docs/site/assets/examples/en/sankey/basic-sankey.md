@@ -3,7 +3,7 @@ category: examples
 group: sankey
 title: Sankey Diagram
 order: 80-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/sankey-basic-sankey.png
+cover: /vgrammar/preview/sankey-basic-sankey_0.6.5.png
 ---
 
 # Sankey Diagram

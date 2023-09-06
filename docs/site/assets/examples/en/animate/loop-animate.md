@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: Loop Animation
 order: 60-1
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-loop-animate.gif
+cover: /vgrammar/preview/animate-loop-animate_0.6.5.png
 ---
 
 # Loop Animation
