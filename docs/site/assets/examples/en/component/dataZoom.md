@@ -3,7 +3,7 @@ category: examples
 group: component
 title: Large Data Line Chart
 order: 50-3
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-dataZoom.png
+cover: /vgrammar/preview/component-dataZoom_0.6.5.png
 ---
 
 # Large Data Line Chart

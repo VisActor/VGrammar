@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-arc
 title: Donut Chart
 order: 3-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png
+cover: /vgrammar/preview/basic-mark-arc-basic-arc_0.6.5.png
 ---
 
 # Pie Chart

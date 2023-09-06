@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-symbol
 title: 基础散点图
 order: 50-1
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-slider.png
+cover: /vgrammar/preview/component-slider_0.6.5.png
 ---
 
 # 基础散点图

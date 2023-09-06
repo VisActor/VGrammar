@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rect
 title: 百分比堆积柱图
 order: 0-4
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-percent-rect.png
+cover: /vgrammar/preview/basic-mark-rect-percent-rect_0.6.5.png
 ---
 
 # 百分比堆积柱图
