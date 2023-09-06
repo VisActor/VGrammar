@@ -1,4 +1,4 @@
-import { registerTransform } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 import { transform as treemapTransform } from './treemap/transform';
 import { transform as sunburtTransform } from './sunburst/transform';
 import { transform as circlePackingTransform } from './circle-packing/transform';
@@ -14,7 +14,7 @@ export * from './format';
 export * from './utils';
 
 export const registerTreemapTransforms = () => {
-  registerTransform(
+  Factory.registerTransform(
     'treemap',
     {
       transform: treemapTransform,
@@ -25,7 +25,7 @@ export const registerTreemapTransforms = () => {
 };
 
 export const registerSunburstTransforms = () => {
-  registerTransform(
+  Factory.registerTransform(
     'sunburst',
     {
       transform: sunburtTransform,
@@ -36,7 +36,7 @@ export const registerSunburstTransforms = () => {
 };
 
 export const registerCirclePackingTransforms = () => {
-  registerTransform(
+  Factory.registerTransform(
     'circlePacking',
     {
       transform: circlePackingTransform,
@@ -47,7 +47,7 @@ export const registerCirclePackingTransforms = () => {
 };
 
 export const registerTreeTransforms = () => {
-  registerTransform(
+  Factory.registerTransform(
     'tree',
     {
       transform: treeTransform,

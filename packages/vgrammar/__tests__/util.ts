@@ -1,5 +1,4 @@
-import { registerTransform } from '../src/transforms/register';
-import { transforms } from '../src/transforms/index';
+import * as transforms from '../src/transforms/index';
 import { createGlyphGraphicItem, createGraphicItem } from '../src/graph/util/graphic';
 import { createElement } from '../src/graph/util/element';
 import { transformsByType } from '../src/graph/attributes';
@@ -7,16 +6,10 @@ import type { IGlyphElement, IGlyphMeta } from '../src';
 import CanvasRenderer from '../src/graph/canvas-renderer';
 import { defaultTheme } from '../src/theme/default';
 
-const use = (...transformMaps: Record<string, any>[]) => {
-  transformMaps.forEach(transformMap => {
-    Object.keys(transformMap).forEach(key => {
-      registerTransform(key, transformMap[key], true);
-    });
-  });
-};
-
 export function registerDefaultTransforms() {
-  use(transforms);
+  Object.keys(transforms).forEach(key => {
+    transforms[key]();
+  });
 }
 
 export const emptyFunction = () => {

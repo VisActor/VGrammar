@@ -1,6 +1,7 @@
-import { Slider } from '../../src/component/slider';
+import { registerSlider, Slider } from '../../src/component/slider';
 import { emptyFunction, getMockedView } from '../util';
 
+registerSlider();
 test('slider', function () {
   const view = getMockedView() as any;
   const slider = new Slider(view).min(0).max(100).encode({

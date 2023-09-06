@@ -34,6 +34,7 @@ import type {
 } from './mark';
 import type { IPointLike } from '@visactor/vutils';
 import type { IElement } from './element';
+import type { IView } from './view';
 
 // scale component
 
@@ -332,3 +333,9 @@ export type BuiltInComponentSpec =
   | DatazoomSpec
   | LabelSpec
   | PlayerSpec;
+
+export interface IComponentConstructor {
+  readonly componentType: string;
+
+  new (view: IView, group?: IGroupMark, mode?: '2d' | '3d'): IComponent;
+}

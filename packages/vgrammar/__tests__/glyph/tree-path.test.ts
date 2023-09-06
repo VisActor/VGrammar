@@ -1,11 +1,10 @@
-import { registerTreePathGlyph } from '../../src';
-import { getGlyph } from '../../src/view/register-glyph';
+import { Factory, registerTreePathGlyph } from '../../src';
 import { createSimpleGlyphElement } from '../util';
 
 registerTreePathGlyph();
 
 test('line path encode', function () {
-  const element = createSimpleGlyphElement(getGlyph('treePath'));
+  const element = createSimpleGlyphElement(Factory.getGlyph('treePath'));
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(

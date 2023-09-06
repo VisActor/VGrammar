@@ -1,6 +1,5 @@
 import { createSimpleGlyphElement, getMockedView } from '../util';
-import { registerViolinGlyph } from '../../src';
-import { getGlyph } from '../../src/view/register-glyph';
+import { Factory, registerViolinGlyph } from '../../src';
 import { Scale } from '../../src/view/scale';
 
 registerViolinGlyph();
@@ -9,7 +8,7 @@ test('violin encode', function () {
   const scale = new Scale(getMockedView() as any, 'linear');
   scale.domain([0, 100]).range([0, 100]);
 
-  const element = createSimpleGlyphElement(getGlyph('violin'));
+  const element = createSimpleGlyphElement(Factory.getGlyph('violin'));
   element.updateData(
     'key',
     [
