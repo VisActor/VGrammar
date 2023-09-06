@@ -1,6 +1,6 @@
 import { Projection, registerGeoTransforms } from '../src';
 import type { IView } from '@visactor/vgrammar';
-import { getTransform } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 import { getMockedView } from './utils';
 import { testData } from './data';
 import type { FeatureCollectionData } from '../src/interface';
@@ -8,7 +8,7 @@ import type { FeatureCollectionData } from '../src/interface';
 registerGeoTransforms();
 
 test('return geo path when use geoPath()', () => {
-  const transform = getTransform('geoPath');
+  const transform = Factory.getTransform('geoPath');
   const projeciton = new Projection(getMockedView() as unknown as IView);
   const specB = {
     type: 'albers',
@@ -32,7 +32,7 @@ test('return geo path when use geoPath()', () => {
 });
 
 test('return geo path when use geoPath()', () => {
-  const transform = getTransform('geoPath');
+  const transform = Factory.getTransform('geoPath');
   const projeciton = new Projection(getMockedView() as unknown as IView);
   const specB = {
     type: 'albers',

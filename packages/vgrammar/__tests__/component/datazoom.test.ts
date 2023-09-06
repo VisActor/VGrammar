@@ -1,6 +1,7 @@
-import { Datazoom } from '../../src/component/datazoom';
+import { registerDataZoom, Datazoom } from '../../src/component/datazoom';
 import { emptyFunction, getMockedView } from '../util';
 
+registerDataZoom();
 test('datazoom', function () {
   const view = getMockedView() as any;
   const datazoom = new Datazoom(view).encode({

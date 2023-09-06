@@ -6,8 +6,7 @@ import type {
   IGlyphElement,
   TypeAnimation
 } from '../types';
-import { registerAnimationType } from '../view/register-animation';
-import { registerGlyph } from '../view/register-glyph';
+import { Factory } from '../core/factory';
 
 export interface IBoxplotScaleAnimationOptions {
   center?: number;
@@ -221,7 +220,7 @@ export const boxplotScaleIn = scaleIn(computeBoxplotCenter);
 export const boxplotScaleOut = scaleOut(computeBoxplotCenter);
 
 export function registerBoxplotGlyph() {
-  registerGlyph<BoxPlotEncoderSpec, { direction?: 'horizontal' | 'vertical' }>('boxplot', {
+  Factory.registerGlyph<BoxPlotEncoderSpec, { direction?: 'horizontal' | 'vertical' }>('boxplot', {
     shaft: 'rule',
     box: 'rect',
     max: 'rule',
@@ -320,8 +319,8 @@ export function registerBoxplotGlyph() {
       };
     });
 
-  registerAnimationType('boxplotScaleIn', boxplotScaleIn);
-  registerAnimationType('boxplotScaleOut', boxplotScaleOut);
+  Factory.registerAnimationType('boxplotScaleIn', boxplotScaleIn);
+  Factory.registerAnimationType('boxplotScaleOut', boxplotScaleOut);
 }
 
 const computeBarBoxplotCenter = (
@@ -433,7 +432,7 @@ export const barBoxplotScaleIn = scaleIn(computeBarBoxplotCenter);
 export const barBoxplotScaleOut = scaleOut(computeBarBoxplotCenter);
 
 export function registerBarBoxplotGlyph() {
-  registerGlyph<BarBoxPlotEncoderSpec, { direction?: 'horizontal' | 'vertical' }>('barBoxplot', {
+  Factory.registerGlyph<BarBoxPlotEncoderSpec, { direction?: 'horizontal' | 'vertical' }>('barBoxplot', {
     minMaxBox: 'rect',
     q1q3Box: 'rect',
     median: 'rule'
@@ -507,6 +506,6 @@ export function registerBarBoxplotGlyph() {
       };
     });
 
-  registerAnimationType('barBoxplotScaleIn', barBoxplotScaleIn);
-  registerAnimationType('barBoxplotScaleOut', barBoxplotScaleOut);
+  Factory.registerAnimationType('barBoxplotScaleIn', barBoxplotScaleIn);
+  Factory.registerAnimationType('barBoxplotScaleOut', barBoxplotScaleOut);
 }

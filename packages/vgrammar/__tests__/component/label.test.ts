@@ -1,6 +1,7 @@
-import { Label } from '../../src/component/label';
+import { registerLabel, Label } from '../../src/component/label';
 import { emptyFunction, getMockedView } from '../util';
 
+registerLabel();
 test('label', function () {
   const view = getMockedView() as any;
   const label = new Label(view).labelStyle({

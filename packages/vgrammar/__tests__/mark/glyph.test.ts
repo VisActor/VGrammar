@@ -1,14 +1,14 @@
 import { Glyph, Rect, Line } from '@visactor/vrender';
-import { registerGlyph } from '../../src/view/register-glyph';
 import { createElement } from '../../src/graph/util/element';
 import type { IGlyphElement } from '../../src/types';
 import { emptyFunction, getMockedView } from '../util';
 import { createGlyphGraphicItem } from '../../src/graph/util/graphic';
 import { transformsByType } from '../../src/graph/attributes';
+import { Factory } from '../../src';
 
 const view = getMockedView();
 
-const glyphMeta = registerGlyph(
+const glyphMeta = Factory.registerGlyph(
   'testGlyph',
   { rect: 'rect', rule: 'rule' },
   {
@@ -64,7 +64,7 @@ function createSimpleElement() {
 }
 
 test('Register glyph meta', function () {
-  const glyphMeta0 = registerGlyph('testGlyph0', { rect: 'arc', rule: 'rect' })
+  const glyphMeta0 = Factory.registerGlyph('testGlyph0', { rect: 'arc', rule: 'rect' })
     .registerDefaultEncoder(() => {
       return {
         rule: { lineWidth: 4 },
@@ -96,7 +96,7 @@ test('Register glyph meta', function () {
   const widthResult0 = glyphMeta0.getChannelEncoder().width('width', 40, { x: 10 }, {}, {} as any, null);
   expect(widthResult0.rule.x1).toEqual(50);
 
-  const glyphMeta1 = registerGlyph(
+  const glyphMeta1 = Factory.registerGlyph(
     'testGlyph1',
     { rect: 'arc', rule: 'rect' },
     {

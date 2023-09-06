@@ -2,7 +2,7 @@ import { GrammarMarkType } from '../graph/enums';
 import type { IGlyphMark, IGroupMark, IView, GlyphMarkSpec, IGlyphMeta } from '../types';
 import { createGlyphGraphicItem } from '../graph/util/graphic';
 import { Mark } from './mark';
-import { getGlyph } from './register-glyph';
+import { Factory } from '../core/factory';
 
 export class GlyphMark extends Mark implements IGlyphMark {
   protected declare spec: GlyphMarkSpec;
@@ -14,7 +14,7 @@ export class GlyphMark extends Mark implements IGlyphMark {
   constructor(view: IView, glyphType: string, group?: IGroupMark) {
     super(view, GrammarMarkType.glyph, group);
     this.glyphType = glyphType;
-    this.glyphMeta = getGlyph(glyphType);
+    this.glyphMeta = Factory.getGlyph(glyphType);
   }
 
   configureGlyph(config: any) {

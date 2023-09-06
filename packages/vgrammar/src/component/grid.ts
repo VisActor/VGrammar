@@ -4,7 +4,6 @@ import type { CircleAxisGridAttributes, LineAxisGridAttributes } from '@visactor
 // eslint-disable-next-line no-duplicate-imports
 import { CircleAxisGrid, LineAxisGrid } from '@visactor/vrender-components';
 import type { IBaseScale } from '@visactor/vscale';
-import { getComponent, registerComponent } from '../view/register-component';
 import type {
   BaseSignleEncodeSpec,
   IElement,
@@ -24,15 +23,7 @@ import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
 import { generateCoordinateAxisAttribute } from './axis';
-
-registerComponent(
-  GridEnum.lineAxisGrid,
-  (attrs: LineAxisGridAttributes, mode?: '2d' | '3d') => new LineAxisGrid(attrs, mode) as unknown as IGraphic
-);
-registerComponent(
-  GridEnum.circleAxisGrid,
-  (attrs: CircleAxisGridAttributes, mode?: '2d' | '3d') => new CircleAxisGrid(attrs) as unknown as IGraphic
-);
+import { Factory } from '../core/factory';
 
 export const generateLineAxisGridAttributes = (
   scale: IBaseScale,
@@ -75,6 +66,7 @@ export const generateCircleAxisGridAttributes = (
 };
 
 export class Grid extends ScaleComponent implements IGrid {
+  static readonly componentType: string = ComponentEnum.grid;
   protected declare spec: GridSpec;
 
   protected mode?: '2d' | '3d';
@@ -154,7 +146,7 @@ export class Grid extends ScaleComponent implements IGrid {
   addGraphicItem(attrs: any, groupKey?: string) {
     const defaultAttributes = { x: 0, y: 0, start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
     const initialAttributes = merge(defaultAttributes, attrs);
-    const graphicItem = getComponent(this._getGridComponentType()).creator(initialAttributes, this.mode);
+    const graphicItem = Factory.createGraphicComponent(this._getGridComponentType(), initialAttributes, this.mode);
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
@@ -307,3 +299,17 @@ export class Grid extends ScaleComponent implements IGrid {
     return this._gridComponentType;
   }
 }
+
+export const registerGrid = () => {
+  Factory.registerGraphicComponent(
+    GridEnum.lineAxisGrid,
+    (attrs: LineAxisGridAttributes, mode?: '2d' | '3d') => new LineAxisGrid(attrs, mode) as unknown as IGraphic
+  );
+
+  Factory.registerGraphicComponent(
+    GridEnum.circleAxisGrid,
+    (attrs: CircleAxisGridAttributes, mode?: '2d' | '3d') => new CircleAxisGrid(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.grid, Grid);
+};

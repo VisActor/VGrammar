@@ -19,7 +19,6 @@ import type { TooltipAttributes, TooltipRowAttrs } from '@visactor/vrender-compo
 // eslint-disable-next-line no-duplicate-imports
 import { Tooltip as TooltipComponent } from '@visactor/vrender-components';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
-import { registerComponent } from '../view/register-component';
 import type {
   BaseSignleEncodeSpec,
   IData,
@@ -51,15 +50,7 @@ import { invokeFunctionType, parseFunctionType } from '../parse/util';
 import { isFieldEncode } from '../parse/mark';
 import { BridgeElementKey } from '../graph/constants';
 import type { IBaseScale } from '@visactor/vscale';
-
-registerComponent(
-  ComponentEnum.tooltip,
-  (attrs: TooltipAttributes) => new TooltipComponent(attrs) as unknown as IGraphic
-);
-registerComponent(
-  ComponentEnum.dimensionTooltip,
-  (attrs: TooltipAttributes) => new TooltipComponent(attrs) as unknown as IGraphic
-);
+import { Factory } from '../core/factory';
 
 export const generateTooltipAttributes = (
   point: IPointLike,
@@ -87,6 +78,7 @@ export const generateTooltipAttributes = (
 };
 
 export abstract class BaseTooltip extends Component {
+  static readonly componentType: string = ComponentEnum.tooltip;
   protected declare spec: BaseTooltipSpec;
 
   protected _additionalEncodeResult: any;
@@ -518,3 +510,18 @@ export class DimensionTooltip extends BaseTooltip implements IDimensionTooltip {
     tooltip.hideAll();
   };
 }
+
+export const registerTooltip = () => {
+  Factory.registerGraphicComponent(
+    ComponentEnum.tooltip,
+    (attrs: TooltipAttributes) => new TooltipComponent(attrs) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    ComponentEnum.dimensionTooltip,
+    (attrs: TooltipAttributes) => new TooltipComponent(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.tooltip, Tooltip);
+
+  Factory.registerComponent(ComponentEnum.dimensionTooltip, DimensionTooltip);
+};

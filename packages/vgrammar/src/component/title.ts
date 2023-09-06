@@ -3,7 +3,6 @@ import type { IGraphic } from '@visactor/vrender';
 import type { TitleAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { Title as TitleComponent } from '@visactor/vrender-components';
-import { registerComponent } from '../view/register-component';
 import type {
   BaseSignleEncodeSpec,
   IElement,
@@ -20,8 +19,7 @@ import type { ITitle, TitleSpec } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
-
-registerComponent(ComponentEnum.title, (attrs: TitleAttrs) => new TitleComponent(attrs) as unknown as IGraphic);
+import { Factory } from '../core/factory';
 
 export const generateTitleAttributes = (
   title?: string | string[],
@@ -41,6 +39,7 @@ export const generateTitleAttributes = (
 };
 
 export class Title extends Component implements ITitle {
+  static readonly componentType: string = ComponentEnum.title;
   protected declare spec: TitleSpec;
 
   constructor(view: IView, group?: IGroupMark) {
@@ -83,3 +82,12 @@ export class Title extends Component implements ITitle {
     this._encoders = componentEncoders;
   }
 }
+
+export const registerTitle = () => {
+  Factory.registerGraphicComponent(
+    ComponentEnum.title,
+    (attrs: TitleAttrs) => new TitleComponent(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.title, Title);
+};
