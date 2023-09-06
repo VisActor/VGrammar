@@ -18,15 +18,10 @@ import type {
   StateEncodeSpec
 } from '../types';
 import type { DatazoomFilterValue, DatazoomSpec, IDatazoom } from '../types/component';
-import { getComponent, registerComponent } from '../view/register-component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { Component } from '../view/component';
 import { parseEncodeType } from '../parse/mark';
-
-registerComponent(
-  ComponentEnum.datazoom,
-  (attrs: DataZoomAttributes) => new DatazoomComponent(attrs) as unknown as IGraphic
-);
+import { Factory } from '../core/factory';
 
 export const generateDatazoomAttributes = (
   data: any[],
@@ -42,6 +37,7 @@ export const generateDatazoomAttributes = (
 };
 
 export class Datazoom extends Component implements IDatazoom {
+  static readonly componentType: string = ComponentEnum.datazoom;
   protected declare spec: DatazoomSpec;
 
   constructor(view: IView, group?: IGroupMark) {
@@ -138,7 +134,7 @@ export class Datazoom extends Component implements IDatazoom {
   addGraphicItem(attrs: any, groupKey?: string) {
     const theme = this.view.getCurrentTheme();
     const initialAttributes = Object.assign({}, theme?.components?.datazoom, attrs);
-    const graphicItem = getComponent(this.componentType).creator(initialAttributes);
+    const graphicItem = Factory.createGraphicComponent(this.componentType, initialAttributes);
     const datazoom = graphicItem as unknown as DatazoomComponent;
     // FIXME: remove this logic when datazoom provides update event.
     if (this._filterCallback) {
@@ -226,3 +222,12 @@ export class Datazoom extends Component implements IDatazoom {
     return null;
   }
 }
+
+export const registerDataZoom = () => {
+  Factory.registerGraphicComponent(
+    ComponentEnum.datazoom,
+    (attrs: DataZoomAttributes) => new DatazoomComponent(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.datazoom, Datazoom);
+};

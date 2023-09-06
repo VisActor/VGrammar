@@ -1,6 +1,7 @@
-import { Title } from '../../src/component/title';
+import { registerTitle, Title } from '../../src/component/title';
 import { emptyFunction, getMockedView } from '../util';
 
+registerTitle();
 test('title', function () {
   const view = getMockedView() as any;
   const title = new Title(view).title('主标题').subTitle(['副标题 balabala', '嘿嘿嘿']).encode({

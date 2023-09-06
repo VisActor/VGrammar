@@ -21,9 +21,9 @@ import {
 } from '@visactor/vrender';
 import { HOOK_EVENT, GrammarMarkType } from '../enums';
 import { BridgeElementKey } from '../constants';
-import { getComponent } from '../../view/register-component';
 import { LargeRects } from '../mark/large-rects';
 import { LargeSymbols } from '../mark/large-symbols';
+import { Factory } from '../../core/factory';
 
 const itemCreator = {
   circle: createCircle,
@@ -62,9 +62,7 @@ export function createGraphicItem(mark: IMark, markType: string, attrs: any = {}
 
   const graphicItem: IGraphic = itemCreator[markType]
     ? itemCreator[markType](attrs)
-    : getComponent(markType)
-    ? getComponent(markType).creator(attrs)
-    : null;
+    : Factory.createGraphicComponent(markType, attrs);
 
   mark.emit(HOOK_EVENT.AFTER_CREATE_VRENDER_MARK);
   return graphicItem;

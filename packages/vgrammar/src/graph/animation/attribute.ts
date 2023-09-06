@@ -10,8 +10,8 @@ import type {
   IGlyphElement,
   IParsedAnimationAttrs
 } from '../../types';
-import { getAnimationType } from '../../view/register-animation';
 import { isValidPointsChannel } from '../attributes/helpers';
+import { Factory } from '../../core/factory';
 
 const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element: IElement): IParsedAnimationAttrs => {
   if (!attributes) {
@@ -58,10 +58,10 @@ export function typeAnimationAttributes(
   const options = isFunction(effect.options)
     ? effect.options.call(null, element.getDatum(), element, parameters)
     : effect.options;
-  if (!effect.type || !getAnimationType(effect.type)) {
+  if (!effect.type || !Factory.getAnimationType(effect.type)) {
     return null;
   }
-  const attributes = getAnimationType(effect.type)(element as IGlyphElement, options, animationParameters);
+  const attributes = Factory.getAnimationType(effect.type)(element as IGlyphElement, options, animationParameters);
   return transformAnimationAttributes(attributes, element);
 }
 

@@ -1,11 +1,10 @@
-import { registerWaveGlyph } from '../../src';
-import { getGlyph } from '../../src/view/register-glyph';
+import { Factory, registerWaveGlyph } from '../../src';
 import { createSimpleGlyphElement } from '../util';
 
 registerWaveGlyph();
 
 test('wave encode', function () {
-  const element = createSimpleGlyphElement(getGlyph('wave'));
+  const element = createSimpleGlyphElement(Factory.getGlyph('wave'));
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(

@@ -3,7 +3,6 @@ import type { IGraphic } from '@visactor/vrender';
 import type { Direction, OrientType, ScrollBarAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { ScrollBar as ScrollbarComponent } from '@visactor/vrender-components';
-import { getComponent, registerComponent } from '../view/register-component';
 import type {
   BaseSignleEncodeSpec,
   IElement,
@@ -20,11 +19,7 @@ import type { IScrollbar, ScrollbarSpec } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
-
-registerComponent(
-  ComponentEnum.scrollbar,
-  (attrs: ScrollBarAttributes) => new ScrollbarComponent(attrs) as unknown as IGraphic
-);
+import { Factory } from '../core/factory';
 
 function isValidDirection(direction: Direction) {
   return direction === 'vertical' || direction === 'horizontal';
@@ -113,6 +108,7 @@ export const generateScrollbarAttributes = (
 };
 
 export class Scrollbar extends Component implements IScrollbar {
+  static readonly componentType: string = ComponentEnum.scrollbar;
   protected declare spec: ScrollbarSpec;
 
   constructor(view: IView, group?: IGroupMark) {
@@ -153,7 +149,7 @@ export class Scrollbar extends Component implements IScrollbar {
   addGraphicItem(attrs: any, groupKey?: string) {
     const defaultAttributes = { range: [0, 1] };
     const initialAttributes = merge(defaultAttributes, attrs);
-    const graphicItem = getComponent(ComponentEnum.scrollbar).creator(initialAttributes);
+    const graphicItem = Factory.createGraphicComponent(ComponentEnum.scrollbar, initialAttributes);
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
@@ -190,3 +186,12 @@ export class Scrollbar extends Component implements IScrollbar {
     this._encoders = componentEncoders;
   }
 }
+
+export const registerScrollbar = () => {
+  Factory.registerGraphicComponent(
+    ComponentEnum.scrollbar,
+    (attrs: ScrollBarAttributes) => new ScrollbarComponent(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.scrollbar, Scrollbar);
+};

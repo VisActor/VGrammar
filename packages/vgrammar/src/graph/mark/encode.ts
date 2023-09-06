@@ -3,12 +3,12 @@ import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { BaseSignleEncodeSpec, IElement, MarkElementItem } from '../../types';
 import { isFieldEncode, isScaleEncode } from '../../parse/mark';
 import { getGrammarOutput, invokeFunctionType, isFunctionType } from '../../parse/util';
-import { getGlyph } from '../../view/register-glyph';
 import { isPositionOrSizeChannel } from '../attributes';
 import { GrammarMarkType } from '../enums';
 import { ScaleEnum } from '@visactor/vscale';
 // eslint-disable-next-line no-duplicate-imports
 import type { IBandLikeScale, IBaseScale } from '@visactor/vscale';
+import { Factory } from '../../core/factory';
 
 /**
  * invoke encoder for multiple items
@@ -112,8 +112,8 @@ export function splitEncoderInLarge(markType: string, encoder: BaseSignleEncodeS
   const themeEncoder = {};
   const positionEncoder = {};
 
-  if (markType === GrammarMarkType.glyph && getGlyph(glyphType)) {
-    const glyphMeta = getGlyph(glyphType);
+  if (markType === GrammarMarkType.glyph && Factory.getGlyph(glyphType)) {
+    const glyphMeta = Factory.getGlyph(glyphType);
     const progressiveChannels = glyphMeta.getProgressiveChannels();
     if (progressiveChannels) {
       Object.keys(encoder).forEach(channel => {

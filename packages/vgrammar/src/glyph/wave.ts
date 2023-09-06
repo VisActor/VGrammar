@@ -1,9 +1,9 @@
 import type { IPointLike } from '@visactor/vutils';
-import { registerGlyph } from '../view/register-glyph';
+import { Factory } from '../core/factory';
 import type { WaveEncoderSpec } from '../types';
 
 export const registerWaveGlyph = () => {
-  registerGlyph<WaveEncoderSpec>('wave', {
+  Factory.registerGlyph<WaveEncoderSpec>('wave', {
     wave0: 'area',
     wave1: 'area',
     wave2: 'area'

@@ -1,6 +1,6 @@
 import { isValidNumber } from '@visactor/vutils';
 import type { IGlyphElement, ViolinEncoderSpec } from '../types';
-import { registerGlyph } from '../view/register-glyph';
+import { Factory } from '../core/factory';
 import type { IBaseScale } from '@visactor/vscale';
 
 const defaultDensitySize = 30;
@@ -83,7 +83,7 @@ const encodeViolin = (encodeValues: any, datum: any, element: IGlyphElement, con
 };
 
 export const registerViolinGlyph = () => {
-  registerGlyph<ViolinEncoderSpec>('violin', {
+  Factory.registerGlyph<ViolinEncoderSpec>('violin', {
     violin: 'polygon',
     shaft: 'rule',
     box: 'rect',

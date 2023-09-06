@@ -1,7 +1,6 @@
 import type { IAnimationParameters, LinkPathEncoderSpec, TypeAnimation } from '../types';
 import type { IElement } from '../types/element';
-import { registerAnimationType } from '../view/register-animation';
-import { registerGlyph } from '../view/register-glyph';
+import { Factory } from '../core/factory';
 import { isNil } from '@visactor/vutils';
 
 export interface LinkPathConfig {
@@ -280,7 +279,7 @@ const linkPathUpdate: TypeAnimation<IElement> = (
 };
 
 export const registerLinkPathGlyph = () => {
-  registerGlyph<LinkPathEncoderSpec, LinkPathConfig>('linkPath', {
+  Factory.registerGlyph<LinkPathEncoderSpec, LinkPathConfig>('linkPath', {
     back: 'path',
     front: 'path'
   })
@@ -297,7 +296,7 @@ export const registerLinkPathGlyph = () => {
       };
     });
 
-  registerAnimationType('linkPathGrowIn', linkPathGrowIn);
-  registerAnimationType('linkPathGrowOut', linkPathGrowOut);
-  registerAnimationType('linkPathUpdate', linkPathUpdate);
+  Factory.registerAnimationType('linkPathGrowIn', linkPathGrowIn);
+  Factory.registerAnimationType('linkPathGrowOut', linkPathGrowOut);
+  Factory.registerAnimationType('linkPathUpdate', linkPathUpdate);
 };

@@ -77,33 +77,3 @@ export class GlyphMeta<EncodeValuesType = any, GlyphConfigType = any>
     return this.progressiveChannels;
   }
 }
-
-const glyphs: Record<string, IGlyphMeta> = {};
-
-export const getGlyph = (glyphType: string): IGlyphMeta => {
-  return glyphs[glyphType];
-};
-
-export const registerGlyph = <EncodeValuesType = any, GlyphConfigType = any>(
-  glyphType: string,
-  marks: { [markName: string]: MarkType },
-  encoders?: { [markName: string]: GlyphChannelEncoder<any, EncodeValuesType, GlyphConfigType> },
-  defaultEncoder?: GlyphDefaultEncoder,
-  progressiveChannels?: string | string[]
-): IGlyphMeta<EncodeValuesType, GlyphConfigType> => {
-  glyphs[glyphType] = new GlyphMeta<EncodeValuesType, GlyphConfigType>(
-    marks,
-    encoders,
-    defaultEncoder,
-    progressiveChannels
-  );
-  return glyphs[glyphType];
-};
-
-export const unregisterGlyph = (glyphType: string) => {
-  delete glyphs[glyphType];
-};
-
-export const unregisterAllGlyphs = () => {
-  Object.keys(glyphs).forEach(unregisterGlyph);
-};

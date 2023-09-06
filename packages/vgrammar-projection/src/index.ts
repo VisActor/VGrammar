@@ -1,16 +1,16 @@
-import { registerGrammar, registerTransform } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 export { projection, projectionProperties, getProjectionPath } from './projections';
 import { Projection } from './projection';
 import { transform as geoPathTransform } from './geo-path';
 
 export const registerProjection = () => {
-  registerGrammar('projection', Projection, 'projections');
+  Factory.registerGrammar('projection', Projection, 'projections');
 };
 
 export { Projection };
 
 export const registerGeoTransforms = () => {
-  registerTransform(
+  Factory.registerTransform(
     'geoPath',
     {
       transform: geoPathTransform,
