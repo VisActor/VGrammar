@@ -21,22 +21,9 @@ import type {
 } from '../types';
 import type { ILegend, LegendSpec, LegendType } from '../types/component';
 import { parseColor } from '../parse/util';
-import { getComponent, registerComponent } from '../view/register-component';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
-
-registerComponent(
-  LegendEnum.discreteLegend,
-  (attrs: DiscreteLegendAttrs) => new DiscreteLegend(attrs) as unknown as IGraphic
-);
-registerComponent(
-  LegendEnum.colorLegend,
-  (attrs: ColorLegendAttributes) => new ColorContinuousLegend(attrs) as unknown as IGraphic
-);
-registerComponent(
-  LegendEnum.sizeLegend,
-  (attrs: SizeLegendAttributes) => new SizeContinuousLegend(attrs) as unknown as IGraphic
-);
+import { Factory } from '../core/factory';
 
 export const generateDiscreteLegendAttributes = (
   scale: IBaseScale,
@@ -107,6 +94,7 @@ export const generateSizeLegendAttributes = (
 };
 
 export class Legend extends ScaleComponent implements ILegend {
+  static readonly componentType: string = ComponentEnum.legend;
   protected declare spec: LegendSpec;
 
   private _legendComponentType: keyof typeof LegendEnum;
@@ -194,7 +182,7 @@ export class Legend extends ScaleComponent implements ILegend {
   }
 
   addGraphicItem(attrs: any, groupKey?: string) {
-    const graphicItem = getComponent(this._getLegendComponentType()).creator(attrs);
+    const graphicItem = Factory.createGraphicComponent(this._getLegendComponentType(), attrs);
     return super.addGraphicItem(attrs, groupKey, graphicItem);
   }
 
@@ -266,3 +254,20 @@ export class Legend extends ScaleComponent implements ILegend {
     return this._legendComponentType;
   }
 }
+
+export const registerLegend = () => {
+  Factory.registerGraphicComponent(
+    LegendEnum.discreteLegend,
+    (attrs: DiscreteLegendAttrs) => new DiscreteLegend(attrs) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    LegendEnum.colorLegend,
+    (attrs: ColorLegendAttributes) => new ColorContinuousLegend(attrs) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    LegendEnum.sizeLegend,
+    (attrs: SizeLegendAttributes) => new SizeContinuousLegend(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.legend, Legend);
+};

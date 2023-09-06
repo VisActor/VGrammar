@@ -394,4 +394,5 @@ export interface ITransform<Options = any, Input = any, Output = any> {
   canProgressive?: boolean;
   /** transform function */
   transform: IFunctionTransform<Options, Input, Output>;
+  isBuiltIn?: boolean;
 }

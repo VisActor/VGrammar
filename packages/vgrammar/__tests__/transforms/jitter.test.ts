@@ -1,11 +1,11 @@
-import { registerBasicTransforms } from '../../src';
+import { registerJitterTransform } from '../../src';
 import type { IMark } from '../../src/types';
 import { Data } from '../../src/view/data';
 import { Mark } from '../../src/view/mark';
 import { getMockedView } from '../util';
 
 test('jitter transform', () => {
-  registerBasicTransforms();
+  registerJitterTransform();
   const mockView = getMockedView();
   const mark = new (Mark as any)(mockView, 'rect') as IMark;
 

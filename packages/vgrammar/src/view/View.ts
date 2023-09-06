@@ -1,6 +1,6 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger } from '@visactor/vutils';
+import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger, isArray } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports
 import { vglobal } from '@visactor/vrender';
@@ -37,9 +37,10 @@ import type {
   IMarkTreeNode,
   IRunningConfig,
   IViewAnimate,
-  ITheme
+  ITheme,
+  TypeAnimation,
+  IGlyphElement
 } from '../types/';
-import { unregisterRuntimeTransforms } from '../transforms/register';
 import { Data } from './data';
 import { initializeEventConfig, permit, prevent } from './events';
 import Dataflow from './dataflow';
@@ -73,7 +74,6 @@ import {
 } from '../parse/view';
 import { parseHandler, parseEventSelector, generateFilterByMark } from '../parse/event';
 import { parseReference } from '../parse/util';
-import { getCustomizedGrammars, getGrammar } from './register-grammar';
 import { configureEnvironment } from '../graph/util/env';
 import { GroupMark } from './group';
 import { Mark } from './mark';
@@ -86,7 +86,6 @@ import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
 import { ViewAnimate } from './animate';
 import type { IRenderer } from '../types/renderer';
 import { ComponentEnum, HOOK_EVENT, LayoutState, GrammarMarkType } from '../graph/enums';
-import { createComponent } from '../component';
 import type {
   IAxis,
   ICrosshair,
@@ -104,6 +103,7 @@ import type {
 import { Interval } from '../semantic-marks/interval';
 import { Cell } from '../semantic-marks/cell';
 import { ThemeManager } from '../theme/theme-manager';
+import { Factory } from '../core/factory';
 
 /**
  * Create a new View instance from a VGrammar dataflow runtime specification.
@@ -173,6 +173,24 @@ export default class View extends EventEmitter implements IView {
   private _progressiveRafId?: number;
   private _cursorValue?: { user: string; element: IElement };
   private _observer: ResizeObserver = null;
+
+  static useComponents(comps: (() => void)[]) {
+    comps.forEach((fn: () => void) => {
+      fn();
+    });
+  }
+
+  static useTransforms(comps: (() => void)[]) {
+    comps.forEach((fn: () => void) => {
+      fn();
+    });
+  }
+
+  static useAnimations(comps: (TypeAnimation<IGlyphElement> | TypeAnimation<IElement>)[]) {
+    comps.forEach((comp: TypeAnimation<IGlyphElement> | TypeAnimation<IElement>) => {
+      Factory.registerAnimationType(comp.name, comp);
+    });
+  }
 
   constructor(options: IViewOptions = {}, config: IViewThemeConfig = {}) {
     super();
@@ -287,7 +305,7 @@ export default class View extends EventEmitter implements IView {
         break;
       // components
       case GrammarMarkType.component:
-        mark = createComponent(this, markOptions?.componentType, groupMark, markOptions?.mode);
+        mark = Factory.createComponent(markOptions?.componentType, this, groupMark, markOptions?.mode);
         break;
       case GrammarMarkType.interval:
         mark = new Interval(this, type, groupMark);
@@ -366,10 +384,9 @@ export default class View extends EventEmitter implements IView {
   }
 
   customized(type: string, spec: any) {
-    const res = getGrammar(type);
+    const grammar = Factory.createGrammar(type, this);
 
-    if (res) {
-      const grammar = new res.grammarClass(this);
+    if (grammar) {
       grammar.parse(spec);
       this.grammars.record(grammar);
       this._dataflow.add(grammar);
@@ -475,7 +492,7 @@ export default class View extends EventEmitter implements IView {
       });
     }
 
-    const customizedGrammars = getCustomizedGrammars();
+    const customizedGrammars = Factory.getGrammars();
 
     Object.keys(customizedGrammars).forEach(key => {
       const { specKey } = customizedGrammars[key];
@@ -1604,7 +1621,7 @@ export default class View extends EventEmitter implements IView {
   release() {
     this._unBindResizeEvent();
     this.clearProgressive();
-    unregisterRuntimeTransforms();
+    Factory.unregisterRuntimeTransforms();
 
     this.animate.stop();
 

@@ -22,7 +22,6 @@ import type { IBandLikeScale, IBaseScale } from '@visactor/vscale';
 import { isContinuous, isDiscrete } from '@visactor/vscale';
 import { ComponentEnum, CrosshairEnum } from '../graph';
 import type { CrosshairType, CrosshairSpec, CrosshairShape, ICrosshair } from '../types/component';
-import { getComponent, registerComponent } from '../view/register-component';
 import type {
   BaseSignleEncodeSpec,
   IElement,
@@ -34,31 +33,7 @@ import type {
 } from '../types';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
-
-registerComponent(
-  CrosshairEnum.lineCrosshair,
-  (attrs: LineCrosshairAttrs) => new LineCrosshair(attrs) as unknown as IGraphic
-);
-registerComponent(
-  CrosshairEnum.rectCrosshair,
-  (attrs: RectCrosshairAttrs) => new RectCrosshair(attrs) as unknown as IGraphic
-);
-registerComponent(
-  CrosshairEnum.sectorCrosshair,
-  (attrs: SectorCrosshairAttrs) => new SectorCrosshair(attrs) as unknown as IGraphic
-);
-registerComponent(
-  CrosshairEnum.circleCrosshair,
-  (attrs: CircleCrosshairAttrs) => new CircleCrosshair(attrs) as unknown as IGraphic
-);
-registerComponent(
-  CrosshairEnum.polygonCrosshair,
-  (attrs: PolygonCrosshairAttrs) => new PolygonCrosshair(attrs) as unknown as IGraphic
-);
-registerComponent(
-  CrosshairEnum.ringCrosshair,
-  (attrs: SectorCrosshairAttrs) => new SectorCrosshair(attrs) as unknown as IGraphic
-);
+import { Factory } from '../core/factory';
 
 const computeCrosshairStartEnd = (
   point: IPointLike,
@@ -297,6 +272,7 @@ export const generatePolygonCrosshairAttributes = (
 };
 
 export class Crosshair extends ScaleComponent implements ICrosshair {
+  static readonly componentType: string = ComponentEnum.crosshair;
   protected declare spec: CrosshairSpec;
 
   private _crosshairComponentType?: keyof typeof CrosshairEnum;
@@ -335,7 +311,7 @@ export class Crosshair extends ScaleComponent implements ICrosshair {
 
   addGraphicItem(attrs: any, groupKey?: string) {
     const initialAttributes = Object.assign(this._getDefaultCrosshairAttribute(), attrs);
-    const graphicItem = getComponent(this._getCrosshairComponentType()).creator(initialAttributes);
+    const graphicItem = Factory.createGraphicComponent(this._getCrosshairComponentType(), initialAttributes);
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
@@ -476,3 +452,32 @@ export class Crosshair extends ScaleComponent implements ICrosshair {
     return { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
   }
 }
+
+export const registerCrosshair = () => {
+  Factory.registerGraphicComponent(
+    CrosshairEnum.lineCrosshair,
+    (attrs: LineCrosshairAttrs) => new LineCrosshair(attrs) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    CrosshairEnum.rectCrosshair,
+    (attrs: RectCrosshairAttrs) => new RectCrosshair(attrs) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    CrosshairEnum.sectorCrosshair,
+    (attrs: SectorCrosshairAttrs) => new SectorCrosshair(attrs) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    CrosshairEnum.circleCrosshair,
+    (attrs: CircleCrosshairAttrs) => new CircleCrosshair(attrs) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    CrosshairEnum.polygonCrosshair,
+    (attrs: PolygonCrosshairAttrs) => new PolygonCrosshair(attrs) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    CrosshairEnum.ringCrosshair,
+    (attrs: SectorCrosshairAttrs) => new SectorCrosshair(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.crosshair, Crosshair);
+};

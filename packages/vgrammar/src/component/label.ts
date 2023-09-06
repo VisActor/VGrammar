@@ -3,7 +3,6 @@ import type { IGraphic } from '@visactor/vrender';
 import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { DataLabel } from '@visactor/vrender-components';
-import { registerComponent } from '../view/register-component';
 import type {
   BaseSignleEncodeSpec,
   IElement,
@@ -21,8 +20,7 @@ import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { BridgeElementKey } from '../graph/constants';
 import { invokeFunctionType } from '../parse/util';
-
-registerComponent(ComponentEnum.label, (attrs: DataLabelAttrs) => new DataLabel(attrs) as unknown as IGraphic);
+import { Factory } from '../core/factory';
 
 export const generateLabelAttributes = (
   marks: IMark[],
@@ -78,6 +76,7 @@ export const generateLabelAttributes = (
 };
 
 export class Label extends Component implements ILabel {
+  static readonly componentType: string = ComponentEnum.label;
   protected declare spec: LabelSpec;
 
   constructor(view: IView, group?: IGroupMark) {
@@ -151,3 +150,12 @@ export class Label extends Component implements ILabel {
     this._encoders = componentEncoders;
   }
 }
+
+export const registerLabel = () => {
+  Factory.registerGraphicComponent(
+    ComponentEnum.label,
+    (attrs: DataLabelAttrs) => new DataLabel(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.label, Label);
+};

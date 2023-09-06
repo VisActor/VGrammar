@@ -1,10 +1,10 @@
 import { registerSankeyTransforms } from '../src';
-import { getTransform } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 
 registerSankeyTransforms();
 
 test('transform of sankey', () => {
-  const transform = getTransform('sankey');
+  const transform = Factory.getTransform('sankey');
 
   expect(transform).not.toBeUndefined();
   expect(transform.transform).not.toBeUndefined();

@@ -1,5 +1,7 @@
-import { Player } from '../../src/component/player';
+import { registerPlayer, Player } from '../../src/component/player';
 import { emptyFunction, getMockedView } from '../util';
+
+registerPlayer();
 
 test('player', function () {
   const view = getMockedView() as any;

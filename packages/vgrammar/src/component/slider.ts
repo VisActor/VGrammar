@@ -3,7 +3,6 @@ import type { IGraphic } from '@visactor/vrender';
 import type { SliderAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { Slider as SliderComponent } from '@visactor/vrender-components';
-import { registerComponent } from '../view/register-component';
 import type {
   BaseSignleEncodeSpec,
   IData,
@@ -21,8 +20,7 @@ import type { ISlider, SliderFilterValue, SliderSpec } from '../types/component'
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
-
-registerComponent(ComponentEnum.slider, (attrs: SliderAttributes) => new SliderComponent(attrs) as unknown as IGraphic);
+import { Factory } from '../core/factory';
 
 export const generateSliderAttributes = (
   min: number,
@@ -35,6 +33,7 @@ export const generateSliderAttributes = (
 };
 
 export class Slider extends Component implements ISlider {
+  static readonly componentType: string = ComponentEnum.slider;
   protected declare spec: SliderSpec;
   protected declare _filterValue: SliderFilterValue;
 
@@ -113,3 +112,12 @@ export class Slider extends Component implements ISlider {
     this._encoders = componentEncoders;
   }
 }
+
+export const registerSlider = () => {
+  Factory.registerGraphicComponent(
+    ComponentEnum.slider,
+    (attrs: SliderAttributes) => new SliderComponent(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.slider, Slider);
+};

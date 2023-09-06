@@ -1,5 +1,5 @@
 import { isArray, isFunction, isNil } from '@visactor/vutils';
-import { getTransform } from '../transforms/register';
+import { Factory } from '../core/factory';
 import type { IGrammarBase, IGrammarTask, IView, TransformSpec, TransformSpecValue } from '../types';
 import { isSignal, parseFunctionType, parseReference } from './util';
 
@@ -82,7 +82,7 @@ const parseTransformOption = (key: string, transformSpecValue: TransformSpecValu
 };
 
 const parseTransform = (transformSpec: TransformSpec, view: IView) => {
-  const transformDef = getTransform(transformSpec.type);
+  const transformDef = Factory.getTransform(transformSpec.type);
 
   if (!transformDef) {
     return;

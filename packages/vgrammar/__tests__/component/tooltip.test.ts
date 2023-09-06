@@ -1,6 +1,7 @@
-import { Tooltip } from '../../src/component/tooltip';
+import { Tooltip, registerTooltip } from '../../src/component/tooltip';
 import { emptyFunction, getMockedView } from '../util';
 
+registerTooltip();
 test('tooltip', function () {
   const view = getMockedView() as any;
   const tooltip = new Tooltip(view)

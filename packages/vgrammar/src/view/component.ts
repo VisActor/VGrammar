@@ -15,7 +15,7 @@ import type {
   BaseSignleEncodeSpec
 } from '../types';
 import { Mark } from './mark';
-import { getComponent } from './register-component';
+import { Factory } from '../core/factory';
 
 export class Component extends Mark implements IComponent {
   declare markType: GrammarMarkType.component;
@@ -46,7 +46,7 @@ export class Component extends Mark implements IComponent {
   }
 
   addGraphicItem(attrs: any, groupKey?: string, newGraphicItem?: any) {
-    const graphicItem = newGraphicItem ?? getComponent(this.componentType).creator(attrs, this.mode);
+    const graphicItem = newGraphicItem ?? Factory.createGraphicComponent(this.componentType, attrs, this.mode);
     return super.addGraphicItem(attrs, groupKey, graphicItem);
   }
 

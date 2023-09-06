@@ -1,11 +1,11 @@
 import { registerAllHierarchyTransforms } from '../src';
-import { getTransform } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 import { mockData } from './data/tree';
 
 registerAllHierarchyTransforms();
 
 test('transform of circle-packing', () => {
-  const circlePacking = getTransform('circlePacking');
+  const circlePacking = Factory.getTransform('circlePacking');
 
   expect(circlePacking).not.toBeUndefined();
   expect(circlePacking.transform).not.toBeUndefined();
@@ -24,7 +24,7 @@ test('transform of circle-packing', () => {
 });
 
 test('transform of tree', () => {
-  const tree = getTransform('tree');
+  const tree = Factory.getTransform('tree');
   expect(tree).not.toBeUndefined();
   expect(tree.transform).not.toBeUndefined();
 
@@ -46,7 +46,7 @@ test('transform of tree', () => {
 });
 
 test('transform of treemap', () => {
-  const treemap = getTransform('treemap');
+  const treemap = Factory.getTransform('treemap');
   expect(treemap).not.toBeUndefined();
   expect(treemap.transform).not.toBeUndefined();
 
@@ -67,7 +67,7 @@ test('transform of treemap', () => {
 });
 
 test('transform of sunburst', () => {
-  const sunburst = getTransform('sunburst');
+  const sunburst = Factory.getTransform('sunburst');
   expect(sunburst).not.toBeUndefined();
   expect(sunburst.transform).not.toBeUndefined();
 
