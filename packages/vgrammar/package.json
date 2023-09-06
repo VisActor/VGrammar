@@ -28,6 +28,8 @@
     "eslint": "eslint --debug --fix src/",
     "build": "bundle --clean",
     "dev": "bundle --clean -f es -w",
+    "analysis": "bundle -f umd -a",
+    "analysis-core": "bundle -f umd -a -i core.ts",
     "start": "vite ./vite",
     "test": "jest",
     "test-cov": "jest -w 16 --coverage",
