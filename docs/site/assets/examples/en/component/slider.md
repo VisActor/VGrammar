@@ -1,9 +1,9 @@
---- 
+---
 category: examples
 group: basic-mark-symbol
 title: Basic Scatterplot
 order: 50-1
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-slider.png
+cover: /vgrammar/preview/component-slider_0.6.5.png
 ---
 
 # Basic Scatterplot

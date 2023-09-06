@@ -3,7 +3,7 @@ category: examples
 group: component
 title: legend
 order: 50-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-legend.png
+cover: /vgrammar/preview/component-legend_0.6.5.png
 ---
 
 # legend

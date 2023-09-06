@@ -3,7 +3,7 @@ category: examples
 group: hierarchy-sunburst
 title: Sunburst Chart
 order: 70-1
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/hierarchy-sunburst.png
+cover: /vgrammar/preview/hierarchy-sunburst_0.6.5.png
 ---
 
 # Sunburst Chart

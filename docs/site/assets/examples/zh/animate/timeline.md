@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: 事件轴&动画
 order: 60-5
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-timeline.gif
+cover: /vgrammar/preview/animate-timeline_0.6.5.png
 ---
 
 # 事件轴&动画

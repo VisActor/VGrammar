@@ -3,7 +3,7 @@ category: examples
 group: mark-cell
 title: Heatmap
 order: 20-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-cell-basic-cell.png
+cover: /vgrammar/preview/mark-cell-basic-cell_0.6.5.png
 ---
 
 # Heatmap

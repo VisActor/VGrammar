@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: Basic Animation
 order: 60-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-basic-animate.gif
+cover: /vgrammar/preview/animate-basic-animate_0.6.5.png
 ---
 
 # Basic Animation

@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: Percentage Area Chart
 order: 2-2
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-percent-area.png
+cover: /vgrammar/preview/basic-mark-area-percent-area_0.6.5.png
 ---
 
 # Percentage Area Chart

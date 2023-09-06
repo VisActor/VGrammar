@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rect
 title: Range Bar Chart
 order: 0-1
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-range-rect.png
+cover: /vgrammar/preview/basic-mark-rect-range-rect_0.6.5.png
 ---
 
 # Range Bar Chart

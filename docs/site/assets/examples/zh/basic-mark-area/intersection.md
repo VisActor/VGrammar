@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: 区间面积图
 order: 2-4
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-intersection.png
+cover: /vgrammar/preview/basic-mark-area-intersection_0.6.5.png
 ---
 
 # 区间面积图
