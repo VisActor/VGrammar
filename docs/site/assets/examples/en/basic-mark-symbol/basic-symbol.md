@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-symbol
 title: Basic Scatter Plot
 order: 3-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-symbol-basic-symbol.png
+cover: /vgrammar/preview/basic-mark-symbol-basic-symbol_0.6.5.png
 ---
 
 # Basic Scatter Plot

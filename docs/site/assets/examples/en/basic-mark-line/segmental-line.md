@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-line
 title: Segmented Curve
 order: 1-1
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-line-segmental-line.png
+cover: /vgrammar/preview/basic-mark-line-segmental-line_0.6.5.png
 ---
 
 # Segmented Curve

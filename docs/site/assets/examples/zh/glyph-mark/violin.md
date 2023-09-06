@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: 小提琴图
 order: 30-8
-cover:
+cover: /vgrammar/preview/glyph-mark-violin_0.6.5.png
 ---
 
 # 小提琴图

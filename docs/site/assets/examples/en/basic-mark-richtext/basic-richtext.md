@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-richtext
 title: Basic Usage of richtext
 order: 8-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-richtext-basic-richtext.png
+cover: /vgrammar/preview/basic-mark-richtext-basic-richtext_0.6.5.png
 ---
 
 # Basic Usage of richtext

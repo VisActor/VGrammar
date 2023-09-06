@@ -1,0 +1,11 @@
+[
+  "basic-mark-rect/api-rect",
+  "component/player",
+  "animate/morph-animate",
+  "plot/connected-scatter-line",
+  "plot/plot-diverging-color-point",
+  "plot/plot-line",
+  "plot/plot-stack-point",
+  "plot/plot-symbol-rule",
+  "plot/plot-symbol"
+]

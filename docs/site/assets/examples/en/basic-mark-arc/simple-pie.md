@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-arc
 title: Pie Chart
 order: 3-3
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-simple-pie.png
+cover: /vgrammar/preview/basic-mark-arc-simple-pie_0.6.5.png
 ---
 
 # Pie Chart

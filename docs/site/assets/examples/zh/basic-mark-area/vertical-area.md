@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: 纵向面积图
 order: 2-3
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-vertical-area.png
+cover: /vgrammar/preview/basic-mark-area-vertical-area_0.6.5.png
 ---
 
 # 纵向面积图
