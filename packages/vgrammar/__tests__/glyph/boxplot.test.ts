@@ -1,6 +1,5 @@
 import { createSimpleGlyphElement } from '../util';
-import { registerBarBoxplotGlyph, registerBoxplotGlyph } from '../../src';
-import { getGlyph } from '../../src/view/register-glyph';
+import { Factory, registerBarBoxplotGlyph, registerBoxplotGlyph } from '../../src';
 import { barBoxplotScaleIn, barBoxplotScaleOut, boxplotScaleIn, boxplotScaleOut } from '../../src/glyph/boxplot';
 
 registerBoxplotGlyph();
@@ -8,7 +7,7 @@ registerBoxplotGlyph();
 registerBarBoxplotGlyph();
 
 test('boxplot encode', function () {
-  const element = createSimpleGlyphElement(getGlyph('boxplot'));
+  const element = createSimpleGlyphElement(Factory.getGlyph('boxplot'));
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(
@@ -51,7 +50,7 @@ test('boxplot encode', function () {
 });
 
 test('barBoxplot encode', function () {
-  const element = createSimpleGlyphElement(getGlyph('barBoxplot'));
+  const element = createSimpleGlyphElement(Factory.getGlyph('barBoxplot'));
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(
@@ -84,7 +83,7 @@ test('barBoxplot encode', function () {
 });
 
 test('boxplot animation', function () {
-  const element = createSimpleGlyphElement(getGlyph('boxplot'), { transformType: 'rect' });
+  const element = createSimpleGlyphElement(Factory.getGlyph('boxplot'), { transformType: 'rect' });
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(
@@ -152,7 +151,7 @@ test('boxplot animation', function () {
 });
 
 test('barBoxplot animation', function () {
-  const element = createSimpleGlyphElement(getGlyph('barBoxplot'), { transformType: 'rect' });
+  const element = createSimpleGlyphElement(Factory.getGlyph('barBoxplot'), { transformType: 'rect' });
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(

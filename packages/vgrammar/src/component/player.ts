@@ -9,7 +9,6 @@ import type {
 import { PlayerEventEnum } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { ContinuousPlayer, DiscretePlayer } from '@visactor/vrender-components';
-import { getComponent, registerComponent } from '../view/register-component';
 import type {
   BaseSignleEncodeSpec,
   IData,
@@ -25,15 +24,7 @@ import { ComponentDataRank, ComponentEnum, PlayerEnum } from '../graph';
 import type { IPlayer, PlayerFilterValue, PlayerSpec, PlayerType } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
-
-registerComponent(
-  PlayerEnum.continuousPlayer,
-  (attrs: ContinuousPlayerAttributes) => new ContinuousPlayer(attrs) as unknown as IGraphic
-);
-registerComponent(
-  PlayerEnum.discretePlayer,
-  (attrs: DiscretePlayerAttributes) => new DiscretePlayer(attrs) as unknown as IGraphic
-);
+import { Factory } from '../core/factory';
 
 export const generateContinuousPlayerAttributes = (
   data: any[],
@@ -54,6 +45,7 @@ export const generateDiscretePlayerAttributes = (
 };
 
 export class Player extends Component implements IPlayer {
+  static readonly componentType: string = ComponentEnum.player;
   protected declare spec: PlayerSpec;
   protected declare _filterValue: PlayerFilterValue;
 
@@ -143,7 +135,8 @@ export class Player extends Component implements IPlayer {
     // FIXME: vis-component should handle the situation when handlerStyle is not set
     const defaultAttributes = { slider: { handlerStyle: { size: 16 } } };
     const initialAttributes = merge(defaultAttributes, attrs);
-    const graphicItem = newGraphicItem ?? getComponent(this._getPlayerComponentType()).creator(initialAttributes);
+    const graphicItem =
+      newGraphicItem ?? Factory.createGraphicComponent(this._getPlayerComponentType(), initialAttributes);
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
@@ -215,3 +208,16 @@ export class Player extends Component implements IPlayer {
     return this._playerComponentType;
   }
 }
+
+export const registerPlayer = () => {
+  Factory.registerGraphicComponent(
+    PlayerEnum.continuousPlayer,
+    (attrs: ContinuousPlayerAttributes) => new ContinuousPlayer(attrs) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    PlayerEnum.discretePlayer,
+    (attrs: DiscretePlayerAttributes) => new DiscretePlayer(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.player, Player);
+};

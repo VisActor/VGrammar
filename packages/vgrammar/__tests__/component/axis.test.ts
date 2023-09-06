@@ -1,7 +1,8 @@
-import { Axis } from '../../src/component/axis';
+import { registerAxis, Axis } from '../../src/component/axis';
 import { Scale } from '../../src/view/scale';
 import { emptyFunction, getMockedView } from '../util';
 
+registerAxis();
 test('line axis', function () {
   const view = getMockedView() as any;
   const xScale = new Scale(view, 'point').domain(['A', 'B', 'C']).range([0, 270]).configure({

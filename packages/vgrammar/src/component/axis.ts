@@ -4,7 +4,6 @@ import type { CircleAxisAttributes, LineAxisAttributes } from '@visactor/vrender
 // eslint-disable-next-line no-duplicate-imports
 import { CircleAxis as CircleAxisComponent, LineAxis as LineAxisComponent } from '@visactor/vrender-components';
 import type { IBaseScale } from '@visactor/vscale';
-import { getComponent, registerComponent } from '../view/register-component';
 import type {
   BaseSignleEncodeSpec,
   IElement,
@@ -23,16 +22,8 @@ import type { AxisSpec, AxisType, IAxis } from '../types/component';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
-import type { IBaseCoordinate, IPolarCoordinate } from '@visactor/vgrammar-coordinate';
-
-registerComponent(
-  AxisEnum.lineAxis,
-  (attrs: LineAxisAttributes, mode?: '2d' | '3d') => new LineAxisComponent(attrs, mode) as unknown as IGraphic
-);
-registerComponent(
-  AxisEnum.circleAxis,
-  (attrs: CircleAxisAttributes) => new CircleAxisComponent(attrs) as unknown as IGraphic
-);
+import type { IPolarCoordinate, IBaseCoordinate } from '@visactor/vgrammar-coordinate';
+import { Factory } from '../core/factory';
 
 export const generateLineAxisAttributes = (
   scale: IBaseScale,
@@ -118,6 +109,8 @@ export const generateCoordinateAxisAttribute = (
 };
 
 export class Axis extends ScaleComponent implements IAxis {
+  static readonly componentType: string = ComponentEnum.axis;
+
   protected declare spec: AxisSpec;
 
   private _axisComponentType: keyof typeof AxisEnum;
@@ -156,7 +149,7 @@ export class Axis extends ScaleComponent implements IAxis {
   addGraphicItem(attrs: any, groupKey?: string) {
     const defaultAttributes = { x: 0, y: 0, start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
     const initialAttributes = merge(defaultAttributes, attrs);
-    const graphicItem = getComponent(this._getAxisComponentType()).creator(initialAttributes, this.mode);
+    const graphicItem = Factory.createGraphicComponent(this._getAxisComponentType(), initialAttributes, this.mode);
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
@@ -238,3 +231,16 @@ export class Axis extends ScaleComponent implements IAxis {
     return this._axisComponentType;
   }
 }
+
+export const registerAxis = () => {
+  Factory.registerGraphicComponent(
+    AxisEnum.lineAxis,
+    (attrs: LineAxisAttributes, mode?: '2d' | '3d') => new LineAxisComponent(attrs, mode) as unknown as IGraphic
+  );
+  Factory.registerGraphicComponent(
+    AxisEnum.circleAxis,
+    (attrs: CircleAxisAttributes) => new CircleAxisComponent(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.axis, Axis);
+};

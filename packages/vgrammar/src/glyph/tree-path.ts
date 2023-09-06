@@ -1,7 +1,6 @@
 import type { IAnimationParameters, TypeAnimation, TreePathEncoderSpec } from '../types';
 import type { IElement } from '../types/element';
-import { registerAnimationType } from '../view/register-animation';
-import { registerGlyph } from '../view/register-glyph';
+import { Factory } from '../core/factory';
 import { isNil } from '@visactor/vutils';
 
 export interface TreePathConfig {
@@ -239,7 +238,7 @@ const treePathUpdate: TypeAnimation<IElement> = (
 };
 
 export const registerTreePathGlyph = () => {
-  registerGlyph<TreePathEncoderSpec, TreePathConfig>('treePath', {
+  Factory.registerGlyph<TreePathEncoderSpec, TreePathConfig>('treePath', {
     main: 'path',
     startArrow: 'path',
     endArrow: 'path'
@@ -262,7 +261,7 @@ export const registerTreePathGlyph = () => {
       };
     });
 
-  registerAnimationType('treePathGrowIn', treePathGrowIn);
-  registerAnimationType('treePathGrowOut', treePathGrowOut);
-  registerAnimationType('treePathUpdate', treePathUpdate);
+  Factory.registerAnimationType('treePathGrowIn', treePathGrowIn);
+  Factory.registerAnimationType('treePathGrowOut', treePathGrowOut);
+  Factory.registerAnimationType('treePathUpdate', treePathUpdate);
 };

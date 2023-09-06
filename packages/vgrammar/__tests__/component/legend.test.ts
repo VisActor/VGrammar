@@ -1,8 +1,9 @@
-import { Crosshair } from '../../src/component/crosshair';
+import { registerCrosshair, Crosshair } from '../../src/component/crosshair';
 import { Scale } from '../../src/view/scale';
 import { emptyFunction, getMockedView } from '../util';
 
-test('legend', function () {
+registerCrosshair();
+test('crosshair', function () {
   const view = getMockedView() as any;
   const scale = new Scale(view, 'point').domain(['A', 'B', 'C']).range([0, 270]).configure({
     padding: 0.5

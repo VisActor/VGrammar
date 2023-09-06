@@ -1,11 +1,10 @@
-import { registerLinkPathGlyph } from '../../src';
-import { getGlyph } from '../../src/view/register-glyph';
+import { Factory, registerLinkPathGlyph } from '../../src';
 import { createSimpleGlyphElement } from '../util';
 
 registerLinkPathGlyph();
 
 test('link path encode', function () {
-  const element = createSimpleGlyphElement(getGlyph('linkPath'));
+  const element = createSimpleGlyphElement(Factory.getGlyph('linkPath'));
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(
@@ -34,7 +33,7 @@ test('link path encode', function () {
 });
 
 test('add state to a link path', function () {
-  const element = createSimpleGlyphElement(getGlyph('linkPath'));
+  const element = createSimpleGlyphElement(Factory.getGlyph('linkPath'));
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
   element.encodeItems(
