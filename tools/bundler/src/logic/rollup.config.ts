@@ -13,6 +13,11 @@ import url from '@rollup/plugin-url';
 import Alias from '@rollup/plugin-alias';
 import type { Config } from './config';
 
+import { visualizer } from 'rollup-plugin-visualizer';
+import gzipPlugin from 'rollup-plugin-gzip';
+import sizes from 'rollup-plugin-sizes';
+import bundleSize from 'rollup-plugin-bundle-size';
+
 function getExternal(
   rawPackageJson: RawPackageJson,
   userExternal: string[] | ((rawPackageJson: RawPackageJson) => string[])
@@ -33,6 +38,22 @@ export function getRollupOptions(
   babelPlugins: BabelPlugins,
   config: Config
 ): RollupOptions {
+  const analysisPlugins = config.analysis
+    ? [
+        visualizer({
+          open: true,
+          gzipSize: true,
+          emitFile: true,
+          template: 'treemap'
+        }),
+        gzipPlugin({
+          filter: /\.(js)$/
+        }),
+        bundleSize(),
+        sizes()
+      ]
+    : [];
+
   return {
     input: entry,
     external: getExternal(rawPackageJson, config.external),
@@ -58,6 +79,7 @@ export function getRollupOptions(
       }),
       Alias({ entries: config.alias }),
       ...(config.minify ? [terser()] : []),
+      ...analysisPlugins,
       ...((config.rollupOptions.plugins as Plugin[]) || [])
     ]
   };
