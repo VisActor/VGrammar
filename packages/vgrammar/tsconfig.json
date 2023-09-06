@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "outDir": "./es",
     "rootDir": "./src",
-    "composite": true
+    "composite": true,
+    "lib": ["DOM", "ESNext"]
   },
   "ts-node": {
     "transpileOnly": true,

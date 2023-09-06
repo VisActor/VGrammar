@@ -124,7 +124,7 @@ export function splitEncoderInLarge(markType: string, encoder: BaseSignleEncodeS
         }
       });
     } else {
-      const markTypes = Array.from(new Set(Object.values(glyphMeta.getMarks())));
+      const markTypes: string[] = Array.from(new Set(Object.values(glyphMeta.getMarks())));
       Object.keys(encoder).forEach(channel => {
         if (markTypes.some(type => isPositionOrSizeChannel(type, channel))) {
           positionEncoder[channel] = encoder[channel];
