@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: Boxplot in Polar Coordinates
 order: 30-2
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-polar-boxplot.png
+cover: /vgrammar/preview/glyph-mark-polar-boxplot_0.6.5.png
 ---
 
 # Boxplot in Polar Coordinates

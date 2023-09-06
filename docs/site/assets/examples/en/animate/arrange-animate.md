@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: Animation Arrangement
 order: 60-4
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-arrange-animate.gif
+cover: /vgrammar/preview/animate-arrange-animate_0.6.5.png
 ---
 
 # Animation Arrangement

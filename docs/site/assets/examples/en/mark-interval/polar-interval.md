@@ -3,7 +3,7 @@ category: examples
 group: mark-interval
 title: Polar Bar Chart
 order: 21-2
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-polar-interval.png
+cover: /vgrammar/preview/mark-interval-polar-interval_0.6.5.png
 ---
 
 # Polar Bar Chart

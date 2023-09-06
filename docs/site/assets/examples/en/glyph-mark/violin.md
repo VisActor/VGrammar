@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: violin chart
 order: 30-8
-cover:
+cover: /vgrammar/preview/glyph-mark-violin_0.6.5.png
 ---
 
 # violin chart

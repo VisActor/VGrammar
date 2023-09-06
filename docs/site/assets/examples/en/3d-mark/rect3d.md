@@ -3,7 +3,7 @@ category: examples
 group: 3d-mark
 title: rect3d Primitive
 order: 40-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/3d-mark-rect3d.png
+cover: /vgrammar/preview/3d-mark-rect3d_0.6.5.png
 ---
 
 # rect3d Primitive

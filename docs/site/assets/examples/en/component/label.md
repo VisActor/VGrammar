@@ -3,7 +3,7 @@ category: examples
 group: component
 title: Bar Chart Labels
 order: 50-4
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-label.png
+cover: /vgrammar/preview/component-label_0.6.5.png
 ---
 
 # Bar Chart Labels
