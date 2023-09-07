@@ -1,1 +1,0 @@
-{"id":{"desc":"<p>signal的 id，可以用于在其他元素中引用</p>\n"},"name":{"desc":"<p>signal的 name，可以用于查询该 signal</p>\n"},"dependency":{"desc":"<p>可传类型： (IGrammarBase[] | IGrammarBase | string[] | string)</p>\n<p>当前signal依赖的其他元素，可以是元素的 id，也可以是元素本身</p>\n"},"value":{"desc":"<p>signal 当前的值</p>\n"},"update":{"desc":"<p>signal 的更新方法</p>\n"}}
