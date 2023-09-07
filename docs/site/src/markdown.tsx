@@ -71,7 +71,7 @@ function generateMenuItem(node: IMenuItem, assetDirectory: string, language: Lan
           top: 0
           // behavior: 'smooth',
         });
-        navigate(`/${assetDirectory}${node.fullPath}`, { replace: true });
+        navigate(`/vgrammar/${assetDirectory}${node.fullPath}`, { replace: true });
       }}
     >
       {node.title[language]}
@@ -153,7 +153,7 @@ export function Markdown() {
 
   const location = useLocation();
   const { pathname: pathName } = location;
-  const assetDirectory = pathName.split('/')[1];
+  const assetDirectory = pathName.split('/')[2];
 
   const [outline, setOutline] = useState<any>([]);
   const [content, setContent] = useState<string>('');
