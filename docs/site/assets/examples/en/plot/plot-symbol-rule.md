@@ -669,11 +669,7 @@ const rangeData = data.map(entry => {
   return { name: entry.name, min: Math.min.apply(null, vals) / sum, max: Math.max.apply(null, vals) / sum };
 });
 
-document.getElementById(CONTAINER_ID).style.height = '1000px';
-
-document.getElementById(CONTAINER_ID).parentNode.style.height = '1000px';
 const plot = new Plot({
-  height: 1000,
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
   hover: true
