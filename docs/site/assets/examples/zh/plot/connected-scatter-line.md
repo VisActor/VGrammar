@@ -8,11 +8,8 @@ cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-ar
 
 # 数值轴线图
 
-<<<<<<< HEAD
 数据引用于：[obsevable](https://observablehq.com/@observablehq/plot-connected-scatterplot?intent=fork);
 
-=======
->>>>>>> cd6636b (docs: update demos of plot.line)
 ## 代码演示
 
 ```javascript livedemo template=vgrammar
