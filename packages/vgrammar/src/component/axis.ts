@@ -120,8 +120,6 @@ export const generateCoordinateAxisAttribute = (
 export class Axis extends ScaleComponent implements IAxis {
   protected declare spec: AxisSpec;
 
-  protected mode?: '2d' | '3d';
-
   private _axisComponentType: keyof typeof AxisEnum;
 
   constructor(view: IView, group?: IGroupMark, mode?: '2d' | '3d') {
