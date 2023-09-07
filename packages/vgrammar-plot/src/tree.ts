@@ -16,7 +16,7 @@ import type {
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, getTransform, getGlyph } from '@visactor/vgrammar';
+import { GrammarMarkType, Factory } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -26,14 +26,14 @@ export class TreeSemanticMark extends SemanticMark<PlotTreeEncodeSpec, TreeEncod
   constructor(id?: string | number) {
     super(PlotMakType.tree, id);
 
-    if (!getTransform(PlotMakType.tree)) {
+    if (!Factory.getTransform(PlotMakType.tree)) {
       this._logger.error(
         `Please add this line of code: import { registerTreeTransforms } from 'vgrammar-hierarchy', 
         and run registerTreeTransforms() before use tree`
       );
     }
 
-    if (!getGlyph('treePath')) {
+    if (!Factory.getGlyph('treePath')) {
       this._logger.error(
         `Please add this line of code: import { registerTreePathGlyph } from '@visactor/vgrammar';
         and run registerTreePathGlyph() before use tree`

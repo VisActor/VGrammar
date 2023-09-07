@@ -15,7 +15,7 @@ import type {
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, SIGNAL_VIEW_BOX, getTransform, getGlyph, ThemeManager } from '@visactor/vgrammar';
+import { GrammarMarkType, SIGNAL_VIEW_BOX, Factory } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -25,14 +25,14 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
   constructor(id?: string | number) {
     super(PlotMakType.sankey, id);
 
-    if (!getTransform(PlotMakType.sankey)) {
+    if (!Factory.getTransform(PlotMakType.sankey)) {
       this._logger.error(
         `Please add this line of code: import { registerSankeyTransforms } from '@visactor/vgrammar-sankey'; 
         and run registerSankeyTransforms() before use sankey`
       );
     }
 
-    if (!getGlyph('linkPath')) {
+    if (!Factory.getGlyph('linkPath')) {
       this._logger.error(`
       Please add this line of code: import { registerLinkPathGlyph } from '@visactor/vgrammar';
       add run registerLinkPathGlyph() before use sankey

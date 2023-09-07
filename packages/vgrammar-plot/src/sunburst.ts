@@ -13,7 +13,7 @@ import type {
   LabelSpec
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
-import { GrammarMarkType, SIGNAL_VIEW_BOX, getTransform } from '@visactor/vgrammar';
+import { GrammarMarkType, SIGNAL_VIEW_BOX, Factory } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { BaseLabelAttrs } from '@visactor/vrender-components';
@@ -23,7 +23,7 @@ export class SunburstSemanticMark extends SemanticMark<PlotSunburstEncodeSpec, S
   constructor(id?: string | number) {
     super(PlotMakType.sunburst, id);
 
-    if (!getTransform('sunburst')) {
+    if (!Factory.getTransform('sunburst')) {
       this._logger.error(
         `Please add this line of code: import { registerSunburstTransforms } from 'vgrammar-hierarchy': 
         and run registerSunburstTransforms() before use sunburst chart`
