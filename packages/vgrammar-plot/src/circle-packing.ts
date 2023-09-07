@@ -14,7 +14,7 @@ import type {
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, getTransform } from '@visactor/vgrammar';
+import { GrammarMarkType, Factory } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -24,7 +24,7 @@ export class CirclePackingSemanticMark extends SemanticMark<PlotCirclePackingEnc
   constructor(id?: string | number) {
     super(PlotMakType.circlePacking, id);
 
-    if (!getTransform(PlotMakType.circlePacking)) {
+    if (!Factory.getTransform(PlotMakType.circlePacking)) {
       this._logger.error(
         `Please add this line of code: import { registerCirclePackingTransforms } from '@visactor/vgrammar-hierarchy'; 
         and run registerCirclePackingTransforms() before use treemap chart`
