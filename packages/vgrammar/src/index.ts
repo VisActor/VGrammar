@@ -1,7 +1,4 @@
-export * from './main';
-export * from './glyph';
-export * from './component';
-export * from './transforms';
+export * from './core';
 
 import View from './view/View';
 import {
