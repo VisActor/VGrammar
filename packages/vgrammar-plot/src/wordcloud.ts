@@ -13,7 +13,7 @@ import type {
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, getTransform } from '@visactor/vgrammar';
+import { GrammarMarkType, Factory } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 
@@ -22,7 +22,7 @@ export class WordcloudSemanticMark extends SemanticMark<PlotWordcloudEncodeSpec,
   constructor(id?: string | number) {
     super(PlotMakType.wordcloud, id);
 
-    if (!getTransform(PlotMakType.wordcloud)) {
+    if (!Factory.getTransform(PlotMakType.wordcloud)) {
       this._logger.error(
         `Please add this line of code:
          'import { registerWordCloudTransforms } from '@visactor/vgrammar-wordcloud'; 
