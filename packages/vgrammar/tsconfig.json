@@ -5,7 +5,8 @@
     "outDir": "./es",
     "rootDir": "./src",
     "composite": true,
-    "lib": ["DOM", "ESNext"]
+    "lib": ["DOM", "ESNext"],
+    "ignoreDeprecations": "5.0"
   },
   "ts-node": {
     "transpileOnly": true,
