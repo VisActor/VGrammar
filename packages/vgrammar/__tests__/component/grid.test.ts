@@ -1,7 +1,8 @@
-import { Grid } from '../../src/component/grid';
+import { Grid, registerGrid } from '../../src/component/grid';
 import { Scale } from '../../src/view/scale';
 import { emptyFunction, getMockedView } from '../util';
 
+registerGrid();
 test('line axis grid', function () {
   const view = getMockedView() as any;
   const xScale = new Scale(view, 'point').domain(['A', 'B', 'C']).range([0, 270]).configure({
