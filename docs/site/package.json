@@ -21,7 +21,7 @@
     "@visactor/vgrammar-util": "workspace:0.6.6",
     "@visactor/vgrammar-coordinate": "workspace:0.6.6",
     "@visactor/vutils": "~0.15.9",
-    "@visactor/vrender": "0.15.0-alpha.11",
+    "@visactor/vrender": "0.15.0-alpha.14",
     "markdown-it": "^13.0.0",
     "highlight.js": "^11.8.0",
     "axios": "^1.4.0",

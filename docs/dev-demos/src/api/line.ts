@@ -76,6 +76,7 @@ export const runner = (view: IView) => {
     .grid(view.rootMark)
     .id('yGrid')
     .target(yAxis);
+  const customGrid = view.component('lineAxisGrid', view.rootMark, '3d');
   // const yGrid = view
   //   .grid(view.rootMark)
   //   .id('yGrid')
@@ -179,6 +180,10 @@ export const runner = (view: IView) => {
     .encode({
       text: (datum: any) => `${datum.amount}`
     });
+    
+  window['update'] = () => {
+    view.grammars._grammars.mark[4].elements[0].graphicItem.setAttributes({ style: () => { return { stroke: 'red'}}})
+  }
 };
 
 export const callback = (view: IView) => {
