@@ -1,5 +1,6 @@
 import type { IRichText, IRichTextCharacter } from '@visactor/vrender';
 import { xul as vRenderXul, RichText } from '@visactor/vrender';
+import { isArray } from '@visactor/vutils';
 
 export function richXul(strings: TemplateStringsArray, ...insertVars: (string | number)[]) {
   return {
@@ -12,10 +13,21 @@ export function richXul(strings: TemplateStringsArray, ...insertVars: (string | 
   };
 }
 
-export function richJsx(richText: IRichText | { children?: IRichTextCharacter[] }) {
+export function richJsx(
+  richText: IRichText | { attribute: IRichTextCharacter; type: string }[] | IRichTextCharacter[]
+) {
   return {
     type: 'rich',
-    text: richText instanceof RichText ? richText.attribute.textConfig : richText.children
+    text:
+      richText instanceof RichText
+        ? richText.attribute.textConfig
+        : isArray(richText)
+        ? richText.map(entry => {
+            return (entry as { attribute: IRichTextCharacter; type: string }).type
+              ? (entry as { attribute: IRichTextCharacter; type: string }).attribute
+              : entry;
+          })
+        : []
   };
 }
 

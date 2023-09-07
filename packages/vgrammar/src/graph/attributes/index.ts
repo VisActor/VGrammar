@@ -167,7 +167,7 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
               height: nextAttrs.height ?? nextAttrs.fontSize,
               anchorType: 'position'
             };
-            graphicAttributes.text = null;
+            graphicAttributes.text = '';
           } else if (storedAttrs.text.type === 'rich') {
             graphicAttributes.textConfig = text;
           } else {
@@ -214,6 +214,15 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
         }
       },
       storedAttrs: 'imageAttrs'
+    }
+  ],
+  [GrammarMarkType.richtext]: [
+    {
+      channels: ['text', 'textConfig'],
+      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
+        graphicAttributes.text = null;
+        graphicAttributes.textConfig = nextAttrs.text?.type === 'rich' ? nextAttrs.text.text : nextAttrs.textConfig;
+      }
     }
   ]
 };

@@ -20,7 +20,7 @@ export class Cell extends Mark {
   declare markType: GrammarMarkType.cell;
   protected declare spec: MarkSpec;
 
-  protected _encoders: StateEncodeSpec;
+  protected _encoders: StateEncodeSpec | null;
 
   encodeState(state: string, channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>) {
     super.encodeState(state, channel, value);

@@ -1,5 +1,5 @@
 import { jsx, VRichText, Fragment } from '@visactor/vrender'
-import { textHtml, version, richXul } from "@visactor/vgrammar";
+import { textHtml, version, richXul, richJsx } from "@visactor/vgrammar";
 
 export const spec = {
   width: 400,
@@ -90,20 +90,15 @@ export const spec = {
           strokeOpacity: 0.8
         },
         update: {
-          // text: {
-          //   type: 'rich',
-          //   text: (
-          //     <VRichText>
-          //       <VRichText.Text attribute={{ fill: 'red', text: '测试文本' }}>富文本全局</VRichText.Text>
-          //       <VRichText.Image  attribute={{ image: `${window.location.origin}/src/image/shape_logo.png`,width: 30, height: 30,id: 'circle-0' }}/>
-          //     </VRichText>
-          //   ),
-          // },
-          // text: textHtml`<p>这是一个html字符串${version}</p>`,
-          text: richXul`<tc>
-          <text attribute="fill: red;">富文本全局</text>
-          <image attribute="image: ${window.location.origin}/src/image/shape_logo.png; width: 30; height: 30; id: circle-0;"></image>
-          </tc>`,
+          // text: richJsx([
+          //       <VRichText.Text attribute={{ fill: 'red', text: '测试文本' }}>富文本全局</VRichText.Text>,
+          //       <VRichText.Image attribute={{ image: `${window.location.origin}/src/image/shape_logo.png`,width: 30, height: 30,id: 'circle-0' }}/>
+          //     ]),
+          text: textHtml`<p>这是一个html字符串${version}</p>`,
+          // text: richXul`<tc>
+          // <text attribute="fill: red;">富文本全局</text>
+          // <image attribute="image: ${window.location.origin}/src/image/shape_logo.png; width: 30; height: 30; id: circle-0;"></image>
+          // </tc>`,
           opacity: 1,
           x: {
             signal: 'x'
