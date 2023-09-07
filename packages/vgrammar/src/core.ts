@@ -19,3 +19,9 @@ export {
 } from './view/constants';
 
 export { ThemeManager } from './theme/theme-manager';
+
+export * from './core';
+export * from './glyph';
+export * from './component';
+export * from './transforms';
+export * from './graph/animation/animation';

@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "build": "bundle --clean",
-    "ci": "ts-node --transpileOnly --skipProject ./scripts/trigger-test.ts"
+    "ci": "ts-node --transpileOnly --skipProject ./scripts/trigger-test.ts",
+    "analysis": "bundle -f umd -a"
   },
   "dependencies": {
     "@visactor/vgrammar": "workspace:0.6.6",
