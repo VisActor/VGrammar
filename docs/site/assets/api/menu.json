@@ -1,75 +1,84 @@
 {
-  "menu": "api",
+  "menu": "scripts",
   "children": [
     {
-      "path": "view",
+      "path": "API",
       "title": {
-        "zh": "View",
-        "en": "View"
-      }
-    },
-    {
-      "path": "signal",
-      "title": {
-        "zh": "Signal",
-        "en": "Signal"
-      }
-    },
-    {
-      "path": "data",
-      "title": {
-        "zh": "Data",
-        "en": "Data"
-      }
-    },
-    {
-      "path": "scale",
-      "title": {
-        "zh": "Scale",
-        "en": "Scale"
-      }
-    },
-    {
-      "path": "coordinate",
-      "title": {
-        "zh": "Coordinate",
-        "en": "Coordinate"
-      }
-    },
-    {
-      "path": "projection",
-      "title": {
-        "zh": "Projection",
-        "en": "Projection"
-      }
-    },
-    {
-      "path": "mark",
-      "title": {
-        "zh": "Mark",
-        "en": "Mark"
-      }
-    },
-    {
-      "path": "group-mark",
-      "title": {
-        "zh": "GroupMark",
-        "en": "GroupMark"
-      }
-    },
-    {
-      "path": "glyph-mark",
-      "title": {
-        "zh": "GlyphMark",
-        "en": "GlyphMark"
-      }
-    },
-    {
-      "path": "component",
-      "title": {
-        "zh": "Component",
-        "en": "Component"
-      }
+        "zh": "API 文档",
+        "en": "API"
+      },
+      "children": [
+        {
+          "path": "View",
+          "title": {
+            "zh": "View",
+            "en": "View"
+          }
+        },
+        {
+          "path": "Signal",
+          "title": {
+            "zh": "Signal",
+            "en": "Signal"
+          }
+        },
+        {
+          "path": "Data",
+          "title": {
+            "zh": "Data",
+            "en": "Data"
+          }
+        },
+        {
+          "path": "Scale",
+          "title": {
+            "zh": "Scale",
+            "en": "Scale"
+          }
+        },
+        {
+          "path": "Coordinate",
+          "title": {
+            "zh": "Coordinate",
+            "en": "Coordinate"
+          }
+        },
+        {
+          "path": "Mark",
+          "title": {
+            "zh": "Mark",
+            "en": "Mark"
+          }
+        },
+        {
+          "path": "GroupMark",
+          "title": {
+            "zh": "GroupMark",
+            "en": "GroupMark"
+          }
+        },
+        {
+          "path": "GlyphMark",
+          "title": {
+            "zh": "GlyphMark",
+            "en": "GlyphMark"
+          }
+        },
+        {
+          "path": "Component",
+          "title": {
+            "zh": "Component",
+            "en": "Component"
+          }
+        },
+        {
+          "path": "Projection",
+          "title": {
+            "zh": "Projection",
+            "en": "Projection"
+          }
+        }
+      ]
     }
   ]
 }

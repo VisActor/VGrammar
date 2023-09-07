@@ -95,7 +95,7 @@ function Outline(props: IOutlineProps) {
         paddingBottom: 20
       }}
     >
-      <Menu selectedKeys={[fullPath]}>
+      <Menu selectedKeys={[fullPath]} autoOpen>
         {(props.menuItems ?? []).map((node: any) => generateMenuItem(node, props.assetDirectory, language, navigate))}
       </Menu>
     </div>
@@ -112,7 +112,9 @@ function Content(props: IContentProps) {
     const code = demo[1];
     const containerId = `markdown-demo-${globalContainerId++}`;
     content = content.replace(pre, `<div id="${containerId}" class="markdown-demo"></div>`);
-    const evaluateCode = code.replace('CONTAINER_ID', `"${containerId}"`).concat(`window['${containerId}'] = vGrammarView;`);
+    const evaluateCode = code
+      .replace('CONTAINER_ID', `"${containerId}"`)
+      .concat(`window['${containerId}'] = vGrammarView;`);
     return {
       code: htmlRestore(evaluateCode),
       id: containerId
