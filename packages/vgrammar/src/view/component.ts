@@ -22,6 +22,8 @@ export class Component extends Mark implements IComponent {
   readonly componentType: string;
   protected declare spec: ComponentSpec;
 
+  protected mode?: '2d' | '3d';
+
   protected _componentDatum = { [DefaultKey]: 0 };
   protected _encoders: StateEncodeSpec;
 
@@ -29,11 +31,12 @@ export class Component extends Mark implements IComponent {
   protected _filterCallback: (event: any, element: IElement) => void;
   protected _dataFilter: IDataFilter;
 
-  constructor(view: IView, componentType: string, group?: IGroupMark) {
+  constructor(view: IView, componentType: string, group?: IGroupMark, mode?: '2d' | '3d') {
     super(view, GrammarMarkType.component, group);
     this.componentType = componentType;
     this.spec.type = 'component';
     this.spec.componentType = componentType;
+    this.mode = mode;
   }
 
   configureComponent(config: any) {
@@ -43,7 +46,7 @@ export class Component extends Mark implements IComponent {
   }
 
   addGraphicItem(attrs: any, groupKey?: string, newGraphicItem?: any) {
-    const graphicItem = newGraphicItem ?? getComponent(this.componentType).creator(attrs);
+    const graphicItem = newGraphicItem ?? getComponent(this.componentType).creator(attrs, this.mode);
     return super.addGraphicItem(attrs, groupKey, graphicItem);
   }
 
