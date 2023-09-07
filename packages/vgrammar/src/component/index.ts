@@ -62,5 +62,5 @@ export const createComponent = (
     case ComponentEnum.title:
       return new Title(view, groupMark);
   }
-  return new Component(view, componentType, groupMark);
+  return new Component(view, componentType, groupMark, mode);
 };
