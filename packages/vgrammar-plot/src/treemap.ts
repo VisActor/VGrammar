@@ -13,7 +13,7 @@ import type {
 } from '@visactor/vgrammar';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, getTransform, SIGNAL_VIEW_BOX } from '@visactor/vgrammar';
+import { GrammarMarkType, Factory, SIGNAL_VIEW_BOX } from '@visactor/vgrammar';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { BaseLabelAttrs } from '@visactor/vrender-components';
@@ -23,7 +23,7 @@ export class TreemapSemanticMark extends SemanticMark<PlotTreemapEncodeSpec, Tre
   constructor(id?: string | number) {
     super(PlotMakType.treemap, id);
 
-    if (!getTransform('treemap')) {
+    if (!Factory.getTransform('treemap')) {
       this._logger.error(
         `Please add this line of code: import { registerTreemapTransforms } from 'vgrammar-hierarchy'; 
         and run registerTreemapTransforms() before use treemap`
