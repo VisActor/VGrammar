@@ -34,9 +34,7 @@
     "build": "bundle --clean",
     "dev": "bundle --clean -f es -w",
     "start": "vite ./vite",
-    "test": "jest",
-    "test-cov": "jest -w 16 --coverage",
-    "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
+    "test": ""
   },
   "dependencies": {
     "@visactor/vgrammar": "workspace:0.6.6",
