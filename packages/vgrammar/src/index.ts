@@ -1,144 +1,26 @@
-export * from './core';
+// -- Exports -----
+export const version = __VERSION__;
 
-import View from './view/View';
-import {
-  registerAxis,
-  registerLegend,
-  registerCrosshair,
-  registerSlider,
-  registerLabel,
-  registerDataZoom,
-  registerPlayer,
-  registerTooltip,
-  registerTitle,
-  registerGrid
-} from './component';
+export * from './graph';
 
-View.useComponents([
-  registerAxis,
-  registerLegend,
-  registerCrosshair,
-  registerSlider,
-  registerLabel,
-  registerDataZoom,
-  registerPlayer,
-  registerTooltip,
-  registerTitle,
-  registerGrid
-]);
+export { View } from './view';
+export { parseFunctionType, invokeFunctionType } from './parse/util';
+export { GrammarBase } from './view/grammar-base';
+export * from './types';
+export { Factory } from './core/factory';
+export {
+  SIGNAL_AUTOFIT,
+  SIGNAL_HEIGHT,
+  SIGNAL_PADDING,
+  SIGNAL_VIEW_HEIGHT,
+  SIGNAL_VIEW_WIDTH,
+  SIGNAL_WIDTH,
+  SIGNAL_VIEW_BOX
+} from './view/constants';
 
-import {
-  registerBinTransform,
-  registerContourTransform,
-  registerSortTransform,
-  registerFilterTransform,
-  registerJoinTransform,
-  registerKdeTransform,
-  registerMapTransform,
-  registerPickTransform,
-  registerRangeTransform,
-  registerStackTransform,
-  registerFunnelTransform,
-  registerPieTransform,
-  registerCircularRelationTransform,
-  registerFoldTransform,
-  registerUnfoldTransform,
-  registerIdentifierTransform,
-  registerLttbSampleTransform,
-  registerMarkOverlapTransform,
-  registerDodgeTransform,
-  registerJitterTransform,
-  registerJitterXTransform,
-  registerJitterYTransform,
-  registerSymmetryTransform
-} from './transforms';
+export { ThemeManager } from './theme/theme-manager';
 
-View.useTransforms([
-  registerBinTransform,
-  registerContourTransform,
-  registerSortTransform,
-  registerFilterTransform,
-  registerJoinTransform,
-  registerKdeTransform,
-  registerMapTransform,
-  registerPickTransform,
-  registerRangeTransform,
-  registerStackTransform,
-  registerFunnelTransform,
-  registerPieTransform,
-  registerCircularRelationTransform,
-  registerFoldTransform,
-  registerUnfoldTransform,
-  registerIdentifierTransform,
-  registerLttbSampleTransform,
-  registerMarkOverlapTransform,
-  registerDodgeTransform,
-  registerJitterTransform,
-  registerJitterXTransform,
-  registerJitterYTransform,
-  registerSymmetryTransform
-]);
-
-import {
-  clipIn,
-  clipOut,
-  fadeIn,
-  fadeOut,
-  moveIn,
-  moveOut,
-  scaleIn,
-  scaleOut,
-  rotateIn,
-  rotateOut,
-  growCenterIn,
-  growCenterOut,
-  growWidthIn,
-  growWidthOut,
-  growHeightIn,
-  growHeightOut,
-  growAngleIn,
-  growAngleOut,
-  growRadiusIn,
-  growRadiusOut,
-  growPointsIn,
-  growPointsOut,
-  growPointsXIn,
-  growPointsXOut,
-  growPointsYIn,
-  growPointsYOut,
-  growIntervalIn,
-  growIntervalOut,
-  update
-} from './graph/animation/animation';
-
-View.useAnimations([
-  clipIn,
-  clipOut,
-  fadeIn,
-  fadeOut,
-  moveIn,
-  moveOut,
-  scaleIn,
-  scaleOut,
-  rotateIn,
-  rotateOut,
-  growCenterIn,
-  growCenterOut,
-  growWidthIn,
-  growWidthOut,
-  growHeightIn,
-  growHeightOut,
-  growAngleIn,
-  growAngleOut,
-  growRadiusIn,
-  growRadiusOut,
-  growPointsIn,
-  growPointsOut,
-  growPointsXIn,
-  growPointsXOut,
-  growPointsYIn,
-  growPointsYOut,
-  growIntervalIn,
-  growIntervalOut,
-  update
-]);
+export * from './glyph';
+export * from './component';
+export * from './transforms';
+export * from './graph/animation/animation';
