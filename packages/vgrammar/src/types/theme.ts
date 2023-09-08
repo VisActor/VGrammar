@@ -18,6 +18,7 @@ import type {
   PolygonCrosshairAttrs,
   RectCrosshairAttrs,
   RectLabelAttrs,
+  ScrollBarAttributes,
   SectorCrosshairAttrs,
   SizeLegendAttributes,
   SliderAttributes,
@@ -66,6 +67,8 @@ export interface IComponentTheme {
   tooltip?: RecursivePartial<TooltipAttributes>;
 
   title?: RecursivePartial<TitleAttrs>;
+
+  scrollbar?: RecursivePartial<ScrollBarAttributes>;
 }
 
 export interface ITheme {
