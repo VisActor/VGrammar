@@ -1,0 +1,66 @@
+{
+  "name": "@visactor/vgrammar-simple",
+  "version": "0.6.6",
+  "description": "simple package of vgrammar.",
+  "keywords": [
+    "visualization",
+    "VGrammar",
+    "storytelling",
+    "VisActor"
+  ],
+  "sideEffects": true,
+  "author": {
+    "name": "VisActor",
+    "url": "https://VisActor.io/"
+  },
+  "license": "MIT",
+  "main": "cjs/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
+  "files": [
+    "cjs",
+    "es",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./es/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "compile": "tsc --noEmit",
+    "eslint": "eslint --debug --fix src/",
+    "build": "bundle --clean",
+    "dev": "bundle --clean -f es -w",
+    "start": "vite ./vite",
+    "test": "jest",
+    "test-cov": "jest -w 16 --coverage",
+    "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
+  },
+  "dependencies": {
+    "@visactor/vgrammar": "workspace:0.6.6"
+  },
+  "devDependencies": {
+    "d3-array": "1.x",
+    "@internal/bundler": "workspace:*",
+    "@internal/eslint-config": "workspace:*",
+    "@internal/ts-config": "workspace:*",
+    "@rushstack/eslint-patch": "~1.1.4",
+    "eslint": "~8.18.0",
+    "vite": "3.2.6",
+    "typescript": "4.9.5",
+    "@types/d3-geo": "^1.11.1",
+    "@internal/jest-config": "workspace:*",
+    "jest": "~29.5.0",
+    "jest-environment-jsdom": "~29.5.0",
+    "@jest/globals": "~29.5.0",
+    "ts-jest": "~29.1.0",
+    "@types/jest": "~29.5.0",
+    "@types/node": "*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
