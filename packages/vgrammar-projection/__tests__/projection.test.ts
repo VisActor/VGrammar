@@ -1,7 +1,6 @@
-import type { IView } from '@visactor/vgrammar';
+import type { IView, FeatureCollectionData } from '@visactor/vgrammar';
 import { Projection } from '../src/index';
 import { getMockedView } from './utils';
-import type { FeatureCollectionData } from '../src/interface';
 import { collectGeoJSON } from '../src/projection';
 import { testData } from './data';
 
