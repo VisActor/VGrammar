@@ -11,6 +11,7 @@ import { Datazoom } from './datazoom';
 import { Player } from './player';
 import { DimensionTooltip, Tooltip } from './tooltip';
 import { Title } from './title';
+import { Scrollbar } from './scrollbar';
 
 export { generateLineAxisAttributes, generateCircleAxisAttributes } from './axis';
 export { generateLineAxisGridAttributes, generateCircleAxisGridAttributes } from './grid';
@@ -31,6 +32,7 @@ export { generateLabelAttributes } from './label';
 export { generateDatazoomAttributes } from './datazoom';
 export { generateContinuousPlayerAttributes, generateDiscretePlayerAttributes } from './player';
 export { generateTooltipAttributes } from './tooltip';
+export { generateTitleAttributes } from './title';
 
 export const createComponent = (
   view: IView,
@@ -61,6 +63,8 @@ export const createComponent = (
       return new DimensionTooltip(view, groupMark);
     case ComponentEnum.title:
       return new Title(view, groupMark);
+    case ComponentEnum.scrollbar:
+      return new Scrollbar(view, groupMark);
   }
   return new Component(view, componentType, groupMark);
 };

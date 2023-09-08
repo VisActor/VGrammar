@@ -50,6 +50,8 @@ export class Title extends Component implements ITitle {
 
   protected parseAddition(spec: TitleSpec) {
     super.parseAddition(spec);
+    this.title(spec.title);
+    this.subTitle(spec.subTitle);
     return this;
   }
 

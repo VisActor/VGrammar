@@ -32,6 +32,7 @@ import type {
   ILabel,
   ILegend,
   IPlayer,
+  IScrollbar,
   ISlider,
   ITitle,
   ITooltip
@@ -200,6 +201,7 @@ export interface IView {
   tooltip: (group: IGroupMark | string) => ITooltip;
   dimensionTooltip: (group: IGroupMark | string) => IDimensionTooltip;
   title: (group: IGroupMark | string) => ITitle;
+  scrollbar: (group: IGroupMark | string) => IScrollbar;
 
   addGrammar: (grammar: IGrammarBase) => this;
   removeGrammar: (grammar: string | IGrammarBase) => this;
