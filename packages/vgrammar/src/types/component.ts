@@ -13,6 +13,7 @@ import type {
   GridBaseAttributes,
   LegendBaseAttributes,
   PlayerAttributes,
+  ScrollBarAttributes,
   SliderAttributes,
   TitleAttrs,
   TooltipAttributes,
@@ -302,6 +303,17 @@ export interface TitleSpec extends ComponentSpec<Partial<TitleAttrs>> {
   componentType: ComponentEnum.title;
   title?: MarkFunctionType<string | string[]>;
   subTitle?: MarkFunctionType<string | string[]>;
+}
+
+// scrollbar component
+
+export interface IScrollbar extends IComponent {
+  target: (container: IMark | string | Nil) => this;
+}
+
+export interface ScrollbarSpec extends ComponentSpec<Partial<ScrollBarAttributes>> {
+  componentType: ComponentEnum.scrollbar;
+  target?: IMark | string;
 }
 
 // built-in components

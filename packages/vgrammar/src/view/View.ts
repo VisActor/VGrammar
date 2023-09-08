@@ -96,6 +96,7 @@ import type {
   ILabel,
   ILegend,
   IPlayer,
+  IScrollbar,
   ISlider,
   ITitle,
   ITooltip
@@ -358,6 +359,10 @@ export default class View extends EventEmitter implements IView {
 
   title(group: IGroupMark | string) {
     return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.title }) as ITitle;
+  }
+
+  scrollbar(group: IGroupMark | string) {
+    return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.scrollbar }) as IScrollbar;
   }
 
   customized(type: string, spec: any) {
