@@ -19,5 +19,3 @@ export const registerGeoTransforms = () => {
     true
   );
 };
-
-export * from './interface';
