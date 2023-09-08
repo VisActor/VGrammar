@@ -83,6 +83,20 @@
       "versionPolicyName": "vgrammarMain"
     },
     {
+      "packageName": "@visactor/vgrammar-full",
+      "projectFolder": "packages/vgrammar-full",
+      "tags": ["package"],
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
+    },
+    {
+      "packageName": "@visactor/vgrammar-simple",
+      "projectFolder": "packages/vgrammar-simple",
+      "tags": ["package"],
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
+    },
+    {
       "packageName": "@internal/bundler",
       "projectFolder": "tools/bundler",
       "tags": ["tool"],
