@@ -174,13 +174,7 @@ export default class View extends EventEmitter implements IView {
   private _cursorValue?: { user: string; element: IElement };
   private _observer: ResizeObserver = null;
 
-  static useComponents(comps: (() => void)[]) {
-    comps.forEach((fn: () => void) => {
-      fn();
-    });
-  }
-
-  static useTransforms(comps: (() => void)[]) {
+  static useRegisters(comps: (() => void)[]) {
     comps.forEach((fn: () => void) => {
       fn();
     });
