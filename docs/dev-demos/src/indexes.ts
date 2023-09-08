@@ -496,6 +496,11 @@ export const indexes = [
         path: 'title',
         name: '[组件]title',
         type: 'api'
+      },
+      {
+        path: 'scrollbar',
+        name: '[组件]scrollbar',
+        type: 'api'
       }
     ]
   },
