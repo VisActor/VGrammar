@@ -54,10 +54,9 @@ export const generateLabelAttributes = (
           return null;
       }
       const data: any[] = [];
-      // process by order of elements
-      mark.elements.forEach(element => {
-        const graphicItem = element.getGraphicItem();
-        if ((graphicItem as any).releaseStatus !== 'willRelease') {
+      mark.graphicItem.forEachChildren(child => {
+        if ((child as any).releaseStatus !== 'willRelease') {
+          const element: IElement = child[BridgeElementKey];
           const attributes = invokeEncoder(encoder, element.getDatum(), element, parameters);
           const datum = merge({}, theme.data[0], attributes);
           data.push(datum);
