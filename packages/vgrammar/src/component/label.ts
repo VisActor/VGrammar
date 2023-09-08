@@ -18,7 +18,6 @@ import { ComponentEnum, GrammarMarkType } from '../graph';
 import type { ILabel, LabelSpec } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
-import { BridgeElementKey } from '../graph/constants';
 import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
 
@@ -59,9 +58,10 @@ export const generateLabelAttributes = (
           break;
       }
       const data: any[] = [];
-      mark.graphicItem.forEachChildren(child => {
-        if ((child as any).releaseStatus !== 'willRelease') {
-          const element: IElement = child[BridgeElementKey];
+      // process by order of elements
+      mark.elements.forEach(element => {
+        const graphicItem = element.getGraphicItem();
+        if ((graphicItem as any).releaseStatus !== 'willRelease') {
           const attributes = invokeEncoder(encoder, element.getDatum(), element, parameters);
           const datum = merge({}, currentTheme?.data?.[0] ?? {}, attributes);
           data.push(datum);
@@ -69,7 +69,19 @@ export const generateLabelAttributes = (
       });
       const addition = invokeFunctionType(labelStyle, parameters, mark);
       const graphicItemName = mark.graphicItem?.name;
-      return merge({}, currentTheme, { data, baseMarkGroupName: graphicItemName }, addition ?? {});
+      return merge(
+        {},
+        currentTheme,
+        {
+          data,
+          baseMarkGroupName: graphicItemName,
+          // FIXME: hack
+          // 标签是对数据顺序有强要求的场景，因为顺序会影响标签躲避结果；而目前没有机制保证 vrender 图元顺序与数据顺序一致。
+          // 这里目前只能通过自定义方法来 hack
+          getBaseMarks: () => mark.elements.map(element => element.getGraphicItem())
+        },
+        addition ?? {}
+      );
     })
     .filter(label => !isNil(label));
   return merge({}, labelTheme, { size: groupSize, dataLabels });
