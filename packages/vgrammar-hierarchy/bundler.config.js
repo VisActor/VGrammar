@@ -2,7 +2,7 @@
  * @type {Partial<import('@internal/bundler').Config>}
  */
 module.exports = {
-  formats: ['cjs', 'es', 'umd'],
+  formats: ['cjs', 'es'],
   name: 'VGrammar.Hierarchy',
   external: ['@visactor/vgrammar', '@visactor/vgrammar-util', '@visactor/vutils', '@visactor/vrender'],
   globals: {

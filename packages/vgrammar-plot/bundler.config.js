@@ -2,8 +2,8 @@
  * @type {Partial<import('@internal/bundler').Config>}
  */
 module.exports = {
-  formats: ['cjs', 'es', 'umd'],
-  name: 'VGrammar.Projection',
+  formats: ['cjs', 'es'],
+  name: 'VGrammar.Plot',
   umdOutputFilename: 'index',
   globals: {
     '@visactor/vgrammar': 'VGrammar',
