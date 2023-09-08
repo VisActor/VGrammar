@@ -9,15 +9,7 @@
     "analysis": "bundle -f umd -a"
   },
   "dependencies": {
-    "@visactor/vgrammar": "workspace:0.6.6",
-    "@visactor/vgrammar-hierarchy": "workspace:0.6.6",
-    "@visactor/vgrammar-sankey": "workspace:0.6.6",
-    "@visactor/vgrammar-projection": "workspace:0.6.6",
-    "@visactor/vgrammar-wordcloud": "workspace:0.6.6",
-    "@visactor/vgrammar-wordcloud-shape": "workspace:0.6.6",
-    "@visactor/vgrammar-plot": "workspace:0.6.6",
-    "@visactor/vutils": "~0.15.9",
-    "@visactor/vrender": "0.15.0-alpha.14"
+    "@visactor/vgrammar-full": "workspace:0.6.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "~1.1.4",

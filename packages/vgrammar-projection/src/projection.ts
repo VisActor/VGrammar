@@ -10,10 +10,17 @@
 import { array, isFunction, isNil } from '@visactor/vutils';
 import { error } from '@visactor/vgrammar-util';
 import { projection, projectionProperties } from './projections';
-import type { IView, IGrammarBase, Nil } from '@visactor/vgrammar';
+import type {
+  IView,
+  IGrammarBase,
+  Nil,
+  FeatureCollectionData,
+  FeatureData,
+  IProjection,
+  ProjectionSpec
+} from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
 import { GrammarBase, parseFunctionType, invokeFunctionType } from '@visactor/vgrammar';
-import type { FeatureCollectionData, FeatureData, IProjection, ProjectionSpec } from './interface';
 
 const Feature = 'Feature';
 const FeatureCollection = 'FeatureCollection';
