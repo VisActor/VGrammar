@@ -10,8 +10,10 @@ import type {
   BaseLabelAttrs,
   DataLabelAttrs,
   DataZoomAttributes,
+  Direction,
   GridBaseAttributes,
   LegendBaseAttributes,
+  OrientType,
   PlayerAttributes,
   ScrollBarAttributes,
   SliderAttributes,
@@ -21,7 +23,7 @@ import type {
 } from '@visactor/vrender-components';
 import type { AxisEnum, ComponentEnum } from '../graph';
 import type { Nil } from './base';
-import type { IComponent, IData, IMark, IScale } from './grammar';
+import type { IComponent, IData, IGroupMark, IMark, IScale } from './grammar';
 import type {
   ChannelEncodeType,
   ComponentSpec,
@@ -308,12 +310,16 @@ export interface TitleSpec extends ComponentSpec<Partial<TitleAttrs>> {
 // scrollbar component
 
 export interface IScrollbar extends IComponent {
-  target: (container: IMark | string | Nil) => this;
+  target: (container: IGroupMark | string | Nil) => this;
+  direction: (direction: MarkFunctionType<Direction> | Nil) => this;
+  position: (position: MarkFunctionType<OrientType> | Nil) => this;
 }
 
 export interface ScrollbarSpec extends ComponentSpec<Partial<ScrollBarAttributes>> {
   componentType: ComponentEnum.scrollbar;
-  target?: IMark | string;
+  target?: IGroupMark | string;
+  direction?: MarkFunctionType<Direction>;
+  position?: MarkFunctionType<OrientType>;
 }
 
 // built-in components

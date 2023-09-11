@@ -1,6 +1,6 @@
 import { isString, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
-import type { ScrollBarAttributes } from '@visactor/vrender-components';
+import type { Direction, OrientType, ScrollBarAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { ScrollBar as ScrollbarComponent } from '@visactor/vrender-components';
 import { getComponent, registerComponent } from '../view/register-component';
@@ -8,29 +8,107 @@ import type {
   BaseSignleEncodeSpec,
   IElement,
   IGroupMark,
-  IMark,
   ITheme,
   IView,
+  MarkFunctionType,
   Nil,
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { ComponentEnum } from '../graph';
+import { ComponentEnum, GrammarMarkType } from '../graph';
 import type { IScrollbar, ScrollbarSpec } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
+import { invokeFunctionType } from '../parse/util';
 
 registerComponent(
   ComponentEnum.scrollbar,
   (attrs: ScrollBarAttributes) => new ScrollbarComponent(attrs) as unknown as IGraphic
 );
 
+function isValidDirection(direction: Direction) {
+  return direction === 'vertical' || direction === 'horizontal';
+}
+
+function isValidPosition(position: OrientType) {
+  return position === 'top' || position === 'bottom' || position === 'left' || position === 'right';
+}
+
+function isHorizontalPosition(position: OrientType) {
+  return position === 'top' || position === 'bottom';
+}
+
 export const generateScrollbarAttributes = (
+  groupSize: { width: number; height: number },
+  direction?: Direction,
+  position?: OrientType,
   theme?: ITheme,
   addition?: RecursivePartial<ScrollBarAttributes>
 ): ScrollBarAttributes => {
   const scrollbarTheme = theme?.components?.scrollbar;
-  const attributes: RecursivePartial<ScrollBarAttributes> = {};
+
+  let finalDirection: Direction = 'horizontal';
+  let finalPosition: OrientType = 'bottom';
+  if (!isValidDirection(direction) && !isValidPosition(position)) {
+    finalDirection = 'horizontal';
+    finalPosition = 'bottom';
+  } else if (!isValidDirection(direction) && isValidPosition(position)) {
+    finalDirection = isHorizontalPosition(position) ? 'horizontal' : 'vertical';
+    finalPosition = position;
+  } else if (isValidDirection(direction) && !isValidPosition(position)) {
+    finalDirection = direction;
+    finalPosition = direction === 'horizontal' ? 'bottom' : 'right';
+  } else {
+    finalDirection = direction;
+    finalPosition =
+      direction === 'horizontal' && !isHorizontalPosition(position)
+        ? 'bottom'
+        : direction === 'vertical' && isHorizontalPosition(position)
+        ? 'right'
+        : position;
+  }
+
+  const attributes: RecursivePartial<ScrollBarAttributes> = { direction: finalDirection };
+  if (finalDirection === 'horizontal') {
+    const size = addition.height ?? scrollbarTheme?.height ?? 12;
+
+    // top or bottom
+    if (finalPosition === 'top') {
+      Object.assign(attributes, {
+        width: groupSize.width,
+        height: size,
+        x: 0,
+        y: 0
+      });
+    } else {
+      Object.assign(attributes, {
+        width: groupSize.width,
+        height: size,
+        x: 0,
+        y: groupSize.height - size
+      });
+    }
+  } else {
+    const size = addition.width ?? scrollbarTheme?.width ?? 12;
+
+    // left or right
+    if (finalPosition === 'left') {
+      Object.assign(attributes, {
+        width: size,
+        height: groupSize.height,
+        x: 0,
+        y: 0
+      });
+    } else {
+      Object.assign(attributes, {
+        width: size,
+        height: groupSize.height,
+        x: groupSize.width - size,
+        y: 0
+      });
+    }
+  }
+
   return merge({}, scrollbarTheme, attributes, addition ?? {});
 };
 
@@ -45,10 +123,12 @@ export class Scrollbar extends Component implements IScrollbar {
   protected parseAddition(spec: ScrollbarSpec) {
     super.parseAddition(spec);
     this.target(spec.target);
+    this.direction(spec.direction);
+    this.position(spec.position);
     return this;
   }
 
-  target(container: IMark | string | Nil): this {
+  target(container: IGroupMark | string | Nil): this {
     if (this.spec.target) {
       const prevContainer = isString(this.spec.target) ? this.view.getMarkById(this.spec.target) : this.spec.target;
       this.detach(prevContainer);
@@ -60,6 +140,14 @@ export class Scrollbar extends Component implements IScrollbar {
     }
     this.commit();
     return this;
+  }
+
+  direction(direction: MarkFunctionType<Direction> | Nil) {
+    return this.setFunctionSpec(direction, 'direction');
+  }
+
+  position(position: MarkFunctionType<OrientType> | Nil) {
+    return this.setFunctionSpec(position, 'position');
   }
 
   addGraphicItem(attrs: any, groupKey?: string) {
@@ -77,8 +165,23 @@ export class Scrollbar extends Component implements IScrollbar {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
             const theme = this.view.getCurrentTheme();
+            const direction = invokeFunctionType(this.spec.direction, parameters, datum, element);
+            const position = invokeFunctionType(this.spec.position, parameters, datum, element);
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
-            return generateScrollbarAttributes(theme, addition);
+            const targetMark = this.spec.target
+              ? isString(this.spec.target)
+                ? this.view.getMarkById(this.spec.target)
+                : this.spec.target
+              : null;
+            const groupMark = targetMark && targetMark.markType === GrammarMarkType.group ? targetMark : this.group;
+            const groupGraphicItem = groupMark.getGroupGraphicItem();
+            const size = groupGraphicItem
+              ? {
+                  width: groupGraphicItem.attribute.width ?? groupGraphicItem.AABBBounds.width(),
+                  height: groupGraphicItem.attribute.height ?? groupGraphicItem.AABBBounds.height()
+                }
+              : { width: this.view.width(), height: this.view.height() };
+            return generateScrollbarAttributes(size, direction, position, theme, addition); // direction, position,
           }
         };
       }
