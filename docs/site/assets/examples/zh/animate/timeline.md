@@ -13,7 +13,7 @@ cover: /vgrammar/preview/animate-timeline_0.6.5.png
 ## 代码演示
 
 ```javascript livedemo template=vgrammar
-VGrammar.registerGlyph('event', {
+VGrammar.Factory.registerGlyph('event', {
   label: 'text',
   event: 'text',
   dot: 'symbol',

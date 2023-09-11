@@ -52,12 +52,12 @@ importers:
       '@types/markdown-it': ^13.0.0
       '@types/react': ^18.0.0
       '@types/react-dom': ^18.0.0
-      '@visactor/vgrammar': workspace:0.6.6
       '@visactor/vgrammar-coordinate': workspace:0.6.6
       '@visactor/vgrammar-hierarchy': workspace:0.6.6
       '@visactor/vgrammar-plot': workspace:0.6.6
       '@visactor/vgrammar-projection': workspace:0.6.6
       '@visactor/vgrammar-sankey': workspace:0.6.6
+      '@visactor/vgrammar-simple': workspace:0.6.6
       '@visactor/vgrammar-util': workspace:0.6.6
       '@visactor/vgrammar-wordcloud': workspace:0.6.6
       '@visactor/vgrammar-wordcloud-shape': workspace:0.6.6
@@ -84,12 +84,12 @@ importers:
       yargs: ^17.1.1
     dependencies:
       '@arco-design/web-react': 2.46.1_vnxzf5c44dqo4vncfl2mrh2gwm
-      '@visactor/vgrammar': link:../../packages/vgrammar
       '@visactor/vgrammar-coordinate': link:../../packages/vgrammar-coordinate
       '@visactor/vgrammar-hierarchy': link:../../packages/vgrammar-hierarchy
       '@visactor/vgrammar-plot': link:../../packages/vgrammar-plot
       '@visactor/vgrammar-projection': link:../../packages/vgrammar-projection
       '@visactor/vgrammar-sankey': link:../../packages/vgrammar-sankey
+      '@visactor/vgrammar-simple': link:../../packages/vgrammar-simple
       '@visactor/vgrammar-util': link:../../packages/vgrammar-util
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
