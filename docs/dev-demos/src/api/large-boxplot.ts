@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import type { IView } from '@visactor/vgrammar';
+import type { IView } from '@visactor/vgrammar-simple';
 // eslint-disable-next-line no-duplicate-imports
-import { registerBoxplotGlyph, registerBarBoxplotGlyph } from '@visactor/vgrammar';
+import { registerBoxplotGlyph, registerBarBoxplotGlyph } from '@visactor/vgrammar-simple';
 import { category20 } from '../color-utils';
 
 const originData = [

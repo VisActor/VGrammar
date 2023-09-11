@@ -1,4 +1,4 @@
-import type { IView } from '@visactor/vgrammar';
+import type { IView } from '@visactor/vgrammar-simple';
 import { category10, category20 } from '../color-utils';
 
 const getValues = (size: number) => {

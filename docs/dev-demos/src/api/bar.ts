@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { View, AnimationEvent } from '@visactor/vgrammar';
+import type { View, AnimationEvent } from '@visactor/vgrammar-simple';
 import type { IBandLikeScale } from '@visactor/vscale';
 
 export const runner = (view: View) => {

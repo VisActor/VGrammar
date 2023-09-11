@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { builtinSymbolsMap, CustomPath2D, CurveContext, StreamLight, MotionPath } from '@visactor/vrender';
-import type { IMark, IView } from '@visactor/vgrammar';
+import type { IMark, IView } from '@visactor/vgrammar-simple';
 
 export const runner = (view: IView) => {
   const bar = view.mark('rect', view.rootMark).id('leftBar').encode({

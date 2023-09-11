@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { IView, IPlot } from '@visactor/vgrammar';
+import type { IView, IPlot } from '@visactor/vgrammar-simple';
 
 const data = [
   { year: 1700, exports: 35, imports: 70 },
