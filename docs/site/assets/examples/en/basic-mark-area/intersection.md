@@ -12,7 +12,7 @@ cover: /vgrammar/preview/basic-mark-area-intersection_0.6.5.png
 
 ```javascript livedemo template=vgrammar
 const { createGroup, createLine, createText } = VRender;
-const { registerTransform } = VGrammar;
+const { Factory } = VGrammar;
 const { getIntersectPoint, isNil } = VisUtil;
 
 const intersectionTransform = (options, upstreamData) => {
@@ -155,7 +155,7 @@ const intersectionTransform = (options, upstreamData) => {
   return upstreamData;
 };
 
-registerTransform('areaIntersection', { transform: intersectionTransform, markPhase: 'afterEncodeItems' });
+Factory.registerTransform('areaIntersection', { transform: intersectionTransform, markPhase: 'afterEncodeItems' });
 
 const spec = {
   padding: { top: 5, right: 5, bottom: 30, left: 60 },
