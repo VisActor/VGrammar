@@ -11,7 +11,7 @@ cover: /vgrammar/preview/glyph-mark-candle_0.6.5.png
 ## 代码演示
 
 ```javascript livedemo template=vgrammar
-VGrammar.registerGlyph('candle', {
+VGrammar.Factory.registerGlyph('candle', {
   minMax: 'rule',
   startEnd: 'rect'
 })

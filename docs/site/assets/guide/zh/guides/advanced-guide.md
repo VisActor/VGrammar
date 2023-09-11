@@ -42,14 +42,14 @@ export const filter = (
 
 ### 注册
 
-注册 transform 只需要调用`registerTransform`进行注册
+注册 transform 只需要调用`Factory.registerTransform()`进行注册
 
 示例：
 
 ```ts
-import { registerTransform } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 
-registerTransform('filter2', {
+Factory.registerTransform('filter2', {
   transform: filter,
   markPhase: 'beforeJoin'
 });
@@ -88,9 +88,9 @@ VGrammar 内置了一些常见的组合图元，当基础图元以及内置的�
 例如`wave`图元是由三条面积填充线组成的，所以我们实现的代码如下：
 
 ```ts
-import { registerGlyph } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 
-const waveGlyphMeta = registerGlyph('wave', {
+const waveGlyphMeta = Factory.registerGlyph('wave', {
   wave0: 'area',
   wave1: 'area',
   wave2: 'area'
