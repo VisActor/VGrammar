@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat(vgrammar): support scrollbar component",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
