@@ -41,31 +41,47 @@ export const runner = (view: IView) => {
     clip: true
   });
 
-  const clipXScrollbar = view.scrollbar(view.rootMark).encode({
-    x: 0,
-    y: 200 - 12,
-    width: 200,
-    height: 12,
-    padding: [2, 0],
-    railStyle: {
-      fill: 'rgba(0, 0, 0, .1)'
-    },
-    range: [0, 200 / 350],
-    zIndex: 10
-  });
-  const clipYScrollbar = view.scrollbar(view.rootMark).encode({
-    direction: 'vertical',
-    x: 200 - 12,
-    y: 0,
-    width: 12,
-    height: 200,
-    padding: [0, 2],
-    railStyle: {
-      fill: 'rgba(0, 0, 0, .1)'
-    },
-    range: [0, 200 / 350],
-    zIndex: 10
-  });
+  // const clipXScrollbar = view.scrollbar(windowGroup).configure({ 'zIndex': 10 }).encode({
+  //   x: 0,
+  //   y: 200 - 12,
+  //   width: 200,
+  //   height: 12,
+  //   padding: [2, 0],
+  //   railStyle: {
+  //     fill: 'rgba(0, 0, 0, .1)'
+  //   },
+  //   range: [0, 200 / 350],
+  // });
+  // const clipYScrollbar = view.scrollbar(windowGroup).configure({ 'zIndex': 10 }).encode({
+  //   direction: 'vertical',
+  //   x: 200 - 12,
+  //   y: 0,
+  //   width: 12,
+  //   height: 200,
+  //   padding: [0, 2],
+  //   railStyle: {
+  //     fill: 'rgba(0, 0, 0, .1)'
+  //   },
+  //   range: [0, 200 / 350],
+  // });
+  const clipXScrollbar = view
+    .scrollbar(windowGroup)
+    .direction('horizontal')
+    .position('bottom')
+    // .position('top')
+    .configure({ 'zIndex': 10 })
+    .encode({
+      range: [0, 200 / 350],
+    });
+  const clipYScrollbar = view
+    .scrollbar(windowGroup)
+    .direction('vertical')
+    .position('right')
+    // .position('left')
+    .configure({ 'zIndex': 10 })
+    .encode({
+      range: [0, 200 / 350],
+    });
 
   const clipXSignal = view.signal([0, 200 / 350]);
   const clipYSignal = view.signal([0, 200 / 350]);
