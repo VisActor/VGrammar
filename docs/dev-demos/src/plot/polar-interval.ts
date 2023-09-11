@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { IView, IPlot } from '@visactor/vgrammar';
+import type { IView, IPlot } from '@visactor/vgrammar-simple';
 
 const originData = [
   { category: 'A', amount: 2328, index: 0, type: 'A' },

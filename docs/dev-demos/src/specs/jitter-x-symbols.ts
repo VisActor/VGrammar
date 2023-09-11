@@ -1,4 +1,4 @@
-import type { IView } from '@visactor/vgrammar';
+import type { IView } from '@visactor/vgrammar-simple';
 import data from '../data/diamond.json';
 
 export const spec = {

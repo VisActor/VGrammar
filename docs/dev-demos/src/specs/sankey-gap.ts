@@ -1,5 +1,5 @@
 import { registerSankeyTransforms, formatLinkPolygon, formatLinkPath } from '@visactor/vgrammar-sankey';
-import { registerLinkPathGlyph } from '@visactor/vgrammar';
+import { registerLinkPathGlyph } from '@visactor/vgrammar-simple';
 import data from '../data/sankey-simple.json';
 
 registerSankeyTransforms();

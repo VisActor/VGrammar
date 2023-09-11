@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { IView, IPlot } from '@visactor/vgrammar';
+import type { IView, IPlot } from '@visactor/vgrammar-simple';
 import { category10 } from '../color-utils';
 
 const data = [

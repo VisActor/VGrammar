@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { View, ISignal, registerGlyph } from '@visactor/vgrammar';
+import { View, ISignal, registerGlyph } from '@visactor/vgrammar-simple';
 
 const glyphMeta = registerGlyph(
   'testGlyph',

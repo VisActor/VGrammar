@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { IView } from '@visactor/vgrammar';
+import type { IView } from '@visactor/vgrammar-simple';
 
 export const spec = {
   width: 500,

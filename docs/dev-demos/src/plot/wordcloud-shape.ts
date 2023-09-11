@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { type IView, type IPlot, ThemeManager } from '@visactor/vgrammar';
+import { type IView, type IPlot, ThemeManager } from '@visactor/vgrammar-simple';
 import data from '../data/wordcloud/fewData.json';
 import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-shape';
 

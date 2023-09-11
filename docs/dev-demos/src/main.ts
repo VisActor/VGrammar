@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import './style.css';
-import { View } from '@visactor/vgrammar';
+import { View } from '@visactor/vgrammar-simple';
 import { Plot } from '@visactor/vgrammar-plot';
 import { indexes } from './indexes';
 import { createBinds } from './bind-helpers';
@@ -113,7 +113,7 @@ const performanceTimes = {
 };
 
 const createChartBySpec = (spec: any) => {
-  if (chartInstance && chartInstance._dataflow) {
+  if (chartInstance) {
     chartInstance.release();
   }
   const start = performance.now();
@@ -325,7 +325,7 @@ const createChartBySpec = (spec: any) => {
 };
 
 const createChartByAPI = (runner: any) => {
-  if (chartInstance && chartInstance._dataflow) {
+  if (chartInstance) {
     chartInstance.release();
   }
 
@@ -347,7 +347,7 @@ const createChartByAPI = (runner: any) => {
 };
 
 const createChartByPlot = (runner: any) => {
-  if (chartInstance && chartInstance._dataflow) {
+  if (chartInstance) {
     chartInstance.release();
   }
 
