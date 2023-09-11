@@ -13,7 +13,7 @@ We have implemented the display of event points through custom `glyphs`, and the
 ## Code Demo
 
 ```javascript livedemo template=vgrammar
-VGrammar.registerGlyph('event', {
+VGrammar.Factory.registerGlyph('event', {
   label: 'text',
   event: 'text',
   dot: 'symbol',

@@ -42,14 +42,14 @@ export const filter = (
 
 ### Registration
 
-To register a transform, just call `registerTransform` for registration.
+To register a transform, just call `Factory.registerTransform()` for registration.
 
 Example:
 
 ```ts
-import { registerTransform } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 
-registerTransform('filter2', {
+Factory.registerTransform('filter2', {
   transform: filter,
   markPhase: 'beforeJoin'
 });
@@ -87,9 +87,9 @@ VGrammar has some built-in composite glyphs. When basic glyphs and built-in comp
 Taking the built-in `wave` composite glyph as an example, when implementing a custom composite glyph, first, we need to register a globally unique `name` and the types and `name` of the basic glyphs that make up the glyph. For example, the `wave` glyph is composed of three area-filled lines, so our implementation code is as follows:
 
 ```ts
-import { registerGlyph } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 
-const waveGlyphMeta = registerGlyph('wave', {
+const waveGlyphMeta = Factory.registerGlyph('wave', {
   wave0: 'area',
   wave1: 'area',
   wave2: 'area'

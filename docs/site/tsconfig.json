@@ -25,6 +25,9 @@
       "path": "../../packages/vgrammar"
     },
     {
+      "path": "../../packages/vgrammar-simple"
+    },
+    {
       "path": "../../packages/vgrammar-coordinate"
     },
     {

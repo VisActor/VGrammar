@@ -69,12 +69,12 @@ TreePath has a similar meaning to LinkPath, used to display connections without 
 
 In VGrammar, developers can not only use the built-in composite glyphs mentioned above, but also create richer visualization effects by combining existing basic glyphs.
 
-The combination of glyphs lies in the combination of visual channels. Developers can register the glyph type through the `registerGlyph` interface, and declare the default visual channels as well as specific visual channels. By default, all glyph glyph visual channels will be applied to all child glyphs. Developers can freely change the application logic of visual channels in child glyphs, such as declaring an additional `color` visual channel and applying it to the `fill` channel of the child rect glyph and the `stroke` channel of the child rule glyph.
+The combination of glyphs lies in the combination of visual channels. Developers can register the glyph type through the `Factory.registerGlyph()` interface, and declare the default visual channels as well as specific visual channels. By default, all glyph glyph visual channels will be applied to all child glyphs. Developers can freely change the application logic of visual channels in child glyphs, such as declaring an additional `color` visual channel and applying it to the `fill` channel of the child rect glyph and the `stroke` channel of the child rule glyph.
 
 Declare a simple K-line chart composite glyph example:
 
 ```js
-registerGlyph('candle', {
+Factory.registerGlyph('candle', {
   minMax: 'rule',
   startEnd: 'rect'
 })
