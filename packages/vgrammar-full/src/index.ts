@@ -25,6 +25,7 @@ import {
   registerTooltip,
   registerTitle,
   registerGrid,
+  registerScrollbar,
   // animations
   clipIn,
   clipOut,
@@ -92,6 +93,7 @@ View.useRegisters([
   registerTooltip,
   registerTitle,
   registerGrid,
+  registerScrollbar,
 
   registerBinTransform,
   registerContourTransform,

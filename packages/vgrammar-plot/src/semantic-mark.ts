@@ -53,7 +53,7 @@ import type {
   SemanticTooltipContentItem
 } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
-import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager } from '@visactor/vgrammar';
+import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager, Factory } from '@visactor/vgrammar';
 import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -170,6 +170,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
   axis(channel: string, option: SemanticAxisOption | boolean = true, layout?: MarkRelativeItemSpec) {
+    if (!Factory.hasComponent('axis')) {
+      this._logger.error(
+        `Please add this line of code: import { registerAxis } from '@visactor/vgrammar'; 
+        and run "registerAxis();" or "View.useRegisters(registerAxis);" `
+      );
+
+      return this;
+    }
+
     if (!this.spec.axis) {
       this.spec.axis = {};
     }
@@ -178,6 +187,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
   legend(channel: string, option: SemanticLegendOption | boolean = true, layout?: MarkRelativeItemSpec) {
+    if (!Factory.hasComponent('legend')) {
+      this._logger.error(
+        `Please add this line of code: import { registerLegend } from '@visactor/vgrammar'; 
+        and run "registerLegend();" or "View.useRegisters(registerLegend);" `
+      );
+
+      return this;
+    }
+
     if (!this.spec.legend) {
       this.spec.legend = {};
     }
@@ -187,6 +205,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
   crosshair(channel: string, option?: SemanticCrosshairOption | boolean) {
+    if (!Factory.hasComponent('crosshair')) {
+      this._logger.error(
+        `Please add this line of code: import { registerCrosshair } from '@visactor/vgrammar'; 
+        and run "registerCrosshair();" or "View.useRegisters(registerCrosshair);" `
+      );
+
+      return this;
+    }
+
     if (!this.spec.crosshair) {
       this.spec.crosshair = {};
     }
@@ -196,12 +223,30 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
   tooltip(option: SemanticTooltipOption | boolean) {
+    if (!Factory.hasComponent('tooltip')) {
+      this._logger.error(
+        `Please add this line of code: import { registerTooltip } from '@visactor/vgrammar'; 
+        and run "registerTooltip();" or "View.useRegisters(registerTooltip);" `
+      );
+
+      return this;
+    }
+
     this.spec.tooltip = option;
 
     return this;
   }
 
   slider(channel: string, option?: SemanticSliderOption | boolean, layout?: MarkRelativeItemSpec) {
+    if (!Factory.hasComponent('slider')) {
+      this._logger.error(
+        `Please add this line of code: import { registerSlider } from '@visactor/vgrammar'; 
+        and run "registerSlider();" or "View.useRegisters(registerSlider);" `
+      );
+
+      return this;
+    }
+
     if (!this.spec.slider) {
       this.spec.slider = {};
     }
@@ -211,6 +256,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
   datazoom(channel: string, option?: SemanticDataZoomOption | boolean, layout?: MarkRelativeItemSpec) {
+    if (!Factory.hasComponent('datazoom')) {
+      this._logger.error(
+        `Please add this line of code: import { registerDataZoom } from '@visactor/vgrammar'; 
+        and run "registerDataZoom();" or "View.useRegisters(registerDataZoom);" `
+      );
+
+      return this;
+    }
+
     if (!this.spec.datazoom) {
       this.spec.datazoom = {};
     }
@@ -220,6 +274,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
   label(channel: string, option?: SemanticLabelOption | boolean) {
+    if (!Factory.hasComponent('label')) {
+      this._logger.error(
+        `Please add this line of code: import { registerLabel } from '@visactor/vgrammar'; 
+        and run "registerLabel();" or "View.useRegisters(registerLabel);" `
+      );
+
+      return this;
+    }
+
     if (!this.spec.label) {
       this.spec.label = {};
     }
@@ -229,6 +292,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this;
   }
   player(data?: any[], option?: SemanticPlayerOption | boolean, layout?: MarkRelativeItemSpec) {
+    if (!Factory.hasComponent('player')) {
+      this._logger.error(
+        `Please add this line of code: import { registerPlayer } from '@visactor/vgrammar'; 
+        and run "registerPlayer();" or "View.useRegisters(registerPlayer);" `
+      );
+
+      return this;
+    }
+
     this.spec.player = { data, option, layout };
 
     return this;

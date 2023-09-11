@@ -51,6 +51,10 @@ export class Factory {
     return new Ctor(view, group, mode);
   }
 
+  static hasComponent(componentType: string) {
+    return !!Factory._components[componentType];
+  }
+
   static registerGraphicComponent(key: string, creator: (attrs: any, mode?: '2d' | '3d') => IGraphic) {
     Factory._graphicComponents[key] = creator;
   }
