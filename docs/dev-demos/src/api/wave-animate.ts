@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import type { View } from '@visactor/vgrammar';
-import { registerRippleGlyph, registerWaveGlyph } from '@visactor/vgrammar';
+import type { View } from '@visactor/vgrammar-simple';
+import { registerRippleGlyph, registerWaveGlyph } from '@visactor/vgrammar-simple';
 
 registerRippleGlyph();
 registerWaveGlyph();

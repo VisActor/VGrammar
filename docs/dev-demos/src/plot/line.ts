@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { IView, IPlot } from '@visactor/vgrammar';
+import type { IView, IPlot } from '@visactor/vgrammar-simple';
 
 const data = [
   { Symbol: 'AMZN', Date: '2016-01-04', Close: 636.98999 },

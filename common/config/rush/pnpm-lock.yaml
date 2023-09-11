@@ -15,6 +15,7 @@ importers:
       '@visactor/vgrammar-plot': workspace:0.6.6
       '@visactor/vgrammar-projection': workspace:0.6.6
       '@visactor/vgrammar-sankey': workspace:0.6.6
+      '@visactor/vgrammar-simple': workspace:0.6.6
       '@visactor/vgrammar-util': workspace:0.6.6
       '@visactor/vgrammar-wordcloud': workspace:0.6.6
       '@visactor/vgrammar-wordcloud-shape': workspace:0.6.6
@@ -33,6 +34,7 @@ importers:
       '@visactor/vgrammar-plot': link:../../packages/vgrammar-plot
       '@visactor/vgrammar-projection': link:../../packages/vgrammar-projection
       '@visactor/vgrammar-sankey': link:../../packages/vgrammar-sankey
+      '@visactor/vgrammar-simple': link:../../packages/vgrammar-simple
       '@visactor/vgrammar-util': link:../../packages/vgrammar-util
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
