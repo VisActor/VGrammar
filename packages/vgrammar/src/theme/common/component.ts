@@ -22,7 +22,8 @@ import type {
   BaseLabelAttrs,
   TitleAttrs,
   LineAxisGridAttributes,
-  CircleAxisGridAttributes
+  CircleAxisGridAttributes,
+  ScrollBarAttributes
 } from '@visactor/vrender-components';
 import type { IComponentTheme, RecursivePartial } from '../../types';
 
@@ -499,6 +500,15 @@ export const title: RecursivePartial<TitleAttrs> = {
   }
 };
 
+export const scrollbar: RecursivePartial<ScrollBarAttributes> = {
+  width: 12,
+  height: 12,
+  padding: [2, 2],
+  railStyle: {
+    fill: 'rgba(0, 0, 0, .1)'
+  }
+};
+
 export const defaultComponentTheme: IComponentTheme = {
   axis,
   circleAxis,
@@ -532,5 +542,7 @@ export const defaultComponentTheme: IComponentTheme = {
 
   tooltip,
 
-  title
+  title,
+
+  scrollbar
 };
