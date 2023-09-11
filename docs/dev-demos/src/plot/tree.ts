@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { type IView, type IPlot, registerTreePathGlyph, ThemeManager } from '@visactor/vgrammar';
+import { type IView, type IPlot, registerTreePathGlyph, ThemeManager } from '@visactor/vgrammar-simple';
 import data from '../data/coffee.json';
 import { registerTreeTransforms } from '@visactor/vgrammar-hierarchy';
 

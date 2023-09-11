@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { View, ISignal, IElement } from '@visactor/vgrammar';
+import type { View, ISignal, IElement } from '@visactor/vgrammar-simple';
 
 export const runner = (view: View) => {
   const originData = [

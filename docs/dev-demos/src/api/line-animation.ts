@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { TagPointsUpdate } from '@visactor/vrender';
-import type { IView } from '@visactor/vgrammar';
+import type { IView } from '@visactor/vgrammar-simple';
 
 const originData = [
   { category: 'A', amount: 28, index: 0 },

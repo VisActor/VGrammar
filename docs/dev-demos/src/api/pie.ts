@@ -1,4 +1,4 @@
-import type { IView } from '@visactor/vgrammar';
+import type { IView } from '@visactor/vgrammar-simple';
 /* eslint-disable no-console */
 import { category20 } from '../color-utils';
 
