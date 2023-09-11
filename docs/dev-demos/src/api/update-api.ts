@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { ISignal, IView } from '@visactor/vgrammar';
+import type { ISignal, IView } from '@visactor/vgrammar-simple';
 
 const originData = [
   { category: 'A', amount: 28, index: 0 },
