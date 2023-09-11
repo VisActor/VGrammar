@@ -135,3 +135,5 @@ View.useAnimations([
   growIntervalOut,
   update
 ]);
+
+export * from '@visactor/vgrammar';
