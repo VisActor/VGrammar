@@ -5,6 +5,7 @@ import type {
   ColorLegendAttributes,
   DataZoomAttributes,
   DiscreteLegendAttrs,
+  GridBaseAttributes,
   PlayerAttributes,
   SizeLegendAttributes,
   SliderAttributes
@@ -19,6 +20,7 @@ import type { TransformSpec } from './transform';
 import type { IAnimationConfig } from './animate';
 import type { ScaleSpec } from './scale';
 import type { DataSpec } from './data';
+import type { GridShape } from './component';
 
 export interface IPlotOptions extends IEnvironmentOptions, IRendererOptions {
   width?: number;
@@ -269,6 +271,13 @@ export interface SemanticAxisOption extends Partial<AxisBaseAttributes> {
   tickCount?: number;
 }
 
+export interface SemanticGridOption extends Partial<GridBaseAttributes> {
+  type?: GridShape;
+  tickCount?: number;
+  inside?: boolean;
+  baseValue?: number;
+  sides?: number;
+}
 export type SemanticDataZoomOption = Partial<DataZoomAttributes>;
 export type SemanticSliderOption = Partial<SliderAttributes>;
 export type SemanticLegendOption = Partial<ColorLegendAttributes | DiscreteLegendAttrs | SizeLegendAttributes>;
@@ -311,6 +320,7 @@ export interface ISemanticMarkSpec<EncodeSpec, K extends string> {
   axis?: Partial<
     Record<K, { option?: SemanticAxisOption | boolean; layout?: MarkRelativeItemSpec } | SemanticAxisOption | boolean>
   >;
+  grid?: Partial<Record<K, SemanticGridOption | boolean>>;
   transform?: TransformSpec[];
   state?: Record<string, Partial<EncodeSpec>>;
   animation?: Record<string, IAnimationConfig | IAnimationConfig[]>;
