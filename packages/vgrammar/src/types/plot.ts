@@ -8,7 +8,8 @@ import type {
   GridBaseAttributes,
   PlayerAttributes,
   SizeLegendAttributes,
-  SliderAttributes
+  SliderAttributes,
+  TitleAttrs
 } from '@visactor/vrender-components';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { IColor } from '@visactor/vrender';
@@ -284,6 +285,7 @@ export type SemanticLegendOption = Partial<ColorLegendAttributes | DiscreteLegen
 export type SemanticCrosshairOption = Partial<BaseCrosshairAttrs>;
 export type SemanticLabelOption = Partial<BaseLabelAttrs>;
 export type SemanticPlayerOption = Partial<PlayerAttributes>;
+export type SemanticTitleOption = Partial<TitleAttrs>;
 
 export interface ISemanticMark<EncodeSpec, K extends string> {
   readonly uid: number;
@@ -340,6 +342,7 @@ export interface ISemanticMarkSpec<EncodeSpec, K extends string> {
   >;
   label?: Record<string, SemanticLabelOption | boolean>;
   player?: { data?: any[]; option?: SemanticPlayerOption | boolean; layout?: MarkRelativeItemSpec };
+  title?: { option?: SemanticTitleOption; layout?: MarkRelativeItemSpec } | SemanticTitleOption;
 }
 
 export type ParsedSimpleEncode<T, K extends string> = {
