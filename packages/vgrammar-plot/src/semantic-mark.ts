@@ -52,7 +52,9 @@ import type {
   IPlot,
   SemanticTooltipContentItem,
   SemanticGridOption,
-  GridSpec
+  GridSpec,
+  TitleSpec,
+  SemanticTitleOption
 } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
 import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager, Factory } from '@visactor/vgrammar';
@@ -175,7 +177,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (!Factory.hasComponent('axis')) {
       this._logger.error(
         `Please add this line of code: import { registerAxis } from '@visactor/vgrammar'; 
-        and run "registerAxis();" or "View.useRegisters(registerAxis);" `
+        and run "registerAxis();" or "View.useRegisters([registerAxis]);" `
       );
 
       return this;
@@ -193,7 +195,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (!Factory.hasComponent('grid')) {
       this._logger.error(
         `Please add this line of code: import { registerGrid } from '@visactor/vgrammar'; 
-        and run "registerGrid();" or "View.useRegisters(registerGrid);" `
+        and run "registerGrid();" or "View.useRegisters([registerGrid]);" `
       );
 
       return this;
@@ -211,7 +213,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (!Factory.hasComponent('legend')) {
       this._logger.error(
         `Please add this line of code: import { registerLegend } from '@visactor/vgrammar'; 
-        and run "registerLegend();" or "View.useRegisters(registerLegend);" `
+        and run "registerLegend();" or "View.useRegisters([registerLegend]);" `
       );
 
       return this;
@@ -229,7 +231,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (!Factory.hasComponent('crosshair')) {
       this._logger.error(
         `Please add this line of code: import { registerCrosshair } from '@visactor/vgrammar'; 
-        and run "registerCrosshair();" or "View.useRegisters(registerCrosshair);" `
+        and run "registerCrosshair();" or "View.useRegisters([registerCrosshair]);" `
       );
 
       return this;
@@ -247,7 +249,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (!Factory.hasComponent('tooltip')) {
       this._logger.error(
         `Please add this line of code: import { registerTooltip } from '@visactor/vgrammar'; 
-        and run "registerTooltip();" or "View.useRegisters(registerTooltip);" `
+        and run "registerTooltip();" or "View.useRegisters([registerTooltip]);" `
       );
 
       return this;
@@ -262,7 +264,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (!Factory.hasComponent('slider')) {
       this._logger.error(
         `Please add this line of code: import { registerSlider } from '@visactor/vgrammar'; 
-        and run "registerSlider();" or "View.useRegisters(registerSlider);" `
+        and run "registerSlider();" or "View.useRegisters([registerSlider]);" `
       );
 
       return this;
@@ -280,7 +282,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (!Factory.hasComponent('datazoom')) {
       this._logger.error(
         `Please add this line of code: import { registerDataZoom } from '@visactor/vgrammar'; 
-        and run "registerDataZoom();" or "View.useRegisters(registerDataZoom);" `
+        and run "registerDataZoom();" or "View.useRegisters([registerDataZoom]);" `
       );
 
       return this;
@@ -298,7 +300,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (!Factory.hasComponent('label')) {
       this._logger.error(
         `Please add this line of code: import { registerLabel } from '@visactor/vgrammar'; 
-        and run "registerLabel();" or "View.useRegisters(registerLabel);" `
+        and run "registerLabel();" or "View.useRegisters([registerLabel]);" `
       );
 
       return this;
@@ -316,13 +318,28 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     if (!Factory.hasComponent('player')) {
       this._logger.error(
         `Please add this line of code: import { registerPlayer } from '@visactor/vgrammar'; 
-        and run "registerPlayer();" or "View.useRegisters(registerPlayer);" `
+        and run "registerPlayer();" or "View.useRegisters([registerPlayer]);" `
       );
 
       return this;
     }
 
     this.spec.player = { data, option, layout };
+
+    return this;
+  }
+
+  title(option: SemanticTitleOption, layout?: MarkRelativeItemSpec) {
+    if (!Factory.hasComponent('title')) {
+      this._logger.error(
+        `Please add this line of code: import { registerTitle } from '@visactor/vgrammar'; 
+        and run "registerTitle();" or "View.useRegisters([registerTitle]);" `
+      );
+
+      return this;
+    }
+
+    this.spec.title = { option, layout };
 
     return this;
   }
@@ -1255,6 +1272,60 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return res;
   }
 
+  protected parseTitleSpec(): TitleSpec[] {
+    const title = this.spec.title;
+    const res: TitleSpec[] = [];
+
+    if (title) {
+      const { option, layout } = this.parseOption<SemanticTitleOption>(title);
+
+      if (option) {
+        const markLayout = layout ?? { position: 'top' };
+
+        const markSpec: TitleSpec = {
+          type: 'component',
+          componentType: ComponentEnum.title,
+          dependency: [SIGNAL_VIEW_BOX],
+          title: (option as SemanticTitleOption).text,
+          subTitle: (option as SemanticTitleOption).subtext,
+          encode: {
+            update: (datum: any, elment: IElement, params: any) => {
+              const calculatedAttrs =
+                markLayout.position === 'left'
+                  ? {
+                      x: elment.mark?.relativePosition?.left ?? 0, // todo, this is a dynamic number
+                      y: elment.mark?.relativePosition?.top ?? 0
+                    }
+                  : markLayout.position === 'right'
+                  ? {
+                      x: elment.mark?.relativePosition?.left ?? params.viewBox.width(),
+                      y: elment.mark?.relativePosition?.top ?? 0
+                    }
+                  : markLayout.position === 'bottom'
+                  ? {
+                      x: elment.mark?.relativePosition?.left ?? 0,
+                      y: elment.mark?.relativePosition?.top ?? params.viewBox.height(),
+                      width: params.viewBox.width()
+                    }
+                  : {
+                      x: elment.mark?.relativePosition?.left ?? 0,
+                      y: elment.mark?.relativePosition?.top ?? 0,
+                      width: params.viewBox.width()
+                    };
+              const attrs = isPlainObject(option) ? merge({}, calculatedAttrs, option) : calculatedAttrs;
+
+              return attrs;
+            }
+          }
+        };
+        markSpec.layout = markLayout;
+        res.push(markSpec);
+      }
+    }
+
+    return res;
+  }
+
   protected parseDataSpec() {
     const { data, player } = this.spec;
     const res: DataSpec[] = [];
@@ -1442,6 +1513,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     marks = marks.concat(this.parseSliderSpec());
     marks = marks.concat(this.parseDataZoomSpec());
     marks = marks.concat(this.parsePlayerSpec());
+    marks = marks.concat(this.parseTitleSpec());
 
     marks.push(
       Object.assign(
