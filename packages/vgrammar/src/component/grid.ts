@@ -213,7 +213,8 @@ export class Grid extends ScaleComponent implements IGrid {
                     coordinate,
                     inside,
                     baseValue,
-                    this.spec.layout as MarkRelativeItemSpec
+                    this.spec.layout as MarkRelativeItemSpec,
+                    true
                   ),
                   addition
                 );
