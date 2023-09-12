@@ -2388,6 +2388,7 @@ export const runner = (plot: IPlot) => {
     .encode('group', 'Symbol')
     .axis('x', { tickCount: 5 })
     .axis('y', true)
+    .title({ text: 'this is a title', subtext: 'this is a sub title, this could be very long, this could be very long, this could be very long, this could be very long' })
     .legend('group', true, { position: 'top', align: 'middle' })
     // .datazoom('y', { 
     //   startTextStyle: {
