@@ -6,7 +6,7 @@ order: 120-3
 cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png
 ---
 
-# 饼图
+# 不同形状的散点图
 
 ## 代码演示
 
@@ -1080,6 +1080,8 @@ plot
   .scale('shape', { range: ['diamond', 'triangle', 'cross'] })
   .axis('x', { tickCount: 5 })
   .axis('y', { tickCount: 5 })
+  .grid('x')
+  .grid('y')
   .tooltip({
     staticContentKey: ['sepalLength', 'sepalWidth'],
     content: [
