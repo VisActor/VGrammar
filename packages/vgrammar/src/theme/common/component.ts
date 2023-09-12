@@ -145,7 +145,11 @@ const grid: RecursivePartial<LineAxisGridAttributes> = {
   }
 };
 
-const circleGrid: RecursivePartial<CircleAxisGridAttributes> = {};
+const circleGrid: RecursivePartial<CircleAxisGridAttributes> = {
+  style: {
+    stroke: '#f1f2f5'
+  }
+};
 
 const discreteLegend: RecursivePartial<DiscreteLegendAttrs> = {
   layout: 'vertical',

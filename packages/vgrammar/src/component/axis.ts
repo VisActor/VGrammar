@@ -74,7 +74,8 @@ export const generateCoordinateAxisAttribute = (
   coordinate: IBaseCoordinate,
   inside: boolean,
   baseValue: number,
-  layout: MarkRelativeItemSpec
+  layout: MarkRelativeItemSpec,
+  isGrid?: boolean
 ) => {
   const axisPosition = scale.getCoordinateAxisPosition();
   if (layout?.position === 'auto') {
@@ -87,7 +88,7 @@ export const generateCoordinateAxisAttribute = (
   if (axisPoints) {
     const start = axisPoints[0];
     const end = axisPoints[1];
-    return {
+    const res: any = {
       start,
       end,
       verticalFactor:
@@ -95,7 +96,18 @@ export const generateCoordinateAxisAttribute = (
         (inside ? -1 : 1) *
         (scale.getSpec().range?.reversed ? -1 : 1)
     };
+
+    if (isGrid && coordinate.type === 'polar') {
+      const angle = (coordinate as IPolarCoordinate).angle();
+
+      res.center = (coordinate as IPolarCoordinate).origin();
+      res.startAngle = angle[0];
+      res.endAngle = angle[1];
+    }
+
+    return res;
   }
+
   const radius = (coordinate as IPolarCoordinate).radius();
   const angle = (coordinate as IPolarCoordinate).angle();
   return {
