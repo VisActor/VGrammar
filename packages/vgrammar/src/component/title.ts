@@ -22,8 +22,8 @@ import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
 
 export const generateTitleAttributes = (
-  title?: string | string[],
-  subTitle?: string | string[],
+  title?: string | number | number[] | string[],
+  subTitle?: string | number | number[] | string[],
   theme?: ITheme,
   addition?: RecursivePartial<TitleAttrs>
 ): TitleAttrs => {
@@ -54,11 +54,11 @@ export class Title extends Component implements ITitle {
     return this;
   }
 
-  title(text: MarkFunctionType<string | string[]> | Nil) {
+  title(text: MarkFunctionType<string | number | number[] | string[]> | Nil) {
     return this.setFunctionSpec(text, 'title');
   }
 
-  subTitle(text: MarkFunctionType<string | string[]> | Nil) {
+  subTitle(text: MarkFunctionType<string | number | number[] | string[]> | Nil) {
     return this.setFunctionSpec(text, 'subTitle');
   }
 
