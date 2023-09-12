@@ -303,6 +303,8 @@ export interface ISemanticMark<EncodeSpec, K extends string> {
   crosshair: (channel: string, option?: SemanticCrosshairOption | boolean) => this;
   tooltip: (option: SemanticTooltipOption | boolean) => this;
   coordinate: (option: CoordinateOption) => this;
+  grid: (channel: string, option?: SemanticGridOption | boolean) => this;
+  title: (option: SemanticTitleOption, layout?: MarkRelativeItemSpec) => this;
 
   slider: (channel: string, option?: SemanticSliderOption | boolean, layout?: MarkRelativeItemSpec) => this;
   datazoom: (channel: string, option?: SemanticDataZoomOption | boolean, layout?: MarkRelativeItemSpec) => this;
