@@ -117,7 +117,7 @@ test('circle axis grid', function () {
     style: {
       lineDash: [4, 4],
       lineWidth: 1,
-      stroke: '#999',
+      stroke: '#f1f2f5',
       strokeOpacity: 1
     },
     subGrid: {
