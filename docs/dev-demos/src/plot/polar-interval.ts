@@ -39,7 +39,7 @@ export const runner = (plot: IPlot) => {
   //   .label('y', { textStyle: { fill: 'red'} });
 
   plot.parseSpec({
-    coordinate: { type: 'polar',transpose: false },
+    coordinate: { type: 'polar',transpose: false  },
     marks: [{
       type: 'interval',
       data: { values: originData },
@@ -47,6 +47,10 @@ export const runner = (plot: IPlot) => {
         x: 'category',
         y: 'amount',
         group: 'type'
+      },
+      grid: {
+        x: true,
+        y: { type: 'polygon' }
       },
       axis: {
         x: true,
