@@ -298,14 +298,14 @@ export interface DimensionTooltipSpec extends BaseTooltipSpec {
 // title component
 
 export interface ITitle extends IComponent {
-  title: (text: MarkFunctionType<string | string[]> | Nil) => this;
-  subTitle: (text: MarkFunctionType<string | string[]> | Nil) => this;
+  title: (text: MarkFunctionType<string | number | number[] | string[]> | Nil) => this;
+  subTitle: (text: MarkFunctionType<string | number | number[] | string[]> | Nil) => this;
 }
 
 export interface TitleSpec extends ComponentSpec<Partial<TitleAttrs>> {
   componentType: ComponentEnum.title;
-  title?: MarkFunctionType<string | string[]>;
-  subTitle?: MarkFunctionType<string | string[]>;
+  title?: MarkFunctionType<string | number | number[] | string[]>;
+  subTitle?: MarkFunctionType<string | number | number[] | string[]>;
 }
 
 // scrollbar component
