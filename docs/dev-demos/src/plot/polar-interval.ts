@@ -52,6 +52,14 @@ export const runner = (plot: IPlot) => {
         x: true,
         y: { type: 'polygon' }
       },
+      title: {
+        text: 'This is a title, that may be very long, only for test',
+        subtext: 'this is a sub text, which can very very long too, let use just test this kind of case; this is a break line; this is another break line; ',
+        // subtextStyle: {
+        //   height: 50,
+        //   wordBreak: "break-all"
+        // }
+      },
       axis: {
         x: true,
         y: true,
