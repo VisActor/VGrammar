@@ -50,7 +50,9 @@ import type {
   MarkSpec,
   MarkRelativeItemSpec,
   IPlot,
-  SemanticTooltipContentItem
+  SemanticTooltipContentItem,
+  SemanticGridOption,
+  GridSpec
 } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
 import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager, Factory } from '@visactor/vgrammar';
@@ -186,6 +188,25 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     return this;
   }
+
+  grid(channel: string, option: SemanticGridOption | boolean = true) {
+    if (!Factory.hasComponent('grid')) {
+      this._logger.error(
+        `Please add this line of code: import { registerGrid } from '@visactor/vgrammar'; 
+        and run "registerGrid();" or "View.useRegisters(registerGrid);" `
+      );
+
+      return this;
+    }
+
+    if (!this.spec.grid) {
+      this.spec.grid = {};
+    }
+    this.spec.grid[channel] = option;
+
+    return this;
+  }
+
   legend(channel: string, option: SemanticLegendOption | boolean = true, layout?: MarkRelativeItemSpec) {
     if (!Factory.hasComponent('legend')) {
       this._logger.error(
@@ -561,6 +582,74 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               : 'left'
           };
           res.push(axisMarkSpec);
+        }
+      });
+    }
+
+    return res;
+  }
+
+  protected parseGridSpec(): GridSpec[] {
+    const grid = this.spec.grid;
+    const res: GridSpec[] = [];
+
+    if (grid) {
+      Object.keys(grid).forEach(channel => {
+        const option = grid[channel];
+
+        if (option) {
+          const relatedAxisOption = this.parseOption<SemanticAxisOption>(this.spec.axis?.[channel])?.option;
+          const visiualChannel = this.getVisualChannel(channel as 'x' | 'y');
+          const isCircleGrid = visiualChannel === 'radius';
+          const tickCount =
+            (option as SemanticGridOption).tickCount ?? (relatedAxisOption as SemanticAxisOption).tickCount;
+          const otherChannel = channel === 'x' ? 'y' : 'x';
+          const otherScaleId = this.getScaleId(otherChannel);
+          const otherAxisOption = this.parseOption<SemanticAxisOption>(this.spec.axis?.[otherChannel])?.option;
+
+          const markSpec: GridSpec = {
+            type: 'component',
+            componentType: ComponentEnum.grid,
+            scale: this.getScaleId(channel),
+            dependency: [SIGNAL_VIEW_BOX, otherScaleId],
+            tickCount: tickCount,
+            inside: (option as SemanticGridOption).inside,
+            baseValue: (option as SemanticGridOption).baseValue,
+            gridType: visiualChannel === 'angle' ? 'circle' : 'line',
+            gridShape: isCircleGrid ? (option.type === 'polygon' ? 'polygon' : 'circle') : 'line',
+            encode: {
+              update: (datum: any, elment: IElement, params: any) => {
+                const positionAttrs = this._coordinate
+                  ? {}
+                  : channel === 'x'
+                  ? {
+                      x: 0,
+                      y: params.viewBox.height(),
+                      start: { x: 0, y: 0 },
+                      end: { x: params.viewBox.width(), y: 0 },
+                      length: params.viewBox.height()
+                    }
+                  : {
+                      x: 0,
+                      y: params.viewBox.height(),
+                      start: { x: 0, y: 0 },
+                      verticalFactor: -1,
+                      end: { x: 0, y: -params.viewBox.height() },
+                      length: params.viewBox.width()
+                    };
+
+                if (isCircleGrid && option.type === 'polygon') {
+                  (positionAttrs as any).sides =
+                    option?.sides ??
+                    params[otherScaleId]?.ticks((otherAxisOption as SemanticAxisOption).tickCount)?.length;
+                }
+
+                return isPlainObject(option) ? merge(positionAttrs, option) : positionAttrs;
+              }
+            }
+          };
+
+          res.push(markSpec);
         }
       });
     }
@@ -1348,6 +1437,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
     marks = marks.concat(this.parseLegendSpec());
     marks = marks.concat(this.parseAxisSpec());
+    marks = marks.concat(this.parseGridSpec());
     marks = marks.concat(this.parseCrosshairSpec());
     marks = marks.concat(this.parseSliderSpec());
     marks = marks.concat(this.parseDataZoomSpec());
