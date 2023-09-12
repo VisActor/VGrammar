@@ -619,7 +619,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           const visiualChannel = this.getVisualChannel(channel as 'x' | 'y');
           const isCircleGrid = visiualChannel === 'radius';
           const tickCount =
-            (option as SemanticGridOption).tickCount ?? (relatedAxisOption as SemanticAxisOption).tickCount;
+            (option as SemanticGridOption).tickCount ?? (relatedAxisOption as SemanticAxisOption)?.tickCount;
           const otherChannel = channel === 'x' ? 'y' : 'x';
           const otherScaleId = this.getScaleId(otherChannel);
           const otherAxisOption = this.parseOption<SemanticAxisOption>(this.spec.axis?.[otherChannel])?.option;
@@ -658,7 +658,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                 if (isCircleGrid && option.type === 'polygon') {
                   (positionAttrs as any).sides =
                     option?.sides ??
-                    params[otherScaleId]?.ticks((otherAxisOption as SemanticAxisOption).tickCount)?.length;
+                    params[otherScaleId]?.ticks((otherAxisOption as SemanticAxisOption)?.tickCount)?.length;
                 }
 
                 return isPlainObject(option) ? merge(positionAttrs, option) : positionAttrs;
