@@ -81,9 +81,13 @@ export const runner = (view: IView) => {
     .position('bottom')
     // .position('top')
     .configure({ 'zIndex': 10 })
-    .range(4, 8)
     .scale(scrollbarXScale)
-    .target(markData, 'category');
+    .target(markData, 'category')
+    .encode({
+      range: [0, 0.5],
+      x: 40,
+      width: 270
+    });
 
   const line = view
     .mark('line', container)
