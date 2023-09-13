@@ -5,6 +5,7 @@ import type { Direction, OrientType, ScrollBarAttributes } from '@visactor/vrend
 import { ScrollBar as ScrollbarComponent } from '@visactor/vrender-components';
 import type {
   BaseSignleEncodeSpec,
+  IData,
   IElement,
   IGroupMark,
   ITheme,
@@ -14,12 +15,12 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { ComponentEnum, GrammarMarkType } from '../graph';
-import type { IScrollbar, ScrollbarSpec } from '../types/component';
-import { Component } from '../view/component';
+import { ComponentDataRank, ComponentEnum, GrammarMarkType } from '../graph';
+import type { IScrollbar, ScrollbarFilterValue, ScrollbarSpec } from '../types/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
+import { ScaleComponent } from './scale';
 
 function isValidDirection(direction: Direction) {
   return direction === 'vertical' || direction === 'horizontal';
@@ -34,6 +35,7 @@ function isHorizontalPosition(position: OrientType) {
 }
 
 export const generateScrollbarAttributes = (
+  range: [number, number],
   groupSize: { width: number; height: number },
   direction?: Direction,
   position?: OrientType,
@@ -63,7 +65,7 @@ export const generateScrollbarAttributes = (
         : position;
   }
 
-  const attributes: RecursivePartial<ScrollBarAttributes> = { direction: finalDirection };
+  const attributes: RecursivePartial<ScrollBarAttributes> = { range, direction: finalDirection };
   if (finalDirection === 'horizontal') {
     const size = addition.height ?? scrollbarTheme?.height ?? 12;
 
@@ -107,7 +109,7 @@ export const generateScrollbarAttributes = (
   return merge({}, scrollbarTheme, attributes, addition ?? {});
 };
 
-export class Scrollbar extends Component implements IScrollbar {
+export class Scrollbar extends ScaleComponent implements IScrollbar {
   static readonly componentType: string = ComponentEnum.scrollbar;
   protected declare spec: ScrollbarSpec;
 
@@ -118,18 +120,67 @@ export class Scrollbar extends Component implements IScrollbar {
 
   protected parseAddition(spec: ScrollbarSpec) {
     super.parseAddition(spec);
-    this.target(spec.target);
+    this.target(spec.target?.data, spec.target?.filter);
+    this.range(spec.range?.scrollValue, spec.range?.totalValue, spec.range?.startRatio);
+    this.container(spec.container);
     this.direction(spec.direction);
     this.position(spec.position);
     return this;
   }
 
-  target(container: IGroupMark | string | Nil): this {
-    if (this.spec.target) {
-      const prevContainer = isString(this.spec.target) ? this.view.getMarkById(this.spec.target) : this.spec.target;
+  target(data: IData | string | Nil, filter: string | ((datum: any, value: ScrollbarFilterValue) => boolean) | Nil) {
+    const lastData = this.spec.target?.data;
+    const lastDataGrammar = isString(lastData) ? this.view.getDataById(lastData) : lastData;
+    if (lastDataGrammar) {
+      this.view.removeEventListener('scroll', this._filterCallback);
+    }
+    this.spec.target = undefined;
+    const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
+    const getFilterValue = (event: any) => {
+      if (isString(filter)) {
+        const range = event.detail.value;
+        const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
+        if (scaleGrammar) {
+          const scale = scaleGrammar.getScale();
+          const scaleRange = scale.range();
+          const start = scale.invert(range[0] * (scaleRange[1] - scaleRange[0]) + scaleRange[0]);
+          const end = scale.invert(range[1] * (scaleRange[1] - scaleRange[0]) + scaleRange[0]);
+          return { start, end, startRatio: range[0], endRatio: range[1] };
+        }
+        return { startRatio: range[0], endRatio: range[1] };
+      }
+      return { startRatio: event.detail.value[0], endRatio: event.detail.value[1] };
+    };
+    const dataFilter = isString(filter)
+      ? (datum: any, filterValue: ScrollbarFilterValue) => {
+          const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
+          const scale = scaleGrammar.getScale();
+          const range = scale.range();
+          const datumRatio = (scale.scale(datum[filter]) - range[0]) / (range[range.length - 1] - range[0]);
+          return filterValue.startRatio <= datumRatio && filterValue.endRatio >= datumRatio;
+        }
+      : filter;
+    this._filterData(lastDataGrammar, dataGrammar, ComponentDataRank.scrollbar, getFilterValue, dataFilter);
+    if (dataGrammar) {
+      this.view.addEventListener('scroll', this._filterCallback);
+      this.spec.target = { data: dataGrammar, filter };
+    }
+    return this;
+  }
+
+  range(scrollValue: number, totalValue: number, startRatio?: number) {
+    this.spec.range = { scrollValue: scrollValue, totalValue: totalValue, startRatio: startRatio ?? 0 };
+    return this;
+  }
+
+  container(container: IGroupMark | string | Nil): this {
+    if (this.spec.container) {
+      const prevContainer = isString(this.spec.container)
+        ? this.view.getMarkById(this.spec.container)
+        : this.spec.container;
       this.detach(prevContainer);
     }
-    this.spec.target = container;
+    this.spec.container = container;
     if (container) {
       const nextContainer = isString(container) ? this.view.getMarkById(container) : container;
       this.attach(nextContainer);
@@ -146,11 +197,34 @@ export class Scrollbar extends Component implements IScrollbar {
     return this.setFunctionSpec(position, 'position');
   }
 
+  setScrollStart(start: number) {
+    const scrollbar = this.elements[0]?.getGraphicItem?.() as unknown as ScrollbarComponent;
+    const range = scrollbar?.attribute?.range;
+    if (scrollbar && range) {
+      const nextRange: [number, number] = [start, range[1] - range[0] + start];
+      scrollbar.setScrollRange(nextRange);
+    }
+    return this;
+  }
+
   addGraphicItem(attrs: any, groupKey?: string) {
     const defaultAttributes = { range: [0, 1] };
     const initialAttributes = merge(defaultAttributes, attrs);
     const graphicItem = Factory.createGraphicComponent(ComponentEnum.scrollbar, initialAttributes);
+    const range = initialAttributes.range;
+    // Hack for the first evaluation
+    if (range && this._filterCallback) {
+      // setTimeout(() => this._filterCallback({ detail: { value: range } }, this.elements[0]));
+      this._filterCallback({ detail: { value: range } }, this.elements[0]);
+    }
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
+  }
+
+  release() {
+    if (this._filterCallback) {
+      this.view.removeEventListener('scroll', this._filterCallback);
+    }
+    super.release();
   }
 
   protected _updateComponentEncoders() {
@@ -164,10 +238,10 @@ export class Scrollbar extends Component implements IScrollbar {
             const direction = invokeFunctionType(this.spec.direction, parameters, datum, element);
             const position = invokeFunctionType(this.spec.position, parameters, datum, element);
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
-            const targetMark = this.spec.target
-              ? isString(this.spec.target)
-                ? this.view.getMarkById(this.spec.target)
-                : this.spec.target
+            const targetMark = this.spec.container
+              ? isString(this.spec.container)
+                ? this.view.getMarkById(this.spec.container)
+                : this.spec.container
               : null;
             const groupMark = targetMark && targetMark.markType === GrammarMarkType.group ? targetMark : this.group;
             const groupGraphicItem = groupMark.getGroupGraphicItem();
@@ -177,7 +251,13 @@ export class Scrollbar extends Component implements IScrollbar {
                   height: groupGraphicItem.attribute.height ?? groupGraphicItem.AABBBounds.height()
                 }
               : { width: this.view.width(), height: this.view.height() };
-            return generateScrollbarAttributes(size, direction, position, theme, addition); // direction, position,
+            const range: [number, number] = this.spec.range
+              ? [
+                  this.spec.range.startRatio ?? 0,
+                  (this.spec.range.startRatio ?? 0) + this.spec.range.scrollValue / this.spec.range.totalValue
+                ]
+              : [0, 1];
+            return generateScrollbarAttributes(range, size, direction, position, theme, addition);
           }
         };
       }

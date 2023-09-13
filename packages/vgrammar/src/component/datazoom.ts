@@ -127,7 +127,7 @@ export class Datazoom extends Component implements IDatazoom {
 
   setStartEndValue(start?: number, end?: number) {
     const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as DatazoomComponent;
-    datazoom.setStartAndEnd(start, end);
+    datazoom?.setStartAndEnd?.(start, end);
     return this;
   }
 
