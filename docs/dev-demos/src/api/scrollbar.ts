@@ -70,14 +70,18 @@ export const runner = (view: IView) => {
     .position('bottom')
     // .position('top')
     .configure({ 'zIndex': 10 })
-    .range(200, 350);
+    .encode({
+      range: [0, (200/ 350)]
+    });
   const clipYScrollbar = view
     .scrollbar(windowGroup)
     .direction('vertical')
     .position('right')
     // .position('left')
     .configure({ 'zIndex': 10 })
-    .range(200, 350);
+    .encode({
+      range: [0, (200/ 350)]
+    });
 
   const clipXSignal = view.signal([0, 200 / 350]);
   const clipYSignal = view.signal([0, 200 / 350]);

@@ -317,7 +317,6 @@ export interface IScrollbar extends IScaleComponent {
     data: IData | string | Nil,
     filter: string | ((datum: any, value: ScrollbarFilterValue) => boolean) | Nil
   ) => this;
-  range: (scrollValue: number, totalValue: number, startRatio?: number) => this;
   container: (container: IGroupMark | string | Nil) => this;
   direction: (direction: MarkFunctionType<Direction> | Nil) => this;
   position: (position: MarkFunctionType<OrientType> | Nil) => this;
@@ -332,7 +331,6 @@ export interface ScrollbarSpec extends ScaleComponentSpec<Partial<ScrollBarAttri
     data: IData | string;
     filter: string | ((datum: any, value: ScrollbarFilterValue) => boolean);
   };
-  range?: { scrollValue: number; totalValue: number; startRatio?: number };
   container?: IGroupMark | string;
   direction?: MarkFunctionType<Direction>;
   position?: MarkFunctionType<OrientType>;
