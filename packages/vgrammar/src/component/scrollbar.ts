@@ -121,7 +121,6 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
   protected parseAddition(spec: ScrollbarSpec) {
     super.parseAddition(spec);
     this.target(spec.target?.data, spec.target?.filter);
-    this.range(spec.range?.scrollValue, spec.range?.totalValue, spec.range?.startRatio);
     this.container(spec.container);
     this.direction(spec.direction);
     this.position(spec.position);
@@ -168,11 +167,6 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
     return this;
   }
 
-  range(scrollValue: number, totalValue: number, startRatio?: number) {
-    this.spec.range = { scrollValue: scrollValue, totalValue: totalValue, startRatio: startRatio ?? 0 };
-    return this;
-  }
-
   container(container: IGroupMark | string | Nil): this {
     if (this.spec.container) {
       const prevContainer = isString(this.spec.container)
@@ -212,10 +206,9 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
     const initialAttributes = merge(defaultAttributes, attrs);
     const graphicItem = Factory.createGraphicComponent(ComponentEnum.scrollbar, initialAttributes);
     const range = initialAttributes.range;
-    // Hack for the first evaluation
+    // Hack for the first evaluation, waiting for components to fix
     if (range && this._filterCallback) {
-      // setTimeout(() => this._filterCallback({ detail: { value: range } }, this.elements[0]));
-      this._filterCallback({ detail: { value: range } }, this.elements[0]);
+      setTimeout(() => this._filterCallback({ detail: { value: range } }, this.elements[0]));
     }
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
