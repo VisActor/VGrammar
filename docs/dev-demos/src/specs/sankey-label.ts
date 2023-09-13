@@ -118,6 +118,30 @@ export const spec = {
       ]
     },
     {
+      id: 'middle-texts',
+      source: 'data',
+      transform: [
+        {
+          type: 'map',
+          all: true,
+          callback: (datum: any) => {
+            
+            return datum[0].columns.slice(1, -1).reduce((res: any[], col: SankeyNodeElement[]) => {
+              col.forEach(node => {
+                res.push({
+                  x: (node.x0 + node.x1) / 2,
+                  y: node.y1,
+                  datum: node.datum,
+                  key: node.key
+                });
+              })
+              return res;
+            }, []);
+          }
+        }
+      ]
+    },
+    {
       id: 'right-texts',
       source: 'data',
       transform: [
@@ -240,6 +264,30 @@ export const spec = {
               fill: 'black',
               stroke: '#fff',
               textBaseline: 'middle'
+            }
+          }
+        },
+
+        {
+          type: 'text',
+          layout: {
+            position: 'content'
+          },
+          from: { data: 'middle-texts' },
+          key: 'key',
+          encode: {
+            update: {
+              x: {
+                field: 'x'
+              },
+              y: {
+                field: 'y'
+              },
+              textAlign: 'center',
+              text: { field: 'datum.name' },
+              fill: 'black',
+              stroke: '#fff',
+              textBaseline: 'top'
             }
           }
         }
