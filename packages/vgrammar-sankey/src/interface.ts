@@ -62,6 +62,8 @@ export interface SankeyOptions {
   nodeSortBy?: (a: SankeyNodeElement, b: SankeyNodeElement) => number;
   /** specify the layer of node by customizedly */
   setNodeLayer?: (datum: SankeyNodeDatum) => number;
+
+  dropIsolatedNode?: boolean;
 }
 
 export interface SankeyLinkDatum {

@@ -90,7 +90,8 @@ export class SankeyLayout {
     direction: 'horizontal',
     nodeWidth: 24,
     nodeGap: 8,
-    crossNodeAlign: 'middle'
+    crossNodeAlign: 'middle',
+    dropIsolatedNode: true
   };
   constructor(options?: SankeyOptions) {
     this.options = Object.assign({}, SankeyLayout.defaultOptions, options);
@@ -274,7 +275,7 @@ export class SankeyLayout {
       return this.computeHierarchicNodeLinks(data.nodes);
     }
 
-    const nodes: SankeyNodeElement[] = [];
+    let nodes: SankeyNodeElement[] = [];
     const links: SankeyLinkElement[] = [];
     const nodeMap: Record<string | number, SankeyNodeElement> = {};
 
@@ -364,6 +365,10 @@ export class SankeyLayout {
         nodes[i].sourceLinks.sort(this.options.linkSortBy);
         nodes[i].targetLinks.sort(this.options.linkSortBy);
       }
+    }
+
+    if (this.options.dropIsolatedNode) {
+      nodes = nodes.filter(node => node.targetLinks.length || node.sourceLinks.length);
     }
 
     return { nodes, links, nodeMap };
@@ -606,13 +611,15 @@ export class SankeyLayout {
         }
 
         node.y0 = y;
-        node.y1 = y + (minNodeHeight > 0 ? Math.max(node.value * ky, minNodeHeight) : node.value * ky);
+        node.y1 =
+          y + (minNodeHeight > 0 && node.value !== 0 ? Math.max(node.value * ky, minNodeHeight) : node.value * ky);
 
         y = isStartGap ? node.y1 : node.y1 + gapY;
 
         for (let k = 0, linkLen = node.sourceLinks.length; k < linkLen; k++) {
           const link = node.sourceLinks[k];
-          link.thickness = minLinkHeight > 0 ? Math.max(link.value * ky, minLinkHeight) : link.value * ky;
+          link.thickness =
+            minLinkHeight > 0 && link.value !== 0 ? Math.max(link.value * ky, minLinkHeight) : link.value * ky;
         }
       }
 
