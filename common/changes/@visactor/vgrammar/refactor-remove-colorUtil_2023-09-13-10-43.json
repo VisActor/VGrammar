@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "chore: remove the usage of ColorUtil",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
