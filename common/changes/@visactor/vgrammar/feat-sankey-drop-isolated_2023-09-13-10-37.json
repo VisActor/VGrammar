@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat(vgrammar-sankey): add options `dropIsolatedNode` of sankey",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
