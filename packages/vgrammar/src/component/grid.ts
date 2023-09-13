@@ -1,4 +1,4 @@
-import { PointService, isString, merge } from '@visactor/vutils';
+import { isString, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
 import type { CircleAxisGridAttributes, LineAxisGridAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
@@ -18,7 +18,7 @@ import type {
   StateEncodeSpec
 } from '../types';
 import { AxisEnum, ComponentEnum, GridEnum } from '../graph';
-import type { GridShape, GridSpec, GridType, IAxis, IGrid } from '../types/component';
+import type { GridShape, GridSpec, AxisType, IAxis, IGrid } from '../types/component';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
@@ -94,7 +94,7 @@ export class Grid extends ScaleComponent implements IGrid {
     return this;
   }
 
-  gridType(gridType: GridType | Nil) {
+  gridType(gridType: AxisType | Nil) {
     this.spec.gridType = gridType;
     this._gridComponentType = null;
     this._prepareRejoin();
@@ -160,6 +160,7 @@ export class Grid extends ScaleComponent implements IGrid {
             const theme = this.view.getCurrentTheme();
             let addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             let scaleGrammar: IScale;
+            const baseValue = invokeFunctionType(this.spec.baseValue, parameters, datum, element);
 
             // get attributes from target axis
             if (this._targetAxis) {
@@ -203,7 +204,6 @@ export class Grid extends ScaleComponent implements IGrid {
             else {
               scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
               const inside = invokeFunctionType(this.spec.inside, parameters, datum, element);
-              const baseValue = invokeFunctionType(this.spec.baseValue, parameters, datum, element);
 
               const coordinate = scaleGrammar?.getCoordinate?.();
               if (coordinate) {
@@ -224,14 +224,8 @@ export class Grid extends ScaleComponent implements IGrid {
             // compute addition shape attributes for line grid
             if (this._getGridComponentType() === GridEnum.lineAxisGrid) {
               if (this.spec.gridShape === 'line' || !this.spec.gridShape) {
-                // set addition length & axis type
-                addition = Object.assign(
-                  { length: PointService.distancePP(addition.start ?? { x: 0, y: 0 }, addition.end ?? { x: 0, y: 0 }) },
-                  addition,
-                  {
-                    type: 'line'
-                  }
-                );
+                // set axis type
+                addition = Object.assign({}, addition, { type: 'line' });
               } else {
                 // set addition length & axis type
                 addition = Object.assign(
