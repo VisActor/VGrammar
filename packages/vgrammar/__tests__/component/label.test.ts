@@ -15,6 +15,11 @@ test('label', function () {
 
   expect(label.elements.length).toBe(1);
   expect(label.elements[0].getGraphicItem().attribute).toEqual({
-    pickable: false
+    dataLabels: [],
+    pickable: false,
+    size: {
+      height: Infinity,
+      width: Infinity
+    }
   });
 });

@@ -35,7 +35,6 @@ function isHorizontalPosition(position: OrientType) {
 }
 
 export const generateScrollbarAttributes = (
-  range: [number, number],
   groupSize: { width: number; height: number },
   direction?: Direction,
   position?: OrientType,
@@ -65,7 +64,7 @@ export const generateScrollbarAttributes = (
         : position;
   }
 
-  const attributes: RecursivePartial<ScrollBarAttributes> = { range, direction: finalDirection };
+  const attributes: RecursivePartial<ScrollBarAttributes> = { direction: finalDirection };
   if (finalDirection === 'horizontal') {
     const size = addition.height ?? scrollbarTheme?.height ?? 12;
 
@@ -244,13 +243,7 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
                   height: groupGraphicItem.attribute.height ?? groupGraphicItem.AABBBounds.height()
                 }
               : { width: this.view.width(), height: this.view.height() };
-            const range: [number, number] = this.spec.range
-              ? [
-                  this.spec.range.startRatio ?? 0,
-                  (this.spec.range.startRatio ?? 0) + this.spec.range.scrollValue / this.spec.range.totalValue
-                ]
-              : [0, 1];
-            return generateScrollbarAttributes(range, size, direction, position, theme, addition);
+            return generateScrollbarAttributes(size, direction, position, theme, addition);
           }
         };
       }
