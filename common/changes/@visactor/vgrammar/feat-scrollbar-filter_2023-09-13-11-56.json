@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar",
+      "comment": "feat(vgrammar): support data filter in scrollbar",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar"
+}
