@@ -25,7 +25,7 @@ const originData = [
 export const runner = (view: IView) => {
   const data = view.data(originData);
   const markData = view.data().source(data);
-  const xScale = view.scale('point').domain({ data: data, field: 'category' }).range([0, 270]).configure({
+  const xScale = view.scale('point').domain({ data: data, field: 'category' }).range([0, 300]).configure({
     padding: 0.5
   });
   const yScale = view.scale('linear').domain([100, 0]).range([0, 270]);
@@ -45,7 +45,7 @@ export const runner = (view: IView) => {
       x: 40,
       y: 310,
       start: { x: 0, y: 0 },
-      end: { x: 270, y: 0 }
+      end: { x: 300, y: 0 }
     });
   // const xGrid = view
   //   .grid(view.rootMark)
@@ -75,8 +75,10 @@ export const runner = (view: IView) => {
   const yGrid = view
     .grid(view.rootMark)
     .id('yGrid')
-    .target(yAxis);
-  const customGrid = view.component('lineAxisGrid', view.rootMark, '3d');
+    .target(yAxis)
+    .encode({
+      length: 300
+    })
   // const yGrid = view
   //   .grid(view.rootMark)
   //   .id('yGrid')
