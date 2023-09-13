@@ -3895,7 +3895,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001534
-      electron-to-chromium: 1.4.519
+      electron-to-chromium: 1.4.520
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11_browserslist@4.21.10
 
@@ -4577,8 +4577,8 @@ packages:
     engines: {node: '>= 0.10'}
     dev: false
 
-  /define-data-property/1.0.1:
-    resolution: {integrity: sha512-22M+6zEspQHx10bfFQl2ET39IvfuQ7+rZIH7+ard8fCC4hPmkOSy+8JhKxBRLaWUziJ0O63NTYT97LR8zUfPTw==}
+  /define-data-property/1.1.0:
+    resolution: {integrity: sha512-UzGwzcjyv3OtAvolTj1GoyNYzfFR+iqbGjcnBEENZVCpM4/Ng1yhGNvS3lR/xDS74Tb2wGG9WzNSNIOS9UVb2g==}
     engines: {node: '>= 0.4'}
     dependencies:
       get-intrinsic: 1.2.1
@@ -4595,7 +4595,7 @@ packages:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
     dependencies:
-      define-data-property: 1.0.1
+      define-data-property: 1.1.0
       has-property-descriptors: 1.0.0
       object-keys: 1.1.1
     dev: false
@@ -4756,8 +4756,8 @@ packages:
       object.defaults: 1.1.0
     dev: false
 
-  /electron-to-chromium/1.4.519:
-    resolution: {integrity: sha512-kqs9oGYL4UFVkLKhqCTgBCYZv+wZ374yABDMqlDda9HvlkQxvSr7kgf4hfWVjMieDbX+1MwPHFBsOGCMIBaFKg==}
+  /electron-to-chromium/1.4.520:
+    resolution: {integrity: sha512-Frfus2VpYADsrh1lB3v/ft/WVFlVzOIm+Q0p7U7VqHI6qr7NWHYKe+Wif3W50n7JAFoBsWVsoU0+qDks6WQ60g==}
 
   /emittery/0.13.1:
     resolution: {integrity: sha512-DeWwawk6r5yR9jFgnDKYt4sLS0LmHJJi3ZOnb5/JdbYwj3nW+FxQnHIjhBKz8YLC7oRNPVM9NQ47I3CVx34eqQ==}
@@ -8759,7 +8759,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.2.1
-      set-function-name: 2.0.0
+      set-function-name: 2.0.1
     dev: false
 
   /regexpp/3.2.0:
@@ -9111,11 +9111,12 @@ packages:
   /set-blocking/2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
 
-  /set-function-name/2.0.0:
-    resolution: {integrity: sha512-WmS8UHojv5s1eSoRSmzO5zzgDq8PE1/X/ij0k+9fMYmINCc6+j+SF3Om8YyucKn2yjnK4ItNZOoQycNnHsZJTw==}
+  /set-function-name/2.0.1:
+    resolution: {integrity: sha512-tMNCiqYVkXIZgc2Hnoy2IvC/f8ezc5koaRFkCjrpWzGpCd3qbZXPzVy9MAZzK1ch/X0jvSkojys3oqJN0qCmdA==}
     engines: {node: '>= 0.4'}
     dependencies:
-      define-data-property: 1.0.1
+      define-data-property: 1.1.0
+      functions-have-names: 1.2.3
       has-property-descriptors: 1.0.0
     dev: false
 
@@ -9418,7 +9419,7 @@ packages:
       has-symbols: 1.0.3
       internal-slot: 1.0.5
       regexp.prototype.flags: 1.5.1
-      set-function-name: 2.0.0
+      set-function-name: 2.0.1
       side-channel: 1.0.4
     dev: false
 

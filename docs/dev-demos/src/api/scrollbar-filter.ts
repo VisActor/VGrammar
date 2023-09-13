@@ -24,88 +24,18 @@ const originData = [
 
 export const runner = (view: IView) => {
   const data = view.data(originData);
-  const markData = view.data().source(data);
-  const xScale = view.scale('point').domain({ data: data, field: 'category' }).range([0, 270]).configure({
+  const markData = view.data().id('markData').source(data);
+  const scrollbarXScale = view.scale('point').domain({ data: data, field: 'category' }).range([0, 270]).configure({
+    padding: 0.5
+  });
+  const xScale = view.scale('point').domain({ data: markData, field: 'category' }).range([0, 270]).configure({
     padding: 0.5
   });
   const yScale = view.scale('linear').domain([100, 0]).range([0, 270]);
   const colorScale = view.scale('ordinal').domain({ data: data, field: 'type' }).range(category10);
 
-  const windowGroup = view.group(view.rootMark).encode({
-    stroke: '#000000',
-    lineWidth: 1,
-    width: 200,
-    height: 200,
-    x: 0,
-    y: 0,
-    clip: true
-  });
-
-  // const clipXScrollbar = view.scrollbar(windowGroup).configure({ 'zIndex': 10 }).encode({
-  //   x: 0,
-  //   y: 200 - 12,
-  //   width: 200,
-  //   height: 12,
-  //   padding: [2, 0],
-  //   railStyle: {
-  //     fill: 'rgba(0, 0, 0, .1)'
-  //   },
-  //   range: [0, 200 / 350],
-  // });
-  // const clipYScrollbar = view.scrollbar(windowGroup).configure({ 'zIndex': 10 }).encode({
-  //   direction: 'vertical',
-  //   x: 200 - 12,
-  //   y: 0,
-  //   width: 12,
-  //   height: 200,
-  //   padding: [0, 2],
-  //   railStyle: {
-  //     fill: 'rgba(0, 0, 0, .1)'
-  //   },
-  //   range: [0, 200 / 350],
-  // });
-  const clipXScrollbar = view
-    .scrollbar(windowGroup)
-    .direction('horizontal')
-    .position('bottom')
-    // .position('top')
-    .configure({ 'zIndex': 10 })
-    .range(200, 350);
-  const clipYScrollbar = view
-    .scrollbar(windowGroup)
-    .direction('vertical')
-    .position('right')
-    // .position('left')
-    .configure({ 'zIndex': 10 })
-    .range(200, 350);
-
-  const clipXSignal = view.signal([0, 200 / 350]);
-  const clipYSignal = view.signal([0, 200 / 350]);
-
-  clipXScrollbar.addEventListener('scroll', (e: any) => {
-    // console.log('clipXScrollBar', e.detail.value);
-    const range = e.detail.value;
-    clipXSignal.value(range);
-    view.runAsync();
-  });
-  clipYScrollbar.addEventListener('scroll', (e: any) => {
-    // console.log('clipYScrollBar', e.detail.value);
-    const range = e.detail.value;
-    clipYSignal.value(range);
-    view.runAsync();
-  });
-
-  const containerGroup = view.group(windowGroup).encode({
-    stroke: 'blue',
-    lineWidth: 2,
-    width: 350,
-    height: 350,
-    x: () => -clipXSignal.getValue()[0] * 350,
-    y: () => -clipYSignal.getValue()[0] * 350,
-  }).depend([clipXSignal, clipYSignal]);
-
   const xAxis = view
-    .axis(containerGroup)
+    .axis(view.rootMark)
     .id('xAxis')
     .scale(xScale)
     // .tickCount(3)
@@ -116,7 +46,7 @@ export const runner = (view: IView) => {
       end: { x: 270, y: 0 }
     });
   const yAxis = view
-    .axis(containerGroup)
+    .axis(view.rootMark)
     .id('yAxis')
     .scale(yScale)
     .encode({
@@ -126,10 +56,10 @@ export const runner = (view: IView) => {
       end: { x: 0, y: 270 },
     });
   const yGrid = view
-    .grid(containerGroup)
+    .grid(view.rootMark)
     .id('yGrid')
     .target(yAxis);
-  const container = view.group(containerGroup).id('container').encode({ x: 40, y: 40, width: 270, height: 270 });
+  const container = view.group(view.rootMark).id('container').encode({ x: 40, y: 40, width: 270, height: 270 });
   // const xLineCrosshair = view.crosshair(container).id('xLineCrosshair').scale(xScale).crosshairType('x');
   // const yLineCrosshair = view.crosshair(container).id('yLineCrosshair').scale(yScale).crosshairType('y');
   const xRectCrosshair = view
@@ -144,6 +74,16 @@ export const runner = (view: IView) => {
     .scale(yScale)
     .crosshairType('y')
     .crosshairShape('rect');
+
+  const filterXScrollbar = view
+    .scrollbar(view.rootMark)
+    .direction('horizontal')
+    .position('bottom')
+    // .position('top')
+    .configure({ 'zIndex': 10 })
+    .range(4, 8)
+    .scale(scrollbarXScale)
+    .target(markData, 'category');
 
   const line = view
     .mark('line', container)
