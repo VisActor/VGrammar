@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { registerTreemapTransforms, flattenNodes } from '@visactor/vgrammar-hierarchy';
-import { ColorUtil } from '@visactor/vutils';
 import { category20 } from '../color-utils';
 import data from '../data/disk.json';
+import { Color, rgbToHsl } from '@visactor/vutils';
 
 registerTreemapTransforms();
 
@@ -175,10 +175,10 @@ export const spec = {
                     return '#777';
                   }
                   const color = params.rectColor.scale(datum.datum[0].name);
-                  const rgb = new ColorUtil.Color(color).color;
-                  const hsl = ColorUtil.rgbToHsl(rgb.r, rgb.g, rgb.b);
+                  const rgb = new Color(color).color;
+                  const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
 
-                  return new ColorUtil.Color(`hsl(${hsl.h}, ${hsl.s}, ${30 + datum.depth * 10})`).toString();
+                  return new Color(`hsl(${hsl.h}, ${hsl.s}, ${30 + datum.depth * 10})`).toString();
                 },
                 dependency: ['rectColor']
               }
