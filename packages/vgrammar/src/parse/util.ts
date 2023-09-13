@@ -1,4 +1,4 @@
-import { isString, isFunction, isNil, array, ColorUtil } from '@visactor/vutils';
+import { isString, isFunction, isNil, array, Color } from '@visactor/vutils';
 import type { IElement } from '../types/element';
 import type {
   FunctionCallback,
@@ -133,7 +133,7 @@ export const parseField = <T>(field: ((datum: T) => symbol | string) | string | 
 };
 
 export const parseColor = (color: any): string | null => {
-  if (isString(color) && ColorUtil.Color.parseColorString(color)) {
+  if (isString(color) && Color.parseColorString(color)) {
     return color;
   }
   return null;
