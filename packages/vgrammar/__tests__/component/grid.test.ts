@@ -38,7 +38,6 @@ test('line axis grid', function () {
         value: NaN
       }
     ],
-    length: 270,
     start: {
       x: 0,
       y: 0
