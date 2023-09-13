@@ -310,15 +310,30 @@ export interface TitleSpec extends ComponentSpec<Partial<TitleAttrs>> {
 
 // scrollbar component
 
-export interface IScrollbar extends IComponent {
-  target: (container: IGroupMark | string | Nil) => this;
+export type ScrollbarFilterValue = { start?: number; end?: number; startRatio: number; endRatio: number };
+
+export interface IScrollbar extends IScaleComponent {
+  target: (
+    data: IData | string | Nil,
+    filter: string | ((datum: any, value: ScrollbarFilterValue) => boolean) | Nil
+  ) => this;
+  range: (scrollValue: number, totalValue: number, startRatio?: number) => this;
+  container: (container: IGroupMark | string | Nil) => this;
   direction: (direction: MarkFunctionType<Direction> | Nil) => this;
   position: (position: MarkFunctionType<OrientType> | Nil) => this;
+
+  // immediate functions
+  setScrollStart: (start: number) => this;
 }
 
-export interface ScrollbarSpec extends ComponentSpec<Partial<ScrollBarAttributes>> {
+export interface ScrollbarSpec extends ScaleComponentSpec<Partial<ScrollBarAttributes>> {
   componentType: ComponentEnum.scrollbar;
-  target?: IGroupMark | string;
+  target?: {
+    data: IData | string;
+    filter: string | ((datum: any, value: ScrollbarFilterValue) => boolean);
+  };
+  range?: { scrollValue: number; totalValue: number; startRatio?: number };
+  container?: IGroupMark | string;
   direction?: MarkFunctionType<Direction>;
   position?: MarkFunctionType<OrientType>;
 }
@@ -332,7 +347,11 @@ export type BuiltInComponentSpec =
   | SliderSpec
   | DatazoomSpec
   | LabelSpec
-  | PlayerSpec;
+  | PlayerSpec
+  | TooltipSpec
+  | DimensionTooltipSpec
+  | TitleSpec
+  | ScrollbarSpec;
 
 export interface IComponentConstructor {
   readonly componentType: string;

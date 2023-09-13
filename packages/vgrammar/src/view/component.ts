@@ -37,6 +37,7 @@ export class Component extends Mark implements IComponent {
     this.spec.type = 'component';
     this.spec.componentType = componentType;
     this.mode = mode;
+    this._updateComponentEncoders();
   }
 
   configureComponent(config: any) {
