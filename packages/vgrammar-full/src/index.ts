@@ -1,4 +1,4 @@
-export * from '@visactor/vgrammar';
+export * from '@visactor/vgrammar-core';
 export * from '@visactor/vgrammar-hierarchy';
 export * from '@visactor/vgrammar-plot';
 export * from '@visactor/vgrammar-projection';
@@ -80,7 +80,7 @@ import {
   registerJitterXTransform,
   registerJitterYTransform,
   registerSymmetryTransform
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 
 View.useRegisters([
   registerAxis,

@@ -6,6 +6,6 @@ module.exports = {
   moduleNameMapper: {
     ...baseJestConfig.moduleNameMapper,
     '@visactor/vgrammar-util': path.resolve(__dirname, '../vgrammar-util/src/index.ts'),
-    '@visactor/vgrammar': path.resolve(__dirname, '../vgrammar/src/index.ts')
+    '@visactor/vgrammar-core': path.resolve(__dirname, '../vgrammar-core/src/index.ts')
   }
 };

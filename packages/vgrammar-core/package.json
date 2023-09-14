@@ -1,5 +1,5 @@
 {
-  "name": "@visactor/vgrammar",
+  "name": "@visactor/vgrammar-core",
   "version": "0.6.6",
   "description": "VGrammar is a visual grammar library",
   "keywords": [

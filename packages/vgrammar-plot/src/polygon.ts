@@ -8,12 +8,12 @@ import type {
   ValueOf,
   IElement,
   GenerateEncoderSpec
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { PlotMakType } from './enums';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar-core';
 
 export class PolygonSemanticMark extends SemanticMark<PlotPolygonEncoderSpec, PolygonEncodeChannels> {
   static readonly type = PlotMakType.polygon;

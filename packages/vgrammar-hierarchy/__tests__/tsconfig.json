@@ -5,8 +5,7 @@
     "paths": {
       "@visactor/vgrammar-util": ["../../vgrammar-util/src"],
       "@visactor/vgrammar-coordinate": ["../../vgrammar-coordinate/src"],
-      "@visactor/vgrammar": ["../../vgrammar/src"]
+      "@visactor/vgrammar-core": ["../../vgrammar-core/src"]
     }
-  },
-  "references": []
+  }
 }

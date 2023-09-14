@@ -55,9 +55,9 @@ import type {
   GridSpec,
   TitleSpec,
   SemanticTitleOption
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 // eslint-disable-next-line no-duplicate-imports
-import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager, Factory } from '@visactor/vgrammar';
+import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager, Factory } from '@visactor/vgrammar-core';
 import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -176,7 +176,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   axis(channel: string, option: SemanticAxisOption | boolean = true, layout?: MarkRelativeItemSpec) {
     if (!Factory.hasComponent('axis')) {
       this._logger.error(
-        `Please add this line of code: import { registerAxis } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerAxis } from '@visactor/vgrammar-core'; 
         and run "registerAxis();" or "View.useRegisters([registerAxis]);" `
       );
 
@@ -194,7 +194,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   grid(channel: string, option: SemanticGridOption | boolean = true) {
     if (!Factory.hasComponent('grid')) {
       this._logger.error(
-        `Please add this line of code: import { registerGrid } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerGrid } from '@visactor/vgrammar-core'; 
         and run "registerGrid();" or "View.useRegisters([registerGrid]);" `
       );
 
@@ -212,7 +212,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   legend(channel: string, option: SemanticLegendOption | boolean = true, layout?: MarkRelativeItemSpec) {
     if (!Factory.hasComponent('legend')) {
       this._logger.error(
-        `Please add this line of code: import { registerLegend } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerLegend } from '@visactor/vgrammar-core'; 
         and run "registerLegend();" or "View.useRegisters([registerLegend]);" `
       );
 
@@ -230,7 +230,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   crosshair(channel: string, option?: SemanticCrosshairOption | boolean) {
     if (!Factory.hasComponent('crosshair')) {
       this._logger.error(
-        `Please add this line of code: import { registerCrosshair } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerCrosshair } from '@visactor/vgrammar-core'; 
         and run "registerCrosshair();" or "View.useRegisters([registerCrosshair]);" `
       );
 
@@ -248,7 +248,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   tooltip(option: SemanticTooltipOption | boolean) {
     if (!Factory.hasComponent('tooltip')) {
       this._logger.error(
-        `Please add this line of code: import { registerTooltip } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerTooltip } from '@visactor/vgrammar-core'; 
         and run "registerTooltip();" or "View.useRegisters([registerTooltip]);" `
       );
 
@@ -263,7 +263,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   slider(channel: string, option?: SemanticSliderOption | boolean, layout?: MarkRelativeItemSpec) {
     if (!Factory.hasComponent('slider')) {
       this._logger.error(
-        `Please add this line of code: import { registerSlider } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerSlider } from '@visactor/vgrammar-core'; 
         and run "registerSlider();" or "View.useRegisters([registerSlider]);" `
       );
 
@@ -281,7 +281,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   datazoom(channel: string, option?: SemanticDataZoomOption | boolean, layout?: MarkRelativeItemSpec) {
     if (!Factory.hasComponent('datazoom')) {
       this._logger.error(
-        `Please add this line of code: import { registerDataZoom } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerDataZoom } from '@visactor/vgrammar-core'; 
         and run "registerDataZoom();" or "View.useRegisters([registerDataZoom]);" `
       );
 
@@ -299,7 +299,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   label(channel: string, option?: SemanticLabelOption | boolean) {
     if (!Factory.hasComponent('label')) {
       this._logger.error(
-        `Please add this line of code: import { registerLabel } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerLabel } from '@visactor/vgrammar-core'; 
         and run "registerLabel();" or "View.useRegisters([registerLabel]);" `
       );
 
@@ -317,7 +317,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   player(data?: any[], option?: SemanticPlayerOption | boolean, layout?: MarkRelativeItemSpec) {
     if (!Factory.hasComponent('player')) {
       this._logger.error(
-        `Please add this line of code: import { registerPlayer } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerPlayer } from '@visactor/vgrammar-core'; 
         and run "registerPlayer();" or "View.useRegisters([registerPlayer]);" `
       );
 
@@ -332,7 +332,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
   title(option: SemanticTitleOption, layout?: MarkRelativeItemSpec) {
     if (!Factory.hasComponent('title')) {
       this._logger.error(
-        `Please add this line of code: import { registerTitle } from '@visactor/vgrammar'; 
+        `Please add this line of code: import { registerTitle } from '@visactor/vgrammar-core'; 
         and run "registerTitle();" or "View.useRegisters([registerTitle]);" `
       );
 

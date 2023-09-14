@@ -3,7 +3,7 @@
     "definitionName": "lockStepVersion",
     "policyName": "vgrammarMain",
     "version": "0.6.6",
-    "mainProject": "@visactor/vgrammar",
+    "mainProject": "@visactor/vgrammar-core",
     "nextBump": "patch"
   }
 ]

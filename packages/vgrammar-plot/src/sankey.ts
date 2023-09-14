@@ -12,10 +12,10 @@ import type {
   ValueOf,
   TransformSpec,
   IElement
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, SIGNAL_VIEW_BOX, Factory } from '@visactor/vgrammar';
+import { GrammarMarkType, SIGNAL_VIEW_BOX, Factory } from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -34,7 +34,7 @@ export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, Sank
 
     if (!Factory.getGlyph('linkPath')) {
       this._logger.error(`
-      Please add this line of code: import { registerLinkPathGlyph } from '@visactor/vgrammar';
+      Please add this line of code: import { registerLinkPathGlyph } from '@visactor/vgrammar-core';
       add run registerLinkPathGlyph() before use sankey
       `);
     }

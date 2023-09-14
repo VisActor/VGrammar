@@ -3,7 +3,7 @@
  */
 import type { ITextAttribute } from '@visactor/vrender';
 import { getTextBounds } from '@visactor/vrender';
-import type { IProgressiveTransformResult } from '@visactor/vgrammar';
+import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import type { IBaseLayoutOptions, TagItemAttribute } from './interface';
 import { BaseLayout } from './base';
 import { merge } from '@visactor/vutils';
