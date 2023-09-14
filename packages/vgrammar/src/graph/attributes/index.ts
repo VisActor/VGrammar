@@ -221,7 +221,22 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
       channels: ['text', 'textConfig'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
         graphicAttributes.text = null;
-        graphicAttributes.textConfig = nextAttrs.text?.type === 'rich' ? nextAttrs.text.text : nextAttrs.textConfig;
+
+        if (nextAttrs.text?.type === 'rich') {
+          graphicAttributes.textConfig = nextAttrs.text.text;
+        } else if (nextAttrs.textConfig?.type === 'html') {
+          graphicAttributes.html = {
+            dom: nextAttrs.textConfig.text,
+            width: nextAttrs.width,
+            height: nextAttrs.height ?? nextAttrs.fontSize,
+            anchorType: 'position'
+          };
+          graphicAttributes.text = '';
+        } else if (nextAttrs.textConfig?.type === 'rich') {
+          graphicAttributes.textConfig = nextAttrs.textConfig.text;
+        } else {
+          graphicAttributes.textConfig = nextAttrs.textConfig;
+        }
       }
     }
   ]
