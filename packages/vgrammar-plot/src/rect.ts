@@ -16,6 +16,7 @@ import { SemanticMark } from './semantic-mark';
 import { GrammarMarkType } from '@visactor/vgrammar';
 import { isArray } from '@visactor/vutils';
 import { PlotMakType } from './enums';
+import { isContinuous } from '@visactor/vscale';
 
 export class RectSemanticMark extends SemanticMark<PlotRectEncoderSpec, RectEncodeChannels> {
   static readonly type = PlotMakType.rect;
@@ -83,12 +84,17 @@ export class RectSemanticMark extends SemanticMark<PlotRectEncoderSpec, RectEnco
         if (isArray(xVals) && xVals.length > 1) {
           return scale.scale(xVals[1]);
         }
-        const domain = scale.domain();
-        const min = Math.min.apply(null, domain);
-        const max = Math.max.apply(null, domain);
-        const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
-        return scale.scale(baseValue);
+        if (isContinuous(scale.type)) {
+          const domain = scale.domain();
+          const min = Math.min.apply(null, domain);
+          const max = Math.max.apply(null, domain);
+          const baseValue = min > 0 ? min : max < 0 ? max : 0;
+
+          return scale.scale(baseValue);
+        }
+
+        return scale.scale(xVals) + (scale.bandwidth?.() ?? scale.step?.() ?? 0);
       };
     }
 
@@ -110,12 +116,16 @@ export class RectSemanticMark extends SemanticMark<PlotRectEncoderSpec, RectEnco
         if (isArray(yVals) && yVals.length > 1) {
           return scale.scale(yVals[1]);
         }
-        const domain = scale.domain();
-        const min = Math.min.apply(null, domain);
-        const max = Math.max.apply(null, domain);
-        const baseValue = min > 0 ? min : max < 0 ? max : 0;
+        if (isContinuous(scale.type)) {
+          const domain = scale.domain();
+          const min = Math.min.apply(null, domain);
+          const max = Math.max.apply(null, domain);
+          const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
-        return scale.scale(baseValue);
+          return scale.scale(baseValue);
+        }
+
+        return scale.scale(yVals) + (scale.bandwidth?.() ?? scale.step?.() ?? 0);
       };
     }
 
