@@ -1,4 +1,4 @@
-import type { IProgressiveTransformResult } from '@visactor/vgrammar';
+import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
 /*!
  * wordcloud2.js
  * http://timdream.org/wordcloud2.js/

@@ -1,5 +1,5 @@
 import { registerAllHierarchyTransforms } from '../src';
-import { Factory } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar-core';
 import { mockData } from './data/tree';
 
 registerAllHierarchyTransforms();

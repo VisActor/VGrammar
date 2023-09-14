@@ -1,4 +1,4 @@
-import { Factory } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar-core';
 
 import { transform } from './wordcloud-shape';
 

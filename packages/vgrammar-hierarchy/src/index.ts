@@ -1,4 +1,4 @@
-import { Factory } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar-core';
 import { transform as treemapTransform } from './treemap/transform';
 import { transform as sunburtTransform } from './sunburst/transform';
 import { transform as circlePackingTransform } from './circle-packing/transform';

@@ -1,5 +1,5 @@
 import { registerSankeyTransforms } from '../src';
-import { Factory } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar-core';
 
 registerSankeyTransforms();
 

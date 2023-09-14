@@ -13,7 +13,7 @@
       "path": "../vgrammar-util"
     },
     {
-      "path": "../vgrammar"
+      "path": "../vgrammar-core"
     },
     {
       "path": "../vgrammar-coordinate"

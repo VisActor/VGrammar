@@ -1,6 +1,6 @@
 import { Projection, registerGeoTransforms } from '../src';
-import type { IView, FeatureCollectionData } from '@visactor/vgrammar';
-import { Factory } from '@visactor/vgrammar';
+import type { IView, FeatureCollectionData } from '@visactor/vgrammar-core';
+import { Factory } from '@visactor/vgrammar-core';
 import { getMockedView } from './utils';
 import { testData } from './data';
 

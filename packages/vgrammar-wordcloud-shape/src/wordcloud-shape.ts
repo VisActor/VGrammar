@@ -15,7 +15,7 @@ import { loadAndHandleImage, segmentation } from './segmentation';
 import { LinearScale, OrdinalScale, SqrtScale } from '@visactor/vscale';
 import cloud from './cloud-shape-layout';
 import { calTextLength, colorListEqual, fakeRandom, functor, WORDCLOUD_SHAPE_HOOK_EVENT } from './util';
-import type { IView } from '@visactor/vgrammar';
+import type { IView } from '@visactor/vgrammar-core';
 
 const OUTPUT = {
   x: 'x',

@@ -76,8 +76,8 @@
       "versionPolicyName": "vgrammarMain"
     },
     {
-      "packageName": "@visactor/vgrammar",
-      "projectFolder": "packages/vgrammar",
+      "packageName": "@visactor/vgrammar-core",
+      "projectFolder": "packages/vgrammar-core",
       "tags": ["package"],
       "shouldPublish": true,
       "versionPolicyName": "vgrammarMain"

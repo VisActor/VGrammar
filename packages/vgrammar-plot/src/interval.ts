@@ -14,10 +14,10 @@ import type {
   AttributeTransform,
   IElement,
   TransformSpec
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar-core';
 import type { IPolarCoordinate } from '@visactor/vgrammar-coordinate';
 import { isArray } from '@visactor/vutils';
 import { PlotMakType } from './enums';
