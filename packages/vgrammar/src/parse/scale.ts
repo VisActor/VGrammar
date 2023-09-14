@@ -398,7 +398,7 @@ function configurePointScale(spec: PointScaleSpec, scale: IBandLikeScale, parame
 function parseFieldData(spec: ScaleData, parameters: any) {
   const field = spec.field;
   const refData = getGrammarOutput(spec.data, parameters) as any[];
-  const fieldData: any[] = [];
+  let fieldData: any[] = [];
 
   if (isArray(field)) {
     field.forEach(entry => {
@@ -406,7 +406,7 @@ function parseFieldData(spec: ScaleData, parameters: any) {
 
       refData &&
         refData.forEach(datum => {
-          fieldData.push(getter(datum));
+          fieldData = fieldData.concat(getter(datum));
         });
     });
   } else {
@@ -414,7 +414,7 @@ function parseFieldData(spec: ScaleData, parameters: any) {
 
     refData &&
       refData.forEach(datum => {
-        fieldData.push(getter(datum));
+        fieldData = fieldData.concat(getter(datum));
       });
   }
 
