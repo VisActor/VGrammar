@@ -21,7 +21,7 @@ yarn add @visactor/vgrammar
 ### Quick Start
 
 ```javascript
-import { View } from '@visactor/vgrammar';
+import { View } from '@visactor/vgrammar-core';
 
 const spec = {
   padding: { top: 5, right: 5, bottom: 30, left: 60 },
