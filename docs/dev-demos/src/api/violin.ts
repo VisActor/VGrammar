@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import type { IView } from '@visactor/vgrammar-simple';
+import type { IView } from '@visactor/vgrammar';
 // eslint-disable-next-line no-duplicate-imports
-import { registerViolinGlyph } from '@visactor/vgrammar-simple';
+import { registerViolinGlyph } from '@visactor/vgrammar';
 import { category20 } from '../color-utils';
 
 const originData = [

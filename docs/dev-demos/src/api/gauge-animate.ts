@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { View } from '@visactor/vgrammar-simple';
+import type { View } from '@visactor/vgrammar';
 
 export const runner = (view: View) => {
   const polar = view.coordinate('polar').origin([200, 200]);

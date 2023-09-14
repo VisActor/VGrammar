@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { SankeyLinkDatum, registerSankeyTransforms } from '@visactor/vgrammar-sankey';
-import type { IElement, IView, IGlyphElement } from '@visactor/vgrammar-simple';
+import type { IElement, IView, IGlyphElement } from '@visactor/vgrammar';
 // eslint-disable-next-line
-import { registerLinkPathGlyph } from '@visactor/vgrammar-simple';
+import { registerLinkPathGlyph } from '@visactor/vgrammar';
 import { category20 } from '../color-utils';
 import data from '../data/hierarchy.json';
 registerSankeyTransforms();

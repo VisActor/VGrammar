@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import type { IView, ViewSpec } from '@visactor/vgrammar-simple';
+import type { IView, ViewSpec } from '@visactor/vgrammar';
 
 const getMultiPointsData = () => {
   const categories = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];

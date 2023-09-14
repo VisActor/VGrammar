@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import * as VRender from '@visactor/vrender';
-import * as VGrammar from '@visactor/vgrammar-simple';
+import * as VGrammar from '@visactor/vgrammar';
 import * as VGrammarHierarchy from '@visactor/vgrammar-hierarchy';
 import * as VGrammarSankey from '@visactor/vgrammar-sankey';
 import * as VGrammarWordcloud from '@visactor/vgrammar-wordcloud';

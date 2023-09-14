@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { IncreaseCount, InputText, FadeInPlus } from '@visactor/vrender';
-import type { View, MarkAnimationSpec } from '@visactor/vgrammar-simple';
+import type { View, MarkAnimationSpec } from '@visactor/vgrammar';
 
 export const runner = (view: View) => {
   const growTextAnimation: MarkAnimationSpec = {

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { AnimationEvent, IView } from '@visactor/vgrammar-simple';
+import type { AnimationEvent, IView } from '@visactor/vgrammar';
 
 export const spec = {
   description: 'A basic bar chart example, with value labels shown upon mouse hover.',
