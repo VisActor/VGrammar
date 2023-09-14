@@ -7,5 +7,5 @@ VGrammar 可视化语法
 ## Usage
 
 ```typescript
-import { xxx } from '@visactor/vgrammar';
+import { xxx } from '@visactor/vgrammar-core';
 ```
