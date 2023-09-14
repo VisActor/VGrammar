@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { type IView, type IPlot, registerLinkPathGlyph, ThemeManager } from '@visactor/vgrammar-simple';
+import { type IView, type IPlot, registerLinkPathGlyph, ThemeManager } from '@visactor/vgrammar';
 import data from '../data/hierarchy.json';
 import { registerSankeyTransforms } from '@visactor/vgrammar-sankey';
 

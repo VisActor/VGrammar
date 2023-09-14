@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { View, IGroupMark, IMark } from '@visactor/vgrammar-simple';
+import type { View, IGroupMark, IMark } from '@visactor/vgrammar';
 
 export const runner = (view: View) => {
   const originData = [

@@ -22,10 +22,10 @@
       "path": "../../packages/vgrammar-util"
     },
     {
-      "path": "../../packages/vgrammar"
+      "path": "../../packages/vgrammar-core"
     },
     {
-      "path": "../../packages/vgrammar-simple"
+      "path": "../../packages/vgrammar"
     },
     {
       "path": "../../packages/vgrammar-coordinate"

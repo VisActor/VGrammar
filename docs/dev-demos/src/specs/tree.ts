@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { registerTreeTransforms, flattenNodes, flattenTreeLinks } from '@visactor/vgrammar-hierarchy';
-import { registerTreePathGlyph } from '@visactor/vgrammar-simple';
+import { registerTreePathGlyph } from '@visactor/vgrammar';
 import data from '../data/coffee.json';
 
 registerTreeTransforms();
