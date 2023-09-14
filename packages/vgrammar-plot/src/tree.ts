@@ -13,10 +13,10 @@ import type {
   ValueOf,
   TransformSpec,
   IElement
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, Factory } from '@visactor/vgrammar';
+import { GrammarMarkType, Factory } from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { ITextAttribute } from '@visactor/vrender';
@@ -35,7 +35,7 @@ export class TreeSemanticMark extends SemanticMark<PlotTreeEncodeSpec, TreeEncod
 
     if (!Factory.getGlyph('treePath')) {
       this._logger.error(
-        `Please add this line of code: import { registerTreePathGlyph } from '@visactor/vgrammar';
+        `Please add this line of code: import { registerTreePathGlyph } from '@visactor/vgrammar-core';
         and run registerTreePathGlyph() before use tree`
       );
     }

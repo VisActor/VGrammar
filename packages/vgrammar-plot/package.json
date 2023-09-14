@@ -42,7 +42,7 @@
   "dependencies": {
     "@visactor/vgrammar-util": "workspace:0.6.6",
     "@visactor/vgrammar-coordinate": "workspace:0.6.6",
-    "@visactor/vgrammar": "workspace:0.6.6",
+    "@visactor/vgrammar-core": "workspace:0.6.6",
     "@visactor/vscale": "~0.15.12",
     "@visactor/vrender-components": "~0.15.1",
     "@visactor/vrender": "~0.15.1",

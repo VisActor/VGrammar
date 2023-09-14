@@ -11,9 +11,9 @@ import type {
   IElement,
   DataSpec,
   LabelSpec
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
-import { GrammarMarkType, SIGNAL_VIEW_BOX, Factory } from '@visactor/vgrammar';
+import { GrammarMarkType, SIGNAL_VIEW_BOX, Factory } from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { BaseLabelAttrs } from '@visactor/vrender-components';

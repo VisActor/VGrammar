@@ -1,4 +1,4 @@
-import type { IComponent, IMark } from '@visactor/vgrammar';
+import type { IComponent, IMark } from '@visactor/vgrammar-core';
 import '../util';
 import { Plot } from '../../src';
 

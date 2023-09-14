@@ -18,9 +18,9 @@ import type {
   FeatureData,
   IProjection,
   ProjectionSpec
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarBase, parseFunctionType, invokeFunctionType } from '@visactor/vgrammar';
+import { GrammarBase, parseFunctionType, invokeFunctionType } from '@visactor/vgrammar-core';
 
 const Feature = 'Feature';
 const FeatureCollection = 'FeatureCollection';

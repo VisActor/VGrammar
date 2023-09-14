@@ -10,10 +10,10 @@ import type {
   ScaleFunctionType,
   SemanticTooltipOption,
   CrosshairSpec
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 
 export class SymbolSemanticMark extends SemanticMark<BasicEncoderSpecMap['symbol'], SymbolEncodeChannels> {

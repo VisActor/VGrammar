@@ -1,4 +1,4 @@
-import { GrammarMarkType } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar-core';
 import type {
   PathEncodeChannels,
   WithDefaultEncode,
@@ -8,7 +8,7 @@ import type {
   ScaleSpec,
   ValueOf,
   GenerateEncoderSpec
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 import { SemanticMark } from './semantic-mark';
 

@@ -9,9 +9,9 @@ import type {
   Nil,
   ScaleSpec,
   ValueOf
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar-core';
 import { isArray } from '@visactor/vutils';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { PlotMakType } from './enums';

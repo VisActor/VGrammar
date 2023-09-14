@@ -7,10 +7,10 @@ import type {
   Nil,
   ScaleSpec,
   ValueOf
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar-core';
 import { isArray } from '@visactor/vutils';
 import { PlotMakType } from './enums';
 

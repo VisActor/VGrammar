@@ -14,12 +14,12 @@ import type {
   IPlotOptions,
   PlotMark,
   PlotSpec
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import type { ILogger } from '@visactor/vutils';
 import { Logger, isNil, merge } from '@visactor/vutils';
 import { mergeGrammarSpecs } from './util';
 import { PlotMakType } from './enums';
-import { Factory, SIGNAL_VIEW_BOX, View } from '@visactor/vgrammar';
+import { Factory, SIGNAL_VIEW_BOX, View } from '@visactor/vgrammar-core';
 
 export class Plot implements IPlot {
   static useMarks(marks: IPlotMarkConstructor[]) {

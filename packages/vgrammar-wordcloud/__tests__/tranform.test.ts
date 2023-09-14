@@ -1,4 +1,4 @@
-import { Factory } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar-core';
 import { registerWordCloudTransforms } from '../src';
 
 test('transform of wordcloud', () => {

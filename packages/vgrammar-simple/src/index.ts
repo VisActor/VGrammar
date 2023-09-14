@@ -66,7 +66,7 @@ import {
   registerJitterXTransform,
   registerJitterYTransform,
   registerSymmetryTransform
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 
 View.useRegisters([
   registerAxis,
@@ -138,4 +138,4 @@ View.useAnimations([
   update
 ]);
 
-export * from '@visactor/vgrammar';
+export * from '@visactor/vgrammar-core';

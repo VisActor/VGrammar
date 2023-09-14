@@ -10,10 +10,10 @@ import type {
   TransformSpec,
   IElement,
   LabelSpec
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType, Factory } from '@visactor/vgrammar';
+import { GrammarMarkType, Factory } from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 

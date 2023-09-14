@@ -9,10 +9,10 @@ import type {
   CellEncodeChannels,
   SemanticTooltipOption,
   WithDefaultEncode
-} from '@visactor/vgrammar';
+} from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
-import { GrammarMarkType } from '@visactor/vgrammar';
+import { GrammarMarkType } from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 
 export class Cell extends SemanticMark<BasicEncoderSpecMap['cell'], CellEncodeChannels> {
