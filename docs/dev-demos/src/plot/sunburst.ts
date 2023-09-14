@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { type IView, type IPlot, ThemeManager } from '@visactor/vgrammar-simple';
+import { type IView, type IPlot, ThemeManager } from '@visactor/vgrammar';
 import data from '../data/coffee.json';
 import { registerSunburstTransforms } from '@visactor/vgrammar-hierarchy';
 

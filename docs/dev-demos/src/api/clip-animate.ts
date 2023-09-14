@@ -6,7 +6,7 @@ import {
   ClipRadiusAnimate,
   ClipDirectionAnimate
 } from '@visactor/vrender';
-import type { IView, IElement } from '@visactor/vgrammar-simple';
+import type { IView, IElement } from '@visactor/vgrammar';
 
 export const runner = (view: IView) => {
   const originData = [

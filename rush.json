@@ -90,8 +90,8 @@
       "versionPolicyName": "vgrammarMain"
     },
     {
-      "packageName": "@visactor/vgrammar-simple",
-      "projectFolder": "packages/vgrammar-simple",
+      "packageName": "@visactor/vgrammar",
+      "projectFolder": "packages/vgrammar",
       "tags": ["package"],
       "shouldPublish": true,
       "versionPolicyName": "vgrammarMain"

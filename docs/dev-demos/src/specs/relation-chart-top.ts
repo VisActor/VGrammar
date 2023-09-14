@@ -1,4 +1,4 @@
-import { IElement, ViewSpec, registerRippleGlyph } from '@visactor/vgrammar-simple'
+import { IElement, ViewSpec, registerRippleGlyph } from '@visactor/vgrammar'
 
 
 registerRippleGlyph();

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import type { View, IGroupMark } from '@visactor/vgrammar-simple';
-import { IMark } from '@visactor/vgrammar-simple';
+import type { View, IGroupMark } from '@visactor/vgrammar';
+import { IMark } from '@visactor/vgrammar';
 
 function init(view: View) {
   const originData = [

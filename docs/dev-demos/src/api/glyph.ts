@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import type { View, ISignal } from '@visactor/vgrammar-simple';
-import { registerGlyph } from '@visactor/vgrammar-simple';
+import type { View, ISignal } from '@visactor/vgrammar';
+import { registerGlyph } from '@visactor/vgrammar';
 
 export const runner = (view: View) => {
   const originData = [

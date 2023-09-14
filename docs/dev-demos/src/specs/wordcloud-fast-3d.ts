@@ -1,7 +1,7 @@
 import { registerWordCloudTransforms } from '@visactor/vgrammar-wordcloud';
 import { RotateBySphereAnimate } from '@visactor/vrender';
 import baseData from '../data/wordcloud/social-media.json';
-import type { IElement } from '@visactor/vgrammar-simple';
+import type { IElement } from '@visactor/vgrammar';
 registerWordCloudTransforms();
 
 const depth_3d = 10;
