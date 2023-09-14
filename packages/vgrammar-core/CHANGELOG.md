@@ -1,6 +1,11 @@
-# Change Log - @visactor/vgrammar
+# Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 01 Sep 2023 07:09:07 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Sep 2023 12:34:20 GMT and should not be manually modified.
+
+## 0.7.0
+Thu, 14 Sep 2023 12:34:20 GMT
+
+_Version update only_
 
 ## 0.6.6
 Fri, 01 Sep 2023 07:09:07 GMT
