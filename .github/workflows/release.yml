@@ -52,10 +52,10 @@ jobs:
         run: node common/scripts/install-run-rush.js version --bump
 
       - name: Build packages
-        run: node common/scripts/install-run-rush.js build -t @internal/bugserver-trigger
+        run: node common/scripts/install-run-rush.js build --only tag:package
 
       - name: Run bug server
-        working-directory: ./tools/bugserver-trigger
+        working-directory: ./packages/vgrammar-full
         env:
           BUG_SERVER_TOKEN: ${{ secrets.BUG_SERVER_TOKEN }}
         run: node ../../common/scripts/install-run-rushx.js ci
