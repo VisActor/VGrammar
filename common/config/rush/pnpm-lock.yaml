@@ -646,35 +646,6 @@ importers:
   ../../share/ts-config:
     specifiers: {}
 
-  ../../tools/bugserver-trigger:
-    specifiers:
-      '@internal/bundler': workspace:*
-      '@internal/eslint-config': workspace:*
-      '@internal/ts-config': workspace:*
-      '@rushstack/eslint-patch': ~1.1.4
-      '@types/node': '*'
-      '@types/node-fetch': 2.6.4
-      '@visactor/vgrammar-full': workspace:0.7.0
-      eslint: ~8.18.0
-      form-data: ~4.0.0
-      node-fetch: 2.6.7
-      ts-node: 10.9.0
-      typescript: 4.9.5
-    dependencies:
-      '@visactor/vgrammar-full': link:../../packages/vgrammar-full
-    devDependencies:
-      '@internal/bundler': link:../bundler
-      '@internal/eslint-config': link:../../share/eslint-config
-      '@internal/ts-config': link:../../share/ts-config
-      '@rushstack/eslint-patch': 1.1.4
-      '@types/node': 20.6.0
-      '@types/node-fetch': 2.6.4
-      eslint: 8.18.0
-      form-data: 4.0.0
-      node-fetch: 2.6.7
-      ts-node: 10.9.0_cqr6jgkr7tkibwc2hupq6vz5k4
-      typescript: 4.9.5
-
   ../../tools/bundler:
     specifiers:
       '@babel/core': 7.20.12
@@ -2956,13 +2927,6 @@ packages:
 
   /@types/ms/0.7.31:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
-    dev: true
-
-  /@types/node-fetch/2.6.4:
-    resolution: {integrity: sha512-1ZX9fcN4Rvkvgv4E6PAY5WXUFWFcRWxZa3EW83UjycOB9ljJCedb2CupIP4RZMEwF/M3eTcCihbBRgwtGbg5Rg==}
-    dependencies:
-      '@types/node': 20.6.0
-      form-data: 3.0.1
     dev: true
 
   /@types/node/20.6.0:
@@ -5639,15 +5603,6 @@ packages:
   /fork-stream/0.0.4:
     resolution: {integrity: sha512-Pqq5NnT78ehvUnAk/We/Jr22vSvanRlFTpAmQ88xBY/M1TlHe+P0ILuEyXS595ysdGfaj22634LBkGMA2GTcpA==}
     dev: false
-
-  /form-data/3.0.1:
-    resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
-    engines: {node: '>= 6'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
-    dev: true
 
   /form-data/4.0.0:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
