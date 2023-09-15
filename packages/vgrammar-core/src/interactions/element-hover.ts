@@ -1,4 +1,4 @@
-import type { ElementHoverOptions, GrammarEvent, IMark, IView } from '../types';
+import type { ElementHoverOptions, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
 export class ElementHoverState extends BaseInteraction {
@@ -35,7 +35,7 @@ export class ElementHoverState extends BaseInteraction {
     };
   }
 
-  handleStart = (e: GrammarEvent) => {
+  handleStart = (e: InteractionEvent) => {
     if (e.element) {
       if (this._marks && this._marks.includes(e.element.mark)) {
         e.element.addState(this.options.state);
@@ -43,7 +43,7 @@ export class ElementHoverState extends BaseInteraction {
     }
   };
 
-  handleEnd = (e: GrammarEvent) => {
+  handleEnd = (e: InteractionEvent) => {
     if (e.element) {
       if (this._marks && this._marks.includes(e.element.mark)) {
         e.element.removeState(this.options.state);
