@@ -18,7 +18,7 @@ import type { ScaleSpec, GrammarScaleType } from './scale';
 import type { MarkSpec, MarkType } from './mark';
 import type { Hooks } from './hooks';
 import type { ProjectionSpec } from './projection';
-import type { BaseEventHandler, EventSpec } from './event';
+import type { BaseEventHandler, EventSpec, InteractionEventHandler } from './event';
 import type { CommonPaddingSpec } from './base';
 import type { IMorphAnimationConfig } from './morph';
 import type { IBaseAnimate } from './animate';

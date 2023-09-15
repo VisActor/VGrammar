@@ -1,4 +1,4 @@
-import type { BaseEventHandler, IView } from '../types';
+import type { IView, InteractionEventHandler } from '../types';
 
 export abstract class BaseInteraction {
   readonly view: IView;
@@ -7,7 +7,7 @@ export abstract class BaseInteraction {
     this.view = view;
   }
 
-  protected abstract getEvents(): Record<string, BaseEventHandler>;
+  protected abstract getEvents(): Record<string, InteractionEventHandler>;
 
   bind() {
     const events = this.getEvents();
