@@ -1,6 +1,6 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger, isArray } from '@visactor/vutils';
+import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports
 import { vglobal } from '@visactor/vrender';
@@ -103,6 +103,7 @@ import { Cell } from '../semantic-marks/cell';
 import { Text } from '../semantic-marks/text';
 import { ThemeManager } from '../theme/theme-manager';
 import { Factory } from '../core/factory';
+import { Component } from './component';
 
 /**
  * Create a new View instance from a VGrammar dataflow runtime specification.
@@ -292,7 +293,9 @@ export default class View extends EventEmitter implements IView {
         break;
       // components
       case GrammarMarkType.component:
-        mark = Factory.createComponent(markOptions?.componentType, this, groupMark, markOptions?.mode);
+        mark = Factory.hasComponent(markOptions?.componentType)
+          ? Factory.createComponent(markOptions?.componentType, this, groupMark, markOptions?.mode)
+          : new Component(this, markOptions?.componentType, groupMark, markOptions?.mode);
         break;
       case GrammarMarkType.interval:
         mark = new Interval(this, type, groupMark);
