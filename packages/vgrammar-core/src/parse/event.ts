@@ -45,8 +45,8 @@ export const parseHandler = (callback: EventCallback, config: { debounce?: numbe
 };
 
 const JOIN_SYMBOL = ':';
-const NAME_PREFIX = '@';
-const ID_PREFIX = '#';
+export const NAME_PREFIX = '@';
+export const ID_PREFIX = '#';
 
 /**
  * Parse an event selector string.

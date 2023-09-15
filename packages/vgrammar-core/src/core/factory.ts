@@ -8,6 +8,7 @@ import type {
   IGlyphMeta,
   IGrammarBaseConstructor,
   IGroupMark,
+  IInteractionConstructor,
   IPlotMarkConstructor,
   ISemanticMark,
   ITransform,
@@ -25,6 +26,7 @@ export class Factory {
   private static _grammars: Record<string, { grammarClass: IGrammarBaseConstructor; specKey: string }> = {};
   private static _glyphs: Record<string, IGlyphMeta<any, any>> = {};
   private static _animations: Record<string, TypeAnimation<IGlyphElement> | TypeAnimation<IElement>> = {};
+  private static _interactions: Record<string, IInteractionConstructor> = {};
 
   static registerPlotMarks(key: string, mark: IPlotMarkConstructor) {
     Factory._plotMarks[key] = mark;
@@ -136,4 +138,17 @@ export class Factory {
   static getAnimationType = (animationType: string) => {
     return Factory._animations[animationType];
   };
+
+  static registerInteraction = (interactionType: string, interaction: IInteractionConstructor) => {
+    Factory._interactions[interactionType] = interaction;
+  };
+
+  static createInteraction(interactionType: string, view: IView, options?: any) {
+    const Ctor = Factory._interactions[interactionType];
+    if (!Ctor) {
+      return null;
+    }
+
+    return new Ctor(view, options);
+  }
 }

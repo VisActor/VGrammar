@@ -3,6 +3,8 @@ export const version = __VERSION__;
 
 export * from './graph';
 
+export * from './interactions';
+
 export { View } from './view';
 export { parseFunctionType, invokeFunctionType } from './parse/util';
 export { GrammarBase } from './view/grammar-base';
