@@ -17,8 +17,26 @@
     },
     {
       "path": "../vgrammar-coordinate"
+    },
+    {
+      "path": "../vgrammar-hierarchy"
+    },
+    {
+      "path": "../vgrammar-plot"
+    },
+    {
+      "path": "../vgrammar-projection"
+    },
+    {
+      "path": "../vgrammar-sankey"
+    },
+    {
+      "path": "../vgrammar-wordcloud"
+    },
+    {
+      "path": "../vgrammar-wordcloud-shape"
     }
   ],
-  "include": ["src"],
+  "include": ["src", "./scripts"],
   "exclude": []
 }

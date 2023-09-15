@@ -32,10 +32,10 @@ jobs:
         run: node common/scripts/install-run-rush.js install --bypass-policy
 
       - name: Build
-        run: node common/scripts/install-run-rush.js build -t @internal/bugserver-trigger
+        run: node common/scripts/install-run-rush.js build -t @visactor/vgrammar-full
 
       - name: Run CI
-        working-directory: ./tools/bugserver-trigger
+        working-directory: ./packages/vgrammar-full
         env:
           BUG_SERVER_TOKEN: ${{ secrets.BUG_SERVER_TOKEN }}
         run: node ../../common/scripts/install-run-rushx.js ci

@@ -34,6 +34,8 @@
     "build": "bundle --clean",
     "dev": "bundle --clean -f es -w",
     "start": "vite ./vite",
+    "ci": "ts-node --transpileOnly --skipProject ./scripts/trigger-test.ts",
+    "analysis": "bundle -f umd -a",
     "test": ""
   },
   "dependencies": {
