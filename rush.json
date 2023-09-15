@@ -131,12 +131,6 @@
       "projectFolder": "docs/site",
       "tags": ["doc"],
       "shouldPublish": false
-    },
-    {
-      "packageName": "@internal/bugserver-trigger",
-      "projectFolder": "tools/bugserver-trigger",
-      "tags": ["tool"],
-      "shouldPublish": false
     }
   ]
 }
