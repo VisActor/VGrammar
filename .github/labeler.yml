@@ -1,6 +1,6 @@
 # Add 'core' label to any change within the 'core' package
 '@pkg/core':
-  - packages/vgrammar/src/**
+  - packages/vgrammar-core/src/**
 
 # Add 'coordinate' label to any change within the 'core' package
 '@pkg/coordinate':
