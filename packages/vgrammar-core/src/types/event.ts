@@ -1,4 +1,5 @@
-import type { IAnimationConfig, IElement, IMark } from '.';
+import type { FederatedEvent } from '@visactor/vrender';
+import type { IAnimationConfig, IElement, IGlyphElement, IMark } from '.';
 import type { MarkType } from './mark';
 import type { SignalDependency } from './signal';
 
@@ -8,7 +9,7 @@ export type AnimationEvent = {
   animationConfig: IAnimationConfig;
 };
 
-export type GrammarEvent = MouseEvent & TouchEvent & KeyboardEvent & AnimationEvent;
+export type GrammarEvent = FederatedEvent & { element?: IElement | IGlyphElement };
 
 export type EventHandler<T> = (event?: GrammarEvent, value?: T) => void;
 export type BaseEventHandler = EventHandler<any>;

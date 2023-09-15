@@ -1,6 +1,6 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger } from '@visactor/vutils';
+import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger, array } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports
 import { vglobal } from '@visactor/vrender';
@@ -37,7 +37,9 @@ import type {
   IMarkTreeNode,
   IRunningConfig,
   IViewAnimate,
-  ITheme
+  ITheme,
+  InteractionSpec,
+  IInteraction
 } from '../types/';
 import { Data } from './data';
 import { initializeEventConfig, permit, prevent } from './events';
@@ -70,7 +72,7 @@ import {
   normalizeRunningConfig,
   normalizePadding
 } from '../parse/view';
-import { parseHandler, parseEventSelector, generateFilterByMark } from '../parse/event';
+import { parseHandler, parseEventSelector, generateFilterByMark, ID_PREFIX, NAME_PREFIX } from '../parse/event';
 import { parseReference } from '../parse/util';
 import { configureEnvironment } from '../graph/util/env';
 import { GroupMark } from './group';
@@ -83,7 +85,7 @@ import { Morph } from '../graph/animation/morph';
 import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
 import { ViewAnimate } from './animate';
 import type { IRenderer } from '../types/renderer';
-import { ComponentEnum, HOOK_EVENT, LayoutState, GrammarMarkType } from '../graph/enums';
+import { ComponentEnum, HOOK_EVENT, LayoutState, GrammarMarkType, GrammarTypeEnum } from '../graph/enums';
 import type {
   IAxis,
   ICrosshair,
@@ -104,6 +106,7 @@ import { Text } from '../semantic-marks/text';
 import { ThemeManager } from '../theme/theme-manager';
 import { Factory } from '../core/factory';
 import { Component } from './component';
+import { isMarkType } from '../graph/util/graphic';
 
 /**
  * Create a new View instance from a VGrammar dataflow runtime specification.
@@ -173,6 +176,7 @@ export default class View extends EventEmitter implements IView {
   private _progressiveRafId?: number;
   private _cursorValue?: { user: string; element: IElement };
   private _observer: ResizeObserver = null;
+  private _bindedInteractions?: IInteraction[];
 
   static useRegisters(comps: (() => void)[]) {
     comps.forEach((fn: () => void) => {
@@ -217,6 +221,7 @@ export default class View extends EventEmitter implements IView {
   getMarkById(id: string): IMark | null {
     return this.grammars.getMark(id);
   }
+
   getCustomizedById(id: string): IGrammarBase | null {
     return this.grammars.getCustomized(id);
   }
@@ -230,6 +235,32 @@ export default class View extends EventEmitter implements IView {
   }
   getMarksByType(markType: string) {
     return this.grammars.getAllMarks().filter(mark => mark.markType === markType);
+  }
+  getMarksByName(name: string): IMark[] | null {
+    return this.grammars.getAllMarks().filter(mark => mark.name() === name);
+  }
+  getMarksBySelector(selector: string | string[]): IMark[] | null {
+    if (!selector) {
+      return null;
+    }
+    const selectors = array(selector);
+    let res: IMark[] = [];
+
+    selectors.forEach(selectorStr => {
+      if (selectorStr[0] === ID_PREFIX) {
+        res = res.concat(this.getMarkById(selectorStr.slice(1)));
+      }
+
+      if (selectorStr[0] === NAME_PREFIX) {
+        res = res.concat(this.getMarksByName(selectorStr.slice(1)));
+      }
+
+      if (isMarkType(selectorStr)) {
+        res = res.concat(this.getMarksByType(selectorStr));
+      }
+    });
+
+    return res;
   }
 
   // --- Grammar ---
@@ -506,6 +537,12 @@ export default class View extends EventEmitter implements IView {
     if (spec.events?.length) {
       spec.events.forEach(eventConfig => {
         this.event(eventConfig);
+      });
+    }
+
+    if (spec.interactions?.length) {
+      spec.interactions.forEach(interaction => {
+        this.interaction(interaction.type, interaction);
       });
     }
 
@@ -1334,6 +1371,22 @@ export default class View extends EventEmitter implements IView {
     }
   }
 
+  interaction(type: string, spec: Omit<InteractionSpec, 'type'>) {
+    if (!this._bindedInteractions || !this._bindedInteractions.some(entry => entry.type === type)) {
+      const ins = Factory.createInteraction(type, this, spec);
+
+      if (ins) {
+        ins.bind();
+
+        if (!this._bindedInteractions) {
+          this._bindedInteractions = [];
+        }
+
+        this._bindedInteractions.push(ins);
+      }
+    }
+  }
+
   private hover(hoverState?: string) {
     const state = hoverState || DEFAULT_HOVER_STATE;
     // evaluate cursor on each mousemove event
@@ -1625,6 +1678,7 @@ export default class View extends EventEmitter implements IView {
 
     this.renderer?.release?.();
     this.renderer = null;
+    this._bindedInteractions = null;
 
     // 卸载事件
     this.removeAllListeners();

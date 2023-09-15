@@ -31,6 +31,15 @@ export const spec = {
       values: getData(10)
     }
   ],
+  interactions: [
+    {
+      type: 'element-hover',
+      selector: 'rect',
+    }, {
+      type: 'element-select',
+      selector: 'rect',
+    }
+],
 
   events: [
     {
@@ -102,6 +111,9 @@ export const spec = {
           fill: 'steelblue'
         },
         hover: {
+          stroke: 'black'
+        },
+        selected: {
           fill: 'red'
         }
       },
