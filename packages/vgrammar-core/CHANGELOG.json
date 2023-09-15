@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.7.1",
+      "tag": "@visactor/vgrammar-core_v0.7.1",
+      "date": "Fri, 15 Sep 2023 03:38:22 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix the register functions of animations"
+          },
+          {
+            "comment": "chore: fix the release workflow"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.7.0",
       "tag": "@visactor/vgrammar-core_v0.7.0",
       "date": "Thu, 14 Sep 2023 12:34:20 GMT",
