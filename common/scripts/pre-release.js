@@ -19,7 +19,7 @@ function run() {
   let preReleaseName = process.argv.slice(2)[0];
   let preReleaseType = '';
   const rushJson = getPackageJson(path.join(__dirname, '../../rush.json'))
-  const package = rushJson.projects.find((project) => project.packageName === '@visactor/vgrammar');
+  const package = rushJson.projects.find((project) => project.packageName === '@visactor/vgrammar-core');
   let regRes = null;
 
 

@@ -46,7 +46,7 @@ function run() {
   });
 
   const rushJson = getPackageJson(path.join(__dirname, '../../rush.json'));
-  const package = rushJson.projects.find((project) => project.name === '@visactor/vgrammar');
+  const package = rushJson.projects.find((project) => project.name === '@visactor/vgrammar-core');
 
   if (package) {
     const pkgJsonPath = path.join(__dirname, '../../', project.projectFolder, 'package.json')
