@@ -63,7 +63,11 @@
     "@jest/globals": "~29.5.0",
     "ts-jest": "~29.1.0",
     "@types/jest": "~29.5.0",
-    "@types/node": "*"
+    "@types/node": "*",
+    "@types/node-fetch": "2.6.4",
+    "node-fetch": "2.6.7",
+    "form-data": "~4.0.0",
+    "ts-node": "10.9.0"
   },
   "publishConfig": {
     "access": "public",
