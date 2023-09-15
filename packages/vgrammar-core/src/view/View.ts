@@ -37,9 +37,7 @@ import type {
   IMarkTreeNode,
   IRunningConfig,
   IViewAnimate,
-  ITheme,
-  TypeAnimation,
-  IGlyphElement
+  ITheme
 } from '../types/';
 import { Data } from './data';
 import { initializeEventConfig, permit, prevent } from './events';
@@ -178,12 +176,6 @@ export default class View extends EventEmitter implements IView {
   static useRegisters(comps: (() => void)[]) {
     comps.forEach((fn: () => void) => {
       fn();
-    });
-  }
-
-  static useAnimations(comps: (TypeAnimation<IGlyphElement> | TypeAnimation<IElement>)[]) {
-    comps.forEach((comp: TypeAnimation<IGlyphElement> | TypeAnimation<IElement>) => {
-      Factory.registerAnimationType(comp.name, comp);
     });
   }
 
