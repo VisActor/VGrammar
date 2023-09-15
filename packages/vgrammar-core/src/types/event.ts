@@ -9,10 +9,13 @@ export type AnimationEvent = {
   animationConfig: IAnimationConfig;
 };
 
-export type GrammarEvent = FederatedEvent & { element?: IElement | IGlyphElement };
+export type InteractionEvent = FederatedEvent & { element?: IElement | IGlyphElement };
+export type GrammarEvent = InteractionEvent | AnimationEvent;
 
 export type EventHandler<T> = (event?: GrammarEvent, value?: T) => void;
-export type BaseEventHandler = EventHandler<any>;
+export type BaseEventHandler = AnimationEventHandler | InteractionEventHandler;
+export type AnimationEventHandler = (event?: AnimationEvent) => void;
+export type InteractionEventHandler = (event?: InteractionEvent, element?: IElement | IGlyphElement) => void;
 export type ResizeHandler = EventHandler<{ width?: number; height?: number }>;
 
 export type AnimationEventType = 'animationStart' | 'animationEnd' | 'elementAnimationStart' | 'elementAnimationEnd';

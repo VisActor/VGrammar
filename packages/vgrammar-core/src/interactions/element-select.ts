@@ -1,4 +1,4 @@
-import type { ElementSelectOptions, GrammarEvent, IMark, IView } from '../types';
+import type { ElementSelectOptions, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
 export class ElementSelectState extends BaseInteraction {
@@ -33,7 +33,7 @@ export class ElementSelectState extends BaseInteraction {
     };
   }
 
-  handleStart = (e: GrammarEvent) => {
+  handleStart = (e: InteractionEvent) => {
     if (e.element) {
       if (this._marks && this._marks.includes(e.element.mark)) {
         this._marks.forEach(mark => {
@@ -49,7 +49,7 @@ export class ElementSelectState extends BaseInteraction {
     }
   };
 
-  handleEnd = (e: GrammarEvent) => {
+  handleEnd = (e: InteractionEvent) => {
     if (e.element) {
       if (this._marks && this._marks.includes(e.element.mark)) {
         e.element.removeState(this.options.state);
