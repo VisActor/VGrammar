@@ -39,6 +39,7 @@ import type {
 } from './component';
 import type { CoordinateSpec } from './coordinate';
 import type { ITheme } from './theme';
+import type { InteractionSpec } from './interaction';
 
 export interface IViewThemeConfig {
   labelMonospace?: boolean;
@@ -203,6 +204,8 @@ export interface IView {
   getGrammarsByName: (name: string) => IGrammarBase[];
   getGrammarsByType: (grammarType: string) => IGrammarBase[];
   getMarksByType: (markType: string) => IMark[];
+  getMarksByName: (name: string) => IMark[] | null;
+  getMarksBySelector: (selector: string | string[]) => IMark[] | null;
 
   commit: (grammar: IGrammarBase) => this;
 
@@ -279,6 +282,7 @@ export interface ViewSpec {
   coordinates?: CoordinateSpec[];
   marks?: MarkSpec[];
   events?: EventSpec[];
+  interactions?: InteractionSpec[];
 }
 
 export interface IRecordedGrammars {

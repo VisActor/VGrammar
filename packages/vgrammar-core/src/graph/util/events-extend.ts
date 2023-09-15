@@ -18,7 +18,6 @@ export default function getExtendedEvents(
   }
 
   (event as any).element = item;
-  (event as any).vGrammarType = type;
 
   return event;
 }

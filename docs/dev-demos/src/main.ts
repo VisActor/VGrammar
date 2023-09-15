@@ -126,7 +126,6 @@ const createChartBySpec = (spec: any) => {
     height: spec.height,
     container: 'container',
     autoFit: !spec.width || !spec.height,
-    hover: true,
     logLevel: 0,
     hooks: {
       beforeParseView: () => {
