@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-wordcloud-shape",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Layout WordCloud in specified shape, this is a transform for VGrammar.",
   "keywords": [
     "wordcloud",
@@ -34,8 +34,8 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vgrammar-core": "workspace:0.7.0",
-    "@visactor/vgrammar-util": "workspace:0.7.0",
+    "@visactor/vgrammar-core": "workspace:0.7.1",
+    "@visactor/vgrammar-util": "workspace:0.7.1",
     "@visactor/vutils": "~0.15.12",
     "@visactor/vscale": "~0.15.12",
     "@visactor/vrender": "~0.15.1"
