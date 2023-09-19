@@ -210,3 +210,10 @@ export enum GrammarTypeEnum {
   coordinate = 'coordinate',
   mark = 'mark'
 }
+
+export enum InteractionStateEnum {
+  active = 'active',
+  selected = 'selected',
+  highlight = 'highlight',
+  blur = 'blur'
+}
