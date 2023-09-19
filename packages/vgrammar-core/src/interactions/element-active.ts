@@ -1,15 +1,16 @@
+import { InteractionStateEnum } from '../graph/enums';
 import type { ElementActiveOptions, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
 export class ElementActive extends BaseInteraction {
   static type: string = 'element-active';
+  type: string = ElementActive.type;
 
   static defaultOptions: ElementActiveOptions = {
-    state: 'active',
+    state: InteractionStateEnum.active,
     trigger: 'pointerover',
     resetTrigger: 'pointerout'
   };
-  type: string = 'element-active';
   options: ElementActiveOptions;
   private _marks?: IMark[];
 
@@ -31,7 +32,7 @@ export class ElementActive extends BaseInteraction {
   protected getEvents() {
     return {
       [this.options.trigger]: this.handleStart,
-      [this.options.resetTrigger]: this.handleEnd
+      [this.options.resetTrigger]: this.handleReset
     };
   }
 
@@ -43,7 +44,7 @@ export class ElementActive extends BaseInteraction {
     }
   };
 
-  handleEnd = (e: InteractionEvent) => {
+  handleReset = (e: InteractionEvent) => {
     if (e.element) {
       if (this._marks && this._marks.includes(e.element.mark)) {
         e.element.removeState(this.options.state);

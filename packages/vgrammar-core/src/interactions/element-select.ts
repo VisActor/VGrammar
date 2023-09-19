@@ -1,14 +1,15 @@
+import { InteractionStateEnum } from '../graph/enums';
 import type { ElementSelectOptions, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
 export class ElementSelect extends BaseInteraction {
   static type: string = 'element-select';
+  type: string = ElementSelect.type;
 
   static defaultOptions: ElementSelectOptions = {
-    state: 'selected',
+    state: InteractionStateEnum.selected,
     trigger: 'click'
   };
-  type: string = 'element-select';
   options: ElementSelectOptions;
   private _isToggle?: boolean;
   private _marks?: IMark[];
@@ -41,7 +42,7 @@ export class ElementSelect extends BaseInteraction {
         : this.options.resetTrigger;
 
     if (eventName !== this.options.trigger) {
-      events[eventName] = this.handleEnd;
+      events[eventName] = this.handleReset;
       this._isToggle = false;
     } else {
       this._isToggle = true;
@@ -81,7 +82,7 @@ export class ElementSelect extends BaseInteraction {
     }
   };
 
-  handleEnd = (e: InteractionEvent) => {
+  handleReset = (e: InteractionEvent) => {
     const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
 
     if (this.options.resetTrigger === 'empty' || this.options.resetTrigger.includes('view:')) {
