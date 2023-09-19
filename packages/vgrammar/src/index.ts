@@ -70,7 +70,12 @@ import {
 
   // interactions
   registerElementActive,
-  registerElementSelect
+  registerElementSelect,
+  registerElementHighlight,
+  registerElementHighlightByKey,
+  registerElementHighlightByGroup,
+  registerElementActiveByLegend,
+  registerElementHighlightByLegend
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
@@ -145,7 +150,12 @@ View.useRegisters([
 
   // interactions
   registerElementActive,
-  registerElementSelect
+  registerElementSelect,
+  registerElementHighlight,
+  registerElementHighlightByKey,
+  registerElementHighlightByGroup,
+  registerElementActiveByLegend,
+  registerElementHighlightByLegend
 ]);
 
 initAllEnv();

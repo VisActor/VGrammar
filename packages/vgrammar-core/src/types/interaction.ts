@@ -1,13 +1,22 @@
-import type { FederatedEvent } from '@visactor/vrender';
 import type { IView } from './view';
-import type { EventType, ViewEventType } from './event';
+import type { EventType, InteractionEvent, ViewEventType } from './event';
 
 export interface IBaseInteractionOptions {
-  shouldStart?: (e: FederatedEvent) => boolean;
+  shouldStart?: (e: InteractionEvent) => boolean;
 
-  shouldEnd?: (e: FederatedEvent) => boolean;
+  shouldUpdate?: (e: InteractionEvent) => boolean;
 
-  shouldUpdate?: (e: FederatedEvent) => boolean;
+  shouldEnd?: (e: InteractionEvent) => boolean;
+
+  shouldReset?: (e: InteractionEvent) => boolean;
+
+  onStart?: (e: InteractionEvent) => boolean;
+
+  onUpdate?: (e: InteractionEvent) => boolean;
+
+  onEnd?: (e: InteractionEvent) => boolean;
+
+  onReset?: (e: InteractionEvent) => boolean;
 }
 
 export interface IInteraction {
@@ -96,11 +105,74 @@ export interface ElementHighlightOptions extends IBaseInteractionOptions {
   blurState?: string;
 }
 
+/**
+ * the interaction to set the active state of specified marks trigger by legend
+ */
+export interface ElementActiveByLegendOptions extends IBaseInteractionOptions {
+  /**
+   * the selector of marks
+   */
+  selector?: string | string[];
+  /**
+   * the active state name
+   */
+  state?: string;
+  /**
+   * the highlight state name
+   */
+  filterType?: 'key' | 'groupKey';
+}
+
+/**
+ * the interaction to set the active state of specified marks trigger by legend
+ */
+export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions {
+  /**
+   * the selector of marks
+   */
+  selector?: string | string[];
+  /**
+   * the highlight state name
+   */
+  highlightState?: string;
+  /**
+   * the blur state name
+   */
+  blurState?: string;
+  /**
+   * the highlight state name
+   */
+  filterType?: 'key' | 'groupKey';
+}
+
 export interface ElementActiveSpec extends ElementActiveOptions {
   type: 'element-active';
 }
 export interface ElementSelectSpec extends ElementSelectOptions {
   type: 'element-select';
 }
+export interface ElementHighlightSpec extends ElementHighlightOptions {
+  type: 'element-highlight';
+}
+export interface ElementHighlightByKeySpec extends ElementHighlightOptions {
+  type: 'element-highlight-by-key';
+}
+export interface ElementHighlightByGroupSpec extends ElementHighlightOptions {
+  type: 'element-highlight-by-group';
+}
+export interface ElementActiveByLegendSpec extends ElementActiveByLegendOptions {
+  type: 'element-active-by-legend';
+}
 
-export type InteractionSpec = ElementActiveSpec | ElementSelectSpec;
+export interface ElementHighlightByLegendSpec extends ElementHighlightByLegendOptions {
+  type: 'element-highlight-by-legend';
+}
+
+export type InteractionSpec =
+  | ElementActiveSpec
+  | ElementSelectSpec
+  | ElementHighlightSpec
+  | ElementHighlightByKeySpec
+  | ElementHighlightByGroupSpec
+  | ElementActiveByLegendSpec
+  | ElementHighlightByLegendSpec;
