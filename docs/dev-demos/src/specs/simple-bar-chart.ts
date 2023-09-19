@@ -33,11 +33,14 @@ export const spec = {
   ],
   interactions: [
     {
-      type: 'element-hover',
+      type: 'element-active',
       selector: 'rect',
+      state: 'hover',
     }, {
       type: 'element-select',
       selector: 'rect',
+      resetTrigger: 'empty',
+      isMultiple: true
     }
 ],
 

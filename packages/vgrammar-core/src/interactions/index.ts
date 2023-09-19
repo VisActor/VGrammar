@@ -1,6 +1,11 @@
 import { Factory } from '../core/factory';
-import { ElementHoverState } from './element-hover';
-import { ElementSelectState } from './element-select';
+import { ElementActive } from './element-active';
+import { ElementSelect } from './element-select';
 
-Factory.registerInteraction('element-hover', ElementHoverState);
-Factory.registerInteraction('element-select', ElementSelectState);
+export const registerElementActive = () => {
+  Factory.registerInteraction('element-active', ElementActive);
+};
+
+export const registerElementSelect = () => {
+  Factory.registerInteraction('element-select', ElementSelect);
+};
