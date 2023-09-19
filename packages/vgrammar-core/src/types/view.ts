@@ -84,15 +84,19 @@ export interface IViewEventConfig {
    * preventDefaults相关配置
    */
   defaults?: {
-    prevent?: boolean | Record<string, boolean> | string[];
-    allow?: boolean | Record<string, boolean> | string[];
+    prevent?: boolean | Record<string, boolean>;
+    allow?: boolean | Record<string, boolean>;
   };
-  view?: boolean | Record<string, boolean> | string[];
-  window?: boolean | Record<string, boolean> | string[];
+  /**
+   * whether permit events of view
+   */
+  view?: boolean | Record<string, boolean>;
+  /** disable all the events */
   disable?: boolean;
+  /** use gesture events or not  */
   gesture?: boolean;
+  /** use drag events or not */
   drag?: boolean;
-  globalCursor?: boolean;
 }
 
 export interface srIOption3DType extends IOption3D {
@@ -107,15 +111,6 @@ export interface IViewOptions extends IEnvironmentOptions, IRendererOptions, ILa
   autoFit?: boolean;
 
   options3d?: srIOption3DType;
-
-  /** 是否默认配置hover交互 */
-  hover?: boolean;
-  /** 是否开启选中交互 */
-  select?: boolean;
-
-  /** 是否启用 cursor 设置 */
-  cursor?: boolean;
-
   /** 外部传入的logger方法 */
   logger?: ILogger;
   /**
@@ -126,9 +121,6 @@ export interface IViewOptions extends IEnvironmentOptions, IRendererOptions, ILa
    * 4 - Debug
    */
   logLevel?: number;
-
-  /** worker 专用 */
-  domBridge?: any;
 
   /** 生命周期等事件钩子 */
   hooks?: Hooks;
@@ -142,6 +134,7 @@ export interface IViewOptions extends IEnvironmentOptions, IRendererOptions, ILa
    * }
    */
   eventConfig?: IViewEventConfig;
+  background?: IColor;
 }
 
 export interface IRunningConfig {
@@ -189,6 +182,9 @@ export interface IView {
   dimensionTooltip: (group: IGroupMark | string) => IDimensionTooltip;
   title: (group: IGroupMark | string) => ITitle;
   scrollbar: (group: IGroupMark | string) => IScrollbar;
+
+  interaction: (type: string, spec: Omit<InteractionSpec, 'type'>) => this;
+  removeInteraction: (type: string) => this;
 
   addGrammar: (grammar: IGrammarBase) => this;
   removeGrammar: (grammar: string | IGrammarBase) => this;

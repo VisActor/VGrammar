@@ -1,6 +1,6 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger, array } from '@visactor/vutils';
+import { EventEmitter, debounce, isObject, isString, getContainerSize, Logger, array } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
 import { vglobal } from '@visactor/vrender-core';
@@ -145,8 +145,6 @@ export default class View extends EventEmitter implements IView {
   private _morph: IMorph;
 
   private _eventConfig: IViewEventConfig;
-  /** 全局鼠标样式 */
-  private _globalCursor: boolean | string;
   private _eventListeners: Array<{
     type: string;
     source: any;
@@ -174,7 +172,6 @@ export default class View extends EventEmitter implements IView {
   /** 当前是否存在增量渲染元素 */
   private _progressiveMarks?: IMark[];
   private _progressiveRafId?: number;
-  private _cursorValue?: { user: string; element: IElement };
   private _observer: ResizeObserver = null;
   private _bindedInteractions?: IInteraction[];
 
@@ -189,8 +186,7 @@ export default class View extends EventEmitter implements IView {
     this._config = config;
     this._options = Object.assign(
       {
-        mode: BROWSER,
-        cursor: true
+        mode: BROWSER
       },
       options
     );
@@ -1385,56 +1381,20 @@ export default class View extends EventEmitter implements IView {
         this._bindedInteractions.push(ins);
       }
     }
-  }
-
-  private hover(hoverState?: string) {
-    const state = hoverState || DEFAULT_HOVER_STATE;
-    // evaluate cursor on each mousemove event
-
-    this.addEventListener('pointerover', (evt: any) => {
-      if (!evt.element) {
-        return;
-      }
-      const element: IElement = evt.element;
-      element.addState(state);
-    });
-
-    this.addEventListener('pointerout', (evt: any) => {
-      if (!evt.element) {
-        return;
-      }
-      const element: IElement = evt.element;
-      element.removeState(state);
-    });
 
     return this;
   }
 
-  cursor() {
-    this._cursorValue = {
-      user: CURSOR_DEFAULT,
-      element: null
-    };
-    this.addEventListener('mousemove', (evt: any) => {
-      const elementCursor = evt?.element?.graphicItem?.cursor;
-      const value = this._cursorValue;
-      const user = value ? (isString(value) ? value : value.user) : CURSOR_DEFAULT;
+  removeInteraction(type: string) {
+    if (this._bindedInteractions) {
+      const instance = this._bindedInteractions.find(entry => entry.type === type);
 
-      const nextValue =
-        value &&
-        user === value.user &&
-        (elementCursor === value.element || (isNil(elementCursor) && isNil(value.element)))
-          ? value
-          : { user: user, element: elementCursor };
-
-      if (nextValue !== value) {
-        this._cursorValue = nextValue;
-
-        this.setCursor(
-          nextValue.user && nextValue.user !== CURSOR_DEFAULT ? nextValue.user : nextValue.element ?? nextValue.user
-        );
+      if (instance) {
+        instance.unbind();
       }
-    });
+    }
+
+    return this;
   }
 
   private initEvent() {
@@ -1471,34 +1431,6 @@ export default class View extends EventEmitter implements IView {
     return this;
   }
 
-  private setCursor(cursor?: string) {
-    if (this._options.domBridge && this._options.domBridge.setCursor) {
-      this._options.domBridge.setCursor(cursor);
-      return;
-    }
-    const el = this.globalCursor() ? !isNil(document) && document.body : this.container;
-
-    if (el) {
-      return isNil(cursor)
-        ? (el as HTMLElement).style.removeProperty('cursor')
-        : ((el as HTMLElement).style.cursor = cursor);
-    }
-  }
-
-  globalCursor(_?: boolean) {
-    if (arguments.length) {
-      if (this._globalCursor !== !!_) {
-        const prev = this.setCursor(null); // clear previous cursor
-        this._globalCursor = !!_;
-        if (prev) {
-          this.setCursor(prev);
-        } // swap cursor
-      }
-      return this;
-    }
-    return this._globalCursor;
-  }
-
   // --- Initialization ---
 
   private initializeRenderer() {
@@ -1507,20 +1439,6 @@ export default class View extends EventEmitter implements IView {
 
     this.renderer = new CanvasRenderer(this);
     this.renderer.initialize(width, height, this._options, this._eventConfig).background(this._background);
-  }
-
-  private initializeBuiltEvents() {
-    // register cursor events
-    if (this._options.cursor) {
-      this.cursor();
-    }
-
-    // register hover events
-    if (this._options.hover) {
-      this.hover();
-    }
-
-    this._bindResizeEvent();
   }
 
   private initialize() {
@@ -1555,14 +1473,10 @@ export default class View extends EventEmitter implements IView {
 
     // initialize renderer, handler and event management
     this.renderer = null;
-    this._globalCursor = false;
     this._eventListeners = [];
 
     // initialize event configuration
     this._eventConfig = initializeEventConfig(this._options.eventConfig);
-    // If false (default), the cursor is set for the Vega View element only.
-    // If true, the cursor is set globally for the entire document body.
-    this.globalCursor(this._eventConfig.globalCursor);
 
     // set default theme
     this._theme = ThemeManager.getDefaultTheme();
@@ -1576,7 +1490,7 @@ export default class View extends EventEmitter implements IView {
     if (!this._eventConfig.disable) {
       this.initEvent();
     }
-    this.initializeBuiltEvents();
+    this._bindResizeEvent();
 
     this._currentDataflow = null;
     // update layout tree after initialization
