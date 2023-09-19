@@ -22,6 +22,59 @@ export type AnimationEventType = 'animationStart' | 'animationEnd' | 'elementAni
 
 export type AnimationListenerHandler = (event?: AnimationEvent, el?: IElement) => void;
 
+export type ViewEventType =
+  | 'view:pointerdown'
+  | 'view:pointerup'
+  | 'view:pointerupoutside'
+  | 'view:pointertap'
+  | 'view:pointerover'
+  | 'view:pointerenter'
+  | 'view:pointerleave'
+  | 'view:pointerout'
+  | 'view:mousedown'
+  | 'view:mouseup'
+  | 'view:mouseupoutside'
+  // 右键操作
+  | 'view:rightdown'
+  | 'view:rightup'
+  | 'view:rightupoutside'
+  | 'view:click'
+  // 双击
+  | 'view:dblclick'
+  | 'view:mousemove'
+  | 'view:mouseover'
+  | 'view:mouseout'
+  // 不会冒泡
+  | 'view:mouseenter'
+  // 不会冒泡
+  | 'view:mouseleave'
+  | 'view:wheel'
+  | 'view:tap'
+  | 'view:touchstart'
+  | 'view:touchend'
+  | 'view:touchendoutside'
+  | 'view:touchmove'
+  | 'view:touchcancel'
+  // dragNdrop
+  | 'view:dragstart'
+  | 'view:drag'
+  | 'view:dragenter'
+  | 'view:dragleave'
+  | 'view:dragover'
+  | 'view:dragend'
+  | 'view:drop'
+  // gesture
+  | 'view:pan'
+  | 'view:panstart'
+  | 'view:panend'
+  | 'view:press'
+  | 'view:pressup'
+  | 'view:pressend'
+  | 'view:pinch'
+  | 'view:pinchstart'
+  | 'view:pinchend'
+  | 'view:swipe';
+
 export type EventType =
   | 'pointerdown'
   | 'pointerup'
