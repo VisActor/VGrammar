@@ -65,7 +65,11 @@ import {
   registerJitterTransform,
   registerJitterXTransform,
   registerJitterYTransform,
-  registerSymmetryTransform
+  registerSymmetryTransform,
+
+  // interactions
+  registerElementActive,
+  registerElementSelect
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
@@ -136,7 +140,11 @@ View.useRegisters([
   registerRotateOutAnimation,
   registerScaleInAnimation,
   registerScaleOutAnimation,
-  registerUpdateAnimation
+  registerUpdateAnimation,
+
+  // interactions
+  registerElementActive,
+  registerElementSelect
 ]);
 
 export * from '@visactor/vgrammar-core';

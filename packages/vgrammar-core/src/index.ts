@@ -27,3 +27,4 @@ export * from './glyph';
 export * from './component';
 export * from './transforms';
 export * from './graph/animation/animation';
+export * from './interactions';
