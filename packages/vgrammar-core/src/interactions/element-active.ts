@@ -1,16 +1,16 @@
-import type { ElementHoverOptions, IMark, IView, InteractionEvent } from '../types';
+import type { ElementActiveOptions, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
-export class ElementHoverState extends BaseInteraction {
-  static type: string = 'element-hover';
+export class ElementActive extends BaseInteraction {
+  static type: string = 'element-active';
 
-  static defaultOptions: ElementHoverOptions = {
-    state: 'hover',
-    startTrigger: 'pointerover',
-    endTrigger: 'pointerout'
+  static defaultOptions: ElementActiveOptions = {
+    state: 'active',
+    trigger: 'pointerover',
+    resetTrigger: 'pointerout'
   };
-  type: string = 'element-hover';
-  options: ElementHoverOptions;
+  type: string = 'element-active';
+  options: ElementActiveOptions;
   private _marks?: IMark[];
 
   constructor(
@@ -23,15 +23,15 @@ export class ElementHoverState extends BaseInteraction {
     }
   ) {
     super(view);
-    this.options = Object.assign(ElementHoverState.defaultOptions, option);
+    this.options = Object.assign(ElementActive.defaultOptions, option);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }
 
   protected getEvents() {
     return {
-      [this.options.startTrigger]: this.handleStart,
-      [this.options.endTrigger]: this.handleEnd
+      [this.options.trigger]: this.handleStart,
+      [this.options.resetTrigger]: this.handleEnd
     };
   }
 

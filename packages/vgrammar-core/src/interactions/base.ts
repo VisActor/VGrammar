@@ -1,3 +1,4 @@
+import { isArray } from '@visactor/vutils';
 import type { IView, InteractionEventHandler } from '../types';
 
 export abstract class BaseInteraction {
@@ -7,13 +8,19 @@ export abstract class BaseInteraction {
     this.view = view;
   }
 
-  protected abstract getEvents(): Record<string, InteractionEventHandler>;
+  protected abstract getEvents(): Record<string, InteractionEventHandler | InteractionEventHandler[]>;
 
   bind() {
     const events = this.getEvents();
 
     Object.keys(events).forEach(key => {
-      this.view.addEventListener(key, events[key]);
+      if (isArray(events[key])) {
+        (events[key] as InteractionEventHandler[]).forEach(callback => {
+          this.view.addEventListener(key, callback);
+        });
+      } else {
+        this.view.addEventListener(key, events[key] as InteractionEventHandler);
+      }
     });
   }
 
@@ -22,7 +29,13 @@ export abstract class BaseInteraction {
     const events = this.getEvents();
 
     Object.keys(events).forEach(key => {
-      this.view.removeEventListener(key, events[key]);
+      if (isArray(events[key])) {
+        (events[key] as InteractionEventHandler[]).forEach(callback => {
+          this.view.removeEventListener(key, callback);
+        });
+      } else {
+        this.view.removeEventListener(key, events[key] as InteractionEventHandler);
+      }
     });
   }
 }
