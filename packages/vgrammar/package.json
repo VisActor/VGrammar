@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "simple package of vgrammar.",
   "keywords": [
     "visualization",
@@ -36,7 +36,7 @@
     "test": ""
   },
   "dependencies": {
-    "@visactor/vgrammar-core": "workspace:0.7.2"
+    "@visactor/vgrammar-core": "workspace:0.7.3"
   },
   "devDependencies": {
     "d3-array": "1.x",
