@@ -16,15 +16,7 @@ export class ElementHighlightByKey extends BaseInteraction {
   options: ElementHighlightOptions;
   private _marks?: IMark[];
 
-  constructor(
-    view: IView,
-    option?: {
-      selector?: string | string[];
-      startTrigger?: string;
-      endTrigger?: string;
-      state?: string;
-    }
-  ) {
+  constructor(view: IView, option?: ElementHighlightOptions) {
     super(view);
     this.options = Object.assign({}, ElementHighlightByKey.defaultOptions, option);
 
