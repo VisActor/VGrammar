@@ -122,6 +122,8 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction 
   protected isBrushContainGraphicItem(brushMask: IPolygon, graphicItem: IGraphic, offset?: { x: number; y: number }) {
     if (
       !brushMask?.globalTransMatrix ||
+      !brushMask.globalAABBBounds ||
+      brushMask.globalAABBBounds.empty() ||
       !graphicItem ||
       !brushMask?.attribute?.points ||
       brushMask.attribute.points.length <= 1
