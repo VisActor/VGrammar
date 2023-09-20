@@ -24,7 +24,7 @@ export class ElementActive extends BaseInteraction {
     }
   ) {
     super(view);
-    this.options = Object.assign(ElementActive.defaultOptions, option);
+    this.options = Object.assign({}, ElementActive.defaultOptions, option);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }
