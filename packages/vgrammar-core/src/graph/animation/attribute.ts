@@ -1,6 +1,6 @@
 import type { EasingType, IGraphic } from '@visactor/vrender';
 // eslint-disable-next-line no-duplicate-imports
-import { ACustomAnimate, AttributeUpdateType } from '@visactor/vrender';
+import { ACustomAnimate, AttributeUpdateType, NOWORK_ANIMATE_ATTR } from '@visactor/vrender';
 import { isArray, isFunction, isNil, isObject, isValid } from '@visactor/vutils';
 import type {
   IAnimationChannelInterpolator,
@@ -175,16 +175,24 @@ export class AttributeAnimate extends ACustomAnimate<any> {
   }
 
   onStart(): void {
+    const excludedChannelMap = (this.target.constructor as any).NOWORK_ANIMATE_ATTR ?? NOWORK_ANIMATE_ATTR;
+    const excludedChannels = Object.keys(excludedChannelMap).filter(channel => excludedChannelMap[channel] !== 0);
+    this.subAnimate.animate.preventAttrs(excludedChannels);
+
     const from = Object.assign({}, this.from);
     const to = Object.assign({}, this.to);
     Object.keys(to).forEach(k => {
-      if (isNil(from[k])) {
+      if (excludedChannels.includes(k)) {
+        from[k] = to[k];
+        this.from[k] = to[k];
+      } else if (isNil(from[k])) {
         from[k] = this.target.getComputedAttribute(k);
       }
       // if (this.to[k] === from[k]) {
       //   delete from[k];
       // }
     });
+
     this.target.setAttributes(from, false, {
       type: AttributeUpdateType.ANIMATE_UPDATE,
       animationState: { ratio: 0, end: false }
@@ -198,6 +206,25 @@ export class AttributeAnimate extends ACustomAnimate<any> {
     this.target.setAttributes(this._toAttribute, false, {
       type: AttributeUpdateType.ANIMATE_END
     });
+  }
+
+  update(end: boolean, ratio: number, out: Record<string, any>): void {
+    if (this.updateCount === 0) {
+      this.onFirstRun();
+    }
+    this.updateCount += 1;
+
+    // Hack: waiting for canopus to remove invalid key when updating
+    const lastProps = this.step.getLastProps();
+    Object.keys(lastProps).forEach(key => {
+      if (this.subAnimate.animate.validAttr(key)) {
+        out[key] = lastProps[key];
+      }
+    });
+    this.onUpdate(end, ratio, out);
+    if (end) {
+      this.onEnd();
+    }
   }
 
   onUpdate(end: boolean, ratio: number, out: Record<string, any>): void {

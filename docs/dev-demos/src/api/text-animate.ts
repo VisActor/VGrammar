@@ -11,13 +11,17 @@ export const runner = (view: View) => {
       //   return false;
       // },
       channel: {
-        text: {
-          from: 0,
-          to: 100
+        // text: {
+        //   from: 0,
+        //   to: 100
+        // },
+        textAlign: {
+          from: 'left',
+          to: 'center'
         }
       },
-      custom: IncreaseCount,
-      customParameters: () => ({ fixed: 2 }),
+      // custom: IncreaseCount,
+      // customParameters: () => ({ fixed: 2 }),
       duration: 2000,
       easing: 'linear'
     }
@@ -29,9 +33,17 @@ export const runner = (view: View) => {
       fontSize: 20,
       x: 0,
       y: 50,
+      textAlign: 'left',
       fill: 'black'
     })
     .animation(growTextAnimation);
+  //   .animation({
+  //     update: { type: 'update', duration: 1000 }
+  //   });
+  // window['update'] = () => {
+  //   growText.encode('textAlign', 'center');
+  //   view.runAsync();
+  // }
 
   const fadeText = view
     .mark('text', view.rootMark)
