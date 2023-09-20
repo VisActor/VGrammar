@@ -76,6 +76,7 @@ import {
   registerElementHighlightByGroup,
   registerElementActiveByLegend,
   registerElementHighlightByLegend,
+  registerElementHighlightByName,
   registerBrushHighlight,
   registerBrushActive
 } from '@visactor/vgrammar-core';
@@ -158,6 +159,7 @@ View.useRegisters([
   registerElementHighlightByGroup,
   registerElementActiveByLegend,
   registerElementHighlightByLegend,
+  registerElementHighlightByName,
   registerBrushHighlight,
   registerBrushActive
 ]);
