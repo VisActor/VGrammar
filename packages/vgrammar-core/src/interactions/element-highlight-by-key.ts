@@ -26,7 +26,7 @@ export class ElementHighlightByKey extends BaseInteraction {
     }
   ) {
     super(view);
-    this.options = Object.assign(ElementHighlightByKey.defaultOptions, option);
+    this.options = Object.assign({}, ElementHighlightByKey.defaultOptions, option);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }

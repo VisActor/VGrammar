@@ -6,6 +6,8 @@ import { ElementHighlightByKey } from './element-highlight-by-key';
 import { ElementHighlightByGroup } from './element-highlight-by-group';
 import { ElementActiveByLegend } from './element-active-by-legend';
 import { ElementHighlightByLegend } from './element-highlight-by-legend';
+import { BrushHighlight } from './brush-highlight';
+import { BrushActive } from './brush-active';
 
 export const registerElementActive = () => {
   Factory.registerInteraction(ElementActive.type, ElementActive);
@@ -33,4 +35,12 @@ export const registerElementActiveByLegend = () => {
 
 export const registerElementHighlightByLegend = () => {
   Factory.registerInteraction(ElementHighlightByLegend.type, ElementHighlightByLegend);
+};
+
+export const registerBrushHighlight = () => {
+  Factory.registerInteraction(BrushHighlight.type, BrushHighlight);
+};
+
+export const registerBrushActive = () => {
+  Factory.registerInteraction(BrushActive.type, BrushActive);
 };

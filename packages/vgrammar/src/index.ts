@@ -74,7 +74,9 @@ import {
   registerElementHighlightByKey,
   registerElementHighlightByGroup,
   registerElementActiveByLegend,
-  registerElementHighlightByLegend
+  registerElementHighlightByLegend,
+  registerBrushHighlight,
+  registerBrushActive
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
@@ -154,7 +156,9 @@ View.useRegisters([
   registerElementHighlightByKey,
   registerElementHighlightByGroup,
   registerElementActiveByLegend,
-  registerElementHighlightByLegend
+  registerElementHighlightByLegend,
+  registerBrushHighlight,
+  registerBrushActive
 ]);
 
 export * from '@visactor/vgrammar-core';
