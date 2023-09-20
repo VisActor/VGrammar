@@ -25,7 +25,7 @@ export class ElementHighlightByLegend extends BaseInteraction {
 
   constructor(view: IView, option?: ElementHighlightByLegendOptions) {
     super(view);
-    this.options = Object.assign(ElementHighlightByLegend.defaultOptions, option);
+    this.options = Object.assign({}, ElementHighlightByLegend.defaultOptions, option);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }

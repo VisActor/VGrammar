@@ -17,7 +17,7 @@ export class ElementActiveByLegend extends BaseInteraction {
 
   constructor(view: IView, option?: ElementActiveByLegendOptions) {
     super(view);
-    this.options = Object.assign(ElementActiveByLegend.defaultOptions, option);
+    this.options = Object.assign({}, ElementActiveByLegend.defaultOptions, option);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }
