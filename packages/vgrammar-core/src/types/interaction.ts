@@ -1,22 +1,25 @@
 import type { IView } from './view';
 import type { EventType, InteractionEvent, ViewEventType } from './event';
+import type { BrushAttributes } from '@visactor/vrender-components';
+import type { IPolygon } from '@visactor/vrender';
+import type { IElement, IGlyphElement } from './element';
 
 export interface IBaseInteractionOptions {
-  shouldStart?: (e: InteractionEvent) => boolean;
+  shouldStart?: (e: any) => boolean;
 
-  shouldUpdate?: (e: InteractionEvent) => boolean;
+  shouldUpdate?: (e: any) => boolean;
 
-  shouldEnd?: (e: InteractionEvent) => boolean;
+  shouldEnd?: (e: any) => boolean;
 
-  shouldReset?: (e: InteractionEvent) => boolean;
+  shouldReset?: (e: any) => boolean;
 
-  onStart?: (e: InteractionEvent) => boolean;
+  onStart?: (e: any) => boolean;
 
-  onUpdate?: (e: InteractionEvent) => boolean;
+  onUpdate?: (e: any) => boolean;
 
-  onEnd?: (e: InteractionEvent) => boolean;
+  onEnd?: (e: any) => boolean;
 
-  onReset?: (e: InteractionEvent) => boolean;
+  onReset?: (e: any) => boolean;
 }
 
 export interface IInteraction {
@@ -143,6 +146,45 @@ export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions
    * the highlight state name
    */
   filterType?: 'key' | 'groupKey';
+}
+
+export interface BrushEventParams {
+  operateType: string;
+  operateMask: IPolygon;
+  activeElements?: (IElement | IGlyphElement)[];
+}
+
+export interface BrushOptions extends IBaseInteractionOptions, BrushAttributes {
+  /**
+   * the selector of marks
+   */
+  selector?: string | string[];
+
+  onStart?: (params: BrushEventParams) => boolean;
+
+  onUpdate?: (params: BrushEventParams) => boolean;
+
+  onEnd?: (params: BrushEventParams) => boolean;
+
+  onReset?: (params: BrushEventParams) => boolean;
+}
+
+export interface BrushHighlightOptions extends BrushOptions {
+  /**
+   * the highlight state name
+   */
+  highlightState?: string;
+  /**
+   * the blur state name
+   */
+  blurState?: string;
+}
+
+export interface BrushActiveOptions extends BrushOptions {
+  /**
+   * the active state name
+   */
+  state?: string;
 }
 
 export interface ElementActiveSpec extends ElementActiveOptions {

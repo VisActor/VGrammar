@@ -26,7 +26,7 @@ export class ElementHighlightByGroup extends BaseInteraction {
     }
   ) {
     super(view);
-    this.options = Object.assign(ElementHighlightByGroup.defaultOptions, option);
+    this.options = Object.assign({}, ElementHighlightByGroup.defaultOptions, option);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }
