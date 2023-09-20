@@ -14,15 +14,7 @@ export class ElementActive extends BaseInteraction {
   options: ElementActiveOptions;
   private _marks?: IMark[];
 
-  constructor(
-    view: IView,
-    option?: {
-      selector?: string | string[];
-      startTrigger?: string;
-      endTrigger?: string;
-      state?: string;
-    }
-  ) {
+  constructor(view: IView, option?: ElementActiveOptions) {
     super(view);
     this.options = Object.assign({}, ElementActive.defaultOptions, option);
 
