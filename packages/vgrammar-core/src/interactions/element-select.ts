@@ -14,15 +14,7 @@ export class ElementSelect extends BaseInteraction {
   private _isToggle?: boolean;
   private _marks?: IMark[];
 
-  constructor(
-    view: IView,
-    option?: {
-      selector?: string | string[];
-      startTrigger?: string;
-      endTrigger?: string;
-      state?: string;
-    }
-  ) {
+  constructor(view: IView, option?: ElementSelectOptions) {
     super(view);
     this.options = Object.assign({}, ElementSelect.defaultOptions, option);
 
