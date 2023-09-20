@@ -140,6 +140,10 @@ export const runner = (view: IView) => {
         type: 'boxplotScaleOut',
         duration: 2000
       },
+      update: {
+        type: 'update',
+        duration: 1000,
+      },
       state: {
         duration: 1000
       }
@@ -174,6 +178,10 @@ export const runner = (view: IView) => {
       exit: {
         type: 'barBoxplotScaleOut',
         duration: 2000
+      },
+      update: {
+        type: 'update',
+        duration: 1000,
       },
       state: {
         duration: 1000
@@ -212,6 +220,10 @@ export const runner = (view: IView) => {
         type: 'boxplotScaleOut',
         duration: 2000
       },
+      update: {
+        type: 'update',
+        duration: 1000,
+      },
       state: {
         duration: 1000
       }
@@ -247,6 +259,10 @@ export const runner = (view: IView) => {
       exit: {
         type: 'barBoxplotScaleOut',
         duration: 2000
+      },
+      update: {
+        type: 'update',
+        duration: 1000,
       },
       state: {
         duration: 1000
@@ -284,6 +300,10 @@ export const runner = (view: IView) => {
       exit: {
         type: 'boxplotScaleOut',
         duration: 2000
+      },
+      update: {
+        type: 'update',
+        duration: 1000,
       },
       state: {
         duration: 1000
@@ -323,6 +343,10 @@ export const runner = (view: IView) => {
         type: 'barBoxplotScaleOut',
         duration: 2000
       },
+      update: {
+        type: 'update',
+        duration: 1000,
+      },
       state: {
         duration: 1000
       }
@@ -341,12 +365,54 @@ export const callback = (view: IView) => {
   enterButton.style.marginTop = '220px';
   document.getElementById('footer')?.appendChild(enterButton);
 
+  const updateButton = document.createElement('button');
+  updateButton.innerText = 'update data';
+  updateButton.style.marginTop = '220px';
+  document.getElementById('footer')?.appendChild(updateButton);
+
   exitButton.addEventListener('click', () => {
     view.getDataById('data')?.values([]);
     view.runAsync();
   });
   enterButton.addEventListener('click', () => {
     view.getDataById('data')?.values(originData);
+    view.runAsync();
+  });
+  updateButton.addEventListener('click', () => {
+    view.getDataById('data')?.values([
+      {
+        x: '0',
+        y1: 1500,
+        y2: 1100,
+        y3: 600,
+        y4: 500,
+        y5: 300
+      },
+      {
+        x: '1',
+        y1: 1900,
+        // y2: 1000,
+        y3: 400,
+        y4: 300,
+        y5: 100
+      },
+      {
+        x: '2',
+        y1: 1300,
+        y2: 1200,
+        // y3: 200,
+        y4: -100,
+        y5: -500
+      },
+      {
+        x: '3',
+        // y1: 1400,
+        y2: 1000,
+        y3: 900,
+        y4: 800,
+        y5: 500
+      }
+    ]);
     view.runAsync();
   });
 };
