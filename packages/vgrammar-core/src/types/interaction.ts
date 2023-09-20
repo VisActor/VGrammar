@@ -1,7 +1,7 @@
 import type { IView } from './view';
 import type { EventType, InteractionEvent, ViewEventType } from './event';
 import type { BrushAttributes } from '@visactor/vrender-components';
-import type { IPolygon } from '@visactor/vrender';
+import type { IGraphic, IPolygon } from '@visactor/vrender';
 import type { IElement, IGlyphElement } from './element';
 
 export interface IBaseInteractionOptions {
@@ -93,11 +93,11 @@ export interface ElementHighlightOptions extends IBaseInteractionOptions {
   /**
    * the trigger event name
    */
-  trigger?: string;
+  trigger?: EventType;
   /**
    * the reset trigger event name
    */
-  resetTrigger?: string;
+  resetTrigger?: EventType;
   /**
    * the highlight state name
    */
@@ -146,6 +146,20 @@ export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions
    * the highlight state name
    */
   filterType?: 'key' | 'groupKey';
+}
+
+export interface ElementHighlightByNameOptions extends ElementHighlightByLegendOptions {
+  name?: string | string[];
+  /**
+   * the trigger event name
+   */
+  trigger?: EventType;
+  /**
+   * the reset trigger event name
+   */
+  resetTrigger?: EventType;
+
+  parseData?: (e: InteractionEvent) => any;
 }
 
 export interface BrushEventParams {
@@ -210,6 +224,18 @@ export interface ElementHighlightByLegendSpec extends ElementHighlightByLegendOp
   type: 'element-highlight-by-legend';
 }
 
+export interface ElementHighlightByNameSpec extends ElementHighlightByNameOptions {
+  type: 'element-highlight-by-name';
+}
+
+export interface BrushHighlightSpec extends BrushHighlightOptions {
+  type: 'brush-highlight';
+}
+
+export interface BrushActiveSpec extends BrushActiveOptions {
+  type: 'brush-active';
+}
+
 export type InteractionSpec =
   | ElementActiveSpec
   | ElementSelectSpec
@@ -217,4 +243,7 @@ export type InteractionSpec =
   | ElementHighlightByKeySpec
   | ElementHighlightByGroupSpec
   | ElementActiveByLegendSpec
-  | ElementHighlightByLegendSpec;
+  | ElementHighlightByLegendSpec
+  | ElementHighlightByNameSpec
+  | BrushHighlightSpec
+  | BrushActiveSpec;
