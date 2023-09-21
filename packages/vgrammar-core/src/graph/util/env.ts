@@ -1,4 +1,4 @@
-import { vglobal } from '@visactor/vrender';
+import { vglobal } from '@visactor/vrender-core';
 import type { IEnvironmentOptions } from '../../types';
 
 export function configureEnvironment(options: IEnvironmentOptions) {

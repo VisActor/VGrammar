@@ -1,5 +1,8 @@
-import { Rect } from '@visactor/vrender';
+import { Rect } from '@visactor/vrender-core';
 import { createSimpleElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('Create element and update data', function () {
   const element = createSimpleElement();

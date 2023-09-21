@@ -1,7 +1,7 @@
-import type { ICustomPath2D, IGroupGraphicAttribute, IPath } from '@visactor/vrender';
+import type { ICustomPath2D, IGroupGraphicAttribute, IPath } from '@visactor/vrender-core';
 import { isNumber, max } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { CustomPath2D, Group, DefaultSymbolAttribute } from '@visactor/vrender';
+import { CustomPath2D, Group, DefaultSymbolAttribute } from '@visactor/vrender-core';
 
 interface LargeSymbolsAttribute extends IGroupGraphicAttribute {
   size: number;

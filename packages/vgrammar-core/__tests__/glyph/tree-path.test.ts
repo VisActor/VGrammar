@@ -1,5 +1,8 @@
 import { Factory, registerTreePathGlyph } from '../../src';
 import { createSimpleGlyphElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerTreePathGlyph();
 

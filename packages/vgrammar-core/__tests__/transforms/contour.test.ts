@@ -1,5 +1,8 @@
 import { transform as kde } from '../../src/transforms/data/kde';
 import { transform } from '../../src/transforms/data/contour';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('basic kde 1d', () => {
   const data = [

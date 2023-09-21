@@ -1,4 +1,4 @@
-import type { IGroup, INode } from '@visactor/vrender';
+import type { IGroup, INode } from '@visactor/vrender-core';
 import { isNil, isString } from '@visactor/vutils';
 import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
 import {

@@ -1,5 +1,8 @@
 import { Signal } from '../../src/view/signal';
 import { getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 const view = getMockedView();
 

@@ -1,5 +1,8 @@
 import { registerTitle, Title } from '../../src/component/title';
 import { emptyFunction, getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerTitle();
 test('title', function () {

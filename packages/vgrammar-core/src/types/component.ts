@@ -3,7 +3,7 @@ import type {
   ISymbolGraphicAttribute,
   ITextAttribute,
   ITextGraphicAttribute
-} from '@visactor/vrender';
+} from '@visactor/vrender-core';
 import type {
   AxisBaseAttributes,
   BaseCrosshairAttrs,

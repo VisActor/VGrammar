@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/pick';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('basic pick', () => {
   const data = [

@@ -1,4 +1,7 @@
 import { TreemapLayout } from '../src/treemap/layout';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('layout(binary) simple data', () => {
   const data = [{ children: [{ source: 'A', target: 'B', value: 1 }] }];

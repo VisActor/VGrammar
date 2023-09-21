@@ -1,5 +1,8 @@
 import { Tooltip, registerTooltip } from '../../src/component/tooltip';
 import { emptyFunction, getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerTooltip();
 test('tooltip', function () {

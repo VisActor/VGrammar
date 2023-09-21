@@ -1,4 +1,7 @@
 import { createSimpleElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('image channel of symbol', function () {
   const element = createSimpleElement('symbol');

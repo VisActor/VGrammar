@@ -1,5 +1,5 @@
 import { isValid, merge } from '@visactor/vutils';
-import type { IGraphic } from '@visactor/vrender';
+import type { IGraphic } from '@visactor/vrender-core';
 import type { TitleAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { Title as TitleComponent } from '@visactor/vrender-components';

@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/sort';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('sort by simple field', () => {
   const data = [

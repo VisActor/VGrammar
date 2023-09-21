@@ -1,5 +1,8 @@
 import { CirclePackingLayout } from '../src/circle-packing/layout';
 import { mockData } from './data/tree';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('layout simple data', () => {
   const data = [{ children: [{ value: 1 }] }];

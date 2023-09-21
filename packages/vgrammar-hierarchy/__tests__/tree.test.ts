@@ -1,4 +1,7 @@
 import { TreeLayout } from '../src/tree/layout';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('layout simple data', () => {
   const data = [{ children: [{ value: 1 }] }];

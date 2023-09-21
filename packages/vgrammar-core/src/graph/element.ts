@@ -33,9 +33,9 @@ import type {
   MarkType,
   StateProxyEncodeSpec
 } from '../types';
-import type { IGraphic, ILine, IGraphicAttribute } from '@visactor/vrender';
+import type { IGraphic, ILine, IGraphicAttribute } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
-import { CustomPath2D } from '@visactor/vrender';
+import { CustomPath2D } from '@visactor/vrender-core';
 import { invokeFunctionType, parseField } from '../parse/util';
 
 export class Element implements IElement {

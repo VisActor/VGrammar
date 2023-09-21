@@ -1,5 +1,5 @@
 import type { IBoundsLike } from '@visactor/vutils';
-import type { IColor, Stage } from '@visactor/vrender';
+import type { IColor, Stage } from '@visactor/vrender-core';
 import type { IViewEventConfig, IViewOptions } from './view';
 
 export interface IRenderer {

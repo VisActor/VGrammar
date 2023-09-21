@@ -1,6 +1,9 @@
 import type { IPolarCoordinate } from '@visactor/vgrammar-coordinate';
 import { Coordinate } from '../../src/view/coordinate';
 import { getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 const view = getMockedView();
 

@@ -19,7 +19,7 @@ import { SemanticMark } from './semantic-mark';
 import { GrammarMarkType, Factory } from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
-import type { ITextAttribute } from '@visactor/vrender';
+import type { ITextAttribute } from '@visactor/vrender-core';
 
 export class TreeSemanticMark extends SemanticMark<PlotTreeEncodeSpec, TreeEncodeChannels> {
   static readonly type = PlotMakType.tree;

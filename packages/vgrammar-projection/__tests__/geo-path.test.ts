@@ -3,6 +3,9 @@ import type { IView, FeatureCollectionData } from '@visactor/vgrammar-core';
 import { Factory } from '@visactor/vgrammar-core';
 import { getMockedView } from './utils';
 import { testData } from './data';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 registerGeoTransforms();
 

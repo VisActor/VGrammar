@@ -1,4 +1,7 @@
 import { isSupported, getMinFontSizeOfEnv, randomHslColor, functor } from '../src/util';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('isSupported()', () => {
   expect(isSupported()).toBe(true);
