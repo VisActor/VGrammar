@@ -1,5 +1,5 @@
 import type { IGlyphMeta, IMark } from '../../types';
-import type { IGraphic } from '@visactor/vrender';
+import type { IGraphic } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
 import {
   createArc,
@@ -18,7 +18,7 @@ import {
   createArc3d,
   createPyramid3d,
   createCircle
-} from '@visactor/vrender';
+} from '@visactor/vrender-core';
 import { HOOK_EVENT, GrammarMarkType } from '../enums';
 import { BridgeElementKey } from '../constants';
 import { LargeRects } from '../mark/large-rects';

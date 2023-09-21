@@ -60,7 +60,7 @@ import type {
 import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager, Factory } from '@visactor/vgrammar-core';
 import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
-import type { ITextAttribute } from '@visactor/vrender';
+import type { ITextAttribute } from '@visactor/vrender-core';
 
 let semanticMarkId = -1;
 

@@ -1,4 +1,7 @@
 import { createSimpleElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('cornerRadius can be set to Group', function () {
   const element = createSimpleElement('group', { transformType: 'rect' });

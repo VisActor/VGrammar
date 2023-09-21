@@ -3,6 +3,9 @@ import { Projection } from '../src/index';
 import { getMockedView } from './utils';
 import { collectGeoJSON } from '../src/projection';
 import { testData } from './data';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('new Projection', () => {
   const projeciton = new Projection(getMockedView() as unknown as IView);

@@ -3,6 +3,9 @@ import type { IMark } from '../../src/types';
 import { Data } from '../../src/view/data';
 import { Mark } from '../../src/view/mark';
 import { getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('jitter transform', () => {
   registerJitterTransform();

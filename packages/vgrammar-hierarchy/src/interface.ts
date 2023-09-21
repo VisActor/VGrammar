@@ -1,4 +1,4 @@
-import type { ITextGraphicAttribute } from '@visactor/vrender';
+import type { ITextGraphicAttribute } from '@visactor/vrender-core';
 
 export type ViewBoxOptions = { width: number; height: number } | { x0: number; x1: number; y0: number; y1: number };
 

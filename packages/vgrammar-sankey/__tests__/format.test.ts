@@ -7,6 +7,9 @@ import {
   getAlignEndTexts
 } from '../src/index';
 import { SankeyLayout } from '../src/layout';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('formatNodeRect()', () => {
   const data = { links: [{ source: 'A', target: 'B', value: 1 }] };

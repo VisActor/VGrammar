@@ -1,5 +1,8 @@
 import { transform } from '../../src/transforms/mark/mark-overlap';
 import { createSimpleElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('mark overlap x', () => {
   const elementA = createSimpleElement('symbol');

@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/filter';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('basic filter', () => {
   const data = [

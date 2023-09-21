@@ -1,5 +1,5 @@
-import { jsx, VRichText, Fragment } from '@visactor/vrender'
-import { textHtml, version, richXul, richJsx } from "@visactor/vgrammar";
+import { jsx, VRichText, Fragment } from '@visactor/vrender';
+import { textHtml, version, richXul, richJsx } from '@visactor/vgrammar';
 
 export const spec = {
   width: 400,

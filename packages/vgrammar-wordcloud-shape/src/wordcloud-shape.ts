@@ -10,7 +10,7 @@ import type {
   wordsConfigType,
   CloudWordType
 } from './interface';
-import { vglobal } from '@visactor/vrender';
+import { vglobal } from '@visactor/vrender-core';
 import { loadAndHandleImage, segmentation } from './segmentation';
 import { LinearScale, OrdinalScale, SqrtScale } from '@visactor/vscale';
 import cloud from './cloud-shape-layout';

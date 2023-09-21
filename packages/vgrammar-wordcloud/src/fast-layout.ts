@@ -1,8 +1,8 @@
 /**
  * 主要用于小程序环境的快速布局算法
  */
-import type { ITextAttribute } from '@visactor/vrender';
-import { getTextBounds } from '@visactor/vrender';
+import type { ITextAttribute } from '@visactor/vrender-core';
+import { getTextBounds } from '@visactor/vrender-core';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import type { IBaseLayoutOptions, TagItemAttribute } from './interface';
 import { BaseLayout } from './base';

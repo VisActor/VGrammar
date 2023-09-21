@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/funnel';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('basic funnel', () => {
   const data = [

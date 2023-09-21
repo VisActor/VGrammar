@@ -1,6 +1,9 @@
 import { doGridLayout } from '../../src/graph/layout/grid';
 import { doRelativeLayout } from '../../src/graph/layout/relative';
 import { emptyFunction } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('grid layout', function () {
   const group = {

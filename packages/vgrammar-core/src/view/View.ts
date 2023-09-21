@@ -1,9 +1,9 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
 import { EventEmitter, debounce, isNil, isObject, isString, getContainerSize, Logger } from '@visactor/vutils';
-import type { IColor } from '@visactor/vrender';
+import type { IColor } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
-import { vglobal } from '@visactor/vrender';
+import { vglobal } from '@visactor/vrender-core';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { IElement } from './../types/element';
 import type {

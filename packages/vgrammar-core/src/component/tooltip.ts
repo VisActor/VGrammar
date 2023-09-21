@@ -14,7 +14,7 @@ import {
   isArray
 } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import type { IGraphic, IGroup } from '@visactor/vrender';
+import type { IGraphic, IGroup } from '@visactor/vrender-core';
 import type { TooltipAttributes, TooltipRowAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { Tooltip as TooltipComponent } from '@visactor/vrender-components';

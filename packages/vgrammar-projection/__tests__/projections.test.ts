@@ -8,6 +8,9 @@
  */
 
 import { projection, projectionProperties } from '../src/index';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('default projections are registered', function () {
   expect(projectionProperties.length).toBe(19);

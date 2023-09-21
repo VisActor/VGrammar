@@ -1,4 +1,7 @@
 import { GridLayout } from '../src/grid-layout';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('GridLayout', async () => {
   const data = [

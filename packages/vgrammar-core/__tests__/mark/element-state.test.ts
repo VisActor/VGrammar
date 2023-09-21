@@ -1,4 +1,7 @@
 import { createSimpleElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('Element executes state updating', function () {
   const element = createSimpleElement();

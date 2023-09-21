@@ -1,6 +1,9 @@
 import type { IComponent, IMark } from '@visactor/vgrammar-core';
 import '../util';
 import { Plot } from '../../src';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('add a title component by api', () => {
   const plot = new Plot({

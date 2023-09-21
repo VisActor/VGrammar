@@ -1,6 +1,9 @@
 import { BandScale } from '@visactor/vscale';
 import { symmetry } from '../../src/transforms/mark/symmetry';
 import { createSimpleElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('symmetry rect', () => {
   const elementA = createSimpleElement('rect');

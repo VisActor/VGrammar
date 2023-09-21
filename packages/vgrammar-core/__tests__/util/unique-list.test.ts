@@ -1,4 +1,7 @@
 import { UniqueList } from '../../src/util/unique-list';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('UniqueList', () => {
   const uList = new UniqueList((entry: any) => entry.id);

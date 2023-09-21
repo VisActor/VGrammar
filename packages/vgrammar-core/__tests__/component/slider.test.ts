@@ -1,5 +1,8 @@
 import { registerSlider, Slider } from '../../src/component/slider';
 import { emptyFunction, getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerSlider();
 test('slider', function () {

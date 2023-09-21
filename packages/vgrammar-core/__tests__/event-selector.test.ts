@@ -1,4 +1,7 @@
 import { parseEventSelector } from '../src/parse/event';
+import { initBrowserEnv } from '../src/env';
+
+initBrowserEnv();
 /* Adapted from vega by University of Washington Interactive Data Lab
  * https://vega.github.io/vega/
  * Licensed under the BSD-3-Clause

@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/fold';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('fold without retains', () => {
   const data = [

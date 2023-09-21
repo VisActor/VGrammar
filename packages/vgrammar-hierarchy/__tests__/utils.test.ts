@@ -1,4 +1,7 @@
 import { calculateNodeValue } from '../src';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('calculateNodeValue()', () => {
   const data = [

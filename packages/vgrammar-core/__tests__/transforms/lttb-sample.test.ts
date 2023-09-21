@@ -1,5 +1,8 @@
 import { transform } from '../../src/transforms/mark/lttb-sample';
 import { createSimpleElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('lttb sample', () => {
   const elements = [];

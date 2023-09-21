@@ -1,5 +1,8 @@
 import { Factory, registerWaveGlyph } from '../../src';
 import { createSimpleGlyphElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerWaveGlyph();
 

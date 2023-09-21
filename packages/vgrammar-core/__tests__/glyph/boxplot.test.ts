@@ -1,6 +1,9 @@
 import { createSimpleGlyphElement } from '../util';
 import { Factory, registerBarBoxplotGlyph, registerBoxplotGlyph } from '../../src';
 import { barBoxplotScaleIn, barBoxplotScaleOut, boxplotScaleIn, boxplotScaleOut } from '../../src/glyph/boxplot';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerBoxplotGlyph();
 
