@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/view/identifier';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('identifier', () => {
   const data = [

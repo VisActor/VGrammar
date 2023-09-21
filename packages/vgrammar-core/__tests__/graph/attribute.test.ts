@@ -5,6 +5,9 @@ import {
   transformAttributes
 } from '../../src/graph/attributes';
 import { createSimpleElement, emptyFunction } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('getLineSegmentConfigs()', () => {
   expect(getLineSegmentConfigs([], [])).toBeNull();

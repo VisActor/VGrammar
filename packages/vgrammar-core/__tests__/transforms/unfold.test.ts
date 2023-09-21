@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/unfold';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('unfold with not groupBy', () => {
   const data = [

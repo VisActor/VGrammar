@@ -1,4 +1,4 @@
-import type { IGraphic } from '@visactor/vrender';
+import type { IGraphic } from '@visactor/vrender-core';
 import type {
   GlyphChannelEncoder,
   GlyphDefaultEncoder,

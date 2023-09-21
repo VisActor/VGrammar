@@ -1,4 +1,7 @@
 import { getShapeFunction, getMaxRadiusAndCenter } from '../src/shapes';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('getShapeFunction("triangle")', () => {
   const triangle = getShapeFunction('triangle');

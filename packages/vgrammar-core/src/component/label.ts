@@ -1,5 +1,5 @@
 import { array, isNil, isString, merge } from '@visactor/vutils';
-import type { IGraphic } from '@visactor/vrender';
+import type { IGraphic } from '@visactor/vrender-core';
 import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { DataLabel } from '@visactor/vrender-components';

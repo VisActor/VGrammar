@@ -1,5 +1,5 @@
 import { has, isNil, isPlainObject, isString, isValidNumber } from '@visactor/vutils';
-import type { IColor, IColorStop } from '@visactor/vrender';
+import type { IColor, IColorStop } from '@visactor/vrender-core';
 import { transformCommonAttribute, commonAttributes } from './common';
 import { getRulePoints } from './helpers';
 import { GrammarMarkType } from '../enums';

@@ -1,5 +1,8 @@
 import { TreemapLayout, flattenNodes, TreeLayout, flattenTreeLinks } from '../src';
 import { mockData } from './data/tree';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('formatNodeRect()', () => {
   const data = [

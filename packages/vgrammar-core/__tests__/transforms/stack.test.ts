@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/stack';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('basic stack', () => {
   const data = [

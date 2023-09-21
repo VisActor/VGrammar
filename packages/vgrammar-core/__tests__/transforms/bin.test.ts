@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/bin';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('basic bin', () => {
   const data = [

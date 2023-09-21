@@ -1,6 +1,9 @@
 import { registerCrosshair, Crosshair } from '../../src/component/crosshair';
 import { Scale } from '../../src/view/scale';
 import { emptyFunction, getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerCrosshair();
 test('crosshair', function () {

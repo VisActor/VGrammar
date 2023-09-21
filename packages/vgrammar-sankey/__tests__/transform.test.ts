@@ -1,5 +1,8 @@
 import { registerSankeyTransforms } from '../src';
 import { Factory } from '@visactor/vgrammar-core';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 registerSankeyTransforms();
 

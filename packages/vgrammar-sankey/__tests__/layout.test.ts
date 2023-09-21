@@ -1,5 +1,8 @@
 import { SankeyLayout } from '../src/layout';
 import { hierarchyData, hierarchyData01 } from './data';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('layout data { links }', () => {
   const data = { links: [{ source: 'A', target: 'B', value: 1 }] };

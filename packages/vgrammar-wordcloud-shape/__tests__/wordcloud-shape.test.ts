@@ -1,4 +1,7 @@
 import { transform } from '../src/wordcloud-shape';
+import { initBrowserEnv } from '@visactor/vrender-kits';
+
+initBrowserEnv();
 
 test('Wordcloud shape should return empty data when shape is wrong', async () => {
   const data = [

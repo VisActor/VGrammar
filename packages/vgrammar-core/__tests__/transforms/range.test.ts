@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/range';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('basic range', () => {
   expect(

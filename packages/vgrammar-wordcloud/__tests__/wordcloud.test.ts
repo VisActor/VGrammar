@@ -8,6 +8,9 @@
  */
 
 import { transform } from '../src/wordcloud';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('Wordcloud should not throw error when size is 0', async () => {
   const data = [

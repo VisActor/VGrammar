@@ -1,7 +1,7 @@
 import { isNil, isValidNumber } from '@visactor/vutils';
-import type { IAnimate as IGraphicAnimate } from '@visactor/vrender';
+import type { IAnimate as IGraphicAnimate } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
-import { ACustomAnimate, Animate, AnimateGroup, AnimateMode } from '@visactor/vrender';
+import { ACustomAnimate, Animate, AnimateGroup, AnimateMode } from '@visactor/vrender-core';
 import type {
   IAnimationChannelInterpolator,
   IAnimationCustomConstructor,

@@ -1,6 +1,9 @@
 import { registerAxis, Axis } from '../../src/component/axis';
 import { Scale } from '../../src/view/scale';
 import { emptyFunction, getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerAxis();
 test('line axis', function () {

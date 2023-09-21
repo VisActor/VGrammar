@@ -1,4 +1,4 @@
-import type { IRectGraphicAttribute } from '@visactor/vrender';
+import type { IRectGraphicAttribute } from '@visactor/vrender-core';
 import { isNil, isNumber } from '@visactor/vutils';
 import type { IGrowCartesianAnimationOptions, IAnimationParameters, IElement, TypeAnimation } from '../../../types';
 

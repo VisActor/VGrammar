@@ -1,4 +1,7 @@
 import { FastLayout } from '../src/fast-layout';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 test('FastLayout', async () => {
   const data = [

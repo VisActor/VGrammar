@@ -1,10 +1,13 @@
-import { Glyph, Rect, Line } from '@visactor/vrender';
+import { Glyph, Rect, Line } from '@visactor/vrender-core';
 import { createElement } from '../../src/graph/util/element';
 import type { IGlyphElement } from '../../src/types';
 import { emptyFunction, getMockedView } from '../util';
 import { createGlyphGraphicItem } from '../../src/graph/util/graphic';
 import { transformsByType } from '../../src/graph/attributes';
 import { Factory } from '../../src';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 const view = getMockedView();
 

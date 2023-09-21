@@ -1,5 +1,8 @@
 import { registerPlayer, Player } from '../../src/component/player';
 import { emptyFunction, getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerPlayer();
 
