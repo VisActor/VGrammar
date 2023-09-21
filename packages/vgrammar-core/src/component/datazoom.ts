@@ -100,8 +100,8 @@ export class Datazoom extends Component implements IDatazoom {
       return {
         startRatio,
         endRatio,
-        start: this._invertDatazoomRatio(startRatio),
-        end: this._invertDatazoomRatio(endRatio)
+        start: this.invertDatazoomRatio(startRatio),
+        end: this.invertDatazoomRatio(endRatio)
       };
     };
     const dataFilter = isString(filter)
@@ -109,7 +109,7 @@ export class Datazoom extends Component implements IDatazoom {
           if (isNil(filterValue.start) || isNil(filterValue.end)) {
             return true;
           }
-          const scale = this._getDatazoomMainScale();
+          const scale = this.getDatazoomMainScale();
           const range = scale.range();
           const datumRatio = (scale.scale(datum[filter]) - range[0]) / (range[range.length - 1] - range[0]);
           return filterValue.startRatio <= datumRatio && filterValue.endRatio >= datumRatio;
@@ -144,7 +144,7 @@ export class Datazoom extends Component implements IDatazoom {
     }
     datazoom.setStatePointToData(state => {
       if (this.spec.preview) {
-        return this._invertDatazoomRatio(state) ?? state;
+        return this.invertDatazoomRatio(state) ?? state;
       }
       return state;
     });
@@ -201,8 +201,8 @@ export class Datazoom extends Component implements IDatazoom {
     this._encoders = componentEncoders;
   }
 
-  private _invertDatazoomRatio(ratio: number): any {
-    const scale = this._getDatazoomMainScale();
+  invertDatazoomRatio(ratio: number): any {
+    const scale = this.getDatazoomMainScale();
     if (scale) {
       const range = scale.range();
       const scaledValue = (range[range.length - 1] - range[0]) * ratio + range[0];
@@ -211,7 +211,7 @@ export class Datazoom extends Component implements IDatazoom {
     return null;
   }
 
-  private _getDatazoomMainScale() {
+  getDatazoomMainScale() {
     const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as DatazoomComponent;
     if (datazoom && this.spec.preview) {
       const isHorizontal = datazoom.attribute.orient === 'top' || datazoom.attribute.orient === 'bottom';
