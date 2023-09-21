@@ -1,5 +1,5 @@
-import type { IRichText, IRichTextCharacter } from '@visactor/vrender';
-import { xul as vRenderXul, RichText } from '@visactor/vrender';
+import type { IRichText, IRichTextCharacter } from '@visactor/vrender-core';
+import { xul as vRenderXul, RichText } from '@visactor/vrender-core';
 import { isArray } from '@visactor/vutils';
 
 export function richXul(strings: TemplateStringsArray, ...insertVars: (string | number)[]) {

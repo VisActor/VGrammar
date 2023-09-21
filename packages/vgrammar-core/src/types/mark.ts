@@ -18,7 +18,7 @@ import type {
   IGraphicAttribute,
   IGroupGraphicAttribute,
   IRichTextGraphicAttribute
-} from '@visactor/vrender';
+} from '@visactor/vrender-core';
 import type { Bounds, IPointLike } from '@visactor/vutils';
 import type { IAnimationConfig, IStateAnimationConfig } from './animate';
 import type { IElement } from './element';

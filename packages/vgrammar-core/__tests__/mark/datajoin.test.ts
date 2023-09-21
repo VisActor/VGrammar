@@ -1,5 +1,8 @@
 import { isNil } from '@visactor/vutils';
 import { Differ, groupData } from '../../src/graph/mark/differ';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 const data0 = [
   { index: 0, value: 13, category: 'A' },

@@ -1,4 +1,7 @@
 import { Heap } from '../../src/util/grammar-heap';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('Heap functions', function () {
   const heap = new Heap((a: any, b: any) => a.qrank - b.qrank);

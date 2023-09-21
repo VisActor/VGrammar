@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/map';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('basic map', () => {
   const data = [

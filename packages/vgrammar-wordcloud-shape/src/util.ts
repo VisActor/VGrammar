@@ -1,4 +1,4 @@
-import { vglobal, createImage } from '@visactor/vrender';
+import { vglobal, createImage } from '@visactor/vrender-core';
 import { isBase64, isNil, isValidUrl, Logger } from '@visactor/vutils';
 import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
 

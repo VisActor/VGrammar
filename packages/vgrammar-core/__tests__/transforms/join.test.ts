@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/join';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('basic join', () => {
   const fromData = [

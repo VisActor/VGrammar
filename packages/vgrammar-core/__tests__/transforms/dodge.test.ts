@@ -1,6 +1,9 @@
 import { BandScale } from '@visactor/vscale';
 import { transform } from '../../src/transforms/mark/dodge';
 import { createSimpleElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('dodge rect', () => {
   const elementA = createSimpleElement('rect');

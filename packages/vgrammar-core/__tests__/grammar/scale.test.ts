@@ -1,6 +1,9 @@
 import { Scale } from '../../src/view/scale';
 import { Data } from '../../src/view/data';
 import { getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 const view = getMockedView();
 

@@ -16,7 +16,7 @@ import type {
   IRichText,
   ISymbol,
   IText
-} from '@visactor/vrender';
+} from '@visactor/vrender-core';
 import type { DiffState } from '../graph/enums';
 import type { IMark, IGlyphMark } from './grammar';
 import type { BaseEncodeSpec, IMarkConfig, MarkFunctionType, MarkKeySpec, MarkType } from './mark';

@@ -1,5 +1,8 @@
 import { registerLabel, Label } from '../../src/component/label';
 import { emptyFunction, getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerLabel();
 test('label', function () {

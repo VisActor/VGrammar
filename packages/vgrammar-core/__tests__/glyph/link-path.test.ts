@@ -1,5 +1,8 @@
 import { Factory, registerLinkPathGlyph } from '../../src';
 import { createSimpleGlyphElement } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerLinkPathGlyph();
 

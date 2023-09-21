@@ -1,5 +1,8 @@
 import { Data } from '../../src/view/data';
 import { getMockedView, registerDefaultTransforms } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerDefaultTransforms();
 

@@ -1,6 +1,8 @@
 import { registerDataZoom, Datazoom } from '../../src/component/datazoom';
 import { emptyFunction, getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
 
+initBrowserEnv();
 registerDataZoom();
 test('datazoom', function () {
   const view = getMockedView() as any;

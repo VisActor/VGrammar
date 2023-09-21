@@ -17,7 +17,7 @@ import { SemanticMark } from './semantic-mark';
 import { GrammarMarkType, Factory } from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
-import type { ITextAttribute } from '@visactor/vrender';
+import type { ITextAttribute } from '@visactor/vrender-core';
 
 export class CirclePackingSemanticMark extends SemanticMark<PlotCirclePackingEncodeSpec, CirclepackingEncodeChannels> {
   static readonly type = PlotMakType.circlePacking;

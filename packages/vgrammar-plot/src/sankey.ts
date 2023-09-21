@@ -18,7 +18,7 @@ import { SemanticMark } from './semantic-mark';
 import { GrammarMarkType, SIGNAL_VIEW_BOX, Factory } from '@visactor/vgrammar-core';
 import { PlotMakType } from './enums';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
-import type { ITextAttribute } from '@visactor/vrender';
+import type { ITextAttribute } from '@visactor/vrender-core';
 
 export class SankeySemanticMark extends SemanticMark<PlotSankeyEncoderSpec, SankeyEncodeChannels> {
   static readonly type = PlotMakType.sankey;

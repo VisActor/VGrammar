@@ -1,4 +1,7 @@
 import { Morph } from '../../src/graph/animation/morph';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('morph', function () {
   const morph = new Morph();

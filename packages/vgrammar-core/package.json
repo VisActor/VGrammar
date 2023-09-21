@@ -39,8 +39,9 @@
     "@visactor/vgrammar-coordinate": "workspace:0.7.6",
     "@visactor/vgrammar-util": "workspace:0.7.6",
     "@visactor/vscale": "~0.16.0",
-    "@visactor/vrender": "~0.15.2",
-    "@visactor/vrender-components": "~0.15.2",
+    "@visactor/vrender-core": "~0.16.0",
+    "@visactor/vrender-kits": "~0.16.0",
+    "@visactor/vrender-components": "~0.16.0",
     "@visactor/vutils": "~0.16.0",
     "@visactor/vdataset": "~0.16.0"
   },

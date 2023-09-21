@@ -1,5 +1,5 @@
 import { isString, merge } from '@visactor/vutils';
-import type { IGraphic } from '@visactor/vrender';
+import type { IGraphic } from '@visactor/vrender-core';
 import type { CircleAxisGridAttributes, LineAxisGridAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { CircleAxisGrid, LineAxisGrid } from '@visactor/vrender-components';

@@ -1,6 +1,9 @@
 import { registerAllHierarchyTransforms } from '../src';
 import { Factory } from '@visactor/vgrammar-core';
 import { mockData } from './data/tree';
+import { initBrowserEnv } from '@visactor/vgrammar-core';
+
+initBrowserEnv();
 
 registerAllHierarchyTransforms();
 

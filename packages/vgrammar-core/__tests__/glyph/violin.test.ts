@@ -1,6 +1,9 @@
 import { createSimpleGlyphElement, getMockedView } from '../util';
 import { Factory, registerViolinGlyph } from '../../src';
 import { Scale } from '../../src/view/scale';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerViolinGlyph();
 

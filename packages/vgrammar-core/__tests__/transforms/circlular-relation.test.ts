@@ -1,4 +1,7 @@
 import { transform } from '../../src/transforms/data/circular-relation';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 test('circular-relation', () => {
   const data = [

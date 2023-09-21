@@ -1,6 +1,9 @@
 import { Grid, registerGrid } from '../../src/component/grid';
 import { Scale } from '../../src/view/scale';
 import { emptyFunction, getMockedView } from '../util';
+import { initBrowserEnv } from '../../src/env';
+
+initBrowserEnv();
 
 registerGrid();
 test('line axis grid', function () {
