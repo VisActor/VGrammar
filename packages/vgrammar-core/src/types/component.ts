@@ -102,6 +102,7 @@ export interface ILegend extends IScaleComponent {
   target: (data: IData | string | Nil, filter: string | ((datum: any, legendValues: any) => boolean) | Nil) => this;
 
   // immediate functions
+  isContinuousLegend: () => boolean;
   setSelected: (selectedValues: any[]) => this;
 }
 

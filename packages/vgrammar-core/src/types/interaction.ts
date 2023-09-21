@@ -1,8 +1,9 @@
 import type { IView } from './view';
 import type { EventType, InteractionEvent, ViewEventType } from './event';
 import type { BrushAttributes } from '@visactor/vrender-components';
-import type { IGraphic, IPolygon } from '@visactor/vrender';
+import type { IPolygon } from '@visactor/vrender';
 import type { IElement, IGlyphElement } from './element';
+import type { IData } from './grammar';
 
 export interface IBaseInteractionOptions {
   shouldStart?: (e: any) => boolean;
@@ -201,6 +202,18 @@ export interface BrushActiveOptions extends BrushOptions {
   state?: string;
 }
 
+export interface DataFilterOptions extends IBaseInteractionOptions {
+  /**
+   * the selector of marks
+   */
+  selector?: string | string[];
+
+  target: {
+    data: IData | string;
+    filter: string | ((datum: any, legendValues: any[]) => boolean);
+  };
+}
+
 export interface ElementActiveSpec extends ElementActiveOptions {
   type: 'element-active';
 }
@@ -234,6 +247,10 @@ export interface BrushHighlightSpec extends BrushHighlightOptions {
 
 export interface BrushActiveSpec extends BrushActiveOptions {
   type: 'brush-active';
+}
+
+export interface LegendFilterSpec extends DataFilterOptions {
+  type: 'legend-filter';
 }
 
 export type InteractionSpec =
