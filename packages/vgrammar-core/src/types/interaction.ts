@@ -253,6 +253,22 @@ export interface LegendFilterSpec extends DataFilterOptions {
   type: 'legend-filter';
 }
 
+export interface DatazoomFilterSpec extends DataFilterOptions {
+  type: 'datazoom-filter';
+}
+
+export interface SliderFilterSpec extends DataFilterOptions {
+  type: 'slider-filter';
+}
+
+export interface PlayerFilterSpec extends DataFilterOptions {
+  type: 'player-filter';
+}
+
+export interface ScrollbarFilterSpec extends DataFilterOptions {
+  type: 'scrollbar-filter';
+}
+
 export type InteractionSpec =
   | ElementActiveSpec
   | ElementSelectSpec
