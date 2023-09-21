@@ -27,4 +27,8 @@ export abstract class ScaleComponent extends Component implements IScaleComponen
     this.commit();
     return this;
   }
+
+  getScale() {
+    return isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
+  }
 }
