@@ -35,11 +35,15 @@ import type {
 import type { IPointLike } from '@visactor/vutils';
 import type { IElement } from './element';
 import type { IView } from './view';
+import type { IBaseScale } from '@visactor/vscale';
 
 // scale component
 
 export interface IScaleComponent extends IComponent {
   scale: (scale?: IScale | string | Nil) => this;
+
+  // internal interface
+  getScale: () => IScale;
 }
 
 export interface ScaleComponentSpec<
@@ -102,8 +106,10 @@ export interface ILegend extends IScaleComponent {
   target: (data: IData | string | Nil, filter: string | ((datum: any, legendValues: any) => boolean) | Nil) => this;
 
   // immediate functions
-  isContinuousLegend: () => boolean;
   setSelected: (selectedValues: any[]) => this;
+
+  // internal interface
+  isContinuousLegend: () => boolean;
 }
 
 export interface LegendSpec extends ScaleComponentSpec<LegendBaseAttributes> {
@@ -179,6 +185,10 @@ export interface IDatazoom extends IComponent {
 
   // immediate functions
   setStartEndValue: (start?: number, end?: number) => this;
+
+  // internal interface
+  invertDatazoomRatio: (ratio: number) => any;
+  getDatazoomMainScale: () => IBaseScale;
 }
 
 export type DataZoomEncoderSpec = GenerateBasicEncoderSpec<Partial<DataZoomAttributes> & { x1?: number; y1?: number }>;
