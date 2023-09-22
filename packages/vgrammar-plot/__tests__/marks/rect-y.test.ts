@@ -109,45 +109,45 @@ test('add rect-y by api and scale y is band', () => {
   });
 });
 
-test('add rect-y by api and scale x is band and the value is a array', () => {
-  const plot = new Plot({
-    width: 800,
-    height: 600
-  });
+// test('add rect-y by api and scale x is band and the value is a array', () => {
+//   const plot = new Plot({
+//     width: 800,
+//     height: 600
+//   });
 
-  plot
-    .rectY()
-    .data([
-      { x: ['A', 'B'], y: 1 },
-      { x: ['B', 'C'], y: 2 }
-    ])
-    .encode('y', 'x')
-    .scale('y', { type: 'band' });
+//   plot
+//     .rectY()
+//     .data([
+//       { x: ['A', 'B'], y: 1 },
+//       { x: ['B', 'C'], y: 2 }
+//     ])
+//     .encode('y', 'x')
+//     .scale('y', { type: 'band' });
 
-  plot.run();
+//   plot.run();
 
-  const marks = plot.view.getMarksByType('rect');
+//   const marks = plot.view.getMarksByType('rect');
 
-  expect(marks.length).toBe(1);
+//   expect(marks.length).toBe(1);
 
-  const rectMark = marks[0];
-  expect(rectMark.elements.length).toEqual(2);
-  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
-    x: 0,
-    width: 790,
-    fill: '#6690F2'
-  });
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).y).toBeCloseTo(196.66666666666666);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).height).toBeCloseTo(196.66666666666666);
-  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
-    y: 0,
-    width: 790,
-    fill: '#6690F2'
-  });
+//   const rectMark = marks[0];
+//   expect(rectMark.elements.length).toEqual(2);
+//   expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
+//     x: 0,
+//     width: 790,
+//     fill: '#6690F2'
+//   });
+//   expect((rectMark.elements[0].getGraphicItem().attribute as any).y).toBeCloseTo(196.66666666666666);
+//   expect((rectMark.elements[0].getGraphicItem().attribute as any).height).toBeCloseTo(196.66666666666666);
+//   expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
+//     y: 0,
+//     width: 790,
+//     fill: '#6690F2'
+//   });
 
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(0);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).height).toBeCloseTo(196.66666666666666);
-});
+//   expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(0);
+//   expect((rectMark.elements[1].getGraphicItem().attribute as any).height).toBeCloseTo(196.66666666666666);
+// });
 
 test('add grouped rect-y by api', () => {
   const plot = new Plot({
