@@ -1,9 +1,12 @@
 import type { IView } from './view';
 import type { EventType, InteractionEvent, ViewEventType } from './event';
-import type { BrushAttributes } from '@visactor/vrender-components';
+import type { BrushAttributes, TooltipAttributes } from '@visactor/vrender-components';
 import type { IPolygon } from '@visactor/vrender';
 import type { IElement, IGlyphElement } from './element';
-import type { IData } from './grammar';
+import type { IData, IMark, IScale } from './grammar';
+import type { CustomTooltipCallback, ITooltipRow, TooltipType } from './component';
+import type { IPointLike } from '@visactor/vutils';
+import type { MarkFunctionType } from '.';
 
 export interface IBaseInteractionOptions {
   shouldStart?: (e: any) => boolean;
@@ -245,6 +248,36 @@ export interface RollUpOptions extends DataFilterOptions {
   resetTrigger?: EventType | ViewEventType | 'empty';
 }
 
+export interface TooltipOptions extends IBaseInteractionOptions {
+  /**
+   * the selector of marks
+   */
+  selector?: string | string[];
+  /**
+   * the trigger event name
+   */
+  trigger?: EventType;
+  /**
+   * the reset trigger event name
+   */
+  resetTrigger?: EventType;
+
+  title?: ITooltipRow | string | CustomTooltipCallback;
+  content?: ITooltipRow | ITooltipRow[] | CustomTooltipCallback;
+  attributes?: MarkFunctionType<TooltipAttributes>;
+}
+
+export interface DimensionTooltipOptions extends TooltipOptions {
+  scale?: IScale | string;
+  tooltipType?: TooltipType;
+  target?: {
+    data: IData | string;
+    filter: string | ((datum: any, tooltipValue: any) => boolean);
+  };
+  avoidMark?: string | string[];
+  center?: IPointLike;
+}
+
 export interface ElementActiveSpec extends ElementActiveOptions {
   type: 'element-active';
 }
@@ -307,6 +340,8 @@ export interface ScrollbarFilterSpec extends DataFilterOptions {
 export interface DrillDownSpec extends DrillDownOptions {
   type: 'drill-down';
 }
+
+// export interface TooltipSpec extends
 
 export interface RollUpSpec extends RollUpOptions {
   type: 'roll-up';
