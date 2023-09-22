@@ -1,6 +1,16 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Tue, 19 Sep 2023 04:05:09 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Sep 2023 03:30:25 GMT and should not be manually modified.
+
+## 0.7.4
+Fri, 22 Sep 2023 03:30:25 GMT
+
+### Updates
+
+- chore: fix exports in package.json
+
+
+- fix(vgrammar): exclude invalid animation channels when animating
 
 ## 0.7.3
 Tue, 19 Sep 2023 04:05:09 GMT
