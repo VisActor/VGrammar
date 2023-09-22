@@ -13,7 +13,7 @@ export class ElementActiveByLegend extends BaseInteraction {
     filterType: 'groupKey'
   };
   options: ElementActiveByLegendOptions;
-  private _marks?: IMark[];
+  protected _marks?: IMark[];
 
   constructor(view: IView, option?: ElementActiveByLegendOptions) {
     super(view);
