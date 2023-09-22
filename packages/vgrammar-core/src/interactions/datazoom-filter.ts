@@ -1,5 +1,5 @@
 import type { DataFilterOptions, DatazoomFilterValue, IComponent, IDatazoom, IView } from '../types';
-import { ComponentDataRank, GrammarMarkType } from '../graph';
+import { DataFilterRank, GrammarMarkType } from '../graph';
 import { isNil, isString } from '@visactor/vutils';
 import { Filter } from './filter';
 
@@ -15,7 +15,7 @@ export class DatazoomFilter extends Filter {
     this.options = Object.assign({}, DatazoomFilter.defaultOptions, option);
 
     this._marks = view
-      .getMarksBySelector(this.options.selector)
+      .getMarksBySelector(this.options.source)
       .filter(mark => mark.markType === GrammarMarkType.component && (mark as IComponent).componentType === 'datazoom');
     this._data = isString(this.options.target.data)
       ? view.getDataById(this.options.target.data)
@@ -34,6 +34,7 @@ export class DatazoomFilter extends Filter {
     }
 
     const filter = this.options.target.filter;
+    const transform = this.options.target.transform;
 
     const getFilterValue = (event: any): DatazoomFilterValue => {
       const startRatio = event.start;
@@ -57,7 +58,7 @@ export class DatazoomFilter extends Filter {
         }
       : filter;
 
-    this._filterData(this._data, datazoom, ComponentDataRank.datazoom, getFilterValue, dataFilter);
+    this._filterData(this._data, datazoom, DataFilterRank.datazoom, getFilterValue, dataFilter, transform);
 
     return {
       // TODO: waiting for datazoom to provide events

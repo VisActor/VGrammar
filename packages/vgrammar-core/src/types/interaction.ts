@@ -203,22 +203,46 @@ export interface BrushActiveOptions extends BrushOptions {
 }
 
 export interface BrushFilterOptions extends BrushOptions {
-  target: {
-    data: IData | string;
-    filter: string | ((datum: any, legendValues: any[]) => boolean);
-  };
+  target: { data: IData | string; transform?: (data: any[], filterValue: any) => any[] };
 }
 
 export interface DataFilterOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
    */
-  selector?: string | string[];
+  source?: string | string[];
 
+  /**
+   * data target
+   */
   target: {
     data: IData | string;
-    filter: string | ((datum: any, legendValues: any[]) => boolean);
+    filter?: string | ((datum: any, filterValue: any) => boolean);
+    transform?: (data: any[], filterValue: any) => any[];
   };
+}
+
+export interface DrillDownOptions extends BrushOptions {
+  /**
+   * enable brush
+   */
+  brush?: boolean;
+  // trigger attribute is included in brush attributes
+  target: {
+    data: IData | string;
+    transform?: (data: any[], filterValue: any) => any[];
+  };
+}
+
+export interface RollUpOptions extends DataFilterOptions {
+  /**
+   * the trigger event name
+   */
+  trigger?: EventType;
+  /**
+   * the reset trigger event name
+   */
+  resetTrigger?: EventType | ViewEventType | 'empty';
 }
 
 export interface ElementActiveSpec extends ElementActiveOptions {
@@ -278,6 +302,14 @@ export interface PlayerFilterSpec extends DataFilterOptions {
 
 export interface ScrollbarFilterSpec extends DataFilterOptions {
   type: 'scrollbar-filter';
+}
+
+export interface DrillDownSpec extends DrillDownOptions {
+  type: 'drill-down';
+}
+
+export interface RollUpSpec extends RollUpOptions {
+  type: 'roll-up';
 }
 
 export type InteractionSpec =
