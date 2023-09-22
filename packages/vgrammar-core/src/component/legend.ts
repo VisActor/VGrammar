@@ -6,7 +6,7 @@ import type { DiscreteLegendAttrs, ColorLegendAttributes, SizeLegendAttributes }
 // eslint-disable-next-line no-duplicate-imports
 import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend, LegendEvent } from '@visactor/vrender-components';
 import { array, isString, merge, last } from '@visactor/vutils';
-import { ComponentDataRank, ComponentEnum, LegendEnum } from '../graph';
+import { DataFilterRank, ComponentEnum, LegendEnum } from '../graph';
 import type {
   BaseSignleEncodeSpec,
   IData,
@@ -166,7 +166,7 @@ export class Legend extends ScaleComponent implements ILegend {
             datum[filter] >= filterValue.start && datum[filter] <= filterValue.end
         : (datum: any, filterValue: any[]) => filterValue.includes(datum[filter])
       : filter;
-    this._filterData(lastDataGrammar, dataGrammar, ComponentDataRank.legend, getFilterValue, dataFilter);
+    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.legend, getFilterValue, dataFilter);
     if (dataGrammar) {
       this.view.addEventListener(eventName, this._filterCallback);
       this.spec.target = { data: dataGrammar, filter };

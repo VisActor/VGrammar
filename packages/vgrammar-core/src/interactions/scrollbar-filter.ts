@@ -1,5 +1,5 @@
 import type { DataFilterOptions, IComponent, IScrollbar, IView, ScrollbarFilterValue } from '../types';
-import { ComponentDataRank, GrammarMarkType } from '../graph';
+import { DataFilterRank, GrammarMarkType } from '../graph';
 import { isString } from '@visactor/vutils';
 import { Filter } from './filter';
 
@@ -15,7 +15,7 @@ export class ScrollbarFilter extends Filter {
     this.options = Object.assign({}, ScrollbarFilter.defaultOptions, option);
 
     this._marks = view
-      .getMarksBySelector(this.options.selector)
+      .getMarksBySelector(this.options.source)
       .filter(
         mark => mark.markType === GrammarMarkType.component && (mark as IComponent).componentType === 'scrollbar'
       );
@@ -36,6 +36,7 @@ export class ScrollbarFilter extends Filter {
     }
 
     const filter = this.options.target.filter;
+    const transform = this.options.target.transform;
 
     const getFilterValue = (event: any) => {
       if (isString(filter)) {
@@ -62,7 +63,7 @@ export class ScrollbarFilter extends Filter {
         }
       : filter;
 
-    this._filterData(this._data, scrollbar, ComponentDataRank.scrollbar, getFilterValue, dataFilter);
+    this._filterData(this._data, scrollbar, DataFilterRank.scrollbar, getFilterValue, dataFilter, transform);
 
     return {
       scroll: this.handleFilter

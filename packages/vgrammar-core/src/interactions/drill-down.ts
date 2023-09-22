@@ -1,6 +1,6 @@
 import type { IPolygon } from '@visactor/vrender';
 import type {
-  BrushFilterOptions,
+  DrillDownOptions,
   IData,
   IDataFilter,
   IElement,
@@ -14,11 +14,13 @@ import { isString, type IBounds, array, mixin } from '@visactor/vutils';
 import { DataFilterRank } from '../graph';
 import { FilterMixin } from './filter';
 
-export class BrushFilter extends BrushBase<BrushFilterOptions> {
-  static type: string = 'brush-filter';
-  type: string = BrushFilter.type;
+export class DrillDown extends BrushBase<DrillDownOptions> {
+  static type: string = 'drill-down';
+  type: string = DrillDown.type;
 
-  static defaultOptions: Omit<BrushFilterOptions, 'target'> = {};
+  static defaultOptions: Omit<DrillDownOptions, 'target'> = {
+    brush: true
+  };
 
   // filter attributes
   protected _data: IData;
@@ -34,8 +36,8 @@ export class BrushFilter extends BrushBase<BrushFilterOptions> {
     transform?: (data: any[], parameters: any) => any[]
   ) => this;
 
-  constructor(view: IView, option?: BrushFilterOptions) {
-    super(view, Object.assign({}, BrushFilter.defaultOptions, option));
+  constructor(view: IView, option?: DrillDownOptions) {
+    super(view, Object.assign({}, DrillDown.defaultOptions, option));
     this._data = isString(this.options.target.data)
       ? view.getDataById(this.options.target.data)
       : this.options.target.data;
@@ -52,9 +54,14 @@ export class BrushFilter extends BrushBase<BrushFilterOptions> {
       return transform ? transform(data, filterValue) : nextData;
     };
 
-    this._filterData(this._data, null, DataFilterRank.brush, null, undefined, dataTransform);
+    this._filterData(this._data, null, DataFilterRank.drillDown, null, undefined, dataTransform);
 
-    return super.getEvents();
+    if (this.options.brush) {
+      return super.getEvents();
+    }
+    return {
+      [this.options.trigger]: this.handleTrigger
+    };
   }
 
   handleBrushUpdate = (options: {
@@ -94,6 +101,22 @@ export class BrushFilter extends BrushBase<BrushFilterOptions> {
 
     this.dispatchEvent(options, elements);
   };
+
+  handleTrigger = (event: InteractionEvent) => {
+    const element = event.element;
+    if (element && this._marks && this._marks.includes(element.mark)) {
+      const filterValue = array(element.getDatum());
+      // shallow compare
+      if (
+        !this._filterValue ||
+        filterValue.length !== this._filterValue.length ||
+        filterValue.some(datum => !this._filterValue.includes(datum))
+      ) {
+        this._filterValue = filterValue;
+        this.handleFilter();
+      }
+    }
+  };
 }
 
-mixin(BrushFilter, FilterMixin);
+mixin(DrillDown, FilterMixin);
