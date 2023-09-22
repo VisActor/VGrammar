@@ -3,7 +3,7 @@ import type { DataZoomAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { DataZoom as DatazoomComponent } from '@visactor/vrender-components';
 import { isNil, isString, merge } from '@visactor/vutils';
-import { ComponentDataRank, ComponentEnum } from '../graph';
+import { DataFilterRank, ComponentEnum } from '../graph';
 import type {
   BaseSignleEncodeSpec,
   ChannelEncodeType,
@@ -115,7 +115,7 @@ export class Datazoom extends Component implements IDatazoom {
           return filterValue.startRatio <= datumRatio && filterValue.endRatio >= datumRatio;
         }
       : filter;
-    this._filterData(lastDataGrammar, dataGrammar, ComponentDataRank.datazoom, getFilterValue, dataFilter);
+    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.datazoom, getFilterValue, dataFilter);
     if (dataGrammar && datazoom) {
       datazoom.setUpdateStateCallback((start: number, end: number) => {
         this._filterCallback({ start, end }, this.elements[0]);

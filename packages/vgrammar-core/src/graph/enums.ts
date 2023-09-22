@@ -77,13 +77,16 @@ export enum ComponentEnum {
   scrollbar = 'scrollbar'
 }
 
-export enum ComponentDataRank {
+export enum DataFilterRank {
   player = 1,
-  slider = 2,
-  datazoom = 3,
-  legend = 4,
-  scrollbar = 5,
-  brush = 6
+  rollUp = 2,
+  drillDown = 3,
+  slider = 4,
+  datazoom = 5,
+  legend = 6,
+  scrollbar = 7,
+  brush = 8,
+  normal = 9
 }
 
 export enum AxisEnum {

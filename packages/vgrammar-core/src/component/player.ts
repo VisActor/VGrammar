@@ -20,7 +20,7 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { ComponentDataRank, ComponentEnum, PlayerEnum } from '../graph';
+import { DataFilterRank, ComponentEnum, PlayerEnum } from '../graph';
 import type { IPlayer, PlayerFilterValue, PlayerSpec, PlayerType } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
@@ -95,7 +95,7 @@ export class Player extends Component implements IPlayer {
     const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
     const getFilterValue = (event: any) => ({ index: event.detail.index, value: event.detail.value });
     const dataTransform = (data: any[], filterValue: PlayerFilterValue) => filterValue.value;
-    this._filterData(lastDataGrammar, dataGrammar, ComponentDataRank.player, getFilterValue, undefined, dataTransform);
+    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.player, getFilterValue, undefined, dataTransform);
     if (dataGrammar) {
       this.view.addEventListener(PlayerEventEnum.OnChange, this._filterCallback);
       this.spec.target = { data: dataGrammar, source };
