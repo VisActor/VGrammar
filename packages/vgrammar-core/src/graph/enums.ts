@@ -82,7 +82,8 @@ export enum ComponentDataRank {
   slider = 2,
   datazoom = 3,
   legend = 4,
-  scrollbar = 5
+  scrollbar = 5,
+  brush = 6
 }
 
 export enum AxisEnum {
