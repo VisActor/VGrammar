@@ -15,7 +15,7 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { ComponentDataRank, ComponentEnum } from '../graph';
+import { DataFilterRank, ComponentEnum } from '../graph';
 import type { ISlider, SliderFilterValue, SliderSpec } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
@@ -71,7 +71,7 @@ export class Slider extends Component implements ISlider {
       ? (datum: any, filterValue: SliderFilterValue) =>
           datum[filter] >= filterValue.start && datum[filter] <= filterValue.end
       : filter;
-    this._filterData(lastDataGrammar, dataGrammar, ComponentDataRank.slider, getFilterValue, dataFilter);
+    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.slider, getFilterValue, dataFilter);
     if (dataGrammar) {
       this.view.addEventListener('change', this._filterCallback);
       this.spec.target = { data: dataGrammar, filter };
