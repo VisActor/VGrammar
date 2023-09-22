@@ -65,6 +65,6 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          message: 'build: prelease version ${{ steps.package-version.outputs.current_version }}'
+          message: 'build: prerelease version ${{ steps.package-version.outputs.current_version }}'
           branch: ${{ github.ref_name }}
           author_name: ${{ github.actor }}
