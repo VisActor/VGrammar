@@ -78,6 +78,7 @@ export type ViewEventType =
 export type EventType =
   | 'pointerdown'
   | 'pointerup'
+  | 'pointermove'
   // 指针抬起与按下的图形不同时触发
   | 'pointerupoutside'
   | 'pointertap'
