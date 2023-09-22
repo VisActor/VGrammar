@@ -1,5 +1,5 @@
 import { Brush, IOperateType } from '@visactor/vrender-components';
-import type { BrushOptions, IElement, IGlyphElement, IMark, IView } from '../types';
+import type { BrushOptions, IElement, IGlyphElement, IMark, IView, InteractionEventHandler } from '../types';
 import { BaseInteraction } from './base';
 import type { IGraphic, IPolygon, IRectGraphicAttribute } from '@visactor/vrender';
 import {
@@ -22,7 +22,7 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction 
     this._marks = view.getMarksBySelector(this.options.selector);
   }
 
-  protected getEvents() {
+  protected getEvents(): Record<string, InteractionEventHandler | InteractionEventHandler[]> {
     return {
       [HOOK_EVENT.BEFORE_DO_RENDER]: this.handleAfterDraw
     };

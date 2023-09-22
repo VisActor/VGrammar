@@ -202,6 +202,13 @@ export interface BrushActiveOptions extends BrushOptions {
   state?: string;
 }
 
+export interface BrushFilterOptions extends BrushOptions {
+  target: {
+    data: IData | string;
+    filter: string | ((datum: any, legendValues: any[]) => boolean);
+  };
+}
+
 export interface DataFilterOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
@@ -247,6 +254,10 @@ export interface BrushHighlightSpec extends BrushHighlightOptions {
 
 export interface BrushActiveSpec extends BrushActiveOptions {
   type: 'brush-active';
+}
+
+export interface BrushFilterSpec extends BrushFilterOptions {
+  type: 'brush-filter';
 }
 
 export interface LegendFilterSpec extends DataFilterOptions {
