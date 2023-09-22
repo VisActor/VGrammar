@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 22 Sep 2023 03:30:25 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Sep 2023 10:00:55 GMT and should not be manually modified.
+
+## 0.7.5
+Fri, 22 Sep 2023 10:00:55 GMT
+
+### Updates
+
+- fix: rollup the parsing of scale field data, dont concat array data
+
+
 
 ## 0.7.4
 Fri, 22 Sep 2023 03:30:25 GMT
