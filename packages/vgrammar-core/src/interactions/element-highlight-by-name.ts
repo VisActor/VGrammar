@@ -1,4 +1,3 @@
-import { IGraphic } from '@visactor/vrender';
 import { InteractionStateEnum } from '../graph/enums';
 import type { ElementHighlightByNameOptions, IElement, IGlyphElement, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
@@ -16,7 +15,7 @@ export class ElementHighlightByName extends BaseInteraction {
     filterType: 'groupKey'
   };
   options: ElementHighlightByNameOptions;
-  private _marks?: IMark[];
+  protected _marks?: IMark[];
 
   constructor(view: IView, option?: ElementHighlightByNameOptions) {
     super(view);

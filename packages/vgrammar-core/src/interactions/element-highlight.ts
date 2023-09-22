@@ -13,7 +13,7 @@ export class ElementHighlight extends BaseInteraction {
     resetTrigger: 'pointerout'
   };
   options: ElementHighlightOptions;
-  private _marks?: IMark[];
+  protected _marks?: IMark[];
 
   constructor(view: IView, option?: ElementHighlightOptions) {
     super(view);
