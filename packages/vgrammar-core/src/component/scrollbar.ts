@@ -15,7 +15,7 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { ComponentDataRank, ComponentEnum, GrammarMarkType } from '../graph';
+import { DataFilterRank, ComponentEnum, GrammarMarkType } from '../graph';
 import type { IScrollbar, ScrollbarFilterValue, ScrollbarSpec } from '../types/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
@@ -158,7 +158,7 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
           return filterValue.startRatio <= datumRatio && filterValue.endRatio >= datumRatio;
         }
       : filter;
-    this._filterData(lastDataGrammar, dataGrammar, ComponentDataRank.scrollbar, getFilterValue, dataFilter);
+    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.scrollbar, getFilterValue, dataFilter);
     if (dataGrammar) {
       this.view.addEventListener('scroll', this._filterCallback);
       this.spec.target = { data: dataGrammar, filter };

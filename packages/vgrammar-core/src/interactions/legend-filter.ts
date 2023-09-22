@@ -1,6 +1,6 @@
 import { LegendEvent } from '@visactor/vrender-components';
 import type { DataFilterOptions, IComponent, ILegend, IView, InteractionEvent } from '../types';
-import { ComponentDataRank, GrammarMarkType } from '../graph';
+import { DataFilterRank, GrammarMarkType } from '../graph';
 import { isString } from '@visactor/vutils';
 import { Filter } from './filter';
 
@@ -16,7 +16,7 @@ export class LegendFilter extends Filter {
     this.options = Object.assign({}, LegendFilter.defaultOptions, option);
 
     this._marks = view
-      .getMarksBySelector(this.options.selector)
+      .getMarksBySelector(this.options.source)
       .filter(mark => mark.markType === GrammarMarkType.component && (mark as IComponent).componentType === 'legend');
     this._data = isString(this.options.target.data)
       ? view.getDataById(this.options.target.data)
@@ -36,6 +36,7 @@ export class LegendFilter extends Filter {
 
     const isContinuous = legend.isContinuousLegend();
     const filter = this.options.target.filter;
+    const transform = this.options.target.transform;
 
     const getFilterValue = (event: InteractionEvent) =>
       isContinuous ? { start: event.detail.value[0], end: event.detail.value[1] } : event.detail.currentSelected;
@@ -46,7 +47,7 @@ export class LegendFilter extends Filter {
         : (datum: any, filterValue: any[]) => filterValue.includes(datum[filter])
       : filter;
 
-    this._filterData(this._data, legend, ComponentDataRank.legend, getFilterValue, dataFilter);
+    this._filterData(this._data, legend, DataFilterRank.legend, getFilterValue, dataFilter, transform);
 
     const eventName = isContinuous ? 'change' : LegendEvent.legendItemClick;
     return {
