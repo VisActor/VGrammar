@@ -11,8 +11,8 @@ export class ElementSelect extends BaseInteraction {
     trigger: 'click'
   };
   options: ElementSelectOptions;
-  private _isToggle?: boolean;
-  private _marks?: IMark[];
+  protected _isToggle?: boolean;
+  protected _marks?: IMark[];
 
   constructor(view: IView, option?: ElementSelectOptions) {
     super(view);
