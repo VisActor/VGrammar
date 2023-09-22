@@ -12,7 +12,7 @@ export class ElementActive extends BaseInteraction {
     resetTrigger: 'pointerout'
   };
   options: ElementActiveOptions;
-  private _marks?: IMark[];
+  protected _marks?: IMark[];
 
   constructor(view: IView, option?: ElementActiveOptions) {
     super(view);

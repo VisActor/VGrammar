@@ -21,7 +21,7 @@ export class ElementHighlightByLegend extends BaseInteraction {
     filterType: 'groupKey'
   };
   options: ElementHighlightByLegendOptions;
-  private _marks?: IMark[];
+  protected _marks?: IMark[];
 
   constructor(view: IView, option?: ElementHighlightByLegendOptions) {
     super(view);
