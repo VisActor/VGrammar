@@ -1,13 +1,4 @@
-import type {
-  DataFilterOptions,
-  IComponent,
-  IData,
-  IDataFilter,
-  IElement,
-  IMark,
-  IView,
-  InteractionEvent
-} from '../types';
+import type { DataFilterOptions, IComponent, IData, IDataFilter, IElement, IMark, IView } from '../types';
 import { BaseInteraction } from './base';
 import { GrammarMarkType } from '../graph';
 import { isString } from '@visactor/vutils';
