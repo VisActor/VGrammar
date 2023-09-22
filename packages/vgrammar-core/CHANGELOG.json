@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.7.5",
+      "tag": "@visactor/vgrammar-core_v0.7.5",
+      "date": "Fri, 22 Sep 2023 10:00:55 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: rollup the parsing of scale field data, dont concat array data\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.7.4",
       "tag": "@visactor/vgrammar-core_v0.7.4",
       "date": "Fri, 22 Sep 2023 03:30:25 GMT",
