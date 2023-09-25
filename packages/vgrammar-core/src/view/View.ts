@@ -173,7 +173,7 @@ export default class View extends EventEmitter implements IView {
   private _progressiveMarks?: IMark[];
   private _progressiveRafId?: number;
   private _observer: ResizeObserver = null;
-  private _bindedInteractions?: IInteraction[];
+  private _boundInteractions?: IInteraction[];
 
   static useRegisters(comps: (() => void)[]) {
     comps.forEach((fn: () => void) => {
@@ -1373,26 +1373,25 @@ export default class View extends EventEmitter implements IView {
   }
 
   interaction(type: string, spec: Omit<InteractionSpec, 'type'>) {
-    if (!this._bindedInteractions || !this._bindedInteractions.some(entry => entry.type === type)) {
-      const ins = Factory.createInteraction(type, this, spec);
+    const interaction = Factory.createInteraction(type, this, spec);
 
-      if (ins) {
-        ins.bind();
+    if (interaction) {
+      interaction.bind();
 
-        if (!this._bindedInteractions) {
-          this._bindedInteractions = [];
-        }
-
-        this._bindedInteractions.push(ins);
+      if (!this._boundInteractions) {
+        this._boundInteractions = [];
       }
-    }
 
-    return this;
+      this._boundInteractions.push(interaction);
+    }
+    return interaction;
   }
 
-  removeInteraction(type: string) {
-    if (this._bindedInteractions) {
-      const instance = this._bindedInteractions.find(entry => entry.type === type);
+  removeInteraction(type: string | IInteraction) {
+    if (this._boundInteractions) {
+      const instance = this._boundInteractions.find(
+        interaction => (isString(type) && interaction.type === type) || interaction === type
+      );
 
       if (instance) {
         instance.unbind();
@@ -1597,7 +1596,7 @@ export default class View extends EventEmitter implements IView {
 
     this.renderer?.release?.();
     this.renderer = null;
-    this._bindedInteractions = null;
+    this._boundInteractions = null;
 
     // 卸载事件
     this.removeAllListeners();

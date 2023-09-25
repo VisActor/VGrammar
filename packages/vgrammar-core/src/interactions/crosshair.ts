@@ -146,9 +146,9 @@ export class Crosshair extends BaseInteraction {
   protected getDefaultCrosshairAttribute(): any {
     const type = this.options.crosshairType ?? 'x';
     if (type === 'radius' || type === 'radius-polygon') {
-      return { center: { x: 0, y: 0 } };
+      return { center: { x: 0, y: 0 }, zIndex: -1 };
     }
-    return { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
+    return { start: { x: 0, y: 0 }, end: { x: 0, y: 0 }, zIndex: -1 };
   }
 
   bind(): void {

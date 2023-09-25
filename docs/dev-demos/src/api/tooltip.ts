@@ -63,12 +63,12 @@ export const runner = (view: IView) => {
     crosshairType: 'x',
     crosshairShape: 'rect'
   });
-  // view.interaction('crosshair', {
-  //   container: container,
-  //   scale: yScale,
-  //   crosshairType: 'y',
-  //   crosshairShape: 'rect'
-  // });
+  view.interaction('crosshair', {
+    container: container,
+    scale: yScale,
+    crosshairType: 'y',
+    crosshairShape: 'rect'
+  });
 
   const line = view
     .mark('line', container)
@@ -158,18 +158,18 @@ export const runner = (view: IView) => {
     ],
     attributes: { offsetX: 10, offsetY: 10 }
   });
-  // view.interaction('tooltip', {
-  //   selector: line,
-  //   title: 'Total Sales Statistics',
-  //   content: [
-  //     {
-  //       key: { text: 'amount' },
-  //       value: datum => datum.amount,
-  //       symbol: { fill: 'lightGreen', symbolType: 'square' }
-  //     }
-  //   ],
-  //   attributes: { offsetX: 10, offsetY: 10 }
-  // });
+  view.interaction('tooltip', {
+    selector: line,
+    title: 'Total Sales Statistics',
+    content: [
+      {
+        key: { text: 'amount' },
+        value: datum => datum.amount,
+        symbol: { fill: 'lightGreen', symbolType: 'square' }
+      }
+    ],
+    attributes: { offsetX: 10, offsetY: 10 }
+  });
   view.interaction('dimension-tooltip', {
     target: {
       data: data,
