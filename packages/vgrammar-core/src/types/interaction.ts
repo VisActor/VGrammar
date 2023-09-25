@@ -258,7 +258,7 @@ export interface RollUpOptions extends DataFilterOptions {
   resetTrigger?: EventType | ViewEventType | 'empty';
 }
 
-export interface TooltipOptions extends IBaseInteractionOptions {
+export interface TooltipPopoverOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
    */
@@ -277,7 +277,7 @@ export interface TooltipOptions extends IBaseInteractionOptions {
   attributes?: TooltipAttributes;
 }
 
-export interface DimensionTooltipOptions extends TooltipOptions {
+export interface DimensionTooltipPopoverOptions extends TooltipPopoverOptions {
   scale?: IScale | string;
   tooltipType?: TooltipType;
   target?: {
@@ -289,7 +289,7 @@ export interface DimensionTooltipOptions extends TooltipOptions {
   center?: IPointLike;
 }
 
-export interface CrosshairOptions extends IBaseInteractionOptions {
+export interface CrosshairPopoverOptions extends IBaseInteractionOptions {
   /**
    * the trigger event name
    */
@@ -374,15 +374,15 @@ export interface RollUpSpec extends RollUpOptions {
   type: 'roll-up';
 }
 
-export interface TooltipSpec extends TooltipOptions {
+export interface TooltipPopoverSpec extends TooltipPopoverOptions {
   type: 'tooltip';
 }
 
-export interface DimensionSpec extends DimensionTooltipOptions {
+export interface DimensionPopoverSpec extends DimensionTooltipPopoverOptions {
   type: 'dimension-tooltip';
 }
 
-export interface CrosshairSpec extends CrosshairOptions {
+export interface CrosshairPopoverSpec extends CrosshairPopoverOptions {
   type: 'crosshair';
 }
 
@@ -405,6 +405,6 @@ export type InteractionSpec =
   | ScrollbarFilterSpec
   | DrillDownSpec
   | RollUpSpec
-  | TooltipSpec
-  | DimensionTooltipSpec
-  | CrosshairSpec;
+  | TooltipPopoverSpec
+  | DimensionPopoverSpec
+  | CrosshairPopoverSpec;

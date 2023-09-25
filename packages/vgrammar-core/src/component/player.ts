@@ -25,6 +25,7 @@ import type { IPlayer, PlayerFilterValue, PlayerSpec, PlayerType } from '../type
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { Factory } from '../core/factory';
+import { registerPlayerFilter } from '../interactions';
 
 export const generateContinuousPlayerAttributes = (
   data: any[],
@@ -238,4 +239,5 @@ export const registerPlayer = () => {
   );
 
   Factory.registerComponent(ComponentEnum.player, Player);
+  registerPlayerFilter();
 };

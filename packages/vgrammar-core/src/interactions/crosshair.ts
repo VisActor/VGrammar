@@ -5,7 +5,7 @@ import {
   RectCrosshair,
   SectorCrosshair
 } from '@visactor/vrender-components';
-import type { CrosshairOptions, IGroupMark, IView, InteractionEvent } from '../types';
+import type { CrosshairPopoverOptions, IGroupMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 import { CrosshairEnum } from '../graph';
 import { isString } from '@visactor/vutils';
@@ -23,9 +23,9 @@ type CrosshairComponent = CircleCrosshair | LineCrosshair | PolygonCrosshair | R
 export class Crosshair extends BaseInteraction {
   static type: string = 'crosshair';
   type: string = Crosshair.type;
-  options: CrosshairOptions;
+  options: CrosshairPopoverOptions;
 
-  static defaultOptions: Omit<CrosshairOptions, 'target'> = {
+  static defaultOptions: Omit<CrosshairPopoverOptions, 'target'> = {
     trigger: 'pointermove',
     resetTrigger: 'pointerleave',
     crosshairType: 'x',
@@ -36,7 +36,7 @@ export class Crosshair extends BaseInteraction {
   protected _crosshairComponentType?: keyof typeof CrosshairEnum;
   protected _container: IGroupMark;
 
-  constructor(view: IView, options?: CrosshairOptions) {
+  constructor(view: IView, options?: CrosshairPopoverOptions) {
     super(view);
     this.options = Object.assign({}, Crosshair.defaultOptions, options);
     this._container = (view.getMarksBySelector(this.options.container)?.[0] as IGroupMark) ?? view.rootMark;

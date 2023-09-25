@@ -22,6 +22,7 @@ import { invokeEncoder } from '../graph/mark/encode';
 import { Component } from '../view/component';
 import { parseEncodeType } from '../parse/mark';
 import { Factory } from '../core/factory';
+import { registerDatazoomFilter } from '../interactions';
 
 export const generateDatazoomAttributes = (
   data: any[],
@@ -230,4 +231,5 @@ export const registerDataZoom = () => {
   );
 
   Factory.registerComponent(ComponentEnum.datazoom, Datazoom);
+  registerDatazoomFilter();
 };
