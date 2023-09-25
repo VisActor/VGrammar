@@ -15,7 +15,7 @@ export class Tooltip extends BaseTooltip<TooltipOptions> {
   protected _lastElement: IElement;
 
   constructor(view: IView, options?: TooltipOptions) {
-    super(view);
+    super(view, options);
     this.options = Object.assign({}, Tooltip.defaultOptions, options);
   }
 
@@ -60,7 +60,8 @@ export class Tooltip extends BaseTooltip<TooltipOptions> {
     const { title, content } = this._computeTitleContent(element.getDatum());
     const theme = this.view.getCurrentTheme();
     // TODO: store addition attributes
-    const addition = invokeFunctionType(this.options.attributes, {}, element.getDatum());
+    // const addition = invokeFunctionType(this.options.attributes, {}, element.getDatum());
+    const addition = {};
     const attributes = generateTooltipAttributes(point, title, content, bounds, theme, addition);
     this._tooltipComponent.setAttributes(attributes);
   }, 10) as unknown as InteractionEventHandler;

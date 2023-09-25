@@ -1,4 +1,4 @@
-import type { EventEmitter, IBounds, IBoundsLike, ILogger } from '@visactor/vutils';
+import type { EventEmitter, IBounds, ILogger } from '@visactor/vutils';
 import type { EnvType, IStage, IColor, IOption3D, ILayer, IStageParams } from '@visactor/vrender';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { DataSpec } from './data';
@@ -18,7 +18,7 @@ import type { ScaleSpec, GrammarScaleType } from './scale';
 import type { MarkSpec, MarkType } from './mark';
 import type { Hooks } from './hooks';
 import type { ProjectionSpec } from './projection';
-import type { BaseEventHandler, EventSpec, InteractionEventHandler } from './event';
+import type { BaseEventHandler, EventSpec } from './event';
 import type { CommonPaddingSpec } from './base';
 import type { IMorphAnimationConfig } from './morph';
 import type { IBaseAnimate } from './animate';
@@ -200,7 +200,7 @@ export interface IView {
   getGrammarsByType: (grammarType: string) => IGrammarBase[];
   getMarksByType: (markType: string) => IMark[];
   getMarksByName: (name: string) => IMark[] | null;
-  getMarksBySelector: (selector: string | string[]) => IMark[] | null;
+  getMarksBySelector: (selector: string | string[] | IMark | IMark[]) => IMark[] | null;
 
   commit: (grammar: IGrammarBase) => this;
 

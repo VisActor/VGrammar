@@ -15,9 +15,9 @@ export class RollUp extends Filter {
 
   protected _isToggle: boolean = false;
 
-  constructor(view: IView, option?: RollUpOptions) {
-    super(view);
-    this.options = Object.assign({}, RollUp.defaultOptions, option);
+  constructor(view: IView, options?: RollUpOptions) {
+    super(view, options);
+    this.options = Object.assign({}, RollUp.defaultOptions, options);
 
     this._marks = view.getMarksBySelector(this.options.source);
     this._data = isString(this.options.target.data)

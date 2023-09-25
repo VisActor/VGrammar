@@ -73,7 +73,7 @@ import {
   normalizePadding
 } from '../parse/view';
 import { parseHandler, parseEventSelector, generateFilterByMark, ID_PREFIX, NAME_PREFIX } from '../parse/event';
-import { parseReference } from '../parse/util';
+import { isGrammar, parseReference } from '../parse/util';
 import { configureEnvironment } from '../graph/util/env';
 import { GroupMark } from './group';
 import { Mark } from './mark';
@@ -235,7 +235,7 @@ export default class View extends EventEmitter implements IView {
   getMarksByName(name: string): IMark[] | null {
     return this.grammars.getAllMarks().filter(mark => mark.name() === name);
   }
-  getMarksBySelector(selector: string | string[]): IMark[] | null {
+  getMarksBySelector(selector: string | string[] | IMark | IMark[]): IMark[] | null {
     if (!selector) {
       return null;
     }
@@ -243,6 +243,11 @@ export default class View extends EventEmitter implements IView {
     let res: IMark[] = [];
 
     selectors.forEach(selectorStr => {
+      if (isGrammar(selectorStr)) {
+        res = res.concat(selectorStr);
+        return;
+      }
+
       if (selectorStr[0] === ID_PREFIX) {
         res = res.concat(this.getMarkById(selectorStr.slice(1)));
       }
