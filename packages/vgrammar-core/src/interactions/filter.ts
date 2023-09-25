@@ -24,7 +24,7 @@ export class FilterMixin {
     const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
     if (dataGrammar) {
       this.handleFilter = (event: InteractionEvent) => {
-        const element = event.element;
+        const element = event?.element;
         if (!dataGrammar || (source && (!element || element.mark !== source))) {
           return;
         }
@@ -52,15 +52,13 @@ export class FilterMixin {
   }
 }
 
+export interface Filter
+  extends Pick<FilterMixin, '_data' | '_marks' | '_filterValue' | '_dataFilter' | 'handleFilter' | '_filterData'>,
+    BaseInteraction {}
+
 export abstract class Filter extends BaseInteraction {
   static defaultOptions: Omit<DataFilterOptions, 'target'> = {};
   options: DataFilterOptions;
-
-  protected _data?: IData;
-  protected _marks?: IMark[];
-  protected _filterValue: any;
-  protected _dataFilter: IDataFilter;
-  protected handleFilter: (event?: InteractionEvent) => void;
 
   constructor(view: IView, options?: DataFilterOptions) {
     super(view);
@@ -71,42 +69,6 @@ export abstract class Filter extends BaseInteraction {
       this._data = isString(options.target.data) ? view.getDataById(options.target.data) : options.target.data;
     }
   }
-
-  protected _filterData(
-    data: IData,
-    source: IMark | null,
-    filterRank: number,
-    getFilterValue: (event: any) => any,
-    filter?: (data: any[], parameters: any) => boolean,
-    transform?: (data: any[], parameters: any) => any[]
-  ) {
-    const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
-    if (dataGrammar) {
-      this.handleFilter = (event: InteractionEvent) => {
-        const element = event.element;
-        if (!dataGrammar || (source && (!element || element.mark !== source))) {
-          return;
-        }
-        if (getFilterValue) {
-          this._filterValue = getFilterValue(event);
-        }
-        dataGrammar.commit();
-        this.view.runAsync();
-      };
-
-      this._dataFilter = {
-        source: source ? `${source.uid}` : null,
-        rank: filterRank,
-        filter: (data: any[]) => {
-          if (!this._filterValue) {
-            return data;
-          }
-          const filteredData = filter ? data.filter(datum => filter(datum, this._filterValue)) : data;
-          return transform ? transform(filteredData, this._filterValue) : filteredData;
-        }
-      };
-      dataGrammar.addDataFilter(this._dataFilter);
-    }
-    return this;
-  }
 }
+
+mixin(Filter, FilterMixin);

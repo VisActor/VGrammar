@@ -1,38 +1,19 @@
 import type { IPolygon } from '@visactor/vrender';
-import type {
-  BrushFilterOptions,
-  IData,
-  IDataFilter,
-  IElement,
-  IGlyphElement,
-  IMark,
-  IView,
-  InteractionEvent
-} from '../types';
+import type { BrushFilterOptions, IElement, IGlyphElement, IView } from '../types';
 import { BrushBase } from './brush-base';
 import { isString, type IBounds, array, mixin } from '@visactor/vutils';
 import { DataFilterRank } from '../graph';
 import { FilterMixin } from './filter';
+
+export interface BrushFilter
+  extends Pick<FilterMixin, '_data' | '_filterValue' | '_dataFilter' | 'handleFilter' | '_filterData'>,
+    BrushBase<BrushFilterOptions> {}
 
 export class BrushFilter extends BrushBase<BrushFilterOptions> {
   static type: string = 'brush-filter';
   type: string = BrushFilter.type;
 
   static defaultOptions: Omit<BrushFilterOptions, 'target'> = {};
-
-  // filter attributes
-  protected _data: IData;
-  protected _filterValue: any;
-  protected _dataFilter: IDataFilter;
-  protected handleFilter: (event?: InteractionEvent) => void;
-  protected _filterData: (
-    data: IData,
-    source: IMark | null,
-    filterRank: number,
-    getFilterValue?: (event: any) => any,
-    filter?: (data: any[], parameters: any) => boolean,
-    transform?: (data: any[], parameters: any) => any[]
-  ) => this;
 
   constructor(view: IView, option?: BrushFilterOptions) {
     super(view, Object.assign({}, BrushFilter.defaultOptions, option));
@@ -42,7 +23,7 @@ export class BrushFilter extends BrushBase<BrushFilterOptions> {
   }
 
   protected getEvents() {
-    if (this._data) {
+    if (!this._data) {
       return {};
     }
 
