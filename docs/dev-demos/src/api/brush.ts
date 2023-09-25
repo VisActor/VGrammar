@@ -24,24 +24,10 @@ const originData = [
 
 export const runner = (view: IView) => {
   const data = view.data(originData);
-  const datazoomData = view
-    .data()
-    .id('datazoomData')
-    .source(data)
-    .transform([
-      {
-        type: 'aggregate',
-        groupBy: ['category'],
-        fields: ['amount'],
-        ops: ['sum'],
-        as: ['amount']
-      }
-    ]);
   const markData = view.data().id('markData').source(data);
-  const datazoomXScale = view.scale('point').domain({ data: data, field: 'category' }).range([0, 270]).configure({
-    padding: 0.5
-  });
-  const datazoomYScale = view.scale('linear').domain({ data: datazoomData, field: 'amount' }).range([40, 0]);
+
+  const brushData = view.data().id('brushData').values(originData);
+
   const colorScale = view.scale('ordinal').domain({ data: data, field: 'type' }).range(category10);
   const rightLegend = view
     .legend(view.rootMark)
@@ -56,50 +42,15 @@ export const runner = (view: IView) => {
       filter: 'type'
     }
   });
-  const datazoom = view
-    .datazoom(view.rootMark)
-    .preview(
-      datazoomData,
-      { scale: datazoomXScale, field: 'category' },
-      { scale: datazoomYScale, field: 'amount' },
-      { scale: datazoomXScale, field: 'category' },
-      () => 40
-    )
-    // .target(markData, 'category')
-    .encode({
-      x: 40,
-      y: 340,
-      size: {
-        width: 270,
-        height: 40
-      }
-    });
-  view.interaction('datazoom-filter', {
-    source: datazoom,
-    target: {
-      data: markData,
-      filter: 'category'
-    }
-  });
-  const slider = view.slider(view.rootMark).min(0).max(100).encode({
-    layout: 'vertical',
-    railWidth: 10,
-    railHeight: 100,
-    x: 350,
-    y: 200
-  });
-  view.interaction('slider-filter', {
-    source: slider,
-    target: {
-      data: markData,
-      filter: 'amount'
-    }
-  });
 
   const xScale = view.scale('point').domain({ data: markData, field: 'category' }).range([0, 270]).configure({
     padding: 0.5
   });
   const yScale = view.scale('linear').domain([100, 0]).range([0, 270]);
+  const xBrushScale = view.scale('band').domain({ data: brushData, field: 'category' }).range([0, 270]).configure({
+    padding: 0.5
+  });
+  const yBrushScale = view.scale('linear').domain([100, 0]).range([0, 50]);
   const xAxis = view
     .axis(view.rootMark)
     .id('xAxis')
@@ -123,37 +74,7 @@ export const runner = (view: IView) => {
     });
 
   const container = view.group(view.rootMark).id('container').encode({ x: 40, y: 40, width: 270, height: 270 });
-  const xLineCrosshair = view.crosshair(container).id('xLineCrosshair').scale(xScale).crosshairType('x');
-  const yLineCrosshair = view.crosshair(container).id('yLineCrosshair').scale(yScale).crosshairType('y');
 
-  const line = view
-    .mark('line', container)
-    .id('line')
-    .join(markData, 'category', undefined, 'type', (datumA, datumB) => datumA.index - datumB.index)
-    .encode({
-      x: { scale: xScale, field: 'category' },
-      y: { scale: yScale, field: 'amount' },
-      stroke: { scale: colorScale, field: 'type' },
-      lineWidth: 2
-    })
-    .animation({
-      enter: {
-        type: 'growPointsYIn',
-        options: { orient: 'negative' },
-        duration: 1000
-      },
-      exit: {
-        type: 'fadeOut',
-        duration: 1000
-      },
-      update: {
-        type: 'update',
-        duration: 1000
-      },
-      state: {
-        duration: 1000
-      }
-    });
   const symbol = view
     .mark('symbol', container)
     .id('symbol')
@@ -184,6 +105,25 @@ export const runner = (view: IView) => {
         duration: 1000
       }
     });
+  
+  const barContainer = view.group(view.rootMark).id('barContainer').encode({ x: 40, y: 320, width: 270, height: 50 });
+  const bar = view
+    .mark('rect', barContainer)
+    .id('bar')
+    .join(brushData)
+    .encode({
+      x: { scale: xBrushScale, field: 'category' },
+      y: { scale: yBrushScale, field: 'amount' },
+      width: { scale: xBrushScale, band: 0.5 },
+      y1: 370,
+      fill: { scale: colorScale, field: 'type' },
+    })
+  view.interaction('brush-filter', {
+    selector: '#symbol',
+    target: {
+      data: brushData,
+    }
+  });
 };
 
 export const callback = (view: IView) => {

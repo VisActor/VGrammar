@@ -37,8 +37,8 @@ export class DatazoomFilter extends Filter {
     const transform = this.options.target.transform;
 
     const getFilterValue = (event: any): DatazoomFilterValue => {
-      const startRatio = event.start;
-      const endRatio = event.end;
+      const startRatio = event.detail.start;
+      const endRatio = event.detail.end;
       return {
         startRatio,
         endRatio,
