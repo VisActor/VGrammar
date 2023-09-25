@@ -3,8 +3,8 @@ import type { EventType, InteractionEvent, ViewEventType } from './event';
 import type { BrushAttributes, TooltipAttributes } from '@visactor/vrender-components';
 import type { IPolygon } from '@visactor/vrender';
 import type { IElement, IGlyphElement } from './element';
-import type { IData, IMark, IScale } from './grammar';
-import type { CustomTooltipCallback, ITooltipRow, TooltipType } from './component';
+import type { IData, IScale } from './grammar';
+import type { CrosshairShape, CrosshairType, CustomTooltipCallback, ITooltipRow, TooltipType } from './component';
 import type { IPointLike } from '@visactor/vutils';
 import type { MarkFunctionType } from '.';
 
@@ -275,6 +275,14 @@ export interface DimensionTooltipOptions extends TooltipOptions {
     filter: string | ((datum: any, tooltipValue: any) => boolean);
   };
   avoidMark?: string | string[];
+  center?: IPointLike;
+}
+
+export interface CrosshairOptions extends IBaseInteractionOptions {
+  scale?: IScale | string;
+  crosshairType?: CrosshairType;
+  crosshairShape?: CrosshairShape;
+  radius?: number;
   center?: IPointLike;
 }
 
