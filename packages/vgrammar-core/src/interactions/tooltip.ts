@@ -1,19 +1,19 @@
 import { AABBBounds, throttle } from '@visactor/vutils';
-import type { IElement, IView, InteractionEvent, InteractionEventHandler, TooltipOptions } from '../types';
+import type { IElement, IView, InteractionEvent, InteractionEventHandler, TooltipPopoverOptions } from '../types';
 import { BaseTooltip } from './base-tooltip';
 import { generateTooltipAttributes } from '../component/tooltip';
 
-export class Tooltip extends BaseTooltip<TooltipOptions> {
+export class Tooltip extends BaseTooltip<TooltipPopoverOptions> {
   static type: string = 'tooltip';
   type: string = Tooltip.type;
 
-  static defaultOptions: Omit<TooltipOptions, 'target'> = {
+  static defaultOptions: Omit<TooltipPopoverOptions, 'target'> = {
     trigger: 'pointermove',
     resetTrigger: 'pointerleave'
   };
   protected _lastElement: IElement;
 
-  constructor(view: IView, options?: TooltipOptions) {
+  constructor(view: IView, options?: TooltipPopoverOptions) {
     super(view, options);
     this.options = Object.assign({}, Tooltip.defaultOptions, options);
   }

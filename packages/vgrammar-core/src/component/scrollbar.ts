@@ -21,6 +21,7 @@ import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
 import { ScaleComponent } from './scale';
+import { registerScrollbarFilter } from '../interactions';
 
 function isValidDirection(direction: Direction) {
   return direction === 'vertical' || direction === 'horizontal';
@@ -260,4 +261,5 @@ export const registerScrollbar = () => {
   );
 
   Factory.registerComponent(ComponentEnum.scrollbar, Scrollbar);
+  registerScrollbarFilter();
 };
