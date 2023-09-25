@@ -58,7 +58,7 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
   protected _tooltipDataFilter: ((datum: any, filterValue: any[]) => boolean) | null = null;
 
   constructor(view: IView, options?: DimensionTooltipOptions) {
-    super(view);
+    super(view, options);
     this.options = options;
     this._marks = view.getMarksBySelector(this.options.selector);
     this._avoidMarks = view.getMarksBySelector(this.options.avoidMark);
@@ -141,7 +141,8 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
     const { title, content } = this._computeTitleContent(tooltipDatum);
     const theme = this.view.getCurrentTheme();
     // TODO: store addition attributes
-    const addition = invokeFunctionType(this.options.attributes, {}, element.getDatum());
+    // const addition = invokeFunctionType(this.options.attributes, {}, element.getDatum());
+    const addition = {};
     const attributes = generateTooltipAttributes(point, title, content, bounds, theme, addition);
     this._tooltipComponent.setAttributes(attributes);
   }, 10);
