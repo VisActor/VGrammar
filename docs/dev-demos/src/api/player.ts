@@ -54,7 +54,13 @@ export const runner = (view: IView) => {
       size: { width: 300, height: 30 }
       // interval: 2000
     })
-    .target(markData, playerOriginData);
+    .source(playerOriginData);
+  view.interaction('player-filter', {
+    source: discretePlayer,
+    target: {
+      data: markData
+    }
+  });
   const continuousPlayer = view
     .player(view.rootMark)
     .id('continuousPlayer')

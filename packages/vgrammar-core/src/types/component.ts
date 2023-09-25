@@ -231,6 +231,7 @@ export type PlayerFilterValue = { index: number; value: any };
 
 export interface IPlayer extends IComponent {
   playerType: (playerType: PlayerType) => this;
+  source: (source: IData | string | any[] | Nil) => this;
   target: (data: IData | string | Nil, source: IData | string | any[] | Nil) => this;
 
   // immediate functions
@@ -243,6 +244,7 @@ export interface IPlayer extends IComponent {
 export interface PlayerSpec extends ComponentSpec<Partial<PlayerAttributes>> {
   componentType: ComponentEnum.player;
   playerType?: PlayerType;
+  source?: IData | string | any[];
   target?: {
     data: IData | string;
     source: IData | string | any[];
