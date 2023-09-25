@@ -1,6 +1,14 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 22 Sep 2023 10:00:55 GMT and should not be manually modified.
+This log was last generated on Mon, 25 Sep 2023 11:30:00 GMT and should not be manually modified.
+
+## 0.7.6
+Mon, 25 Sep 2023 11:30:00 GMT
+
+### Updates
+
+- feat(label): pass over labelIndex in label component
+- fix: the DragNDrop and Gesture's root should be stage
 
 ## 0.7.5
 Fri, 22 Sep 2023 10:00:55 GMT

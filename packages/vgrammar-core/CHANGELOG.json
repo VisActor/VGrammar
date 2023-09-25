@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.7.6",
+      "tag": "@visactor/vgrammar-core_v0.7.6",
+      "date": "Mon, 25 Sep 2023 11:30:00 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat(label): pass over labelIndex in label component"
+          },
+          {
+            "comment": "fix: the DragNDrop and Gesture's root should be stage"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.7.5",
       "tag": "@visactor/vgrammar-core_v0.7.5",
       "date": "Fri, 22 Sep 2023 10:00:55 GMT",
