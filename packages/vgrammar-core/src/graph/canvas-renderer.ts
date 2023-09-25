@@ -221,12 +221,12 @@ export default class CanvasRenderer implements IRenderer {
 
     if (this._eventConfig?.drag) {
       // 允许 drag 事件
-      this._dragController = new DragNDrop(layer as unknown as IEventTarget);
+      this._dragController = new DragNDrop(stage as unknown as IEventTarget);
     }
     if (this._eventConfig?.gesture) {
       const gestureConfig = isObject(this._eventConfig.gesture) ? this._eventConfig.gesture : {};
       // 允许手势
-      this._gestureController = new Gesture(layer as unknown as IEventTarget, gestureConfig);
+      this._gestureController = new Gesture(stage as unknown as IEventTarget, gestureConfig);
     }
 
     return {
