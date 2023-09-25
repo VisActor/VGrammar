@@ -13,7 +13,7 @@ export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteract
 
   constructor(view: IView, options?: T) {
     super(view);
-    this._marks = view.getMarksBySelector(this.options.selector);
+    this._marks = view.getMarksBySelector(options.selector);
   }
 
   bind(): void {

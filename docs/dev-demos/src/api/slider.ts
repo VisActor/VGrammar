@@ -47,8 +47,15 @@ export const runner = (view: IView) => {
     .legend(view.rootMark)
     .id('rightLegend')
     .scale(colorScale)
-    .target(markData, 'type')
+    // .target(markData, 'type')
     .encode({ x: 340, y: 120 });
+  view.interaction('legend-filter', {
+    source: rightLegend,
+    target: {
+      data: markData,
+      filter: 'type'
+    }
+  });
   const datazoom = view
     .datazoom(view.rootMark)
     .preview(

@@ -1,13 +1,4 @@
-import type {
-  DataFilterOptions,
-  IComponent,
-  IData,
-  IDataFilter,
-  IElement,
-  IMark,
-  IView,
-  InteractionEvent
-} from '../types';
+import type { DataFilterOptions, IComponent, IData, IDataFilter, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 import { GrammarMarkType } from '../graph';
 import { isString, mixin } from '@visactor/vutils';
@@ -67,26 +58,55 @@ export abstract class Filter extends BaseInteraction {
 
   protected _data?: IData;
   protected _marks?: IMark[];
+  protected _filterValue: any;
   protected _dataFilter: IDataFilter;
   protected handleFilter: (event?: InteractionEvent) => void;
-  protected _filterData: (
+
+  constructor(view: IView, options?: DataFilterOptions) {
+    super(view);
+    this._marks = view
+      .getMarksBySelector(options.source)
+      .filter(mark => mark.markType === GrammarMarkType.component && (mark as IComponent).componentType === 'legend');
+    if (options.target) {
+      this._data = isString(options.target.data) ? view.getDataById(options.target.data) : options.target.data;
+    }
+  }
+
+  protected _filterData(
     data: IData,
     source: IMark | null,
     filterRank: number,
     getFilterValue: (event: any) => any,
     filter?: (data: any[], parameters: any) => boolean,
     transform?: (data: any[], parameters: any) => any[]
-  ) => this;
+  ) {
+    const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
+    if (dataGrammar) {
+      this.handleFilter = (event: InteractionEvent) => {
+        const element = event.element;
+        if (!dataGrammar || (source && (!element || element.mark !== source))) {
+          return;
+        }
+        if (getFilterValue) {
+          this._filterValue = getFilterValue(event);
+        }
+        dataGrammar.commit();
+        this.view.runAsync();
+      };
 
-  constructor(view: IView, option?: DataFilterOptions) {
-    super(view);
-    this._marks = view
-      .getMarksBySelector(this.options.source)
-      .filter(mark => mark.markType === GrammarMarkType.component && (mark as IComponent).componentType === 'legend');
-    this._data = isString(this.options.target.data)
-      ? view.getDataById(this.options.target.data)
-      : this.options.target.data;
+      this._dataFilter = {
+        source: source ? `${source.uid}` : null,
+        rank: filterRank,
+        filter: (data: any[]) => {
+          if (!this._filterValue) {
+            return data;
+          }
+          const filteredData = filter ? data.filter(datum => filter(datum, this._filterValue)) : data;
+          return transform ? transform(filteredData, this._filterValue) : filteredData;
+        }
+      };
+      dataGrammar.addDataFilter(this._dataFilter);
+    }
+    return this;
   }
 }
-
-mixin(Filter, FilterMixin);
