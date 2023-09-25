@@ -8,10 +8,10 @@ export class RollUp extends Filter {
   type: string = RollUp.type;
 
   static defaultOptions: Omit<RollUpOptions, 'target'> = {
-    trigger: 'click'
+    trigger: 'click',
+    resetTrigger: 'empty'
   };
   options: RollUpOptions;
-  protected _filterValue: any = null;
 
   protected _isToggle: boolean = false;
 
@@ -36,14 +36,12 @@ export class RollUp extends Filter {
 
     const transform = this.options.target.transform;
 
+    const getFilterValue = (event: InteractionEvent) => event?.element?.getDatum?.();
     const dataTransform = (data: any[], filterValue: any) => {
-      if (!filterValue) {
-        data;
-      }
       return transform(data, filterValue);
     };
 
-    this._filterData(this._data, null, DataFilterRank.rollUp, undefined, undefined, dataTransform);
+    this._filterData(this._data, null, DataFilterRank.rollUp, getFilterValue, undefined, dataTransform);
 
     const events = {
       [this.options.trigger]: this.handleStart
@@ -67,23 +65,26 @@ export class RollUp extends Filter {
   }
 
   protected handleStart = (event: InteractionEvent) => {
-    const filterValue = event.element?.getDatum?.();
+    const element = event.element;
+    if (element && this._marks && this._marks.includes(element.mark)) {
+      const filterValue = event.element?.getDatum?.();
 
-    const isEqualFilterValue =
-      filterValue === this._filterData ||
-      (isArray(filterValue) &&
-        isArray(this._filterValue) &&
-        filterValue.length === this._filterValue.length &&
-        filterValue.every(datum => !this._filterValue.includes(datum)));
+      const isEqualFilterValue =
+        filterValue === this._filterData ||
+        (isArray(filterValue) &&
+          isArray(this._filterValue) &&
+          filterValue.length === this._filterValue.length &&
+          filterValue.every(datum => !this._filterValue.includes(datum)));
 
-    if (isEqualFilterValue) {
-      // reset filter value when toggle is enabled
-      if (this._isToggle) {
-        this._filterValue = null;
+      if (isEqualFilterValue) {
+        // reset filter value when toggle is enabled
+        if (this._isToggle) {
+          this._filterValue = null;
+          this.handleFilter(event);
+        }
+      } else {
         this.handleFilter(event);
       }
-    } else {
-      this.handleFilter(event);
     }
   };
 
