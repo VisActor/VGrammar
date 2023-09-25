@@ -1,6 +1,6 @@
 import type { IPointLike } from '@visactor/vutils';
 import { AABBBounds, array, getAngleByPoint, isString, throttle } from '@visactor/vutils';
-import type { DimensionTooltipOptions, IElement, IGroupMark, IMark, IView, TooltipType } from '../types';
+import type { DimensionTooltipPopoverOptions, IElement, IGroupMark, IMark, IView, TooltipType } from '../types';
 import { BaseTooltip } from './base-tooltip';
 import { generateTooltipAttributes } from '../component/tooltip';
 import { BridgeElementKey } from '../graph/constants';
@@ -44,11 +44,11 @@ const computeTooltipFilterValue = (
   return scale.invert(point.x);
 };
 
-export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
+export class DimensionTooltip extends BaseTooltip<DimensionTooltipPopoverOptions> {
   static type: string = 'dimension-tooltip';
   type: string = DimensionTooltip.type;
 
-  static defaultOptions: Omit<DimensionTooltipOptions, 'target'> = {
+  static defaultOptions: Omit<DimensionTooltipPopoverOptions, 'target'> = {
     trigger: 'pointermove',
     resetTrigger: 'pointerleave'
   };
@@ -57,7 +57,7 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
   protected _tooltipDataFilter: ((datum: any, filterValue: any[]) => boolean) | null = null;
   protected _container: IGroupMark;
 
-  constructor(view: IView, options?: DimensionTooltipOptions) {
+  constructor(view: IView, options?: DimensionTooltipPopoverOptions) {
     super(view, options);
     this.options = Object.assign({}, DimensionTooltip.defaultOptions, options);
     this._marks = view.getMarksBySelector(this.options.selector);

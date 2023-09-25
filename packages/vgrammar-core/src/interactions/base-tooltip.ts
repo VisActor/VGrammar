@@ -2,11 +2,11 @@ import { Tooltip as TooltipComponent } from '@visactor/vrender-components';
 import { array, isArray, isFunction, isNil, isObjectLike, isString, isValid } from '@visactor/vutils';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { BaseInteraction } from './base';
-import type { IMark, ITooltipRow, IView, TooltipOptions } from '../types';
+import type { IMark, ITooltipRow, IView, TooltipPopoverOptions } from '../types';
 import { isFieldEncode } from '../parse/mark';
 import { invokeFunctionType } from '../parse/util';
 
-export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteraction {
+export abstract class BaseTooltip<T extends TooltipPopoverOptions> extends BaseInteraction {
   options: T;
   protected _tooltipComponent?: TooltipComponent;
   protected _marks?: IMark[];
