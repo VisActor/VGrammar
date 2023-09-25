@@ -203,6 +203,11 @@ export const indexes = [
         path: 'multi-states',
         name: '[交互]多状态',
         type: 'api'
+      },
+      {
+        path: 'drill-down',
+        name: '[交互]drill-down & roll-up',
+        type: 'api'
       }
     ]
   },
