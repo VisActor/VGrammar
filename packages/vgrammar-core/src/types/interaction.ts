@@ -4,9 +4,16 @@ import type { BrushAttributes, TooltipAttributes } from '@visactor/vrender-compo
 import type { IPolygon } from '@visactor/vrender';
 import type { IElement, IGlyphElement } from './element';
 import type { IData, IScale } from './grammar';
-import type { CrosshairShape, CrosshairType, CustomTooltipCallback, ITooltipRow, TooltipType } from './component';
+import type {
+  CrosshairShape,
+  CrosshairType,
+  CustomTooltipCallback,
+  DimensionTooltipSpec,
+  ITooltipRow,
+  TooltipType
+} from './component';
 import type { IPointLike } from '@visactor/vutils';
-import type { MarkFunctionType } from '.';
+import type { IMark, MarkFunctionType } from '.';
 
 export interface IBaseInteractionOptions {
   shouldStart?: (e: any) => boolean;
@@ -213,7 +220,7 @@ export interface DataFilterOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
    */
-  source?: string | string[];
+  source?: string | string[] | IMark | IMark[];
 
   /**
    * data target
@@ -252,7 +259,7 @@ export interface TooltipOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
    */
-  selector?: string | string[];
+  selector?: string | string[] | IMark | IMark[];
   /**
    * the trigger event name
    */
@@ -349,10 +356,20 @@ export interface DrillDownSpec extends DrillDownOptions {
   type: 'drill-down';
 }
 
-// export interface TooltipSpec extends
-
 export interface RollUpSpec extends RollUpOptions {
   type: 'roll-up';
+}
+
+export interface TooltipSpec extends TooltipOptions {
+  type: 'tooltip';
+}
+
+export interface DimensionSpec extends DimensionTooltipOptions {
+  type: 'dimension-tooltip';
+}
+
+export interface CrosshairSpec extends CrosshairOptions {
+  type: 'crosshair';
 }
 
 export type InteractionSpec =
@@ -365,4 +382,15 @@ export type InteractionSpec =
   | ElementHighlightByLegendSpec
   | ElementHighlightByNameSpec
   | BrushHighlightSpec
-  | BrushActiveSpec;
+  | BrushActiveSpec
+  | BrushFilterSpec
+  | LegendFilterSpec
+  | DatazoomFilterSpec
+  | SliderFilterSpec
+  | PlayerFilterSpec
+  | ScrollbarFilterSpec
+  | DrillDownSpec
+  | RollUpSpec
+  | TooltipSpec
+  | DimensionTooltipSpec
+  | CrosshairSpec;
