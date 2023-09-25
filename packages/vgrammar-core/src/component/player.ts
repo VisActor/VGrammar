@@ -61,6 +61,7 @@ export class Player extends Component implements IPlayer {
     super.parseAddition(spec);
     this.playerType(spec.playerType);
     this.target(spec.target?.data, spec.target?.source);
+    this.source(spec.source);
     return this;
   }
 
@@ -100,6 +101,23 @@ export class Player extends Component implements IPlayer {
       this.view.addEventListener(PlayerEventEnum.OnChange, this._filterCallback);
       this.spec.target = { data: dataGrammar, source };
     }
+    return this;
+  }
+
+  source(source: IData | string | any[] | Nil) {
+    if (this.spec.source) {
+      const lastSource = this.spec?.source;
+      const lastSourceDataGrammar = isArray(lastSource)
+        ? null
+        : isString(lastSource)
+        ? this.view.getDataById(lastSource)
+        : lastSource;
+      this.detach(lastSourceDataGrammar);
+    }
+    this.spec.source = source;
+    const sourceDataGrammar = isArray(source) ? null : isString(source) ? this.view.getDataById(source) : source;
+    this.attach(sourceDataGrammar);
+    this.commit();
     return this;
   }
 
@@ -156,7 +174,7 @@ export class Player extends Component implements IPlayer {
           callback: (datum: any, element: IElement, parameters: any) => {
             const theme = this.view.getCurrentTheme();
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
-            const source = this.spec.target?.source;
+            const source = this.spec.source;
             const sourceDataGrammar = isArray(source)
               ? null
               : isString(source)
