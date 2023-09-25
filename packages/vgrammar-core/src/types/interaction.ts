@@ -274,7 +274,7 @@ export interface TooltipOptions extends IBaseInteractionOptions {
 
   title?: ITooltipRow | string | CustomTooltipCallback;
   content?: ITooltipRow | ITooltipRow[] | CustomTooltipCallback;
-  attributes?: MarkFunctionType<TooltipAttributes>;
+  attributes?: TooltipAttributes;
 }
 
 export interface DimensionTooltipOptions extends TooltipOptions {
@@ -285,15 +285,26 @@ export interface DimensionTooltipOptions extends TooltipOptions {
     filter: string | ((datum: any, tooltipValue: any) => boolean);
   };
   avoidMark?: string | string[];
+  container?: string | IMark;
   center?: IPointLike;
 }
 
 export interface CrosshairOptions extends IBaseInteractionOptions {
+  /**
+   * the trigger event name
+   */
+  trigger?: EventType;
+  /**
+   * the reset trigger event name
+   */
+  resetTrigger?: EventType;
   scale?: IScale | string;
   crosshairType?: CrosshairType;
   crosshairShape?: CrosshairShape;
+  container?: string | IMark;
   radius?: number;
   center?: IPointLike;
+  attributes?: TooltipAttributes;
 }
 
 export interface ElementActiveSpec extends ElementActiveOptions {

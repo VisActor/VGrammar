@@ -1,11 +1,10 @@
 import type { IPointLike } from '@visactor/vutils';
 import { AABBBounds, array, getAngleByPoint, isString, throttle } from '@visactor/vutils';
-import type { DimensionTooltipOptions, IElement, IMark, IView, TooltipType } from '../types';
+import type { DimensionTooltipOptions, IElement, IGroupMark, IMark, IView, TooltipType } from '../types';
 import { BaseTooltip } from './base-tooltip';
 import { generateTooltipAttributes } from '../component/tooltip';
 import { BridgeElementKey } from '../graph/constants';
 import type { IBaseScale } from '@visactor/vscale';
-import { invokeFunctionType } from '../parse/util';
 
 const isEqualTooltipDatum = (current: any[], previous: any[]) => {
   const currentDatum = array(current);
@@ -56,12 +55,14 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
   protected _avoidMarks: IMark[] = [];
   protected _lastDatum: any;
   protected _tooltipDataFilter: ((datum: any, filterValue: any[]) => boolean) | null = null;
+  protected _container: IGroupMark;
 
   constructor(view: IView, options?: DimensionTooltipOptions) {
     super(view, options);
-    this.options = options;
+    this.options = Object.assign({}, DimensionTooltip.defaultOptions, options);
     this._marks = view.getMarksBySelector(this.options.selector);
     this._avoidMarks = view.getMarksBySelector(this.options.avoidMark);
+    this._container = (view.getMarksBySelector(this.options.container)?.[0] as IGroupMark) ?? view.rootMark;
   }
 
   protected getEvents() {
@@ -72,15 +73,15 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
       : filter;
 
     return {
-      // [this.options.trigger]: this.handleTooltipShow,
-      // [this.options.resetTrigger]: this.handleTooltipHide
+      [this.options.trigger]: this.handleTooltipShow,
+      [this.options.resetTrigger]: this.handleTooltipHide
     };
   }
 
   protected handleTooltipShow = throttle((event: any, element: IElement) => {
     const scaleGrammar = isString(this.options.scale) ? this.view.getScaleById(this.options.scale) : this.options.scale;
     const scale = scaleGrammar.getScale();
-    const groupGraphicItem = this.view.rootMark.getGroupGraphicItem();
+    const groupGraphicItem = this._container.getGroupGraphicItem();
     // FIXME: waiting for vRender to add transformed position to event
     const point = { x: 0, y: 0 };
     groupGraphicItem.globalTransMatrix.transformPoint(event.canvas, point);
@@ -140,9 +141,7 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
     const bounds = new AABBBounds().set(boundsStart.x, boundsStart.y, boundsEnd.x, boundsEnd.y);
     const { title, content } = this._computeTitleContent(tooltipDatum);
     const theme = this.view.getCurrentTheme();
-    // TODO: store addition attributes
-    // const addition = invokeFunctionType(this.options.attributes, {}, element.getDatum());
-    const addition = {};
+    const addition = (this.options.attributes ?? {}) as any;
     const attributes = generateTooltipAttributes(point, title, content, bounds, theme, addition);
     this._tooltipComponent.setAttributes(attributes);
   }, 10);

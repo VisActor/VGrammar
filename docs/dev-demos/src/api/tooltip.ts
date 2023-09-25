@@ -57,20 +57,18 @@ export const runner = (view: IView) => {
       grid: { visible: true, length: 270 }
     });
   const container = view.group(view.rootMark).id('container').encode({ x: 40, y: 40, width: 270, height: 270 });
-  // const xLineCrosshair = view.crosshair(container).id('xLineCrosshair').scale(xScale).crosshairType('x');
-  // const yLineCrosshair = view.crosshair(container).id('yLineCrosshair').scale(yScale).crosshairType('y');
-  const xRectCrosshair = view
-    .crosshair(container)
-    .id('xRectCrosshair')
-    .scale(xScale)
-    .crosshairType('x')
-    .crosshairShape('rect');
-  const yRectCrosshair = view
-    .crosshair(container)
-    .id('yRectCrosshair')
-    .scale(yScale)
-    .crosshairType('y')
-    .crosshairShape('rect');
+  view.interaction('crosshair', {
+    container: container,
+    scale: xScale,
+    crosshairType: 'x',
+    crosshairShape: 'rect'
+  });
+  // view.interaction('crosshair', {
+  //   container: container,
+  //   scale: yScale,
+  //   crosshairType: 'y',
+  //   crosshairShape: 'rect'
+  // });
 
   const line = view
     .mark('line', container)
@@ -143,12 +141,10 @@ export const runner = (view: IView) => {
     .encode({
       text: (datum: any) => `${datum.amount}`
     });
-  const targetTooltip = view.tooltip(container)
-    .id('targetTooltip')
-    .target(symbol)
-    .title({ value: 'Sales Statistics On Category' })
-    .encode({ offsetX: 10, offsetY: 10 })
-    .content([
+  view.interaction('tooltip', {
+    selector: symbol,
+    title: { value: 'Sales Statistics On Category' },
+    content: [
       {
         key: 'category',
         value: { field: 'category' },
@@ -159,27 +155,30 @@ export const runner = (view: IView) => {
         value: datum => datum.amount,
         symbol: { fill: 'lightGreen', symbolType: 'square' }
       }
-    ]);
-  const groupTooltip = view.tooltip(container)
-    .id('groupTooltip')
-    .target(line)
-    .title('Total Sales Statistics')
-    .encode({ offsetX: 10, offsetY: 10 })
-    .content([
-      {
-        key: { text: 'amount' },
-        value: datum => datum.amount,
-        symbol: { fill: 'lightGreen', symbolType: 'square' }
-      }
-    ]);
-  const dimensionTooltip = view.dimensionTooltip(container)
-    .id('dimensionTooltip')
-    .scale(xScale)
-    .target(data, 'category')
-    .avoidMark([symbol, line])
-    .title('Sales Statistics On Category')
-    .encode({ offsetX: 10, offsetY: 10 })
-    .content([
+    ],
+    attributes: { offsetX: 10, offsetY: 10 }
+  });
+  // view.interaction('tooltip', {
+  //   selector: line,
+  //   title: 'Total Sales Statistics',
+  //   content: [
+  //     {
+  //       key: { text: 'amount' },
+  //       value: datum => datum.amount,
+  //       symbol: { fill: 'lightGreen', symbolType: 'square' }
+  //     }
+  //   ],
+  //   attributes: { offsetX: 10, offsetY: 10 }
+  // });
+  view.interaction('dimension-tooltip', {
+    target: {
+      data: data,
+      filter: 'category'
+    },
+    scale: xScale,
+    avoidMark: [symbol, line],
+    title: 'Sales Statistics On Category',
+    content: [
       {
         key: 'category',
         value: { field: 'category' },
@@ -190,7 +189,10 @@ export const runner = (view: IView) => {
         value: datum => datum.amount,
         symbol: { fill: 'lightGreen', symbolType: 'square' }
       }
-    ]);
+    ],
+    container: container,
+    attributes: { offsetX: 10, offsetY: 10 }
+  });
 };
 
 export const callback = (view: IView) => {
