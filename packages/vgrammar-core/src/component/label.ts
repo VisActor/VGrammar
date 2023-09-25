@@ -30,9 +30,9 @@ export const generateLabelAttributes = (
   theme?: ITheme
 ): DataLabelAttrs => {
   const labelTheme = theme?.components?.dataLabel;
-
   const dataLabels = marks
-    .map(mark => {
+    .map((mark, index) => {
+      const labelParameters = { ...parameters, labelIndex: index };
       let currentTheme: any = {};
       switch (mark.markType) {
         case GrammarMarkType.line:
@@ -62,12 +62,12 @@ export const generateLabelAttributes = (
       mark.elements.forEach(element => {
         const graphicItem = element.getGraphicItem();
         if ((graphicItem as any).releaseStatus !== 'willRelease') {
-          const attributes = invokeEncoder(encoder, element.getDatum(), element, parameters);
+          const attributes = invokeEncoder(encoder, element.getDatum(), element, labelParameters);
           const datum = merge({}, currentTheme?.data?.[0] ?? {}, attributes);
           data.push(datum);
         }
       });
-      const addition = invokeFunctionType(labelStyle, parameters, mark);
+      const addition = invokeFunctionType(labelStyle, labelParameters, mark);
       const graphicItemName = mark.graphicItem?.name;
       return merge(
         {},
