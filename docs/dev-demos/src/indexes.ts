@@ -506,6 +506,11 @@ export const indexes = [
         path: 'scrollbar-filter',
         name: '[组件]scrollbar-filter',
         type: 'api'
+      },
+      {
+        path: 'brush',
+        name: '[组件]brush',
+        type: 'api'
       }
     ]
   },

@@ -213,7 +213,10 @@ export interface BrushActiveOptions extends BrushOptions {
 }
 
 export interface BrushFilterOptions extends BrushOptions {
-  target: { data: IData | string; transform?: (data: any[], filterValue: any) => any[] };
+  target: {
+    data: IData | string;
+    transform?: (data: any[], filterValue: any) => any[];
+  };
 }
 
 export interface DataFilterOptions extends IBaseInteractionOptions {
