@@ -39,7 +39,7 @@ import type {
 } from './component';
 import type { CoordinateSpec } from './coordinate';
 import type { ITheme } from './theme';
-import type { InteractionSpec } from './interaction';
+import type { IInteraction, InteractionSpec } from './interaction';
 
 export interface IViewThemeConfig {
   labelMonospace?: boolean;
@@ -182,7 +182,7 @@ export interface IView {
   title: (group: IGroupMark | string) => ITitle;
   scrollbar: (group: IGroupMark | string) => IScrollbar;
 
-  interaction: (type: string, spec: Omit<InteractionSpec, 'type'>) => this;
+  interaction: (type: string, spec: Omit<InteractionSpec, 'type'>) => IInteraction;
   removeInteraction: (type: string) => this;
 
   addGrammar: (grammar: IGrammarBase) => this;
