@@ -78,7 +78,18 @@ import {
   registerElementHighlightByLegend,
   registerElementHighlightByName,
   registerBrushHighlight,
-  registerBrushActive
+  registerBrushActive,
+  registerBrushFilter,
+  registerLegendFilter,
+  registerDatazoomFilter,
+  registerSliderFilter,
+  registerPlayerFilter,
+  registerScrollbarFilter,
+  registerDrillDown,
+  registerRollUp,
+  registerTooltipPopover,
+  registerDimensionTooltipPopover,
+  registerCrosshairPopover
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
@@ -161,7 +172,18 @@ View.useRegisters([
   registerElementHighlightByLegend,
   registerElementHighlightByName,
   registerBrushHighlight,
-  registerBrushActive
+  registerBrushActive,
+  registerBrushFilter,
+  registerLegendFilter,
+  registerDatazoomFilter,
+  registerSliderFilter,
+  registerPlayerFilter,
+  registerScrollbarFilter,
+  registerDrillDown,
+  registerRollUp,
+  registerTooltipPopover,
+  registerDimensionTooltipPopover,
+  registerCrosshairPopover
 ]);
 
 initAllEnv();

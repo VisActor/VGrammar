@@ -10,9 +10,9 @@ export class SliderFilter extends Filter {
   static defaultOptions: Omit<DataFilterOptions, 'target'> = {};
   options: DataFilterOptions;
 
-  constructor(view: IView, option?: DataFilterOptions) {
-    super(view);
-    this.options = Object.assign({}, SliderFilter.defaultOptions, option);
+  constructor(view: IView, options?: DataFilterOptions) {
+    super(view, options);
+    this.options = Object.assign({}, SliderFilter.defaultOptions, options);
 
     this._marks = view
       .getMarksBySelector(this.options.source)

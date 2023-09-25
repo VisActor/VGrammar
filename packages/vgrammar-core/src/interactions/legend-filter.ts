@@ -11,9 +11,9 @@ export class LegendFilter extends Filter {
   static defaultOptions: Omit<DataFilterOptions, 'target'> = {};
   options: DataFilterOptions;
 
-  constructor(view: IView, option?: DataFilterOptions) {
-    super(view);
-    this.options = Object.assign({}, LegendFilter.defaultOptions, option);
+  constructor(view: IView, options?: DataFilterOptions) {
+    super(view, options);
+    this.options = Object.assign({}, LegendFilter.defaultOptions, options);
 
     this._marks = view
       .getMarksBySelector(this.options.source)
