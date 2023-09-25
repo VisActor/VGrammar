@@ -1,40 +1,22 @@
 import type { IPolygon } from '@visactor/vrender';
-import type {
-  DrillDownOptions,
-  IData,
-  IDataFilter,
-  IElement,
-  IGlyphElement,
-  IMark,
-  IView,
-  InteractionEvent
-} from '../types';
+import type { DrillDownOptions, IElement, IGlyphElement, IView, InteractionEvent } from '../types';
 import { BrushBase } from './brush-base';
 import { isString, type IBounds, array, mixin } from '@visactor/vutils';
 import { DataFilterRank } from '../graph';
 import { FilterMixin } from './filter';
+
+export interface DrillDown
+  extends Pick<FilterMixin, '_data' | '_filterValue' | '_dataFilter' | 'handleFilter' | '_filterData'>,
+    BrushBase<DrillDownOptions> {}
 
 export class DrillDown extends BrushBase<DrillDownOptions> {
   static type: string = 'drill-down';
   type: string = DrillDown.type;
 
   static defaultOptions: Omit<DrillDownOptions, 'target'> = {
-    brush: true
+    brush: false,
+    trigger: 'click'
   };
-
-  // filter attributes
-  protected _data: IData;
-  protected _filterValue: any;
-  protected _dataFilter: IDataFilter;
-  protected handleFilter: (event?: InteractionEvent) => void;
-  protected _filterData: (
-    data: IData,
-    source: IMark | null,
-    filterRank: number,
-    getFilterValue?: (event: any) => any,
-    filter?: (data: any[], parameters: any) => boolean,
-    transform?: (data: any[], parameters: any) => any[]
-  ) => this;
 
   constructor(view: IView, option?: DrillDownOptions) {
     super(view, Object.assign({}, DrillDown.defaultOptions, option));
@@ -44,7 +26,7 @@ export class DrillDown extends BrushBase<DrillDownOptions> {
   }
 
   protected getEvents() {
-    if (this._data) {
+    if (!this._data) {
       return {};
     }
 

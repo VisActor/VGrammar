@@ -5,7 +5,7 @@ import {
   RectCrosshair,
   SectorCrosshair
 } from '@visactor/vrender-components';
-import type { CrosshairOptions, IView, InteractionEvent } from '../types';
+import type { CrosshairOptions, IGroupMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 import { CrosshairEnum } from '../graph';
 import { isString } from '@visactor/vutils';
@@ -21,32 +21,39 @@ import {
 type CrosshairComponent = CircleCrosshair | LineCrosshair | PolygonCrosshair | RectCrosshair | SectorCrosshair;
 
 export class Crosshair extends BaseInteraction {
-  static type: string = 'tooltip';
+  static type: string = 'crosshair';
   type: string = Crosshair.type;
   options: CrosshairOptions;
 
-  protected _crosshairComponent?: CrosshairComponent;
-  protected _crosshairComponentType?: keyof typeof CrosshairEnum;
-
   static defaultOptions: Omit<CrosshairOptions, 'target'> = {
+    trigger: 'pointermove',
+    resetTrigger: 'pointerleave',
     crosshairType: 'x',
     crosshairShape: 'line'
   };
 
+  protected _crosshairComponent?: CrosshairComponent;
+  protected _crosshairComponentType?: keyof typeof CrosshairEnum;
+  protected _container: IGroupMark;
+
   constructor(view: IView, options?: CrosshairOptions) {
     super(view);
     this.options = Object.assign({}, Crosshair.defaultOptions, options);
+    this._container = (view.getMarksBySelector(this.options.container)?.[0] as IGroupMark) ?? view.rootMark;
   }
 
   protected getEvents() {
-    return {};
+    return {
+      [this.options.trigger]: this.handleCrosshairShow,
+      [this.options.resetTrigger]: this.handleCrosshairHide
+    };
   }
 
-  protected onCrosshairShow = (event: InteractionEvent) => {
+  protected handleCrosshairShow = (event: InteractionEvent) => {
     if (!this._crosshairComponent) {
       return;
     }
-    const groupGraphicItem = this.view.rootMark.getGroupGraphicItem();
+    const groupGraphicItem = this._container.getGroupGraphicItem();
     // FIXME: waiting for vRender to add transformed position to event
     const point = { x: 0, y: 0 };
     groupGraphicItem.globalTransMatrix.transformPoint(event.canvas, point);
@@ -57,6 +64,7 @@ export class Crosshair extends BaseInteraction {
       point.y < 0 ||
       point.y > groupGraphicItem.attribute.height
     ) {
+      this._crosshairComponent.hideAll();
       return;
     }
 
@@ -66,10 +74,9 @@ export class Crosshair extends BaseInteraction {
     const scale = scaleGrammar.getScale();
     const config = { center: this.options.center, radius: this.options.radius };
     const theme = this.view.getCurrentTheme();
-    // const addition = this._additionalEncodeResult ?? {};
-    const addition = {};
+    const addition = (this.options.attributes ?? {}) as any;
 
-    let attributes = {};
+    let attributes: any = {};
     switch (this.getCrosshairComponentType()) {
       case CrosshairEnum.lineCrosshair:
         attributes = generateLineCrosshairAttributes(point, scale, crosshairType, groupSize, config, theme, addition);
@@ -98,11 +105,13 @@ export class Crosshair extends BaseInteraction {
         attributes = generateRingCrosshairAttributes(point, scale, crosshairType, groupSize, config, theme, addition);
         break;
     }
+    attributes.x = groupGraphicItem.attribute.x;
+    attributes.y = groupGraphicItem.attribute.y;
     this._crosshairComponent.showAll();
     this._crosshairComponent.setAttributes(attributes);
   };
 
-  protected onCrosshairHide = () => {
+  protected handleCrosshairHide = () => {
     this._crosshairComponent.hideAll();
   };
 
