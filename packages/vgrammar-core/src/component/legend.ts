@@ -24,6 +24,7 @@ import { parseColor } from '../parse/util';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
 import { Factory } from '../core/factory';
+import { registerLegendFilter } from '../interactions';
 
 export const generateDiscreteLegendAttributes = (
   scale: IBaseScale,
@@ -270,4 +271,5 @@ export const registerLegend = () => {
   );
 
   Factory.registerComponent(ComponentEnum.legend, Legend);
+  registerLegendFilter();
 };

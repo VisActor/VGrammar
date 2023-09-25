@@ -21,6 +21,7 @@ import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
+import { registerSliderFilter } from '../interactions';
 
 export const generateSliderAttributes = (
   min: number,
@@ -120,4 +121,5 @@ export const registerSlider = () => {
   );
 
   Factory.registerComponent(ComponentEnum.slider, Slider);
+  registerSliderFilter();
 };
