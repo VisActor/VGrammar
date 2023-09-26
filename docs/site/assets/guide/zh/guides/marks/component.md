@@ -44,18 +44,6 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 
 <div class="examples-ref-container" id="examples-ref-legend" data-path="component/legend"></div>
 
-## 十字准线 (Crosshair)
-
-十字准线是一种辅助元素，在数据可视化中可以帮助用户锁定准确的数据点，从而更容易读取该点的具体数据值。
-
-十字准线通常与数据点对应的轴线交叉，由横线和纵线组成。它在用户的鼠标悬停或点击时显示，可以协助用户快速了解某点的数据信息。
-
-十字准线组件的 componentType 为 `'crosshair'` ，同时 View 上也提供了 `View.crosshair()` 接口以便捷的创建一个十字准线。
-
-十字准线的示例：
-
-<div class="examples-ref-container" id="examples-ref-crosshair" data-path="basic-mark-symbol/basic-symbol"></div>
-
 ## 筛选器 (Slider)
 
 筛选器是一种实现数据过滤和缩放的交互组件。用户通过拖动筛选器条，实现对数据范围的调整。用户可以通过拖动滑块间距和位置来控制数据范围。通过操作筛选器，用户可根据需要查看指定范围的数据。
@@ -85,16 +73,6 @@ VGrammar 中的组件图元（Component）是包含特定交互、动画、数�
 标签的示例：
 
 <div class="examples-ref-container" id="examples-ref-label" data-path="component/label"></div>
-
-## 提示信息 (Tooltip)
-
-提示信息（Tooltip）是一种临时显示的信息提示框，当用户的光标悬停在图表的某个数据项上时，提示信息会出现在光标附近，展示信息，从而帮助用户更好地了解数据。
-
-提示信息组件的 componentType 为 `'tooltip' | 'dimensionTooltip'`，同时 View 上也提供了 `View.tooltip()` 以及 `View.dimensionTooltip()` 接口以便捷的创建一个提示信息。两种 tooltip 分别针对于 hover 在图元上显示以及 hover 在数据维度上显示两种情况。不同 tooltip 可以混用以适配灵活的业务场景。
-
-提示信息的示例：
-
-<div class="examples-ref-container" id="examples-ref-tooltip" data-path="basic-mark-rect/percent-rect"></div>
 
 ## 播放器 (Player)
 

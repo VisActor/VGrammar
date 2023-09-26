@@ -92,8 +92,6 @@ export const runner = (view: IView) => {
       grid: { visible: true, length: 270 }
     });
   const container = view.group(view.rootMark).id('container').encode({ x: 40, y: 40, width: 270, height: 270 });
-  const xLineCrosshair = view.crosshair(container).id('xLineCrosshair').scale(xScale).crosshairType('x');
-  const yLineCrosshair = view.crosshair(container).id('yLineCrosshair').scale(yScale).crosshairType('y');
 
   const line = view
     .mark('line', container)

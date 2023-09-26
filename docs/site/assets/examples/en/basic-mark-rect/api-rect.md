@@ -94,12 +94,7 @@ const yAxis = vGrammarView
       verticalFactor: -1
     };
   });
-const crosshair = vGrammarView
-  .crosshair(group)
-  .scale(xScale)
-  .depend(['viewBox'])
-  .crosshairType('x')
-  .crosshairShape('rect');
+const crosshair = vGrammarView;
 
 const rect = vGrammarView
   .mark('rect', group)
@@ -129,6 +124,12 @@ vGrammarView.interaction('tooltip', {
       }
     }
   ]
+});
+vGrammarView.interaction('crosshair', {
+  container: group,
+  scale: xScale,
+  crosshairType: 'x',
+  crosshairShape: 'rect'
 });
 
 vGrammarView.runAsync();
