@@ -96,20 +96,6 @@ export const runner = (view: IView) => {
   //   .scale(colorScale)
   //   .encode({ x: 340, y: 160 });
   const container = view.group(view.rootMark).id('container').encode({ x: 40, y: 40, width: 270, height: 270 });
-  // const xLineCrosshair = view.crosshair(container).id('xLineCrosshair').scale(xScale).crosshairType('x');
-  // const yLineCrosshair = view.crosshair(container).id('yLineCrosshair').scale(yScale).crosshairType('y');
-  const xRectCrosshair = view
-    .crosshair(container)
-    .id('xRectCrosshair')
-    .scale(xScale)
-    .crosshairType('x')
-    .crosshairShape('rect');
-  const yRectCrosshair = view
-    .crosshair(container)
-    .id('yRectCrosshair')
-    .scale(yScale)
-    .crosshairType('y')
-    .crosshairShape('rect');
 
   const line = view
     .mark('line', container)

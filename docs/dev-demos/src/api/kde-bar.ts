@@ -69,22 +69,6 @@ export const runner = (view: View) => {
       verticalFactor: -1
     });
   const container = view.group(view.rootMark).id('container').encode({ x: 40, y: 40, width: 270, height: 270 });
-  // const xLineCrosshair = view.crosshair(container).id('xLineCrosshair').scale(xScale).crosshairType('x');
-  // const yLineCrosshair = view.crosshair(container).id('yLineCrosshair').scale(yScale).crosshairType('y');
-  // const xRectCrosshair = view
-  //   .crosshair(container)
-  //   .id('xRectCrosshair')
-  //   .scale(kdeXScale)
-  //   .crosshairType('x')
-  //   .crosshairShape('rect')
-  //   .encode({ rectStyle: { fillColor: 'pink' } });
-  // const yRectCrosshair = view
-  //   .crosshair(container)
-  //   .id('yRectCrosshair')
-  //   .scale(histogramYScale)
-  //   .crosshairType('y')
-  //   .crosshairShape('rect')
-  //   .encode({ rectStyle: { fillColor: 'pink' } });
 
   const bar = view
     .mark('rect', container)
