@@ -10,11 +10,6 @@ import { ElementHighlightByName } from './element-highlight-by-name';
 import { BrushHighlight } from './brush-highlight';
 import { BrushActive } from './brush-active';
 import { BrushFilter } from './brush-filter';
-import { LegendFilter } from './legend-filter';
-import { DatazoomFilter } from './datazoom-filter';
-import { SliderFilter } from './slider-filter';
-import { PlayerFilter } from './player-filter';
-import { ScrollbarFilter } from './scrollbar-filter';
 import { DrillDown } from './drill-down';
 import { RollUp } from './roll-up';
 import { Tooltip } from './tooltip';
@@ -65,26 +60,6 @@ export const registerBrushFilter = () => {
   Factory.registerInteraction(BrushFilter.type, BrushFilter);
 };
 
-export const registerLegendFilter = () => {
-  Factory.registerInteraction(LegendFilter.type, LegendFilter);
-};
-
-export const registerDatazoomFilter = () => {
-  Factory.registerInteraction(DatazoomFilter.type, DatazoomFilter);
-};
-
-export const registerSliderFilter = () => {
-  Factory.registerInteraction(SliderFilter.type, SliderFilter);
-};
-
-export const registerPlayerFilter = () => {
-  Factory.registerInteraction(PlayerFilter.type, PlayerFilter);
-};
-
-export const registerScrollbarFilter = () => {
-  Factory.registerInteraction(ScrollbarFilter.type, ScrollbarFilter);
-};
-
 export const registerDrillDown = () => {
   Factory.registerInteraction(DrillDown.type, DrillDown);
 };
@@ -93,14 +68,14 @@ export const registerRollUp = () => {
   Factory.registerInteraction(RollUp.type, RollUp);
 };
 
-export const registerTooltipPopover = () => {
+export const registerTooltip = () => {
   Factory.registerInteraction(Tooltip.type, Tooltip);
 };
 
-export const registerDimensionTooltipPopover = () => {
+export const registerDimensionTooltip = () => {
   Factory.registerInteraction(DimensionTooltip.type, DimensionTooltip);
 };
 
-export const registerCrosshairPopover = () => {
+export const registerCrosshair = () => {
   Factory.registerInteraction(Crosshair.type, Crosshair);
 };

@@ -23,7 +23,7 @@ import { parseColor } from '../parse/util';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
 import { Factory } from '../core/factory';
-import { registerLegendFilter } from '../interactions';
+import { LegendFilter } from '../interactions/legend-filter';
 
 export const generateDiscreteLegendAttributes = (
   scale: IBaseScale,
@@ -159,13 +159,6 @@ export class Legend extends ScaleComponent implements ILegend {
     return super.addGraphicItem(attrs, groupKey, graphicItem);
   }
 
-  release() {
-    if (this._filterCallback) {
-      this.view.removeEventListener('change', this._filterCallback);
-    }
-    super.release();
-  }
-
   protected _updateComponentEncoders() {
     const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
     const shapeScaleGrammar = isString(this.spec.shapeScale)
@@ -243,5 +236,5 @@ export const registerLegend = () => {
   );
 
   Factory.registerComponent(ComponentEnum.legend, Legend);
-  registerLegendFilter();
+  Factory.registerInteraction(LegendFilter.type, LegendFilter);
 };
