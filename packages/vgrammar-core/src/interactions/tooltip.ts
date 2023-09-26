@@ -1,7 +1,6 @@
 import { AABBBounds, throttle } from '@visactor/vutils';
 import type { IElement, IView, InteractionEvent, InteractionEventHandler, TooltipPopoverOptions } from '../types';
-import { BaseTooltip } from './base-tooltip';
-import { generateTooltipAttributes } from '../component/tooltip';
+import { BaseTooltip, generateTooltipAttributes } from './base-tooltip';
 
 export class Tooltip extends BaseTooltip<TooltipPopoverOptions> {
   static type: string = 'tooltip';

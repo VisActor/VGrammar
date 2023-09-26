@@ -118,21 +118,6 @@ const rect = vGrammarView
   })
   .encodeState('hover', 'fill', 'red');
 
-const tooltip = vGrammarView
-  .tooltip(group)
-  .target(rect)
-  .title({ visible: false, value: 'value' })
-  .content([
-    {
-      key: { field: 'name' },
-      value: { field: 'value' },
-      symbol: {
-        symbolType: 'circle',
-        fill: '#6690F2'
-      }
-    }
-  ]);
-
 const player = vGrammarView
   .player(group)
   .playerType('discrete')

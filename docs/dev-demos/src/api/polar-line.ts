@@ -55,27 +55,6 @@ export const runner = (view: IView) => {
     .grid(view.rootMark)
     .id('angleGrid')
     .target(angleAxis);
-  const angleLineCrosshair = view
-    .crosshair(view.rootMark)
-    .scale(thetaScale)
-    .crosshairType('angle')
-    .configureComponent({ radius: 160, center: { x: 200, y: 200 } });
-  const angleSectorCrosshair = view
-    .crosshair(view.rootMark)
-    .scale(thetaScale)
-    .crosshairShape('rect')
-    .crosshairType('angle')
-    .configureComponent({ radius: 160, center: { x: 200, y: 200 } });
-  const radiusCircleCrosshair = view
-    .crosshair(view.rootMark)
-    .scale(radiusScale)
-    .crosshairType('radius')
-    .configureComponent({ radius: 160, center: { x: 200, y: 200 } });
-  const radiusPolygonCrosshair = view
-    .crosshair(view.rootMark)
-    .scale(radiusScale)
-    .crosshairType('radius-polygon')
-    .configureComponent({ radius: 160, center: { x: 200, y: 200 } });
   const line = view
     .mark('line', view.rootMark)
     .id('line')
@@ -117,15 +96,45 @@ export const runner = (view: IView) => {
         duration: 2000
       }
     });
-  const dimensionTooltip = view.dimensionTooltip(view.rootMark)
-    .id('dimensionTooltip')
-    .scale(xScale)
-    .target(data, 'category')
-    .tooltipType('angle')
-    // .avoidMark([symbol, line])
-    .title('Sales Statistics On Category')
-    .encode({ offsetX: 10, offsetY: 10 })
-    .content([
+  view.interaction('crosshair', {
+    container: view.rootMark,
+    scale: thetaScale,
+    crosshairType: 'angle',
+    radius: 160,
+    center: { x: 200, y: 200 }
+  });
+  view.interaction('crosshair', {
+    container: view.rootMark,
+    scale: thetaScale,
+    crosshairType: 'angle',
+    crosshairShape: 'rect',
+    radius: 160,
+    center: { x: 200, y: 200 }
+  });
+  view.interaction('crosshair', {
+    container: view.rootMark,
+    scale: radiusScale,
+    crosshairType: 'radius',
+    radius: 160,
+    center: { x: 200, y: 200 }
+  });
+  view.interaction('crosshair', {
+    container: view.rootMark,
+    scale: radiusScale,
+    crosshairType: 'radius-polygon',
+    radius: 160,
+    center: { x: 200, y: 200 }
+  });
+  view.interaction('dimension-tooltip', {
+    container: view.rootMark,
+    target: {
+      data: data,
+      filter: 'category'
+    },
+    scale: thetaScale,
+    tooltipType: 'angle',
+    title: 'Sales Statistics On Category',
+    content: [
       {
         key: 'category',
         value: { field: 'category' },
@@ -136,7 +145,9 @@ export const runner = (view: IView) => {
         value: datum => datum.amount,
         symbol: { fill: 'lightGreen', symbolType: 'square' }
       }
-    ]);
+    ],
+    attributes: { offsetX: 10, offsetY: 10 }
+  });
 };
 
 export const callback = (view: IView) => {
