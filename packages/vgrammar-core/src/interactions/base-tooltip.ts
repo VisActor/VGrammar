@@ -1,10 +1,39 @@
+import type { TooltipAttributes, TooltipRowAttrs } from '@visactor/vrender-components';
+// eslint-disable-next-line no-duplicate-imports
 import { Tooltip as TooltipComponent } from '@visactor/vrender-components';
-import { array, isArray, isFunction, isNil, isObjectLike, isString, isValid } from '@visactor/vutils';
+import type { IBounds, IPointLike } from '@visactor/vutils';
+// eslint-disable-next-line no-duplicate-imports
+import { array, isArray, isFunction, isNil, isObjectLike, isString, isValid, merge } from '@visactor/vutils';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { BaseInteraction } from './base';
-import type { IMark, ITooltipRow, IView, TooltipPopoverOptions } from '../types';
+import type { IMark, ITheme, ITooltipRow, IView, RecursivePartial, TooltipPopoverOptions } from '../types';
 import { isFieldEncode } from '../parse/mark';
 import { invokeFunctionType } from '../parse/util';
+
+export const generateTooltipAttributes = (
+  point: IPointLike,
+  title: TooltipRowAttrs,
+  content: TooltipRowAttrs[],
+  bounds: IBounds,
+  theme?: ITheme,
+  addition?: RecursivePartial<TooltipAttributes>
+): TooltipAttributes => {
+  const tooltipTheme = theme?.components?.tooltip;
+
+  return merge(
+    {},
+    tooltipTheme,
+    {
+      visible: true,
+      pointerX: point.x,
+      pointerY: point.y,
+      title,
+      content,
+      parentBounds: bounds
+    },
+    addition ?? {}
+  );
+};
 
 export abstract class BaseTooltip<T extends TooltipPopoverOptions> extends BaseInteraction {
   options: T;

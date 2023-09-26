@@ -1,11 +1,10 @@
-import { isNil, isString, merge } from '@visactor/vutils';
+import { isNil, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
 import type { SliderAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { Slider as SliderComponent } from '@visactor/vrender-components';
 import type {
   BaseSignleEncodeSpec,
-  IData,
   IElement,
   IGroupMark,
   ITheme,
@@ -15,8 +14,8 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { DataFilterRank, ComponentEnum } from '../graph';
-import type { ISlider, SliderFilterValue, SliderSpec } from '../types/component';
+import { ComponentEnum } from '../graph';
+import type { ISlider, SliderSpec } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
@@ -36,7 +35,6 @@ export const generateSliderAttributes = (
 export class Slider extends Component implements ISlider {
   static readonly componentType: string = ComponentEnum.slider;
   protected declare spec: SliderSpec;
-  protected declare _filterValue: SliderFilterValue;
 
   constructor(view: IView, group?: IGroupMark) {
     super(view, ComponentEnum.slider, group);
@@ -45,7 +43,6 @@ export class Slider extends Component implements ISlider {
 
   protected parseAddition(spec: SliderSpec) {
     super.parseAddition(spec);
-    this.target(spec.target?.data, spec.target?.filter);
     this.min(spec.min);
     this.max(spec.max);
     return this;
@@ -57,27 +54,6 @@ export class Slider extends Component implements ISlider {
 
   max(max: MarkFunctionType<number> | Nil) {
     return this.setFunctionSpec(max, 'max');
-  }
-
-  target(data: IData | string | Nil, filter: string | ((datum: any, value: SliderFilterValue) => boolean) | Nil) {
-    const lastData = this.spec.target?.data;
-    const lastDataGrammar = isString(lastData) ? this.view.getDataById(lastData) : lastData;
-    if (lastDataGrammar) {
-      this.view.removeEventListener('change', this._filterCallback);
-    }
-    this.spec.target = undefined;
-    const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
-    const getFilterValue = (event: any) => ({ start: event.detail.value[0], end: event.detail.value[1] });
-    const dataFilter = isString(filter)
-      ? (datum: any, filterValue: SliderFilterValue) =>
-          datum[filter] >= filterValue.start && datum[filter] <= filterValue.end
-      : filter;
-    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.slider, getFilterValue, dataFilter);
-    if (dataGrammar) {
-      this.view.addEventListener('change', this._filterCallback);
-      this.spec.target = { data: dataGrammar, filter };
-    }
-    return this;
   }
 
   setStartEndValue(start?: number, end?: number) {

@@ -3,7 +3,7 @@ import type { DataZoomAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { DataZoom as DatazoomComponent } from '@visactor/vrender-components';
 import { isNil, isString, merge } from '@visactor/vutils';
-import { DataFilterRank, ComponentEnum } from '../graph';
+import { ComponentEnum } from '../graph';
 import type {
   BaseSignleEncodeSpec,
   ChannelEncodeType,
@@ -17,7 +17,7 @@ import type {
   ScaleEncodeType,
   StateEncodeSpec
 } from '../types';
-import type { DatazoomFilterValue, DatazoomSpec, IDatazoom } from '../types/component';
+import type { DatazoomSpec, IDatazoom } from '../types/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { Component } from '../view/component';
 import { parseEncodeType } from '../parse/mark';
@@ -49,7 +49,6 @@ export class Datazoom extends Component implements IDatazoom {
   protected parseAddition(spec: DatazoomSpec) {
     super.parseAddition(spec);
     this.preview(spec.preview?.data, spec.preview?.x, spec.preview?.y, spec.preview?.x1, spec.preview?.y1);
-    this.target(spec.target?.data, spec.target?.filter);
     this._updateComponentEncoders();
     return this;
   }
@@ -82,47 +81,6 @@ export class Datazoom extends Component implements IDatazoom {
     }
     this._updateComponentEncoders();
     this.commit();
-    return this;
-  }
-
-  target(data: IData | string | Nil, filter: string | ((datum: any, value: DatazoomFilterValue) => boolean) | Nil) {
-    const lastData = this.spec.target?.data;
-    const lastDataGrammar = isString(lastData) ? this.view.getDataById(lastData) : lastData;
-    // FIXME: datazoom should emit change event
-    const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as DatazoomComponent;
-    if (lastDataGrammar && datazoom) {
-      datazoom.setUpdateStateCallback(null);
-    }
-    this.spec.target = undefined;
-    const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
-    const getFilterValue = (event: any): DatazoomFilterValue => {
-      const startRatio = event.start;
-      const endRatio = event.end;
-      return {
-        startRatio,
-        endRatio,
-        start: this.invertDatazoomRatio(startRatio),
-        end: this.invertDatazoomRatio(endRatio)
-      };
-    };
-    const dataFilter = isString(filter)
-      ? (datum: any, filterValue: DatazoomFilterValue) => {
-          if (isNil(filterValue.start) || isNil(filterValue.end)) {
-            return true;
-          }
-          const scale = this.getDatazoomMainScale();
-          const range = scale.range();
-          const datumRatio = (scale.scale(datum[filter]) - range[0]) / (range[range.length - 1] - range[0]);
-          return filterValue.startRatio <= datumRatio && filterValue.endRatio >= datumRatio;
-        }
-      : filter;
-    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.datazoom, getFilterValue, dataFilter);
-    if (dataGrammar && datazoom) {
-      datazoom.setUpdateStateCallback((start: number, end: number) => {
-        this._filterCallback({ start, end }, this.elements[0]);
-      });
-      this.spec.target = { data: dataGrammar, filter };
-    }
     return this;
   }
 
