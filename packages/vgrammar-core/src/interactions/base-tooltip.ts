@@ -6,7 +6,7 @@ import type { IBounds, IPointLike } from '@visactor/vutils';
 import { array, isArray, isFunction, isNil, isObjectLike, isString, isValid, merge } from '@visactor/vutils';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import { BaseInteraction } from './base';
-import type { IMark, ITheme, ITooltipRow, IView, RecursivePartial, TooltipPopoverOptions } from '../types';
+import type { IMark, ITheme, ITooltipRow, IView, RecursivePartial, TooltipOptions } from '../types';
 import { isFieldEncode } from '../parse/mark';
 import { invokeFunctionType } from '../parse/util';
 
@@ -35,7 +35,7 @@ export const generateTooltipAttributes = (
   );
 };
 
-export abstract class BaseTooltip<T extends TooltipPopoverOptions> extends BaseInteraction {
+export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteraction {
   options: T;
   protected _tooltipComponent?: TooltipComponent;
   protected _marks?: IMark[];

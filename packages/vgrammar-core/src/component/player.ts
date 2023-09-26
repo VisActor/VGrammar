@@ -24,7 +24,7 @@ import type { IPlayer, PlayerFilterValue, PlayerSpec, PlayerType } from '../type
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { Factory } from '../core/factory';
-import { registerPlayerFilter } from '../interactions';
+import { PlayerFilter } from '../interactions/player-filter';
 
 export const generateContinuousPlayerAttributes = (
   data: any[],
@@ -127,13 +127,6 @@ export class Player extends Component implements IPlayer {
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
-  release() {
-    if (this._filterCallback) {
-      this.view.removeEventListener('change', this._filterCallback);
-    }
-    super.release();
-  }
-
   protected _updateComponentEncoders() {
     const encoders = Object.assign({ update: {} }, this.spec.encode);
     const componentEncoders: StateEncodeSpec = Object.keys(encoders).reduce((res, state) => {
@@ -207,5 +200,5 @@ export const registerPlayer = () => {
   );
 
   Factory.registerComponent(ComponentEnum.player, Player);
-  registerPlayerFilter();
+  Factory.registerInteraction(PlayerFilter.type, PlayerFilter);
 };

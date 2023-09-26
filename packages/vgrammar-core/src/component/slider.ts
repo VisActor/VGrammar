@@ -20,7 +20,7 @@ import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
-import { registerSliderFilter } from '../interactions';
+import { SliderFilter } from '../interactions/slider-filter';
 
 export const generateSliderAttributes = (
   min: number,
@@ -62,13 +62,6 @@ export class Slider extends Component implements ISlider {
     return this;
   }
 
-  release() {
-    if (this._filterCallback) {
-      this.view.removeEventListener('change', this._filterCallback);
-    }
-    super.release();
-  }
-
   protected _updateComponentEncoders() {
     const encoders = Object.assign({ update: {} }, this.spec.encode);
     const componentEncoders: StateEncodeSpec = Object.keys(encoders).reduce((res, state) => {
@@ -97,5 +90,5 @@ export const registerSlider = () => {
   );
 
   Factory.registerComponent(ComponentEnum.slider, Slider);
-  registerSliderFilter();
+  Factory.registerInteraction(SliderFilter.type, SliderFilter);
 };
