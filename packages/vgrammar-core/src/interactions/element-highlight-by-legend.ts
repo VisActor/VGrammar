@@ -11,7 +11,7 @@ import { BaseInteraction } from './base';
 import { LegendEvent } from '@visactor/vrender-components';
 import { isNil } from '@visactor/vutils';
 
-export class ElementHighlightByLegend extends BaseInteraction {
+export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightByLegendOptions> {
   static type: string = 'element-highlight-by-legend';
   type: string = ElementHighlightByLegend.type;
 
@@ -23,9 +23,9 @@ export class ElementHighlightByLegend extends BaseInteraction {
   options: ElementHighlightByLegendOptions;
   protected _marks?: IMark[];
 
-  constructor(view: IView, option?: ElementHighlightByLegendOptions) {
-    super(view);
-    this.options = Object.assign({}, ElementHighlightByLegend.defaultOptions, option);
+  constructor(view: IView, options?: ElementHighlightByLegendOptions) {
+    super(view, options);
+    this.options = Object.assign({}, ElementHighlightByLegend.defaultOptions, options);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }

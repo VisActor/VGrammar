@@ -4,7 +4,7 @@ import { BaseInteraction } from './base';
 import { LegendEvent } from '@visactor/vrender-components';
 import { isNil } from '@visactor/vutils';
 
-export class ElementActiveByLegend extends BaseInteraction {
+export class ElementActiveByLegend extends BaseInteraction<ElementActiveByLegendOptions> {
   static type: string = 'element-active-by-legend';
   type: string = ElementActiveByLegend.type;
 
@@ -15,9 +15,9 @@ export class ElementActiveByLegend extends BaseInteraction {
   options: ElementActiveByLegendOptions;
   protected _marks?: IMark[];
 
-  constructor(view: IView, option?: ElementActiveByLegendOptions) {
-    super(view);
-    this.options = Object.assign({}, ElementActiveByLegend.defaultOptions, option);
+  constructor(view: IView, options?: ElementActiveByLegendOptions) {
+    super(view, options);
+    this.options = Object.assign({}, ElementActiveByLegend.defaultOptions, options);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }

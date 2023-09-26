@@ -35,13 +35,13 @@ export const generateTooltipAttributes = (
   );
 };
 
-export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteraction {
+export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteraction<T> {
   options: T;
   protected _tooltipComponent?: TooltipComponent;
   protected _marks?: IMark[];
 
   constructor(view: IView, options?: T) {
-    super(view);
+    super(view, options);
     this._marks = view.getMarksBySelector(options.selector);
   }
 
@@ -68,7 +68,7 @@ export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteract
 
   protected _computeTooltipRow(row: ITooltipRow, datum: any) {
     // compute visible
-    let visible = invokeFunctionType(row.visible, {}, datum);
+    let visible = invokeFunctionType(row.visible, this.parameters(), datum);
     visible = isNil(visible) ? true : !!visible;
 
     // compute key
@@ -77,7 +77,7 @@ export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteract
       const fieldAccessor = getFieldAccessor(row.key.field);
       key = fieldAccessor(datum);
     } else {
-      key = invokeFunctionType(row.key, {}, datum);
+      key = invokeFunctionType(row.key, this.parameters(), datum);
     }
     key = isNil(key) ? undefined : isObjectLike(key) ? key : { text: key };
 
@@ -87,7 +87,7 @@ export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteract
       const fieldAccessor = getFieldAccessor(row.value.field);
       value = fieldAccessor(datum);
     } else {
-      value = invokeFunctionType(row.value, {}, datum);
+      value = invokeFunctionType(row.value, this.parameters(), datum);
     }
     value = isNil(value) ? undefined : isObjectLike(value) ? value : { text: value };
 
@@ -97,7 +97,7 @@ export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteract
       const fieldAccessor = getFieldAccessor(row.symbol.field);
       symbol = fieldAccessor(datum);
     } else {
-      symbol = invokeFunctionType(row.symbol, {}, datum);
+      symbol = invokeFunctionType(row.symbol, this.parameters(), datum);
     }
     symbol = isNil(symbol) ? undefined : isObjectLike(symbol) ? symbol : { symbolType: symbol };
 
