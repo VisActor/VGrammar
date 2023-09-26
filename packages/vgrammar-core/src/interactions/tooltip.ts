@@ -58,7 +58,7 @@ export class Tooltip extends BaseTooltip<TooltipOptions> {
     const bounds = new AABBBounds().set(boundsStart.x, boundsStart.y, boundsEnd.x, boundsEnd.y);
     const { title, content } = this._computeTitleContent(element.getDatum());
     const theme = this.view.getCurrentTheme();
-    const addition = invokeFunctionType(this.options.attributes, {}, {}) as any;
+    const addition = invokeFunctionType(this.options.attributes, this.parameters(), element.getDatum()) as any;
     const attributes = generateTooltipAttributes(point, title, content, bounds, theme, addition);
     this._tooltipComponent.setAttributes(attributes);
   }, 10) as unknown as InteractionEventHandler;

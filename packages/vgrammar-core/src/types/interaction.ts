@@ -10,9 +10,11 @@ import type { IPolygon, ISymbolGraphicAttribute, ITextGraphicAttribute } from '@
 import type { IElement, IGlyphElement } from './element';
 import type { IData, IScale } from './grammar';
 import type { IPointLike } from '@visactor/vutils';
-import type { FieldEncodeType, IMark, MarkFunctionType } from '.';
+import type { FieldEncodeType, IGrammarBase, IMark, MarkFunctionType } from '.';
 
 export interface IBaseInteractionOptions {
+  dependencies?: string | string[] | IGrammarBase | IGrammarBase[];
+
   shouldStart?: (e: any) => boolean;
 
   shouldUpdate?: (e: any) => boolean;
@@ -32,6 +34,7 @@ export interface IBaseInteractionOptions {
 
 export interface IInteraction {
   readonly type: string;
+  depend: (grammar: IGrammarBase[] | IGrammarBase | string[] | string) => void;
   bind: () => void;
   unbind: () => void;
 }

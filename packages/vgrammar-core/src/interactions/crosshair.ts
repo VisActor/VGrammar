@@ -271,7 +271,7 @@ export const generatePolygonCrosshairAttributes = (
   return merge({}, crosshairTheme, { center, radius: radius, startAngle, endAngle }, addition ?? {});
 };
 
-export class Crosshair extends BaseInteraction {
+export class Crosshair extends BaseInteraction<CrosshairOptions> {
   static type: string = 'crosshair';
   type: string = Crosshair.type;
   options: CrosshairOptions;
@@ -288,7 +288,7 @@ export class Crosshair extends BaseInteraction {
   protected _container: IGroupMark;
 
   constructor(view: IView, options?: CrosshairOptions) {
-    super(view);
+    super(view, options);
     this.options = Object.assign({}, Crosshair.defaultOptions, options);
     this._container = (view.getMarksBySelector(this.options.container)?.[0] as IGroupMark) ?? view.rootMark;
   }
@@ -325,7 +325,7 @@ export class Crosshair extends BaseInteraction {
     const scale = scaleGrammar.getScale();
     const config = { center: this.options.center, radius: this.options.radius };
     const theme = this.view.getCurrentTheme();
-    const addition = invokeFunctionType(this.options.attributes, {}, {}) as any;
+    const addition = invokeFunctionType(this.options.attributes, this.parameters(), {}, {}) as any;
 
     let attributes: any = {};
     switch (this.getCrosshairComponentType()) {

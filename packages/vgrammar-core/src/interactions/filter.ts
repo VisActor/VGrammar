@@ -54,14 +54,14 @@ export class FilterMixin {
 
 export interface Filter
   extends Pick<FilterMixin, '_data' | '_marks' | '_filterValue' | '_dataFilter' | 'handleFilter' | '_filterData'>,
-    BaseInteraction {}
+    BaseInteraction<DataFilterOptions> {}
 
-export abstract class Filter extends BaseInteraction {
+export abstract class Filter extends BaseInteraction<DataFilterOptions> {
   static defaultOptions: Omit<DataFilterOptions, 'target'> = {};
   options: DataFilterOptions;
 
   constructor(view: IView, options?: DataFilterOptions) {
-    super(view);
+    super(view, options);
     this._marks = view
       .getMarksBySelector(options.source)
       .filter(mark => mark.markType === GrammarMarkType.component && (mark as IComponent).componentType === 'legend');
