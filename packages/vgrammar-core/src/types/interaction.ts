@@ -1,19 +1,11 @@
 import type { IView } from './view';
 import type { EventType, InteractionEvent, ViewEventType } from './event';
-import type { BrushAttributes, TooltipAttributes } from '@visactor/vrender-components';
-import type { IPolygon } from '@visactor/vrender';
+import type { BrushAttributes, TooltipAttributes, TooltipRowAttrs } from '@visactor/vrender-components';
+import type { IPolygon, ISymbolGraphicAttribute, ITextGraphicAttribute } from '@visactor/vrender';
 import type { IElement, IGlyphElement } from './element';
 import type { IData, IScale } from './grammar';
-import type {
-  CrosshairShape,
-  CrosshairType,
-  CustomTooltipCallback,
-  DimensionTooltipSpec,
-  ITooltipRow,
-  TooltipType
-} from './component';
 import type { IPointLike } from '@visactor/vutils';
-import type { IMark, MarkFunctionType } from '.';
+import type { FieldEncodeType, IMark, MarkFunctionType } from '.';
 
 export interface IBaseInteractionOptions {
   shouldStart?: (e: any) => boolean;
@@ -258,6 +250,21 @@ export interface RollUpOptions extends DataFilterOptions {
   resetTrigger?: EventType | ViewEventType | 'empty';
 }
 
+export type CustomTooltipCallback = (
+  datum: any,
+  element: IElement,
+  parameters: any
+) => TooltipRowAttrs | TooltipRowAttrs[];
+
+export interface ITooltipRow {
+  visible?: boolean;
+  key?: MarkFunctionType<string | Partial<ITextGraphicAttribute>> | FieldEncodeType;
+  value?: MarkFunctionType<string | Partial<ITextGraphicAttribute>> | FieldEncodeType;
+  symbol?: MarkFunctionType<string | Partial<ISymbolGraphicAttribute>> | FieldEncodeType;
+}
+
+export type TooltipType = 'x' | 'y' | 'angle' | 'radius';
+
 export interface TooltipPopoverOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
@@ -288,6 +295,10 @@ export interface DimensionTooltipPopoverOptions extends TooltipPopoverOptions {
   container?: string | IMark;
   center?: IPointLike;
 }
+
+export type CrosshairType = 'x' | 'y' | 'angle' | 'radius' | 'radius-polygon';
+
+export type CrosshairShape = 'line' | 'rect';
 
 export interface CrosshairPopoverOptions extends IBaseInteractionOptions {
   /**

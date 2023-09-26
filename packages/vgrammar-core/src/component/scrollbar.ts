@@ -5,7 +5,6 @@ import type { Direction, OrientType, ScrollBarAttributes } from '@visactor/vrend
 import { ScrollBar as ScrollbarComponent } from '@visactor/vrender-components';
 import type {
   BaseSignleEncodeSpec,
-  IData,
   IElement,
   IGroupMark,
   ITheme,
@@ -15,8 +14,8 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { DataFilterRank, ComponentEnum, GrammarMarkType } from '../graph';
-import type { IScrollbar, ScrollbarFilterValue, ScrollbarSpec } from '../types/component';
+import { ComponentEnum, GrammarMarkType } from '../graph';
+import type { IScrollbar, ScrollbarSpec } from '../types/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
@@ -120,50 +119,9 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
 
   protected parseAddition(spec: ScrollbarSpec) {
     super.parseAddition(spec);
-    this.target(spec.target?.data, spec.target?.filter);
     this.container(spec.container);
     this.direction(spec.direction);
     this.position(spec.position);
-    return this;
-  }
-
-  target(data: IData | string | Nil, filter: string | ((datum: any, value: ScrollbarFilterValue) => boolean) | Nil) {
-    const lastData = this.spec.target?.data;
-    const lastDataGrammar = isString(lastData) ? this.view.getDataById(lastData) : lastData;
-    if (lastDataGrammar) {
-      this.view.removeEventListener('scroll', this._filterCallback);
-    }
-    this.spec.target = undefined;
-    const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
-    const getFilterValue = (event: any) => {
-      if (isString(filter)) {
-        const range = event.detail.value;
-        const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
-        if (scaleGrammar) {
-          const scale = scaleGrammar.getScale();
-          const scaleRange = scale.range();
-          const start = scale.invert(range[0] * (scaleRange[1] - scaleRange[0]) + scaleRange[0]);
-          const end = scale.invert(range[1] * (scaleRange[1] - scaleRange[0]) + scaleRange[0]);
-          return { start, end, startRatio: range[0], endRatio: range[1] };
-        }
-        return { startRatio: range[0], endRatio: range[1] };
-      }
-      return { startRatio: event.detail.value[0], endRatio: event.detail.value[1] };
-    };
-    const dataFilter = isString(filter)
-      ? (datum: any, filterValue: ScrollbarFilterValue) => {
-          const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
-          const scale = scaleGrammar.getScale();
-          const range = scale.range();
-          const datumRatio = (scale.scale(datum[filter]) - range[0]) / (range[range.length - 1] - range[0]);
-          return filterValue.startRatio <= datumRatio && filterValue.endRatio >= datumRatio;
-        }
-      : filter;
-    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.scrollbar, getFilterValue, dataFilter);
-    if (dataGrammar) {
-      this.view.addEventListener('scroll', this._filterCallback);
-      this.spec.target = { data: dataGrammar, filter };
-    }
     return this;
   }
 

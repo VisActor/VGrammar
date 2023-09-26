@@ -1,11 +1,9 @@
 export { registerAxis } from './axis';
 export { registerLegend } from './legend';
-export { registerCrosshair } from './crosshair';
 export { registerSlider } from './slider';
 export { registerLabel } from './label';
 export { registerDataZoom } from './datazoom';
 export { registerPlayer } from './player';
-export { registerTooltip } from './tooltip';
 export { registerTitle } from './title';
 export { registerGrid } from './grid';
 export { registerScrollbar } from './scrollbar';
