@@ -1,8 +1,10 @@
 import type { IPointLike } from '@visactor/vutils';
+// eslint-disable-next-line no-duplicate-imports
 import { AABBBounds, array, getAngleByPoint, isString, throttle } from '@visactor/vutils';
 import type { DimensionTooltipPopoverOptions, IElement, IGroupMark, IMark, IView, TooltipType } from '../types';
 import { BaseTooltip } from './base-tooltip';
-import { generateTooltipAttributes } from '../component/tooltip';
+// eslint-disable-next-line no-duplicate-imports
+import { generateTooltipAttributes } from './base-tooltip';
 import { BridgeElementKey } from '../graph/constants';
 import type { IBaseScale } from '@visactor/vscale';
 
@@ -39,7 +41,7 @@ const computeTooltipFilterValue = (
   if (type === 'angle') {
     const center = tooltipCenter ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
     const angle = getAngleByPoint(center, point);
-    return scale.invert(angle);
+    return scale.invert(angle < 0 ? angle + Math.PI * 2 : angle);
   }
   return scale.invert(point.x);
 };
@@ -61,7 +63,7 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipPopoverOptions
     super(view, options);
     this.options = Object.assign({}, DimensionTooltip.defaultOptions, options);
     this._marks = view.getMarksBySelector(this.options.selector);
-    this._avoidMarks = view.getMarksBySelector(this.options.avoidMark);
+    this._avoidMarks = view.getMarksBySelector(this.options.avoidMark) ?? [];
     this._container = (view.getMarksBySelector(this.options.container)?.[0] as IGroupMark) ?? view.rootMark;
   }
 

@@ -130,22 +130,6 @@ export const runner = (view: View) => {
     .encode({
       text: (datum: any) => `${datum.amount}`
     });
-  const tooltip = view
-    .tooltip(container)
-    .target(bar)
-    .title({ value: 'HEY!HEY!HEY!' })
-    .encode({ offsetX: 20, offsetY: 40 })
-    .content([
-      {
-        key: 'category',
-        value: { field: 'category' }
-      },
-      {
-        key: { text: 'amount', fillColor: 'red' },
-        value: datum => datum.amount,
-        symbol: { fillColor: 'red', symbolType: 'square' }
-      }
-    ]);
 };
 
 export const callback = (chartInstance: any) => {

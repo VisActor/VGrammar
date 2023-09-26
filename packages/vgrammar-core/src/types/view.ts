@@ -23,20 +23,7 @@ import type { CommonPaddingSpec } from './base';
 import type { IMorphAnimationConfig } from './morph';
 import type { IBaseAnimate } from './animate';
 import type { IRenderer } from './renderer';
-import type {
-  IAxis,
-  ICrosshair,
-  IDatazoom,
-  IDimensionTooltip,
-  IGrid,
-  ILabel,
-  ILegend,
-  IPlayer,
-  IScrollbar,
-  ISlider,
-  ITitle,
-  ITooltip
-} from './component';
+import type { IAxis, IDatazoom, IGrid, ILabel, ILegend, IPlayer, IScrollbar, ISlider, ITitle } from './component';
 import type { CoordinateSpec } from './coordinate';
 import type { ITheme } from './theme';
 import type { IInteraction, InteractionSpec } from './interaction';
@@ -173,13 +160,10 @@ export interface IView {
   axis: (group: IGroupMark | string, mode?: '2d' | '3d') => IAxis;
   grid: (group: IGroupMark | string, mode?: '2d' | '3d') => IGrid;
   legend: (group: IGroupMark | string) => ILegend;
-  crosshair: (group: IGroupMark | string) => ICrosshair;
   slider: (group: IGroupMark | string) => ISlider;
   label: (group: IGroupMark | string) => ILabel;
   datazoom: (group: IGroupMark | string) => IDatazoom;
   player: (group: IGroupMark | string) => IPlayer;
-  tooltip: (group: IGroupMark | string) => ITooltip;
-  dimensionTooltip: (group: IGroupMark | string) => IDimensionTooltip;
   title: (group: IGroupMark | string) => ITitle;
   scrollbar: (group: IGroupMark | string) => IScrollbar;
 

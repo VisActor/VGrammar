@@ -65,14 +65,11 @@ export enum GrammarMarkType {
 export enum ComponentEnum {
   axis = 'axis',
   grid = 'grid',
-  crosshair = 'crosshair',
   legend = 'legend',
   slider = 'slider',
   label = 'label',
   datazoom = 'datazoom',
   player = 'player',
-  tooltip = 'tooltip',
-  dimensionTooltip = 'dimensionTooltip',
   title = 'title',
   scrollbar = 'scrollbar'
 }
