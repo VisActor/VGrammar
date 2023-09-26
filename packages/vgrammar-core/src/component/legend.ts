@@ -5,7 +5,7 @@ import { isContinuous } from '@visactor/vscale';
 import type { DiscreteLegendAttrs, ColorLegendAttributes, SizeLegendAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend } from '@visactor/vrender-components';
-import { array, isString, merge, last } from '@visactor/vutils';
+import { array, isString, merge, last, mixin } from '@visactor/vutils';
 import { ComponentEnum, LegendEnum } from '../graph';
 import type {
   BaseSignleEncodeSpec,
@@ -24,6 +24,7 @@ import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';
 import { Factory } from '../core/factory';
 import { LegendFilter } from '../interactions/legend-filter';
+import { Filter, FilterMixin } from '../interactions/filter';
 
 export const generateDiscreteLegendAttributes = (
   scale: IBaseScale,
@@ -236,5 +237,7 @@ export const registerLegend = () => {
   );
 
   Factory.registerComponent(ComponentEnum.legend, Legend);
+
+  mixin(Filter, FilterMixin);
   Factory.registerInteraction(LegendFilter.type, LegendFilter);
 };
