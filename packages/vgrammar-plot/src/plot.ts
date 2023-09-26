@@ -113,6 +113,7 @@ export class Plot implements IPlot {
     const spec: ViewSpec = {
       theme: this._theme,
       data: [],
+      interactions: [],
       marks: [],
       scales: [],
       coordinates: [],
@@ -125,7 +126,7 @@ export class Plot implements IPlot {
       if (this._coordinate) {
         mark.coordinate(this._coordinate);
       }
-      const { data, marks, scales, coordinates, signals, projections, events } = mark.toViewSpec();
+      const { data, marks, scales, coordinates, signals, projections, events, interactions } = mark.toViewSpec();
 
       if (data && data.length) {
         spec.data = mergeGrammarSpecs(data, spec.data);
@@ -150,11 +151,15 @@ export class Plot implements IPlot {
       if (events && events.length) {
         spec.events = spec.events.concat(events);
       }
+      if (interactions && interactions.length) {
+        spec.interactions = spec.interactions.concat(interactions);
+      }
     });
 
     spec.marks = [
       {
         type: 'group',
+        id: 'plotContainer',
         layout: {
           display: 'relative',
           updateViewSignals: true
