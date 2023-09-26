@@ -1,7 +1,6 @@
-import type { DataFilterOptions, IComponent, IData, IDataFilter, IMark, IView, InteractionEvent } from '../types';
+import type { DataFilterOptions, IData, IDataFilter, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
-import { GrammarMarkType } from '../graph';
-import { isString, mixin } from '@visactor/vutils';
+import { isString } from '@visactor/vutils';
 
 export interface FilterMixin {
   view: IView;
@@ -62,13 +61,8 @@ export abstract class Filter extends BaseInteraction<DataFilterOptions> {
 
   constructor(view: IView, options?: DataFilterOptions) {
     super(view, options);
-    this._marks = view
-      .getMarksBySelector(options.source)
-      .filter(mark => mark.markType === GrammarMarkType.component && (mark as IComponent).componentType === 'legend');
     if (options.target) {
       this._data = isString(options.target.data) ? view.getDataById(options.target.data) : options.target.data;
     }
   }
 }
-
-mixin(Filter, FilterMixin);

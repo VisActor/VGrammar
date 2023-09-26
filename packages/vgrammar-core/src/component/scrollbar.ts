@@ -1,4 +1,4 @@
-import { isString, merge } from '@visactor/vutils';
+import { isString, merge, mixin } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
 import type { Direction, OrientType, ScrollBarAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
@@ -21,6 +21,7 @@ import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
 import { ScaleComponent } from './scale';
 import { ScrollbarFilter } from '../interactions/scrollbar-filter';
+import { Filter, FilterMixin } from '../interactions/filter';
 
 function isValidDirection(direction: Direction) {
   return direction === 'vertical' || direction === 'horizontal';
@@ -207,5 +208,7 @@ export const registerScrollbar = () => {
   );
 
   Factory.registerComponent(ComponentEnum.scrollbar, Scrollbar);
+
+  mixin(Filter, FilterMixin);
   Factory.registerInteraction(ScrollbarFilter.type, ScrollbarFilter);
 };

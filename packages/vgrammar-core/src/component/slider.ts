@@ -1,4 +1,4 @@
-import { isNil, merge } from '@visactor/vutils';
+import { isNil, merge, mixin } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender';
 import type { SliderAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
@@ -21,6 +21,7 @@ import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
 import { SliderFilter } from '../interactions/slider-filter';
+import { Filter, FilterMixin } from '../interactions/filter';
 
 export const generateSliderAttributes = (
   min: number,
@@ -90,5 +91,7 @@ export const registerSlider = () => {
   );
 
   Factory.registerComponent(ComponentEnum.slider, Slider);
+
+  mixin(Filter, FilterMixin);
   Factory.registerInteraction(SliderFilter.type, SliderFilter);
 };
