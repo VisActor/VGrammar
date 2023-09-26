@@ -239,7 +239,14 @@ export function draw(
     ctx.save();
     ctx.textAlign = 'center';
     // ctx.textBaseline = 'middle'
-    ctx.font = word.fontStyle + ' ' + word.fontWeight + ' ' + word.fontSize * resizeFactor + 'px ' + word.fontFamily;
+    ctx.font =
+      (word.fontStyle ?? '') +
+      ' ' +
+      (word.fontWeight ?? '') +
+      ' ' +
+      word.fontSize * resizeFactor +
+      'px ' +
+      (word.fontFamily ?? '');
     // ctx.fillStyle = color || colorList[~~(Math.random() * colorList.length)]
     ctx.globalAlpha = word.opacity;
     ctx.translate(word.x * resizeFactor, word.y * resizeFactor);

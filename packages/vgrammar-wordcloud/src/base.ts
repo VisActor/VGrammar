@@ -6,10 +6,7 @@ import { functor, randomHslColor } from './util';
 
 export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgressiveTransformResult {
   static defaultOptions: Partial<IBaseLayoutOptions> = {
-    fontFamily: '"Trebuchet MS", "Heiti TC", "微軟正黑體", ' + '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
-    fontWeight: 'normal',
     color: 'random-dark',
-    fontStyle: 'normal',
     minFontSize: 12, // 0 to disable
     drawOutOfBound: false,
     shrink: false,

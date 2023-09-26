@@ -627,7 +627,14 @@ function cloudSprite(contextAndRatio: any, d: TagItem, data: TagItem[], di: numb
   while (++di < n) {
     d = data[di];
     c.save();
-    c.font = d.fontStyle + ' ' + d.fontWeight + ' ' + ~~((d.fontSize + 1) / ratio) + 'px ' + d.fontFamily;
+    c.font =
+      (d.fontStyle ?? '') +
+      ' ' +
+      (d.fontWeight ?? '') +
+      ' ' +
+      ~~((d.fontSize + 1) / ratio) +
+      'px ' +
+      (d.fontFamily ?? '');
     w = c.measureText(d.text + 'm').width * ratio;
     h = d.fontSize << 1;
     if (d.angle) {

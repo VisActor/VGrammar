@@ -38,8 +38,8 @@ test('GridLayout() when clip is false, some words will be drop', async () => {
     datum: data[3],
     fontFamily: 'sans-serif',
     fontSize: 13,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
+    fontStyle: '',
+    fontWeight: '',
     text: 'a simple text'
   });
 });

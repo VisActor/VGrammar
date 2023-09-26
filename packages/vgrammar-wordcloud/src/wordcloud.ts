@@ -68,9 +68,9 @@ export const transform = (
   // canvasSize必须是整数
   canvasSize[0] = Math.floor(canvasSize[0]);
   canvasSize[1] = Math.floor(canvasSize[1]);
-  const fontFamily = options.fontFamily ? field(options.fontFamily) : 'sans-serif';
-  const fontStyle = options.fontStyle ? field(options.fontStyle) : 'normal';
-  const fontWeight = options.fontWeight ? field(options.fontWeight) : 'normal';
+  const fontFamily = options.fontFamily ? field(options.fontFamily) : undefined;
+  const fontStyle = options.fontStyle ? field(options.fontStyle) : undefined;
+  const fontWeight = options.fontWeight ? field(options.fontWeight) : undefined;
   const rotate = options.rotate ? field(options.rotate) : 0;
   const text = field<string | number>(options.text);
   const spiral = options.spiral ?? 'archimedean';

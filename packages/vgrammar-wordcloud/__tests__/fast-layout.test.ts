@@ -38,8 +38,8 @@ test('FastLayout() when clip is false, some lone words will be drop', async () =
     datum: data[3],
     fontFamily: 'sans-serif',
     fontSize: 13,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
+    fontStyle: undefined,
+    fontWeight: undefined,
     text: 'a simple text',
     x: 50,
     y: 50

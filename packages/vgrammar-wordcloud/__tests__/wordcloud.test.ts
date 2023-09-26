@@ -91,10 +91,10 @@ test('Wordcloud generates wordcloud layout', async () => {
     data
   );
   expect(result.length).toBe(data.length);
-  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontFamily).toBeUndefined();
   expect(result[0].fontSize).toBe(7);
-  expect(result[0].fontStyle).toBe('normal');
-  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].fontStyle).toBeUndefined();
+  expect(result[0].fontWeight).toBeUndefined();
   expect(result[0].x).toBe(250);
   expect(result[0].y).toBe(250);
 });
@@ -117,10 +117,10 @@ test('Wordcloud generates wordcloud layout with negative data', async () => {
     data
   );
   expect(result.length).toBe(data.length);
-  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontFamily).toBeUndefined();
   expect(result[0].fontSize).toBe(7);
-  expect(result[0].fontStyle).toBe('normal');
-  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].fontStyle).toBeUndefined();
+  expect(result[0].fontWeight).toBeUndefined();
   expect(result[0].x).toBe(250);
   expect(result[0].y).toBe(250);
 });
@@ -141,10 +141,10 @@ test('Wordcloud generates wordcloud layout with negative data and -domain[0] ===
     data
   );
   expect(result.length).toBe(data.length);
-  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontFamily).toBeUndefined();
   expect(result[0].fontSize).toBe(7);
-  expect(result[0].fontStyle).toBe('normal');
-  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].fontStyle).toBeUndefined();
+  expect(result[0].fontWeight).toBeUndefined();
   expect(result[0].x).toBe(250);
   expect(result[0].y).toBe(250);
 });
@@ -162,10 +162,10 @@ test('Wordcloud generates wordcloud layout with one data', async () => {
     data
   );
   expect(result.length).toBe(data.length);
-  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontFamily).toBeUndefined();
   expect(result[0].fontSize).toBe(7);
-  expect(result[0].fontStyle).toBe('normal');
-  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].fontStyle).toBeUndefined();
+  expect(result[0].fontWeight).toBeUndefined();
   expect(result[0].x).toBe(250);
   expect(result[0].y).toBe(250);
 });
@@ -186,10 +186,10 @@ test('Wordcloud generates wordcloud layout with domain[0] == domain[1] & domain[
     data
   );
   expect(result.length).toBe(data.length);
-  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontFamily).toBeUndefined();
   expect(result[0].fontSize).toBe(1);
-  expect(result[0].fontStyle).toBe('normal');
-  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].fontStyle).toBeUndefined();
+  expect(result[0].fontWeight).toBeUndefined();
   expect(result[0].x).toBe(250);
   expect(result[0].y).toBe(250);
 });
@@ -210,10 +210,10 @@ test('Wordcloud generates wordcloud layout with domain[0] == domain[1] & domain[
     data
   );
   expect(result.length).toBe(data.length);
-  expect(result[0].fontFamily).toBe('sans-serif');
+  expect(result[0].fontFamily).toBeUndefined();
   expect(result[0].fontSize).toBe(1);
-  expect(result[0].fontStyle).toBe('normal');
-  expect(result[0].fontWeight).toBe('normal');
+  expect(result[0].fontStyle).toBeUndefined();
+  expect(result[0].fontWeight).toBeUndefined();
   expect(result[0].x).toBe(250);
   expect(result[0].y).toBe(250);
 });

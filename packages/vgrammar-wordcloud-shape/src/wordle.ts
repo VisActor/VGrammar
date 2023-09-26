@@ -579,7 +579,8 @@ export function measureSprite(
     const word = words[wi];
     const fontSize = Math.max(word.fontSize, 2); // 最小字号2px
     ctx.save();
-    ctx.font = word.fontStyle + ' ' + word.fontWeight + ' ' + fontSize + 'px ' + word.fontFamily;
+    ctx.font =
+      (word.fontStyle ?? '') + ' ' + (word.fontWeight ?? '') + ' ' + fontSize + 'px ' + (word.fontFamily ?? '');
 
     // 计算单词盒子宽高
     wordW = ctx.measureText(word.text + 'm').width + word.padding * 2;

@@ -110,10 +110,10 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
     }
 
     // Get fontWeight that will be used to set fctx.font
-    const fontWeight = this.getTextFontWeight(item);
-    const fontStyle = this.getTextFontStyle(item);
+    const fontWeight = this.getTextFontWeight(item) ?? '';
+    const fontStyle = this.getTextFontStyle(item) ?? '';
     const angle = this.getTextRotate ? this.getTextRotate(item) ?? 0 : 0;
-    const fontFamily = this.getTextFontFamily(item);
+    const fontFamily = this.getTextFontFamily(item) ?? '';
 
     // eslint-disable-next-line no-undef
     const fcanvas = document.createElement('canvas');
