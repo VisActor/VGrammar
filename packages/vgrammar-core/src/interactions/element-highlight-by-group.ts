@@ -3,7 +3,7 @@ import type { ElementHighlightOptions, IMark, IView, InteractionEvent } from '..
 import { BaseInteraction } from './base';
 import { InteractionStateEnum } from '../graph/enums';
 
-export class ElementHighlightByGroup extends BaseInteraction {
+export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOptions> {
   static type: string = 'element-highlight-by-group';
   type: string = ElementHighlightByGroup.type;
 
@@ -16,9 +16,9 @@ export class ElementHighlightByGroup extends BaseInteraction {
   options: ElementHighlightOptions;
   protected _marks?: IMark[];
 
-  constructor(view: IView, option?: ElementHighlightOptions) {
-    super(view);
-    this.options = Object.assign({}, ElementHighlightByGroup.defaultOptions, option);
+  constructor(view: IView, options?: ElementHighlightOptions) {
+    super(view, options);
+    this.options = Object.assign({}, ElementHighlightByGroup.defaultOptions, options);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }

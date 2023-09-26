@@ -3,7 +3,7 @@ import type { ElementHighlightByNameOptions, IElement, IGlyphElement, IMark, IVi
 import { BaseInteraction } from './base';
 import { array, isNil } from '@visactor/vutils';
 
-export class ElementHighlightByName extends BaseInteraction {
+export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNameOptions> {
   static type: string = 'element-highlight-by-name';
   type: string = ElementHighlightByName.type;
 
@@ -17,9 +17,9 @@ export class ElementHighlightByName extends BaseInteraction {
   options: ElementHighlightByNameOptions;
   protected _marks?: IMark[];
 
-  constructor(view: IView, option?: ElementHighlightByNameOptions) {
-    super(view);
-    this.options = Object.assign({}, ElementHighlightByName.defaultOptions, option);
+  constructor(view: IView, options?: ElementHighlightByNameOptions) {
+    super(view, options);
+    this.options = Object.assign({}, ElementHighlightByName.defaultOptions, options);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }

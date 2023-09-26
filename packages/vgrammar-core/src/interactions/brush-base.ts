@@ -11,13 +11,13 @@ import {
 } from '@visactor/vutils';
 import { HOOK_EVENT } from '../graph';
 
-export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction {
+export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<T> {
   options: T;
   protected _brushComp?: Brush;
   protected _marks?: IMark[];
 
   constructor(view: IView, options?: T) {
-    super(view);
+    super(view, options);
     this.options = options;
     this._marks = view.getMarksBySelector(this.options.selector);
   }

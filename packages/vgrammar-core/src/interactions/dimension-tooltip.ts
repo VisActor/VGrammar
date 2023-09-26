@@ -81,7 +81,7 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
     };
   }
 
-  protected handleTooltipShow = throttle((event: any, element: IElement) => {
+  protected handleTooltipShow = throttle((event: any) => {
     const scaleGrammar = isString(this.options.scale) ? this.view.getScaleById(this.options.scale) : this.options.scale;
     const scale = scaleGrammar.getScale();
     const groupGraphicItem = this._container.getGroupGraphicItem();
@@ -144,7 +144,7 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
     const bounds = new AABBBounds().set(boundsStart.x, boundsStart.y, boundsEnd.x, boundsEnd.y);
     const { title, content } = this._computeTitleContent(tooltipDatum);
     const theme = this.view.getCurrentTheme();
-    const addition = invokeFunctionType(this.options.attributes, {}, {}) as any;
+    const addition = invokeFunctionType(this.options.attributes, this.parameters(), {}) as any;
     const attributes = generateTooltipAttributes(point, title, content, bounds, theme, addition);
     this._tooltipComponent.setAttributes(attributes);
   }, 10);

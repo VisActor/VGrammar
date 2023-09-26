@@ -2,7 +2,7 @@ import { InteractionStateEnum } from '../graph/enums';
 import type { ElementHighlightOptions, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
-export class ElementHighlight extends BaseInteraction {
+export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
   static type: string = 'element-highlight';
   type: string = ElementHighlight.type;
 
@@ -15,9 +15,9 @@ export class ElementHighlight extends BaseInteraction {
   options: ElementHighlightOptions;
   protected _marks?: IMark[];
 
-  constructor(view: IView, option?: ElementHighlightOptions) {
-    super(view);
-    this.options = Object.assign({}, ElementHighlight.defaultOptions, option);
+  constructor(view: IView, options?: ElementHighlightOptions) {
+    super(view, options);
+    this.options = Object.assign({}, ElementHighlight.defaultOptions, options);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }

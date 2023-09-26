@@ -854,18 +854,19 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             if (userOption.type === 'polygon') {
               interactionSpec.crosshairType = 'radius-polygon';
               const anotherDimScaleId = this.getScaleId(channel === 'x' ? 'y' : 'x');
-              (interactionSpec.attributes as any).sides = (datum: any, el: IElement, params: any) => {
+              (interactionSpec.attributes as any).sides = (datum: any, params: any) => {
                 const scale = params[anotherDimScaleId];
                 return scale && isDiscrete(scale.type) ? scale.domain().length : undefined;
               };
-              (interactionSpec.attributes as any).startAngle = (datum: any, el: IElement, params: any) => {
+              (interactionSpec.attributes as any).startAngle = (datum: any, params: any) => {
                 const scale = params[anotherDimScaleId];
                 return scale && isDiscrete(scale.type) ? scale.range()[0] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
               };
-              (interactionSpec.attributes as any).endAngle = (datum: any, el: IElement, params: any) => {
+              (interactionSpec.attributes as any).endAngle = (datum: any, params: any) => {
                 const scale = params[anotherDimScaleId];
                 return scale && isDiscrete(scale.type) ? scale.range()[1] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
               };
+              interactionSpec.dependencies = [anotherDimScaleId];
             }
           }
           res.interactions.push(interactionSpec);
@@ -928,11 +929,11 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                   ? isArray(tooltipSpec.staticContentKey)
                     ? tooltipSpec.staticContentKey[index]
                     : tooltipSpec.staticContentKey
-                  : (datum: any, el: IElement, params: any) => {
+                  : (datum: any, params: any) => {
                       return colorAccessor ? colorAccessor(datum) : undefined;
                     },
                 value: { field: entry.value },
-                symbol: (datum: any, el: IElement, params: any) => {
+                symbol: (datum: any, params: any) => {
                   const scale = params[this.getScaleId(colorChannel)];
                   const shapeScale = params[this.getScaleId('shape')];
                   let symbolType = 'circle';
@@ -957,7 +958,8 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           content,
           attributes: {
             zIndex: 1000
-          }
+          },
+          dependencies: [this.getScaleId(colorChannel), this.getScaleId('shape')]
         };
         res.interactions.push(interactionSpec);
       }
@@ -974,7 +976,8 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           avoidMark: tooltipSpec.disableGraphicTooltip ? [] : [`#${this.getMarkId()}`],
           attributes: {
             zIndex: 1000
-          }
+          },
+          dependencies: [this.getScaleId(colorChannel), this.getScaleId('shape')]
         };
         res.interactions.push(interactionSpec);
       }
