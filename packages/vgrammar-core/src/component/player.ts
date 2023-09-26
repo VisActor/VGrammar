@@ -6,7 +6,6 @@ import type {
   IDiscretePlayer
 } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { PlayerEventEnum } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { ContinuousPlayer, DiscretePlayer } from '@visactor/vrender-components';
 import type {
@@ -20,7 +19,7 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { DataFilterRank, ComponentEnum, PlayerEnum } from '../graph';
+import { ComponentEnum, PlayerEnum } from '../graph';
 import type { IPlayer, PlayerFilterValue, PlayerSpec, PlayerType } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
@@ -61,7 +60,6 @@ export class Player extends Component implements IPlayer {
   protected parseAddition(spec: PlayerSpec) {
     super.parseAddition(spec);
     this.playerType(spec.playerType);
-    this.target(spec.target?.data, spec.target?.source);
     this.source(spec.source);
     return this;
   }
@@ -72,36 +70,6 @@ export class Player extends Component implements IPlayer {
     this._playerComponentType = null;
     this._prepareRejoin();
     this.commit();
-    return this;
-  }
-
-  target(data: IData | string | Nil, source: IData | string | any[] | Nil) {
-    if (this.spec.target?.source) {
-      const lastSource = this.spec.target?.source;
-      const lastSourceDataGrammar = isArray(lastSource)
-        ? null
-        : isString(lastSource)
-        ? this.view.getDataById(lastSource)
-        : lastSource;
-      this.detach(lastSourceDataGrammar);
-    }
-    const sourceDataGrammar = isArray(source) ? null : isString(source) ? this.view.getDataById(source) : source;
-    this.attach(sourceDataGrammar);
-
-    const lastData = this.spec.target?.data;
-    const lastDataGrammar = isString(lastData) ? this.view.getDataById(lastData) : lastData;
-    if (lastDataGrammar) {
-      this.view.removeEventListener(PlayerEventEnum.OnChange, this._filterCallback);
-    }
-    this.spec.target = undefined;
-    const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
-    const getFilterValue = (event: any) => ({ index: event.detail.index, value: event.detail.value });
-    const dataTransform = (data: any[], filterValue: PlayerFilterValue) => filterValue.value;
-    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.player, getFilterValue, undefined, dataTransform);
-    if (dataGrammar) {
-      this.view.addEventListener(PlayerEventEnum.OnChange, this._filterCallback);
-      this.spec.target = { data: dataGrammar, source };
-    }
     return this;
   }
 

@@ -29,12 +29,6 @@ export const runner = (view: IView) => {
   });
   const yScale = view.scale('linear').domain([100, 0]).range([0, 270]);
   const colorScale = view.scale('ordinal').domain({ data: data, field: 'type' }).range(category10);
-  const rightLegend = view
-    .legend(view.rootMark)
-    .id('rightLegend')
-    .scale(colorScale)
-    .target(markData, 'type')
-    .encode({ x: 340, y: 160 });
   const xAxis = view
     .axis(view.rootMark)
     .id('xAxis')

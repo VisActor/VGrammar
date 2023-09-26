@@ -1,3 +1,15 @@
+import type { IPointLike } from '@visactor/vutils';
+// eslint-disable-next-line no-duplicate-imports
+import { clampRadian, getAngleByPoint, isString, merge } from '@visactor/vutils';
+import type { IRectGraphicAttribute } from '@visactor/vrender';
+import type {
+  CircleCrosshairAttrs,
+  LineCrosshairAttrs,
+  PolygonCrosshairAttrs,
+  RectCrosshairAttrs,
+  SectorCrosshairAttrs
+} from '@visactor/vrender-components';
+// eslint-disable-next-line no-duplicate-imports
 import {
   CircleCrosshair,
   LineCrosshair,
@@ -5,20 +17,258 @@ import {
   RectCrosshair,
   SectorCrosshair
 } from '@visactor/vrender-components';
-import type { CrosshairPopoverOptions, IGroupMark, IView, InteractionEvent } from '../types';
+import type {
+  CrosshairPopoverOptions,
+  CrosshairType,
+  IGroupMark,
+  ITheme,
+  IView,
+  InteractionEvent,
+  RecursivePartial
+} from '../types';
 import { BaseInteraction } from './base';
 import { CrosshairEnum } from '../graph';
-import { isString } from '@visactor/vutils';
-import {
-  generateCircleCrosshairAttributes,
-  generateLineCrosshairAttributes,
-  generatePolygonCrosshairAttributes,
-  generateRectCrosshairAttributes,
-  generateRingCrosshairAttributes,
-  generateSectorCrosshairAttributes
-} from '../component/crosshair';
+import type { IBandLikeScale, IBaseScale } from '@visactor/vscale';
+// eslint-disable-next-line no-duplicate-imports
+import { isContinuous, isDiscrete } from '@visactor/vscale';
 
 type CrosshairComponent = CircleCrosshair | LineCrosshair | PolygonCrosshair | RectCrosshair | SectorCrosshair;
+
+const computeCrosshairStartEnd = (
+  point: IPointLike,
+  scale: IBaseScale,
+  type: CrosshairType,
+  groupSize: { width: number; height: number },
+  config: any,
+  offset: number = 0
+) => {
+  const start = { x: 0, y: 0 };
+  const end = { x: 0, y: 0 };
+  const radius = type === 'angle' ? config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2 : null;
+  const center = type === 'angle' ? config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 } : null;
+
+  let current = 0;
+  if (isDiscrete(scale.type)) {
+    if (type === 'x') {
+      current = scale.scale(scale.invert(point.x));
+    } else if (type === 'y') {
+      current = scale.scale(scale.invert(point.y));
+    } else if (type === 'angle') {
+      const angle = clampRadian(getAngleByPoint(center, point) + Math.PI * 2);
+      current = scale.scale(scale.invert(angle));
+    }
+  } else if (isContinuous(scale.type)) {
+    if (type === 'x') {
+      current = point.x;
+    } else if (type === 'y') {
+      current = point.y;
+    } else if (type === 'angle') {
+      current = getAngleByPoint(center, point);
+    }
+  }
+  current += offset;
+  switch (type) {
+    case 'x':
+      start.x = current;
+      start.y = 0;
+      end.x = current;
+      end.y = groupSize.height;
+      break;
+    case 'y':
+      start.x = 0;
+      start.y = current;
+      end.x = groupSize.width;
+      end.y = current;
+      break;
+    case 'angle':
+      start.x = center.x;
+      start.y = center.y;
+      end.x = center.x + radius * Math.cos(current);
+      end.y = center.y + radius * Math.sin(current);
+      break;
+  }
+  return { start, end };
+};
+
+const computeRadiusOfTangential = (
+  point: IPointLike,
+  scale: IBaseScale,
+  type: CrosshairType,
+  groupSize: { width: number; height: number },
+  config: any,
+  addition?:
+    | RecursivePartial<PolygonCrosshairAttrs>
+    | RecursivePartial<CircleCrosshairAttrs>
+    | RecursivePartial<SectorCrosshairAttrs>
+) => {
+  const center = addition?.center ?? config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 };
+  let currentRadius = 0;
+
+  if (isDiscrete(scale.type)) {
+    const offset = scale.type === 'band' ? (scale as IBandLikeScale).bandwidth() / 2 : 0;
+    const radius = Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2);
+    currentRadius = scale.scale(scale.invert(radius)) + offset;
+  } else if (isContinuous(scale.type)) {
+    const maxRadius = config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2;
+    currentRadius = Math.min(maxRadius, Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2));
+  }
+
+  return { radius: currentRadius, center };
+};
+
+export const generateLineCrosshairAttributes = (
+  point: IPointLike,
+  scale: IBaseScale,
+  type: CrosshairType,
+  groupSize: { width: number; height: number },
+  config: any,
+  theme?: ITheme,
+  addition?: RecursivePartial<LineCrosshairAttrs> & any
+): LineCrosshairAttrs => {
+  const crosshairTheme = theme?.components?.lineCrosshair;
+  const offset = scale.type === 'band' ? (scale as IBandLikeScale).bandwidth() / 2 : 0;
+  const points = computeCrosshairStartEnd(
+    point,
+    scale,
+    type,
+    groupSize,
+    {
+      radius: addition?.radius ?? config?.radius,
+      center: addition?.center ?? config?.center
+    },
+    offset
+  );
+  return merge({}, crosshairTheme, points, addition ?? {});
+};
+
+export const generateRectCrosshairAttributes = (
+  point: IPointLike,
+  scale: IBaseScale,
+  type: CrosshairType,
+  groupSize: { width: number; height: number },
+  config: any,
+  theme?: ITheme,
+  addition?: RecursivePartial<RectCrosshairAttrs>
+): RectCrosshairAttrs => {
+  const crosshairTheme = theme?.components?.rectCrosshair;
+  const defaultSize = scale.type === 'band' || scale.type === 'point' ? (scale as IBandLikeScale).step() : undefined;
+  const customRectStyle = addition?.rectStyle;
+  const size =
+    defaultSize ??
+    (type === 'y'
+      ? customRectStyle?.width ?? crosshairTheme.rectStyle.width
+      : customRectStyle?.height ?? crosshairTheme.rectStyle.height);
+  const points = computeCrosshairStartEnd(point, scale, type, groupSize, config, scale.type === 'band' ? 0 : -size / 2);
+  const rectStyle: Partial<IRectGraphicAttribute> = {};
+  if (type === 'x') {
+    rectStyle.width = size;
+  } else {
+    rectStyle.height = size;
+  }
+  const attribute = merge(
+    {},
+    crosshairTheme,
+    {
+      start: points.start,
+      end: points.end,
+      rectStyle
+    },
+    addition ?? {}
+  );
+  if (type === 'x') {
+    attribute.rectStyle.height = attribute.end.y - attribute.start.y;
+  } else {
+    attribute.rectStyle.width = attribute.end.x - attribute.start.x;
+  }
+  return attribute;
+};
+
+export const generateRingCrosshairAttributes = (
+  point: IPointLike,
+  scale: IBaseScale,
+  type: CrosshairType,
+  groupSize: { width: number; height: number },
+  config: any,
+  theme?: ITheme,
+  addition?: RecursivePartial<SectorCrosshairAttrs>
+): SectorCrosshairAttrs => {
+  const crosshairTheme = theme?.components?.circleCrosshair;
+  const { center, radius } = computeRadiusOfTangential(point, scale, type, groupSize, config, addition);
+
+  const startAngle = crosshairTheme.startAngle;
+  const endAngle = crosshairTheme.endAngle;
+  const deltaRadius = scale.type === 'band' || scale.type === 'point' ? (scale as IBandLikeScale).step() : 0;
+
+  return merge(
+    {},
+    crosshairTheme,
+    { center, innerRadius: radius - deltaRadius / 2, radius: radius + deltaRadius / 2, startAngle, endAngle },
+    addition ?? {}
+  );
+};
+
+export const generateSectorCrosshairAttributes = (
+  point: IPointLike,
+  scale: IBaseScale,
+  type: CrosshairType,
+  groupSize: { width: number; height: number },
+  config: any,
+  theme?: ITheme,
+  addition?: RecursivePartial<SectorCrosshairAttrs>
+): SectorCrosshairAttrs => {
+  const crosshairTheme = theme?.components?.sectorCrosshair;
+  const radius = addition?.radius ?? config?.radius ?? Math.min(groupSize.width, groupSize.height) / 2;
+  const center = (addition?.center ??
+    config?.center ?? { x: groupSize.width / 2, y: groupSize.height / 2 }) as IPointLike;
+  const defaultAngle = crosshairTheme.endAngle - crosshairTheme.startAngle;
+  const angle = scale.type === 'band' || scale.type === 'point' ? (scale as IBandLikeScale).step() : defaultAngle;
+  let currentAngle = 0;
+  if (isDiscrete(scale.type)) {
+    const angle = clampRadian(getAngleByPoint(center, point) + Math.PI * 2);
+    currentAngle =
+      scale.scale(scale.invert(angle)) + (scale.type === 'band' ? (scale as IBandLikeScale).bandwidth() / 2 : 0);
+  } else if (isContinuous(scale.type)) {
+    currentAngle = getAngleByPoint(center, point);
+  }
+  const startAngle = currentAngle - angle / 2;
+  const endAngle = currentAngle + angle / 2;
+  return merge({}, crosshairTheme, { center, radius, startAngle, endAngle }, addition ?? {});
+};
+
+export const generateCircleCrosshairAttributes = (
+  point: IPointLike,
+  scale: IBaseScale,
+  type: CrosshairType,
+  groupSize: { width: number; height: number },
+  config: any,
+  theme?: ITheme,
+  addition?: RecursivePartial<CircleCrosshairAttrs>
+): CircleCrosshairAttrs => {
+  const crosshairTheme = theme?.components?.circleCrosshair;
+  const { center, radius } = computeRadiusOfTangential(point, scale, type, groupSize, config, addition);
+
+  const startAngle = crosshairTheme.startAngle;
+  const endAngle = crosshairTheme.endAngle;
+
+  return merge({}, crosshairTheme, { center, radius: radius, startAngle, endAngle }, addition ?? {});
+};
+
+export const generatePolygonCrosshairAttributes = (
+  point: IPointLike,
+  scale: IBaseScale,
+  type: CrosshairType,
+  groupSize: { width: number; height: number },
+  config: any,
+  theme?: ITheme,
+  addition?: RecursivePartial<PolygonCrosshairAttrs>
+): PolygonCrosshairAttrs => {
+  const crosshairTheme = theme?.components?.circleCrosshair;
+  const { center, radius } = computeRadiusOfTangential(point, scale, type, groupSize, config, addition);
+
+  const startAngle = crosshairTheme.startAngle;
+  const endAngle = crosshairTheme.endAngle;
+  return merge({}, crosshairTheme, { center, radius: radius, startAngle, endAngle }, addition ?? {});
+};
 
 export class Crosshair extends BaseInteraction {
   static type: string = 'crosshair';
@@ -105,8 +355,11 @@ export class Crosshair extends BaseInteraction {
         attributes = generateRingCrosshairAttributes(point, scale, crosshairType, groupSize, config, theme, addition);
         break;
     }
-    attributes.x = groupGraphicItem.attribute.x;
-    attributes.y = groupGraphicItem.attribute.y;
+    // Hack: waiting for component to fix
+    if (this.getCrosshairComponentType() !== CrosshairEnum.circleCrosshair) {
+      attributes.x = groupGraphicItem.attribute.x;
+      attributes.y = groupGraphicItem.attribute.y;
+    }
     this._crosshairComponent.showAll();
     this._crosshairComponent.setAttributes(attributes);
   };

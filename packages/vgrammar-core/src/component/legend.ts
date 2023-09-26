@@ -4,12 +4,11 @@ import type { IBaseScale } from '@visactor/vscale';
 import { isContinuous } from '@visactor/vscale';
 import type { DiscreteLegendAttrs, ColorLegendAttributes, SizeLegendAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
-import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend, LegendEvent } from '@visactor/vrender-components';
+import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend } from '@visactor/vrender-components';
 import { array, isString, merge, last } from '@visactor/vutils';
-import { DataFilterRank, ComponentEnum, LegendEnum } from '../graph';
+import { ComponentEnum, LegendEnum } from '../graph';
 import type {
   BaseSignleEncodeSpec,
-  IData,
   IElement,
   IGroupMark,
   IScale,
@@ -109,7 +108,6 @@ export class Legend extends ScaleComponent implements ILegend {
   protected parseAddition(spec: LegendSpec) {
     this.shapeScale(spec.shapeScale);
     super.parseAddition(spec);
-    this.target(spec.target?.data, spec.target?.filter);
     this.legendType(spec.legendType);
     return this;
   }
@@ -147,32 +145,6 @@ export class Legend extends ScaleComponent implements ILegend {
 
   isContinuousLegend() {
     return this._getLegendComponentType() !== LegendEnum.discreteLegend;
-  }
-
-  target(data: IData | string | Nil, filter: string | ((datum: any, legendValues: any) => boolean) | Nil) {
-    const isContinuous = this.isContinuousLegend();
-    const eventName = isContinuous ? 'change' : LegendEvent.legendItemClick;
-    const lastData = this.spec.target?.data;
-    const lastDataGrammar = isString(lastData) ? this.view.getDataById(lastData) : lastData;
-    if (lastDataGrammar) {
-      this.view.removeEventListener(eventName, this._filterCallback);
-    }
-    this.spec.target = undefined;
-    const dataGrammar = isString(data) ? this.view.getDataById(data) : data;
-    const getFilterValue = (event: any) =>
-      isContinuous ? { start: event.detail.value[0], end: event.detail.value[1] } : event.detail.currentSelected;
-    const dataFilter = isString(filter)
-      ? isContinuous
-        ? (datum: any, filterValue: { start: number; end: number }) =>
-            datum[filter] >= filterValue.start && datum[filter] <= filterValue.end
-        : (datum: any, filterValue: any[]) => filterValue.includes(datum[filter])
-      : filter;
-    this._filterData(lastDataGrammar, dataGrammar, DataFilterRank.legend, getFilterValue, dataFilter);
-    if (dataGrammar) {
-      this.view.addEventListener(eventName, this._filterCallback);
-      this.spec.target = { data: dataGrammar, filter };
-    }
-    return this;
   }
 
   setSelected(selectedValues: any[]) {

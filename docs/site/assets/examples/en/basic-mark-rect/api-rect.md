@@ -116,11 +116,10 @@ const rect = vGrammarView
   })
   .encodeState('hover', 'fill', 'red');
 
-const tooltip = vGrammarView
-  .tooltip(group)
-  .target(rect)
-  .title({ visible: false, value: 'value' })
-  .content([
+vGrammarView.interaction('tooltip', {
+  selector: rect,
+  title: { visible: false, value: 'value' },
+  content: [
     {
       key: { field: 'name' },
       value: { field: 'value' },
@@ -129,7 +128,8 @@ const tooltip = vGrammarView
         fill: '#6690F2'
       }
     }
-  ]);
+  ]
+});
 
 vGrammarView.runAsync();
 

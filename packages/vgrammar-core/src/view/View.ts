@@ -55,8 +55,6 @@ import {
   SIGNAL_HEIGHT,
   SIGNAL_PADDING,
   SIGNAL_AUTOFIT,
-  CURSOR_DEFAULT,
-  DEFAULT_HOVER_STATE,
   SIGNAL_VIEW_WIDTH,
   SIGNAL_VIEW_HEIGHT,
   EVENT_SOURCE_VIEW,
@@ -85,20 +83,17 @@ import { Morph } from '../graph/animation/morph';
 import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
 import { ViewAnimate } from './animate';
 import type { IRenderer } from '../types/renderer';
-import { ComponentEnum, HOOK_EVENT, LayoutState, GrammarMarkType, GrammarTypeEnum } from '../graph/enums';
+import { ComponentEnum, HOOK_EVENT, LayoutState, GrammarMarkType } from '../graph/enums';
 import type {
   IAxis,
-  ICrosshair,
   IDatazoom,
-  IDimensionTooltip,
   IGrid,
   ILabel,
   ILegend,
   IPlayer,
   IScrollbar,
   ISlider,
-  ITitle,
-  ITooltip
+  ITitle
 } from '../types/component';
 import { Interval } from '../semantic-marks/interval';
 import { Cell } from '../semantic-marks/cell';
@@ -370,10 +365,6 @@ export default class View extends EventEmitter implements IView {
     return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.legend }) as ILegend;
   }
 
-  crosshair(group: IGroupMark | string) {
-    return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.crosshair }) as ICrosshair;
-  }
-
   slider(group: IGroupMark | string) {
     return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.slider }) as ISlider;
   }
@@ -388,16 +379,6 @@ export default class View extends EventEmitter implements IView {
 
   player(group: IGroupMark | string) {
     return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.player }) as IPlayer;
-  }
-
-  tooltip(group: IGroupMark | string) {
-    return this.mark(GrammarMarkType.component, group, { componentType: ComponentEnum.tooltip }) as ITooltip;
-  }
-
-  dimensionTooltip(group: IGroupMark | string) {
-    return this.mark(GrammarMarkType.component, group, {
-      componentType: ComponentEnum.dimensionTooltip
-    }) as IDimensionTooltip;
   }
 
   title(group: IGroupMark | string) {
