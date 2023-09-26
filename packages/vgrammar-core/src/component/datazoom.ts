@@ -22,7 +22,7 @@ import { invokeEncoder } from '../graph/mark/encode';
 import { Component } from '../view/component';
 import { parseEncodeType } from '../parse/mark';
 import { Factory } from '../core/factory';
-import { registerDatazoomFilter } from '../interactions';
+import { DatazoomFilter } from '../interactions/datazoom-filter';
 
 export const generateDatazoomAttributes = (
   data: any[],
@@ -95,12 +95,6 @@ export class Datazoom extends Component implements IDatazoom {
     const initialAttributes = Object.assign({}, theme?.components?.datazoom, attrs);
     const graphicItem = Factory.createGraphicComponent(this.componentType, initialAttributes);
     const datazoom = graphicItem as unknown as DatazoomComponent;
-    // FIXME: remove this logic when datazoom provides update event.
-    if (this._filterCallback) {
-      datazoom.setUpdateStateCallback((start: number, end: number) => {
-        this._filterCallback({ start, end }, this.elements[0]);
-      });
-    }
     datazoom.setStatePointToData(state => {
       if (this.spec.preview) {
         return this.invertDatazoomRatio(state) ?? state;
@@ -189,5 +183,5 @@ export const registerDataZoom = () => {
   );
 
   Factory.registerComponent(ComponentEnum.datazoom, Datazoom);
-  registerDatazoomFilter();
+  Factory.registerInteraction(DatazoomFilter.type, DatazoomFilter);
 };

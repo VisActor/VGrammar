@@ -18,7 +18,7 @@ import {
   SectorCrosshair
 } from '@visactor/vrender-components';
 import type {
-  CrosshairPopoverOptions,
+  CrosshairOptions,
   CrosshairType,
   IGroupMark,
   ITheme,
@@ -273,9 +273,9 @@ export const generatePolygonCrosshairAttributes = (
 export class Crosshair extends BaseInteraction {
   static type: string = 'crosshair';
   type: string = Crosshair.type;
-  options: CrosshairPopoverOptions;
+  options: CrosshairOptions;
 
-  static defaultOptions: Omit<CrosshairPopoverOptions, 'target'> = {
+  static defaultOptions: Omit<CrosshairOptions, 'target'> = {
     trigger: 'pointermove',
     resetTrigger: 'pointerleave',
     crosshairType: 'x',
@@ -286,7 +286,7 @@ export class Crosshair extends BaseInteraction {
   protected _crosshairComponentType?: keyof typeof CrosshairEnum;
   protected _container: IGroupMark;
 
-  constructor(view: IView, options?: CrosshairPopoverOptions) {
+  constructor(view: IView, options?: CrosshairOptions) {
     super(view);
     this.options = Object.assign({}, Crosshair.defaultOptions, options);
     this._container = (view.getMarksBySelector(this.options.container)?.[0] as IGroupMark) ?? view.rootMark;
