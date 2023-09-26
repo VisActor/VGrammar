@@ -96,12 +96,6 @@ const yAxis = vGrammarView
       verticalFactor: -1
     };
   });
-const crosshair = vGrammarView
-  .crosshair(group)
-  .scale(xScale)
-  .depend(['viewBox'])
-  .crosshairType('x')
-  .crosshairShape('rect');
 
 const rect = vGrammarView
   .mark('rect', group)
