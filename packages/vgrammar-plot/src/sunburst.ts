@@ -10,7 +10,8 @@ import type {
   TransformSpec,
   IElement,
   DataSpec,
-  LabelSpec
+  LabelSpec,
+  InteractionSpec
 } from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 import { GrammarMarkType, SIGNAL_VIEW_BOX, Factory } from '@visactor/vgrammar-core';
@@ -132,9 +133,9 @@ export class SunburstSemanticMark extends SemanticMark<PlotSunburstEncodeSpec, S
     return { key: 'key' };
   }
 
-  protected parseLabelSpec(): LabelSpec[] {
+  protected parseLabelSpec() {
     // TODO use arc label in the future
-    return [];
+    return { marks: [] as LabelSpec[], interactions: [] as InteractionSpec[] };
   }
 
   setMultiMarksSpec() {

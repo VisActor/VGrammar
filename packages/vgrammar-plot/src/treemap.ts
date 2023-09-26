@@ -9,7 +9,8 @@ import type {
   ValueOf,
   TransformSpec,
   IElement,
-  LabelSpec
+  LabelSpec,
+  InteractionSpec
 } from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
@@ -100,9 +101,9 @@ export class TreemapSemanticMark extends SemanticMark<PlotTreemapEncodeSpec, Tre
     return { key: 'key' };
   }
 
-  protected parseLabelSpec(): LabelSpec[] {
+  protected parseLabelSpec() {
     // TODO use arc label in the future
-    return [];
+    return { marks: [] as LabelSpec[], interactions: [] as InteractionSpec[] };
   }
 
   setMultiMarksSpec() {
