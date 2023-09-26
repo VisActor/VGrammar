@@ -15,6 +15,8 @@ import { RollUp } from './roll-up';
 import { Tooltip } from './tooltip';
 import { DimensionTooltip } from './dimension-tooltip';
 import { Crosshair } from './crosshair';
+import { FilterMixin } from './filter';
+import { mixin } from '@visactor/vutils';
 
 export const registerElementActive = () => {
   Factory.registerInteraction(ElementActive.type, ElementActive);
@@ -57,10 +59,12 @@ export const registerBrushActive = () => {
 };
 
 export const registerBrushFilter = () => {
+  mixin(BrushFilter, FilterMixin);
   Factory.registerInteraction(BrushFilter.type, BrushFilter);
 };
 
 export const registerDrillDown = () => {
+  mixin(DrillDown, FilterMixin);
   Factory.registerInteraction(DrillDown.type, DrillDown);
 };
 
