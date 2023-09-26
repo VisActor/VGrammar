@@ -9,7 +9,8 @@ import type {
   ValueOf,
   TransformSpec,
   IElement,
-  LabelSpec
+  LabelSpec,
+  InteractionSpec
 } from '@visactor/vgrammar-core';
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
@@ -103,7 +104,8 @@ export class WordcloudSemanticMark extends SemanticMark<PlotWordcloudEncodeSpec,
     return res;
   }
 
-  protected parseLabelSpec(): LabelSpec[] {
-    return [];
+  protected parseLabelSpec() {
+    // TODO use arc label in the future
+    return { marks: [] as LabelSpec[], interactions: [] as InteractionSpec[] };
   }
 }
