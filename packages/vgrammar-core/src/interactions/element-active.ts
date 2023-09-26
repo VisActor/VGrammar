@@ -2,7 +2,7 @@ import { InteractionStateEnum } from '../graph/enums';
 import type { ElementActiveOptions, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
-export class ElementActive extends BaseInteraction {
+export class ElementActive extends BaseInteraction<ElementActiveOptions> {
   static type: string = 'element-active';
   type: string = ElementActive.type;
 
@@ -14,9 +14,9 @@ export class ElementActive extends BaseInteraction {
   options: ElementActiveOptions;
   protected _marks?: IMark[];
 
-  constructor(view: IView, option?: ElementActiveOptions) {
-    super(view);
-    this.options = Object.assign({}, ElementActive.defaultOptions, option);
+  constructor(view: IView, options?: ElementActiveOptions) {
+    super(view, options);
+    this.options = Object.assign({}, ElementActive.defaultOptions, options);
 
     this._marks = view.getMarksBySelector(this.options.selector);
   }
