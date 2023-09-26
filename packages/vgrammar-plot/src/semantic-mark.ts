@@ -28,7 +28,6 @@ import type {
   AxisSpec,
   CrosshairSpec,
   DatazoomSpec,
-  DimensionTooltipSpec,
   LabelSpec,
   LegendSpec,
   PlayerSpec,
@@ -720,10 +719,6 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             scale: this.getScaleId(channel),
             shapeScale: this.getScaleId('shape'),
             dependency: [SIGNAL_VIEW_BOX],
-            target: {
-              data: this.getDataIdOfFiltered(),
-              filter: this.spec.encode?.[channel]
-            },
             encode: {
               update: (datum: any, element: IElement, params: any) => {
                 const calculatedAttrs =
@@ -777,177 +772,177 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return (this._coordinate?.transpose ? (channel === 'x' ? 'y' : 'x') : channel) as 'x' | 'y' | 'angle' | 'radius';
   }
 
-  protected parseCrosshairSpec(): CrosshairSpec[] {
-    const defaultCrosshair = this.setDefaultCrosshair();
-    const defaultKeys = Object.keys(defaultCrosshair);
-    const crosshairKeys = this.spec.crosshair
-      ? Object.keys(this.spec.crosshair).reduce((res, key) => {
-          if (!res.includes(key)) {
-            res.push(key);
-          }
+  // protected parseCrosshairSpec(): CrosshairSpec[] {
+  //   const defaultCrosshair = this.setDefaultCrosshair();
+  //   const defaultKeys = Object.keys(defaultCrosshair);
+  //   const crosshairKeys = this.spec.crosshair
+  //     ? Object.keys(this.spec.crosshair).reduce((res, key) => {
+  //         if (!res.includes(key)) {
+  //           res.push(key);
+  //         }
 
-          return res;
-        }, defaultKeys)
-      : defaultKeys;
-    const res: CrosshairSpec[] = [];
+  //         return res;
+  //       }, defaultKeys)
+  //     : defaultKeys;
+  //   const res: CrosshairSpec[] = [];
 
-    if (crosshairKeys.length) {
-      crosshairKeys.forEach(channel => {
-        const userOption = this.spec.crosshair?.[channel];
-        const option = userOption ?? defaultCrosshair[channel];
+  //   if (crosshairKeys.length) {
+  //     crosshairKeys.forEach(channel => {
+  //       const userOption = this.spec.crosshair?.[channel];
+  //       const option = userOption ?? defaultCrosshair[channel];
 
-        if (option) {
-          const scaleId = this.getScaleId(channel);
-          const scaleSpec = this.getScaleSpec(scaleId);
+  //       if (option) {
+  //         const scaleId = this.getScaleId(channel);
+  //         const scaleSpec = this.getScaleSpec(scaleId);
 
-          const markSpec: CrosshairSpec = {
-            type: 'component',
-            componentType: ComponentEnum.crosshair,
-            scale: this.getScaleId(channel),
-            dependency: [SIGNAL_VIEW_BOX],
-            crosshairShape: isBoolean(option)
-              ? scaleSpec?.type === 'band'
-                ? 'rect'
-                : 'line'
-              : (option as CrosshairSpec).crosshairShape ?? (scaleSpec?.type === 'band' ? 'rect' : 'line'),
-            crosshairType: this.getVisualChannel(channel as 'x' | 'y')
-          };
+  //         const markSpec: CrosshairSpec = {
+  //           type: 'component',
+  //           componentType: ComponentEnum.crosshair,
+  //           scale: this.getScaleId(channel),
+  //           dependency: [SIGNAL_VIEW_BOX],
+  //           crosshairShape: isBoolean(option)
+  //             ? scaleSpec?.type === 'band'
+  //               ? 'rect'
+  //               : 'line'
+  //             : (option as CrosshairSpec).crosshairShape ?? (scaleSpec?.type === 'band' ? 'rect' : 'line'),
+  //           crosshairType: this.getVisualChannel(channel as 'x' | 'y')
+  //         };
 
-          if (isPlainObject(userOption)) {
-            markSpec.encode = {
-              update: userOption
-            };
-            if (userOption.type === 'polygon') {
-              markSpec.crosshairType = 'radius-polygon';
-              const anotherDimScaleId = this.getScaleId(channel === 'x' ? 'y' : 'x');
-              (markSpec.dependency as string[]).push(anotherDimScaleId);
-              (markSpec.encode.update as any).sides = (datum: any, el: IElement, params: any) => {
-                const scale = params[anotherDimScaleId];
+  //         if (isPlainObject(userOption)) {
+  //           markSpec.encode = {
+  //             update: userOption
+  //           };
+  //           if (userOption.type === 'polygon') {
+  //             markSpec.crosshairType = 'radius-polygon';
+  //             const anotherDimScaleId = this.getScaleId(channel === 'x' ? 'y' : 'x');
+  //             (markSpec.dependency as string[]).push(anotherDimScaleId);
+  //             (markSpec.encode.update as any).sides = (datum: any, el: IElement, params: any) => {
+  //               const scale = params[anotherDimScaleId];
 
-                return scale && isDiscrete(scale.type) ? scale.domain().length : undefined;
-              };
-              (markSpec.encode.update as any).startAngle = (datum: any, el: IElement, params: any) => {
-                const scale = params[anotherDimScaleId];
+  //               return scale && isDiscrete(scale.type) ? scale.domain().length : undefined;
+  //             };
+  //             (markSpec.encode.update as any).startAngle = (datum: any, el: IElement, params: any) => {
+  //               const scale = params[anotherDimScaleId];
 
-                return scale && isDiscrete(scale.type) ? scale.range()[0] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
-              };
-              (markSpec.encode.update as any).endAngle = (datum: any, el: IElement, params: any) => {
-                const scale = params[anotherDimScaleId];
+  //               return scale && isDiscrete(scale.type) ? scale.range()[0] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
+  //             };
+  //             (markSpec.encode.update as any).endAngle = (datum: any, el: IElement, params: any) => {
+  //               const scale = params[anotherDimScaleId];
 
-                return scale && isDiscrete(scale.type) ? scale.range()[1] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
-              };
-            }
-          }
-          res.push(markSpec);
-        }
-      });
-    }
+  //               return scale && isDiscrete(scale.type) ? scale.range()[1] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
+  //             };
+  //           }
+  //         }
+  //         res.push(markSpec);
+  //       }
+  //     });
+  //   }
 
-    return res;
-  }
+  //   return res;
+  // }
 
   protected setDefaultTooltip(): SemanticTooltipOption | Nil {
     return null;
   }
 
-  protected parseTooltipSpec(): Array<TooltipSpec | DimensionTooltipSpec> | Nil {
-    const defaultTooltipSpec = this.setDefaultTooltip();
-    const userTooltipSpec = this.spec.tooltip;
+  // protected parseTooltipSpec(): Array<TooltipSpec | DimensionTooltipSpec> | Nil {
+  //   const defaultTooltipSpec = this.setDefaultTooltip();
+  //   const userTooltipSpec = this.spec.tooltip;
 
-    if (userTooltipSpec !== false && userTooltipSpec !== null && defaultTooltipSpec !== null) {
-      const res: Array<TooltipSpec | DimensionTooltipSpec> = [];
-      const tooltipSpec = merge({}, defaultTooltipSpec, userTooltipSpec === true ? {} : userTooltipSpec);
-      const colorChannel = isNil((this.spec.encode as any).color)
-        ? isNil((this.spec.encode as any).group)
-          ? 'stroke'
-          : 'group'
-        : 'color';
-      const colorEncode = (this.spec.encode as any)[colorChannel];
-      const dependency = colorEncode ? [this.getScaleId(colorChannel)] : [];
-      const colorAccessor = colorEncode ? getFieldAccessor(colorEncode) : null;
-      const title = {
-        visible: !!tooltipSpec.title || !!tooltipSpec.staticTitle,
-        key: 'title',
-        value: !isNil(tooltipSpec.staticTitle)
-          ? tooltipSpec.staticTitle
-          : {
-              field: (datum: any, el: IElement, params: any) => {
-                return tooltipSpec.title
-                  ? getFieldAccessor(tooltipSpec.title)(isArray(datum) ? datum[0] : datum)
-                  : undefined;
-              }
-            }
-      };
+  //   if (userTooltipSpec !== false && userTooltipSpec !== null && defaultTooltipSpec !== null) {
+  //     const res: Array<TooltipSpec | DimensionTooltipSpec> = [];
+  //     const tooltipSpec = merge({}, defaultTooltipSpec, userTooltipSpec === true ? {} : userTooltipSpec);
+  //     const colorChannel = isNil((this.spec.encode as any).color)
+  //       ? isNil((this.spec.encode as any).group)
+  //         ? 'stroke'
+  //         : 'group'
+  //       : 'color';
+  //     const colorEncode = (this.spec.encode as any)[colorChannel];
+  //     const dependency = colorEncode ? [this.getScaleId(colorChannel)] : [];
+  //     const colorAccessor = colorEncode ? getFieldAccessor(colorEncode) : null;
+  //     const title = {
+  //       visible: !!tooltipSpec.title || !!tooltipSpec.staticTitle,
+  //       key: 'title',
+  //       value: !isNil(tooltipSpec.staticTitle)
+  //         ? tooltipSpec.staticTitle
+  //         : {
+  //             field: (datum: any, el: IElement, params: any) => {
+  //               return tooltipSpec.title
+  //                 ? getFieldAccessor(tooltipSpec.title)(isArray(datum) ? datum[0] : datum)
+  //                 : undefined;
+  //             }
+  //           }
+  //     };
 
-      if ((this.spec.encode as any).shape) {
-        dependency.push(this.getScaleId('shape'));
-      }
-      const content =
-        isArray(tooltipSpec.content) && tooltipSpec.content.length
-          ? tooltipSpec.content.map((entry: SemanticTooltipContentItem, index: number) => {
-              return {
-                key: entry.key
-                  ? { field: entry.key }
-                  : !isNil(tooltipSpec.staticContentKey)
-                  ? isArray(tooltipSpec.staticContentKey)
-                    ? tooltipSpec.staticContentKey[index]
-                    : tooltipSpec.staticContentKey
-                  : (datum: any, el: IElement, params: any) => {
-                      return colorAccessor ? colorAccessor(datum) : undefined;
-                    },
-                value: { field: entry.value },
-                symbol: (datum: any, el: IElement, params: any) => {
-                  const scale = params[this.getScaleId(colorChannel)];
-                  const shapeScale = params[this.getScaleId('shape')];
-                  let symbolType = 'circle';
+  //     if ((this.spec.encode as any).shape) {
+  //       dependency.push(this.getScaleId('shape'));
+  //     }
+  //     const content =
+  //       isArray(tooltipSpec.content) && tooltipSpec.content.length
+  //         ? tooltipSpec.content.map((entry: SemanticTooltipContentItem, index: number) => {
+  //             return {
+  //               key: entry.key
+  //                 ? { field: entry.key }
+  //                 : !isNil(tooltipSpec.staticContentKey)
+  //                 ? isArray(tooltipSpec.staticContentKey)
+  //                   ? tooltipSpec.staticContentKey[index]
+  //                   : tooltipSpec.staticContentKey
+  //                 : (datum: any, el: IElement, params: any) => {
+  //                     return colorAccessor ? colorAccessor(datum) : undefined;
+  //                   },
+  //               value: { field: entry.value },
+  //               symbol: (datum: any, el: IElement, params: any) => {
+  //                 const scale = params[this.getScaleId(colorChannel)];
+  //                 const shapeScale = params[this.getScaleId('shape')];
+  //                 let symbolType = 'circle';
 
-                  if (shapeScale && entry.symbol) {
-                    symbolType = shapeScale.scale(getFieldAccessor(entry.symbol)(datum));
-                  } else if (entry.symbol) {
-                    symbolType = getFieldAccessor(entry.symbol)(datum);
-                  }
+  //                 if (shapeScale && entry.symbol) {
+  //                   symbolType = shapeScale.scale(getFieldAccessor(entry.symbol)(datum));
+  //                 } else if (entry.symbol) {
+  //                   symbolType = getFieldAccessor(entry.symbol)(datum);
+  //                 }
 
-                  return {
-                    fill: scale && colorAccessor ? scale.scale(colorAccessor(datum)) : this.getPalette()?.[0],
-                    symbolType
-                  };
-                }
-              };
-            })
-          : null;
-      if (tooltipSpec.disableGraphicTooltip !== true) {
-        res.push({
-          type: 'component',
-          componentType: ComponentEnum.tooltip,
-          target: this.getMarkId(),
-          dependency,
-          title,
-          content,
-          zIndex: 1000
-        } as TooltipSpec);
-      }
+  //                 return {
+  //                   fill: scale && colorAccessor ? scale.scale(colorAccessor(datum)) : this.getPalette()?.[0],
+  //                   symbolType
+  //                 };
+  //               }
+  //             };
+  //           })
+  //         : null;
+  //     if (tooltipSpec.disableGraphicTooltip !== true) {
+  //       res.push({
+  //         type: 'component',
+  //         componentType: ComponentEnum.tooltip,
+  //         target: this.getMarkId(),
+  //         dependency,
+  //         title,
+  //         content,
+  //         zIndex: 1000
+  //       } as TooltipSpec);
+  //     }
 
-      if (tooltipSpec.disableDimensionTooltip !== true) {
-        const channel = tooltipSpec.dimensionTooltipChannel ?? 'x';
-        res.push({
-          type: 'component',
-          componentType: ComponentEnum.dimensionTooltip,
-          tooltipType: this.getVisualChannel(channel as 'x' | 'y'),
-          scale: this.getScaleId(channel),
-          dependency,
-          target: { data: this.getDataIdOfFiltered(), filter: (this.spec.encode as any)?.[channel] },
-          title,
-          content,
-          avoidMark: tooltipSpec.disableGraphicTooltip ? [] : [this.getMarkId()],
-          zIndex: 1000
-        } as DimensionTooltipSpec);
-      }
+  //     if (tooltipSpec.disableDimensionTooltip !== true) {
+  //       const channel = tooltipSpec.dimensionTooltipChannel ?? 'x';
+  //       res.push({
+  //         type: 'component',
+  //         componentType: ComponentEnum.dimensionTooltip,
+  //         tooltipType: this.getVisualChannel(channel as 'x' | 'y'),
+  //         scale: this.getScaleId(channel),
+  //         dependency,
+  //         target: { data: this.getDataIdOfFiltered(), filter: (this.spec.encode as any)?.[channel] },
+  //         title,
+  //         content,
+  //         avoidMark: tooltipSpec.disableGraphicTooltip ? [] : [this.getMarkId()],
+  //         zIndex: 1000
+  //       } as DimensionTooltipSpec);
+  //     }
 
-      return res;
-    }
+  //     return res;
+  //   }
 
-    return [];
-  }
+  //   return [];
+  // }
 
   protected setDefaultSlider(): Record<string, Partial<SliderSpec>> {
     return {};
@@ -995,10 +990,6 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               const data = params[dataId];
 
               return Math.max.apply(null, data.map(getter));
-            },
-            target: {
-              data: this.getDataIdOfFiltered(),
-              filter: this.spec.encode?.[channel]
             },
             encode: {
               update: (datum: any, elment: IElement, params: any) => {
@@ -1092,10 +1083,6 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             type: 'component',
             componentType: ComponentEnum.datazoom,
             dependency: [SIGNAL_VIEW_BOX, dataId],
-            target: {
-              data: this.getDataIdOfFiltered(),
-              filter: this.spec.encode?.[channel]
-            },
             preview,
             encode: {
               update: (datum: any, elment: IElement, params: any) => {
@@ -1226,10 +1213,6 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           type: 'component',
           componentType: ComponentEnum.player,
           dependency: [SIGNAL_VIEW_BOX],
-          target: {
-            data: this.getDataIdOfMain(),
-            source: this.getDataIdOfPlayer()
-          },
           playerType: isPlainObject(option) ? (option as any).type ?? 'auto' : 'auto',
           encode: {
             update: (datum: any, elment: IElement, params: any) => {
@@ -1509,7 +1492,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     marks = marks.concat(this.parseLegendSpec());
     marks = marks.concat(this.parseAxisSpec());
     marks = marks.concat(this.parseGridSpec());
-    marks = marks.concat(this.parseCrosshairSpec());
+    // marks = marks.concat(this.parseCrosshairSpec());
     marks = marks.concat(this.parseSliderSpec());
     marks = marks.concat(this.parseDataZoomSpec());
     marks = marks.concat(this.parsePlayerSpec());
@@ -1548,7 +1531,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     }
 
     marks = marks.concat(this.parseLabelSpec());
-    marks = marks.concat(this.parseTooltipSpec());
+    // marks = marks.concat(this.parseTooltipSpec());
 
     this.viewSpec.marks = marks;
 

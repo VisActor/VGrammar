@@ -13,10 +13,8 @@ Set the graphics type to `component`
 Set the type of the component
 
 {{ use: marks-component-axis() }}
-{{ use: marks-component-crosshair() }}
 {{ use: marks-component-datazoom() }}
 {{ use: marks-component-label() }}
 {{ use: marks-component-legend() }}
 {{ use: marks-component-player() }}
 {{ use: marks-component-slider() }}
-{{ use: marks-component-tooltip() }}
