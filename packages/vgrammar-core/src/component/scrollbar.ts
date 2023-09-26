@@ -20,7 +20,7 @@ import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
 import { ScaleComponent } from './scale';
-import { registerScrollbarFilter } from '../interactions';
+import { ScrollbarFilter } from '../interactions/scrollbar-filter';
 
 function isValidDirection(direction: Direction) {
   return direction === 'vertical' || direction === 'horizontal';
@@ -163,19 +163,7 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
     const defaultAttributes = { range: [0, 1] };
     const initialAttributes = merge(defaultAttributes, attrs);
     const graphicItem = Factory.createGraphicComponent(ComponentEnum.scrollbar, initialAttributes);
-    const range = initialAttributes.range;
-    // Hack for the first evaluation, waiting for components to fix
-    if (range && this._filterCallback) {
-      setTimeout(() => this._filterCallback({ detail: { value: range } }, this.elements[0]));
-    }
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
-  }
-
-  release() {
-    if (this._filterCallback) {
-      this.view.removeEventListener('scroll', this._filterCallback);
-    }
-    super.release();
   }
 
   protected _updateComponentEncoders() {
@@ -219,5 +207,5 @@ export const registerScrollbar = () => {
   );
 
   Factory.registerComponent(ComponentEnum.scrollbar, Scrollbar);
-  registerScrollbarFilter();
+  Factory.registerInteraction(ScrollbarFilter.type, ScrollbarFilter);
 };
