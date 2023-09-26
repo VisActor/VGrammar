@@ -7,6 +7,7 @@ import { BaseTooltip } from './base-tooltip';
 import { generateTooltipAttributes } from './base-tooltip';
 import { BridgeElementKey } from '../graph/constants';
 import type { IBaseScale } from '@visactor/vscale';
+import { invokeFunctionType } from '../parse/util';
 
 const isEqualTooltipDatum = (current: any[], previous: any[]) => {
   const currentDatum = array(current);
@@ -143,7 +144,7 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
     const bounds = new AABBBounds().set(boundsStart.x, boundsStart.y, boundsEnd.x, boundsEnd.y);
     const { title, content } = this._computeTitleContent(tooltipDatum);
     const theme = this.view.getCurrentTheme();
-    const addition = (this.options.attributes ?? {}) as any;
+    const addition = invokeFunctionType(this.options.attributes, {}, {}) as any;
     const attributes = generateTooltipAttributes(point, title, content, bounds, theme, addition);
     this._tooltipComponent.setAttributes(attributes);
   }, 10);

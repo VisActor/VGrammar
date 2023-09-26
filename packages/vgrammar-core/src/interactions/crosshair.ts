@@ -31,6 +31,7 @@ import { CrosshairEnum } from '../graph';
 import type { IBandLikeScale, IBaseScale } from '@visactor/vscale';
 // eslint-disable-next-line no-duplicate-imports
 import { isContinuous, isDiscrete } from '@visactor/vscale';
+import { invokeFunctionType } from '../parse/util';
 
 type CrosshairComponent = CircleCrosshair | LineCrosshair | PolygonCrosshair | RectCrosshair | SectorCrosshair;
 
@@ -324,7 +325,7 @@ export class Crosshair extends BaseInteraction {
     const scale = scaleGrammar.getScale();
     const config = { center: this.options.center, radius: this.options.radius };
     const theme = this.view.getCurrentTheme();
-    const addition = (this.options.attributes ?? {}) as any;
+    const addition = invokeFunctionType(this.options.attributes, {}, {}) as any;
 
     let attributes: any = {};
     switch (this.getCrosshairComponentType()) {
