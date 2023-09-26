@@ -265,7 +265,7 @@ export interface ITooltipRow {
 
 export type TooltipType = 'x' | 'y' | 'angle' | 'radius';
 
-export interface TooltipPopoverOptions extends IBaseInteractionOptions {
+export interface TooltipOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
    */
@@ -284,7 +284,7 @@ export interface TooltipPopoverOptions extends IBaseInteractionOptions {
   attributes?: TooltipAttributes;
 }
 
-export interface DimensionTooltipPopoverOptions extends TooltipPopoverOptions {
+export interface DimensionTooltipOptions extends TooltipOptions {
   scale?: IScale | string;
   tooltipType?: TooltipType;
   target?: {
@@ -300,7 +300,7 @@ export type CrosshairType = 'x' | 'y' | 'angle' | 'radius' | 'radius-polygon';
 
 export type CrosshairShape = 'line' | 'rect';
 
-export interface CrosshairPopoverOptions extends IBaseInteractionOptions {
+export interface CrosshairOptions extends IBaseInteractionOptions {
   /**
    * the trigger event name
    */
@@ -385,15 +385,15 @@ export interface RollUpSpec extends RollUpOptions {
   type: 'roll-up';
 }
 
-export interface TooltipPopoverSpec extends TooltipPopoverOptions {
+export interface TooltipSpec extends TooltipOptions {
   type: 'tooltip';
 }
 
-export interface DimensionPopoverSpec extends DimensionTooltipPopoverOptions {
+export interface DimensionSpec extends DimensionTooltipOptions {
   type: 'dimension-tooltip';
 }
 
-export interface CrosshairPopoverSpec extends CrosshairPopoverOptions {
+export interface CrosshairSpec extends CrosshairOptions {
   type: 'crosshair';
 }
 
@@ -416,6 +416,6 @@ export type InteractionSpec =
   | ScrollbarFilterSpec
   | DrillDownSpec
   | RollUpSpec
-  | TooltipPopoverSpec
-  | DimensionPopoverSpec
-  | CrosshairPopoverSpec;
+  | TooltipSpec
+  | DimensionSpec
+  | CrosshairSpec;

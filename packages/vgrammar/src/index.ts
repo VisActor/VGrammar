@@ -78,16 +78,11 @@ import {
   registerBrushHighlight,
   registerBrushActive,
   registerBrushFilter,
-  registerLegendFilter,
-  registerDatazoomFilter,
-  registerSliderFilter,
-  registerPlayerFilter,
-  registerScrollbarFilter,
   registerDrillDown,
   registerRollUp,
-  registerTooltipPopover,
-  registerDimensionTooltipPopover,
-  registerCrosshairPopover
+  registerTooltip,
+  registerDimensionTooltip,
+  registerCrosshair
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
@@ -170,16 +165,11 @@ View.useRegisters([
   registerBrushHighlight,
   registerBrushActive,
   registerBrushFilter,
-  registerLegendFilter,
-  registerDatazoomFilter,
-  registerSliderFilter,
-  registerPlayerFilter,
-  registerScrollbarFilter,
   registerDrillDown,
   registerRollUp,
-  registerTooltipPopover,
-  registerDimensionTooltipPopover,
-  registerCrosshairPopover
+  registerTooltip,
+  registerDimensionTooltip,
+  registerCrosshair
 ]);
 
 initAllEnv();
