@@ -1,4 +1,4 @@
-import { isArray, isString, merge } from '@visactor/vutils';
+import { isArray, isString, merge, mixin } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender-core';
 import type {
   ContinuousPlayerAttributes,
@@ -25,6 +25,7 @@ import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { Factory } from '../core/factory';
 import { PlayerFilter } from '../interactions/player-filter';
+import { Filter, FilterMixin } from '../interactions/filter';
 
 export const generateContinuousPlayerAttributes = (
   data: any[],
@@ -200,5 +201,7 @@ export const registerPlayer = () => {
   );
 
   Factory.registerComponent(ComponentEnum.player, Player);
+
+  mixin(Filter, FilterMixin);
   Factory.registerInteraction(PlayerFilter.type, PlayerFilter);
 };

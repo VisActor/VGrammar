@@ -2,7 +2,7 @@ import type { IGraphic } from '@visactor/vrender-core';
 import type { DataZoomAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { DataZoom as DatazoomComponent } from '@visactor/vrender-components';
-import { isNil, isString, merge } from '@visactor/vutils';
+import { isNil, isString, merge, mixin } from '@visactor/vutils';
 import { ComponentEnum } from '../graph';
 import type {
   BaseSignleEncodeSpec,
@@ -23,6 +23,7 @@ import { Component } from '../view/component';
 import { parseEncodeType } from '../parse/mark';
 import { Factory } from '../core/factory';
 import { DatazoomFilter } from '../interactions/datazoom-filter';
+import { Filter, FilterMixin } from '../interactions/filter';
 
 export const generateDatazoomAttributes = (
   data: any[],
@@ -183,5 +184,7 @@ export const registerDataZoom = () => {
   );
 
   Factory.registerComponent(ComponentEnum.datazoom, Datazoom);
+
+  mixin(Filter, FilterMixin);
   Factory.registerInteraction(DatazoomFilter.type, DatazoomFilter);
 };
