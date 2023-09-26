@@ -32,6 +32,7 @@ export const runner = (plot: IPlot) => {
     .legend('group', true, { position: 'top', align: 'middle' })
     .slider('y', false)
     .datazoom('y', true)
+    .crosshair('x')
     .label('y', { textStyle: { fill: 'red'} })
     .tooltip({ staticTitle: 'GMV' });
 

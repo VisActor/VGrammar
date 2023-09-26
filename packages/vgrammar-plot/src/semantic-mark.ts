@@ -53,7 +53,13 @@ import type {
   SemanticGridOption,
   GridSpec,
   TitleSpec,
-  SemanticTitleOption
+  SemanticTitleOption,
+  InteractionSpec,
+  LegendFilterSpec,
+  SliderFilterSpec,
+  DatazoomFilterSpec,
+  PlayerFilterSpec,
+  DimensionTooltipSpec
 } from '@visactor/vgrammar-core';
 // eslint-disable-next-line no-duplicate-imports
 import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager, Factory } from '@visactor/vgrammar-core';
@@ -445,6 +451,10 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return `${this.spec.id}-mark`;
   }
 
+  protected getComponentId(id: string, component?: string) {
+    return `${this.spec.id}-${component ?? 'component'}-${id}`;
+  }
+
   protected getScaleSpec(scaleId: string) {
     return this.viewSpec?.scales?.find?.(scale => scale.id === scaleId);
   }
@@ -550,9 +560,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return {};
   }
 
-  protected parseAxisSpec(): AxisSpec[] {
+  protected parseAxisSpec(): {
+    marks: AxisSpec[];
+    interactions: InteractionSpec[];
+  } {
     const axis = this.spec.axis;
-    const res: AxisSpec[] = [];
+    const res = {
+      marks: [] as AxisSpec[],
+      interactions: [] as InteractionSpec[]
+    };
 
     if (axis) {
       Object.keys(axis).forEach(channel => {
@@ -597,7 +613,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               ? 'bottom'
               : 'left'
           };
-          res.push(axisMarkSpec);
+          res.marks.push(axisMarkSpec);
         }
       });
     }
@@ -605,9 +621,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return res;
   }
 
-  protected parseGridSpec(): GridSpec[] {
+  protected parseGridSpec(): {
+    marks: GridSpec[];
+    interactions: InteractionSpec[];
+  } {
     const grid = this.spec.grid;
-    const res: GridSpec[] = [];
+    const res = {
+      marks: [] as GridSpec[],
+      interactions: [] as InteractionSpec[]
+    };
 
     if (grid) {
       Object.keys(grid).forEach(channel => {
@@ -665,7 +687,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             }
           };
 
-          res.push(markSpec);
+          res.marks.push(markSpec);
         }
       });
     }
@@ -695,9 +717,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return {};
   }
 
-  protected parseLegendSpec(): LegendSpec[] {
+  protected parseLegendSpec(): {
+    marks: LegendSpec[];
+    interactions: InteractionSpec[];
+  } {
     const legend = this.spec.legend;
-    const res: LegendSpec[] = [];
+    const res = {
+      marks: [] as LegendSpec[],
+      interactions: [] as InteractionSpec[]
+    };
 
     if (legend) {
       Object.keys(legend).forEach(channel => {
@@ -715,6 +743,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               : { position: 'top', align: 'center' });
           const markSpec: LegendSpec = {
             type: 'component',
+            id: this.getComponentId(channel, 'legend'),
             componentType: ComponentEnum.legend,
             scale: this.getScaleId(channel),
             shapeScale: this.getScaleId('shape'),
@@ -752,7 +781,16 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             }
           };
           markSpec.layout = markLayout;
-          res.push(markSpec);
+          const interactionSpec: LegendFilterSpec = {
+            type: 'legend-filter',
+            source: `#${this.getComponentId(channel, 'legend')}`,
+            target: {
+              data: this.getDataIdOfFiltered(),
+              filter: this.spec.encode?.[channel]
+            }
+          };
+          res.marks.push(markSpec);
+          res.interactions.push(interactionSpec);
         }
       });
     }
@@ -772,185 +810,194 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return (this._coordinate?.transpose ? (channel === 'x' ? 'y' : 'x') : channel) as 'x' | 'y' | 'angle' | 'radius';
   }
 
-  // protected parseCrosshairSpec(): CrosshairSpec[] {
-  //   const defaultCrosshair = this.setDefaultCrosshair();
-  //   const defaultKeys = Object.keys(defaultCrosshair);
-  //   const crosshairKeys = this.spec.crosshair
-  //     ? Object.keys(this.spec.crosshair).reduce((res, key) => {
-  //         if (!res.includes(key)) {
-  //           res.push(key);
-  //         }
+  protected parseCrosshairSpec(): {
+    marks: MarkSpec[];
+    interactions: CrosshairSpec[];
+  } {
+    const defaultCrosshair = this.setDefaultCrosshair();
+    const defaultKeys = Object.keys(defaultCrosshair);
+    const crosshairKeys = this.spec.crosshair
+      ? Object.keys(this.spec.crosshair).reduce((res, key) => {
+          if (!res.includes(key)) {
+            res.push(key);
+          }
+          return res;
+        }, defaultKeys)
+      : defaultKeys;
+    const res = {
+      marks: [] as MarkSpec[],
+      interactions: [] as CrosshairSpec[]
+    };
 
-  //         return res;
-  //       }, defaultKeys)
-  //     : defaultKeys;
-  //   const res: CrosshairSpec[] = [];
+    if (crosshairKeys.length) {
+      crosshairKeys.forEach(channel => {
+        const userOption = this.spec.crosshair?.[channel];
+        const option = userOption ?? defaultCrosshair[channel];
 
-  //   if (crosshairKeys.length) {
-  //     crosshairKeys.forEach(channel => {
-  //       const userOption = this.spec.crosshair?.[channel];
-  //       const option = userOption ?? defaultCrosshair[channel];
+        if (option) {
+          const scaleId = this.getScaleId(channel);
+          const scaleSpec = this.getScaleSpec(scaleId);
+          const interactionSpec: CrosshairSpec = {
+            type: 'crosshair',
+            scale: this.getScaleId(channel),
+            crosshairShape: isBoolean(option)
+              ? scaleSpec?.type === 'band'
+                ? 'rect'
+                : 'line'
+              : (option as CrosshairSpec).crosshairShape ?? (scaleSpec?.type === 'band' ? 'rect' : 'line'),
+            crosshairType: this.getVisualChannel(channel as 'x' | 'y'),
+            container: '#plotContainer'
+          };
 
-  //       if (option) {
-  //         const scaleId = this.getScaleId(channel);
-  //         const scaleSpec = this.getScaleSpec(scaleId);
+          if (isPlainObject(userOption)) {
+            interactionSpec.attributes = userOption;
+            if (userOption.type === 'polygon') {
+              interactionSpec.crosshairType = 'radius-polygon';
+              const anotherDimScaleId = this.getScaleId(channel === 'x' ? 'y' : 'x');
+              (interactionSpec.attributes as any).sides = (datum: any, el: IElement, params: any) => {
+                const scale = params[anotherDimScaleId];
+                return scale && isDiscrete(scale.type) ? scale.domain().length : undefined;
+              };
+              (interactionSpec.attributes as any).startAngle = (datum: any, el: IElement, params: any) => {
+                const scale = params[anotherDimScaleId];
+                return scale && isDiscrete(scale.type) ? scale.range()[0] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
+              };
+              (interactionSpec.attributes as any).endAngle = (datum: any, el: IElement, params: any) => {
+                const scale = params[anotherDimScaleId];
+                return scale && isDiscrete(scale.type) ? scale.range()[1] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
+              };
+            }
+          }
+          res.interactions.push(interactionSpec);
+        }
+      });
+    }
 
-  //         const markSpec: CrosshairSpec = {
-  //           type: 'component',
-  //           componentType: ComponentEnum.crosshair,
-  //           scale: this.getScaleId(channel),
-  //           dependency: [SIGNAL_VIEW_BOX],
-  //           crosshairShape: isBoolean(option)
-  //             ? scaleSpec?.type === 'band'
-  //               ? 'rect'
-  //               : 'line'
-  //             : (option as CrosshairSpec).crosshairShape ?? (scaleSpec?.type === 'band' ? 'rect' : 'line'),
-  //           crosshairType: this.getVisualChannel(channel as 'x' | 'y')
-  //         };
-
-  //         if (isPlainObject(userOption)) {
-  //           markSpec.encode = {
-  //             update: userOption
-  //           };
-  //           if (userOption.type === 'polygon') {
-  //             markSpec.crosshairType = 'radius-polygon';
-  //             const anotherDimScaleId = this.getScaleId(channel === 'x' ? 'y' : 'x');
-  //             (markSpec.dependency as string[]).push(anotherDimScaleId);
-  //             (markSpec.encode.update as any).sides = (datum: any, el: IElement, params: any) => {
-  //               const scale = params[anotherDimScaleId];
-
-  //               return scale && isDiscrete(scale.type) ? scale.domain().length : undefined;
-  //             };
-  //             (markSpec.encode.update as any).startAngle = (datum: any, el: IElement, params: any) => {
-  //               const scale = params[anotherDimScaleId];
-
-  //               return scale && isDiscrete(scale.type) ? scale.range()[0] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
-  //             };
-  //             (markSpec.encode.update as any).endAngle = (datum: any, el: IElement, params: any) => {
-  //               const scale = params[anotherDimScaleId];
-
-  //               return scale && isDiscrete(scale.type) ? scale.range()[1] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
-  //             };
-  //           }
-  //         }
-  //         res.push(markSpec);
-  //       }
-  //     });
-  //   }
-
-  //   return res;
-  // }
+    return res;
+  }
 
   protected setDefaultTooltip(): SemanticTooltipOption | Nil {
     return null;
   }
 
-  // protected parseTooltipSpec(): Array<TooltipSpec | DimensionTooltipSpec> | Nil {
-  //   const defaultTooltipSpec = this.setDefaultTooltip();
-  //   const userTooltipSpec = this.spec.tooltip;
+  protected parseTooltipSpec(): {
+    marks: MarkSpec[];
+    interactions: InteractionSpec[];
+  } {
+    const defaultTooltipSpec = this.setDefaultTooltip();
+    const userTooltipSpec = this.spec.tooltip;
+    const res = {
+      marks: [] as MarkSpec[],
+      interactions: [] as InteractionSpec[]
+    };
 
-  //   if (userTooltipSpec !== false && userTooltipSpec !== null && defaultTooltipSpec !== null) {
-  //     const res: Array<TooltipSpec | DimensionTooltipSpec> = [];
-  //     const tooltipSpec = merge({}, defaultTooltipSpec, userTooltipSpec === true ? {} : userTooltipSpec);
-  //     const colorChannel = isNil((this.spec.encode as any).color)
-  //       ? isNil((this.spec.encode as any).group)
-  //         ? 'stroke'
-  //         : 'group'
-  //       : 'color';
-  //     const colorEncode = (this.spec.encode as any)[colorChannel];
-  //     const dependency = colorEncode ? [this.getScaleId(colorChannel)] : [];
-  //     const colorAccessor = colorEncode ? getFieldAccessor(colorEncode) : null;
-  //     const title = {
-  //       visible: !!tooltipSpec.title || !!tooltipSpec.staticTitle,
-  //       key: 'title',
-  //       value: !isNil(tooltipSpec.staticTitle)
-  //         ? tooltipSpec.staticTitle
-  //         : {
-  //             field: (datum: any, el: IElement, params: any) => {
-  //               return tooltipSpec.title
-  //                 ? getFieldAccessor(tooltipSpec.title)(isArray(datum) ? datum[0] : datum)
-  //                 : undefined;
-  //             }
-  //           }
-  //     };
+    if (userTooltipSpec !== false && userTooltipSpec !== null && defaultTooltipSpec !== null) {
+      const tooltipSpec = merge({}, defaultTooltipSpec, userTooltipSpec === true ? {} : userTooltipSpec);
+      const colorChannel = isNil((this.spec.encode as any).color)
+        ? isNil((this.spec.encode as any).group)
+          ? 'stroke'
+          : 'group'
+        : 'color';
+      const colorEncode = (this.spec.encode as any)[colorChannel];
+      const dependency = colorEncode ? [this.getScaleId(colorChannel)] : [];
+      const colorAccessor = colorEncode ? getFieldAccessor(colorEncode) : null;
+      const title = {
+        visible: !!tooltipSpec.title || !!tooltipSpec.staticTitle,
+        key: 'title',
+        value: !isNil(tooltipSpec.staticTitle)
+          ? tooltipSpec.staticTitle
+          : {
+              field: (datum: any, el: IElement, params: any) => {
+                return tooltipSpec.title
+                  ? getFieldAccessor(tooltipSpec.title)(isArray(datum) ? datum[0] : datum)
+                  : undefined;
+              }
+            }
+      };
 
-  //     if ((this.spec.encode as any).shape) {
-  //       dependency.push(this.getScaleId('shape'));
-  //     }
-  //     const content =
-  //       isArray(tooltipSpec.content) && tooltipSpec.content.length
-  //         ? tooltipSpec.content.map((entry: SemanticTooltipContentItem, index: number) => {
-  //             return {
-  //               key: entry.key
-  //                 ? { field: entry.key }
-  //                 : !isNil(tooltipSpec.staticContentKey)
-  //                 ? isArray(tooltipSpec.staticContentKey)
-  //                   ? tooltipSpec.staticContentKey[index]
-  //                   : tooltipSpec.staticContentKey
-  //                 : (datum: any, el: IElement, params: any) => {
-  //                     return colorAccessor ? colorAccessor(datum) : undefined;
-  //                   },
-  //               value: { field: entry.value },
-  //               symbol: (datum: any, el: IElement, params: any) => {
-  //                 const scale = params[this.getScaleId(colorChannel)];
-  //                 const shapeScale = params[this.getScaleId('shape')];
-  //                 let symbolType = 'circle';
+      if ((this.spec.encode as any).shape) {
+        dependency.push(this.getScaleId('shape'));
+      }
+      const content =
+        isArray(tooltipSpec.content) && tooltipSpec.content.length
+          ? tooltipSpec.content.map((entry: SemanticTooltipContentItem, index: number) => {
+              return {
+                key: entry.key
+                  ? { field: entry.key }
+                  : !isNil(tooltipSpec.staticContentKey)
+                  ? isArray(tooltipSpec.staticContentKey)
+                    ? tooltipSpec.staticContentKey[index]
+                    : tooltipSpec.staticContentKey
+                  : (datum: any, el: IElement, params: any) => {
+                      return colorAccessor ? colorAccessor(datum) : undefined;
+                    },
+                value: { field: entry.value },
+                symbol: (datum: any, el: IElement, params: any) => {
+                  const scale = params[this.getScaleId(colorChannel)];
+                  const shapeScale = params[this.getScaleId('shape')];
+                  let symbolType = 'circle';
+                  if (shapeScale && entry.symbol) {
+                    symbolType = shapeScale.scale(getFieldAccessor(entry.symbol)(datum));
+                  } else if (entry.symbol) {
+                    symbolType = getFieldAccessor(entry.symbol)(datum);
+                  }
+                  return {
+                    fill: scale && colorAccessor ? scale.scale(colorAccessor(datum)) : this.getPalette()?.[0],
+                    symbolType
+                  };
+                }
+              };
+            })
+          : null;
+      if (tooltipSpec.disableGraphicTooltip !== true) {
+        const interactionSpec: TooltipSpec = {
+          type: 'tooltip',
+          selector: `#${this.getMarkId()}`,
+          title,
+          content,
+          attributes: {
+            zIndex: 1000
+          }
+        };
+        res.interactions.push(interactionSpec);
+      }
 
-  //                 if (shapeScale && entry.symbol) {
-  //                   symbolType = shapeScale.scale(getFieldAccessor(entry.symbol)(datum));
-  //                 } else if (entry.symbol) {
-  //                   symbolType = getFieldAccessor(entry.symbol)(datum);
-  //                 }
+      if (tooltipSpec.disableDimensionTooltip !== true) {
+        const channel = tooltipSpec.dimensionTooltipChannel ?? 'x';
+        const interactionSpec: DimensionTooltipSpec = {
+          type: 'dimension-tooltip',
+          tooltipType: this.getVisualChannel(channel as 'x' | 'y'),
+          scale: this.getScaleId(channel),
+          target: { data: this.getDataIdOfFiltered(), filter: (this.spec.encode as any)?.[channel] },
+          title,
+          content,
+          avoidMark: tooltipSpec.disableGraphicTooltip ? [] : [`#${this.getMarkId()}`],
+          attributes: {
+            zIndex: 1000
+          }
+        };
+        res.interactions.push(interactionSpec);
+      }
 
-  //                 return {
-  //                   fill: scale && colorAccessor ? scale.scale(colorAccessor(datum)) : this.getPalette()?.[0],
-  //                   symbolType
-  //                 };
-  //               }
-  //             };
-  //           })
-  //         : null;
-  //     if (tooltipSpec.disableGraphicTooltip !== true) {
-  //       res.push({
-  //         type: 'component',
-  //         componentType: ComponentEnum.tooltip,
-  //         target: this.getMarkId(),
-  //         dependency,
-  //         title,
-  //         content,
-  //         zIndex: 1000
-  //       } as TooltipSpec);
-  //     }
+      return res;
+    }
 
-  //     if (tooltipSpec.disableDimensionTooltip !== true) {
-  //       const channel = tooltipSpec.dimensionTooltipChannel ?? 'x';
-  //       res.push({
-  //         type: 'component',
-  //         componentType: ComponentEnum.dimensionTooltip,
-  //         tooltipType: this.getVisualChannel(channel as 'x' | 'y'),
-  //         scale: this.getScaleId(channel),
-  //         dependency,
-  //         target: { data: this.getDataIdOfFiltered(), filter: (this.spec.encode as any)?.[channel] },
-  //         title,
-  //         content,
-  //         avoidMark: tooltipSpec.disableGraphicTooltip ? [] : [this.getMarkId()],
-  //         zIndex: 1000
-  //       } as DimensionTooltipSpec);
-  //     }
-
-  //     return res;
-  //   }
-
-  //   return [];
-  // }
+    return res;
+  }
 
   protected setDefaultSlider(): Record<string, Partial<SliderSpec>> {
     return {};
   }
 
-  protected parseSliderSpec(): SliderSpec[] {
+  protected parseSliderSpec(): {
+    marks: SliderSpec[];
+    interactions: InteractionSpec[];
+  } {
     const slider = this.spec.slider;
-    const res: SliderSpec[] = [];
+    const res = {
+      marks: [] as SliderSpec[],
+      interactions: [] as InteractionSpec[]
+    };
 
     if (slider) {
       Object.keys(slider).forEach(channel => {
@@ -979,6 +1026,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
           const markSpec: SliderSpec = {
             type: 'component',
+            id: this.getComponentId(channel, 'slider'),
             componentType: ComponentEnum.slider,
             dependency: [SIGNAL_VIEW_BOX, dataId],
             min: (datum: any, elment: IElement, params: any) => {
@@ -1032,7 +1080,16 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             }
           };
           markSpec.layout = markLayout;
-          res.push(markSpec);
+          const interactionSpec: SliderFilterSpec = {
+            type: 'slider-filter',
+            source: `#${this.getComponentId(channel, 'slider')}`,
+            target: {
+              data: this.getDataIdOfFiltered(),
+              filter: this.spec.encode?.[channel]
+            }
+          };
+          res.marks.push(markSpec);
+          res.interactions.push(interactionSpec);
         }
       });
     }
@@ -1048,9 +1105,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return channel === 'y' ? 'left' : 'bottom';
   }
 
-  protected parseDataZoomSpec(): DatazoomSpec[] {
+  protected parseDatazoomSpec(): {
+    marks: DatazoomSpec[];
+    interactions: InteractionSpec[];
+  } {
     const datazoom = this.spec.datazoom;
-    const res: DatazoomSpec[] = [];
+    const res = {
+      marks: [] as DatazoomSpec[],
+      interactions: [] as InteractionSpec[]
+    };
 
     if (datazoom) {
       Object.keys(datazoom).forEach(channel => {
@@ -1081,6 +1144,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           const theme = this.plot ? this.plot.view.getCurrentTheme() : ThemeManager.getDefaultTheme();
           const markSpec: DatazoomSpec = {
             type: 'component',
+            id: this.getComponentId(channel, 'datazoom'),
             componentType: ComponentEnum.datazoom,
             dependency: [SIGNAL_VIEW_BOX, dataId],
             preview,
@@ -1122,7 +1186,16 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             }
           };
           markSpec.layout = markLayout;
-          res.push(markSpec);
+          const interactionSpec: DatazoomFilterSpec = {
+            type: 'datazoom-filter',
+            source: `#${this.getComponentId(channel, 'datazoom')}`,
+            target: {
+              data: this.getDataIdOfFiltered(),
+              filter: this.spec.encode?.[channel]
+            }
+          };
+          res.marks.push(markSpec);
+          res.interactions.push(interactionSpec);
         }
       });
     }
@@ -1149,9 +1222,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return { field: channel };
   }
 
-  protected parseLabelSpec(): LabelSpec[] {
+  protected parseLabelSpec(): {
+    marks: LabelSpec[];
+    interactions: InteractionSpec[];
+  } {
     const label = this.spec.label;
-    const res: LabelSpec[] = [];
+    const res = {
+      marks: [] as LabelSpec[],
+      interactions: [] as InteractionSpec[]
+    };
 
     if (label) {
       Object.keys(label).forEach(channel => {
@@ -1182,7 +1261,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
               }
             }
           };
-          res.push(markSpec);
+          res.marks.push(markSpec);
         }
       });
     }
@@ -1194,9 +1273,15 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return {};
   }
 
-  protected parsePlayerSpec(): PlayerSpec[] {
+  protected parsePlayerSpec(): {
+    marks: PlayerSpec[];
+    interactions: InteractionSpec[];
+  } {
     const player = this.spec.player;
-    const res: PlayerSpec[] = [];
+    const res = {
+      marks: [] as PlayerSpec[],
+      interactions: [] as InteractionSpec[]
+    };
 
     if (player) {
       const option = player?.option;
@@ -1211,9 +1296,11 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
 
         const markSpec: PlayerSpec = {
           type: 'component',
+          id: this.getComponentId('', 'player'),
           componentType: ComponentEnum.player,
           dependency: [SIGNAL_VIEW_BOX],
           playerType: isPlainObject(option) ? (option as any).type ?? 'auto' : 'auto',
+          source: this.getDataIdOfPlayer(),
           encode: {
             update: (datum: any, elment: IElement, params: any) => {
               const calculatedAttrs =
@@ -1248,16 +1335,30 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           }
         };
         markSpec.layout = markLayout;
-        res.push(markSpec);
+        const interactionSpec: PlayerFilterSpec = {
+          type: 'player-filter',
+          source: `#${this.getComponentId('', 'player')}`,
+          target: {
+            data: this.getDataIdOfMain()
+          }
+        };
+        res.marks.push(markSpec);
+        res.interactions.push(interactionSpec);
       }
     }
 
     return res;
   }
 
-  protected parseTitleSpec(): TitleSpec[] {
+  protected parseTitleSpec(): {
+    marks: TitleSpec[];
+    interactions: InteractionSpec[];
+  } {
     const title = this.spec.title;
-    const res: TitleSpec[] = [];
+    const res = {
+      marks: [] as TitleSpec[],
+      interactions: [] as InteractionSpec[]
+    };
 
     if (title) {
       const { option, layout } = this.parseOption<SemanticTitleOption>(title);
@@ -1302,7 +1403,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           }
         };
         markSpec.layout = markLayout;
-        res.push(markSpec);
+        res.marks.push(markSpec);
       }
     }
 
@@ -1488,15 +1589,39 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     this.viewSpec.scales = this.parseScaleSpec();
     this.viewSpec.coordinates = this.parseCoordinateSpec();
     let marks: MarkSpec[] = [];
+    let interactions: InteractionSpec[] = [];
 
-    marks = marks.concat(this.parseLegendSpec());
-    marks = marks.concat(this.parseAxisSpec());
-    marks = marks.concat(this.parseGridSpec());
-    // marks = marks.concat(this.parseCrosshairSpec());
-    marks = marks.concat(this.parseSliderSpec());
-    marks = marks.concat(this.parseDataZoomSpec());
-    marks = marks.concat(this.parsePlayerSpec());
-    marks = marks.concat(this.parseTitleSpec());
+    const legendSpec = this.parseLegendSpec();
+    marks = marks.concat(legendSpec.marks);
+    interactions = interactions.concat(legendSpec.interactions);
+
+    const axisSpec = this.parseAxisSpec();
+    marks = marks.concat(axisSpec.marks);
+    interactions = interactions.concat(axisSpec.interactions);
+
+    const gridSpec = this.parseGridSpec();
+    marks = marks.concat(gridSpec.marks);
+    interactions = interactions.concat(gridSpec.interactions);
+
+    const crosshairSpec = this.parseCrosshairSpec();
+    marks = marks.concat(crosshairSpec.marks);
+    interactions = interactions.concat(crosshairSpec.interactions);
+
+    const sliderSpec = this.parseSliderSpec();
+    marks = marks.concat(sliderSpec.marks);
+    interactions = interactions.concat(sliderSpec.interactions);
+
+    const datazoomSpec = this.parseDatazoomSpec();
+    marks = marks.concat(datazoomSpec.marks);
+    interactions = interactions.concat(datazoomSpec.interactions);
+
+    const playerSpec = this.parsePlayerSpec();
+    marks = marks.concat(playerSpec.marks);
+    interactions = interactions.concat(playerSpec.interactions);
+
+    const titleSpec = this.parseTitleSpec();
+    marks = marks.concat(titleSpec.marks);
+    interactions = interactions.concat(titleSpec.interactions);
 
     marks.push(
       Object.assign(
@@ -1530,10 +1655,16 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
       marks = marks.concat(otherMarks);
     }
 
-    marks = marks.concat(this.parseLabelSpec());
-    // marks = marks.concat(this.parseTooltipSpec());
+    const labelSpec = this.parseLabelSpec();
+    marks = marks.concat(labelSpec.marks);
+    interactions = interactions.concat(labelSpec.interactions);
+
+    const tooltipSpec = this.parseTooltipSpec();
+    marks = marks.concat(tooltipSpec.marks);
+    interactions = interactions.concat(tooltipSpec.interactions);
 
     this.viewSpec.marks = marks;
+    this.viewSpec.interactions = interactions;
 
     return this.viewSpec;
   }
