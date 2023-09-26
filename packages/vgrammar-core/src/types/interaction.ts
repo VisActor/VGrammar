@@ -1,6 +1,11 @@
 import type { IView } from './view';
 import type { EventType, InteractionEvent, ViewEventType } from './event';
-import type { BrushAttributes, TooltipAttributes, TooltipRowAttrs } from '@visactor/vrender-components';
+import type {
+  BaseCrosshairAttrs,
+  BrushAttributes,
+  TooltipAttributes,
+  TooltipRowAttrs
+} from '@visactor/vrender-components';
 import type { IPolygon, ISymbolGraphicAttribute, ITextGraphicAttribute } from '@visactor/vrender';
 import type { IElement, IGlyphElement } from './element';
 import type { IData, IScale } from './grammar';
@@ -281,7 +286,7 @@ export interface TooltipOptions extends IBaseInteractionOptions {
 
   title?: ITooltipRow | string | CustomTooltipCallback;
   content?: ITooltipRow | ITooltipRow[] | CustomTooltipCallback;
-  attributes?: TooltipAttributes;
+  attributes?: MarkFunctionType<TooltipAttributes>;
 }
 
 export interface DimensionTooltipOptions extends TooltipOptions {
@@ -315,7 +320,7 @@ export interface CrosshairOptions extends IBaseInteractionOptions {
   container?: string | IMark;
   radius?: number;
   center?: IPointLike;
-  attributes?: TooltipAttributes;
+  attributes?: MarkFunctionType<BaseCrosshairAttrs>;
 }
 
 export interface ElementActiveSpec extends ElementActiveOptions {
@@ -389,7 +394,7 @@ export interface TooltipSpec extends TooltipOptions {
   type: 'tooltip';
 }
 
-export interface DimensionSpec extends DimensionTooltipOptions {
+export interface DimensionTooltipSpec extends DimensionTooltipOptions {
   type: 'dimension-tooltip';
 }
 
@@ -417,5 +422,5 @@ export type InteractionSpec =
   | DrillDownSpec
   | RollUpSpec
   | TooltipSpec
-  | DimensionSpec
+  | DimensionTooltipSpec
   | CrosshairSpec;
