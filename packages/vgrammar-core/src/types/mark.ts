@@ -30,7 +30,6 @@ import type { ILayoutOptions } from './view';
 import type {
   AxisSpec,
   BuiltInComponentSpec,
-  CrosshairSpec,
   DatazoomSpec,
   LabelSpec,
   LegendSpec,
@@ -471,7 +470,6 @@ export type MarkSpecMap = {
   component: ComponentSpec;
   axis: AxisSpec;
   legend: LegendSpec;
-  corsshair: CrosshairSpec;
   slider: SliderSpec;
   datazoom: DatazoomSpec;
   label: LabelSpec;

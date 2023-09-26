@@ -23,18 +23,10 @@ test('add a grid component by api', () => {
 
   const marks = plot.view.getGrammarsByType('mark');
 
-  expect(marks.map(mark => (mark as IMark).markType)).toEqual([
-    'group',
-    'group',
-    'component',
-    'component',
-    'component',
-    'line',
-    'component'
-  ]);
+  expect(marks.map(mark => (mark as IMark).markType)).toEqual(['group', 'group', 'component', 'component', 'line']);
   expect(
     marks.filter(mark => (mark as IMark).markType === 'component').map(mark => (mark as IComponent).componentType)
-  ).toEqual(['grid', 'grid', 'crosshair', 'dimensionTooltip']);
+  ).toEqual(['grid', 'grid']);
 
   const gridXComponent = marks[2];
   const gridXSpec = gridXComponent.getSpec();
@@ -92,18 +84,10 @@ test('add a grid component by api, and the coordinate is polar', () => {
 
   const marks = plot.view.getGrammarsByType('mark');
 
-  expect(marks.map(mark => (mark as IMark).markType)).toEqual([
-    'group',
-    'group',
-    'component',
-    'component',
-    'component',
-    'line',
-    'component'
-  ]);
+  expect(marks.map(mark => (mark as IMark).markType)).toEqual(['group', 'group', 'component', 'component', 'line']);
   expect(
     marks.filter(mark => (mark as IMark).markType === 'component').map(mark => (mark as IComponent).componentType)
-  ).toEqual(['grid', 'grid', 'crosshair', 'dimensionTooltip']);
+  ).toEqual(['grid', 'grid']);
 
   const gridXComponent = marks[2];
   const gridXSpec = gridXComponent.getSpec();
@@ -171,19 +155,10 @@ test('add a grid component by spec', () => {
 
   const marks = plot.view.getGrammarsByType('mark');
 
-  expect(marks.map(mark => (mark as IMark).markType)).toEqual([
-    'group',
-    'group',
-    'component',
-    'component',
-    'component',
-    'rect',
-    'component',
-    'component'
-  ]);
+  expect(marks.map(mark => (mark as IMark).markType)).toEqual(['group', 'group', 'component', 'component', 'rect']);
   expect(
     marks.filter(mark => (mark as IMark).markType === 'component').map(mark => (mark as IComponent).componentType)
-  ).toEqual(['grid', 'grid', 'crosshair', 'tooltip', 'dimensionTooltip']);
+  ).toEqual(['grid', 'grid']);
 
   const gridXComponent = marks[2];
   const gridXSpec = gridXComponent.getSpec();

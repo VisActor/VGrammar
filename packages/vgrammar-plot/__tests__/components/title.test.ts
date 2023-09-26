@@ -22,20 +22,12 @@ test('add a title component by api', () => {
 
   const marks = plot.view.getGrammarsByType('mark');
 
-  expect(marks.map(mark => (mark as IMark).markType)).toEqual([
-    'group',
-    'group',
-    'component',
-    'component',
-    'rect',
-    'component',
-    'component'
-  ]);
+  expect(marks.map(mark => (mark as IMark).markType)).toEqual(['group', 'group', 'component', 'rect']);
   expect(
     marks.filter(mark => (mark as IMark).markType === 'component').map(mark => (mark as IComponent).componentType)
-  ).toEqual(['crosshair', 'title', 'tooltip', 'dimensionTooltip']);
+  ).toEqual(['title']);
 
-  const titleComponent = marks[3];
+  const titleComponent = marks[2];
 
   expect(titleComponent.getSpec().title).toEqual('this is a title');
 });
@@ -71,19 +63,12 @@ test('add a title component by spec', () => {
 
   const marks = plot.view.getGrammarsByType('mark');
 
-  expect(marks.map(mark => (mark as IMark).markType)).toEqual([
-    'group',
-    'group',
-    'component',
-    'component',
-    'area',
-    'component'
-  ]);
+  expect(marks.map(mark => (mark as IMark).markType)).toEqual(['group', 'group', 'component', 'area']);
   expect(
     marks.filter(mark => (mark as IMark).markType === 'component').map(mark => (mark as IComponent).componentType)
-  ).toEqual(['crosshair', 'title', 'dimensionTooltip']);
+  ).toEqual(['title']);
 
-  const titleComponent = marks[3];
+  const titleComponent = marks[2];
 
   expect(titleComponent.getSpec().title).toEqual('this is a title');
   expect(titleComponent.getSpec().subTitle).toEqual('this is a subtext');

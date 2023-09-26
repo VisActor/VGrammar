@@ -44,18 +44,6 @@ Examples of different types of legends:
 
 <div class="examples-ref-container" id="examples-ref-legend" data-path="component/legend"></div>
 
-## Crosshair
-
-The crosshair is an auxiliary element that helps users lock a precise data point, making it easier to read the specific data value of that point.
-
-The crosshair usually intersects with the axis corresponding to the data point, consisting of horizontal and vertical lines. It is displayed when the user's mouse hovers or clicks, assisting the user in quickly understanding the data information of a point.
-
-The componentType of the crosshair component is `'crosshair'`. The View also provides a `View.crosshair()` interface for conveniently creating a crosshair.
-
-Crosshair example:
-
-<div class="examples-ref-container" id="examples-ref-crosshair" data-path="basic-mark-symbol/basic-symbol"></div>
-
 ## Slider
 
 The slider is an interactive component for filtering and scaling data. Users can adjust the data range by dragging the slider bar. Users can control the data range by dragging the slider gap and position. By operating the slider, users can view the data in a specified range according to their needs.
@@ -85,16 +73,6 @@ The componentType of the label component is `'label'`. The View also provides a 
 Label example:
 
 <div class="examples-ref-container" id="examples-ref-label" data-path="component/label"></div>
-
-## Tooltip
-
-Tooltips are temporarily displayed information prompts. When the user's cursor hovers over a data item in the chart, the tooltip appears near the cursor, displaying information to help users better understand the data.
-
-The componentType of the tooltip component is `'tooltip' | 'dimensionTooltip'`, and the View also provides `View.tooltip()` and `View.dimensionTooltip()` interfaces to easily create a tooltip. These two tooltips are respectively aimed at the cases where tooltip is displayed on primitives and tooltip is displayed on data dimensions. Different tooltips can be mixed to adapt to flexible business scenarios.
-
-Tooltip example:
-
-<div class="examples-ref-container" id="examples-ref-tooltip" data-path="basic-mark-rect/percent-rect"></div>
 
 ## Player
 
