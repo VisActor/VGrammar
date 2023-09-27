@@ -83,6 +83,7 @@ export type EventType =
   | 'pointerupoutside'
   | 'pointertap'
   | 'pointerover'
+  | 'pointermove'
   | 'pointerenter'
   | 'pointerleave'
   | 'pointerout'

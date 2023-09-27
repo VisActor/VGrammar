@@ -1370,12 +1370,14 @@ export default class View extends EventEmitter implements IView {
 
   removeInteraction(type: string | IInteraction) {
     if (this._boundInteractions) {
-      const instance = this._boundInteractions.find(
+      const instances = this._boundInteractions.filter(
         interaction => (isString(type) && interaction.type === type) || interaction === type
       );
 
-      if (instance) {
-        instance.unbind();
+      if (instances.length) {
+        instances.forEach(instance => {
+          instance.unbind();
+        });
       }
     }
 
