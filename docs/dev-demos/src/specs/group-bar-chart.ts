@@ -4,6 +4,13 @@ export const spec = {
   height: 240,
   padding: 5,
 
+  interactions: [
+    {
+      type: 'brush-active',
+      selector: ['rect', 'text']
+    }
+  ],
+
   data: [
     {
       id: 'table',
@@ -114,6 +121,9 @@ export const spec = {
               x: { scale: 'xscale', field: 'value' },
               x1: { scale: 'xscale', value: 0 },
               fill: { scale: 'color', field: 'position' }
+            },
+            active: {
+              stroke: 'black'
             }
           },
           transform: [{ type: 'dodge', minWidth: 20 }]
@@ -151,6 +161,9 @@ export const spec = {
               text: { field: 'value' },
               fontFamily: 'sans-serif',
               fontSize: 11
+            },
+            active: {
+              fontSize: 20
             }
           },
           transform: [{ type: 'dodge', minWidth: 20 }]

@@ -828,6 +828,10 @@ export class Mark extends GrammarBase implements IMark {
   addGraphicItem(attrs: any, groupKey?: string, newGraphicItem?: any) {
     const graphicItem: any = newGraphicItem ?? createGraphicItem(this, this.markType, attrs);
 
+    if (!graphicItem) {
+      return;
+    }
+
     this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK);
     if (this.markType === GrammarMarkType.group) {
       graphicItem.name = `${this.id() || this.markType}`;

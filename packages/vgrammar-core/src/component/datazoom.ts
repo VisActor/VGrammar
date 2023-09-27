@@ -91,6 +91,20 @@ export class Datazoom extends Component implements IDatazoom {
     return this;
   }
 
+  getStartEndValue() {
+    const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as DatazoomComponent;
+
+    if (datazoom) {
+      const state = datazoom.state;
+      return {
+        start: state.start,
+        end: state.end
+      };
+    }
+
+    return null;
+  }
+
   addGraphicItem(attrs: any, groupKey?: string) {
     const theme = this.view.getCurrentTheme();
     const initialAttributes = Object.assign({}, theme?.components?.datazoom, attrs);

@@ -69,6 +69,10 @@ export class Element implements IElement {
     // 统一读取mark中是否可交互的配置
     const attrs = Object.assign({}, attributes);
     this.graphicItem = this.mark.addGraphicItem(attrs, this.groupKey);
+
+    if (!this.graphicItem) {
+      return;
+    }
     // 统一读取mark中是否可交互的配置
     this.graphicItem[BridgeElementKey] = this;
 
