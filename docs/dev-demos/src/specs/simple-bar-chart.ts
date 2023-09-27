@@ -32,15 +32,20 @@ export const spec = {
     }
   ],
   interactions: [
+    // {
+    //   type: 'element-active',
+    //   selector: 'rect',
+    //   state: 'hover',
+    // }, 
     {
-      type: 'element-active',
-      selector: 'rect',
-      state: 'hover',
-    }, {
       type: 'element-select',
       selector: 'rect',
       resetTrigger: 'empty',
       isMultiple: true
+    }, 
+    {
+      type: 'element-highlight',
+      selector: 'rect'
     }
 ],
 
@@ -118,6 +123,12 @@ export const spec = {
         },
         selected: {
           fill: 'red'
+        },
+        highlight: {
+          fill: 'orange',
+        },
+        blur: {
+          fill: '#ccc'
         }
       },
       transform: [{ type: 'dodge', maxWidth: 10 }]

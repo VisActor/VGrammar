@@ -16,7 +16,14 @@ import { Tooltip } from './tooltip';
 import { DimensionTooltip } from './dimension-tooltip';
 import { Crosshair } from './crosshair';
 import { FilterMixin } from './filter';
+import { ViewZoom } from './view-zoom';
+import { ViewScroll } from './view-scroll';
+import { ViewDrag } from './view-drag';
 import { mixin } from '@visactor/vutils';
+import { ViewZoomMixin } from './view-zoom-mixin';
+import { ViewScrollMixin } from './view-scroll-mixin';
+import { ViewDragMixin } from './view-drag-mixin';
+import { ViewRoam } from './view-roam';
 
 export const registerElementActive = () => {
   Factory.registerInteraction(ElementActive.type, ElementActive);
@@ -82,4 +89,25 @@ export const registerDimensionTooltip = () => {
 
 export const registerCrosshair = () => {
   Factory.registerInteraction(Crosshair.type, Crosshair);
+};
+export const registerViewZoom = () => {
+  mixin(ViewZoom, ViewZoomMixin);
+  Factory.registerInteraction(ViewZoom.type, ViewZoom);
+};
+
+export const registerViewScroll = () => {
+  mixin(ViewScroll, ViewScrollMixin);
+  Factory.registerInteraction(ViewScroll.type, ViewScroll);
+};
+
+export const registerViewDrag = () => {
+  mixin(ViewDrag, ViewDragMixin);
+  Factory.registerInteraction(ViewDrag.type, ViewDrag);
+};
+
+export const registerViewRoam = () => {
+  mixin(ViewRoam, ViewZoomMixin);
+  mixin(ViewRoam, ViewDragMixin);
+  mixin(ViewRoam, ViewScrollMixin);
+  Factory.registerInteraction(ViewRoam.type, ViewRoam);
 };

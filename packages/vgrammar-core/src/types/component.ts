@@ -139,6 +139,7 @@ export interface IDatazoom extends IComponent {
 
   // immediate functions
   setStartEndValue: (start?: number, end?: number) => this;
+  getStartEndValue: () => { start: number; end: number } | Nil;
 
   // internal interface
   invertDatazoomRatio: (ratio: number) => any;
@@ -220,6 +221,7 @@ export interface IScrollbar extends IScaleComponent {
 
   // immediate functions
   setScrollStart: (start: number) => this;
+  getScrollRange: () => [number, number] | Nil;
 }
 
 export interface ScrollbarSpec extends ScaleComponentSpec<Partial<ScrollBarAttributes>> {
