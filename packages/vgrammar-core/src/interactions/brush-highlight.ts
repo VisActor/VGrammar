@@ -3,6 +3,7 @@ import { InteractionStateEnum } from '../graph/enums';
 import type { BrushHighlightOptions, IElement, IGlyphElement, IView } from '../types';
 import { BrushBase } from './brush-base';
 import { type IBounds } from '@visactor/vutils';
+import { IOperateType } from '@visactor/vrender-components';
 
 export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
   static type: string = 'brush-highlight';
@@ -23,20 +24,30 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
     operatedMaskAABBBounds: { [name: string]: IBounds };
   }) => {
     const elements: (IElement | IGlyphElement)[] = [];
-    this._marks.forEach(mark => {
-      mark.elements.forEach(el => {
-        const isHighlight = this.isBrushContainGraphicItem(options.operateMask, el.getGraphicItem());
 
-        if (isHighlight) {
-          elements.push(el);
+    if (options.operateType === IOperateType.brushClear) {
+      this._marks.forEach(mark => {
+        mark.elements.forEach(el => {
           el.removeState(this.options.blurState);
-          el.addState(this.options.highlightState);
-        } else {
           el.removeState(this.options.highlightState);
-          el.addState(this.options.blurState);
-        }
+        });
       });
-    });
+    } else {
+      this._marks.forEach(mark => {
+        mark.elements.forEach(el => {
+          const isHighlight = this.isBrushContainGraphicItem(options.operateMask, el.getGraphicItem());
+
+          if (isHighlight) {
+            elements.push(el);
+            el.removeState(this.options.blurState);
+            el.addState(this.options.highlightState);
+          } else {
+            el.removeState(this.options.highlightState);
+            el.addState(this.options.blurState);
+          }
+        });
+      });
+    }
 
     this.dispatchEvent(options, elements);
   };

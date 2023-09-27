@@ -10,6 +10,25 @@ export const spec = {
       values: data
     }
   ],
+  interactions: [
+    {
+      type: 'element-active-by-legend',
+      selector: '#points'
+    },
+    {
+      type: 'element-highlight-by-legend',
+      selector: '#points'
+    },
+    {
+      type: 'brush-active',
+      selector: '#points'
+    },
+    {
+      type: 'element-highlight-by-name',
+      name: 'axis-label',
+      selector: '#points'
+    }
+  ],
 
   scales: [
     {
@@ -103,22 +122,22 @@ export const spec = {
       }
     },
 
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'yscale',
-      crosshairShape: 'line',
-      crosshairType: 'y',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { x: params.viewBox.x1 },
-            end: { x: params.viewBox.x2 }
-          };
-        }
-      }
-    },
+    // {
+    //   type: 'component',
+    //   componentType: 'crosshair',
+    //   scale: 'yscale',
+    //   crosshairShape: 'line',
+    //   crosshairType: 'y',
+    //   dependency: ['viewBox'],
+    //   encode: {
+    //     update: (scale, elment, params) => {
+    //       return {
+    //         start: { x: params.viewBox.x1 },
+    //         end: { x: params.viewBox.x2 }
+    //       };
+    //     }
+    //   }
+    // },
 
     {
       type: 'component',
@@ -137,6 +156,8 @@ export const spec = {
     },
     {
       type: 'symbol',
+      id: 'points',
+      groupBy: 'clarity',
       from: { data: 'table' },
       transform: [{
         type: 'jitter'
@@ -150,6 +171,15 @@ export const spec = {
         },
         hover: {
           fill: 'red'
+        },
+        active: {
+          stroke: 'black'
+        },
+        highlight: {
+          fill: 'orange' 
+        },
+        blur: {
+          fillOpacity: 0.2
         }
       }
     }

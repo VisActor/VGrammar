@@ -82,7 +82,11 @@ import {
   registerRollUp,
   registerTooltip,
   registerDimensionTooltip,
-  registerCrosshair
+  registerCrosshair,
+  registerViewZoom,
+  registerViewScroll,
+  registerViewDrag,
+  registerViewRoam
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
@@ -169,7 +173,11 @@ View.useRegisters([
   registerRollUp,
   registerTooltip,
   registerDimensionTooltip,
-  registerCrosshair
+  registerCrosshair,
+  registerViewZoom,
+  registerViewScroll,
+  registerViewDrag,
+  registerViewRoam
 ]);
 
 initAllEnv();
