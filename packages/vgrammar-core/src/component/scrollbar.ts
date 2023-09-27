@@ -160,6 +160,14 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
     return this;
   }
 
+  getScrollRange() {
+    const scrollbar = this.elements[0]?.getGraphicItem?.() as unknown as ScrollbarComponent;
+
+    if (scrollbar) {
+      return scrollbar.getScrollRange();
+    }
+  }
+
   addGraphicItem(attrs: any, groupKey?: string) {
     const defaultAttributes = { range: [0, 1] };
     const initialAttributes = merge(defaultAttributes, attrs);

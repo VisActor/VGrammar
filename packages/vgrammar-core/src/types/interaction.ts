@@ -8,9 +8,17 @@ import type {
 } from '@visactor/vrender-components';
 import type { IPolygon, ISymbolGraphicAttribute, ITextGraphicAttribute } from '@visactor/vrender';
 import type { IElement, IGlyphElement } from './element';
-import type { IData, IScale } from './grammar';
+import type { IData, IGrammarBase, IMark, IScale } from './grammar';
 import type { IPointLike } from '@visactor/vutils';
-import type { FieldEncodeType, IGrammarBase, IMark, MarkFunctionType } from '.';
+import type { IBaseScale } from '@visactor/vscale';
+import type { IDatazoom, IScrollbar } from './component';
+import type { FieldEncodeType, MarkFunctionType } from './mark';
+
+export interface FilterDataTarget {
+  data: string | IData;
+  filter: string | ((datum: any, filterValues: any[]) => boolean);
+  transform?: (data: any[], filterValues: any[]) => any[];
+}
 
 export interface IBaseInteractionOptions {
   dependencies?: string | string[] | IGrammarBase | IGrammarBase[];
@@ -325,6 +333,52 @@ export interface CrosshairOptions extends IBaseInteractionOptions {
   center?: IPointLike;
   attributes?: MarkFunctionType<BaseCrosshairAttrs>;
 }
+export interface ViewNavigationBaseOptions {
+  enableX?: boolean;
+  enableY?: boolean;
+  scaleX?: string | IScale;
+  scaleY?: string | IScale;
+  dataTargetX?: FilterDataTarget;
+  dataTargetY?: FilterDataTarget;
+  throttle?: number;
+  linkedComponentX?: string | IDatazoom | IScrollbar;
+  linkedComponentY?: string | IDatazoom | IScrollbar;
+}
+
+export interface ViewZoomSimpleOptions {
+  realtime?: boolean;
+  rate?: number;
+  focus?: boolean;
+  trigger?: EventType;
+  endTrigger?: EventType;
+  resetTrigger?: EventType;
+}
+
+export type ViewZoomOptions = ViewZoomSimpleOptions & IBaseInteractionOptions & ViewNavigationBaseOptions;
+
+export interface ViewScrollSimpleOptions {
+  realtime?: boolean;
+  reversed?: boolean;
+  trigger?: EventType;
+  endTrigger?: EventType;
+}
+export type ViewScrollOptions = ViewScrollSimpleOptions & IBaseInteractionOptions & ViewNavigationBaseOptions;
+
+export interface ViewDragSimpleOptions {
+  realtime?: boolean;
+  reversed?: boolean;
+  trigger?: EventType;
+  endTrigger?: EventType;
+  updateTrigger?: EventType;
+}
+
+export type ViewDragOptions = ViewDragSimpleOptions & IBaseInteractionOptions & ViewNavigationBaseOptions;
+
+export interface ViewRoamOptions extends IBaseInteractionOptions, ViewNavigationBaseOptions {
+  zoom?: ViewZoomSimpleOptions & { enable?: boolean };
+  scroll?: ViewScrollSimpleOptions & { enable?: boolean };
+  drag?: ViewDragSimpleOptions & { enable?: boolean };
+}
 
 export interface ElementActiveSpec extends ElementActiveOptions {
   type: 'element-active';
@@ -404,6 +458,21 @@ export interface DimensionTooltipSpec extends DimensionTooltipOptions {
 export interface CrosshairSpec extends CrosshairOptions {
   type: 'crosshair';
 }
+export interface ViewRoamSpec extends ViewRoamOptions {
+  type: 'view-roam';
+}
+
+export interface ViewZoomSpec extends ViewZoomOptions {
+  type: 'view-zoom';
+}
+
+export interface ViewScrollSpec extends ViewScrollOptions {
+  type: 'view-scroll';
+}
+
+export interface ViewDragSpec extends ViewDragOptions {
+  type: 'view-drag';
+}
 
 export type InteractionSpec =
   | ElementActiveSpec
@@ -426,4 +495,80 @@ export type InteractionSpec =
   | RollUpSpec
   | TooltipSpec
   | DimensionTooltipSpec
-  | CrosshairSpec;
+  | CrosshairSpec
+  | ViewRoamSpec
+  | ViewZoomSpec
+  | ViewScrollSpec
+  | ViewDragSpec;
+
+export interface ViewNavigationRange {
+  needUpdate?: boolean;
+  x?: [number, number];
+  y?: [number, number];
+}
+
+export interface IViewZoomMixin {
+  updateZoomRange: (
+    rangeFactor: [number, number],
+    range: [number, number],
+    zoomEvent: { zoomDelta: number; zoomX: number; zoomY: number },
+    zoomOptions?: ViewZoomSimpleOptions
+  ) => [number, number];
+  formatZoomEvent: (e: InteractionEvent) => InteractionEvent & { zoomDelta?: number; zoomX?: number; zoomY?: number };
+  handleZoomStart: (
+    e: InteractionEvent,
+    navState: Partial<Record<'x' | 'y', ViewStateByDim>>,
+    zoomOptions?: ViewZoomSimpleOptions
+  ) => ViewNavigationRange;
+  handleZoomEnd: (
+    e: InteractionEvent,
+    navState: Partial<Record<'x' | 'y', ViewStateByDim>>,
+    zoomOptions?: ViewZoomSimpleOptions
+  ) => ViewNavigationRange;
+  handleZoomReset: (
+    e: InteractionEvent,
+    navState: Partial<Record<'x' | 'y', ViewStateByDim>>,
+    zoomOptions?: ViewZoomSimpleOptions
+  ) => ViewNavigationRange;
+}
+
+export interface IViewScrollMixin {
+  formatScrollEvent: (e: InteractionEvent) => InteractionEvent & { scrollX?: number; scrollY?: number };
+  handleScrollStart: (
+    e: InteractionEvent,
+    navState: Partial<Record<'x' | 'y', ViewStateByDim>>,
+    scrollOptions?: ViewScrollSimpleOptions
+  ) => ViewNavigationRange;
+  handleScrollEnd: (
+    e: InteractionEvent,
+    navState: Partial<Record<'x' | 'y', ViewStateByDim>>,
+    scrollOptions?: ViewScrollSimpleOptions
+  ) => ViewNavigationRange;
+}
+
+export interface IViewDragMixin {
+  handleDragStart: (
+    e: InteractionEvent,
+    navState: Partial<Record<'x' | 'y', ViewStateByDim>>,
+    dragOptions?: ViewDragSimpleOptions
+  ) => ViewNavigationRange;
+  handleDragUpdate: (
+    e: InteractionEvent,
+    navState: Partial<Record<'x' | 'y', ViewStateByDim>>,
+    dragOptions?: ViewDragSimpleOptions
+  ) => ViewNavigationRange;
+  handleDragEnd: (
+    e: InteractionEvent,
+    navState: Partial<Record<'x' | 'y', ViewStateByDim>>,
+    dragOptions?: ViewDragSimpleOptions
+  ) => ViewNavigationRange;
+}
+
+export interface ViewStateByDim {
+  scale?: IScale;
+  data?: IData;
+  linkedComponent?: IDatazoom | IScrollbar;
+  filterValue?: any[];
+  wholeScale?: IBaseScale;
+  rangeFactor?: [number, number];
+}
