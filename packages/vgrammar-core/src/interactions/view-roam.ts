@@ -6,11 +6,20 @@ import type {
   IScale,
   IData,
   IViewZoomMixin,
-  IViewScrollMixin
+  IViewScrollMixin,
+  IViewDragMixin
 } from '../types';
 import { ViewNavigationBase } from './view-navigation-base';
-import type { ViewDragMixin } from './view-drag-mixin';
 import { InteractionEventEnum } from '../graph/enums';
+
+export interface ViewRoam
+  extends Pick<IViewDragMixin, 'handleDragStart' | 'handleDragEnd' | 'handleDragUpdate'>,
+    Pick<IViewScrollMixin, 'formatScrollEvent' | 'handleScrollStart' | 'handleScrollEnd'>,
+    Pick<
+      IViewZoomMixin,
+      'formatZoomEvent' | 'handleZoomStart' | 'handleZoomEnd' | 'handleZoomReset' | 'updateZoomRange'
+    >,
+    ViewNavigationBase<ViewRoamOptions> {}
 
 export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
   static type: string = 'view-roam';
@@ -117,7 +126,7 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
   }
 
   handleRoamZoomStartInner = (e: InteractionEvent) => {
-    (this as unknown as IViewZoomMixin).formatZoomEvent(e);
+    this.formatZoomEvent(e);
     if (!e || (this.options.shouldStart && !this.options.shouldStart(e))) {
       return;
     }
@@ -126,35 +135,23 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       this._initGrammars();
     }
 
-    this.updateView(
-      InteractionEventEnum.viewZoomStart,
-      (this as unknown as IViewZoomMixin).handleZoomStart(e, this._state, this.options.zoom),
-      e
-    );
+    this.updateView(InteractionEventEnum.viewZoomStart, this.handleZoomStart(e, this._state, this.options.zoom), e);
   };
 
   handleRoamZoomEnd = (e: InteractionEvent) => {
-    (this as unknown as IViewZoomMixin).formatZoomEvent(e);
+    this.formatZoomEvent(e);
     if (!e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
       return;
     }
 
-    this.updateView(
-      InteractionEventEnum.viewZoomEnd,
-      (this as unknown as IViewZoomMixin).handleZoomEnd(e, this._state, this.options.zoom),
-      e
-    );
+    this.updateView(InteractionEventEnum.viewZoomEnd, this.handleZoomEnd(e, this._state, this.options.zoom), e);
   };
 
   handleRoamZoomReset = (e: InteractionEvent) => {
     if (!e || (this.options.shouldReset && !this.options.shouldReset(e))) {
       return;
     }
-    this.updateView(
-      InteractionEventEnum.viewZoomReset,
-      (this as unknown as IViewZoomMixin).handleZoomReset(e, this._state, this.options.zoom),
-      e
-    );
+    this.updateView(InteractionEventEnum.viewZoomReset, this.handleZoomReset(e, this._state, this.options.zoom), e);
   };
 
   handleRoamDragStart = (e: InteractionEvent) => {
@@ -166,22 +163,14 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       this._initGrammars();
     }
 
-    this.updateView(
-      InteractionEventEnum.viewDragStart,
-      (this as unknown as ViewDragMixin).handleDragStart(e, this._state, this.options.drag),
-      e
-    );
+    this.updateView(InteractionEventEnum.viewDragStart, this.handleDragStart(e, this._state, this.options.drag), e);
   };
 
   handleRoamDragUpdateInner = (e: InteractionEvent) => {
     if (!e || (this.options.shouldUpdate && !this.options.shouldUpdate(e))) {
       return;
     }
-    this.updateView(
-      InteractionEventEnum.viewDragUpdate,
-      (this as unknown as ViewDragMixin).handleDragUpdate(e, this._state, this.options.drag),
-      e
-    );
+    this.updateView(InteractionEventEnum.viewDragUpdate, this.handleDragUpdate(e, this._state, this.options.drag), e);
   };
 
   handleRoamDragEnd = (e: InteractionEvent) => {
@@ -189,15 +178,11 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       return;
     }
 
-    this.updateView(
-      InteractionEventEnum.viewDragEnd,
-      (this as unknown as ViewDragMixin).handleDragEnd(e, this._state, this.options.drag),
-      e
-    );
+    this.updateView(InteractionEventEnum.viewDragEnd, this.handleDragEnd(e, this._state, this.options.drag), e);
   };
 
   handleRoamScrollStartInner = (e: InteractionEvent) => {
-    (this as unknown as IViewScrollMixin).formatScrollEvent(e);
+    this.formatScrollEvent(e);
     if (!e || (this.options.shouldStart && !this.options.shouldStart(e))) {
       return;
     }
@@ -208,21 +193,17 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
 
     this.updateView(
       InteractionEventEnum.viewScrollStart,
-      (this as unknown as IViewScrollMixin).handleScrollStart(e, this._state, this.options.scroll),
+      this.handleScrollStart(e, this._state, this.options.scroll),
       e
     );
   };
 
   handleRoamScrollEnd = (e: InteractionEvent) => {
-    (this as unknown as IViewScrollMixin).formatScrollEvent(e);
+    this.formatScrollEvent(e);
     if (!e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
       return;
     }
 
-    this.updateView(
-      InteractionEventEnum.viewScrollEnd,
-      (this as unknown as IViewScrollMixin).handleScrollEnd(e, this._state, this.options.scroll),
-      e
-    );
+    this.updateView(InteractionEventEnum.viewScrollEnd, this.handleScrollEnd(e, this._state, this.options.scroll), e);
   };
 }

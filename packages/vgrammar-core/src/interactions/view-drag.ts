@@ -1,9 +1,11 @@
 import { throttle } from '@visactor/vutils';
 import { InteractionEventEnum } from '../graph/enums';
-import type { ViewDragOptions, IView, InteractionEvent } from '../types';
-import type { ViewDragMixin } from './view-drag-mixin';
+import type { ViewDragOptions, IView, InteractionEvent, IViewDragMixin } from '../types';
 import { ViewNavigationBase } from './view-navigation-base';
 
+export interface ViewDrag
+  extends Pick<IViewDragMixin, 'handleDragStart' | 'handleDragEnd' | 'handleDragUpdate'>,
+    ViewNavigationBase<ViewDragOptions> {}
 export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
   static type: string = 'view-drag';
   type: string = ViewDrag.type;
@@ -47,7 +49,7 @@ export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
 
     this.updateView(
       InteractionEventEnum.viewDragStart,
-      (this as unknown as ViewDragMixin).handleDragStart(e, this._state, { reversed: this.options.reversed }),
+      this.handleDragStart(e, this._state, { reversed: this.options.reversed }),
       e
     );
   };
@@ -59,7 +61,7 @@ export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
 
     this.updateView(
       InteractionEventEnum.viewDragUpdate,
-      (this as unknown as ViewDragMixin).handleDragUpdate(e, this._state, { reversed: this.options.reversed }),
+      this.handleDragUpdate(e, this._state, { reversed: this.options.reversed }),
       e
     );
   };
@@ -71,7 +73,7 @@ export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
 
     this.updateView(
       InteractionEventEnum.viewDragEnd,
-      (this as unknown as ViewDragMixin).handleDragEnd(e, this._state, { reversed: this.options.reversed }),
+      this.handleDragEnd(e, this._state, { reversed: this.options.reversed }),
       e
     );
   };

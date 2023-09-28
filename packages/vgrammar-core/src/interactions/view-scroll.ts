@@ -3,6 +3,10 @@ import { InteractionEventEnum } from '../graph/enums';
 import type { ViewScrollOptions, IView, InteractionEvent, IViewScrollMixin } from '../types';
 import { ViewNavigationBase } from './view-navigation-base';
 
+export interface ViewScroll
+  extends Pick<IViewScrollMixin, 'formatScrollEvent' | 'handleScrollStart' | 'handleScrollEnd'>,
+    ViewNavigationBase<ViewScrollOptions> {}
+
 export class ViewScroll extends ViewNavigationBase<ViewScrollOptions> {
   static type: string = 'view-scroll';
   type: string = ViewScroll.type;
