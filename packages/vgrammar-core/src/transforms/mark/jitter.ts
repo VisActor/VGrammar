@@ -1,7 +1,7 @@
 import type { IElement, JitterTransformOptions, JitterXTransformOptions, JitterYTransformOptions } from '../../types';
-import { getBandWidthOfScale } from '../../graph/mark/encode';
 import { isNil } from '@visactor/vutils';
 import { extent } from '@visactor/vgrammar-util';
+import { getBandWidthOfScale } from '../../util/scale';
 
 const jitterByChannel = (options: JitterTransformOptions, upstreamData: IElement[], channel: 'x' | 'y') => {
   const mark = upstreamData[0].mark;
