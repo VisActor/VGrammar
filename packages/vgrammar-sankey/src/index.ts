@@ -1,5 +1,6 @@
 import { Factory } from '@visactor/vgrammar-core';
 import { transform } from './transform';
+import { SankeyHighlight } from './sankey-highlight';
 
 export { SankeyLayout } from './layout';
 
@@ -15,4 +16,8 @@ export const registerSankeyTransforms = () => {
     },
     true
   );
+};
+
+export const registerSankeyHighlight = () => {
+  Factory.registerInteraction(SankeyHighlight.type, SankeyHighlight);
 };
