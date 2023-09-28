@@ -3,6 +3,12 @@ import type { ViewZoomOptions, IView, InteractionEvent, IScale, IData, IViewZoom
 import { ViewNavigationBase } from './view-navigation-base';
 import { InteractionEventEnum } from '../graph/enums';
 
+export interface ViewZoom
+  extends Pick<
+      IViewZoomMixin,
+      'formatZoomEvent' | 'handleZoomStart' | 'handleZoomEnd' | 'handleZoomReset' | 'updateZoomRange'
+    >,
+    ViewNavigationBase<ViewZoomOptions> {}
 export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
   static type: string = 'view-zoom';
   type: string = ViewZoom.type;
