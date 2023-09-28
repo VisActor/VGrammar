@@ -16,7 +16,7 @@ import type {
 } from '../types';
 import { BaseInteraction } from './base';
 import { ComponentEnum, DataFilterRank, GrammarMarkType } from '../graph/enums';
-import { isContinuous } from '@visactor/vscale';
+import { getScaleRangeRatio } from '../util/scale';
 
 export abstract class ViewNavigationBase<
   T extends ViewNavigationBaseOptions & IBaseInteractionOptions
@@ -76,19 +76,15 @@ export abstract class ViewNavigationBase<
       return;
     }
 
-    const cloned = scaleGrammar.getScale().clone();
+    dataGrammar.attach(scaleGrammar);
 
     const filterByScale = isString(dataTarget.filter)
-      ? isContinuous(cloned.type)
-        ? (datum: any, filterValue: number[]) => {
-            return (
-              datum[dataTarget.filter as string] >= filterValue[0] &&
-              datum[dataTarget.filter as string] <= filterValue[1]
-            );
-          }
-        : (datum: any, filterValue: any[]) => {
-            return filterValue.includes(datum[dataTarget.filter as string]);
-          }
+      ? (datum: any, filterValue: number[]) => {
+          const scale = scaleGrammar.getScale();
+          const ratio = getScaleRangeRatio(scale, datum[dataTarget.filter as string]);
+
+          return ratio >= filterValue[0] && ratio <= filterValue[1];
+        }
       : dataTarget.filter;
     const dataFilter = {
       source: `${scaleGrammar.uid}`,
@@ -111,7 +107,7 @@ export abstract class ViewNavigationBase<
 
     dataGrammar.addDataFilter(dataFilter);
 
-    this._state[dim] = { data: dataGrammar, scale: scaleGrammar, wholeScale: cloned };
+    this._state[dim] = { data: dataGrammar, scale: scaleGrammar };
   }
 
   protected _initGrammars() {
@@ -141,15 +137,15 @@ export abstract class ViewNavigationBase<
   }
 
   updateView(type: string, newRange: ViewNavigationRange, e?: InteractionEvent) {
+    if (newRange?.x && this._state?.x?.linkedComponent) {
+      this._updateLinkedComponent(this._state.x.linkedComponent, newRange.x);
+    }
+
+    if (newRange?.y && this._state?.y?.linkedComponent) {
+      this._updateLinkedComponent(this._state.y.linkedComponent, newRange.y);
+    }
+
     if (newRange?.needUpdate) {
-      if (newRange.x && this._state?.x?.linkedComponent) {
-        this._updateLinkedComponent(this._state.x.linkedComponent, newRange.x);
-      }
-
-      if (newRange.y && this._state?.y?.linkedComponent) {
-        this._updateLinkedComponent(this._state.y.linkedComponent, newRange.y);
-      }
-
       this.view.runAsync();
     }
 
@@ -161,5 +157,24 @@ export abstract class ViewNavigationBase<
       viewRange,
       event: e
     });
+  }
+
+  unbind() {
+    super.unbind();
+
+    if (this._state) {
+      Object.keys(this._state).forEach(dim => {
+        const { data, scale } = this._state[dim as 'x' | 'y'];
+
+        if (data && scale) {
+          data.detach(scale);
+          data.removeDataFilter(dim === 'x' ? this._dataFilterX : this._dataFilterY);
+        } else if (scale) {
+          scale.setRangeFactor([0, 1]);
+        }
+      });
+    }
+
+    this._state = null;
   }
 }

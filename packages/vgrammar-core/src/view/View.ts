@@ -538,6 +538,7 @@ export default class View extends EventEmitter implements IView {
   }
 
   updateSpec(spec: ViewSpec) {
+    this.removeAllInteractions();
     this.removeAllGrammars();
     return this.parseSpec(spec);
   }
@@ -1353,7 +1354,7 @@ export default class View extends EventEmitter implements IView {
     }
   }
 
-  interaction(type: string, spec: Omit<InteractionSpec, 'type'>) {
+  interaction(type: string, spec: Partial<InteractionSpec>) {
     const interaction = Factory.createInteraction(type, this, spec);
 
     if (interaction) {
@@ -1379,6 +1380,18 @@ export default class View extends EventEmitter implements IView {
           instance.unbind();
         });
       }
+    }
+
+    return this;
+  }
+
+  removeAllInteractions() {
+    if (this._boundInteractions) {
+      this._boundInteractions.forEach(instance => {
+        instance.unbind();
+      });
+
+      this._boundInteractions = null;
     }
 
     return this;

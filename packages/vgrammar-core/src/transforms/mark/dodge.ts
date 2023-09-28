@@ -1,7 +1,7 @@
 import type { DodgeTransformOptions, IElement } from '../../types';
-import { getBandWidthOfScale, isBandLikeScale } from '../../graph/mark/encode';
 import { array, isNil } from '@visactor/vutils';
 import { getter, toPercent } from '@visactor/vgrammar-util';
+import { getBandWidthOfScale, isBandLikeScale } from '../../util/scale';
 
 /**
  * 针对mark的dodge变换，支持x、y方向

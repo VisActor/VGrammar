@@ -99,11 +99,11 @@ export const handleScrolling = (
         navState[dim].rangeFactor = newRange;
 
         if (data) {
-          navState[dim].filterValue = getFilteredValuesFromScale(wholeScale, newRange);
+          navState[dim].filterValue = rangeFactor;
 
           data.commit();
         } else {
-          (scale.getScale() as any).rangeFactor(newRange);
+          scale.setRangeFactor(newRange);
           scale.commit();
         }
         res.needUpdate = true;
