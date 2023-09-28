@@ -26,13 +26,13 @@ export class ScrollbarFilter extends Filter {
 
   protected getEvents() {
     if (!this._marks || this._marks.length === 0) {
-      return {};
+      return [];
     }
 
     const scrollbar = this._marks[0] as IScrollbar;
 
     if (!this._data || !scrollbar) {
-      return {};
+      return [];
     }
 
     const filter = this.options.target.filter;
@@ -65,8 +65,11 @@ export class ScrollbarFilter extends Filter {
 
     this._filterData(this._data, scrollbar, DataFilterRank.scrollbar, getFilterValue, dataFilter, transform);
 
-    return {
-      scroll: this.handleFilter
-    };
+    return [
+      {
+        type: 'scroll',
+        handler: this.handleFilter
+      }
+    ];
   }
 }

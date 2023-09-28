@@ -7,7 +7,8 @@ import type {
   IData,
   IViewZoomMixin,
   IViewScrollMixin,
-  IViewDragMixin
+  IViewDragMixin,
+  InteractionEventHandler
 } from '../types';
 import { ViewNavigationBase } from './view-navigation-base';
 import { InteractionEventEnum } from '../graph/enums';
@@ -70,56 +71,29 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
   }
 
   protected getEvents() {
-    const events = {};
+    const events: Array<{ type: string; handler: InteractionEventHandler }> = [];
 
     if (this.options.zoom?.enable) {
-      this.options.zoom?.trigger && (events[this.options.zoom.trigger] = [this.handleRoamZoomStart]);
-      this.options.zoom?.endTrigger && (events[this.options.zoom.endTrigger] = [this.handleRoamZoomEnd]);
-      this.options.zoom?.resetTrigger && (events[this.options.zoom?.resetTrigger] = [this.handleRoamZoomReset]);
+      this.options.zoom?.trigger && events.push({ type: this.options.zoom.trigger, handler: this.handleRoamZoomStart });
+      this.options.zoom?.endTrigger &&
+        events.push({ type: this.options.zoom.endTrigger, handler: this.handleRoamZoomEnd });
+      this.options.zoom?.resetTrigger &&
+        events.push({ type: this.options.zoom?.resetTrigger, handler: this.handleRoamZoomReset });
     }
 
     if (this.options.scroll?.enable) {
-      if (this.options.scroll?.trigger) {
-        if (events[this.options.scroll.trigger]) {
-          events[this.options.scroll.trigger].push(this.handleRoamScrollStart);
-        } else {
-          events[this.options.scroll.trigger] = this.handleRoamScrollStart;
-        }
-      }
-
-      if (this.options.scroll?.endTrigger) {
-        if (events[this.options.scroll.endTrigger]) {
-          events[this.options.scroll.endTrigger].push(this.handleRoamScrollEnd);
-        } else {
-          events[this.options.scroll.endTrigger] = this.handleRoamScrollEnd;
-        }
-      }
+      this.options.scroll?.trigger &&
+        events.push({ type: this.options.scroll.trigger, handler: this.handleRoamScrollStart });
+      this.options.scroll?.trigger &&
+        events.push({ type: this.options.scroll.endTrigger, handler: this.handleRoamScrollEnd });
     }
 
     if (this.options.drag?.enable) {
-      if (this.options.drag?.trigger) {
-        if (events[this.options.drag.trigger]) {
-          events[this.options.drag.trigger].push(this.handleRoamDragStart);
-        } else {
-          events[this.options.drag.trigger] = this.handleRoamDragStart;
-        }
-      }
-
-      if (this.options.drag?.updateTrigger) {
-        if (events[this.options.drag.updateTrigger]) {
-          events[this.options.drag.updateTrigger].push(this.handleRoamDragUpdate);
-        } else {
-          events[this.options.drag.updateTrigger] = this.handleRoamDragUpdate;
-        }
-      }
-
-      if (this.options.drag?.endTrigger) {
-        if (events[this.options.drag.endTrigger]) {
-          events[this.options.drag.endTrigger].push(this.handleRoamDragEnd);
-        } else {
-          events[this.options.drag.endTrigger] = this.handleRoamDragEnd;
-        }
-      }
+      this.options.drag?.trigger && events.push({ type: this.options.drag.trigger, handler: this.handleRoamDragStart });
+      this.options.drag?.updateTrigger &&
+        events.push({ type: this.options.drag.updateTrigger, handler: this.handleRoamDragUpdate });
+      this.options.drag?.endTrigger &&
+        events.push({ type: this.options.drag.endTrigger, handler: this.handleRoamDragEnd });
     }
 
     return events;

@@ -22,10 +22,13 @@ export class ElementActive extends BaseInteraction<ElementActiveOptions> {
   }
 
   protected getEvents() {
-    return {
-      [this.options.trigger]: this.handleStart,
-      [this.options.resetTrigger]: this.handleReset
-    };
+    return [
+      {
+        type: this.options.trigger,
+        handler: this.handleStart
+      },
+      { type: this.options.resetTrigger, handler: this.handleReset }
+    ];
   }
 
   handleStart = (e: InteractionEvent) => {

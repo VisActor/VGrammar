@@ -24,12 +24,13 @@ export class ElementHighlightByKey extends BaseInteraction<ElementHighlightOptio
   }
 
   protected getEvents() {
-    const events = {
-      [this.options.trigger]: this.handleStart,
-      [this.options.resetTrigger]: this.handleReset
-    };
-
-    return events;
+    return [
+      {
+        type: this.options.trigger,
+        handler: this.handleStart
+      },
+      { type: this.options.resetTrigger, handler: this.handleReset }
+    ];
   }
 
   clearPrevElements() {

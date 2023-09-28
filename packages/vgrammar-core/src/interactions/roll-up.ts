@@ -1,4 +1,4 @@
-import type { IView, InteractionEvent, RollUpOptions } from '../types';
+import type { EventType, IView, InteractionEvent, RollUpOptions } from '../types';
 import { DataFilterRank } from '../graph';
 import { isArray, isString } from '@visactor/vutils';
 import { Filter } from './filter';
@@ -27,11 +27,11 @@ export class RollUp extends Filter {
 
   protected getEvents() {
     if (!this._marks || this._marks.length === 0) {
-      return {};
+      return [];
     }
 
     if (!this._data) {
-      return {};
+      return [];
     }
 
     const transform = this.options.target.transform;
@@ -43,9 +43,12 @@ export class RollUp extends Filter {
 
     this._filterData(this._data, null, DataFilterRank.rollUp, getFilterValue, undefined, dataTransform);
 
-    const events = {
-      [this.options.trigger]: this.handleStart
-    };
+    const events = [
+      {
+        type: this.options.trigger,
+        handler: this.handleStart
+      }
+    ];
 
     const eventName =
       this.options.resetTrigger === 'empty'
@@ -55,7 +58,10 @@ export class RollUp extends Filter {
         : this.options.resetTrigger;
 
     if (eventName !== this.options.trigger) {
-      events[eventName] = this.handleReset;
+      events.push({
+        type: eventName as EventType,
+        handler: this.handleReset
+      });
       this._isToggle = false;
     } else {
       this._isToggle = true;
