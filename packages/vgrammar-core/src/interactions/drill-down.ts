@@ -27,7 +27,7 @@ export class DrillDown extends BrushBase<DrillDownOptions> {
 
   protected getEvents() {
     if (!this._data) {
-      return {};
+      return [];
     }
 
     const transform = this.options.target.transform;
@@ -41,9 +41,12 @@ export class DrillDown extends BrushBase<DrillDownOptions> {
     if (this.options.brush) {
       return super.getEvents();
     }
-    return {
-      [this.options.trigger]: this.handleTrigger
-    };
+    return [
+      {
+        type: this.options.trigger,
+        handler: this.handleTrigger
+      }
+    ];
   }
 
   handleBrushUpdate = (options: {

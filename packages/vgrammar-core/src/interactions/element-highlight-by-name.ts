@@ -25,10 +25,13 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
   }
 
   protected getEvents() {
-    return {
-      [this.options.trigger]: this.handleStart,
-      [this.options.resetTrigger]: this.handleReset
-    };
+    return [
+      {
+        type: this.options.trigger,
+        handler: this.handleStart
+      },
+      { type: this.options.resetTrigger, handler: this.handleReset }
+    ];
   }
 
   protected _filterByName(e: InteractionEvent) {

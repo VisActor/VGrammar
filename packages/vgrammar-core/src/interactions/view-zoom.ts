@@ -36,13 +36,11 @@ export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
   }
 
   protected getEvents() {
-    const events = {
-      [this.options.trigger]: this.handleStart,
-      [this.options.endTrigger]: this.handleEnd,
-      [this.options.resetTrigger]: this.handleReset
-    };
-
-    return events;
+    return [
+      { type: this.options.trigger, handler: this.handleStart },
+      { type: this.options.endTrigger, handler: this.handleEnd },
+      { type: this.options.resetTrigger, handler: this.handleReset }
+    ];
   }
 
   handleStartInner = (e: InteractionEvent) => {

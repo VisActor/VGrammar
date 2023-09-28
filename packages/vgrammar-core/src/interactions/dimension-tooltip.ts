@@ -75,10 +75,10 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
       ? (datum: any, filterValue: any[]) => filterValue === datum[filter]
       : filter;
 
-    return {
-      [this.options.trigger]: this.handleTooltipShow,
-      [this.options.resetTrigger]: this.handleTooltipHide
-    };
+    return [
+      { type: this.options.trigger, handler: this.handleTooltipShow },
+      { type: this.options.resetTrigger, handler: this.handleTooltipHide }
+    ];
   }
 
   protected handleTooltipShow = throttle((event: any) => {

@@ -24,13 +24,13 @@ export class SliderFilter extends Filter {
 
   protected getEvents() {
     if (!this._marks || this._marks.length === 0) {
-      return {};
+      return [];
     }
 
     const slider = this._marks[0] as ISlider;
 
     if (!this._data || !slider) {
-      return {};
+      return [];
     }
 
     const filter = this.options.target.filter;
@@ -44,8 +44,11 @@ export class SliderFilter extends Filter {
 
     this._filterData(this._data, slider, DataFilterRank.slider, getFilterValue, dataFilter, transform);
 
-    return {
-      change: this.handleFilter
-    };
+    return [
+      {
+        type: 'change',
+        handler: this.handleFilter
+      }
+    ];
   }
 }

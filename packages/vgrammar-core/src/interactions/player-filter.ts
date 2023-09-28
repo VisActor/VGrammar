@@ -25,13 +25,13 @@ export class PlayerFilter extends Filter {
 
   protected getEvents() {
     if (!this._marks || this._marks.length === 0) {
-      return {};
+      return [];
     }
 
     const player = this._marks[0] as IPlayer;
 
     if (!this._data || !player) {
-      return {};
+      return [];
     }
 
     const transform = this.options.target.transform;
@@ -43,8 +43,11 @@ export class PlayerFilter extends Filter {
 
     this._filterData(this._data, player, DataFilterRank.player, getFilterValue, undefined, dataTransform);
 
-    return {
-      [PlayerEventEnum.OnChange]: this.handleFilter
-    };
+    return [
+      {
+        type: PlayerEventEnum.OnChange,
+        handler: this.handleFilter
+      }
+    ];
   }
 }
