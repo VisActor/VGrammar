@@ -6,12 +6,7 @@ import type {
   ViewDragSimpleOptions,
   ViewStateByDim
 } from '../types';
-import {
-  getBoundsRangeOfLinkedComponent,
-  getFilteredValuesFromScale,
-  getRangeOfLinkedComponent,
-  handleScrolling
-} from './view-utils';
+import { handleScrolling } from './view-utils';
 
 export class ViewDragMixin implements IViewDragMixin {
   protected _pointerId: number;
