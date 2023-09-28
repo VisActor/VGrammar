@@ -22,10 +22,13 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
     this._marks = view.getMarksBySelector(this.options.selector);
   }
 
-  protected getEvents(): Record<string, InteractionEventHandler | InteractionEventHandler[]> {
-    return {
-      [HOOK_EVENT.BEFORE_DO_RENDER]: this.handleAfterDraw
-    };
+  protected getEvents(): Array<{ type: string; handler: InteractionEventHandler }> {
+    return [
+      {
+        type: HOOK_EVENT.BEFORE_DO_RENDER,
+        handler: this.handleAfterDraw
+      }
+    ];
   }
 
   protected isPolygonBrushContainGraphicItem(

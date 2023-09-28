@@ -294,10 +294,16 @@ export class Crosshair extends BaseInteraction<CrosshairOptions> {
   }
 
   protected getEvents() {
-    return {
-      [this.options.trigger]: this.handleCrosshairShow,
-      [this.options.resetTrigger]: this.handleCrosshairHide
-    };
+    return [
+      {
+        type: this.options.trigger,
+        handler: this.handleCrosshairShow
+      },
+      {
+        type: this.options.resetTrigger,
+        handler: this.handleCrosshairHide
+      }
+    ];
   }
 
   protected handleCrosshairShow = (event: InteractionEvent) => {

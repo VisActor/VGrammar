@@ -25,13 +25,13 @@ export class LegendFilter extends Filter {
 
   protected getEvents() {
     if (!this._marks || this._marks.length === 0) {
-      return {};
+      return [];
     }
 
     const legend = this._marks[0] as ILegend;
 
     if (!this._data || !legend) {
-      return {};
+      return [];
     }
 
     const isContinuous = legend.isContinuousLegend();
@@ -50,8 +50,11 @@ export class LegendFilter extends Filter {
     this._filterData(this._data, legend, DataFilterRank.legend, getFilterValue, dataFilter, transform);
 
     const eventName = isContinuous ? 'change' : LegendEvent.legendItemClick;
-    return {
-      [eventName]: this.handleFilter
-    };
+    return [
+      {
+        type: eventName,
+        handler: this.handleFilter
+      }
+    ];
   }
 }

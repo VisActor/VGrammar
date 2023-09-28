@@ -31,10 +31,13 @@ export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightBy
   }
 
   protected getEvents() {
-    return {
-      [LegendEvent.legendItemHover]: this.handleStart,
-      [LegendEvent.legendItemUnHover]: this.handleReset
-    };
+    return [
+      {
+        type: LegendEvent.legendItemHover,
+        handler: this.handleStart
+      },
+      { type: LegendEvent.legendItemUnHover, handler: this.handleReset }
+    ];
   }
 
   handleStart = (e: InteractionEvent, element: IElement | IGlyphElement) => {
