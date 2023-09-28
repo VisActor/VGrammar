@@ -166,8 +166,9 @@ export interface IView {
   title: (group: IGroupMark | string) => ITitle;
   scrollbar: (group: IGroupMark | string) => IScrollbar;
 
-  interaction: (type: string, spec: Omit<InteractionSpec, 'type'>) => IInteraction;
+  interaction: (type: string, spec: Partial<InteractionSpec>) => IInteraction;
   removeInteraction: (type: string) => this;
+  removeAllInteractions: () => this;
 
   addGrammar: (grammar: IGrammarBase) => this;
   removeGrammar: (grammar: string | IGrammarBase) => this;

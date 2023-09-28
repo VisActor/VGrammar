@@ -5,9 +5,6 @@ import { isFieldEncode, isScaleEncode } from '../../parse/mark';
 import { getGrammarOutput, invokeFunctionType, isFunctionType } from '../../parse/util';
 import { isPositionOrSizeChannel } from '../attributes';
 import { GrammarMarkType } from '../enums';
-import { ScaleEnum } from '@visactor/vscale';
-// eslint-disable-next-line no-duplicate-imports
-import type { IBandLikeScale, IBaseScale } from '@visactor/vscale';
 import { Factory } from '../../core/factory';
 
 /**
@@ -144,20 +141,4 @@ export function splitEncoderInLarge(markType: string, encoder: BaseSignleEncodeS
   }
 
   return { positionEncoder, themeEncoder };
-}
-
-export function isBandLikeScale(scale: IBaseScale) {
-  return scale && (scale.type === ScaleEnum.Band || scale.type === ScaleEnum.Point);
-}
-
-export function getBandWidthOfScale(scale: IBaseScale) {
-  if (!scale) {
-    return undefined;
-  }
-
-  return scale.type === ScaleEnum.Band
-    ? (scale as IBandLikeScale).bandwidth()
-    : scale.type === ScaleEnum.Point
-    ? (scale as IBandLikeScale).step()
-    : undefined;
 }

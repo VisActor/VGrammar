@@ -148,6 +148,10 @@ export interface IScale extends IGrammarBase {
   range: (range: ScaleFunctionType<any[]> | ScaleData | MultiScaleData | Nil) => this;
   configure: (config: ScaleConfigureSpec | Nil) => this;
 
+  // only used in VGrammar
+  getRangeFactor: () => [number, number] | Nil;
+  setRangeFactor: (range?: [number, number]) => this;
+
   // scale util methods
   getScaleType: () => GrammarScaleType;
   getScale: () => IBaseScale;
