@@ -2,6 +2,7 @@ import type { DataFilterOptions, DatazoomFilterValue, IComponent, IDatazoom, IVi
 import { DataFilterRank, GrammarMarkType } from '../graph';
 import { isNil, isString } from '@visactor/vutils';
 import { Filter } from './filter';
+import { getScaleRangeRatio } from '../util/scale';
 
 export class DatazoomFilter extends Filter {
   static type: string = 'datazoom-filter';
@@ -52,8 +53,8 @@ export class DatazoomFilter extends Filter {
             return true;
           }
           const scale = datazoom.getDatazoomMainScale();
-          const range = scale.range();
-          const datumRatio = (scale.scale(datum[filter]) - range[0]) / (range[range.length - 1] - range[0]);
+          const datumRatio = getScaleRangeRatio(scale, datum[filter]);
+
           return filterValue.startRatio <= datumRatio && filterValue.endRatio >= datumRatio;
         }
       : filter;
