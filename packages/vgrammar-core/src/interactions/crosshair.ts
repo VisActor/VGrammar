@@ -307,7 +307,9 @@ export class Crosshair extends BaseInteraction<CrosshairOptions> {
     const groupGraphicItem = this._container.getGroupGraphicItem();
     // FIXME: waiting for vRender to add transformed position to event
     const point = { x: 0, y: 0 };
-    groupGraphicItem.globalTransMatrix.transformPoint(event.canvas, point);
+    const globalTransMatrix = groupGraphicItem.globalTransMatrix;
+    const containerPoint = { x: globalTransMatrix.e, y: globalTransMatrix.f };
+    globalTransMatrix.transformPoint(event.canvas, point);
 
     if (
       point.x < 0 ||
@@ -358,8 +360,8 @@ export class Crosshair extends BaseInteraction<CrosshairOptions> {
     }
     // Hack: waiting for component to fix
     if (this.getCrosshairComponentType() !== CrosshairEnum.circleCrosshair) {
-      attributes.x = groupGraphicItem.attribute.x;
-      attributes.y = groupGraphicItem.attribute.y;
+      attributes.x = containerPoint.x;
+      attributes.y = containerPoint.y;
     }
     this._crosshairComponent.showAll();
     this._crosshairComponent.setAttributes(attributes);
