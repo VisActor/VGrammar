@@ -6,7 +6,6 @@ import type {
   ViewStateByDim,
   ViewZoomSimpleOptions
 } from '../types';
-import type { IBaseScale } from '@visactor/vscale';
 import { getFilteredValuesFromScale, getRangeOfLinkedComponent } from './view-utils';
 
 export class ViewZoomMixin implements IViewZoomMixin {
