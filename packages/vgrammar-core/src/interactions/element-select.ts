@@ -1,5 +1,5 @@
 import { InteractionStateEnum } from '../graph/enums';
-import type { ElementSelectOptions, IMark, IView, InteractionEvent } from '../types';
+import type { ElementSelectOptions, EventType, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
 export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
@@ -22,9 +22,12 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   }
 
   protected getEvents() {
-    const events = {
-      [this.options.trigger]: this.handleStart
-    };
+    const events = [
+      {
+        type: this.options.trigger,
+        handler: this.handleStart
+      }
+    ];
 
     const eventName =
       this.options.resetTrigger === 'empty'
@@ -34,7 +37,7 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
         : this.options.resetTrigger;
 
     if (eventName !== this.options.trigger) {
-      events[eventName] = this.handleReset;
+      events.push({ type: eventName as EventType, handler: this.handleReset });
       this._isToggle = false;
     } else {
       this._isToggle = true;

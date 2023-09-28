@@ -380,6 +380,36 @@ export interface ViewRoamOptions extends IBaseInteractionOptions, ViewNavigation
   drag?: ViewDragSimpleOptions & { enable?: boolean };
 }
 
+/**
+ * the interaction to set the highlight state of specified marks
+ */
+export interface SankeyHighlightOptions extends IBaseInteractionOptions {
+  /**
+   * the selector of node mark
+   */
+  nodeSelector?: string | IMark;
+  /**
+   * the selector of link mark
+   */
+  linkSelector?: string | IMark;
+  /**
+   * the trigger event name
+   */
+  trigger?: EventType;
+  /**
+   * the reset trigger event name
+   */
+  resetTrigger?: EventType;
+  /**
+   * the highlight state name
+   */
+  highlightState?: string;
+  /**
+   * the blur state name
+   */
+  blurState?: string;
+}
+
 export interface ElementActiveSpec extends ElementActiveOptions {
   type: 'element-active';
 }
@@ -474,6 +504,10 @@ export interface ViewDragSpec extends ViewDragOptions {
   type: 'view-drag';
 }
 
+export interface SankeyHighlightSpec extends SankeyHighlightOptions {
+  type: 'sankey-highlight';
+}
+
 export type InteractionSpec =
   | ElementActiveSpec
   | ElementSelectSpec
@@ -499,7 +533,8 @@ export type InteractionSpec =
   | ViewRoamSpec
   | ViewZoomSpec
   | ViewScrollSpec
-  | ViewDragSpec;
+  | ViewDragSpec
+  | SankeyHighlightSpec;
 
 export interface ViewNavigationRange {
   needUpdate?: boolean;

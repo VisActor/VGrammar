@@ -25,13 +25,13 @@ export class DatazoomFilter extends Filter {
 
   protected getEvents() {
     if (!this._marks || this._marks.length === 0) {
-      return {};
+      return [];
     }
 
     const datazoom = this._marks[0] as IDatazoom;
 
     if (!this._data || !datazoom) {
-      return {};
+      return [];
     }
 
     const filter = this.options.target.filter;
@@ -61,9 +61,11 @@ export class DatazoomFilter extends Filter {
 
     this._filterData(this._data, datazoom, DataFilterRank.datazoom, getFilterValue, dataFilter, transform);
 
-    return {
-      // TODO: waiting for datazoom to provide events
-      change: this.handleFilter
-    };
+    return [
+      {
+        type: 'change',
+        handler: this.handleFilter
+      }
+    ];
   }
 }

@@ -11,7 +11,7 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
 
   references: Map<IGrammarBase, number> = new Map();
 
-  protected abstract getEvents(): Record<string, InteractionEventHandler | InteractionEventHandler[]>;
+  protected abstract getEvents(): Array<{ type: string; handler: InteractionEventHandler }>;
 
   depend(grammar: IGrammarBase[] | IGrammarBase | string[] | string) {
     this.references.clear();
@@ -37,14 +37,8 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
   bind() {
     const events = this.getEvents();
 
-    Object.keys(events).forEach(key => {
-      if (isArray(events[key])) {
-        (events[key] as InteractionEventHandler[]).forEach(callback => {
-          this.view.addEventListener(key, callback);
-        });
-      } else {
-        this.view.addEventListener(key, events[key] as InteractionEventHandler);
-      }
+    (events ?? []).forEach(evt => {
+      this.view.addEventListener(evt.type, evt.handler);
     });
   }
 
@@ -52,14 +46,8 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
     // unbind events
     const events = this.getEvents();
 
-    Object.keys(events).forEach(key => {
-      if (isArray(events[key])) {
-        (events[key] as InteractionEventHandler[]).forEach(callback => {
-          this.view.removeEventListener(key, callback);
-        });
-      } else {
-        this.view.removeEventListener(key, events[key] as InteractionEventHandler);
-      }
+    (events ?? []).forEach(evt => {
+      this.view.removeEventListener(evt.type, evt.handler);
     });
   }
 }

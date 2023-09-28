@@ -24,7 +24,7 @@ export class BrushFilter extends BrushBase<BrushFilterOptions> {
 
   protected getEvents() {
     if (!this._data) {
-      return {};
+      return [];
     }
 
     const transform = this.options.target.transform;

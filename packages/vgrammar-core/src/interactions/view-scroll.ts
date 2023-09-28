@@ -28,12 +28,10 @@ export class ViewScroll extends ViewNavigationBase<ViewScrollOptions> {
   }
 
   protected getEvents() {
-    const events = {
-      [this.options.trigger]: this.handleStart,
-      [this.options.endTrigger]: this.handleEnd
-    };
-
-    return events;
+    return [
+      { type: this.options.trigger, handler: this.handleStart },
+      { type: this.options.endTrigger, handler: this.handleEnd }
+    ];
   }
 
   handleStartInner = (e: InteractionEvent) => {
