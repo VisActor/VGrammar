@@ -19,10 +19,10 @@ export class Tooltip extends BaseTooltip<TooltipOptions> {
   }
 
   protected getEvents() {
-    return {
-      [this.options.trigger]: this.handleTooltipShow,
-      [this.options.resetTrigger]: this.handleTooltipHide
-    };
+    return [
+      { type: this.options.trigger, handler: this.handleTooltipShow },
+      { type: this.options.resetTrigger, handler: this.handleTooltipHide }
+    ];
   }
 
   protected handleTooltipShow = throttle((event: InteractionEvent) => {

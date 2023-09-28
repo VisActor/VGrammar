@@ -29,13 +29,11 @@ export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
   }
 
   protected getEvents() {
-    const events = {
-      [this.options.trigger]: this.handleStart,
-      [this.options.endTrigger]: this.handleEnd,
-      [this.options.updateTrigger]: this.handleUpdate
-    };
-
-    return events;
+    return [
+      { type: this.options.trigger, handler: this.handleStart },
+      { type: this.options.endTrigger, handler: this.handleEnd },
+      { type: this.options.updateTrigger, handler: this.handleUpdate }
+    ];
   }
 
   handleStart = (e: InteractionEvent) => {

@@ -25,6 +25,36 @@ import { ViewScrollMixin } from './view-scroll-mixin';
 import { ViewDragMixin } from './view-drag-mixin';
 import { ViewRoam } from './view-roam';
 
+export { BaseTooltip } from './base-tooltip';
+export { BaseInteraction } from './base';
+export { BrushBase } from './brush-base';
+export { ViewNavigationBase } from './view-navigation-base';
+export {
+  ElementActive,
+  ElementSelect,
+  ElementHighlight,
+  ElementHighlightByKey,
+  ElementHighlightByGroup,
+  ElementActiveByLegend,
+  ElementHighlightByLegend,
+  ElementHighlightByName,
+  BrushHighlight,
+  BrushActive,
+  DrillDown,
+  RollUp,
+  Tooltip,
+  DimensionTooltip,
+  Crosshair,
+  FilterMixin,
+  ViewZoom,
+  ViewScroll,
+  ViewDrag,
+  ViewRoam,
+  ViewScrollMixin,
+  ViewZoomMixin,
+  ViewDragMixin
+};
+
 export const registerElementActive = () => {
   Factory.registerInteraction(ElementActive.type, ElementActive);
 };
