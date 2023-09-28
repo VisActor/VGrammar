@@ -208,6 +208,18 @@ export const indexes = [
         path: 'drill-down',
         name: '[交互]drill-down & roll-up',
         type: 'api'
+      },
+      {
+        path: 'datazoom-bar',
+        name: '[交互]datazoom & roam'
+      },
+      {
+        path: 'roam-filter-bar',
+        name: '[交互]roam bar and filter data'
+      },
+      {
+        path: 'roam-scale-bar',
+        name: '[交互]roam bar and filter data'
       }
     ]
   },

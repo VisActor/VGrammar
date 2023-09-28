@@ -60,7 +60,7 @@ export interface ElementActiveOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
    */
-  selector?: string | string[];
+  selector?: string | string[] | IMark | IMark[];
   /**
    * the trigger event name
    */
@@ -82,7 +82,7 @@ export interface ElementSelectOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
    */
-  selector?: string | string[];
+  selector?: string | string[] | IMark | IMark[];
   /**
    * the trigger event name
    */
@@ -108,7 +108,7 @@ export interface ElementHighlightOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
    */
-  selector?: string | string[];
+  selector?: string | string[] | IMark | IMark[];
   /**
    * the trigger event name
    */
@@ -134,7 +134,7 @@ export interface ElementActiveByLegendOptions extends IBaseInteractionOptions {
   /**
    * the selector of marks
    */
-  selector?: string | string[];
+  selector?: string | string[] | IMark | IMark[];
   /**
    * the active state name
    */
@@ -152,7 +152,7 @@ export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions
   /**
    * the selector of marks
    */
-  selector?: string | string[];
+  selector?: string | string[] | IMark | IMark[];
   /**
    * the highlight state name
    */
@@ -191,7 +191,7 @@ export interface BrushOptions extends IBaseInteractionOptions, BrushAttributes {
   /**
    * the selector of marks
    */
-  selector?: string | string[];
+  selector?: string | string[] | IMark | IMark[];
 
   onStart?: (params: BrushEventParams) => boolean;
 

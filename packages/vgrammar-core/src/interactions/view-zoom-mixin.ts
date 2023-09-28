@@ -105,7 +105,7 @@ export class ViewZoomMixin implements IViewZoomMixin {
     }
 
     Object.keys(navState).forEach(dim => {
-      const { scale, data, linkedComponent, rangeFactor, wholeScale } = navState[dim];
+      const { scale, data, linkedComponent, rangeFactor } = navState[dim];
 
       if (linkedComponent) {
         res[dim] = this.updateZoomRange(getRangeOfLinkedComponent(linkedComponent), null, zoomPos, zoomOptions);
@@ -117,11 +117,11 @@ export class ViewZoomMixin implements IViewZoomMixin {
           navState[dim].rangeFactor = newRange;
 
           if (data) {
-            navState[dim].filterValue = getFilteredValuesFromScale(wholeScale, newRange);
+            navState[dim].filterValue = newRange;
 
             data.commit();
           } else {
-            (scale.getScale() as any).rangeFactor(newRange);
+            scale.setRangeFactor(newRange);
             scale.commit();
           }
           res.needUpdate = true;
@@ -204,7 +204,7 @@ export class ViewZoomMixin implements IViewZoomMixin {
 
           data.commit();
         } else {
-          (scale.getScale() as any).rangeFactor(newRange);
+          scale.setRangeFactor(newRange);
           scale.commit();
         }
         res.needUpdate = true;

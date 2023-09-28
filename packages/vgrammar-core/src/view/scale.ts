@@ -1,5 +1,6 @@
 import { isNil } from '@visactor/vutils';
-import type { IBaseScale, TickData } from '@visactor/vscale';
+import type { IRangeFactor } from '@visactor/vscale';
+import { isContinuous, type IBaseScale, type TickData } from '@visactor/vscale';
 import type { IGrammarBase, IView } from '../types';
 import type { Nil } from '../types/base';
 import type { GrammarType, IScale } from '../types/grammar';
@@ -22,6 +23,7 @@ export class Scale extends GrammarBase implements IScale {
   protected declare spec: ScaleSpec;
 
   private scale: IBaseScale;
+  private _rangeFactor?: [number, number];
 
   constructor(view: IView, scaleType: GrammarScaleType) {
     super(view);
@@ -48,6 +50,14 @@ export class Scale extends GrammarBase implements IScale {
       this.scale = createScale(this.spec.type);
     }
     configureScale(this.spec as ScaleSpec, this.scale, parameters);
+
+    if (
+      this.scale &&
+      this._rangeFactor &&
+      (isContinuous(this.scale.type) || this.scale.type === 'point' || this.scale.type === 'band')
+    ) {
+      (this.scale as unknown as IRangeFactor).rangeFactor(this._rangeFactor);
+    }
 
     this.view.emit(HOOK_EVENT.BEFORE_EVALUATE_SCALE);
     return this;
@@ -87,6 +97,15 @@ export class Scale extends GrammarBase implements IScale {
     this.attach(parseScaleDomainRange(range, this.view));
     this.commit();
     return this;
+  }
+
+  setRangeFactor(range: [number, number] = [0, 1]) {
+    this._rangeFactor = range;
+    return this;
+  }
+
+  getRangeFactor() {
+    return this._rangeFactor;
   }
 
   getCoordinateAxisPosition() {
