@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { SankeyLinkDatum, registerSankeyTransforms } from '@visactor/vgrammar-sankey';
+import { SankeyLinkDatum, registerSankeyTransforms, registerSankeyHighlight } from '@visactor/vgrammar-sankey';
 import type { IElement, IView, IGlyphElement } from '@visactor/vgrammar';
 // eslint-disable-next-line
 import { registerLinkPathGlyph } from '@visactor/vgrammar';
@@ -7,20 +7,26 @@ import { category20 } from '../color-utils';
 import data from '../data/hierarchy.json';
 registerSankeyTransforms();
 registerLinkPathGlyph();
+registerSankeyHighlight();
 
 export const spec = {
   width: 800,
   height: 600,
   padding: 5,
 
-  events: [
-    {
-      type: 'click',
-      callback: (e: any) => {
-        console.log(e.element, e.element.getDatum());
-      }
-    }
-  ],
+  // events: [
+  //   {
+  //     type: 'click',
+  //     callback: (e: any) => {
+  //       console.log(e.element, e.element.getDatum());
+  //     }
+  //   }
+  // ],
+  interactions: [{
+    type: 'sankey-highlight',
+    nodeSelector: '#sankeyNode',
+    linkSelector: '#sankeyLink',
+  }],
 
   signals: [
     {
@@ -136,6 +142,9 @@ export const spec = {
             },
             blur: {
               fillOpacity: 0.2
+            },
+            highlight: {
+              stroke: 'black'
             }
           },
           animationState: 'appear',
@@ -225,6 +234,10 @@ export const spec = {
             },
             blur: {
               fill: '#e8e8e8'
+            },
+
+            highlight: {
+              stroke: 'black'
             }
           }
         }
@@ -270,201 +283,201 @@ export const binds = [
   }
 ];
 
-export const callback = (chartInstance: IView) => {
-  const handleNodeClick = (element: IElement) => {
-    const nodeDatum = element.getDatum();
-    const allNodeElements = chartInstance.getMarkById('sankeyNode').elements;
-    const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
-    const highlightNodes: string[] = [nodeDatum.key];
-    const upstreamLinks = nodeDatum.targetLinks.reduce((res: any[], link: SankeyLinkDatum) => {
-      const parents = (link as any).parents;
-      const len = parents.length;
+// export const callback = (chartInstance: IView) => {
+//   const handleNodeClick = (element: IElement) => {
+//     const nodeDatum = element.getDatum();
+//     const allNodeElements = chartInstance.getMarkById('sankeyNode').elements;
+//     const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
+//     const highlightNodes: string[] = [nodeDatum.key];
+//     const upstreamLinks = nodeDatum.targetLinks.reduce((res: any[], link: SankeyLinkDatum) => {
+//       const parents = (link as any).parents;
+//       const len = parents.length;
 
-      for (let i = 0; i < len; i++) {
-        res.push({
-          source: parents[i],
-          target: parents[i + 1] ?? nodeDatum.key,
-          value: link.value
-        });
-      }
+//       for (let i = 0; i < len; i++) {
+//         res.push({
+//           source: parents[i],
+//           target: parents[i + 1] ?? nodeDatum.key,
+//           value: link.value
+//         });
+//       }
 
-      return res;
-    }, []);
+//       return res;
+//     }, []);
 
-    console.log(allLinkElements, upstreamLinks, nodeDatum);
+//     console.log(allLinkElements, upstreamLinks, nodeDatum);
 
-    allLinkElements.forEach(linkEl => {
-      linkEl.clearStates();
-      const linkDatum = linkEl.getDatum();
-      const originalDatum = linkDatum.datum;
-      const selectedDatum = originalDatum.filter((entry: any) =>
-        entry.parents.some((par: any) => par.key === nodeDatum.key)
-      );
+//     allLinkElements.forEach(linkEl => {
+//       linkEl.clearStates();
+//       const linkDatum = linkEl.getDatum();
+//       const originalDatum = linkDatum.datum;
+//       const selectedDatum = originalDatum.filter((entry: any) =>
+//         entry.parents.some((par: any) => par.key === nodeDatum.key)
+//       );
 
-      if (selectedDatum && selectedDatum.length) {
-        console.log('下游的边', linkDatum, selectedDatum);
-        // 下游link
-        if (!highlightNodes.includes(linkDatum.source)) {
-          highlightNodes.push(linkDatum.source);
-        }
+//       if (selectedDatum && selectedDatum.length) {
+//         console.log('下游的边', linkDatum, selectedDatum);
+//         // 下游link
+//         if (!highlightNodes.includes(linkDatum.source)) {
+//           highlightNodes.push(linkDatum.source);
+//         }
 
-        if (!highlightNodes.includes(linkDatum.target)) {
-          highlightNodes.push(linkDatum.target);
-        }
+//         if (!highlightNodes.includes(linkDatum.target)) {
+//           highlightNodes.push(linkDatum.target);
+//         }
 
-        const val = selectedDatum.reduce((sum: number, d: any) => {
-          return (sum += d.value);
-        }, 0);
-        const ratio = val / linkDatum.value;
-        console.log(linkEl, ratio);
+//         const val = selectedDatum.reduce((sum: number, d: any) => {
+//           return (sum += d.value);
+//         }, 0);
+//         const ratio = val / linkDatum.value;
+//         console.log(linkEl, ratio);
 
-        linkEl.addState('selected', { ratio });
+//         linkEl.addState('selected', { ratio });
 
-        return;
-      }
+//         return;
+//       }
 
-      const upSelectedLink = upstreamLinks.find(
-        (upLink: any) => upLink.source === linkDatum.source && upLink.target === linkDatum.target
-      );
+//       const upSelectedLink = upstreamLinks.find(
+//         (upLink: any) => upLink.source === linkDatum.source && upLink.target === linkDatum.target
+//       );
 
-      if (upSelectedLink) {
-        console.log('上游的边', linkDatum, upSelectedLink);
-        // 点击节点的上游一层的节点
-        if (!highlightNodes.includes(linkDatum.source)) {
-          highlightNodes.push(linkDatum.source);
-        }
-        if (!highlightNodes.includes(linkDatum.target)) {
-          highlightNodes.push(linkDatum.target);
-        }
+//       if (upSelectedLink) {
+//         console.log('上游的边', linkDatum, upSelectedLink);
+//         // 点击节点的上游一层的节点
+//         if (!highlightNodes.includes(linkDatum.source)) {
+//           highlightNodes.push(linkDatum.source);
+//         }
+//         if (!highlightNodes.includes(linkDatum.target)) {
+//           highlightNodes.push(linkDatum.target);
+//         }
 
-        linkEl.addState('selected', { ratio: upSelectedLink.value / linkDatum.value });
+//         linkEl.addState('selected', { ratio: upSelectedLink.value / linkDatum.value });
 
-        return;
-      }
-      linkEl.useStates(['blur']);
+//         return;
+//       }
+//       linkEl.useStates(['blur']);
 
-      return;
-    });
+//       return;
+//     });
 
-    allNodeElements.forEach(el => {
-      el.clearStates();
-      if (highlightNodes.includes(el.getDatum().key)) {
-        //
-      } else {
-        el.useStates(['blur']);
-      }
-    });
-  };
+//     allNodeElements.forEach(el => {
+//       el.clearStates();
+//       if (highlightNodes.includes(el.getDatum().key)) {
+//         //
+//       } else {
+//         el.useStates(['blur']);
+//       }
+//     });
+//   };
 
-  const handleLinkClick = (element: IGlyphElement) => {
-    const curLinkDatum = element.getDatum();
-    const allNodeElements = chartInstance.getMarkById('sankeyNode').elements;
-    const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
-    const highlightNodes: string[] = [curLinkDatum.source, curLinkDatum.target];
-    const upstreamLinks: Array<{ source: string, target: string, value: number }> = [];
+//   const handleLinkClick = (element: IGlyphElement) => {
+//     const curLinkDatum = element.getDatum();
+//     const allNodeElements = chartInstance.getMarkById('sankeyNode').elements;
+//     const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
+//     const highlightNodes: string[] = [curLinkDatum.source, curLinkDatum.target];
+//     const upstreamLinks: Array<{ source: string, target: string, value: number }> = [];
 
-    const parents = (curLinkDatum as any).parents;
-    const len = parents.length;
+//     const parents = (curLinkDatum as any).parents;
+//     const len = parents.length;
 
-    for (let i = 0; i < len - 1; i++) {
-      upstreamLinks.push({
-        source: parents[i],
-        target: parents[i + 1],
-        value: curLinkDatum.value
-      });
-    }
-
-
-    allLinkElements.forEach(linkEl => {
-      linkEl.clearStates();
-      const linkDatum = linkEl.getDatum();
-      const originalDatum = linkDatum.datum;
-
-      if (linkDatum.source === curLinkDatum.source && linkDatum.target === curLinkDatum.target) {
-        // 自身
-        linkEl.addState('selected', { ratio: 1 });
-        return;
-      }
+//     for (let i = 0; i < len - 1; i++) {
+//       upstreamLinks.push({
+//         source: parents[i],
+//         target: parents[i + 1],
+//         value: curLinkDatum.value
+//       });
+//     }
 
 
-      const selectedDatum = originalDatum.filter((entry: any) =>
-        entry.parents.some((par: any) => par.key === curLinkDatum.target)
-      );
+//     allLinkElements.forEach(linkEl => {
+//       linkEl.clearStates();
+//       const linkDatum = linkEl.getDatum();
+//       const originalDatum = linkDatum.datum;
 
-      if (selectedDatum && selectedDatum.length) {
-        console.log('下游的边', linkDatum, selectedDatum);
-        // 下游link
-        if (!highlightNodes.includes(linkDatum.source)) {
-          highlightNodes.push(linkDatum.source);
-        }
+//       if (linkDatum.source === curLinkDatum.source && linkDatum.target === curLinkDatum.target) {
+//         // 自身
+//         linkEl.addState('selected', { ratio: 1 });
+//         return;
+//       }
 
-        if (!highlightNodes.includes(linkDatum.target)) {
-          highlightNodes.push(linkDatum.target);
-        }
 
-        const val = selectedDatum.reduce((sum: number, d: any) => {
-          return (sum += d.value);
-        }, 0);
-        const ratio = val / linkDatum.value;
-        console.log(linkEl, ratio);
+//       const selectedDatum = originalDatum.filter((entry: any) =>
+//         entry.parents.some((par: any) => par.key === curLinkDatum.target)
+//       );
 
-        linkEl.addState('selected', { ratio });
+//       if (selectedDatum && selectedDatum.length) {
+//         console.log('下游的边', linkDatum, selectedDatum);
+//         // 下游link
+//         if (!highlightNodes.includes(linkDatum.source)) {
+//           highlightNodes.push(linkDatum.source);
+//         }
 
-        return;
-      }
+//         if (!highlightNodes.includes(linkDatum.target)) {
+//           highlightNodes.push(linkDatum.target);
+//         }
 
-      const upSelectedLink = upstreamLinks.find(
-        (upLink: any) => upLink.source === linkDatum.source && upLink.target === linkDatum.target
-      );
+//         const val = selectedDatum.reduce((sum: number, d: any) => {
+//           return (sum += d.value);
+//         }, 0);
+//         const ratio = val / linkDatum.value;
+//         console.log(linkEl, ratio);
 
-      if (upSelectedLink) {
-        console.log('上游的边', linkDatum, upSelectedLink);
-        // 点击节点的上游一层的节点
-        if (!highlightNodes.includes(linkDatum.source)) {
-          highlightNodes.push(linkDatum.source);
-        }
-        if (!highlightNodes.includes(linkDatum.target)) {
-          highlightNodes.push(linkDatum.target);
-        }
+//         linkEl.addState('selected', { ratio });
 
-        linkEl.addState('selected', { ratio: upSelectedLink.value / linkDatum.value });
+//         return;
+//       }
 
-        return;
-      }
-      linkEl.useStates(['blur']);
+//       const upSelectedLink = upstreamLinks.find(
+//         (upLink: any) => upLink.source === linkDatum.source && upLink.target === linkDatum.target
+//       );
 
-      return;
-    });
+//       if (upSelectedLink) {
+//         console.log('上游的边', linkDatum, upSelectedLink);
+//         // 点击节点的上游一层的节点
+//         if (!highlightNodes.includes(linkDatum.source)) {
+//           highlightNodes.push(linkDatum.source);
+//         }
+//         if (!highlightNodes.includes(linkDatum.target)) {
+//           highlightNodes.push(linkDatum.target);
+//         }
 
-    allNodeElements.forEach(el => {
-      el.clearStates();
-      if (highlightNodes.includes(el.getDatum().key)) {
-        //
-      } else {
-        el.useStates(['blur']);
-      }
-    });
-  };
+//         linkEl.addState('selected', { ratio: upSelectedLink.value / linkDatum.value });
 
-  const handleClearEmpty = () => {
-    const allNodeElements = chartInstance.getMarkById('sankeyNode').elements;
-    const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
+//         return;
+//       }
+//       linkEl.useStates(['blur']);
 
-    allNodeElements.forEach(el => {
-      el.clearStates();
-    });
-    allLinkElements.forEach(el => {
-      el.clearStates();
-    });
-  };
+//       return;
+//     });
 
-  chartInstance.addEventListener('click', (e: any) => {
-    if (e.element && e.element.mark.id() === 'sankeyNode') {
-      handleNodeClick(e.element);
-    } else if (e.element && e.element.mark.id() === 'sankeyLink') {
-      handleLinkClick(e.element);
-    } else {
-      handleClearEmpty();
-    }
-  });
-};
+//     allNodeElements.forEach(el => {
+//       el.clearStates();
+//       if (highlightNodes.includes(el.getDatum().key)) {
+//         //
+//       } else {
+//         el.useStates(['blur']);
+//       }
+//     });
+//   };
+
+//   const handleClearEmpty = () => {
+//     const allNodeElements = chartInstance.getMarkById('sankeyNode').elements;
+//     const allLinkElements = chartInstance.getMarkById('sankeyLink').elements;
+
+//     allNodeElements.forEach(el => {
+//       el.clearStates();
+//     });
+//     allLinkElements.forEach(el => {
+//       el.clearStates();
+//     });
+//   };
+
+//   chartInstance.addEventListener('click', (e: any) => {
+//     if (e.element && e.element.mark.id() === 'sankeyNode') {
+//       handleNodeClick(e.element);
+//     } else if (e.element && e.element.mark.id() === 'sankeyLink') {
+//       handleLinkClick(e.element);
+//     } else {
+//       handleClearEmpty();
+//     }
+//   });
+// };
