@@ -1,7 +1,7 @@
 import type { IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
 import { AABBBounds, array, getAngleByPoint, isString, throttle } from '@visactor/vutils';
-import type { DimensionTooltipOptions, IElement, IGroupMark, IMark, IView, TooltipType } from '../types';
+import type { DimensionTooltipOptions, IGroupMark, IMark, IView, TooltipType } from '../types';
 import { BaseTooltip } from './base-tooltip';
 // eslint-disable-next-line no-duplicate-imports
 import { generateTooltipAttributes } from './base-tooltip';
