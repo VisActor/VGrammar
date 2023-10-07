@@ -3,7 +3,7 @@ category: examples
 group: symmetry rect
 title: 对称矩形
 order: 0-7
-cover: /vgrammar/preview/basic-mark-rect-symmetry-rect_0.6.5.png
+cover: /vgrammar/preview/basic-mark-rect-symmetry-rect_0.7.6.png
 ---
 
 # 对称矩形

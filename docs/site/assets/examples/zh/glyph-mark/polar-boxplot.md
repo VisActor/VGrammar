@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: 极坐标下的箱线图
 order: 30-2
-cover: /vgrammar/preview/glyph-mark-polar-boxplot_0.6.5.png
+cover: /vgrammar/preview/glyph-mark-polar-boxplot_0.7.6.png
 ---
 
 # 极坐标下的箱线图

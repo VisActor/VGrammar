@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-image
 title: 图像图元
 order: 9-0
-cover: /vgrammar/preview/basic-mark-image-basic-image_0.6.5.png
+cover: /vgrammar/preview/basic-mark-image-basic-image_0.7.6.png
 ---
 
 # 图像图元

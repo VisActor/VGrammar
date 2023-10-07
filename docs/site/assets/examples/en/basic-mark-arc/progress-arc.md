@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-arc
 title: Progress Bar
 order: 3-1
-cover: /vgrammar/preview/basic-mark-arc-progress-arc_0.6.5.png
+cover: /vgrammar/preview/basic-mark-arc-progress-arc_0.7.6.png
 ---
 
 # Progress Bar

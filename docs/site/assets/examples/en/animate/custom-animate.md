@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: Custom Animation
 order: 60-3
-cover: /vgrammar/preview/animate-custom-animate_0.6.5.png
+cover: /vgrammar/preview/animate-custom-animate_0.7.6.png
 ---
 
 # Custom Animation

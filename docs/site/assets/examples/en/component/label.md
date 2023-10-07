@@ -3,7 +3,7 @@ category: examples
 group: component
 title: Bar Chart Labels
 order: 50-4
-cover: /vgrammar/preview/component-label_0.6.5.png
+cover: /vgrammar/preview/component-label_0.7.6.png
 ---
 
 # Bar Chart Labels

@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: Horizontal Boxplot
 order: 30-1
-cover: /vgrammar/preview/glyph-mark-horizontal-boxplot_0.6.5.png
+cover: /vgrammar/preview/glyph-mark-horizontal-boxplot_0.7.6.png
 ---
 
 # Horizontal Boxplot

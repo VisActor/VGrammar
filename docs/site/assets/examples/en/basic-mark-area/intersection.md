@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: Area intersection
 order: 2-4
-cover: /vgrammar/preview/basic-mark-area-intersection_0.6.5.png
+cover: /vgrammar/preview/basic-mark-area-intersection_0.7.6.png
 ---
 
 # area intersection

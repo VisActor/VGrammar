@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rect
 title: 基础柱图
 order: 0-0
-cover: /vgrammar/preview/basic-mark-rect-basic-rect_0.6.5.png
+cover: /vgrammar/preview/basic-mark-rect-basic-rect_0.7.6.png
 ---
 
 # 基础柱图

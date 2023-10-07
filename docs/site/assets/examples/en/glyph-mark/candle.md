@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: Candlestick Chart
 order: 30-7
-cover: /vgrammar/preview/glyph-mark-candle_0.6.5.png
+cover: /vgrammar/preview/glyph-mark-candle_0.7.6.png
 ---
 
 # Candlestick Chart

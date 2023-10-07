@@ -3,7 +3,7 @@ category: examples
 group: plot
 title: line of two linear scale
 order: 120-1
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png
+cover: /vgrammar/preview/plot-connected-scatter-line_0.7.6.png
 ---
 
 # line of two linear scale

@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: Basic Area Chart
 order: 2-0
-cover: /vgrammar/preview/basic-mark-area-basic-area_0.6.5.png
+cover: /vgrammar/preview/basic-mark-area-basic-area_0.7.6.png
 ---
 
 # Basic Area Chart

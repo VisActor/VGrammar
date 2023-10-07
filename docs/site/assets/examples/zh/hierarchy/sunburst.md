@@ -3,7 +3,7 @@ category: examples
 group: hierarchy-sunburst
 title: sunburst图
 order: 70-1
-cover: /vgrammar/preview/hierarchy-sunburst_0.6.5.png
+cover: /vgrammar/preview/hierarchy-sunburst_0.7.6.png
 ---
 
 # sunburst 图

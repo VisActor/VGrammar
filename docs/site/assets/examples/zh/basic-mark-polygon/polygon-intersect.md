@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-polygon
 title: 多边形交集
 order: 5-2
-cover: /vgrammar/preview/basic-mark-polygon-polygon-intersect_0.6.5.png
+cover: /vgrammar/preview/basic-mark-polygon-polygon-intersect_0.7.6.png
 ---
 
 # 多边形交集

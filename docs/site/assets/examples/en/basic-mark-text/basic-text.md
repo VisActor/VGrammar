@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-text
 title: Basic Usage of text Element
 order: 7-0
-cover: /vgrammar/preview/basic-mark-text-basic-text_0.6.5.png
+cover: /vgrammar/preview/basic-mark-text-basic-text_0.7.6.png
 ---
 
 # Basic Usage of text Element

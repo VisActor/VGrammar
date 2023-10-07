@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: 基础面积图
 order: 2-0
-cover: /vgrammar/preview/basic-mark-area-basic-area_0.6.5.png
+cover: /vgrammar/preview/basic-mark-area-basic-area_0.7.6.png
 ---
 
 # 基础面积图

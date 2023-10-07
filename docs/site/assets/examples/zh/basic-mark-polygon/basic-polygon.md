@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-polygon
 title: 漏斗图
 order: 5-0
-cover: /vgrammar/preview/basic-mark-polygon-basic-polygon_0.6.5.png
+cover: /vgrammar/preview/basic-mark-polygon-basic-polygon_0.7.6.png
 ---
 
 # 漏斗图

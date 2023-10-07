@@ -13,15 +13,6 @@
           "title": {
             "zh": "基础柱图",
             "en": "Basic Bar Chart"
-          },
-          "meta": {
-            "title": "Basic Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rect",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-basic-rect.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -29,15 +20,6 @@
           "title": {
             "zh": "区间柱图",
             "en": "Range Bar Chart"
-          },
-          "meta": {
-            "title": "Range Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rect",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-range-rect.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -45,15 +27,6 @@
           "title": {
             "zh": "双向条形图",
             "en": "Bi-directional Bar Chart"
-          },
-          "meta": {
-            "title": "Bi-directional Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rect",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-bi-direction-rect.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -61,15 +34,6 @@
           "title": {
             "zh": "堆积柱图",
             "en": "Stacked Bar Chart"
-          },
-          "meta": {
-            "title": "Stacked Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rect",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-stack-rect.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -77,15 +41,6 @@
           "title": {
             "zh": "百分比堆积柱图",
             "en": "Percentage Stacked Bar Chart"
-          },
-          "meta": {
-            "title": "Percentage Stacked Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rect",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-percent-rect.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -93,15 +48,6 @@
           "title": {
             "zh": "柱图自定义图形",
             "en": "Customized Shape for Bar Chart"
-          },
-          "meta": {
-            "title": "Customized Shape for Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rect",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-customized-shape.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -109,15 +55,6 @@
           "title": {
             "zh": "API模式创建柱图",
             "en": "Create Bar Chart with API Mode"
-          },
-          "meta": {
-            "title": "Create Bar Chart with API Mode",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rect",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-api-rect.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -125,15 +62,6 @@
           "title": {
             "zh": "对称矩形",
             "en": "Symmetry rect"
-          },
-          "meta": {
-            "title": "Symmetry rect",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rect",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-stack-rect.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -150,15 +78,6 @@
           "title": {
             "zh": "基础线图",
             "en": "Basic Line Chart"
-          },
-          "meta": {
-            "title": "Basic Line Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-line",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-line-basic-line.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -166,15 +85,6 @@
           "title": {
             "zh": "分段曲线",
             "en": "Segmented Curve"
-          },
-          "meta": {
-            "title": "Segmented Curve",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-line",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-line-segmental-line.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -182,15 +92,6 @@
           "title": {
             "zh": "log轴线图",
             "en": "Log Axis Line Chart"
-          },
-          "meta": {
-            "title": "Log Axis Line Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-line",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-line-log-line.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -198,15 +99,6 @@
           "title": {
             "zh": "阿基米德螺线",
             "en": "Archimedean Spiral"
-          },
-          "meta": {
-            "title": "Archimedean Spiral",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-line",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-line-spiral.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -223,15 +115,6 @@
           "title": {
             "zh": "基础面积图",
             "en": "Basic Area Chart"
-          },
-          "meta": {
-            "title": "Basic Area Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-area",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-basic-area.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -239,15 +122,6 @@
           "title": {
             "zh": "堆积面积图",
             "en": "Stacked Area Chart"
-          },
-          "meta": {
-            "title": "Stacked Area Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-area",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-stack-area.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -255,15 +129,6 @@
           "title": {
             "zh": "百分比面积图",
             "en": "Percentage Area Chart"
-          },
-          "meta": {
-            "title": "Percentage Area Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-area",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-percent-area.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -271,15 +136,6 @@
           "title": {
             "zh": "纵向面积图",
             "en": "Vertical Area Chart"
-          },
-          "meta": {
-            "title": "Vertical Area Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-area",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-vertical-area.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -287,15 +143,6 @@
           "title": {
             "zh": "区间面积图",
             "en": "区间面积图"
-          },
-          "meta": {
-            "title": "区间面积图",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-area",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-area-intersection.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -312,15 +159,6 @@
           "title": {
             "zh": "环图",
             "en": "Donut Chart"
-          },
-          "meta": {
-            "title": "Donut Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-arc",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -328,15 +166,6 @@
           "title": {
             "zh": "进度条",
             "en": "Progress Bar"
-          },
-          "meta": {
-            "title": "Progress Bar",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-arc",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-progress-arc.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -344,15 +173,6 @@
           "title": {
             "zh": "玉玦图",
             "en": "Radial Arc Graph"
-          },
-          "meta": {
-            "title": "Radial Arc Graph",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-arc",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-radial-arc.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -360,15 +180,6 @@
           "title": {
             "zh": "饼图",
             "en": "Pie Chart"
-          },
-          "meta": {
-            "title": "Pie Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-arc",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-simple-pie.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -385,15 +196,6 @@
           "title": {
             "zh": "基础散点图",
             "en": "Basic Scatter Plot"
-          },
-          "meta": {
-            "title": "Basic Scatter Plot",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-symbol",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-symbol-basic-symbol.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -401,15 +203,6 @@
           "title": {
             "zh": "气泡图",
             "en": "Bubble Chart"
-          },
-          "meta": {
-            "title": "Bubble Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-symbol",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-symbol-bubble.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -426,15 +219,6 @@
           "title": {
             "zh": "rule基础使用",
             "en": "Basic Rule Usage"
-          },
-          "meta": {
-            "title": "Basic Rule Usage",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rule",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rule-basic-rule.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -442,15 +226,6 @@
           "title": {
             "zh": "rule图形展示",
             "en": "Rule Shape Display"
-          },
-          "meta": {
-            "title": "Rule Shape Display",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-rule",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rule-rule-symbol.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -467,15 +242,6 @@
           "title": {
             "zh": "漏斗图",
             "en": "Funnel Chart"
-          },
-          "meta": {
-            "title": "Funnel Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-polygon",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-polygon-basic-polygon.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -483,15 +249,6 @@
           "title": {
             "zh": "转化漏斗图",
             "en": "Conversion Funnel Chart"
-          },
-          "meta": {
-            "title": "Conversion Funnel Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-polygon",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-polygon-flow-funnel.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -499,15 +256,6 @@
           "title": {
             "zh": "多边形交集",
             "en": "Polygon Intersection"
-          },
-          "meta": {
-            "title": "Polygon Intersection",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-polygon",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-polygon-polygon-intersect.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -524,15 +272,6 @@
           "title": {
             "zh": "相关性图表",
             "en": "Correlation Chart"
-          },
-          "meta": {
-            "title": "Correlation Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-circle",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-circle-relation-circle.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -540,15 +279,6 @@
           "title": {
             "zh": "顶部半圆相关性图表",
             "en": "Correlation Chart in top half circle"
-          },
-          "meta": {
-            "title": "Correlation Chart in top half circle",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-circle",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-circle-relation-circle.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -556,15 +286,6 @@
           "title": {
             "zh": "右侧半圆相关性图表",
             "en": "Correlation Chart in right half circle"
-          },
-          "meta": {
-            "title": "Correlation Chart in right half circle",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-circle",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-circle-relation-circle.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -581,15 +302,6 @@
           "title": {
             "zh": "text 图元基础用法",
             "en": "Basic Usage of text Element"
-          },
-          "meta": {
-            "title": "Basic Usage of text Element",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-text",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-text-basic-text.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -606,15 +318,6 @@
           "title": {
             "zh": "richtext基础使用",
             "en": "Basic Usage of richtext"
-          },
-          "meta": {
-            "title": "Basic Usage of richtext",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-richtext",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-richtext-basic-richtext.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -631,15 +334,6 @@
           "title": {
             "zh": "图像图元",
             "en": "Image Element"
-          },
-          "meta": {
-            "title": "Image Element",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-image",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-image-basic-image.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -657,15 +351,6 @@
           "title": {
             "zh": "色块图",
             "en": "Heatmap"
-          },
-          "meta": {
-            "title": "Heatmap",
-            "keywords": "",
-            "category": "examples",
-            "group": "mark-cell",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-cell-basic-cell.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -673,15 +358,6 @@
           "title": {
             "zh": "日历色块图",
             "en": "Calendar Heatmap"
-          },
-          "meta": {
-            "title": "Calendar Heatmap",
-            "keywords": "",
-            "category": "examples",
-            "group": "mark-cell",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-cell-calender-cell.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -698,15 +374,6 @@
           "title": {
             "zh": "柱图",
             "en": "Bar Chart"
-          },
-          "meta": {
-            "title": "Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "mark-interval",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-basic-interval.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -714,15 +381,6 @@
           "title": {
             "zh": "条形图",
             "en": "Bar Chart"
-          },
-          "meta": {
-            "title": "Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "mark-interval",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-basic-bar.png",
-            "link": "",
-            "option": ""
           }
         },
 
@@ -731,15 +389,6 @@
           "title": {
             "zh": "极坐标柱图",
             "en": "Polar Bar Chart"
-          },
-          "meta": {
-            "title": "Polar Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "mark-interval",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-polar-interval.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -747,15 +396,6 @@
           "title": {
             "zh": "极坐标条形图",
             "en": "Polar Coordinate Bar Chart"
-          },
-          "meta": {
-            "title": "Polar Coordinate Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "mark-interval",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-radial-interval.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -763,15 +403,6 @@
           "title": {
             "zh": "对称条形图",
             "en": "Symmetric bar"
-          },
-          "meta": {
-            "title": "Symmetry bar",
-            "keywords": "",
-            "category": "examples",
-            "group": "mark-interval",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-radial-interval.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -779,15 +410,6 @@
           "title": {
             "zh": "分组对称条形图",
             "en": "Grouped symmetric bar"
-          },
-          "meta": {
-            "title": "Grouped symmetric bar",
-            "keywords": "",
-            "category": "examples",
-            "group": "mark-interval",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/mark-interval-radial-interval.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -804,15 +426,6 @@
           "title": {
             "zh": "箱线图",
             "en": "Boxplot"
-          },
-          "meta": {
-            "title": "Boxplot",
-            "keywords": "",
-            "category": "examples",
-            "group": "glyph-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-boxplot.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -820,15 +433,6 @@
           "title": {
             "zh": "横向箱线图",
             "en": "Horizontal Boxplot"
-          },
-          "meta": {
-            "title": "Horizontal Boxplot",
-            "keywords": "",
-            "category": "examples",
-            "group": "glyph-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-horizontal-boxplot.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -836,15 +440,6 @@
           "title": {
             "zh": "极坐标下的箱线图",
             "en": "Boxplot in Polar Coordinates"
-          },
-          "meta": {
-            "title": "Boxplot in Polar Coordinates",
-            "keywords": "",
-            "category": "examples",
-            "group": "glyph-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-polar-boxplot.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -852,15 +447,6 @@
           "title": {
             "zh": "条状箱线图",
             "en": "Bar Boxplot"
-          },
-          "meta": {
-            "title": "Bar Boxplot",
-            "keywords": "",
-            "category": "examples",
-            "group": "glyph-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-bar-boxplot.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -868,15 +454,6 @@
           "title": {
             "zh": "涟漪点折线图",
             "en": "Ripple Point Line Chart"
-          },
-          "meta": {
-            "title": "Ripple Point Line Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "glyph-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-ripple.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -884,15 +461,6 @@
           "title": {
             "zh": "水波图",
             "en": "Water Wave Chart"
-          },
-          "meta": {
-            "title": "Water Wave Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "glyph-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-wave.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -900,15 +468,6 @@
           "title": {
             "zh": "桑基图",
             "en": "Sankey Diagram"
-          },
-          "meta": {
-            "title": "Sankey Diagram",
-            "keywords": "",
-            "category": "examples",
-            "group": "glyph-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-link-path.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -916,15 +475,6 @@
           "title": {
             "zh": "K线图",
             "en": "Candlestick Chart"
-          },
-          "meta": {
-            "title": "Candlestick Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "glyph-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/glyph-mark-candle.png",
-            "link": "",
-            "option": ""
           }
         },
 
@@ -933,15 +483,6 @@
           "title": {
             "zh": "小提琴图",
             "en": "小提琴图"
-          },
-          "meta": {
-            "title": "小提琴图",
-            "keywords": "",
-            "category": "examples",
-            "group": "glyph-mark",
-            "cover": "",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -959,15 +500,6 @@
           "title": {
             "zh": "rect3d 图元",
             "en": "rect3d Primitive"
-          },
-          "meta": {
-            "title": "rect3d Primitive",
-            "keywords": "",
-            "category": "examples",
-            "group": "3d-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/3d-mark-rect3d.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -975,15 +507,6 @@
           "title": {
             "zh": "3d arc 图元",
             "en": "3d arc Graphic Element"
-          },
-          "meta": {
-            "title": "3d arc Graphic Element",
-            "keywords": "",
-            "category": "examples",
-            "group": "3d-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/3d-mark-arc3d.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -991,15 +514,6 @@
           "title": {
             "zh": "pyramid3d 图元",
             "en": "pyramid3d Primitive"
-          },
-          "meta": {
-            "title": "pyramid3d Primitive",
-            "keywords": "",
-            "category": "examples",
-            "group": "3d-mark",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/3d-mark-pyramid3d.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -1016,15 +530,6 @@
           "title": {
             "zh": "legend",
             "en": "legend"
-          },
-          "meta": {
-            "title": "legend",
-            "keywords": "",
-            "category": "examples",
-            "group": "component",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-legend.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1032,15 +537,6 @@
           "title": {
             "zh": "播放器",
             "en": "Player"
-          },
-          "meta": {
-            "title": "Player",
-            "keywords": "",
-            "category": "examples",
-            "group": "component",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-player.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1048,15 +544,6 @@
           "title": {
             "zh": "DataZoom",
             "en": "DataZoom"
-          },
-          "meta": {
-            "title": "DataZoom",
-            "keywords": "",
-            "category": "examples",
-            "group": "component",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-dataZoom.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1064,15 +551,6 @@
           "title": {
             "zh": "柱图标签",
             "en": "Bar Chart Labels"
-          },
-          "meta": {
-            "title": "Bar Chart Labels",
-            "keywords": "",
-            "category": "examples",
-            "group": "component",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-label.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1080,15 +558,6 @@
           "title": {
             "zh": "基础散点图",
             "en": "Basic Scatterplot"
-          },
-          "meta": {
-            "title": "Basic Scatterplot",
-            "keywords": "",
-            "category": "examples",
-            "group": "basic-mark-symbol",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-slider.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -1105,15 +574,6 @@
           "title": {
             "zh": "基础动画",
             "en": "Basic Animation"
-          },
-          "meta": {
-            "title": "Basic Animation",
-            "keywords": "",
-            "category": "examples",
-            "group": "animate",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-basic-animate.gif",
-            "link": "",
-            "option": ""
           }
         },
 
@@ -1122,15 +582,6 @@
           "title": {
             "zh": "循环动画",
             "en": "Loop Animation"
-          },
-          "meta": {
-            "title": "Loop Animation",
-            "keywords": "",
-            "category": "examples",
-            "group": "animate",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-loop-animate.gif",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1138,15 +589,6 @@
           "title": {
             "zh": "morph 动画",
             "en": "Morph Animation"
-          },
-          "meta": {
-            "title": "Morph Animation",
-            "keywords": "",
-            "category": "examples",
-            "group": "animate",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-morph-animate.gif",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1154,15 +596,6 @@
           "title": {
             "zh": "自定义动画",
             "en": "Custom Animation"
-          },
-          "meta": {
-            "title": "Custom Animation",
-            "keywords": "",
-            "category": "examples",
-            "group": "animate",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-custom-animate.gif",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1170,15 +603,6 @@
           "title": {
             "zh": "动画编排",
             "en": "Animation Arrangement"
-          },
-          "meta": {
-            "title": "Animation Arrangement",
-            "keywords": "",
-            "category": "examples",
-            "group": "animate",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-arrange-animate.gif",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1186,15 +610,6 @@
           "title": {
             "zh": "事件轴&动画",
             "en": "Timeline & Animation"
-          },
-          "meta": {
-            "title": "Timeline & Animation",
-            "keywords": "",
-            "category": "examples",
-            "group": "animate",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/animate-basic-animate.gif",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -1211,15 +626,6 @@
           "title": {
             "zh": "circlePacking图",
             "en": "Circle Packing Chart"
-          },
-          "meta": {
-            "title": "Circle Packing Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "hierarchy-circlePacking",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/hierarchy-circlepacking.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1227,15 +633,6 @@
           "title": {
             "zh": "sunburst图",
             "en": "Sunburst Chart"
-          },
-          "meta": {
-            "title": "Sunburst Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "hierarchy-sunburst",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/hierarchy-sunburst.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1243,15 +640,6 @@
           "title": {
             "zh": "tree图",
             "en": "Tree Chart"
-          },
-          "meta": {
-            "title": "Tree Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "hierarchy",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/hierarchy-tree.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1259,15 +647,6 @@
           "title": {
             "zh": "sunburst图",
             "en": "Sunburst Chart"
-          },
-          "meta": {
-            "title": "Sunburst Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "hierarchy-sunburst",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/hierarchy-treemap.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -1285,15 +664,6 @@
           "title": {
             "zh": "大数据量线图",
             "en": "Large Data Volume Line Chart"
-          },
-          "meta": {
-            "title": "Large Data Volume Line Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "perf",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/performance-progressive-line.gif",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1301,15 +671,6 @@
           "title": {
             "zh": "大数据量柱图",
             "en": "Large Data Volume Bar Chart"
-          },
-          "meta": {
-            "title": "Large Data Volume Bar Chart",
-            "keywords": "",
-            "category": "examples",
-            "group": "perf",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/performance-progressive-rect.gif",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -1326,15 +687,6 @@
           "title": {
             "zh": "数值轴线图",
             "en": "数值轴线图"
-          },
-          "meta": {
-            "title": "数值轴线图",
-            "keywords": "",
-            "category": "examples",
-            "group": "plot",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1342,15 +694,6 @@
           "title": {
             "zh": "发散颜色散点图",
             "en": "发散颜色散点图"
-          },
-          "meta": {
-            "title": "发散颜色散点图",
-            "keywords": "",
-            "category": "examples",
-            "group": "plot",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1358,15 +701,6 @@
           "title": {
             "zh": "基础线图",
             "en": "基础线图"
-          },
-          "meta": {
-            "title": "基础线图",
-            "keywords": "",
-            "category": "examples",
-            "group": "plot",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1374,15 +708,6 @@
           "title": {
             "zh": "堆积散点图",
             "en": "堆积散点图"
-          },
-          "meta": {
-            "title": "堆积散点图",
-            "keywords": "",
-            "category": "examples",
-            "group": "plot",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1390,15 +715,6 @@
           "title": {
             "zh": "点、线组合图",
             "en": "点、线组合图"
-          },
-          "meta": {
-            "title": "点、线组合图",
-            "keywords": "",
-            "category": "examples",
-            "group": "plot",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png",
-            "link": "",
-            "option": ""
           }
         },
         {
@@ -1406,15 +722,6 @@
           "title": {
             "zh": "不同形状的散点图",
             "en": "不同形状的散点图"
-          },
-          "meta": {
-            "title": "不同形状的散点图",
-            "keywords": "",
-            "category": "examples",
-            "group": "plot",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -1431,15 +738,6 @@
           "title": {
             "zh": "sankey图",
             "en": "Sankey Diagram"
-          },
-          "meta": {
-            "title": "Sankey Diagram",
-            "keywords": "",
-            "category": "examples",
-            "group": "sankey",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/sankey-basic-sankey.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -1456,15 +754,6 @@
           "title": {
             "zh": "词云图",
             "en": "Word Cloud"
-          },
-          "meta": {
-            "title": "Word Cloud",
-            "keywords": "",
-            "category": "examples",
-            "group": "wordcloud",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/wordcloud-basic-wordcloud.png",
-            "link": "",
-            "option": ""
           }
         }
       ]
@@ -1481,15 +770,6 @@
           "title": {
             "zh": "形状词云图",
             "en": "Shape Word Cloud"
-          },
-          "meta": {
-            "title": "Shape Word Cloud",
-            "keywords": "",
-            "category": "examples",
-            "group": "wordcloud-shape",
-            "cover": "http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/wordcloud-shape-basic-wordcloud-shape.png",
-            "link": "",
-            "option": ""
           }
         }
       ]

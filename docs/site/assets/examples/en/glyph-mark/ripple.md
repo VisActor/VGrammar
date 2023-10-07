@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: Ripple Point Line Chart
 order: 30-4
-cover: /vgrammar/preview/glyph-mark-ripple_0.6.5.png
+cover: /vgrammar/preview/glyph-mark-ripple_0.7.6.png
 ---
 
 # Ripple Point Line Chart

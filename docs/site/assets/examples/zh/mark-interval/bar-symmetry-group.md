@@ -3,7 +3,7 @@ category: examples
 group: mark-interval
 title: 分组对称条形图
 order: 21-4
-cover: /vgrammar/preview/mark-interval-bar-symmetry-group_0.6.5.png
+cover: /vgrammar/preview/mark-interval-bar-symmetry-group_0.7.6.png
 ---
 
 # 对称条形图

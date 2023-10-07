@@ -3,7 +3,7 @@ category: examples
 group: mark-interval
 title: Bar Chart
 order: 21-0
-cover: /vgrammar/preview/mark-interval-basic-interval_0.6.5.png
+cover: /vgrammar/preview/mark-interval-basic-interval_0.7.6.png
 ---
 
 # Bar Chart

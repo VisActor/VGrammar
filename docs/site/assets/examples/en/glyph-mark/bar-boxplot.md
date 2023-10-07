@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: Bar Boxplot
 order: 30-3
-cover: /vgrammar/preview/glyph-mark-bar-boxplot_0.6.5.png
+cover: /vgrammar/preview/glyph-mark-bar-boxplot_0.7.6.png
 ---
 
 # Bar Boxplot

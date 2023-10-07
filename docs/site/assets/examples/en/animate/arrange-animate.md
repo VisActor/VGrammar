@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: Animation Arrangement
 order: 60-4
-cover: /vgrammar/preview/animate-arrange-animate_0.6.5.png
+cover: /vgrammar/preview/animate-arrange-animate_0.7.6.png
 ---
 
 # Animation Arrangement

@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-symbol
 title: 基础散点图
 order: 3-0
-cover: /vgrammar/preview/basic-mark-symbol-basic-symbol_0.6.5.png
+cover: /vgrammar/preview/basic-mark-symbol-basic-symbol_0.7.6.png
 ---
 
 # 基础散点图

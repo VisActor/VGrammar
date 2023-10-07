@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-image
 title: Image Element
 order: 9-0
-cover: /vgrammar/preview/basic-mark-image-basic-image_0.6.5.png
+cover: /vgrammar/preview/basic-mark-image-basic-image_0.7.6.png
 ---
 
 # Image Element

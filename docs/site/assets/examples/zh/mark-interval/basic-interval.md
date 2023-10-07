@@ -3,7 +3,7 @@ category: examples
 group: mark-interval
 title: 柱图
 order: 21-0
-cover: /vgrammar/preview/mark-interval-basic-interval_0.6.5.png
+cover: /vgrammar/preview/mark-interval-basic-interval_0.7.6.png
 ---
 
 # 柱图
