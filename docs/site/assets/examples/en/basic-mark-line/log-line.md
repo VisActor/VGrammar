@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-line
 title: Log Axis Line Chart
 order: 1-2
-cover: /vgrammar/preview/basic-mark-line-log-line_0.6.5.png
+cover: /vgrammar/preview/basic-mark-line-log-line_0.7.6.png
 ---
 
 # Log Axis Line Chart

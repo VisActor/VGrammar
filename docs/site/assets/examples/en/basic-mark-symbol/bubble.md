@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-symbol
 title: Bubble Chart
 order: 3-1
-cover: /vgrammar/preview/basic-mark-symbol-bubble_0.6.5.png
+cover: /vgrammar/preview/basic-mark-symbol-bubble_0.7.6.png
 ---
 
 # Bubble Chart

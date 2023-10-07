@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: K线图
 order: 30-7
-cover: /vgrammar/preview/glyph-mark-candle_0.6.5.png
+cover: /vgrammar/preview/glyph-mark-candle_0.7.6.png
 ---
 
 # K 线图

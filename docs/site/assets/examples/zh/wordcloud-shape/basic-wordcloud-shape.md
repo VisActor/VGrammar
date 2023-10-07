@@ -3,7 +3,7 @@ category: examples
 group: wordcloud-shape
 title: 形状词云图
 order: 100-0
-cover: /vgrammar/preview/wordcloud-shape-basic-wordcloud-shape_0.6.5.png
+cover: /vgrammar/preview/wordcloud-shape-basic-wordcloud-shape_0.7.6.png
 ---
 
 # 形状词云图

@@ -3,7 +3,7 @@ category: examples
 group: 3d-mark
 title: pyramid3d Primitive
 order: 40-2
-cover: /vgrammar/preview/3d-mark-pyramid3d_0.6.5.png
+cover: /vgrammar/preview/3d-mark-pyramid3d_0.7.6.png
 ---
 
 # pyramid3d Primitive

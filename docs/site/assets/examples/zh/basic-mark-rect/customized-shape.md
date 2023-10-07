@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rect
 title: 柱图自定义图形
 order: 0-5
-cover: /vgrammar/preview/basic-mark-rect-customized-shape_0.6.5.png
+cover: /vgrammar/preview/basic-mark-rect-customized-shape_0.7.6.png
 ---
 
 # 柱图自定义图形

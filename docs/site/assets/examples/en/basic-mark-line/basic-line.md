@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-line
 title: Basic Line Chart
 order: 1-0
-cover: /vgrammar/preview/basic-mark-line-basic-line_0.6.5.png
+cover: /vgrammar/preview/basic-mark-line-basic-line_0.7.6.png
 ---
 
 # Basic Line Chart

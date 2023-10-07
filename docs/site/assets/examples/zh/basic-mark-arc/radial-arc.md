@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-arc
 title: 玉玦图
 order: 3-2
-cover: /vgrammar/preview/basic-mark-arc-radial-arc_0.6.5.png
+cover: /vgrammar/preview/basic-mark-arc-radial-arc_0.7.6.png
 ---
 
 # 玉玦图

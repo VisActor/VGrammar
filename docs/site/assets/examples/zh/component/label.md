@@ -3,7 +3,7 @@ category: examples
 group: component
 title: 柱图标签
 order: 50-4
-cover: /vgrammar/preview/component-label_0.6.5.png
+cover: /vgrammar/preview/component-label_0.7.6.png
 ---
 
 # 柱图标签

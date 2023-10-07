@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-line
 title: log轴线图
 order: 1-2
-cover: /vgrammar/preview/basic-mark-line-log-line_0.6.5.png
+cover: /vgrammar/preview/basic-mark-line-log-line_0.7.6.png
 ---
 
 # log 轴线图

@@ -3,7 +3,7 @@ category: examples
 group: 3d-mark
 title: rect3d 图元
 order: 40-0
-cover: /vgrammar/preview/3d-mark-rect3d_0.6.5.png
+cover: /vgrammar/preview/3d-mark-rect3d_0.7.6.png
 ---
 
 # rect3d 图元

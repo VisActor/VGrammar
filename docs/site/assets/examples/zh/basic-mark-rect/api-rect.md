@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rect
 title: API模式创建柱图
 order: 0-6
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-rect-api-rect.png
+cover: /vgrammar/preview/basic-mark-rect-api-rect_0.7.6.png
 ---
 
 # API 模式创建柱图

@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: 桑基图
 order: 30-6
-cover: /vgrammar/preview/glyph-mark-link-path_0.6.5.png
+cover: /vgrammar/preview/glyph-mark-link-path_0.7.6.png
 ---
 
 # 桑基图

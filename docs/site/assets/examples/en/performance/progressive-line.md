@@ -3,7 +3,7 @@ category: examples
 group: perf
 title: Large Data Volume Line Chart
 order: 110-1
-cover: /vgrammar/preview/performance-progressive-line_0.6.5.png
+cover: /vgrammar/preview/performance-progressive-line_0.7.6.png
 ---
 
 # Large Data Volume Line Chart

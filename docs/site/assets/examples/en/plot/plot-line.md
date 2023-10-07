@@ -3,7 +3,7 @@ category: examples
 group: plot
 title: bacis line plot
 order: 120-0
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png
+cover: /vgrammar/preview/plot-plot-line_0.7.6.png
 ---
 
 # bacis line plot

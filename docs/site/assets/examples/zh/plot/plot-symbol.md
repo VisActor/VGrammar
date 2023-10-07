@@ -3,7 +3,7 @@ category: examples
 group: plot
 title: 不同形状的散点图
 order: 120-3
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png
+cover: /vgrammar/preview/plot-plot-symbol_0.7.6.png
 ---
 
 # 不同形状的散点图

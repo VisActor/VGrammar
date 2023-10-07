@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rect
 title: Basic Bar Chart
 order: 0-0
-cover: /vgrammar/preview/basic-mark-rect-basic-rect_0.6.5.png
+cover: /vgrammar/preview/basic-mark-rect-basic-rect_0.7.6.png
 ---
 
 # Basic Bar Chart

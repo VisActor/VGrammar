@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: 基础动画
 order: 60-0
-cover: /vgrammar/preview/animate-basic-animate_0.6.5.png
+cover: /vgrammar/preview/animate-basic-animate_0.7.6.png
 ---
 
 # 基础动画

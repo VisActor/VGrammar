@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: 循环动画
 order: 60-1
-cover: /vgrammar/preview/animate-loop-animate_0.6.5.png
+cover: /vgrammar/preview/animate-loop-animate_0.7.6.png
 ---
 
 # 循环动画
