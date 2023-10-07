@@ -3,7 +3,7 @@ category: examples
 group: mark-cell
 title: 日历色块图
 order: 20-1
-cover: /vgrammar/preview/mark-cell-calender-cell_0.6.5.png
+cover: /vgrammar/preview/mark-cell-calender-cell_0.7.6.png
 ---
 
 # 日历色块图

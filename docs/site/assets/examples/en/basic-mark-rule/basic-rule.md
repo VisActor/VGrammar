@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rule
 title: Basic Rule Usage
 order: 4-0
-cover: /vgrammar/preview/basic-mark-rule-basic-rule_0.6.5.png
+cover: /vgrammar/preview/basic-mark-rule-basic-rule_0.7.6.png
 ---
 
 # Basic Rule Usage

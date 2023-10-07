@@ -3,7 +3,7 @@ category: examples
 group: wordcloud
 title: Word Cloud
 order: 90-0
-cover: /vgrammar/preview/wordcloud-basic-wordcloud_0.6.5.png
+cover: /vgrammar/preview/wordcloud-basic-wordcloud_0.7.6.png
 ---
 
 # Word Cloud

@@ -3,7 +3,7 @@ category: examples
 group: hierarchy
 title: Tree Chart
 order: 70-2
-cover: /vgrammar/preview/hierarchy-tree_0.6.5.png
+cover: /vgrammar/preview/hierarchy-tree_0.7.6.png
 ---
 
 # Tree Chart

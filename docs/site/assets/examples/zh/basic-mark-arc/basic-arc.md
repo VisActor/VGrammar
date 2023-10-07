@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-arc
 title: 环图
 order: 3-0
-cover: /vgrammar/preview/basic-mark-arc-basic-arc_0.6.5.png
+cover: /vgrammar/preview/basic-mark-arc-basic-arc_0.7.6.png
 ---
 
 # 饼图

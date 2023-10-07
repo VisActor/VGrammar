@@ -3,7 +3,7 @@ category: examples
 group: hierarchy-circlePacking
 title: Circle Packing Chart
 order: 70-0
-cover: /vgrammar/preview/hierarchy-circlepacking_0.6.5.png
+cover: /vgrammar/preview/hierarchy-circlepacking_0.7.6.png
 ---
 
 # Circle Packing Chart

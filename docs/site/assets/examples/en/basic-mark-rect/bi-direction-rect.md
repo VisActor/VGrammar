@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rect
 title: Bi-directional Bar Chart
 order: 0-2
-cover: /vgrammar/preview/basic-mark-rect-bi-direction-rect_0.6.5.png
+cover: /vgrammar/preview/basic-mark-rect-bi-direction-rect_0.7.6.png
 ---
 
 # Bi-directional Bar Chart

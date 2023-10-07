@@ -3,7 +3,7 @@ category: examples
 group: component
 title: 播放器
 order: 50-2
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/component-player.png
+cover:
 ---
 
 # 播放器

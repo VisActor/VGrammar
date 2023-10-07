@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-arc
 title: Pie Chart
 order: 3-3
-cover: /vgrammar/preview/basic-mark-arc-simple-pie_0.6.5.png
+cover: /vgrammar/preview/basic-mark-arc-simple-pie_0.7.6.png
 ---
 
 # Pie Chart

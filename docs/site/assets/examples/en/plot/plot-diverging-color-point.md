@@ -3,7 +3,7 @@ category: examples
 group: plot
 title: diverging color points
 order: 120-5
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png
+cover: /vgrammar/preview/plot-plot-diverging-color-point_0.7.6.png
 ---
 
 # diverging color points
@@ -6635,7 +6635,6 @@ plot
     label: {
       formatMethod: (value, datum) => {
         const date = new Date(value);
-        console.log(value, datum, date);
         return `${date.getFullYear()}`;
       }
     }

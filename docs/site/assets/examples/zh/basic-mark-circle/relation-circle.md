@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-circle
 title: 相关性图表
 order: 6-0
-cover: /vgrammar/preview/basic-mark-circle-relation-circle_0.6.5.png
+cover: /vgrammar/preview/basic-mark-circle-relation-circle_0.7.6.png
 ---
 
 # 相关性图表

@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-line
 title: 分段曲线
 order: 1-1
-cover: /vgrammar/preview/basic-mark-line-segmental-line_0.6.5.png
+cover: /vgrammar/preview/basic-mark-line-segmental-line_0.7.6.png
 ---
 
 # 分段曲线

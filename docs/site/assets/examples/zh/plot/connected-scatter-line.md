@@ -3,7 +3,7 @@ category: examples
 group: plot
 title: 数值轴线图
 order: 120-1
-cover: http://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/vgrammar/basic-mark-arc-basic-arc.png
+cover: /vgrammar/preview/plot-connected-scatter-line_0.7.6.png
 ---
 
 # 数值轴线图

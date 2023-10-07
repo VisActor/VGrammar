@@ -3,7 +3,7 @@ category: examples
 group: sankey
 title: sankey图
 order: 80-0
-cover: /vgrammar/preview/sankey-basic-sankey_0.6.5.png
+cover: /vgrammar/preview/sankey-basic-sankey_0.7.6.png
 ---
 
 # sankey 图

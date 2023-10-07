@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: Vertical Area Chart
 order: 2-3
-cover: /vgrammar/preview/basic-mark-area-vertical-area_0.6.5.png
+cover: /vgrammar/preview/basic-mark-area-vertical-area_0.7.6.png
 ---
 
 # Vertical Area Chart

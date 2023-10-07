@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-line
 title: Archimedean Spiral
 order: 1-3
-cover: /vgrammar/preview/basic-mark-line-spiral_0.6.5.png
+cover: /vgrammar/preview/basic-mark-line-spiral_0.7.6.png
 ---
 
 # Archimedean Spiral

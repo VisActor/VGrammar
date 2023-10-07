@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-polygon
 title: Conversion Funnel Chart
 order: 5-1
-cover: /vgrammar/preview/basic-mark-polygon-flow-funnel_0.6.5.png
+cover: /vgrammar/preview/basic-mark-polygon-flow-funnel_0.7.6.png
 ---
 
 # Conversion Funnel Chart

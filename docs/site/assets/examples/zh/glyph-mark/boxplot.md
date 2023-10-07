@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: 箱线图
 order: 30-0
-cover: /vgrammar/preview/glyph-mark-boxplot_0.6.5.png
+cover: /vgrammar/preview/glyph-mark-boxplot_0.7.6.png
 ---
 
 # 箱线图

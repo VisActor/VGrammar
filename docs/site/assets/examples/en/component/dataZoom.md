@@ -3,7 +3,7 @@ category: examples
 group: component
 title: Large Data Line Chart
 order: 50-3
-cover: /vgrammar/preview/component-dataZoom_0.6.5.png
+cover: /vgrammar/preview/component-dataZoom_0.7.6.png
 ---
 
 # Large Data Line Chart

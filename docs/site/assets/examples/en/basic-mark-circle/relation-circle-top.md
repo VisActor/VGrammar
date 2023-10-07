@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-circle
 title: Correlation Chart in top half circle
 order: 6-1
-cover: /vgrammar/preview/basic-mark-circle-relation-circle-top_0.6.5.png
+cover: /vgrammar/preview/basic-mark-circle-relation-circle-top_0.7.6.png
 ---
 
 # Correlation Chart in top half circle

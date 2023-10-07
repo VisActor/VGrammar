@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-rect
 title: Percentage Stacked Bar Chart
 order: 0-4
-cover: /vgrammar/preview/basic-mark-rect-percent-rect_0.6.5.png
+cover: /vgrammar/preview/basic-mark-rect-percent-rect_0.7.6.png
 ---
 
 # Percentage Stacked Bar Chart

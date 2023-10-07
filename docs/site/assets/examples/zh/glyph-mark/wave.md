@@ -3,7 +3,7 @@ category: examples
 group: glyph-mark
 title: 水波图
 order: 30-5
-cover: /vgrammar/preview/glyph-mark-wave_0.6.5.png
+cover: /vgrammar/preview/glyph-mark-wave_0.7.6.png
 ---
 
 # 水波图

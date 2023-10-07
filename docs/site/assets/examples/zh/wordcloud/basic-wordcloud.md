@@ -3,7 +3,7 @@ category: examples
 group: wordcloud
 title: 词云图
 order: 90-0
-cover: /vgrammar/preview/wordcloud-basic-wordcloud_0.6.5.png
+cover: /vgrammar/preview/wordcloud-basic-wordcloud_0.7.6.png
 ---
 
 # 词云图

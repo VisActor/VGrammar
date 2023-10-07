@@ -3,7 +3,7 @@ category: examples
 group: wordcloud-shape
 title: Shape Word Cloud
 order: 100-0
-cover: /vgrammar/preview/wordcloud-shape-basic-wordcloud-shape_0.6.5.png
+cover: /vgrammar/preview/wordcloud-shape-basic-wordcloud-shape_0.7.6.png
 ---
 
 # Shape Word Cloud

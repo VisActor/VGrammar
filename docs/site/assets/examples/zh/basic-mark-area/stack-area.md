@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: 堆积面积图
 order: 2-1
-cover: /vgrammar/preview/basic-mark-area-stack-area_0.6.5.png
+cover: /vgrammar/preview/basic-mark-area-stack-area_0.7.6.png
 ---
 
 # 堆积面积图
