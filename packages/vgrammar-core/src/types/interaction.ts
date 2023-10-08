@@ -408,6 +408,8 @@ export interface SankeyHighlightOptions extends IBaseInteractionOptions {
    * the blur state name
    */
   blurState?: string;
+  /** set higlight state to different type of nodes */
+  effect?: 'adjacency' | 'related';
 }
 
 export interface ElementActiveSpec extends ElementActiveOptions {

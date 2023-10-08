@@ -235,7 +235,6 @@ export const spec = {
             blur: {
               fill: '#e8e8e8'
             },
-
             highlight: {
               stroke: 'black'
             }
