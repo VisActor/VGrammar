@@ -18,7 +18,8 @@ export class SankeyHighlight extends BaseInteraction<SankeyHighlightOptions> {
     highlightState: InteractionStateEnum.highlight,
     blurState: InteractionStateEnum.blur,
     trigger: 'pointerover',
-    resetTrigger: 'pointerout'
+    resetTrigger: 'pointerout',
+    effect: 'related'
   };
   options: SankeyHighlightOptions;
   protected _nodeMark?: IMark;
@@ -62,13 +63,13 @@ export class SankeyHighlight extends BaseInteraction<SankeyHighlightOptions> {
 
   parseUpstreamLinks(element: IElement, isNode: boolean) {
     const datum = element.getDatum();
-    const links = !isNode ? array(datum as SankeyLinkDatum) : (datum as SankeyNodeElement).targetLinks;
+    const links = isNode ? (datum as SankeyNodeElement).targetLinks : array(datum as SankeyLinkDatum);
 
     return links.reduce((res: any[], link: any) => {
       const dividedLinks = array((link as any).datum);
 
       dividedLinks.forEach(dividedLink => {
-        const parents = dividedLink.parents;
+        const parents = dividedLink.parents ?? [{ key: dividedLink.source }];
         const len = isNode ? parents.length : parents.length - 1;
 
         for (let i = 0; i < len; i++) {
@@ -92,10 +93,118 @@ export class SankeyHighlight extends BaseInteraction<SankeyHighlightOptions> {
     }, []);
   }
 
-  highlightElement = (element: IElement, isNode: boolean) => {
+  highlightAdjacentElement = (element: IElement, isNode: boolean) => {
     const datum = element.getDatum();
-    const allNodeElements = this._nodeMark?.elements;
-    const allLinkElements = this._linkMark?.elements;
+    const allLinkElements = this._linkMark?.elements ?? [];
+    const highlightNodes: (string | number)[] = isNode ? [datum.key] : [datum.source, datum.target];
+    const getIsHighlight = isNode
+      ? (linkDatum: SankeyLinkElement) => {
+          return linkDatum.target === datum.key || linkDatum.source === datum.key;
+        }
+      : (linkDatum: SankeyLinkElement) => {
+          return linkDatum.source === datum.source && linkDatum.target === datum.target;
+        };
+
+    allLinkElements.forEach(linkEl => {
+      const linkDatum = linkEl.getDatum() as SankeyLinkElement;
+
+      if (getIsHighlight(linkDatum)) {
+        linkEl.removeState(this.options.blurState);
+        linkEl.addState(this.options.highlightState, { ratio: 1 });
+
+        if (!highlightNodes.includes(linkDatum.source)) {
+          highlightNodes.push(linkDatum.source);
+        }
+        if (!highlightNodes.includes(linkDatum.target)) {
+          highlightNodes.push(linkDatum.target);
+        }
+      } else {
+        linkEl.removeState(this.options.highlightState);
+        linkEl.addState(this.options.blurState);
+      }
+    });
+    return highlightNodes;
+  };
+
+  highlightRelatedBySourceTarget = (element: IElement, isNode: boolean) => {
+    if (!isNode) {
+      return this.highlightAdjacentElement(element, isNode);
+    }
+
+    const datum = element.getDatum() as SankeyNodeElement;
+    const allNodeElements = this._nodeMark?.elements ?? [];
+    const highlightNodes: (string | number)[] = [];
+    const allLinkElements = this._linkMark?.elements ?? [];
+    const highlightLinks: SankeyLinkElement[] = [];
+    const allNodes = allNodeElements.reduce((res, nodeEl) => {
+      const nodeDatum = nodeEl.getDatum() as SankeyNodeElement;
+
+      res[nodeDatum?.key] = { datum: nodeDatum, el: nodeEl };
+      return res;
+    }, {});
+    const downNodes: SankeyNodeElement[] = [datum];
+    const upNodes: SankeyNodeElement[] = [datum];
+
+    while (downNodes.length) {
+      const first = downNodes.pop();
+
+      if (first?.sourceLinks?.length) {
+        first.sourceLinks.forEach(link => {
+          highlightLinks.push(link);
+
+          if (allNodes[link.target]) {
+            downNodes.push(allNodes[link.target].datum);
+          }
+        });
+      }
+    }
+
+    while (upNodes.length) {
+      const first = upNodes.pop();
+
+      if (first?.targetLinks?.length) {
+        first.targetLinks.forEach(link => {
+          highlightLinks.push(link);
+
+          if (allNodes[link.source]) {
+            upNodes.push(allNodes[link.source].datum);
+          }
+        });
+      }
+    }
+
+    allLinkElements.forEach(linkEl => {
+      const linkDatum = linkEl.getDatum();
+
+      if (highlightLinks.some(link => link.source === linkDatum.source && link.target === linkDatum.target)) {
+        linkEl.removeState(this.options.blurState);
+        linkEl.addState(this.options.highlightState, { ratio: 1 });
+
+        if (!highlightNodes.includes(linkDatum.source)) {
+          highlightNodes.push(linkDatum.source);
+        }
+
+        if (!highlightNodes.includes(linkDatum.target)) {
+          highlightNodes.push(linkDatum.target);
+        }
+      } else {
+        linkEl.removeState(this.options.highlightState);
+        linkEl.addState(this.options.blurState);
+      }
+    });
+
+    return highlightNodes;
+  };
+
+  highlightRelatedElement = (element: IElement, isNode: boolean) => {
+    const allLinkElements = this._linkMark?.elements ?? [];
+    const isHierarchyData = !!allLinkElements[0]?.getDatum?.()?.parents;
+
+    if (!isHierarchyData) {
+      return this.highlightRelatedBySourceTarget(element, isNode);
+    }
+
+    const datum = element.getDatum();
     const highlightNodes: string[] = isNode ? [datum.key] : [datum.source, datum.target];
     const upstreamLinks = this.parseUpstreamLinks(element, isNode);
 
@@ -110,8 +219,8 @@ export class SankeyHighlight extends BaseInteraction<SankeyHighlightOptions> {
       }
 
       const selectedDatum = isNode
-        ? originalDatum.filter((entry: any) => entry.parents.some((par: any) => par.key === datum.key))
-        : originalDatum.filter((entry: any) => entry.parents.some((par: any) => par.key === datum.target));
+        ? originalDatum.filter((entry: any) => (entry.parents ?? []).some((par: any) => par.key === datum.key))
+        : originalDatum.filter((entry: any) => (entry.parents ?? []).some((par: any) => par.key === datum.target));
 
       if (selectedDatum && selectedDatum.length) {
         // 下游link
@@ -159,8 +268,16 @@ export class SankeyHighlight extends BaseInteraction<SankeyHighlightOptions> {
       return;
     });
 
+    return highlightNodes;
+  };
+
+  highlightElement = (element: IElement, isNode: boolean) => {
+    const allNodeElements = this._nodeMark?.elements ?? [];
+    const highlightNodes =
+      this.options.effect === 'related'
+        ? this.highlightRelatedElement(element, isNode)
+        : this.highlightAdjacentElement(element, isNode);
     allNodeElements.forEach(el => {
-      el.clearStates();
       if (highlightNodes.includes(el.getDatum().key)) {
         el.removeState(this.options.blurState);
         el.addState(this.options.highlightState);
