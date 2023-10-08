@@ -96,6 +96,7 @@ export const spec = {
       marks: [
         {
           type: 'rect',
+          id: 'node',
           from: { data: 'nodes' },
           key: 'key',
           encode: {
@@ -151,7 +152,29 @@ export const spec = {
               stroke: 'black'
             }
           }
-        }
+        },
+
+        {
+          type: 'component',
+          componentType: 'label',
+          target: 'node',
+          labelStyle: {
+            position: 'right',
+            state: {
+              highlight: { fill: 'red' },
+              blur: { fill: '#999' }
+            },
+            syncState: true,
+          },
+
+          encode: {
+            update: {
+              text: (datum: any) =>{
+                return  `${datum?.datum?.name}`
+              }
+            }
+          }
+        },
       ]
     }
   ]
