@@ -261,7 +261,7 @@ export const transformAttributes = (
   markName?: string
 ) => {
   const graphicAttributes = {};
-  const changedKeys = Object.keys(nextAttrs);
+  const changedKeys = nextAttrs ? Object.keys(nextAttrs) : [];
   const transforms: AttributeTransform[] = isString(markType)
     ? transformsByType[markType]
     : (markType as AttributeTransform[]);
