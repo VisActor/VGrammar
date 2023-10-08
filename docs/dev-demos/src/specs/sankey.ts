@@ -1,9 +1,11 @@
-import { registerSankeyTransforms, formatLinkPolygon, formatLinkPath } from '@visactor/vgrammar-sankey';
+import { registerSankeyTransforms, formatLinkPolygon, formatLinkPath, registerSankeyHighlight } from '@visactor/vgrammar-sankey';
 import { registerLinkPathGlyph } from '@visactor/vgrammar';
 import data from '../data/sankey-energy.json';
 
 registerSankeyTransforms();
 registerLinkPathGlyph();
+
+registerSankeyHighlight();
 
 export const spec = {
   width: 800,
@@ -31,6 +33,12 @@ export const spec = {
     }
   ],
 
+  interactions: [{
+    type: 'sankey-highlight',
+    nodeSelector: 'rect',
+    linkSelector: '#link',
+  }],
+
   data: [
     {
       id: 'data',
@@ -43,7 +51,8 @@ export const spec = {
           nodeAlign: { signal: 'nodeAlign' },
           nodeWidth: { signal: 'nodeWidth' },
           nodeGap: { signal: 'nodeGap' },
-          minNodeHeight: 4
+          minNodeHeight: 4,
+          minLinkHeight: 1,
         }
       ]
     },
@@ -96,6 +105,12 @@ export const spec = {
               y: { field: 'y0' },
               y1: { field: 'y1' },
               fill: 'green'
+            },
+            blur: {
+              fillOpacity: 0.2
+            },
+            highlight: {
+              stroke: 'black'
             }
           }
         },
@@ -114,6 +129,7 @@ export const spec = {
         // },
         {
           type: 'glyph',
+          id: 'link',
           glyphType: 'linkPath',
           from: { data: 'links' },
           key: 'index',
@@ -127,6 +143,12 @@ export const spec = {
               round: true,
               fill: 'pink',
               fillOpacity: 0.5
+            },
+            blur: {
+              fill: '#e8e8e8'
+            },
+            highlight: {
+              stroke: 'black'
             }
           }
         }
