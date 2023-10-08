@@ -84,6 +84,7 @@ export const spec = {
       marks: [
         {
           type: 'rect',
+          id: 'node',
           from: { data: 'nodes' },
           key: 'key',
           encode: {
@@ -124,7 +125,24 @@ export const spec = {
               stroke: 'yellow'
             }
           }
-        }
+        },
+        {
+          type: 'component',
+          componentType: 'label',
+          target: 'node',
+          labelStyle: {
+            position: 'bottom'
+          },
+
+          encode: {
+            update: {
+              text: (datum: any) =>{
+                console.log(datum);
+                return  `${datum?.datum?.name}`
+              }
+            }
+          }
+        },
       ]
     }
   ]
