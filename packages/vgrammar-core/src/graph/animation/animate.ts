@@ -279,10 +279,12 @@ export class Animate implements IAnimate {
           return config.timeline.sort(elementA.getDatum(), elementB.getDatum(), elementA, elementB, parameters);
         });
       }
+      const width = this.mark.view.width();
+      const height = this.mark.view.height();
       animatedElements.forEach((element, index) => {
         const animationParameters: IAnimationParameters = {
-          width: this.mark.view.width(),
-          height: this.mark.view.height(),
+          width,
+          height,
           group: this.mark.group ?? null,
           mark: this.mark,
           view: this.mark.view,
@@ -291,7 +293,6 @@ export class Animate implements IAnimate {
         };
         // add animation parameter into parameters
         const mergedParameters = Object.assign({ [DefaultAnimationParameters]: animationParameters }, parameters);
-
         const animationUnit = this.getAnimationUnit(
           config.timeline,
           element,
@@ -332,9 +333,13 @@ export class Animate implements IAnimate {
     elementRecord.prevState = config.state;
     elementRecord.count[config.state] = (elementRecord.count[config.state] ?? 0) + 1;
     this.elementRecorder.set(element, elementRecord);
-
-    this.animators.set(config.state, (this.animators.get(config.state) ?? []).concat(animator));
-
+    const stateData = this.animators.get(config.state);
+    if (!stateData) {
+      this.animators.set(config.state, [animator]);
+    } else {
+      stateData.push(animator);
+    }
+    // this.animators.set(config.state, (this.animators.get(config.state) ?? []).concat(animator));
     // invoke callback when animation finish
     animator.callback(() => {
       this.handleAnimatorEnd(animator);
