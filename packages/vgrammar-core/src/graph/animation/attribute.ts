@@ -20,12 +20,13 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
 
   if (attributes?.from) {
     const from = attributes.from;
-    Object.keys(from).forEach(channel => {
+    const fromKeys = Object.keys(from);
+    fromKeys.forEach(channel => {
       if (isNil(from[channel])) {
         delete from[channel];
       }
     });
-    const computePoints = isValidPointsChannel(Object.keys(from), element.mark.markType) && !isValid(from.segments);
+    const computePoints = isValidPointsChannel(fromKeys, element.mark.markType) && !isValid(from.segments);
     if (computePoints) {
       const items = element.items.map(item => Object.assign({}, item, { nextAttrs: from }));
       attributes.from = element.transformElementItems(items, element.mark.markType, computePoints);
@@ -33,12 +34,13 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
   }
   if (attributes?.to) {
     const to = attributes.to;
-    Object.keys(to).forEach(channel => {
+    const toKeys = Object.keys(to);
+    toKeys.forEach(channel => {
       if (isNil(to[channel])) {
         delete to[channel];
       }
     });
-    const computePoints = isValidPointsChannel(Object.keys(to), element.mark.markType) && !isValid(to.segments);
+    const computePoints = isValidPointsChannel(toKeys, element.mark.markType) && !isValid(to.segments);
     if (computePoints) {
       const items = element.items.map(item => Object.assign({}, item, { nextAttrs: to }));
       attributes.to = element.transformElementItems(items, element.mark.markType, computePoints);
