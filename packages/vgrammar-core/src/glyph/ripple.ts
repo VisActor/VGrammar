@@ -1,4 +1,4 @@
-import type { RipplePointEncoderSpec } from '../types';
+import type { IElement, RipplePointEncoderSpec } from '../types';
 import { Factory } from '../core/factory';
 
 export const registerRippleGlyph = () => {
@@ -8,9 +8,9 @@ export const registerRippleGlyph = () => {
     ripple1: 'symbol',
     ripple2: 'symbol'
   })
-    .registerChannelEncoder('ripple', (channel, encodeValue, encodeValues, datum, element) => {
+    .registerFunctionEncoder((encodeValues: RipplePointEncoderSpec, datum: any, element: IElement, config: any) => {
       // ripple value should be between 0 and 1
-      const ripple = Math.max(0, Math.min(encodeValue, 1));
+      const ripple = Math.max(0, Math.min(encodeValues.ripple, 1));
       const size = encodeValues.size ?? element.getGraphicAttribute('size');
       const rippleSize = size * 0.5;
       return {
