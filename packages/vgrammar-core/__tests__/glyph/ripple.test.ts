@@ -90,4 +90,28 @@ test('ripple encode', function () {
   expect(element.getGraphicAttribute('x', undefined, 'ripple2')).toEqual(10);
   expect(element.getGraphicAttribute('size', undefined, 'ripple2')).toEqual(75);
   expect(element.getGraphicAttribute('fillOpacity', undefined, 'ripple2')).toEqual(0);
+
+  element.encodeItems(
+    element.items,
+    {
+      update: {
+        size: 50
+      }
+    } as any,
+    false,
+    {}
+  );
+  element.encodeGraphic();
+
+  expect(element.getGraphicAttribute('x', undefined, 'symbol')).toEqual(10);
+  expect(element.getGraphicAttribute('size', undefined, 'symbol')).toEqual(50);
+  expect(element.getGraphicAttribute('x', undefined, 'ripple0')).toEqual(10);
+  expect(element.getGraphicAttribute('size', undefined, 'ripple0')).toEqual(75);
+  expect(element.getGraphicAttribute('fillOpacity', undefined, 'ripple0')).toEqual(0.5);
+  expect(element.getGraphicAttribute('x', undefined, 'ripple1')).toEqual(10);
+  expect(element.getGraphicAttribute('size', undefined, 'ripple1')).toEqual(100);
+  expect(element.getGraphicAttribute('fillOpacity', undefined, 'ripple1')).toEqual(0.25);
+  expect(element.getGraphicAttribute('x', undefined, 'ripple2')).toEqual(10);
+  expect(element.getGraphicAttribute('size', undefined, 'ripple2')).toEqual(125);
+  expect(element.getGraphicAttribute('fillOpacity', undefined, 'ripple2')).toEqual(0);
 });
