@@ -220,6 +220,10 @@ export const indexes = [
       {
         path: 'roam-scale-bar',
         name: '[交互]roam bar and filter data'
+      },
+      {
+        path: 'fish-eye-bubbles',
+        name: '[交互]fish-eye-bubbles'
       }
     ]
   },

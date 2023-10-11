@@ -85,7 +85,8 @@ import {
   registerViewZoom,
   registerViewScroll,
   registerViewDrag,
-  registerViewRoam
+  registerViewRoam,
+  registerFishEye
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
@@ -176,7 +177,8 @@ View.useRegisters([
   registerViewZoom,
   registerViewScroll,
   registerViewDrag,
-  registerViewRoam
+  registerViewRoam,
+  registerFishEye
 ]);
 
 export * from '@visactor/vgrammar-core';

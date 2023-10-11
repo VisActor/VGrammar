@@ -412,6 +412,48 @@ export interface SankeyHighlightOptions extends IBaseInteractionOptions {
   effect?: 'adjacency' | 'related';
 }
 
+export interface FishEyeOptions extends IBaseInteractionOptions {
+  selector?: string | string[] | IMark | IMark[];
+  /** the radius of x-direction */
+  radiusX?: number;
+  /** the radius of y-direction */
+  radiusY?: number;
+  /** the radiusRatio of x-direction */
+  radiusRatioX?: number;
+  /** the radiusRatio of y-direction */
+  radiusRatioY?: number;
+  /** x方向的扰动 */
+  distortionX?: number;
+  /** y方向的扰动 */
+  distortionY?: number;
+  /** 禁用 x方向的变形 */
+  enableX?: boolean;
+  /** 禁用y方向的变形 */
+  enableY?: boolean;
+  /** x方向的scale */
+  scaleX?: string | IScale;
+  /** y方向的scale */
+  scaleY?: string | IScale;
+  /** 节流的时长，单位为ms */
+  throttle?: number;
+  /**
+   * the trigger event name
+   */
+  trigger?: EventType;
+  /**
+   * the trigger event of end
+   */
+  endTrigger?: EventType;
+  /**
+   * the trigger event of updating
+   */
+  updateTrigger?: EventType;
+  /**
+   * the trigger event of reset
+   */
+  resetTrigger?: string;
+}
+
 export interface ElementActiveSpec extends ElementActiveOptions {
   type: 'element-active';
 }
@@ -510,6 +552,10 @@ export interface SankeyHighlightSpec extends SankeyHighlightOptions {
   type: 'sankey-highlight';
 }
 
+export interface FishEyeSpec extends FishEyeOptions {
+  type: 'fish-eye';
+}
+
 export type InteractionSpec =
   | ElementActiveSpec
   | ElementSelectSpec
@@ -536,7 +582,8 @@ export type InteractionSpec =
   | ViewZoomSpec
   | ViewScrollSpec
   | ViewDragSpec
-  | SankeyHighlightSpec;
+  | SankeyHighlightSpec
+  | FishEyeSpec;
 
 export interface ViewNavigationRange {
   needUpdate?: boolean;

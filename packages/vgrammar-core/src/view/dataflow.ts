@@ -88,7 +88,7 @@ export default class Dataflow implements IDataflow {
           if (entry === grammar) {
             this.logger.error('Cycle detected in dataflow graph.');
           }
-        }, true);
+        });
       }
     }
   }
