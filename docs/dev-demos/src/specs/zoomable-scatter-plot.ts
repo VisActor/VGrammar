@@ -10,6 +10,10 @@ export const spec = {
     {
       id: 'table',
       values: normalData
+    },
+    {
+      id: 'markData',
+      source: 'table',
     }
   ],
   interactions: [
@@ -29,27 +33,43 @@ export const spec = {
     //   type: 'view-drag',
     //   scaleX: 'xscale'
     // }
+    // {
+    //   type: 'view-roam',
+    //   scaleX: 'datazoomXScale',
+    //   dataTargetX: {
+    //     data: 'markData',
+    //     filter: 'u'
+    //   },
+    //   scroll: {
+    //     enable: true
+    //   },
+    //   drag: {
+    //     enable: false
+    //   }
+    // }
+
     {
-      type: 'view-roam',
-      scaleX: 'xscale',
-      dataTargetX: {
-        data: 'table',
-        filter: 'u'
-      },
-      scroll: {
-        enable: true
-      },
-      drag: {
-        enable: false
-      }
+      type: 'fish-eye',
+      scaleX: 'xscale'
     }
   ],
 
   scales: [
     {
+      id: 'datazoomXScale',
+      type: 'band',
+      domain: { data: 'table', field: 'name' },
+      dependency: ['viewBox'],
+      range: (scale, params) => {
+        return [0, params.viewBox.width()];
+      },
+      padding: 0.05,
+      round: true
+    },
+    {
       id: 'xscale',
       type: 'linear',
-      domain: { data: 'table', field: 'u' },
+      domain: { data: 'markData', field: 'u' },
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [0, params.viewBox.width()];
@@ -59,7 +79,7 @@ export const spec = {
     {
       id: 'yscale',
       type: 'linear',
-      domain: { data: 'table', field: 'v' },
+      domain: { data: 'markData', field: 'v' },
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [params.viewBox.height(), 0];
@@ -171,7 +191,7 @@ export const spec = {
             {
               type: 'symbol',
               id: 'points',
-              from: { data: 'table' },
+              from: { data: 'markData' },
               encode: {
                 update: {
                   x: { scale: 'xscale', field: 'u' },

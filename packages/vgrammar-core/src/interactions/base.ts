@@ -38,7 +38,9 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
     const events = this.getEvents();
 
     (events ?? []).forEach(evt => {
-      this.view.addEventListener(evt.type, evt.handler);
+      if (evt.type && evt.handler) {
+        this.view.addEventListener(evt.type, evt.handler);
+      }
     });
   }
 
@@ -47,7 +49,9 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
     const events = this.getEvents();
 
     (events ?? []).forEach(evt => {
-      this.view.removeEventListener(evt.type, evt.handler);
+      if (evt.type && evt.handler) {
+        this.view.removeEventListener(evt.type, evt.handler);
+      }
     });
   }
 }

@@ -24,6 +24,7 @@ import { ViewZoomMixin } from './view-zoom-mixin';
 import { ViewScrollMixin } from './view-scroll-mixin';
 import { ViewDragMixin } from './view-drag-mixin';
 import { ViewRoam } from './view-roam';
+import { FishEye } from './fish-eye';
 
 export { BaseTooltip } from './base-tooltip';
 export { BaseInteraction } from './base';
@@ -52,7 +53,8 @@ export {
   ViewRoam,
   ViewScrollMixin,
   ViewZoomMixin,
-  ViewDragMixin
+  ViewDragMixin,
+  FishEye
 };
 
 export const registerElementActive = () => {
@@ -140,4 +142,8 @@ export const registerViewRoam = () => {
   mixin(ViewRoam, ViewDragMixin);
   mixin(ViewRoam, ViewScrollMixin);
   Factory.registerInteraction(ViewRoam.type, ViewRoam);
+};
+
+export const registerFishEye = () => {
+  Factory.registerInteraction(FishEye.type, FishEye);
 };
