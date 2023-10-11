@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Mon, 25 Sep 2023 11:30:00 GMT and should not be manually modified.
+This log was last generated on Wed, 11 Oct 2023 03:13:43 GMT and should not be manually modified.
+
+## 0.7.7
+Wed, 11 Oct 2023 03:13:43 GMT
+
+### Updates
+
+- fix: ripple should update size when update atttribute `size`
+
+
 
 ## 0.7.6
 Mon, 25 Sep 2023 11:30:00 GMT
