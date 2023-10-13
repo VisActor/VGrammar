@@ -1,6 +1,6 @@
 import { isNil } from '@visactor/vutils';
-import type { IRangeFactor } from '@visactor/vscale';
-import { isContinuous, type IBaseScale, type TickData } from '@visactor/vscale';
+import type { IBandLikeScale, IRangeFactor, IBaseScale, TickData, ScaleFishEyeOptions } from '@visactor/vscale';
+import { supportRangeFactor } from '@visactor/vscale';
 import type { IGrammarBase, IView } from '../types';
 import type { Nil } from '../types/base';
 import type { GrammarType, IScale } from '../types/grammar';
@@ -24,6 +24,7 @@ export class Scale extends GrammarBase implements IScale {
 
   private scale: IBaseScale;
   private _rangeFactor?: [number, number];
+  private _fishEyeOptions?: ScaleFishEyeOptions;
 
   constructor(view: IView, scaleType: GrammarScaleType) {
     super(view);
@@ -51,12 +52,20 @@ export class Scale extends GrammarBase implements IScale {
     }
     configureScale(this.spec as ScaleSpec, this.scale, parameters);
 
-    if (
-      this.scale &&
-      this._rangeFactor &&
-      (isContinuous(this.scale.type) || this.scale.type === 'point' || this.scale.type === 'band')
-    ) {
-      (this.scale as unknown as IRangeFactor).rangeFactor(this._rangeFactor);
+    if (this.scale && supportRangeFactor(this.scale.type)) {
+      if (this._rangeFactor) {
+        (this.scale as unknown as IRangeFactor).rangeFactor(this._rangeFactor);
+      } else if ((this.scale as unknown as IRangeFactor).rangeFactor()) {
+        // clear rangeFactor
+        (this.scale as unknown as IRangeFactor).rangeFactor(null, false, true);
+      }
+
+      if (this._fishEyeOptions) {
+        (this.scale as IBandLikeScale).fishEye(this._fishEyeOptions);
+      } else if ((this.scale as IBandLikeScale).fishEye()) {
+        // clera fisheye
+        (this.scale as IBandLikeScale).fishEye(null, false, true);
+      }
     }
 
     this.view.emit(HOOK_EVENT.BEFORE_EVALUATE_SCALE);
@@ -99,13 +108,23 @@ export class Scale extends GrammarBase implements IScale {
     return this;
   }
 
-  setRangeFactor(range: [number, number] = [0, 1]) {
+  setRangeFactor(range?: [number, number]) {
     this._rangeFactor = range;
     return this;
   }
 
   getRangeFactor() {
     return this._rangeFactor;
+  }
+
+  setFishEye(fishEyeOptions?: ScaleFishEyeOptions) {
+    this._fishEyeOptions = fishEyeOptions;
+
+    return this;
+  }
+
+  getFishEye() {
+    return this._fishEyeOptions;
   }
 
   getCoordinateAxisPosition() {
