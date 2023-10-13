@@ -1,7 +1,6 @@
 import { isNil, isString, throttle } from '@visactor/vutils';
 import type { FishEyeOptions, IMark, IScale, IView, InteractionEvent, ViewNavigationRange } from '../types';
 import { BaseInteraction } from './base';
-import { unwrapFishEyeScale, wrapFishEyeScale } from './fish-eye-util';
 
 export class FishEye extends BaseInteraction<FishEyeOptions> {
   static type: string = 'fish-eye';
@@ -83,13 +82,13 @@ export class FishEye extends BaseInteraction<FishEyeOptions> {
           needUpdate = true;
           // 坐标转换问题
           dimState.focus = focus[dim];
-          dimState.scale.commit();
-          wrapFishEyeScale(dimState.scale.getScale(), {
+          dimState.scale.setFishEye({
             distortion: dimState.distortion,
             radius: dimState.radius,
             radiusRatio: dimState.radiusRatio,
             focus: focus[dim]
           });
+          dimState.scale.commit();
         }
       });
     } else {
@@ -100,8 +99,8 @@ export class FishEye extends BaseInteraction<FishEyeOptions> {
           needUpdate = true;
           // 坐标转换问题
           dimState.focus = null;
+          dimState.scale.setFishEye(null);
           dimState.scale.commit();
-          unwrapFishEyeScale(dimState.scale.getScale());
         }
       });
     }
@@ -187,7 +186,8 @@ export class FishEye extends BaseInteraction<FishEyeOptions> {
         const { scale } = this._state[dim as 'x' | 'y'];
 
         if (scale) {
-          scale.setRangeFactor([0, 1]);
+          scale.setRangeFactor(null);
+          scale.commit();
         }
       });
     }
