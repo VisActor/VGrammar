@@ -170,7 +170,8 @@ export abstract class ViewNavigationBase<
           data.detach(scale);
           data.removeDataFilter(dim === 'x' ? this._dataFilterX : this._dataFilterY);
         } else if (scale) {
-          scale.setRangeFactor([0, 1]);
+          scale.setRangeFactor(null);
+          scale.commit();
         }
       });
     }
