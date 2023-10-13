@@ -1,4 +1,4 @@
-import type { IPolygon } from '@visactor/vrender';
+import type { IPolygon } from '@visactor/vrender-core';
 import { InteractionStateEnum } from '../graph/enums';
 import type { BrushActiveOptions, IElement, IGlyphElement, IView } from '../types';
 import { BrushBase } from './brush-base';

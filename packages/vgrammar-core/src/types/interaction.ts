@@ -6,7 +6,7 @@ import type {
   TooltipAttributes,
   TooltipRowAttrs
 } from '@visactor/vrender-components';
-import type { IPolygon, ISymbolGraphicAttribute, ITextGraphicAttribute } from '@visactor/vrender';
+import type { IPolygon, ISymbolGraphicAttribute, ITextGraphicAttribute } from '@visactor/vrender-core';
 import type { IElement, IGlyphElement } from './element';
 import type { IData, IGrammarBase, IMark, IScale } from './grammar';
 import type { IPointLike } from '@visactor/vutils';
