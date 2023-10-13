@@ -1,6 +1,6 @@
 import type { EventEmitter, IBounds, IPointLike } from '@visactor/vutils';
 import type { IGraphic, IGroup } from '@visactor/vrender';
-import type { IBaseScale, TickData } from '@visactor/vscale';
+import type { IBaseScale, ScaleFishEyeOptions, TickData } from '@visactor/vscale';
 import type { ITransform, TransformSpec } from './transform';
 import type { DataFormatSpec, IDataFilter } from './data';
 import type { ParameterFunctionType, SignalFunctionType } from './signal';
@@ -151,6 +151,8 @@ export interface IScale extends IGrammarBase {
   // only used in VGrammar
   getRangeFactor: () => [number, number] | Nil;
   setRangeFactor: (range?: [number, number]) => this;
+  getFishEye: () => ScaleFishEyeOptions | Nil;
+  setFishEye: (option?: ScaleFishEyeOptions) => this;
 
   // scale util methods
   getScaleType: () => GrammarScaleType;

@@ -125,7 +125,7 @@ const createChartBySpec = (spec: any) => {
     width: spec.width,
     height: spec.height,
     container: 'container',
-    logLevel: 0,
+    logLevel: 5,
     hooks: {
       beforeParseView: () => {
         performanceTimes.parseViewTimeTemp = performance.now();

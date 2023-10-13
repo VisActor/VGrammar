@@ -20,7 +20,7 @@
     "@visactor/vgrammar-wordcloud": "workspace:0.7.3",
     "@visactor/vgrammar-wordcloud-shape": "workspace:0.7.3",
     "@visactor/vgrammar-plot": "workspace:0.7.3",
-    "@visactor/vutils": "~0.16.0",
+    "@visactor/vutils": "~0.16.3",
     "@visactor/vrender": "~0.15.2",
     "d3-scale-chromatic": "^3.0.0",
     "lodash": "4.17.21",
