@@ -1,6 +1,16 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Wed, 11 Oct 2023 03:13:43 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Oct 2023 09:32:28 GMT and should not be manually modified.
+
+## 0.8.0
+Mon, 16 Oct 2023 09:32:28 GMT
+
+### Updates
+
+- feat: add interactions
+- fix: fix animate performance issue
+- fix(vgrammar): exclude invalid animation channels when animating
+- refactor: access vrender core, closed #203
 
 ## 0.7.7
 Wed, 11 Oct 2023 03:13:43 GMT

@@ -2,6 +2,27 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.8.0",
+      "tag": "@visactor/vgrammar-core_v0.8.0",
+      "date": "Mon, 16 Oct 2023 09:32:28 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: add interactions"
+          },
+          {
+            "comment": "fix: fix animate performance issue"
+          },
+          {
+            "comment": "fix(vgrammar): exclude invalid animation channels when animating"
+          },
+          {
+            "comment": "refactor: access vrender core, closed #203"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.7.7",
       "tag": "@visactor/vgrammar-core_v0.7.7",
       "date": "Wed, 11 Oct 2023 03:13:43 GMT",
