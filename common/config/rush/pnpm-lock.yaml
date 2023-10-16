@@ -69,6 +69,7 @@ importers:
       '@visactor/vgrammar-util': workspace:0.7.6
       '@visactor/vgrammar-wordcloud': workspace:0.7.6
       '@visactor/vgrammar-wordcloud-shape': workspace:0.7.6
+      '@visactor/vrender': ~0.16.1
       '@visactor/vrender-core': ~0.16.1
       '@visactor/vrender-kits': ~0.16.1
       '@visactor/vutils': ~0.16.3
@@ -103,6 +104,7 @@ importers:
       '@visactor/vgrammar-util': link:../../packages/vgrammar-util
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
+      '@visactor/vrender': 0.16.2
       '@visactor/vrender-core': 0.16.2
       '@visactor/vrender-kits': 0.16.2
       '@visactor/vutils': 0.16.3
@@ -3389,7 +3391,6 @@ packages:
     dependencies:
       '@visactor/vrender-core': 0.16.2
       '@visactor/vrender-kits': 0.16.2
-    dev: true
 
   /@visactor/vscale/0.16.3:
     resolution: {integrity: sha512-oU0wSRaAh/Wvjt0KCjSqx1FydPV1lkq0pz6hzmj2DLxSAq9W+qU7Vo54TtBR/QMObjrI+60jtUlQXgh37sWr3A==}
