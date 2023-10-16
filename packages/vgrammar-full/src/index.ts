@@ -78,6 +78,31 @@ import {
   registerJitterXTransform,
   registerJitterYTransform,
   registerSymmetryTransform,
+
+  // interactions
+  registerElementActive,
+  registerElementSelect,
+  registerElementHighlight,
+  registerElementHighlightByKey,
+  registerElementHighlightByGroup,
+  registerElementActiveByLegend,
+  registerElementHighlightByLegend,
+  registerElementHighlightByName,
+  registerBrushHighlight,
+  registerBrushActive,
+  registerBrushFilter,
+  registerDrillDown,
+  registerRollUp,
+  registerTooltip,
+  registerDimensionTooltip,
+  registerCrosshair,
+  registerViewZoom,
+  registerViewScroll,
+  registerViewDrag,
+  registerViewRoam,
+  registerFishEye,
+
+  // envs
   initAllEnv
 } from '@visactor/vgrammar-core';
 
@@ -122,6 +147,7 @@ View.useRegisters([
   registerWordCloudShapeTransforms,
 
   registerProjection,
+
   // animations
   registerClipInAnimation,
   registerClipOutAnimation,
@@ -151,7 +177,30 @@ View.useRegisters([
   registerRotateOutAnimation,
   registerScaleInAnimation,
   registerScaleOutAnimation,
-  registerUpdateAnimation
+  registerUpdateAnimation,
+
+  // register interactions
+  registerElementActive,
+  registerElementSelect,
+  registerElementHighlight,
+  registerElementHighlightByKey,
+  registerElementHighlightByGroup,
+  registerElementActiveByLegend,
+  registerElementHighlightByLegend,
+  registerElementHighlightByName,
+  registerBrushHighlight,
+  registerBrushActive,
+  registerBrushFilter,
+  registerDrillDown,
+  registerRollUp,
+  registerTooltip,
+  registerDimensionTooltip,
+  registerCrosshair,
+  registerViewZoom,
+  registerViewScroll,
+  registerViewDrag,
+  registerViewRoam,
+  registerFishEye
 ]);
 
 initAllEnv();
