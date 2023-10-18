@@ -264,6 +264,7 @@ export interface ViewSpec {
   marks?: MarkSpec[];
   events?: EventSpec[];
   interactions?: InteractionSpec[];
+  animation?: boolean;
 }
 
 export interface IRecordedGrammars {
