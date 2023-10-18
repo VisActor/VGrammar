@@ -326,6 +326,7 @@ export interface IAnimate extends IBaseAnimate {
   recordEnd: () => this;
 
   // internal animation process api
+  getAnimationConfigs: (animationState: string) => IParsedAnimationConfig[];
   updateConfig: (config: Record<string, IAnimationConfig | IAnimationConfig[]>) => void;
   updateState: (state: MarkFunctionType<string> | null) => void;
   isElementAnimating: (element: IElement) => boolean;

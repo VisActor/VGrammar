@@ -14,7 +14,6 @@ export const spec = {
       value: 'appear'
     }
   ],
-
   data: [
     {
       id: 'table',
@@ -83,7 +82,10 @@ export const spec = {
             overall: true,
             orient: 'inside'
           }
-        }
+        },
+        state: {
+          duration: 1000
+        },
       },
       encode: {
         enter: {
@@ -113,7 +115,15 @@ export const spec = {
         }
       }
     }
-  ]
+  ],
+  interactions: [
+    {
+      type: 'element-highlight',
+      selector: 'arc',
+      highlightState: 'hover'
+    }
+  ],
+  animation: false
 };
 
 export const callback = (chartInstance: any) => {
