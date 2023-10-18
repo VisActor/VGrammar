@@ -198,6 +198,11 @@ export default class Dataflow implements IDataflow {
           next = await next;
         }
 
+        // finish evaluation if dataflow is stopped during asynchronous process
+        if (!this._isRunning) {
+          return false;
+        }
+
         this._logGrammarRunInfo(grammar);
         this._enqueueTargets(grammar);
         count += 1;
@@ -287,6 +292,13 @@ export default class Dataflow implements IDataflow {
     return true;
   }
 
+  private stop() {
+    if (!this._isRunning) {
+      return;
+    }
+    this._isRunning = false;
+  }
+
   runBefore(callback?: IDataflowCallback) {
     this._beforeRunner = callback;
   }
@@ -296,6 +308,9 @@ export default class Dataflow implements IDataflow {
   }
 
   release() {
+    // stop asynchronous evaluation
+    this.stop();
+
     if (this._heap) {
       this._heap.clear();
       this._heap = null;
