@@ -2,7 +2,7 @@ import * as transforms from '../src/transforms/index';
 import { createGlyphGraphicItem, createGraphicItem } from '../src/graph/util/graphic';
 import { createElement } from '../src/graph/util/element';
 import { transformsByType } from '../src/graph/attributes';
-import type { IGlyphElement, IGlyphMeta } from '../src';
+import type { IGlyphElement, IGlyphMeta, IParsedAnimationConfig } from '../src';
 import CanvasRenderer from '../src/graph/canvas-renderer';
 import { defaultTheme } from '../src/theme/default';
 
@@ -54,6 +54,7 @@ export function createSimpleElement(
 ) {
   const mark = {
     markType,
+    animate: { getAnimationConfigs: () => [] as IParsedAnimationConfig[] },
     isLargeMode: () => false,
     isCollectionMark: () => markType === 'line' || markType === 'area',
     needAnimate: () => false,
@@ -80,6 +81,7 @@ export function createSimpleGlyphElement(
 ) {
   const mark = {
     markType: 'glyph',
+    animate: { getAnimationConfigs: () => [] as IParsedAnimationConfig[] },
     isLargeMode: () => false,
     isCollectionMark: () => false,
     needAnimate: () => false,
