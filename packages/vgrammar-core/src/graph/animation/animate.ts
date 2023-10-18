@@ -43,6 +43,13 @@ export class Animate implements IAnimate {
     this.configs = normalizeAnimationConfig(config ?? {});
   }
 
+  getAnimationConfigs(animationState: string) {
+    if (!this.isEnabled) {
+      return [];
+    }
+    return (this.configs ?? []).filter(config => config.state === animationState);
+  }
+
   updateConfig(config: Record<string, IAnimationConfig | IAnimationConfig[]>) {
     this.configs = normalizeAnimationConfig(config ?? {});
   }

@@ -528,6 +528,12 @@ export default class View extends EventEmitter implements IView {
       });
     }
 
+    if (spec.animation === false) {
+      this.animate.disable();
+    } else {
+      this.animate.enable();
+    }
+
     this.emit(HOOK_EVENT.AFTER_PARSE_VIEW);
 
     // update layout tree after update spec
