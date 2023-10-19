@@ -15,7 +15,7 @@ import { transform as funnelTransform } from './data/funnel';
 import { transform as pieTransform } from './data/pie';
 import { transform as circularRelationTransform } from './data/circular-relation';
 
-import { transform as lttbsampleTransform } from './mark/lttb-sample';
+import { transform as sampleTransform } from './data/sampling';
 import { transform as markoverlapTransform } from './mark/mark-overlap';
 
 import { transform as identifierTransform } from './view/identifier';
@@ -154,10 +154,10 @@ export const registerIdentifierTransform = () => {
   );
 };
 
-export const registerLttbSampleTransform = () => {
+export const registerSampleTransform = () => {
   Factory.registerTransform(
-    'lttbsample',
-    { transform: lttbsampleTransform, markPhase: 'afterEncode' } as Omit<ITransform, 'type'>,
+    'sampling',
+    { transform: sampleTransform, markPhase: 'afterEncode' } as Omit<ITransform, 'type'>,
     true
   );
 };

@@ -232,13 +232,13 @@ export interface MarkOverlapTransformOptions {
   groupBy?: string;
 }
 
-export interface LttbSampleTransformOptions {
+export interface SampleTransformOptions {
   size: number;
   factor?: number;
   skipfirst?: boolean;
-  xfield?: string;
   yfield?: string;
   groupBy?: string;
+  mode?: 'lttb' | 'min' | 'max' | 'average' | 'sum';
 }
 
 export interface SymmetryTransformOptions {
@@ -304,8 +304,8 @@ export interface IdentifierTransformSpec extends ConvertTransformOptionToSpec<Id
 export interface MarkOverlapTransformSpec extends ConvertTransformOptionToSpec<MarkOverlapTransformOptions> {
   type: 'markoverlap';
 }
-export interface LttbSampleTransformSpec extends ConvertTransformOptionToSpec<LttbSampleTransformOptions> {
-  type: 'lttbsample';
+export interface SampleTransformSpec extends ConvertTransformOptionToSpec<SampleTransformOptions> {
+  type: 'sampling';
 }
 
 export interface JitterTransformSpec extends ConvertTransformOptionToSpec<JitterTransformOptions> {
@@ -356,7 +356,7 @@ export type TransformSpec =
   | IdentifierTransformSpec
   | BaseTransformSpec
   | MarkOverlapTransformSpec
-  | LttbSampleTransformSpec
+  | SampleTransformSpec
   | JitterTransformSpec
   | JitterXTransformSpec
   | JitterYTransformSpec
