@@ -66,3 +66,23 @@ export function computeQuadrant(angle: number): 1 | 2 | 3 | 4 {
   }
   return 1;
 }
+
+export function sum(arr: any[]) {
+  return arr.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+}
+
+export function average(arr: any[]) {
+  if (arr.length === 0) {
+    return 0;
+  }
+  const total = sum(arr);
+  return total / arr.length;
+}
+
+export function min(arr: any[]) {
+  return Math.min(...arr);
+}
+
+export function max(arr: any[]) {
+  return Math.max(...arr);
+}

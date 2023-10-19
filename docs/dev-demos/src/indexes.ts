@@ -139,7 +139,15 @@ export const indexes = [
       {
         path: 'line-chart-segments',
         name: '分段线图'
-      }
+      },
+      {
+        path: 'line-chart-sampling',
+        name: '线图数据采样'
+      },
+      {
+        path: 'line-chart-overlap',
+        name: '线图防重叠'
+      },
     ]
   },
   {
