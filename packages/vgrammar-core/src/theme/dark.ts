@@ -40,6 +40,7 @@ darkComponents.lineLabel = Object.assign({}, darkComponents.lineLabel, {
     }
   ]
 });
+
 darkComponents.symbolLabel = Object.assign({}, darkComponents.symbolLabel, {
   data: [
     {
