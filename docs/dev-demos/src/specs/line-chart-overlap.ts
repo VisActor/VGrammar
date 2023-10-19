@@ -2,7 +2,6 @@ export const spec = {
   width: 500,
   height: 200,
   padding: 5,
-
   data: [
     {
       id: 'table',
@@ -40005,16 +40004,7 @@ export const spec = {
         }
 
 
-      ],
-      transform: [
-        {
-            type: 'sampling',
-            mode: 'average',
-            size: 500,
-          yfield: 'y',
-          xfield: 'x'
-        }
-      ],
+      ]
     }
   ],
 
@@ -40073,7 +40063,6 @@ export const spec = {
             },
           }
         },
-
         {
           type: 'symbol',
           from: {

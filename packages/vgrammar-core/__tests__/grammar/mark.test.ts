@@ -54,7 +54,7 @@ test('Mark parse spec and collect dependencies', function () {
         }
       },
       {
-        type: 'lttbsample'
+        type: 'sampling'
       }
     ]
   };
@@ -66,7 +66,7 @@ test('Mark parse spec and collect dependencies', function () {
   expect(references0[0].count).toEqual(1);
   expect(references0[0].reference.id()).toEqual('table');
   expect(mark.transforms[0].type).toEqual('markoverlap');
-  expect(mark.transforms[1].type).toEqual('lttbsample');
+  expect(mark.transforms[1].type).toEqual('sampling');
 
   const spec1 = {
     type: 'rect',
