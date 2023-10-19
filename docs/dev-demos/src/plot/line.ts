@@ -2398,6 +2398,8 @@ export const runner = (plot: IPlot) => {
     //     formatMethod: (d: string | number) => (+d).toFixed(1)
     //   },
     // })
+
+    .label('y', { textStyle: { fill: undefined } })
     .datazoom('x', { 
       startTextStyle: {
         // formatMethod: (d: string | number) => (+d).toFixed(1)

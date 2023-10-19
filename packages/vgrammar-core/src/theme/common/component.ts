@@ -4,6 +4,7 @@ import type {
   ColorLegendAttributes,
   ContinuousPlayerAttributes,
   DataLabelAttrs,
+  LineDataLabelAttrs,
   DataZoomAttributes,
   DiscreteLegendAttrs,
   DiscretePlayerAttributes,
@@ -369,6 +370,21 @@ export const dataLabel: RecursivePartial<DataLabelAttrs> = {
   dataLabels: []
 };
 
+export const lineDataLabel: RecursivePartial<LineDataLabelAttrs> = {
+  type: 'line-data',
+  data: [
+    {
+      text: ''
+    }
+  ],
+  position: 'top',
+  overlap: {
+    avoidBaseMark: false,
+    clampForce: false
+  },
+  smartInvert: false
+};
+
 export const lineLabel: RecursivePartial<LineLabelAttrs> = {
   type: 'line',
   data: [
@@ -538,6 +554,7 @@ export const defaultComponentTheme: IComponentTheme = {
   rectLabel,
   symbolLabel,
   arcLabel,
+  lineDataLabel,
 
   datazoom,
 

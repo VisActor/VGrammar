@@ -36,7 +36,8 @@ export const generateLabelAttributes = (
       let currentTheme: any = {};
       switch (mark.markType) {
         case GrammarMarkType.line:
-          currentTheme = theme?.components?.lineLabel;
+        case GrammarMarkType.area:
+          currentTheme = theme?.components?.lineDataLabel;
           break;
         case GrammarMarkType.rect:
         case GrammarMarkType.interval:
@@ -58,13 +59,23 @@ export const generateLabelAttributes = (
           break;
       }
       const data: any[] = [];
+      const themeDatum = currentTheme?.data?.[0] ?? {};
       // process by order of elements
       mark.elements.forEach(element => {
         const graphicItem = element.getGraphicItem();
         if ((graphicItem as any).releaseStatus !== 'willRelease') {
-          const attributes = invokeEncoder(encoder, element.getDatum(), element, labelParameters);
-          const datum = merge({}, currentTheme?.data?.[0] ?? {}, attributes);
-          data.push(datum);
+          if (mark.isCollectionMark()) {
+            const datum = element.getDatum();
+
+            datum.forEach((entry: any) => {
+              const attributes = invokeEncoder(encoder, entry, element, labelParameters);
+              data.push(merge({}, themeDatum, attributes));
+            });
+          } else {
+            const attributes = invokeEncoder(encoder, element.getDatum(), element, labelParameters);
+            const datum = merge({}, themeDatum, attributes);
+            data.push(datum);
+          }
         }
       });
       const addition = invokeFunctionType(labelStyle, labelParameters, mark);
@@ -84,6 +95,7 @@ export const generateLabelAttributes = (
       );
     })
     .filter(label => !isNil(label));
+
   return merge({}, labelTheme, { size: groupSize, dataLabels });
 };
 
