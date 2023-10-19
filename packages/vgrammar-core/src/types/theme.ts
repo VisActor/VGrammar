@@ -14,6 +14,7 @@ import type {
   LineAxisAttributes,
   LineAxisGridAttributes,
   LineCrosshairAttrs,
+  LineDataLabelAttrs,
   LineLabelAttrs,
   PolygonCrosshairAttrs,
   RectCrosshairAttrs,
@@ -58,6 +59,7 @@ export interface IComponentTheme {
   arcLabel?: RecursivePartial<ArcLabelAttrs>;
   symbolLabel?: RecursivePartial<SymbolLabelAttrs>;
   pointLabel?: RecursivePartial<BaseLabelAttrs>;
+  lineDataLabel?: RecursivePartial<LineDataLabelAttrs>;
 
   datazoom?: RecursivePartial<DataZoomAttributes>;
 
