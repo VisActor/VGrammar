@@ -105,19 +105,19 @@ function sample(size: number, array: any[], isGroup: boolean, mode: 'min' | 'max
   return newRawIndices;
 }
 
-function samplerMin(size: number, array: any[], isGroup: boolean, yfield: string) {
+function sampleMin(size: number, array: any[], isGroup: boolean, yfield: string) {
   return sample(size, array, isGroup, 'min', yfield);
 }
 
-function samplerMax(size: number, array: any[], isGroup: boolean, yfield: string) {
+function sampleMax(size: number, array: any[], isGroup: boolean, yfield: string) {
   return sample(size, array, isGroup, 'max', yfield);
 }
 
-function samplerAverage(size: number, array: any[], isGroup: boolean, yfield: string) {
+function sampleAverage(size: number, array: any[], isGroup: boolean, yfield: string) {
   return sample(size, array, isGroup, 'average', yfield);
 }
 
-function samplerSum(size: number, array: any[], isGroup: boolean, yfield: string) {
+function sampleSum(size: number, array: any[], isGroup: boolean, yfield: string) {
   return sample(size, array, isGroup, 'sum', yfield);
 }
 
@@ -166,13 +166,13 @@ export const transform = (options: SampleTransformOptions, upstreamData: any[]) 
   // 采样方法
   let sampler = lttb;
   if (mode === 'min') {
-    sampler = samplerMin;
+    sampler = sampleMin;
   } else if (mode === 'max') {
-    sampler = samplerMax;
+    sampler = sampleMax;
   } else if (mode === 'average') {
-    sampler = samplerAverage;
+    sampler = sampleAverage;
   } else if (mode === 'sum') {
-    sampler = samplerSum;
+    sampler = sampleSum;
   }
 
   // 处理数据source，source为采样前的原始数据
