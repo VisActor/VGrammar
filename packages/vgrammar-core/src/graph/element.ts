@@ -115,9 +115,10 @@ export class Element implements IElement {
     } else {
       (this.graphicItem as any).releaseStatus = undefined;
     }
-    const markSpec = this.mark.getSpec() as MarkSpec;
-    if (markSpec.animation?.state) {
-      (this.graphicItem as any).stateAnimateConfig = markSpec.animation.state;
+
+    const stateAnimation = this.mark.animate.getAnimationConfigs('state');
+    if (stateAnimation.length !== 0) {
+      (this.graphicItem as any).stateAnimateConfig = stateAnimation[0].originConfig;
     }
   }
 
@@ -280,14 +281,14 @@ export class Element implements IElement {
   }
 
   clearStates(hasAnimation?: boolean) {
-    const stateAnimation = isBoolean(hasAnimation)
+    const stateAnimationEnable = isBoolean(hasAnimation)
       ? hasAnimation
-      : !!(this.mark.getSpec() as MarkSpec).animation?.state;
+      : this.mark.animate.getAnimationConfigs('state').length !== 0;
 
     this.states = [];
 
     if (this.graphicItem) {
-      this.graphicItem.clearStates(stateAnimation);
+      this.graphicItem.clearStates(stateAnimationEnable);
     }
 
     if (this.runtimeStatesEncoder) {
@@ -394,11 +395,12 @@ export class Element implements IElement {
       this.states.sort(stateSort);
     }
 
-    const stateAnimation = isBoolean(hasAnimation)
+    const stateAnimationEnable = isBoolean(hasAnimation)
       ? hasAnimation
-      : !!(this.mark.getSpec() as MarkSpec).animation?.state;
+      : this.mark.animate.getAnimationConfigs('state').length !== 0;
+
     this.graphicItem.stateProxy = this.getStateAttrs;
-    this.graphicItem.useStates(this.states, stateAnimation);
+    this.graphicItem.useStates(this.states, stateAnimationEnable);
 
     this.mark.emit(HOOK_EVENT.AFTER_ELEMENT_STATE, { states }, this);
   }
