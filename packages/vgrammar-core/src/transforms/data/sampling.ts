@@ -8,7 +8,7 @@ const samplerMap = {
   sum: sum
 };
 
-function lttb(size: number, array: any[], isGroup: boolean, yfield?: string) {
+function lttb(size: number, array: any[], isGroup: boolean, yfield: string) {
   const frameSize = Math.floor(array.length / size);
   const newIndices = [];
   const len = array.length;
@@ -18,7 +18,6 @@ function lttb(size: number, array: any[], isGroup: boolean, yfield?: string) {
   let maxArea;
   let area;
   let nextIndex;
-  const y = yfield ?? 'y';
 
   // First frame use the first data.
   newIndices[sampledIndex++] = currentIndex;
@@ -31,7 +30,7 @@ function lttb(size: number, array: any[], isGroup: boolean, yfield?: string) {
     let avgY = 0;
 
     for (let idx = nextFrameStart; idx < nextFrameEnd; idx++) {
-      const value = array[idx][y];
+      const value = array[idx][yfield];
       if (Number.isNaN(value)) {
         continue;
       }
@@ -43,7 +42,7 @@ function lttb(size: number, array: any[], isGroup: boolean, yfield?: string) {
     const frameEnd = Math.min(i + frameSize, len);
 
     const pointAX = i - 1;
-    const pointAY = array[currentIndex][y];
+    const pointAY = array[currentIndex][yfield];
 
     maxArea = -1;
 
@@ -51,8 +50,8 @@ function lttb(size: number, array: any[], isGroup: boolean, yfield?: string) {
     // Find a point from current frame that construct a triangel with largest area with previous selected point
     // And the average of next frame.
     for (let idx = frameStart; idx < frameEnd; idx++) {
-      const value = array[idx][y];
-      if (Number.isNaN(y)) {
+      const value = array[idx][yfield];
+      if (Number.isNaN(yfield)) {
         continue;
       }
       // Calculate triangle area over three buckets
@@ -78,22 +77,15 @@ function lttb(size: number, array: any[], isGroup: boolean, yfield?: string) {
   return newRawIndices;
 }
 
-function sample(
-  size: number,
-  array: any[],
-  isGroup: boolean,
-  mode: 'min' | 'max' | 'average' | 'sum',
-  yfield?: string
-) {
+function sample(size: number, array: any[], isGroup: boolean, mode: 'min' | 'max' | 'average' | 'sum', yfield: string) {
   let frameSize = Math.floor(array.length / size);
   const newIndices = [];
   const len = array.length;
   let sampledIndex = 0;
   let frameValues = [];
-  const y = yfield ?? 'y';
 
   newIndices.push(sampledIndex);
-  array[sampledIndex][y] = array[sampledIndex][y];
+  array[sampledIndex][yfield] = array[sampledIndex][yfield];
 
   for (let i = 1; i < len - 1; i += frameSize) {
     if (frameSize > len - i) {
@@ -102,30 +94,30 @@ function sample(
     }
     frameValues = [];
     for (let k = 0; k < frameSize; k++) {
-      frameValues.push(array[i + k][y]);
+      frameValues.push(array[i + k][yfield]);
     }
     const value = samplerMap[mode](frameValues);
     sampledIndex = Math.min(Math.round(i + frameValues.length / 2) || 0, len - 1);
-    array[sampledIndex][y] = value;
+    array[sampledIndex][yfield] = value;
     newIndices.push(sampledIndex);
   }
   const newRawIndices = newIndices.map(i => (isGroup ? array[i].i : i));
   return newRawIndices;
 }
 
-function samplerMin(size: number, array: any[], isGroup: boolean, yfield?: string) {
+function samplerMin(size: number, array: any[], isGroup: boolean, yfield: string) {
   return sample(size, array, isGroup, 'min', yfield);
 }
 
-function samplerMax(size: number, array: any[], isGroup: boolean, yfield?: string) {
+function samplerMax(size: number, array: any[], isGroup: boolean, yfield: string) {
   return sample(size, array, isGroup, 'max', yfield);
 }
 
-function samplerAverage(size: number, array: any[], isGroup: boolean, yfield?: string) {
+function samplerAverage(size: number, array: any[], isGroup: boolean, yfield: string) {
   return sample(size, array, isGroup, 'average', yfield);
 }
 
-function samplerSum(size: number, array: any[], isGroup: boolean, yfield?: string) {
+function samplerSum(size: number, array: any[], isGroup: boolean, yfield: string) {
   return sample(size, array, isGroup, 'sum', yfield);
 }
 
@@ -168,7 +160,8 @@ export const transform = (options: SampleTransformOptions, upstreamData: any[]) 
     return upstreamData.slice(0, 1);
   }
 
-  const { mode, yfield, groupBy } = options;
+  const { mode, yfield: y, groupBy } = options;
+  const yfield = y ?? 'y';
 
   // 采样方法
   let sampler = lttb;
@@ -191,16 +184,15 @@ export const transform = (options: SampleTransformOptions, upstreamData: any[]) 
         const datum = upstreamData[i];
         const groupId = datum[groupBy];
         if (groups[groupId]) {
-          groups[groupId].push({ ...datum, i });
+          groups[groupId].push({ [yfield]: datum[yfield], i });
         } else {
           groups[groupId] = [];
-          groups[groupId].push({ ...datum, i });
+          groups[groupId].push({ [yfield]: datum[yfield], i });
         }
       }
 
       // 分组采样
       let rawIndice: any[] = [];
-      let newData: any[] = [];
 
       Object.keys(groups).forEach(groupName => {
         const group = groups[groupName];
@@ -209,19 +201,17 @@ export const transform = (options: SampleTransformOptions, upstreamData: any[]) 
             return datum.i;
           });
           rawIndice = rawIndice.concat(indices);
-          newData = newData.concat(group);
         } else {
           const indices = sampler(size, group, true, yfield);
           rawIndice = rawIndice.concat(indices);
-          newData = newData.concat(group);
+          group.forEach((datum: any) => (upstreamData[datum.i][yfield] = datum[yfield]));
         }
       });
 
-      // 采样后，整合分组数据，按照原始顺序排序
+      // 采样后，按照原始顺序排序
       rawIndice.sort((a, b) => a - b);
-      newData.sort((a, b) => a.i - b.i);
 
-      return rawIndice.map((index: number) => newData[index]);
+      return rawIndice.map((index: number) => upstreamData[index]);
     }
     return sampler(size, upstreamData, false, yfield).map(index => upstreamData[index]);
   }

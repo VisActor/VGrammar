@@ -26,7 +26,7 @@ export const spec = {
     transform: [
         {
           type: 'sampling',
-          mode: 'lttb',
+          mode: 'min',
           size: 10,
           yfield: 'value',
           groupBy: 'type'
