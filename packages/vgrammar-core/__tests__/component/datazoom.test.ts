@@ -40,6 +40,8 @@ test('datazoom', function () {
       stroke: '#D1DBEE'
     },
     brushSelect: true,
+    delayTime: 0,
+    delayType: 'throttle',
     dragMaskStyle: {
       fill: '#B0C8F9',
       fillOpacity: 0.2
@@ -61,6 +63,7 @@ test('datazoom', function () {
         fontSize: 10
       }
     },
+    maxSpan: 1,
     middleHandlerStyle: {
       background: {
         size: 8,
@@ -81,12 +84,14 @@ test('datazoom', function () {
       },
       visible: true
     },
+    minSpan: 0,
     orient: 'bottom',
     position: {
       x: 0,
       y: 0
     },
     previewData: [],
+    realTime: true,
     selectedBackgroundChartStyle: {
       area: {
         fill: '#fbb934',
@@ -127,6 +132,7 @@ test('datazoom', function () {
       }
     },
     x: 40,
-    y: 340
+    y: 340,
+    zoomLock: false
   });
 });
