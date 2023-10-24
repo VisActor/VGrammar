@@ -117,14 +117,14 @@ export class Datazoom extends Component implements IDatazoom {
       return state;
     });
 
-    datazoom.setPreviewCallbackX((datum: any) => {
+    datazoom.setPreviewPointsX((datum: any) => {
       if (this.spec.preview?.x && this.spec.preview?.data) {
         return invokeEncoder({ x: this.spec.preview.x }, datum, this.elements[0], this.parameters()).x;
       }
 
       return undefined;
     });
-    datazoom.setPreviewCallbackY((datum: any) => {
+    datazoom.setPreviewPointsY((datum: any) => {
       if (this.spec.preview?.y && this.spec.preview?.data) {
         return invokeEncoder({ y: this.spec.preview.y }, datum, this.elements[0], this.parameters()).y;
       }
@@ -132,14 +132,14 @@ export class Datazoom extends Component implements IDatazoom {
       return undefined;
     });
 
-    datazoom.setPreviewCallbackX1((datum: any) => {
+    datazoom.setPreviewPointsX1((datum: any) => {
       if (this.spec.preview?.x1 && this.spec.preview?.data) {
         return invokeEncoder({ x1: this.spec.preview.x1 }, datum, this.elements[0], this.parameters()).x1;
       }
 
       return undefined;
     });
-    datazoom.setPreviewCallbackY1((datum: any) => {
+    datazoom.setPreviewPointsY1((datum: any) => {
       if (this.spec.preview?.y1 && this.spec.preview?.data) {
         return invokeEncoder({ y1: this.spec.preview.y1 }, datum, this.elements[0], this.parameters()).y1;
       }
