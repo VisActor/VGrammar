@@ -7,7 +7,8 @@
     "serve": "vite --host",
     "watch": "node ./libs/template-parse/build.js --env dev --watch",
     "start": "npx concurrently --kill-others \"npm:watch\" \"npm:serve\"",
-    "preview": "node ./libs/preview.js"
+    "preview": "node ./libs/preview.js",
+    "example-ref": "node ./libs/update-example-reference.js"
   },
   "dependencies": {
     "@arco-design/web-react": "2.46.1",
