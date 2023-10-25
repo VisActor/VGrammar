@@ -1,4 +1,4 @@
-import { isValidNumber } from '@visactor/vutils';
+import { isFunction, isValidNumber } from '@visactor/vutils';
 import type { IElement, IMoveAnimationOptions, IAnimationParameters, TypeAnimation } from '../../../types';
 
 // When user did not provide proper x/y value, move animation will never work properly,
@@ -16,9 +16,11 @@ export const moveIn: TypeAnimation<IElement> = (
   const groupHeight = groupBounds?.height() ?? animationParameters.height;
   const changedX = (options?.orient === 'negative' ? groupWidth : 0) + offset;
   const changedY = (options?.orient === 'negative' ? groupHeight : 0) + offset;
-  const fromX = isValidNumber(options?.point?.x) ? options.point.x : changedX;
-  const fromY = isValidNumber(options?.point?.y) ? options.point.y : changedY;
-
+  const point = isFunction(options?.point)
+    ? options.point.call(null, element.getDatum(), element, animationParameters)
+    : options?.point;
+  const fromX = isValidNumber(point?.x) ? point.x : changedX;
+  const fromY = isValidNumber(point?.y) ? point.y : changedY;
   switch (options?.direction) {
     case 'x':
       return {
@@ -54,8 +56,11 @@ export const moveOut: TypeAnimation<IElement> = (
   const groupHeight = groupBounds?.height() ?? animationParameters.height;
   const changedX = (options?.orient === 'negative' ? groupWidth : 0) + offset;
   const changedY = (options?.orient === 'negative' ? groupHeight : 0) + offset;
-  const fromX = isValidNumber(options?.point?.x) ? options.point.x : changedX;
-  const fromY = isValidNumber(options?.point?.y) ? options.point.y : changedY;
+  const point = isFunction(options?.point)
+    ? options.point.call(null, element.getDatum(), element, animationParameters)
+    : options?.point;
+  const fromX = isValidNumber(point?.x) ? point.x : changedX;
+  const fromY = isValidNumber(point?.y) ? point.y : changedY;
 
   switch (options?.direction) {
     case 'x':

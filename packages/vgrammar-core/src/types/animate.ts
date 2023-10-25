@@ -3,6 +3,7 @@ import type { IPointLike } from '@visactor/vutils';
 import type { MarkFunctionCallback, MarkFunctionType } from './mark';
 import type { IMark } from './grammar';
 import type { IElement } from './element';
+import type { FunctionCallback } from './signal';
 
 export type TypeAnimation<T extends IElement> = (
   element: T,
@@ -46,7 +47,7 @@ export interface IMoveAnimationOptions {
   direction?: 'x' | 'y' | 'xy';
   orient?: 'positive' | 'negative';
   offset?: number;
-  point?: { x?: number; y?: number };
+  point?: { x?: number; y?: number } | FunctionCallback<{ x?: number; y?: number }>;
 }
 
 export interface IRotateAnimationOptions {
