@@ -2,6 +2,24 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.8.1",
+      "tag": "@visactor/vgrammar-core_v0.8.1",
+      "date": "Wed, 25 Oct 2023 03:52:34 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat(vgrammar): support animation config in view spec"
+          },
+          {
+            "comment": "feat: support DataLabel in line/area mark\n\n"
+          },
+          {
+            "comment": "feat(sampling): add aggregation sampling methods. "
+          }
+        ]
+      }
+    },
+    {
       "version": "0.8.0",
       "tag": "@visactor/vgrammar-core_v0.8.0",
       "date": "Mon, 16 Oct 2023 09:32:28 GMT",
