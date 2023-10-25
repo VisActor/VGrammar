@@ -1,6 +1,17 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Mon, 16 Oct 2023 09:32:28 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Oct 2023 03:52:34 GMT and should not be manually modified.
+
+## 0.8.1
+Wed, 25 Oct 2023 03:52:34 GMT
+
+### Updates
+
+- feat(vgrammar): support animation config in view spec
+- feat: support DataLabel in line/area mark
+
+
+- feat(sampling): add aggregation sampling methods. 
 
 ## 0.8.0
 Mon, 16 Oct 2023 09:32:28 GMT
