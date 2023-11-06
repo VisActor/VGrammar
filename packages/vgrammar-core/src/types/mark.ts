@@ -26,7 +26,7 @@ import type { IMark, IScale, IGroupMark, ICoordinate, GrammarSpec, IData } from 
 import type { GenericFunctionType } from './signal';
 import type { TransformSpec } from './transform';
 import type { CommonPaddingSpec } from './base';
-import type { ILayoutOptions } from './view';
+import type { ILayoutOptions, IView } from './view';
 import type {
   AxisSpec,
   BuiltInComponentSpec,
@@ -529,4 +529,10 @@ export interface AttributeTransform {
   channels: string[];
   transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => void;
   storedAttrs?: string;
+}
+
+export interface IMarkConstructor {
+  readonly markType: string;
+
+  new (view: IView, markType: MarkType, group?: IGroupMark): IMark;
 }

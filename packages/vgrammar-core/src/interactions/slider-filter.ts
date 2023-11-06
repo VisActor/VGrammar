@@ -1,5 +1,5 @@
 import type { DataFilterOptions, IComponent, ISlider, IView, SliderFilterValue } from '../types';
-import { DataFilterRank, GrammarMarkType } from '../graph';
+import { DataFilterRank, GrammarMarkType } from '../graph/enums';
 import { isString } from '@visactor/vutils';
 import { Filter } from './filter';
 

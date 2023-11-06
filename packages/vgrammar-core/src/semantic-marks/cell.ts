@@ -1,5 +1,5 @@
 import type { IBaseScale } from '@visactor/vscale';
-import type { GrammarMarkType } from '../graph/enums';
+import { GrammarMarkType } from '../graph/enums';
 import { invokeEncoder } from '../graph/mark/encode';
 import { isScaleEncode } from '../parse/mark';
 import { getGrammarOutput, isFunctionType } from '../parse/util';
@@ -14,10 +14,12 @@ import type {
 } from '../types';
 import { Mark } from '../view/mark';
 import { isArray, isNil, isNumber } from '@visactor/vutils';
-import { transformsByType } from '../graph/attributes';
+import { transformsByType } from '../graph/attributes/transform';
 import { getBandWidthOfScale } from '../util/scale';
+import { Factory } from '../core/factory';
 
 export class Cell extends Mark {
+  static markType = GrammarMarkType.cell;
   declare markType: GrammarMarkType.cell;
   protected declare spec: MarkSpec;
 
@@ -116,3 +118,7 @@ export class Cell extends Mark {
     this._encoders = null;
   }
 }
+
+export const registerCellMark = () => {
+  Factory.registerMark(GrammarMarkType.cell, Cell);
+};

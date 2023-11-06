@@ -31,3 +31,5 @@ export * from './graph/animation/animation';
 export { vglobal } from '@visactor/vrender-core';
 export * from './env';
 export * from './interactions';
+export * from './semantic-marks/cell';
+export * from './semantic-marks/interval';

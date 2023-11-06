@@ -14,7 +14,7 @@ import type {
   Nil,
   StateEncodeSpec
 } from '../types';
-import { ComponentEnum, GrammarMarkType } from '../graph';
+import { ComponentEnum, GrammarMarkType } from '../graph/enums';
 import type { ILabel, LabelSpec } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';

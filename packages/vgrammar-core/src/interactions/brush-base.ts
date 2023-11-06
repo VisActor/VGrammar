@@ -9,7 +9,7 @@ import {
   polygonIntersectPolygon,
   isRectIntersect
 } from '@visactor/vutils';
-import { HOOK_EVENT } from '../graph';
+import { HOOK_EVENT } from '../graph/enums';
 
 export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<T> {
   options: T;

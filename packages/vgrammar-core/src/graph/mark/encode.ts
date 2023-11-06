@@ -3,7 +3,7 @@ import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { BaseSignleEncodeSpec, IElement, MarkElementItem } from '../../types';
 import { isFieldEncode, isScaleEncode } from '../../parse/mark';
 import { getGrammarOutput, invokeFunctionType, isFunctionType } from '../../parse/util';
-import { isPositionOrSizeChannel } from '../attributes';
+import { isPositionOrSizeChannel } from '../attributes/helpers';
 import { GrammarMarkType } from '../enums';
 import { Factory } from '../../core/factory';
 

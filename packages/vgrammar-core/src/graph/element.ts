@@ -18,8 +18,15 @@ import { BridgeElementKey } from './constants';
 import { DiffState, HOOK_EVENT, GrammarMarkType, BuiltInEncodeNames } from './enums';
 import { invokeEncoderToItems } from './mark/encode';
 import { removeGraphicItem } from './util/graphic';
-import { transformAttributes, getLineSegmentConfigs, isPointsMarkType, getLinePointsFromSegments } from './attributes';
-import { getLargeRectsPoints, getLargeSymbolsPoints, getLinePoints, isValidPointsChannel } from './attributes/helpers';
+import { transformAttributes } from './attributes/transform';
+import {
+  getLargeRectsPoints,
+  getLargeSymbolsPoints,
+  getLinePoints,
+  isValidPointsChannel,
+  isPointsMarkType
+} from './attributes/helpers';
+import { getLineSegmentConfigs, getLinePointsFromSegments } from './attributes/line';
 import type {
   BaseEncodeSpec,
   BaseSignleEncodeSpec,

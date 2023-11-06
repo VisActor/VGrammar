@@ -3,8 +3,6 @@ import { GrammarMarkType } from './enums';
 
 export const BridgeElementKey = '__vgrammar_scene_item__';
 
-export const DefaultPositionValue = 0;
-
 export const CollectionMarkType = [GrammarMarkType.line, GrammarMarkType.area];
 
 export const Mark3DType = [GrammarMarkType.arc3d, GrammarMarkType.rect3d, GrammarMarkType.pyramid3d];

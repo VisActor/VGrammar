@@ -1,7 +1,7 @@
 import { ComponentEnum } from './../enums';
 import type { IBounds } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { Bounds, pad } from '@visactor/vutils';
+import { Bounds } from '@visactor/vutils';
 import { toPercent } from '@visactor/vgrammar-util';
 import type {
   IGroupMark,

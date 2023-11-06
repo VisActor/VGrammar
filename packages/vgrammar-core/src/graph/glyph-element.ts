@@ -9,7 +9,7 @@ import type {
   MarkType,
   StateProxyEncodeSpec
 } from '../types';
-import { cloneTransformAttributes, transformAttributes } from './attributes';
+import { cloneTransformAttributes, transformAttributes } from './attributes/transform';
 import { BridgeElementKey, CollectionMarkType } from './constants';
 import { DiffState, HOOK_EVENT, GrammarMarkType } from './enums';
 import { Element } from './element';

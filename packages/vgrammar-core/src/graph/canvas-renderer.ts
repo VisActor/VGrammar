@@ -201,7 +201,7 @@ export default class CanvasRenderer implements IRenderer {
         title: viewOptions.rendererTitle,
         beforeRender: viewOptions.beforeRender,
         afterRender: viewOptions.afterRender,
-        disableDirtyBounds: !!viewOptions.disableDirtyBounds,
+        disableDirtyBounds: true,
         autoRender: true,
         pluginList: viewOptions.pluginList,
         enableHtmlAttribute: viewOptions.enableHtmlAttribute

@@ -230,7 +230,7 @@ export interface IMark extends IGrammarBase, IProgressiveGrammar {
   elementMap: Map<string, IElement>;
   graphicIndex: number;
   graphicItem?: IGroup;
-  animate: IAnimate;
+  animate?: IAnimate;
 
   join: (
     data: IData | string | Nil,
