@@ -1,6 +1,6 @@
 import { LegendEvent } from '@visactor/vrender-components';
 import type { DataFilterOptions, IComponent, ILegend, IView, InteractionEvent } from '../types';
-import { DataFilterRank, GrammarMarkType } from '../graph';
+import { DataFilterRank, GrammarMarkType } from '../graph/enums';
 import { isString } from '@visactor/vutils';
 import { Filter } from './filter';
 

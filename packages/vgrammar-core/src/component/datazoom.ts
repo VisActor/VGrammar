@@ -3,7 +3,7 @@ import type { DataZoomAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { DataZoom as DatazoomComponent } from '@visactor/vrender-components';
 import { isNil, isString, merge, mixin } from '@visactor/vutils';
-import { ComponentEnum } from '../graph';
+import { ComponentEnum } from '../graph/enums';
 import type {
   BaseSignleEncodeSpec,
   ChannelEncodeType,

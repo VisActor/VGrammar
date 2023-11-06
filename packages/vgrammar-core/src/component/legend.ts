@@ -6,7 +6,7 @@ import type { DiscreteLegendAttrs, ColorLegendAttributes, SizeLegendAttributes }
 // eslint-disable-next-line no-duplicate-imports
 import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend } from '@visactor/vrender-components';
 import { array, isString, merge, last, mixin } from '@visactor/vutils';
-import { ComponentEnum, LegendEnum } from '../graph';
+import { ComponentEnum, LegendEnum } from '../graph/enums';
 import type {
   BaseSignleEncodeSpec,
   IElement,

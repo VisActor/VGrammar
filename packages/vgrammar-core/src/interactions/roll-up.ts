@@ -1,5 +1,5 @@
 import type { EventType, IView, InteractionEvent, RollUpOptions } from '../types';
-import { DataFilterRank } from '../graph';
+import { DataFilterRank } from '../graph/enums';
 import { isArray, isString } from '@visactor/vutils';
 import { Filter } from './filter';
 

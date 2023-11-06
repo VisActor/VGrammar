@@ -27,7 +27,7 @@ import type {
   RecursivePartial
 } from '../types';
 import { BaseInteraction } from './base';
-import { CrosshairEnum } from '../graph';
+import { CrosshairEnum } from '../graph/enums';
 import type { IBandLikeScale, IBaseScale } from '@visactor/vscale';
 // eslint-disable-next-line no-duplicate-imports
 import { isContinuous, isDiscrete } from '@visactor/vscale';

@@ -1,5 +1,8 @@
 import {
   View,
+  // semantic mark
+  registerCellMark,
+  registerIntervalMark,
   // components
   registerAxis,
   registerLegend,
@@ -91,6 +94,8 @@ import {
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
+  registerCellMark,
+  registerIntervalMark,
   // components
   registerAxis,
   registerLegend,

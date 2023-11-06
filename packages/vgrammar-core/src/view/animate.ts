@@ -1,4 +1,4 @@
-import { HOOK_EVENT } from '../graph';
+import { HOOK_EVENT } from '../graph/enums';
 import type { IView, AnimationEvent, IMark, IAnimationConfig, IViewAnimate } from '../types';
 
 export class ViewAnimate implements IViewAnimate {
@@ -6,6 +6,7 @@ export class ViewAnimate implements IViewAnimate {
   // animation start/end events are triggered on specific animation configuration
   private _animations: { config: IAnimationConfig; mark: IMark }[] = [];
   private _additionalAnimateMarks: IMark[] = [];
+  private isEnabled: boolean = true;
 
   constructor(view: IView) {
     this._view = view;
@@ -56,6 +57,7 @@ export class ViewAnimate implements IViewAnimate {
   }
 
   enable() {
+    this.isEnabled = true;
     this._view.traverseMarkTree(mark => {
       mark.animate?.enable?.();
     });
@@ -63,6 +65,7 @@ export class ViewAnimate implements IViewAnimate {
   }
 
   disable() {
+    this.isEnabled = false;
     this._view.traverseMarkTree(mark => {
       mark.animate?.disable?.();
     });
@@ -99,6 +102,10 @@ export class ViewAnimate implements IViewAnimate {
   }
 
   animate() {
+    if (!this.isEnabled) {
+      return this;
+    }
+
     this._view.traverseMarkTree(
       mark => {
         if (mark.isUpdated && mark.animate) {

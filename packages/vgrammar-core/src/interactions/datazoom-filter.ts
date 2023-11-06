@@ -1,5 +1,5 @@
 import type { DataFilterOptions, DatazoomFilterValue, IComponent, IDatazoom, IView } from '../types';
-import { DataFilterRank, GrammarMarkType } from '../graph';
+import { DataFilterRank, GrammarMarkType } from '../graph/enums';
 import { isNil, isString } from '@visactor/vutils';
 import { Filter } from './filter';
 import { getScaleRangeRatio } from '../util/scale';

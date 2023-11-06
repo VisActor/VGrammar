@@ -18,9 +18,11 @@ import { Mark } from '../view/mark';
 import { isNil } from '@visactor/vutils';
 import { createGraphicItem } from '../graph/util/graphic';
 import type { IPolarCoordinate } from '@visactor/vgrammar-coordinate';
-import { transformsByType } from '../graph/attributes';
+import { transformsByType } from '../graph/attributes/transform';
+import { Factory } from '../core/factory';
 
 export class Interval extends Mark {
+  static markType = GrammarMarkType.interval;
   declare markType: GrammarMarkType.interval;
   protected declare spec: MarkSpec;
 
@@ -156,3 +158,7 @@ export class Interval extends Mark {
     this._encoders = null;
   }
 }
+
+export const registerIntervalMark = () => {
+  Factory.registerMark(GrammarMarkType.interval, Interval);
+};

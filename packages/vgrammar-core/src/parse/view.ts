@@ -39,7 +39,7 @@ export const builtInSignals = (option: IViewOptions, config: IViewThemeConfig, t
   return [
     { id: SIGNAL_WIDTH, value: option[SIGNAL_WIDTH] ?? 0 },
     { id: SIGNAL_HEIGHT, value: option[SIGNAL_HEIGHT] ?? 0 },
-    { id: SIGNAL_PADDING, value: normalizePadding(option[SIGNAL_PADDING] ?? config[SIGNAL_PADDING] ?? theme.padding) },
+    { id: SIGNAL_PADDING, value: normalizePadding(option[SIGNAL_PADDING] ?? config[SIGNAL_PADDING] ?? theme?.padding) },
     {
       id: SIGNAL_VIEW_WIDTH,
       update: {
