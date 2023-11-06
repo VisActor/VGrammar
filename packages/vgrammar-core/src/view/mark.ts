@@ -37,6 +37,7 @@ import type {
   ProgressiveContext,
   IProgressiveTransformResult,
   Nil,
+  IAnimate,
   MarkStateSortSpec,
   BaseSignleEncodeSpec
 } from '../types';
@@ -93,6 +94,7 @@ export class Mark extends GrammarBase implements IMark {
     progressive?: ProgressiveContext;
     beforeTransformProgressive?: IProgressiveTransformResult;
   };
+  animate: IAnimate = new Animate(this, {});
 
   protected differ = new Differ([]);
 
