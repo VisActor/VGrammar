@@ -3,11 +3,6 @@ export const EVENT_SOURCE_VIEW = 'view';
 export const BROWSER = 'browser';
 export const NO_TRAP = { trap: false };
 
-export const DEFAULT_WIDTH = 500;
-export const DEFAULT_HEIGHT = 500;
-
-export const CURSOR_DEFAULT = 'default';
-
 export const SIGNAL_WIDTH = 'width';
 export const SIGNAL_HEIGHT = 'height';
 export const SIGNAL_VIEW_WIDTH = 'viewWidth';

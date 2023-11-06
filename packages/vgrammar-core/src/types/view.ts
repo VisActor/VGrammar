@@ -122,6 +122,7 @@ export interface IViewOptions extends IEnvironmentOptions, IRendererOptions, ILa
    */
   eventConfig?: IViewEventConfig;
   background?: IColor;
+  disableTheme?: boolean;
 }
 
 export interface IRunningConfig {

@@ -12,7 +12,7 @@ import type {
   IMarkTreeNode,
   IRecordedTreeGrammars
 } from '../types';
-import { GrammarMarkType } from '../graph';
+import { GrammarMarkType } from '../graph/enums';
 
 export class RecordedGrammars implements IRecordedGrammars {
   private _warning: (key: string, grammar: IGrammarBase) => void;

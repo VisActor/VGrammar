@@ -14,7 +14,7 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { ComponentEnum } from '../graph';
+import { ComponentEnum } from '../graph/enums';
 import type { ISlider, SliderSpec } from '../types/component';
 import { Component } from '../view/component';
 import { invokeEncoder } from '../graph/mark/encode';

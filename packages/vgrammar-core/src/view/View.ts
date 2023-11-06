@@ -95,8 +95,6 @@ import type {
   ISlider,
   ITitle
 } from '../types/component';
-import { Interval } from '../semantic-marks/interval';
-import { Cell } from '../semantic-marks/cell';
 import { Text } from '../semantic-marks/text';
 import { ThemeManager } from '../theme/theme-manager';
 import { Factory } from '../core/factory';
@@ -324,17 +322,11 @@ export default class View extends EventEmitter implements IView {
           ? Factory.createComponent(markOptions?.componentType, this, groupMark, markOptions?.mode)
           : new Component(this, markOptions?.componentType, groupMark, markOptions?.mode);
         break;
-      case GrammarMarkType.interval:
-        mark = new Interval(this, type, groupMark);
-        break;
-      case GrammarMarkType.cell:
-        mark = new Cell(this, type, groupMark);
-        break;
       case GrammarMarkType.text:
         mark = new Text(this, type, groupMark);
         break;
       default:
-        mark = new Mark(this, type, groupMark);
+        mark = Factory.hasMark(type) ? Factory.createMark(type, this, groupMark) : new Mark(this, type, groupMark);
     }
     this.grammars.record(mark);
     this._dataflow.add(mark);
@@ -551,7 +543,7 @@ export default class View extends EventEmitter implements IView {
 
   private parseBuiltIn() {
     // 创建内置的 Signal
-    builtInSignals(this._options, this._config, this.getCurrentTheme()).map(signalSpec => {
+    builtInSignals(this._options, this._config, this.getCurrentTheme()).forEach(signalSpec => {
       const signal = this.signal().parse(signalSpec);
       if (signalSpec.value) {
         signal.set(signalSpec.value);
@@ -594,9 +586,14 @@ export default class View extends EventEmitter implements IView {
       this._theme = theme;
     }
 
-    this.background(this._spec?.background ?? this._options.background ?? this._theme.background);
-    this.padding(this._spec?.padding ?? this._options.padding ?? this._theme.padding);
-    this.renderer.stage()?.setTheme?.(Object.assign({}, this._theme.marks));
+    if (this._theme) {
+      this.background(this._spec?.background ?? this._options.background ?? this._theme.background);
+      this.padding(this._spec?.padding ?? this._options.padding ?? this._theme.padding);
+      this.renderer.stage()?.setTheme?.(Object.assign({}, this._theme.marks));
+    } else {
+      this.background(this._spec?.background ?? this._options.background);
+      this.padding(this._spec?.padding ?? this._options.padding);
+    }
 
     return this;
   }
@@ -847,7 +844,10 @@ export default class View extends EventEmitter implements IView {
 
     this.reuseCachedGrammars(normalizedRunningConfig);
     const grammarWillDetach = this._cachedGrammars.size() > 0;
-    this.detachCachedGrammar();
+
+    if (grammarWillDetach) {
+      this.detachCachedGrammar();
+    }
     // For most of time, width & height signal won't be modified duration dataflow,
     //  so resizing before generating vRender graphic items should be faster.
     const hasResize = this._resizeRenderer();
@@ -907,7 +907,10 @@ export default class View extends EventEmitter implements IView {
 
     this.reuseCachedGrammars(normalizedRunningConfig);
     const grammarWillDetach = this._cachedGrammars.size() > 0;
-    this.detachCachedGrammar();
+
+    if (grammarWillDetach) {
+      this.detachCachedGrammar();
+    }
 
     const hasResize = this._resizeRenderer();
     const hasUpdate = this._dataflow.hasCommitted();
@@ -1465,8 +1468,6 @@ export default class View extends EventEmitter implements IView {
 
     this._morph = new Morph();
 
-    this._theme = ThemeManager.getDefaultTheme();
-
     // 执行钩子
     if (this._options.hooks) {
       Object.keys(this._options.hooks).forEach(key => {
@@ -1485,7 +1486,7 @@ export default class View extends EventEmitter implements IView {
     this._eventConfig = initializeEventConfig(this._options.eventConfig);
 
     // set default theme
-    this._theme = ThemeManager.getDefaultTheme();
+    this._theme = this._options.disableTheme ? null : ThemeManager.getDefaultTheme();
 
     this.parseBuiltIn();
 
@@ -1508,10 +1509,6 @@ export default class View extends EventEmitter implements IView {
   }
 
   // --- Others ---
-
-  normalBrowserEnv() {
-    return this._options.mode === 'browser';
-  }
 
   pauseProgressive() {
     return false;

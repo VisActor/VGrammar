@@ -14,7 +14,7 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { ComponentEnum, GrammarMarkType } from '../graph';
+import { ComponentEnum, GrammarMarkType } from '../graph/enums';
 import type { IScrollbar, ScrollbarSpec } from '../types/component';
 import { invokeEncoder } from '../graph/mark/encode';
 import { invokeFunctionType } from '../parse/util';

@@ -17,7 +17,7 @@ import type {
   RecursivePartial,
   StateEncodeSpec
 } from '../types';
-import { AxisEnum, ComponentEnum } from '../graph';
+import { AxisEnum, ComponentEnum } from '../graph/enums';
 import type { AxisSpec, AxisType, IAxis } from '../types/component';
 import { ScaleComponent } from './scale';
 import { invokeEncoder } from '../graph/mark/encode';

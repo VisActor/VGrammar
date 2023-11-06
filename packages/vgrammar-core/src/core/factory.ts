@@ -9,6 +9,8 @@ import type {
   IGrammarBaseConstructor,
   IGroupMark,
   IInteractionConstructor,
+  IMark,
+  IMarkConstructor,
   IPlotMarkConstructor,
   ISemanticMark,
   ITransform,
@@ -20,6 +22,7 @@ import { GlyphMeta } from '../view/glyph-meta';
 
 export class Factory {
   private static _plotMarks: Record<string, IPlotMarkConstructor> = {};
+  private static _marks: Record<string, IMarkConstructor> = {};
   private static _components: Record<string, IComponentConstructor> = {};
   private static _graphicComponents: Record<string, (attrs: any, mode?: '2d' | '3d') => IGraphic> = {};
   private static _transforms: Record<string, ITransform> = {};
@@ -38,6 +41,22 @@ export class Factory {
     }
     const MarkConstructor = Factory._plotMarks[type];
     return new MarkConstructor(id);
+  }
+
+  static registerMark(key: string, mark: IMarkConstructor) {
+    Factory._marks[key] = mark;
+  }
+
+  static createMark(type: string, view: IView, group?: IGroupMark): IMark | null {
+    if (!Factory._marks[type]) {
+      return null;
+    }
+    const MarkConstructor = Factory._marks[type];
+    return new MarkConstructor(view, type, group);
+  }
+
+  static hasMark(type: string) {
+    return !!Factory._marks[type];
   }
 
   static registerComponent(key: string, component: IComponentConstructor) {

@@ -1,4 +1,4 @@
-import { array, isArray, isNil, isString, isValid } from '@visactor/vutils';
+import { array, isNil, isString, isValid } from '@visactor/vutils';
 import type { IBaseInteractionOptions, IGrammarBase, IView, InteractionEventHandler } from '../types';
 
 export abstract class BaseInteraction<T extends IBaseInteractionOptions> {

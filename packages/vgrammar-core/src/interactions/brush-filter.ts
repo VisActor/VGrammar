@@ -2,7 +2,7 @@ import type { IPolygon } from '@visactor/vrender-core';
 import type { BrushFilterOptions, IElement, IGlyphElement, IView } from '../types';
 import { BrushBase } from './brush-base';
 import { isString, type IBounds, array } from '@visactor/vutils';
-import { DataFilterRank } from '../graph';
+import { DataFilterRank } from '../graph/enums';
 import type { FilterMixin } from './filter';
 
 export interface BrushFilter

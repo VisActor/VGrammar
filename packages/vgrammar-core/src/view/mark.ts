@@ -37,7 +37,6 @@ import type {
   ProgressiveContext,
   IProgressiveTransformResult,
   Nil,
-  IAnimate,
   MarkStateSortSpec,
   BaseSignleEncodeSpec
 } from '../types';
@@ -94,7 +93,6 @@ export class Mark extends GrammarBase implements IMark {
     progressive?: ProgressiveContext;
     beforeTransformProgressive?: IProgressiveTransformResult;
   };
-  animate: IAnimate = new Animate(this, {});
 
   protected differ = new Differ([]);
 
@@ -743,7 +741,7 @@ export class Mark extends GrammarBase implements IMark {
     });
 
     this.elements = elements;
-    if (sort) {
+    if (sort && this.elements.length >= 2) {
       this.elements.sort((elementA, elementB) => {
         return sort(elementA.getDatum(), elementB.getDatum());
       });
