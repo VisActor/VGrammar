@@ -127,6 +127,7 @@ export default class View extends EventEmitter implements IView {
 
   grammars: IRecordedGrammars;
 
+  private _isReleased: boolean;
   private _spec: ViewSpec;
   private _config: IViewThemeConfig;
   private _options: IViewOptions;
@@ -602,6 +603,9 @@ export default class View extends EventEmitter implements IView {
     return this._theme;
   }
   async setCurrentTheme(theme: ITheme | string, render: boolean = true) {
+    if (this._isReleased) {
+      return;
+    }
     this.theme(theme);
     // trigger encode for all marks
     this.grammars.getAllMarks().forEach(mark => {
@@ -610,6 +614,10 @@ export default class View extends EventEmitter implements IView {
 
     if (render) {
       await this.evaluate();
+
+      if (this._isReleased) {
+        return;
+      }
       // FIXME: trigger render
       this.renderer.render(true);
     } else {
@@ -791,8 +799,14 @@ export default class View extends EventEmitter implements IView {
   }
 
   async runAsync(runningConfig?: IRunningConfig) {
+    if (this._isReleased) {
+      return;
+    }
     // await previously queued functions
     while (this._running) {
+      if (this._isReleased) {
+        break;
+      }
       await this._running;
     }
 
@@ -840,6 +854,9 @@ export default class View extends EventEmitter implements IView {
   }
 
   private async evaluate(runningConfig?: IRunningConfig) {
+    if (this._isReleased) {
+      return;
+    }
     const normalizedRunningConfig = normalizeRunningConfig(runningConfig);
 
     this.reuseCachedGrammars(normalizedRunningConfig);
@@ -1582,6 +1599,7 @@ export default class View extends EventEmitter implements IView {
 
   // --- release ---
   release() {
+    this._isReleased = true;
     this._unBindResizeEvent();
     this.clearProgressive();
     Factory.unregisterRuntimeTransforms();
@@ -1591,6 +1609,7 @@ export default class View extends EventEmitter implements IView {
     this.grammars.release();
     this._cachedGrammars.release();
 
+    this._dataflow.release();
     this._dataflow = null;
 
     this.renderer?.release?.();
