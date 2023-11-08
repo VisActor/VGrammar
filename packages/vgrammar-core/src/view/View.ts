@@ -804,10 +804,10 @@ export default class View extends EventEmitter implements IView {
     }
     // await previously queued functions
     while (this._running) {
+      await this._running;
       if (this._isReleased) {
         break;
       }
-      await this._running;
     }
 
     // run dataflow, manage running promise
@@ -880,6 +880,10 @@ export default class View extends EventEmitter implements IView {
     // evaluate dataflow
     await this._dataflow.evaluate();
 
+    if (this._isReleased) {
+      return;
+    }
+
     if (this._needBuildLayoutTree) {
       this.buildLayoutTree();
       this._needBuildLayoutTree = false;
@@ -892,6 +896,10 @@ export default class View extends EventEmitter implements IView {
       if (this._dataflow.hasCommitted()) {
         this._layoutState = LayoutState.reevaluate;
         await this._dataflow.evaluate();
+
+        if (this._isReleased) {
+          return;
+        }
       }
 
       this._layoutState = LayoutState.after;
