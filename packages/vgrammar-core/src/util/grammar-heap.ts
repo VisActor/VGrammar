@@ -18,7 +18,7 @@ function moveToHead(array: any[], idx: number, start: number, cmp: CompareFunc) 
   while (idx > start) {
     pidx = Math.floor((idx - 1) / 2);
     parent = array[pidx];
-    if (cmp(item, parent) < 0) {
+    if (item && parent && cmp(item, parent) < 0) {
       array[idx] = parent;
       idx = pidx;
       continue;
