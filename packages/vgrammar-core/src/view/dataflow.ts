@@ -23,6 +23,7 @@ export default class Dataflow implements IDataflow {
   private _updateCounter: number;
   /** 是否完成初次渲染 */
   private _finishFirstRender?: boolean;
+  private _isReleased: boolean;
 
   constructor() {
     this.logger = Logger.getInstance();
@@ -154,6 +155,9 @@ export default class Dataflow implements IDataflow {
   }
 
   async evaluate() {
+    if (this._isReleased) {
+      return;
+    }
     // invoke prerun function, if provided
     if (this._beforeRunner) {
       await this.asyncCallback(this._beforeRunner);
@@ -182,6 +186,9 @@ export default class Dataflow implements IDataflow {
 
     try {
       while (this._heap.size() > 0) {
+        if (this._isReleased) {
+          break;
+        }
         // dequeue grammar with highest priority
         grammar = this._heap.pop();
 
@@ -210,6 +217,9 @@ export default class Dataflow implements IDataflow {
     } catch (err) {
       this._heap.clear();
       error = err;
+    }
+    if (this._isReleased) {
+      return false;
     }
 
     this._isRunning = false;
@@ -310,6 +320,7 @@ export default class Dataflow implements IDataflow {
   release() {
     // stop asynchronous evaluation
     this.stop();
+    this._isReleased = true;
 
     if (this._heap) {
       this._heap.clear();
