@@ -859,10 +859,10 @@ export default class View extends EventEmitter implements IView {
     }
     const normalizedRunningConfig = normalizeRunningConfig(runningConfig);
 
-    this.reuseCachedGrammars(normalizedRunningConfig);
     const grammarWillDetach = this._cachedGrammars.size() > 0;
 
     if (grammarWillDetach) {
+      this.reuseCachedGrammars(normalizedRunningConfig);
       this.detachCachedGrammar();
     }
     // For most of time, width & height signal won't be modified duration dataflow,
@@ -930,10 +930,10 @@ export default class View extends EventEmitter implements IView {
   private evaluateSync(runningConfig?: IRunningConfig) {
     const normalizedRunningConfig = normalizeRunningConfig(runningConfig);
 
-    this.reuseCachedGrammars(normalizedRunningConfig);
     const grammarWillDetach = this._cachedGrammars.size() > 0;
 
     if (grammarWillDetach) {
+      this.reuseCachedGrammars(normalizedRunningConfig);
       this.detachCachedGrammar();
     }
 
