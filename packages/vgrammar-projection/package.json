@@ -36,7 +36,7 @@
   "dependencies": {
     "@visactor/vgrammar-util": "workspace:0.8.2",
     "@visactor/vgrammar-core": "workspace:0.8.2",
-    "@visactor/vutils": "~0.16.5",
+    "@visactor/vutils": "~0.16.6",
     "d3-geo": "^1.12.1"
   },
   "devDependencies": {
