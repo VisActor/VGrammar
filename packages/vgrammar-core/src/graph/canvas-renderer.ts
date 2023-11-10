@@ -178,7 +178,8 @@ export default class CanvasRenderer implements IRenderer {
       this._gestureController.release();
     }
 
-    if (this._stage) {
+    if (this._stage !== (this._viewOptions?.stage as unknown as Stage)) {
+      // don't release the stage created by outside
       this._stage.release();
     }
 
