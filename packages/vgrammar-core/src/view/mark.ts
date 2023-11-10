@@ -1147,7 +1147,7 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   getBounds() {
-    return this.graphicItem ? this.graphicItem.AABBBounds : this.elements?.[0]?.getGraphicItem?.()?.AABBBounds;
+    return this.graphicItem ? this.graphicItem.AABBBounds : this.elements?.[0]?.getGraphicItem()?.AABBBounds;
   }
 
   getMorphConfig(): { morph: boolean; morphKey: string; morphElementKey: string } {

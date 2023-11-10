@@ -175,6 +175,7 @@ export interface IView {
   addGrammar: (grammar: IGrammarBase) => this;
   removeGrammar: (grammar: string | IGrammarBase) => this;
   removeAllGrammars: () => this;
+  removeAllGraphicItems: () => this;
 
   getGrammarById: (id: string) => IGrammarBase | null;
   getCustomizedById: (id: string) => IGrammarBase | null;
