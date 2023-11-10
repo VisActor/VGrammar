@@ -442,6 +442,8 @@ export default class View extends EventEmitter implements IView {
       }
       mark.graphicItem = null;
     });
+
+    return this;
   }
 
   // --- Handle Spec ---
