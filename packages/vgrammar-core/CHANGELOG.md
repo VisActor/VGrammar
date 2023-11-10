@@ -1,6 +1,18 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Tue, 07 Nov 2023 01:49:57 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Nov 2023 06:09:06 GMT and should not be manually modified.
+
+## 0.8.3
+Fri, 10 Nov 2023 06:09:06 GMT
+
+### Updates
+
+- fix: fix the issue that vrender may auto render during the asynchronous rendering
+
+
+- fix: fix the error that happens when releas view during renderAsync, fix #75
+
+
 
 ## 0.8.2
 Tue, 07 Nov 2023 01:49:57 GMT
