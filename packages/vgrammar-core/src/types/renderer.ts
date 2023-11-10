@@ -10,6 +10,7 @@ export interface IRenderer {
   resize: (width: number, height: number) => this;
   shouldResize: (width: number, height: number) => boolean;
   combineIncrementalLayers: () => this;
+  preventRender: (tag: boolean) => void;
 
   setDpr: (resolution: number, redraw: boolean) => this;
   background: (color: IColor) => this;

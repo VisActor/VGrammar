@@ -153,6 +153,12 @@ export default class CanvasRenderer implements IRenderer {
     return null;
   }
 
+  preventRender(tag: boolean) {
+    if (this._stage) {
+      this._stage.preventRender(tag);
+    }
+  }
+
   // toImageData() {
   //   if (this._stage) {
   //     return this._stage.toImageData();
