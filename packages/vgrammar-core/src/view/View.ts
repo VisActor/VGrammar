@@ -99,7 +99,7 @@ import { Text } from '../semantic-marks/text';
 import { ThemeManager } from '../theme/theme-manager';
 import { Factory } from '../core/factory';
 import { Component } from './component';
-import { isMarkType } from '../graph/util/graphic';
+import { isMarkType, removeGraphicItem } from '../graph/util/graphic';
 
 /**
  * Create a new View instance from a VGrammar dataflow runtime specification.
@@ -433,6 +433,15 @@ export default class View extends EventEmitter implements IView {
       this.removeGrammar(grammar);
     });
     return this;
+  }
+
+  removeAllGraphicItems() {
+    this.traverseMarkTree((mark: IMark) => {
+      if (mark.graphicItem) {
+        removeGraphicItem(mark.graphicItem);
+      }
+      mark.graphicItem = null;
+    });
   }
 
   // --- Handle Spec ---
