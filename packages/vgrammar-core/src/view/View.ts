@@ -876,6 +876,8 @@ export default class View extends EventEmitter implements IView {
     }
 
     this.clearProgressive();
+    // stop auto render of vrender to avoid the case that vrender auto render before the asynchronous task is done
+    this.renderer?.preventRender(true);
 
     // evaluate dataflow
     await this._dataflow.evaluate();
@@ -907,6 +909,8 @@ export default class View extends EventEmitter implements IView {
         this.handleLayoutEnd();
       }
     }
+    // enable auto render of vrender after the asynchronous task is done
+    this.renderer?.preventRender(false);
     this._layoutState = null;
 
     this.findProgressiveMarks();
