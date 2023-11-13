@@ -72,7 +72,7 @@ export class Slider extends Component implements ISlider {
           callback: (datum: any, element: IElement, parameters: any) => {
             const min = !isNil(this.spec.min) ? invokeFunctionType(this.spec.min, parameters, datum, element) : 0;
             const max = !isNil(this.spec.max) ? invokeFunctionType(this.spec.max, parameters, datum, element) : 1;
-            const theme = this.view.getCurrentTheme();
+            const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             return generateSliderAttributes(min, max, theme, addition);
           }

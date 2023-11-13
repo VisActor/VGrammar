@@ -479,7 +479,8 @@ export class Mark extends GrammarBase implements IMark {
       'morph',
       'morphKey',
       'morphElementKey',
-      'attributeTransforms'
+      'attributeTransforms',
+      'skipTheme'
     ];
     if (config === null) {
       keys.forEach(key => {

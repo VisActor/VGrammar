@@ -135,7 +135,7 @@ export class Player extends Component implements IPlayer {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const theme = this.view.getCurrentTheme();
+            const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const source = this.spec.source;
             const sourceDataGrammar = isArray(source)

@@ -182,7 +182,7 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const theme = this.view.getCurrentTheme();
+            const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             const direction = invokeFunctionType(this.spec.direction, parameters, datum, element);
             const position = invokeFunctionType(this.spec.position, parameters, datum, element);
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);

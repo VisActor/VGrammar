@@ -156,7 +156,8 @@ export class Label extends Component implements ILabel {
                   }
                 : { width: Infinity, height: Infinity };
             }
-            const theme = this.view.getCurrentTheme();
+
+            const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
 
             return generateLabelAttributes(
               marks,

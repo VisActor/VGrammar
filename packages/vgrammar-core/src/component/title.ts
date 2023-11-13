@@ -69,7 +69,7 @@ export class Title extends Component implements ITitle {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const theme = this.view.getCurrentTheme();
+            const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             const title = invokeFunctionType(this.spec.title, parameters, datum, element);
             const subTitle = invokeFunctionType(this.spec.subTitle, parameters, datum, element);
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
