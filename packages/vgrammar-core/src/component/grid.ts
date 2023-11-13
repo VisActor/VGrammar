@@ -157,7 +157,7 @@ export class Grid extends ScaleComponent implements IGrid {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const theme = this.view.getCurrentTheme();
+            const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             let addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             let scaleGrammar: IScale;
             const baseValue = invokeFunctionType(this.spec.baseValue, parameters, datum, element);

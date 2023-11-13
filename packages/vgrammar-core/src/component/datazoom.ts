@@ -106,7 +106,7 @@ export class Datazoom extends Component implements IDatazoom {
   }
 
   addGraphicItem(attrs: any, groupKey?: string) {
-    const theme = this.view.getCurrentTheme();
+    const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
     const initialAttributes = Object.assign({}, theme?.components?.datazoom, attrs);
     const graphicItem = Factory.createGraphicComponent(this.componentType, initialAttributes);
     const datazoom = graphicItem as unknown as DatazoomComponent;
@@ -158,7 +158,7 @@ export class Datazoom extends Component implements IDatazoom {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const theme = this.view.getCurrentTheme();
+            const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             return generateDatazoomAttributes(dataGrammar?.getValue?.(), theme, addition);
           }

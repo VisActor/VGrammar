@@ -189,7 +189,7 @@ export class Axis extends ScaleComponent implements IAxis {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const theme = this.view.getCurrentTheme();
+            const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             let addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const inside = invokeFunctionType(this.spec.inside, parameters, datum, element);
             const baseValue = invokeFunctionType(this.spec.baseValue, parameters, datum, element);
@@ -210,6 +210,7 @@ export class Axis extends ScaleComponent implements IAxis {
 
             const scale = scaleGrammar?.getScale?.();
             const tickCount = invokeFunctionType(this.spec.tickCount, parameters, datum, element);
+
             switch (this._getAxisComponentType()) {
               case AxisEnum.lineAxis:
                 return generateLineAxisAttributes(scale, theme, addition, tickCount);
