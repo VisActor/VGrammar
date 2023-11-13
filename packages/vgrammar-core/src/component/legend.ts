@@ -171,7 +171,7 @@ export class Legend extends ScaleComponent implements ILegend {
       if (encoder) {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
-            const theme = this.view.getCurrentTheme();
+            const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
             const scale = scaleGrammar?.getScale?.();
             switch (this._getLegendComponentType()) {

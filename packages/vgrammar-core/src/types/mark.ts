@@ -217,6 +217,7 @@ export interface IMarkConfig {
   zIndex?: number;
   interactive?: boolean;
   context?: any;
+  skipTheme?: boolean;
   /**
    * set customized shape
    */
