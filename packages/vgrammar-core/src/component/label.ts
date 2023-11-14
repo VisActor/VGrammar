@@ -1,4 +1,5 @@
-import { array, isNil, isString, merge } from '@visactor/vutils';
+import { load } from './../util/data';
+import { array, isNil, isString, merge, last } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender-core';
 import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
@@ -33,11 +34,19 @@ export const generateLabelAttributes = (
   const dataLabels = marks
     .map((mark, index) => {
       const labelParameters = { ...parameters, labelIndex: index };
+      const addition = invokeFunctionType(labelStyle, labelParameters, mark);
       let currentTheme: any = {};
+
       switch (mark.markType) {
         case GrammarMarkType.line:
         case GrammarMarkType.area:
-          currentTheme = theme?.components?.lineDataLabel;
+          if (addition?.type === 'line') {
+            currentTheme = theme?.components?.lineLabel;
+          } else if (addition?.type === 'area') {
+            currentTheme = theme?.components?.areaLabel;
+          } else {
+            currentTheme = theme?.components?.lineDataLabel;
+          }
           break;
         case GrammarMarkType.rect:
         case GrammarMarkType.interval:
@@ -58,27 +67,38 @@ export const generateLabelAttributes = (
           currentTheme = theme?.components?.pointLabel;
           break;
       }
-      const data: any[] = [];
-      const themeDatum = currentTheme?.data?.[0] ?? {};
-      // process by order of elements
-      mark.elements.forEach(element => {
-        const graphicItem = element.getGraphicItem();
-        if ((graphicItem as any).releaseStatus !== 'willRelease') {
-          if (mark.isCollectionMark()) {
-            const datum = element.getDatum();
 
-            datum.forEach((entry: any) => {
-              const attributes = invokeEncoder(encoder, entry, element, labelParameters);
-              data.push(merge({}, themeDatum, attributes));
-            });
-          } else {
-            const attributes = invokeEncoder(encoder, element.getDatum(), element, labelParameters);
-            const datum = merge({}, themeDatum, attributes);
-            data.push(datum);
+      const data: any[] = addition.data ?? [];
+      const themeDatum = currentTheme?.data?.[0] ?? {};
+
+      if (data && data.length > 0) {
+        data.forEach((d, index) => {
+          if (mark.elements[index]) {
+            const attributes = invokeEncoder(encoder, d, mark.elements[index], labelParameters);
+            merge(d, themeDatum, attributes);
           }
-        }
-      });
-      const addition = invokeFunctionType(labelStyle, labelParameters, mark);
+        });
+      } else {
+        // process by order of elements
+        mark.elements.forEach(element => {
+          const graphicItem = element.getGraphicItem();
+          if ((graphicItem as any).releaseStatus !== 'willRelease') {
+            if (mark.isCollectionMark()) {
+              const datum = element.getDatum();
+
+              datum.forEach((entry: any) => {
+                const attributes = invokeEncoder(encoder, entry, element, labelParameters);
+                data.push(merge({}, themeDatum, attributes));
+              });
+            } else {
+              const attributes = invokeEncoder(encoder, element.getDatum(), element, labelParameters);
+              const datum = merge({}, themeDatum, attributes);
+              data.push(datum);
+            }
+          }
+        });
+      }
+
       const graphicItemName = mark.graphicItem?.name;
       return merge(
         {},
