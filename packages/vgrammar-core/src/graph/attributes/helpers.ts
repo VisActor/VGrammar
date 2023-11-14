@@ -1,6 +1,6 @@
 import type { IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { isValidNumber } from '@visactor/vutils';
+import { isNil, isValidNumber } from '@visactor/vutils';
 import type { MarkElementItem, MarkType } from '../../types';
 import { GrammarMarkType } from '../enums';
 
@@ -57,23 +57,30 @@ export function getLinePoints(
   }
   return items.map((item, index) => {
     const attrs = item.nextAttrs;
-    const x = attrs.x ?? lastPoints?.[index]?.x;
-    const y = attrs.y ?? lastPoints?.[index]?.y;
-    const defined = attrs.defined ?? lastPoints?.[index]?.defined;
-    const point: IPointLike = { x, y, context: item.key };
+
+    if (isNil(attrs.x)) {
+      attrs.x = lastPoints?.[index]?.x;
+    }
+    if (isNil(attrs.y)) {
+      attrs.y = lastPoints?.[index]?.y;
+    }
+
+    if (isNil(attrs.defined) && lastPoints?.[index]?.defined === false) {
+      attrs.defined = lastPoints?.[index]?.defined;
+    }
+
+    attrs.context = item.key;
 
     if (isArea) {
-      const x1 = attrs.x1 ?? lastPoints?.[index]?.x1;
-      const y1 = attrs.y1 ?? lastPoints?.[index]?.y1;
-      point.x1 = x1;
-      point.y1 = y1;
+      if (isNil(attrs.x1)) {
+        attrs.x1 = lastPoints?.[index]?.x1;
+      }
+      if (isNil(attrs.y1)) {
+        attrs.y1 = lastPoints?.[index]?.y1;
+      }
     }
 
-    if (defined === false) {
-      point.defined = false;
-    }
-
-    return point;
+    return attrs;
   });
 }
 
