@@ -11,6 +11,7 @@ import type {
   LineAxisAttributes,
   LineCrosshairAttrs,
   LineLabelAttrs,
+  AreaLabelAttrs,
   PolygonCrosshairAttrs,
   RectCrosshairAttrs,
   RectLabelAttrs,
@@ -395,17 +396,32 @@ export const lineLabel: RecursivePartial<LineLabelAttrs> = {
   ],
   position: 'start',
   overlap: {
-    avoidBaseMark: true,
+    avoidBaseMark: false,
     clampForce: false,
     size: {
       width: 1000,
       height: 1000
-    },
-    strategy: [
-      {
-        type: 'position'
-      }
-    ]
+    }
+  },
+  smartInvert: false
+};
+
+export const areaLabel: RecursivePartial<AreaLabelAttrs> = {
+  type: 'area',
+  data: [
+    {
+      text: '',
+      data: {}
+    }
+  ],
+  position: 'end',
+  overlap: {
+    avoidBaseMark: false,
+    clampForce: false,
+    size: {
+      width: 1000,
+      height: 1000
+    }
   },
   smartInvert: false
 };
@@ -551,6 +567,7 @@ export const defaultComponentTheme: IComponentTheme = {
   dataLabel,
   pointLabel,
   lineLabel,
+  areaLabel,
   rectLabel,
   symbolLabel,
   arcLabel,
