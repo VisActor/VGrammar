@@ -25,6 +25,7 @@ import type {
 } from './mark';
 import type { IView } from './view';
 import type { IBaseScale } from '@visactor/vscale';
+import type { SimpleSignalType } from './signal';
 
 // scale component
 
@@ -47,7 +48,7 @@ export type AxisType = 'line' | 'circle';
 
 export interface IAxis extends IScaleComponent {
   axisType: (axisType: AxisType | Nil) => this;
-  tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
+  tickCount: (tickCount: SimpleSignalType<number> | Nil) => this;
   inside: (inside: MarkFunctionType<boolean> | Nil) => this;
   baseValue: (baseValue: MarkFunctionType<number> | Nil) => this;
 
@@ -58,7 +59,7 @@ export interface IAxis extends IScaleComponent {
 export interface AxisSpec extends ScaleComponentSpec<Partial<AxisBaseAttributes>> {
   componentType: ComponentEnum.axis;
   axisType?: AxisType;
-  tickCount?: MarkFunctionType<number>;
+  tickCount?: SimpleSignalType<number>;
   inside?: MarkFunctionType<boolean>;
   baseValue?: MarkFunctionType<number>;
 }
@@ -71,7 +72,7 @@ export interface IGrid extends IScaleComponent {
   gridType: (gridType: AxisType | Nil) => this;
   gridShape: (gridShape: GridShape | Nil) => this;
   target: (axis: IAxis | string | Nil) => this;
-  tickCount: (tickCount: MarkFunctionType<number> | Nil) => this;
+  tickCount: (tickCount: SimpleSignalType<number> | Nil) => this;
   inside: (inside: MarkFunctionType<boolean> | Nil) => this;
   baseValue: (baseValue: MarkFunctionType<number> | Nil) => this;
 }

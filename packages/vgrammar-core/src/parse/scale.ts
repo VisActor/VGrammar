@@ -325,6 +325,12 @@ function configureContinuousScale(spec: Omit<ContinuousScaleSpec, 'type'>, scale
       scale.clamp(config.clamp, undefined, true);
     }
   }
+
+  const tickCount = invokeFunctionType(spec.tickCount, parameters, scale);
+  if (tickCount) {
+    // tickCount may change the domain of scale, so need to call here
+    scale.tickData(tickCount);
+  }
 }
 
 function configureLinearScale(spec: Omit<LinearScaleSpec, 'type'>, scale: ILinearScale, parameters: any) {
@@ -346,12 +352,12 @@ function configurePowScale(spec: PowScaleSpec, scale: IPowScale, parameters: any
 function configureLogScale(spec: LogScaleSpec, scale: ILogScale, parameters: any) {
   configureScaleNice(spec, scale, parameters);
   configureScaleDomain(spec, scale, parameters);
-  configureContinuousScale(spec, scale, parameters);
 
   const base = invokeFunctionType(spec.base, parameters, scale);
   if (base > 0) {
     scale.base(base as number);
   }
+  configureContinuousScale(spec, scale, parameters);
 }
 
 function configureSqrtScale(spec: SqrtScaleSpec, scale: ILinearScale, parameters: any) {

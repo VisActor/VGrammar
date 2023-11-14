@@ -19,6 +19,8 @@ export type GenericFunctionType<Callback extends FunctionCallback<T>, T> =
   | SignalReference<T>
   | SignalFunction<Callback, T>;
 
+export type SimpleSignalType<T> = T | SignalReference<T>;
+
 export type ParameterCallback<T> = (parameters: any) => T;
 export type ParameterFunctionType<T> = GenericFunctionType<ParameterCallback<T>, T>;
 

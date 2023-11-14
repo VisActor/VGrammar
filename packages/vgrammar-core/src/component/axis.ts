@@ -15,6 +15,7 @@ import type {
   MarkRelativeItemSpec,
   Nil,
   RecursivePartial,
+  SimpleSignalType,
   StateEncodeSpec
 } from '../types';
 import { AxisEnum, ComponentEnum } from '../graph/enums';
@@ -36,6 +37,7 @@ export const generateLineAxisAttributes = (
     return merge({}, axisTheme, addition ?? {});
   }
   const tickData = scale.tickData?.(tickCount) ?? [];
+
   const items = [
     tickData.map(tick => ({
       id: tick.index,
@@ -165,7 +167,13 @@ export class Axis extends ScaleComponent implements IAxis {
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
-  tickCount(tickCount: MarkFunctionType<number> | Nil) {
+  tickCount(tickCount: SimpleSignalType<number> | Nil) {
+    const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
+
+    if (scaleGrammar) {
+      scaleGrammar.tickCount(tickCount);
+    }
+
     return this.setFunctionSpec(tickCount, 'tickCount');
   }
 

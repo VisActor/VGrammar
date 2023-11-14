@@ -15,6 +15,7 @@ import type {
   MarkRelativeItemSpec,
   Nil,
   RecursivePartial,
+  SimpleSignalType,
   StateEncodeSpec
 } from '../types';
 import { AxisEnum, ComponentEnum, GridEnum } from '../graph/enums';
@@ -131,7 +132,13 @@ export class Grid extends ScaleComponent implements IGrid {
     return this;
   }
 
-  tickCount(tickCount: MarkFunctionType<number> | Nil) {
+  tickCount(tickCount: SimpleSignalType<number> | Nil) {
+    const scaleGrammar = isString(this.spec.scale) ? this.view.getScaleById(this.spec.scale) : this.spec.scale;
+
+    if (scaleGrammar) {
+      scaleGrammar.tickCount(tickCount);
+    }
+
     return this.setFunctionSpec(tickCount, 'tickCount');
   }
 
