@@ -198,9 +198,9 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   handleLayoutEnd() {
-    if ((this.spec?.layout as MarkBaseLayoutSpec)?.skipBeforeLayouted) {
-      this.run();
-    }
+    // if ((this.spec?.layout as MarkBaseLayoutSpec)?.skipBeforeLayouted) {
+    //   this.run();
+    // }
   }
 
   handleRenderEnd() {
