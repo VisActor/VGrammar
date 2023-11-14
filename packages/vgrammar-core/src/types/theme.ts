@@ -55,6 +55,8 @@ export interface IComponentTheme {
 
   dataLabel?: RecursivePartial<DataLabelAttrs>;
   lineLabel?: RecursivePartial<LineLabelAttrs>;
+  // TODO: upgrade vrender to v0.17.0+, will export `AreaLabelAttrs`
+  areaLabel?: RecursivePartial<any>;
   rectLabel?: RecursivePartial<RectLabelAttrs>;
   arcLabel?: RecursivePartial<ArcLabelAttrs>;
   symbolLabel?: RecursivePartial<SymbolLabelAttrs>;
