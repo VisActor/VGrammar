@@ -83,17 +83,19 @@ export class Element implements IElement {
     // 统一读取mark中是否可交互的配置
     this.graphicItem[BridgeElementKey] = this;
 
-    this.graphicItem.onBeforeAttributeUpdate = (attributes: any) => {
-      // mark might be released
-      if (!this.mark) {
-        return attributes;
-      }
-      const graphicAttributes = transformAttributes(this.mark.getAttributeTransforms(), attributes, this);
-      return graphicAttributes;
-    };
+    if (this.mark.markType !== GrammarMarkType.component) {
+      this.graphicItem.onBeforeAttributeUpdate = (attributes: any) => {
+        // mark might be released
+        if (!this.mark) {
+          return attributes;
+        }
+        const graphicAttributes = transformAttributes(this.mark.getAttributeTransforms(), attributes, this);
+        return graphicAttributes;
+      };
+      this.graphicItem.setAttributes(this.graphicItem.attribute);
+    }
 
     // transform initial attributes
-    this.graphicItem.setAttributes(this.graphicItem.attribute);
 
     this.clearGraphicAttributes();
     if (this.mark.needAnimate()) {
