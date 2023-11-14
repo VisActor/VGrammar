@@ -1,7 +1,7 @@
 import { isNil } from '@visactor/vutils';
 import type { IBandLikeScale, IRangeFactor, IBaseScale, TickData, ScaleFishEyeOptions } from '@visactor/vscale';
 import { supportRangeFactor } from '@visactor/vscale';
-import type { IGrammarBase, IView } from '../types';
+import type { IGrammarBase, IView, MarkFunctionType } from '../types';
 import type { Nil } from '../types/base';
 import type { GrammarType, IScale } from '../types/grammar';
 import type {
@@ -106,6 +106,10 @@ export class Scale extends GrammarBase implements IScale {
     this.attach(parseScaleDomainRange(range, this.view));
     this.commit();
     return this;
+  }
+
+  tickCount(tickCount: ScaleFunctionType<number> | Nil) {
+    return this.setFunctionSpec(tickCount, 'tickCount');
   }
 
   setRangeFactor(range?: [number, number]) {

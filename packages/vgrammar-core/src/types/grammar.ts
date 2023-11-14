@@ -147,6 +147,7 @@ export interface IScale extends IGrammarBase {
   domain: (domain: ScaleFunctionType<any[]> | ScaleData | MultiScaleData | Nil) => this;
   range: (range: ScaleFunctionType<any[]> | ScaleData | MultiScaleData | Nil) => this;
   configure: (config: ScaleConfigureSpec | Nil) => this;
+  tickCount: (tickCount: ScaleFunctionType<number> | Nil) => this;
 
   // only used in VGrammar
   getRangeFactor: () => [number, number] | Nil;

@@ -1,7 +1,7 @@
 import type { IBaseScale, ScaleType } from '@visactor/vscale';
 import type { DistributiveOmit } from './base';
 import type { GrammarSpec, IData } from './grammar';
-import type { GenericFunctionType } from './signal';
+import type { GenericFunctionType, SimpleSignalType } from './signal';
 import type { IDimensionType } from '@visactor/vgrammar-coordinate';
 
 export type ScaleFunctionCallback<T> = (scale: IBaseScale, parameters: any) => T;
@@ -73,6 +73,7 @@ export interface PointScaleSpec extends BaseBandScaleSpec {
 /** Continuous Scale */
 
 export interface ContinuousScaleSpec extends BaseScaleSpec, ScaleDomainSpec {
+  tickCount?: SimpleSignalType<number>;
   range?: ScaleFunctionType<number[]> | ScaleData | MultiScaleData | ScaleCoordinate;
   roundRange?: ScaleFunctionType<boolean>;
   config?: {
