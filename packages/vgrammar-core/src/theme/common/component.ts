@@ -11,7 +11,6 @@ import type {
   LineAxisAttributes,
   LineCrosshairAttrs,
   LineLabelAttrs,
-  AreaLabelAttrs,
   PolygonCrosshairAttrs,
   RectCrosshairAttrs,
   RectLabelAttrs,
@@ -406,7 +405,8 @@ export const lineLabel: RecursivePartial<LineLabelAttrs> = {
   smartInvert: false
 };
 
-export const areaLabel: RecursivePartial<AreaLabelAttrs> = {
+// TODO: upgrade vrender to v0.17.0+, will export `AreaLabelAttrs`
+export const areaLabel: RecursivePartial<any> = {
   type: 'area',
   data: [
     {
