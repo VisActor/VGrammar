@@ -197,21 +197,12 @@ export default class CanvasRenderer implements IRenderer {
     const stage =
       (viewOptions.stage as unknown as Stage) ??
       createStage({
+        ...viewOptions,
         width: this._width,
         height: this._height,
-        renderStyle: viewOptions.renderStyle,
-        viewBox: viewOptions.viewBox,
-        dpr: viewOptions.dpr,
-        canvas: viewOptions.renderCanvas,
-        canvasControled: viewOptions.canvasControled,
-        container: viewOptions.container,
         title: viewOptions.rendererTitle,
-        beforeRender: viewOptions.beforeRender,
-        afterRender: viewOptions.afterRender,
-        disableDirtyBounds: true,
-        autoRender: true,
-        pluginList: viewOptions.pluginList,
-        enableHtmlAttribute: viewOptions.enableHtmlAttribute
+        disableDirtyBounds: viewOptions.disableDirtyBounds ?? true,
+        autoRender: viewOptions.autoRender ?? true
       });
 
     if (viewOptions.options3d?.enable) {
