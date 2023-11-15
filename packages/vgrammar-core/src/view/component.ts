@@ -40,7 +40,9 @@ export class Component extends Mark implements IComponent {
   }
 
   addGraphicItem(attrs: any, groupKey?: string, newGraphicItem?: any) {
-    const graphicItem = newGraphicItem ?? Factory.createGraphicComponent(this.componentType, attrs, this.mode);
+    const graphicItem =
+      newGraphicItem ??
+      Factory.createGraphicComponent(this.componentType, attrs, { mode: this.mode, skipDefault: this.spec.skipTheme });
     return super.addGraphicItem(attrs, groupKey, graphicItem);
   }
 

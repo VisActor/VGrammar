@@ -62,7 +62,9 @@ export function createGraphicItem(mark: IMark, markType: string, attrs: any = {}
 
   const graphicItem: IGraphic = itemCreator[markType]
     ? itemCreator[markType](attrs)
-    : Factory.createGraphicComponent(markType, attrs);
+    : Factory.createGraphicComponent(markType, attrs, {
+        skipDefault: (mark as any)?.spec?.skipTheme
+      });
 
   mark.emit(HOOK_EVENT.AFTER_CREATE_VRENDER_MARK);
   return graphicItem;
