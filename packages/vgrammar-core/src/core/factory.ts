@@ -19,12 +19,13 @@ import type {
   TypeAnimation
 } from '../types';
 import { GlyphMeta } from '../view/glyph-meta';
+import type { ComponentOptions } from '@visactor/vrender-components';
 
 export class Factory {
   private static _plotMarks: Record<string, IPlotMarkConstructor> = {};
   private static _marks: Record<string, IMarkConstructor> = {};
   private static _components: Record<string, IComponentConstructor> = {};
-  private static _graphicComponents: Record<string, (attrs: any, mode?: '2d' | '3d') => IGraphic> = {};
+  private static _graphicComponents: Record<string, (attrs: any, options?: ComponentOptions) => IGraphic> = {};
   private static _transforms: Record<string, ITransform> = {};
   private static _grammars: Record<string, { grammarClass: IGrammarBaseConstructor; specKey: string }> = {};
   private static _glyphs: Record<string, IGlyphMeta<any, any>> = {};
@@ -76,18 +77,18 @@ export class Factory {
     return !!Factory._components[componentType];
   }
 
-  static registerGraphicComponent(key: string, creator: (attrs: any, mode?: '2d' | '3d') => IGraphic) {
+  static registerGraphicComponent(key: string, creator: (attrs: any, options?: ComponentOptions) => IGraphic) {
     Factory._graphicComponents[key] = creator;
   }
 
-  static createGraphicComponent(componentType: string, attrs: any, mode?: '2d' | '3d') {
+  static createGraphicComponent(componentType: string, attrs: any, options?: ComponentOptions) {
     const compCreator = Factory._graphicComponents[componentType];
 
     if (!compCreator) {
       return null;
     }
 
-    return compCreator(attrs, mode);
+    return compCreator(attrs, options);
   }
 
   static registerTransform(type: string, transform: Omit<ITransform, 'type'>, isBuiltIn?: boolean) {
