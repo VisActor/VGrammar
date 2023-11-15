@@ -1,5 +1,6 @@
 const writePrereleaseVersion = require('./set-prerelease-version');
 const checkAndUpdateNextBump = require('./version-policies');
+const parseVersion = require('./parse-version');
 
 
 function run() {
