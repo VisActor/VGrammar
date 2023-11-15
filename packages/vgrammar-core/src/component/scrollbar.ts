@@ -171,7 +171,9 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
   addGraphicItem(attrs: any, groupKey?: string) {
     const defaultAttributes = { range: [0, 1] };
     const initialAttributes = merge(defaultAttributes, attrs);
-    const graphicItem = Factory.createGraphicComponent(ComponentEnum.scrollbar, initialAttributes);
+    const graphicItem = Factory.createGraphicComponent(ComponentEnum.scrollbar, initialAttributes, {
+      skipDefault: this.spec.skipTheme
+    });
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 

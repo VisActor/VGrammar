@@ -124,7 +124,10 @@ export class Player extends Component implements IPlayer {
     const defaultAttributes = { slider: { handlerStyle: { size: 16 } } };
     const initialAttributes = merge(defaultAttributes, attrs);
     const graphicItem =
-      newGraphicItem ?? Factory.createGraphicComponent(this._getPlayerComponentType(), initialAttributes);
+      newGraphicItem ??
+      Factory.createGraphicComponent(this._getPlayerComponentType(), initialAttributes, {
+        skipDefault: this.spec.skipTheme
+      });
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
