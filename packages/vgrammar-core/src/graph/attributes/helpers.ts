@@ -66,7 +66,7 @@ export function getLinePoints(
     }
 
     if (isNil(attrs.defined) && lastPoints?.[index]?.defined === false) {
-      attrs.defined = lastPoints?.[index]?.defined;
+      attrs.defined = false;
     }
 
     attrs.context = item.key;
