@@ -108,7 +108,9 @@ export class Datazoom extends Component implements IDatazoom {
   addGraphicItem(attrs: any, groupKey?: string) {
     const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
     const initialAttributes = Object.assign({}, theme?.components?.datazoom, attrs);
-    const graphicItem = Factory.createGraphicComponent(this.componentType, initialAttributes);
+    const graphicItem = Factory.createGraphicComponent(this.componentType, initialAttributes, {
+      skipDefault: this.spec.skipTheme
+    });
     const datazoom = graphicItem as unknown as DatazoomComponent;
     datazoom.setStatePointToData(state => {
       if (this.spec.preview) {
