@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@visactor/vgrammar-util": "workspace:0.8.3",
-    "@visactor/vutils": "~0.16.7"
+    "@visactor/vutils": "0.16.8-alpha.1"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
