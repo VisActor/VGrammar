@@ -1,6 +1,6 @@
 import { isString, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender-core';
-import type { CircleAxisGridAttributes, LineAxisGridAttributes } from '@visactor/vrender-components';
+import type { CircleAxisGridAttributes, ComponentOptions, LineAxisGridAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { CircleAxisGrid, LineAxisGrid } from '@visactor/vrender-components';
 import type { IBaseScale } from '@visactor/vscale';
@@ -153,7 +153,10 @@ export class Grid extends ScaleComponent implements IGrid {
   addGraphicItem(attrs: any, groupKey?: string) {
     const defaultAttributes = { x: 0, y: 0, start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
     const initialAttributes = merge(defaultAttributes, attrs);
-    const graphicItem = Factory.createGraphicComponent(this._getGridComponentType(), initialAttributes, this.mode);
+    const graphicItem = Factory.createGraphicComponent(this._getGridComponentType(), initialAttributes, {
+      mode: this.mode,
+      skipDefault: this.spec.skipTheme
+    });
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
@@ -305,12 +308,14 @@ export class Grid extends ScaleComponent implements IGrid {
 export const registerGrid = () => {
   Factory.registerGraphicComponent(
     GridEnum.lineAxisGrid,
-    (attrs: LineAxisGridAttributes, mode?: '2d' | '3d') => new LineAxisGrid(attrs, mode) as unknown as IGraphic
+    (attrs: LineAxisGridAttributes, options?: ComponentOptions) =>
+      new LineAxisGrid(attrs, options) as unknown as IGraphic
   );
 
   Factory.registerGraphicComponent(
     GridEnum.circleAxisGrid,
-    (attrs: CircleAxisGridAttributes, mode?: '2d' | '3d') => new CircleAxisGrid(attrs) as unknown as IGraphic
+    (attrs: CircleAxisGridAttributes, options?: ComponentOptions) =>
+      new CircleAxisGrid(attrs, options) as unknown as IGraphic
   );
 
   Factory.registerComponent(ComponentEnum.grid, Grid);

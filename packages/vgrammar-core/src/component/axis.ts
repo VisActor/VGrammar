@@ -1,6 +1,6 @@
 import { isNil, isString, merge } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender-core';
-import type { CircleAxisAttributes, LineAxisAttributes } from '@visactor/vrender-components';
+import type { CircleAxisAttributes, LineAxisAttributes, ComponentOptions } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { CircleAxis as CircleAxisComponent, LineAxis as LineAxisComponent } from '@visactor/vrender-components';
 import type { IBaseScale } from '@visactor/vscale';
@@ -163,7 +163,10 @@ export class Axis extends ScaleComponent implements IAxis {
   addGraphicItem(attrs: any, groupKey?: string) {
     const defaultAttributes = { x: 0, y: 0, start: { x: 0, y: 0 }, end: { x: 0, y: 0 } };
     const initialAttributes = merge(defaultAttributes, attrs);
-    const graphicItem = Factory.createGraphicComponent(this._getAxisComponentType(), initialAttributes, this.mode);
+    const graphicItem = Factory.createGraphicComponent(this._getAxisComponentType(), initialAttributes, {
+      mode: this.mode,
+      skipDefault: this.spec.skipTheme
+    });
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
   }
 
@@ -256,7 +259,8 @@ export class Axis extends ScaleComponent implements IAxis {
 export const registerAxis = () => {
   Factory.registerGraphicComponent(
     AxisEnum.lineAxis,
-    (attrs: LineAxisAttributes, mode?: '2d' | '3d') => new LineAxisComponent(attrs, mode) as unknown as IGraphic
+    (attrs: LineAxisAttributes, options?: ComponentOptions) =>
+      new LineAxisComponent(attrs, options) as unknown as IGraphic
   );
   Factory.registerGraphicComponent(
     AxisEnum.circleAxis,
