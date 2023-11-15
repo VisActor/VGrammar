@@ -21,7 +21,7 @@
     "@visactor/vgrammar-plot": "workspace:0.8.3",
     "@visactor/vgrammar-util": "workspace:0.8.3",
     "@visactor/vgrammar-coordinate": "workspace:0.8.3",
-    "@visactor/vutils": "~0.16.7",
+    "@visactor/vutils": "~0.16.8",
     "@visactor/vrender-core": "~0.16.14",
     "@visactor/vrender-kits": "~0.16.14",
     "@visactor/vrender": "~0.16.14",
