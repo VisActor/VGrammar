@@ -68,7 +68,7 @@ export const generateLabelAttributes = (
           break;
       }
 
-      const data: any[] = addition.data ?? [];
+      const data: any[] = addition?.data ?? [];
       const themeDatum = currentTheme?.data?.[0] ?? {};
 
       if (data && data.length > 0) {
