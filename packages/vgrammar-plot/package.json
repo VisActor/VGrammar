@@ -38,9 +38,9 @@
     "@visactor/vgrammar-coordinate": "workspace:0.9.1",
     "@visactor/vgrammar-core": "workspace:0.9.1",
     "@visactor/vscale": "~0.16.12",
-    "@visactor/vrender-components": "~0.16.16",
-    "@visactor/vrender-core": "~0.16.16",
-    "@visactor/vrender-kits": "~0.16.16",
+    "@visactor/vrender-components": "0.17.0-alpha.6",
+    "@visactor/vrender-core": "0.17.0-alpha.6",
+    "@visactor/vrender-kits": "0.17.0-alpha.6",
     "@visactor/vutils": "~0.16.12"
   },
   "devDependencies": {
