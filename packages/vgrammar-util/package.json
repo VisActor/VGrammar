@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-util",
-  "version": "0.8.3",
+  "version": "0.9.0-alpha.1",
   "description": "The common utils functions of VGrammar",
   "keywords": [
     "utils",
