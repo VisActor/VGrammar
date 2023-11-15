@@ -24,7 +24,8 @@ import type {
   TitleAttrs,
   LineAxisGridAttributes,
   CircleAxisGridAttributes,
-  ScrollBarAttributes
+  ScrollBarAttributes,
+  AreaLabelAttrs
 } from '@visactor/vrender-components';
 import type { IComponentTheme, RecursivePartial } from '../../types';
 
@@ -405,8 +406,7 @@ export const lineLabel: RecursivePartial<LineLabelAttrs> = {
   smartInvert: false
 };
 
-// TODO: upgrade vrender to v0.17.0+, will export `AreaLabelAttrs`
-export const areaLabel: RecursivePartial<any> = {
+export const areaLabel: RecursivePartial<AreaLabelAttrs> = {
   type: 'area',
   data: [
     {
