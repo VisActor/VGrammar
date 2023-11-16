@@ -32,7 +32,7 @@ export default class Dataflow implements IDataflow {
 
     this._committed = new UniqueList(grammar => grammar.uid);
 
-    this._heap = new Heap((a, b) => a.qrank - b.qrank);
+    this._heap = new Heap((a, b) => a?.qrank - b?.qrank);
     this._beforeRunner = null;
     this._afterRunner = null;
     this._isRunning = false;
@@ -72,6 +72,9 @@ export default class Dataflow implements IDataflow {
   }
 
   private _setRankOfGrammar(grammar?: IGrammarBase) {
+    if (!grammar) {
+      return;
+    }
     grammar.rank = ++this._curRank;
   }
 
@@ -95,6 +98,10 @@ export default class Dataflow implements IDataflow {
   }
 
   private _enqueue(grammar: IGrammarBase) {
+    if (!grammar) {
+      return;
+    }
+
     (grammar as any).qrank = grammar.rank;
     // push and reRank in the heap
     this._heap.push(grammar);
@@ -139,7 +146,7 @@ export default class Dataflow implements IDataflow {
   private _beforeEvaluate() {
     // reRank grammar element which has higher rank than its targets
     this.grammars.forEach(grammar => {
-      if (grammar.targets.some(target => target.rank < grammar.rank)) {
+      if (grammar.targets.some(target => target?.rank < grammar?.rank)) {
         this._reRank(grammar);
       }
     });
@@ -191,6 +198,10 @@ export default class Dataflow implements IDataflow {
         }
         // dequeue grammar with highest priority
         grammar = this._heap.pop();
+
+        if (!grammar) {
+          continue;
+        }
 
         // re-queue if rank changed
         if (grammar.rank !== grammar.qrank) {
@@ -270,6 +281,10 @@ export default class Dataflow implements IDataflow {
     while (this._heap.size() > 0) {
       // dequeue grammar with highest priority
       grammar = this._heap.pop();
+
+      if (!grammar) {
+        continue;
+      }
 
       // re-queue if rank changed
       if (grammar.rank !== grammar.qrank) {
