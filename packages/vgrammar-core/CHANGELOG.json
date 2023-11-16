@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.9.0",
+      "tag": "@visactor/vgrammar-core_v0.9.0",
+      "date": "Thu, 16 Nov 2023 03:42:57 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: add `skipTheme` to mark to allow theme merge\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.8.3",
       "tag": "@visactor/vgrammar-core_v0.8.3",
       "date": "Fri, 10 Nov 2023 06:09:06 GMT",

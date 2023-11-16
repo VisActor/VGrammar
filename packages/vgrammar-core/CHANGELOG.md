@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 10 Nov 2023 06:09:06 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Nov 2023 03:42:57 GMT and should not be manually modified.
+
+## 0.9.0
+Thu, 16 Nov 2023 03:42:57 GMT
+
+### Updates
+
+- feat: add `skipTheme` to mark to allow theme merge
+
+
 
 ## 0.8.3
 Fri, 10 Nov 2023 06:09:06 GMT
