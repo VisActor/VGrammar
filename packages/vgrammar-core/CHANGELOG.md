@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 10 Nov 2023 06:09:06 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Nov 2023 02:09:50 GMT and should not be manually modified.
+
+## 0.8.4
+Fri, 17 Nov 2023 02:09:50 GMT
+
+### Updates
+
+- fix: fix error of dataflow when some grammar element is release
+
+
 
 ## 0.8.3
 Fri, 10 Nov 2023 06:09:06 GMT

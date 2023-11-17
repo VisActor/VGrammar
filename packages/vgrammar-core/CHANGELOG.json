@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.8.4",
+      "tag": "@visactor/vgrammar-core_v0.8.4",
+      "date": "Fri, 17 Nov 2023 02:09:50 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix error of dataflow when some grammar element is release\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.8.3",
       "tag": "@visactor/vgrammar-core_v0.8.3",
       "date": "Fri, 10 Nov 2023 06:09:06 GMT",
