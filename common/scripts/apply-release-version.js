@@ -11,7 +11,7 @@ function run() {
 
   console.log('[apply prerelease version]: ', preReleaseName, nextBump, nextVersion);
 
-  writePrereleaseVersion(nextBump, preReleaseName, nextVersion);  
+  writePrereleaseVersion(nextBump, nextVersion, preReleaseName);  
 }
 
 run()
