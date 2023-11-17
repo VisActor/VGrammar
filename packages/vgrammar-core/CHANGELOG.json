@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.8.6",
+      "tag": "@visactor/vgrammar-core_v0.8.6",
+      "date": "Fri, 17 Nov 2023 04:47:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: element should reset graphicItem when `removeAllGraphicItems()` is called\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.8.3",
       "tag": "@visactor/vgrammar-core_v0.8.3",
       "date": "Fri, 10 Nov 2023 06:09:06 GMT",

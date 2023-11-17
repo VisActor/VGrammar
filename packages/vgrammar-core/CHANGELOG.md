@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 10 Nov 2023 06:09:06 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Nov 2023 04:47:16 GMT and should not be manually modified.
+
+## 0.8.6
+Fri, 17 Nov 2023 04:47:16 GMT
+
+### Updates
+
+- fix: element should reset graphicItem when `removeAllGraphicItems()` is called
+
+
 
 ## 0.8.3
 Fri, 10 Nov 2023 06:09:06 GMT
