@@ -93,6 +93,8 @@ export interface IElement {
   getDatum: () => any;
   getBounds: () => any;
   getGraphicItem: () => IGraphic;
+  removeGraphicItem: () => void;
+  resetGraphicItem: () => void;
 
   /**
    * 获取 graphic 视觉通道属性
