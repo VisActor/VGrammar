@@ -135,6 +135,25 @@ export class Element implements IElement {
     return this.graphicItem;
   }
 
+  removeGraphicItem() {
+    // stop all animation when releasing including normal animation & morphing animation
+    if (this.graphicItem) {
+      this.graphicItem.animates?.forEach?.(animate => animate.stop());
+    }
+
+    if (this.graphicItem) {
+      removeGraphicItem(this.graphicItem);
+      this.graphicItem[BridgeElementKey] = null;
+      this.graphicItem = null;
+    }
+  }
+
+  resetGraphicItem() {
+    if (this.graphicItem) {
+      this.graphicItem = null;
+    }
+  }
+
   getBounds() {
     // FIXME: 没有更新 bounds 时拿到的 bound 可能为 null
     return this.graphicItem?.AABBBounds;
@@ -648,18 +667,9 @@ export class Element implements IElement {
   }
 
   release() {
-    // stop all animation when releasing including normal animation & morphing animation
-    if (this.graphicItem) {
-      this.graphicItem.animates?.forEach?.(animate => animate.stop());
-    }
-
+    this.removeGraphicItem();
     this.mark = null;
     this.data = null;
-    if (this.graphicItem) {
-      removeGraphicItem(this.graphicItem);
-      this.graphicItem[BridgeElementKey] = null;
-      this.graphicItem = null;
-    }
     this.items = null;
   }
   /**

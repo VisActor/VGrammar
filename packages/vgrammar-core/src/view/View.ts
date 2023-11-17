@@ -439,8 +439,11 @@ export default class View extends EventEmitter implements IView {
     this.traverseMarkTree((mark: IMark) => {
       if (mark.graphicItem) {
         removeGraphicItem(mark.graphicItem);
+        mark.elementMap.forEach(element => {
+          element.resetGraphicItem();
+        });
+        mark.graphicItem = null;
       }
-      mark.graphicItem = null;
     });
 
     return this;
