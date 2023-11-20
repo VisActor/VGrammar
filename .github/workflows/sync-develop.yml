@@ -45,6 +45,8 @@ jobs:
           path: packages/vgrammar
 
       - name: Rebase develop with main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git status
           git fetch origin main:main
