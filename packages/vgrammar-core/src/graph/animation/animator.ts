@@ -110,7 +110,13 @@ export class Animator implements IAnimator {
   }
 
   private animateElement(animationParameters: IAnimationParameters, parameters: any) {
-    const graphicAnimate: IGraphicAnimate = this.element.getGraphicItem().animate();
+    const graphicItem = this.element.getGraphicItem();
+
+    if (!graphicItem) {
+      return;
+    }
+
+    const graphicAnimate: IGraphicAnimate = graphicItem.animate();
     this.runnings.push(graphicAnimate);
     // initialDelay is only used at first loop
     graphicAnimate.startAt(this.unit.initialDelay);
