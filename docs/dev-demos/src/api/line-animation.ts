@@ -83,7 +83,8 @@ export const runner = (view: IView) => {
         duration: 1000,
         easing: 'linear'
       }
-    });
+    })
+    .context({ value: 123 });
   const refLine = view.mark('rule', view.rootMark).id('refLine').encode({
     x: 50,
     x1: 350,
