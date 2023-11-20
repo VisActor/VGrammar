@@ -221,7 +221,6 @@ export interface IMark extends IGrammarBase, IProgressiveGrammar {
   group?: IGroupMark;
 
   markType: MarkType;
-  context: any;
   coord: ICoordinate;
   /**
    * disable coordinate transform when need
@@ -249,12 +248,14 @@ export interface IMark extends IGrammarBase, IProgressiveGrammar {
   animationState: (animationState: MarkFunctionType<string> | Nil) => this;
   layout: (layout: MarkLayoutSpec | MarkLayoutCallback | Nil) => this;
   configure: (config: IMarkConfig | Nil) => this;
+  context: (context: any) => this;
   transform: (transform: TransformSpec[] | Nil) => this;
 
   needAnimate: () => boolean;
   getBounds: () => IBounds;
   isCollectionMark: () => boolean;
   getAllElements: () => IElement[];
+  getContext: () => any;
 
   // position: () => this;
   // color: () => this;
