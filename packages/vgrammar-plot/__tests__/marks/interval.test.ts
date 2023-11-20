@@ -141,19 +141,30 @@ test('add interval by api in polar coordinate', () => {
 
   const rectMark = marks[0];
   expect(rectMark.elements.length).toEqual(2);
-  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
-    cx: 395,
-    cy: 295,
+  const attr0 = rectMark.elements[0].getGraphicItem().attribute;
+  expect(attr0).toMatchObject({
+    x: 395,
+    y: 295,
     innerRadius: 0,
     outerRadius: 0,
     fill: '#6690F2'
   });
-  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
+  expect((attr0 as any).sizeAttrs).toMatchObject({
     cx: 395,
-    cy: 295,
+    cy: 295
+  });
+
+  const attr1 = rectMark.elements[1].getGraphicItem().attribute;
+  expect(attr1).toMatchObject({
+    x: 395,
+    y: 295,
     innerRadius: 295,
     outerRadius: 0,
     fill: '#6690F2'
+  });
+  expect((attr1 as any).sizeAttrs).toMatchObject({
+    cx: 395,
+    cy: 295
   });
 });
 
@@ -180,23 +191,27 @@ test('add interval by api in polar coordinate', () => {
 
   const rectMark = marks[0];
   expect(rectMark.elements.length).toEqual(2);
-  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
-    cx: 395,
-    cy: 295,
+  const attr0 = rectMark.elements[0].getGraphicItem().attribute;
+  expect(attr0).toMatchObject({
+    x: 395,
+    y: 295,
     startAngle: 0,
     endAngle: 0,
     fill: '#6690F2'
   });
 
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).innerRadius).toBeCloseTo(14.75);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).outerRadius).toBeCloseTo(132.75);
-  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
-    cx: 395,
-    cy: 295,
+  expect((attr0 as any).innerRadius).toBeCloseTo(14.75);
+  expect((attr0 as any).outerRadius).toBeCloseTo(132.75);
+
+  const attr1 = rectMark.elements[1].getGraphicItem().attribute;
+
+  expect(attr1).toMatchObject({
+    x: 395,
+    y: 295,
     endAngle: 0,
     fill: '#6690F2'
   });
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).innerRadius).toBeCloseTo(162.25);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).outerRadius).toBeCloseTo(280.25);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).startAngle).toBeCloseTo(6.283185307179586);
+  expect((attr1 as any).innerRadius).toBeCloseTo(162.25);
+  expect((attr1 as any).outerRadius).toBeCloseTo(280.25);
+  expect((attr1 as any).startAngle).toBeCloseTo(6.283185307179586);
 });
