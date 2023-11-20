@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: fix errof of animator when the graphicItem of element is null\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}
