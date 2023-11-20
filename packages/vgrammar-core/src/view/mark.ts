@@ -69,8 +69,6 @@ export class Mark extends GrammarBase implements IMark {
   // mark properties
   markType: MarkType;
 
-  context: any;
-
   group: IGroupMark | undefined;
   /** 非group mark，对应的容器节点 */
   graphicItem?: IGroup;
@@ -87,6 +85,8 @@ export class Mark extends GrammarBase implements IMark {
 
   /** whether mark enter encode is updated  */
   private _isReentered: boolean = false;
+
+  private _context: any;
 
   private renderContext?: {
     large: boolean;
@@ -180,7 +180,7 @@ export class Mark extends GrammarBase implements IMark {
     this.animate = mark.animate;
     this.animate.mark = this;
 
-    this.context = mark.context;
+    this._context = mark._context;
     // set group in later evaluate progress
     this.graphicItem = mark.graphicItem;
     this.graphicIndex = mark.graphicIndex;
@@ -500,6 +500,12 @@ export class Mark extends GrammarBase implements IMark {
     return this;
   }
 
+  context(context: any): this {
+    this.spec.context = context;
+    this._context = context;
+    return this;
+  }
+
   isCollectionMark(): boolean {
     return (CollectionMarkType as string[]).includes(this.markType);
   }
@@ -640,7 +646,7 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   protected update(spec: MarkSpec) {
-    this.context = this.spec.context;
+    this._context = this.spec.context;
     this.isUpdated = true;
 
     if (!this.renderContext.progressive) {
@@ -1161,6 +1167,10 @@ export class Mark extends GrammarBase implements IMark {
 
   getAttributeTransforms() {
     return this.spec.attributeTransforms ?? transformsByType[this.markType];
+  }
+
+  getContext() {
+    return this._context;
   }
 
   protected needSkipBeforeLayout(): boolean {
