@@ -41,7 +41,6 @@ test('group encode of collection mark', () => {
   const mark = new (Mark as any)(mockView, 'line') as IMark;
 
   mark.encodeState('group', {
-    enableSegments: true,
     fill: (datum: any) => (datum.group === '0' ? 'red' : 'green'),
     stroke: 'black'
   });
@@ -67,7 +66,6 @@ test('group encode of collection mark', () => {
   expect(mark.elements[0].getGraphicAttribute('stroke')).toEqual('black');
   expect(mark.elements[0].getGraphicAttribute('points')).toEqual([
     {
-      enableSegments: true,
       context: 1,
       x: 1,
       y: 10
@@ -82,7 +80,6 @@ test('group encode of collection mark', () => {
   expect(mark.elements[1].getGraphicAttribute('stroke')).toEqual('black');
   expect(mark.elements[1].getGraphicAttribute('points')).toEqual([
     {
-      enableSegments: true,
       context: 1,
       x: 1,
       y: 20
