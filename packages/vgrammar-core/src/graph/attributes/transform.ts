@@ -54,7 +54,7 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
   ],
   [GrammarMarkType.line]: [
     {
-      channels: ['x', 'y', 'defined', 'enableSegments'],
+      channels: ['x', 'y', 'defined'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
         graphicAttributes.x = 0;
         graphicAttributes.y = 0;
