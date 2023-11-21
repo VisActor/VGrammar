@@ -251,6 +251,11 @@ export interface IMarkConfig {
   morphElementKey?: string;
   /** transforms of attributes */
   attributeTransforms?: AttributeTransform[];
+  /**
+   * only used in line/area mark
+   * TODO
+   */
+  enableSegments?: boolean;
 }
 
 /**

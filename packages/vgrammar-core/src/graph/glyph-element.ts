@@ -254,10 +254,9 @@ export class GlyphElement extends Element implements IGlyphElement {
   }
 
   private _generateGlyphItems(markType: MarkType, items: MarkElementItem[], additionalAttributes: any) {
-    const nextAttrs = items[0]?.nextAttrs;
     const glyphItems = items.map(item => Object.assign({}, item, { nextAttrs: additionalAttributes }));
 
-    if ((CollectionMarkType as string[]).includes(markType) && nextAttrs.enableSegments) {
+    if ((CollectionMarkType as string[]).includes(markType) && this.mark.getSpec().enableSegments) {
       // segment mark require all items to apply additional attributes
       glyphItems.forEach((glyphItem, index) => {
         glyphItem.nextAttrs = Object.assign({}, items[index].nextAttrs, additionalAttributes);
