@@ -10,7 +10,7 @@ cover: /vgrammar/preview/basic-mark-line-segmental-line_0.7.6.png
 
 ## Key Configuration
 
-- `enableSegments`: When the visual channel `enableSegments` of the line is set to `true`, VGrammar will calculate the visual channel encoding of each point. If there are differences, it will automatically create a segmented style curve.
+- `enableSegments`: When the spec `enableSegments` of the line is set to `true`, VGrammar will calculate the visual channel encoding of each point. If there are differences, it will automatically create a segmented style curve.
 
 ## Code Demonstration
 
@@ -140,6 +140,7 @@ const spec = {
     {
       type: 'line',
       from: { data: 'table' },
+      enableSegments: true,
       encode: {
         enter: {
           lineWidth: 2
@@ -147,7 +148,6 @@ const spec = {
         update: {
           x: { scale: 'xscale', field: 'time' },
           y: { scale: 'yscale', field: 'value' },
-          enableSegments: true,
           stroke: (datum, element, params) => {
             return datum.value > 0 ? '#6690F2' : '#FF8F62';
           }

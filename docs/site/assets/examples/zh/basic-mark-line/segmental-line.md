@@ -10,7 +10,7 @@ cover: /vgrammar/preview/basic-mark-line-segmental-line_0.7.6.png
 
 ## 关键配置
 
-- `enableSegments` 当线的视觉通道`enableSegments`设置为`true`，VGrammar 会计算各个点的视觉通道编码，如果有差异，自动创建分段样式的曲线
+- `enableSegments` 当线的`enableSegments`设置为`true`，VGrammar 会计算各个点的视觉通道编码，如果有差异，自动创建分段样式的曲线
 
 ## 代码演示
 
@@ -140,6 +140,7 @@ const spec = {
     {
       type: 'line',
       from: { data: 'table' },
+      enableSegments: true,
       encode: {
         enter: {
           lineWidth: 2
@@ -147,7 +148,6 @@ const spec = {
         update: {
           x: { scale: 'xscale', field: 'time' },
           y: { scale: 'yscale', field: 'value' },
-          enableSegments: true,
           stroke: (datum, element, params) => {
             return datum.value > 0 ? '#6690F2' : '#FF8F62';
           }

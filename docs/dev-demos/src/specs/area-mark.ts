@@ -5,10 +5,6 @@ export const spec = {
 
   signals: [
     {
-      id: 'enableSegments',
-      value: true
-    },
-    {
       id: 'defined',
       value: true
     },
@@ -119,12 +115,12 @@ export const spec = {
           // ease: "linear"
         }
       },
+      enableSegments: true,
       encode: {
         enter: {
           // stroke: '#652c90'
         },
         update: {
-          enableSegments: { signal: 'enableSegments' },
           x: { scale: 'xscale', field: 'u' },
           y1: { scale: 'yscale', value: 0 },
           y: { scale: 'yscale', field: 'v' },
@@ -164,11 +160,6 @@ export const spec = {
 };
 
 export const binds = [
-  {
-    id: 'enableSegments',
-    value: true,
-    bind: { input: 'checkbox' }
-  },
   {
     id: 'defined',
     value: true,
