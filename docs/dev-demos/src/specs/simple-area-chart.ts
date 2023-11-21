@@ -67,9 +67,9 @@ export const spec = {
       type: 'area',
       id: 'area',
       from: { data: 'table' },
+      enableSegments: true,
       encode: {
         update: {
-          enableSegments: true,
           x: { scale: 'xscale', field: 'u' },
           y: { scale: 'yscale', value: 0 },
           y1: { scale: 'yscale', field: 'v' },
