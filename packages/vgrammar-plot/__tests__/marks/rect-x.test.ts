@@ -26,11 +26,11 @@ test('add rect-x by api', () => {
 
   const rectMark = marks[0];
   expect(rectMark.elements.length).toEqual(2);
-  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ x: 0, y: 0, height: 590, fill: '#6690F2' });
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).width).toBeCloseTo(263.3333333333333);
-  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ y: 0, height: 590, fill: '#6690F2' });
+  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ x: 0, y: 0, y1: 590, fill: '#6690F2' });
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).x1).toBeCloseTo(263.3333333333333);
+  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ y: 0, y1: 590, fill: '#6690F2' });
   expect((rectMark.elements[1].getGraphicItem().attribute as any).x).toBeCloseTo(263.3333333333333);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).width).toBeCloseTo(263.3333333333333);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).x1).toBeCloseTo(526.6666666666666);
 });
 
 test('add rect-x by api and channel x is linear', () => {
