@@ -67,7 +67,7 @@ import {
   registerJitterXTransform,
   registerJitterYTransform,
   registerSymmetryTransform,
-  initAllEnv,
+  initAutoEnv,
 
   // interactions
   registerElementActive,
@@ -187,6 +187,6 @@ View.useRegisters([
   registerFishEye
 ]);
 
-initAllEnv();
+initAutoEnv();
 
 export * from '@visactor/vgrammar-core';
