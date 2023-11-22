@@ -153,6 +153,7 @@ export class Animator implements IAnimator {
     parameters: any
   ) {
     const delay = timeSlice.delay as number;
+    const delayAfter = timeSlice.delayAfter as number;
     const duration = timeSlice.duration as number;
     const effects = timeSlice.effects as IAnimationEffect[];
 
@@ -211,6 +212,10 @@ export class Animator implements IAnimator {
       } else {
         graphicAnimate.play(new AnimateGroup(duration, customAnimates));
       }
+    }
+
+    if (delayAfter > 0) {
+      graphicAnimate.wait(delayAfter);
     }
   }
 }

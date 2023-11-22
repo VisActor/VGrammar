@@ -95,6 +95,7 @@ export interface IAnimationTypeConfig {
   customParameters?: MarkFunctionValueType<any>;
   easing?: EasingType;
   delay?: MarkFunctionValueType<number>;
+  delayAfter?: MarkFunctionValueType<number>;
   duration?: MarkFunctionValueType<number>;
   oneByOne?: MarkFunctionValueType<boolean | number>;
   startTime?: MarkFunctionValueType<number>;
@@ -137,6 +138,7 @@ export interface IAnimationTimeSlice {
   effects: IAnimationEffect | IAnimationEffect[];
   duration?: MarkFunctionValueType<number>;
   delay?: MarkFunctionValueType<number>;
+  delayAfter?: MarkFunctionValueType<number>;
 }
 
 export type IAnimationChannelFunction = (datum: any, element: IElement, parameters: IAnimationParameters) => any;

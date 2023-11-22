@@ -10,6 +10,7 @@ import type {
 import {
   DefaultAnimationControlOptions,
   DefaultAnimationDelay,
+  DefaultAnimationDelayAfter,
   DefaultAnimationDuration,
   DefaultAnimationEasing,
   DefaultAnimationLoop,
@@ -31,6 +32,7 @@ function transformToTimelineConfig(animationConfig: IAnimationConfig): IAnimatio
         {
           duration: typeConfig.duration ?? DefaultAnimationDuration,
           delay: typeConfig.delay ?? DefaultAnimationDelay,
+          delayAfter: typeConfig.delayAfter ?? DefaultAnimationDelayAfter,
           effects: [
             {
               type: typeConfig.type,
@@ -63,6 +65,7 @@ function transformToTimelineConfig(animationConfig: IAnimationConfig): IAnimatio
         return {
           duration: timeSlice.duration,
           delay: timeSlice.delay ?? DefaultAnimationDelay,
+          delayAfter: timeSlice.delayAfter ?? DefaultAnimationDelayAfter,
           effects: array(timeSlice.effects)
             .filter(effect => effect.channel || effect.type)
             .map(effect => {
