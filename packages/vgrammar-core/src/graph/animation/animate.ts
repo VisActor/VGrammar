@@ -388,6 +388,7 @@ export class Animate implements IAnimate {
     let loopTime = 0;
     (timeline.timeSlices as IAnimationTimeSlice[]).forEach(timeSlice => {
       const delay = invokeAnimateSpec(timeSlice.delay, element, parameters);
+      const delayAfter = invokeAnimateSpec(timeSlice.delayAfter, element, parameters);
       const duration = invokeAnimateSpec(timeSlice.duration, element, parameters) ?? totalTime / elementCount;
       const effects = array(timeSlice.effects).map(effect =>
         Object.assign({}, effect, {
@@ -397,9 +398,10 @@ export class Animate implements IAnimate {
       timeSlices.push({
         effects,
         duration,
-        delay
+        delay,
+        delayAfter
       });
-      loopTime += delay + duration;
+      loopTime += delay + duration + delayAfter;
     });
 
     const oneByOneDelay = isNumber(oneByOne) ? oneByOne : oneByOne === true ? loopTime : 0;
