@@ -156,7 +156,9 @@ export class Legend extends ScaleComponent implements ILegend {
   }
 
   addGraphicItem(attrs: any, groupKey?: string) {
-    const graphicItem = Factory.createGraphicComponent(this._getLegendComponentType(), attrs);
+    const graphicItem = Factory.createGraphicComponent(this._getLegendComponentType(), attrs, {
+      skipDefault: this.spec.skipTheme
+    });
     return super.addGraphicItem(attrs, groupKey, graphicItem);
   }
 

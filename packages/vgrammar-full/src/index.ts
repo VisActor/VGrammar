@@ -106,7 +106,7 @@ import {
   registerFishEye,
 
   // envs
-  initAllEnv
+  initAutoEnv
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
@@ -210,4 +210,4 @@ View.useRegisters([
   registerFishEye
 ]);
 
-initAllEnv();
+initAutoEnv();
