@@ -76,6 +76,7 @@ export const spec = {
         {
           type: 'line',
           id: 'line',
+          enableSegments: true,
           // animationState: 'appear',
           animation: {
             enter: {
@@ -108,7 +109,6 @@ export const spec = {
                 return [];
               },
               lineWidth: 2,
-              enableSegments: true
             },
             update: {
               // interpolate: { signal: 'interpolate' },

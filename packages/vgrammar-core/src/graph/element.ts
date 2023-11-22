@@ -212,10 +212,6 @@ export class Element implements IElement {
   encodeGraphic(attrs?: any) {
     this.coordinateTransformEncode(this.items);
 
-    if (!isNil(attrs?.enableSegments) && this.items?.[0]?.nextAttrs) {
-      this.items[0].nextAttrs.enableSegments = attrs.enableSegments;
-    }
-
     const graphicAttributes = this.transformElementItems(this.items, this.mark.markType);
 
     if (attrs) {
@@ -270,7 +266,7 @@ export class Element implements IElement {
     const updateEncoder = encoders[BuiltInEncodeNames.update];
     const enterEncoder = encoders[BuiltInEncodeNames.enter];
     const exitEncoder = encoders[BuiltInEncodeNames.exit];
-    const onlyFullEncodeFirst = this.mark.isLargeMode();
+    const onlyFullEncodeFirst = this.mark.isLargeMode() || (isCollectionMark && !this.mark.getSpec().enableSegments);
 
     if (this.diffState === DiffState.enter) {
       if (enterEncoder) {
@@ -471,7 +467,7 @@ export class Element implements IElement {
     ) {
       const lastPoints = this.getGraphicAttribute('points', false);
       const lastSegments = this.getGraphicAttribute('segments', false);
-      const enableSegments = item.nextAttrs.enableSegments ?? this.getGraphicAttribute('enableSegments', false);
+      const enableSegments = this.mark.getSpec().enableSegments;
       const itemNextAttrs = items.map(item => item.nextAttrs);
       const isProgressive = this.mark.isProgressive();
       nextAttrs = Object.assign({}, nextAttrs);
