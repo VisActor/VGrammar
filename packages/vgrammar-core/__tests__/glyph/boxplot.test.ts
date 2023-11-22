@@ -37,7 +37,7 @@ test('boxplot encode', function () {
     { x: 10, y: 100 }
   ]);
   expect(element.getGraphicAttribute('x', undefined, 'box')).toEqual(-20);
-  expect(element.getGraphicAttribute('width', undefined, 'box')).toEqual(60);
+  expect(element.getGraphicAttribute('x1', undefined, 'box')).toEqual(40);
   expect(element.getGraphicAttribute('points', undefined, 'max')).toEqual([
     { x: -10, y: 100 },
     { x: 30, y: 100 }
@@ -76,9 +76,9 @@ test('barBoxplot encode', function () {
   element.encodeGraphic();
 
   expect(element.getGraphicAttribute('x', undefined, 'minMaxBox')).toEqual(-10);
-  expect(element.getGraphicAttribute('width', undefined, 'minMaxBox')).toEqual(40);
+  expect(element.getGraphicAttribute('x1', undefined, 'minMaxBox')).toEqual(30);
   expect(element.getGraphicAttribute('x', undefined, 'q1q3Box')).toEqual(-20);
-  expect(element.getGraphicAttribute('width', undefined, 'q1q3Box')).toEqual(60);
+  expect(element.getGraphicAttribute('x1', undefined, 'q1q3Box')).toEqual(40);
   expect(element.getGraphicAttribute('points', undefined, 'median')).toEqual([
     { x: -20, y: 60 },
     { x: 40, y: 60 }
@@ -117,7 +117,7 @@ test('boxplot animation', function () {
       q1: 60,
       q3: 60,
       x: 10,
-      y: 0
+      y: undefined
     },
     to: {
       max: 100,
@@ -126,7 +126,7 @@ test('boxplot animation', function () {
       q1: 40,
       q3: 80,
       x: 10,
-      y: 0
+      y: undefined
     }
   });
 
@@ -139,7 +139,7 @@ test('boxplot animation', function () {
       q1: 40,
       q3: 80,
       x: 10,
-      y: 0
+      y: undefined
     },
     to: {
       max: 60,
@@ -148,7 +148,7 @@ test('boxplot animation', function () {
       q1: 60,
       q3: 60,
       x: 10,
-      y: 0
+      y: undefined
     }
   });
 });
@@ -185,7 +185,7 @@ test('barBoxplot animation', function () {
       q1: 60,
       q3: 60,
       x: 10,
-      y: 0
+      y: undefined
     },
     to: {
       max: 100,
@@ -194,7 +194,7 @@ test('barBoxplot animation', function () {
       q1: 40,
       q3: 80,
       x: 10,
-      y: 0
+      y: undefined
     }
   });
 
@@ -207,7 +207,7 @@ test('barBoxplot animation', function () {
       q1: 40,
       q3: 80,
       x: 10,
-      y: 0
+      y: undefined
     },
     to: {
       max: 60,
@@ -216,7 +216,7 @@ test('barBoxplot animation', function () {
       q1: 60,
       q3: 60,
       x: 10,
-      y: 0
+      y: undefined
     }
   });
 });
