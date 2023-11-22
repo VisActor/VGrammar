@@ -257,10 +257,7 @@ test('isPositionOrSizeChannel()', () => {
 });
 
 test('cloneTransformAttributes()', () => {
-  expect(cloneTransformAttributes('rect', { width: 100, x: 10, fill: 'red', fillOpacity: 1 })).toEqual({
-    width: 100,
-    x: 10
-  });
+  expect(cloneTransformAttributes('rect', { width: 100, x: 10, fill: 'red', fillOpacity: 1 })).toEqual({});
   expect(cloneTransformAttributes('area', { x: 10, x1: 20, fill: 'red', fillOpacity: 1 })).toEqual({});
   expect(
     cloneTransformAttributes('text', { x: 10, x1: 20, fill: 'red', fillOpacity: 1, text: 'aaa', limit: 100 })
@@ -275,14 +272,6 @@ test('transformAttributes()', () => {
     transformAttributes('rect', { x: 10, width: 20, y: 20, height: 30 }, { getGraphicAttribute: emptyFunction } as any)
   ).toEqual({
     height: 30,
-    sizeAttrs: {
-      height: 30,
-      width: 20,
-      x: 10,
-      x1: undefined,
-      y: 20,
-      y1: undefined
-    },
     width: 20,
     x: 10,
     y: 20
@@ -290,16 +279,8 @@ test('transformAttributes()', () => {
   expect(
     transformAttributes('rect', { x: 10, x1: 30, y: 20, y1: 60 }, { getGraphicAttribute: emptyFunction } as any)
   ).toEqual({
-    height: 40,
-    sizeAttrs: {
-      height: undefined,
-      width: undefined,
-      x: 10,
-      x1: 30,
-      y: 20,
-      y1: 60
-    },
-    width: 20,
+    x1: 30,
+    y1: 60,
     x: 10,
     y: 20
   });

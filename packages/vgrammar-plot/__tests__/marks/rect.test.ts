@@ -29,13 +29,13 @@ test('add rect by api and x has two fields', () => {
   expect(rectMark.elements.length).toEqual(2);
   expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ x: 0, fill: '#6690F2' });
   expect((rectMark.elements[0].getGraphicItem().attribute as any).y).toBeCloseTo(590);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).height).toBeCloseTo(0);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).width).toBeCloseTo(263.3333333333333);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).y1).toBeCloseTo(590);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).x1).toBeCloseTo(263.3333333333333);
   expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ fill: '#6690F2' });
   expect((rectMark.elements[1].getGraphicItem().attribute as any).x).toBeCloseTo(263.3333333333333);
   expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(0);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).width).toBeCloseTo(263.3333333333333);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).height).toBeCloseTo(590);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).x1).toBeCloseTo(526.6666666666666);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).y1).toBeCloseTo(590);
 });
 
 test('add rect by api', () => {
@@ -63,13 +63,13 @@ test('add rect by api', () => {
   expect(rectMark.elements.length).toEqual(2);
   expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ x: 0, fill: '#6690F2' });
   expect((rectMark.elements[0].getGraphicItem().attribute as any).y).toBeCloseTo(590);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).height).toBeCloseTo(0);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).width).toBeCloseTo(395);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).y1).toBeCloseTo(590);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).x1).toBeCloseTo(395);
   expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ fill: '#6690F2' });
   expect((rectMark.elements[1].getGraphicItem().attribute as any).x).toBeCloseTo(395);
   expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(0);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).width).toBeCloseTo(395);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).height).toBeCloseTo(590);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).y1).toBeCloseTo(590);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).x1).toBeCloseTo(790);
 });
 
 test('add rect by api and y have two fields', () => {
@@ -96,14 +96,14 @@ test('add rect by api and y have two fields', () => {
   const rectMark = marks[0];
   expect(rectMark.elements.length).toEqual(2);
   expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ x: 0, fill: '#6690F2' });
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).y).toBeCloseTo(536.3636363636364);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).height).toBeCloseTo(53.636363636363626);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).width).toBeCloseTo(263.3333333333333);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).y).toBeCloseTo(590);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).y1).toBeCloseTo(536.3636363636364);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).x1).toBeCloseTo(263.3333333333333);
   expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ fill: '#6690F2' });
   expect((rectMark.elements[1].getGraphicItem().attribute as any).x).toBeCloseTo(263.3333333333333);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(0);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).width).toBeCloseTo(263.3333333333333);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).height).toBeCloseTo(584.040404040404);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(584.040404040404);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).x1).toBeCloseTo(526.6666666666666);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).y1).toBeCloseTo(0);
 });
 
 test('add rect by api and y have two fields', () => {
@@ -133,11 +133,11 @@ test('add rect by api and y have two fields', () => {
   expect(rectMark.elements.length).toEqual(2);
   expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ x: 0, fill: '#6690F2' });
   expect((rectMark.elements[0].getGraphicItem().attribute as any).y).toBeCloseTo(295);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).height).toBeCloseTo(295);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).width).toBeCloseTo(0);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).y1).toBeCloseTo(590);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).x1).toBeCloseTo(0);
   expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ fill: '#6690F2' });
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).x).toBeCloseTo(0);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).x).toBeCloseTo(790);
   expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(0);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).width).toBeCloseTo(790);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).height).toBeCloseTo(295);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).x1).toBeCloseTo(0);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).y1).toBeCloseTo(295);
 });

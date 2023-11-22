@@ -68,7 +68,6 @@ test('size channels can be set to Group', function () {
   element.updateData('key', [{ key: 0 }], 'key', {} as any);
   element.initGraphicItem();
 
-  expect(element.getGraphicAttribute('sizeAttrs')).toBeUndefined();
   // encode enter
   element.encodeItems(
     element.items,
@@ -88,24 +87,8 @@ test('size channels can be set to Group', function () {
   expect(element.getGraphicItem().attribute).toEqual({
     x: 10,
     y: 10,
-    width: 10,
-    height: 10,
-    sizeAttrs: {
-      x: 10,
-      y: 10,
-      x1: 20,
-      y1: 20,
-      width: undefined,
-      height: undefined
-    }
-  });
-  expect(element.getGraphicAttribute('sizeAttrs')).toEqual({
-    x: 10,
-    y: 10,
     x1: 20,
-    y1: 20,
-    width: undefined,
-    height: undefined
+    y1: 20
   });
   expect(element.getGraphicAttribute('x')).toBe(10);
   expect(element.getGraphicAttribute('y')).toBe(10);
