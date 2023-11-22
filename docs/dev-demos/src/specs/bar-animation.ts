@@ -165,25 +165,30 @@ export const spec = {
           // totalTime: 2000,
           loop: true,
           oneByOne: 300,
+          // delay: 1000,
+          // delayAfter: 1000,
+          // type: 'growHeightIn',
           timeSlices: [
             {
+              // delay: 1000,
               effects: {
                 channel: {
                   fillOpacity: { to: 0.3 }
                 },
                 easing: 'linear'
               },
-              duration: 500
+              duration: 500,
+              delayAfter: 1000
             },
-            {
-              effects: {
-                channel: {
-                  fillOpacity: { to: 0.3 }
-                },
-                easing: 'linear'
-              },
-              duration: 1000
-            },
+            // {
+            //   effects: {
+            //     channel: {
+            //       fillOpacity: { to: 0.3 }
+            //     },
+            //     easing: 'linear'
+            //   },
+            //   duration: 1000
+            // },
             {
               effects: {
                 channel: {
@@ -191,7 +196,8 @@ export const spec = {
                 },
                 easing: 'linear'
               },
-              duration: 500
+              duration: 500,
+              delayAfter: 1000
             }
           ]
           // timeSlices: [

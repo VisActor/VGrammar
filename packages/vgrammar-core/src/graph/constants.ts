@@ -25,6 +25,7 @@ export const ImmediateAnimationState = 'VGRAMMAR_IMMEDIATE_ANIMATION';
 export const DefaultAnimationStartTime = 0;
 export const DefaultAnimationDuration = 1000;
 export const DefaultAnimationDelay = 0;
+export const DefaultAnimationDelayAfter = 0;
 export const DefaultAnimationLoop = false;
 export const DefaultAnimationOneByOne = false;
 export const DefaultAnimationEasing = 'quintInOut';
