@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import type { View, ISignal } from '@visactor/vgrammar';
-import { registerGlyph } from '@visactor/vgrammar';
+import { Factory } from '@visactor/vgrammar';
 
 export const runner = (view: View) => {
   const originData = [
@@ -73,7 +73,7 @@ export const runner = (view: View) => {
   //     };
   //   });
 
-  const glyphMeta = registerGlyph(
+  const glyphMeta = Factory.registerGlyph(
     'testGlyph',
     { rect: 'rect', rule: 'rule' },
     {
