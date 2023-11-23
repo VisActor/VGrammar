@@ -80,10 +80,37 @@ module.exports = function buildConfig(type) {
             jsx: isJsx
           }
         },
-        plugins: ['prettier'],
+        plugins: ['prettier', "spellcheck"],
 
         settings: settings,
         rules: {
+          "spellcheck/spell-checker": ['error',
+            {
+              "comments": true,
+              "strings": true,
+              "identifiers": true,
+              "templates": true,
+              "ignoreRequire": true,
+              "lang": "en_US",
+              "skipWords": [
+                "dict",
+                "aff",
+                "dataflow",
+                "chartspace",
+                "utils"
+              ],
+              "skipIfMatch": [
+                "http://[^s]*",
+                "^[-\\w]+\/[-\\w\\.]+$"
+              ],
+              "skipWordIfMatch": [
+                "^vrender*$",
+                "^vgrammar*$"
+              ],
+              "minLength": 3
+            }
+          ],
+         
           '@typescript-eslint/no-explicit-any': 'off',
           '@typescript-eslint/ban-ts-comment': 'off',
           'promise/always-return': 'off',
