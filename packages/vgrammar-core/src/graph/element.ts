@@ -74,9 +74,9 @@ export class Element implements IElement {
       return;
     }
     // 统一读取mark中是否可交互的配置
-    const attrTtansforms = this.mark.getAttributeTransforms();
+    const attrTransforms = this.mark.getAttributeTransforms();
 
-    this.graphicItem = this.mark.addGraphicItem(attrTtansforms ? {} : attributes, this.groupKey);
+    this.graphicItem = this.mark.addGraphicItem(attrTransforms ? {} : attributes, this.groupKey);
 
     if (!this.graphicItem) {
       return;
@@ -84,13 +84,13 @@ export class Element implements IElement {
     // 统一读取mark中是否可交互的配置
     this.graphicItem[BridgeElementKey] = this;
 
-    if (attrTtansforms) {
+    if (attrTransforms) {
       this.graphicItem.onBeforeAttributeUpdate = (attributes: any) => {
         // mark might be released
         if (!this.mark) {
           return attributes;
         }
-        const graphicAttributes = transformAttributes(attrTtansforms, attributes, this);
+        const graphicAttributes = transformAttributes(attrTransforms, attributes, this);
         return graphicAttributes;
       };
       this.graphicItem.setAttributes(attributes);
@@ -242,10 +242,10 @@ export class Element implements IElement {
     this.items.forEach(item => {
       item.nextAttrs = {};
     });
-    this._setCutomizedShape();
+    this._setCustomizedShape();
   }
 
-  private _setCutomizedShape() {
+  private _setCustomizedShape() {
     if (!this.graphicItem) {
       return;
     }
