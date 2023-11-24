@@ -1,4 +1,13 @@
-import { isArray, isFunction, isNil, isNumber, isString, isValidNumber } from '@visactor/vutils';
+import {
+  isArray,
+  isFunction,
+  isNil,
+  isNumber,
+  isString,
+  isValidNumber,
+  maxInArray,
+  minInArray
+} from '@visactor/vutils';
 import type {
   IBaseScale,
   IBandLikeScale,
@@ -453,7 +462,7 @@ function parseScaleDataTypeValue(
   if (filterNumber) {
     fieldData.filter(entry => isNumber(entry));
   }
-  return [Math.min.apply(null, fieldData), Math.max.apply(null, fieldData)];
+  return [minInArray(fieldData), maxInArray(fieldData)];
 }
 
 export function configureScale(spec: ScaleSpec, scale: IBaseScale, parameters: any) {

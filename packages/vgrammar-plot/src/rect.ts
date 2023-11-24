@@ -14,7 +14,7 @@ import type {
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
 import { GrammarMarkType } from '@visactor/vgrammar-core';
-import { isArray } from '@visactor/vutils';
+import { isArray, maxInArray, minInArray } from '@visactor/vutils';
 import { PlotMakType } from './enums';
 import { isContinuous } from '@visactor/vscale';
 
@@ -87,8 +87,8 @@ export class RectSemanticMark extends SemanticMark<PlotRectEncoderSpec, RectEnco
 
         if (isContinuous(scale.type)) {
           const domain = scale.domain();
-          const min = Math.min.apply(null, domain);
-          const max = Math.max.apply(null, domain);
+          const min = minInArray(domain);
+          const max = maxInArray(domain);
           const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
           return scale.scale(baseValue);
@@ -118,8 +118,8 @@ export class RectSemanticMark extends SemanticMark<PlotRectEncoderSpec, RectEnco
         }
         if (isContinuous(scale.type)) {
           const domain = scale.domain();
-          const min = Math.min.apply(null, domain);
-          const max = Math.max.apply(null, domain);
+          const min = minInArray(null, domain);
+          const max = maxInArray(null, domain);
           const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
           return scale.scale(baseValue);

@@ -8,7 +8,17 @@ import type {
 } from '@visactor/vrender-components';
 import type { ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { Logger, array, isArray, isBoolean, isNil, isPlainObject, merge } from '@visactor/vutils';
+import {
+  Logger,
+  array,
+  isArray,
+  isBoolean,
+  isNil,
+  isPlainObject,
+  maxInArray,
+  merge,
+  minInArray
+} from '@visactor/vutils';
 import { isContinuous, type IBaseScale, isDiscrete } from '@visactor/vscale';
 import type {
   ISemanticMark,
@@ -1035,12 +1045,12 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
             min: (datum: any, elment: IElement, params: any) => {
               const data = params[dataId];
 
-              return Math.min.apply(null, data.map(getter));
+              return minInArray(data.map(getter));
             },
             max: (datum: any, elment: IElement, params: any) => {
               const data = params[dataId];
 
-              return Math.max.apply(null, data.map(getter));
+              return maxInArray(data.map(getter));
             },
             encode: {
               update: (datum: any, elment: IElement, params: any) => {

@@ -1,4 +1,4 @@
-import { isNil, isValidNumber } from '@visactor/vutils';
+import { isNil, isValidNumber, maxInArray, minInArray } from '@visactor/vutils';
 import type { IElement, SymmetryTransformOptions } from '../../types';
 
 const symmetryByChannel = (upstreamData: IElement[], channel: 'x' | 'y', align?: 'min' | 'max') => {
@@ -7,7 +7,7 @@ const symmetryByChannel = (upstreamData: IElement[], channel: 'x' | 'y', align?:
   const middleValues = hasRangeValue
     ? upstreamData.map(el => (el.getItemAttribute(baseChannel) + el.getItemAttribute(channel)) / 2)
     : upstreamData.map(el => el.getItemAttribute(channel));
-  const maxMid = align === 'min' ? Math.min.apply(null, middleValues) : Math.max.apply(null, middleValues);
+  const maxMid = align === 'min' ? minInArray(middleValues) : maxInArray(middleValues);
 
   if (isValidNumber(maxMid)) {
     upstreamData.forEach((el, index) => {

@@ -15,7 +15,7 @@ import type {
   BaseSignleEncodeSpec
 } from '../types';
 import { Mark } from '../view/mark';
-import { isNil } from '@visactor/vutils';
+import { isNil, maxInArray, minInArray } from '@visactor/vutils';
 import { createGraphicItem } from '../graph/util/graphic';
 import type { IPolarCoordinate } from '@visactor/vgrammar-coordinate';
 import { transformsByType } from '../graph/attributes/transform';
@@ -62,8 +62,8 @@ export class Interval extends Mark {
           if (scales && scales.x && scales.x.type === ScaleEnum.Band) {
             if (!isNil(scales.y)) {
               const domain = scales.y.domain();
-              const min = Math.min.apply(null, domain);
-              const max = Math.max.apply(null, domain);
+              const min = minInArray(domain);
+              const max = maxInArray(domain);
               const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
               userEncodeRes.y1 = scales.y.scale(baseValue);
@@ -76,8 +76,8 @@ export class Interval extends Mark {
           } else if (scales && scales.y && scales.y.type === ScaleEnum.Band) {
             if (!isNil(scales.x)) {
               const domain = scales.x.domain();
-              const min = Math.min.apply(null, domain);
-              const max = Math.max.apply(null, domain);
+              const min = minInArray(domain);
+              const max = maxInArray(domain);
               const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
               userEncodeRes.x1 = scales.x.scale(baseValue);

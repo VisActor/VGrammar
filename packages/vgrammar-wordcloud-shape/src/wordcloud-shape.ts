@@ -1,4 +1,4 @@
-import { Logger, degreeToRadian, isFunction, isNil, isValid, toNumber } from '@visactor/vutils';
+import { Logger, degreeToRadian, isFunction, isNil, isValid, maxInArray, toNumber } from '@visactor/vutils';
 import { error } from '@visactor/vgrammar-util';
 import type {
   TagItemAttribute,
@@ -330,7 +330,7 @@ export const transform = async (
   });
 
   // 计算所有单词的权重 weight，用于后续的布局
-  const wordsMaxFontSize = Math.max(...words.map(word => word.fontSize));
+  const wordsMaxFontSize = maxInArray(words.map(word => word.fontSize));
   words.forEach(word => (word.weight = word.fontSize / wordsMaxFontSize));
   words.sort((a, b) => b.weight - a.weight);
 
