@@ -56,7 +56,7 @@ Spec 形式 Signal 元素使用示例：
 API 形式 Signal 元素使用示例：
 
 ```js
-const threshold = view.signal(40);
+const threshold = view.signal(40).id('threshold');
 const data = view
   .data([
     { type: 'A', value: 22 },

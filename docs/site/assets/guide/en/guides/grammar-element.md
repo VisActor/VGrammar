@@ -56,7 +56,7 @@ Spec form Signal element usage example:
 API form Signal element usage example:
 
 ```js
-const threshold = view.signal(40);
+const threshold = view.signal(40).id('threshold');
 const data = view
   .data([
     { type: 'A', value: 22 },
