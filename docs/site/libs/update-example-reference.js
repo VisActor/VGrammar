@@ -8,9 +8,10 @@ const langs = ['zh', 'en'];
 
 
 const removePrevLiveDemo = (originalMd) => {
-  const reg = /([ ]+?)```javascript livedemo template=vgrammar([\s\S]+?)```([ ]+?)/g;
+  const reg = /([\s]+?)```javascript livedemo template=vgrammar([\s\S]+?)```([\s]+?)/g;
 
   return originalMd.replace(reg, (match) => {
+   
     return '';
   });
 
