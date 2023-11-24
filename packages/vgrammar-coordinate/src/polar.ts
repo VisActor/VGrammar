@@ -1,6 +1,15 @@
 import type { IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { clampRadian, isNumberClose, isValidNumber, isNil, polarToCartesian, isArray } from '@visactor/vutils';
+import {
+  clampRadian,
+  isNumberClose,
+  isValidNumber,
+  isNil,
+  polarToCartesian,
+  isArray,
+  minInArray,
+  maxInArray
+} from '@visactor/vutils';
 import { Coordinate } from './base';
 import type { IPolarCoordinate, IDimensionType, IPolarPointLike } from './interface';
 
@@ -40,11 +49,11 @@ export class PolarCoordinate extends Coordinate implements IPolarCoordinate {
       ys.push(p0.y);
       ys.push(p1.y);
     }
-    const minX = Math.min.apply(null, xs);
-    const minY = Math.min.apply(null, ys);
+    const minX = minInArray(xs);
+    const minY = minInArray(ys);
 
-    const maxX = Math.max.apply(null, xs);
-    const maxY = Math.max.apply(null, ys);
+    const maxX = maxInArray(xs);
+    const maxY = maxInArray(ys);
 
     this.startPoint = { x: minX, y: minY };
     this.endPoint = { x: maxX, y: maxY };

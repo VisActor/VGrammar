@@ -78,11 +78,3 @@ export function average(arr: any[]) {
   const total = sum(arr);
   return total / arr.length;
 }
-
-export function min(arr: any[]) {
-  return Math.min(...arr);
-}
-
-export function max(arr: any[]) {
-  return Math.max(...arr);
-}

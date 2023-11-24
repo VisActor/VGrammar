@@ -1,6 +1,6 @@
 import type { IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { isValid, isValidNumber } from '@visactor/vutils';
+import { isValid, isValidNumber, maxInArray, minInArray } from '@visactor/vutils';
 import type { ContourTransformOption } from '../../types';
 
 type InteractionPoint = {
@@ -141,7 +141,7 @@ export const transform = (options: ContourTransformOption, upstreamData: any[]) 
   const cellColumn = column - 1;
 
   const data = upstreamData.map(datum => datum[options.field]);
-  const extent = [Math.min.apply(null, data), Math.max.apply(null, data)];
+  const extent = [minInArray(data), maxInArray(data)];
   const thresholds = options.thresholds ?? [];
   if (!isValid(options.thresholds) && isValidNumber(options.levels)) {
     const step = (extent[1] - extent[0]) / options.levels;

@@ -1,10 +1,10 @@
 import type { UnfoldTransformOptions } from '../../types';
-import { array } from '@visactor/vutils';
+import { array, maxInArray, minInArray } from '@visactor/vutils';
 
 const aggregateFuncs = {
   sum: (arr: number[]) => arr.reduce((sum: number, val: number) => sum + val, 0),
-  min: (arr: number[]) => Math.min.apply(null, arr),
-  max: (arr: number[]) => Math.max.apply(null, arr),
+  min: (arr: number[]) => minInArray(arr),
+  max: (arr: number[]) => maxInArray(arr),
   count: (arr: number[]) => arr.length,
   mean: (arr: number[]) => arr.reduce((sum: number, val: number) => sum + val, 0) / arr.length
 };

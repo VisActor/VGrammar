@@ -1,9 +1,10 @@
+import { maxInArray, minInArray } from '@visactor/vutils';
 import type { SampleTransformOptions } from '../../types';
-import { average, max, min, sum } from '../util/util';
+import { average, sum } from '../util/util';
 
 const samplerMap = {
-  min: min,
-  max: max,
+  min: minInArray,
+  max: maxInArray,
   average: average,
   sum: sum
 };

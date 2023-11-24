@@ -96,8 +96,8 @@ export class Area extends SemanticMark<PlotAreaEncoderSpec, AreaEncodeChannels> 
         y1: (datum: any, el: IElement, params: any) => {
           const scale = params[scaleYId];
           const domain = scale.domain();
-          const min = Math.min.apply(null, domain);
-          const max = Math.max.apply(null, domain);
+          const min = minInArray(domain);
+          const max = maxInArray(domain);
           const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
           return scale.scale(baseValue);

@@ -1,6 +1,6 @@
 import { calculateNodeValue } from './hierarchy';
 import type { ILogger } from '@visactor/vutils';
-import { isNil, clamp, minInArray, isFunction, isNumber, isString, Logger, isValid, isNumeric } from '@visactor/vutils';
+import { isNil, clamp, minInArray, isFunction, isNumber, isString, Logger } from '@visactor/vutils';
 import type {
   SankeyData,
   SankeyOptions,
@@ -355,7 +355,7 @@ export class SankeyLayout {
         );
 
         if (values.length) {
-          link.value = Math.min.apply(null, values);
+          link.value = minInArray(values);
         }
       });
     }
