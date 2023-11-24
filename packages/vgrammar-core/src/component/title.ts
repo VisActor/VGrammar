@@ -1,5 +1,5 @@
 import { isValid, merge } from '@visactor/vutils';
-import type { IGraphic } from '@visactor/vrender-core';
+import type { IGraphic, IRichTextCharacter } from '@visactor/vrender-core';
 import type { TitleAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { Title as TitleComponent } from '@visactor/vrender-components';
@@ -22,13 +22,13 @@ import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
 
 export const generateTitleAttributes = (
-  title?: string | number | number[] | string[],
-  subTitle?: string | number | number[] | string[],
+  title?: string | number | number[] | string[] | IRichTextCharacter[],
+  subTitle?: string | number | number[] | string[] | IRichTextCharacter[],
   theme?: ITheme,
   addition?: RecursivePartial<TitleAttrs>
 ): TitleAttrs => {
   const titleTheme = theme?.components?.title;
-  const attributes: RecursivePartial<TitleAttrs> = {};
+  const attributes: Partial<TitleAttrs> = {};
   if (isValid(title)) {
     attributes.text = title;
   }
@@ -54,11 +54,11 @@ export class Title extends Component implements ITitle {
     return this;
   }
 
-  title(text: MarkFunctionType<string | number | number[] | string[]> | Nil) {
+  title(text: MarkFunctionType<string | number | number[] | string[] | IRichTextCharacter[]> | Nil) {
     return this.setFunctionSpec(text, 'title');
   }
 
-  subTitle(text: MarkFunctionType<string | number | number[] | string[]> | Nil) {
+  subTitle(text: MarkFunctionType<string | number | number[] | string[] | IRichTextCharacter[]> | Nil) {
     return this.setFunctionSpec(text, 'subTitle');
   }
 

@@ -92,9 +92,9 @@ export class RectXSemanticMark extends SemanticMark<PlotRectXEncoderSpec, RectXE
         }
 
         if (isContinuous(scale.type)) {
-          const domain = scale.domain();
-          const min = minInArray(domain);
-          const max = maxInArray(domain);
+          const domain = scale.domain() ?? [];
+          const min = minInArray<number>(domain);
+          const max = maxInArray<number>(domain);
           const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
           return scale.scale(baseValue);

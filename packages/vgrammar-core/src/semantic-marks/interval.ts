@@ -62,8 +62,8 @@ export class Interval extends Mark {
           if (scales && scales.x && scales.x.type === ScaleEnum.Band) {
             if (!isNil(scales.y)) {
               const domain = scales.y.domain();
-              const min = minInArray(domain);
-              const max = maxInArray(domain);
+              const min = minInArray<number>(domain);
+              const max = maxInArray<number>(domain);
               const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
               userEncodeRes.y1 = scales.y.scale(baseValue);

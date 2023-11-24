@@ -144,8 +144,8 @@ export class Interval extends SemanticMark<PlotIntervalEncoderSpec, IntervalEnco
           return scale.scale(yVals[1]);
         }
         const domain = scale.domain();
-        const min = minInArray(domain);
-        const max = maxInArray(domain);
+        const min = minInArray<number>(domain);
+        const max = maxInArray<number>(domain);
         const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
         return scale.scale(baseValue);
