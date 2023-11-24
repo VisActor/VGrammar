@@ -14,7 +14,7 @@ import type {
 import { SemanticMark } from './semantic-mark';
 // eslint-disable-next-line no-duplicate-imports
 import { GrammarMarkType } from '@visactor/vgrammar-core';
-import { isArray } from '@visactor/vutils';
+import { isArray, maxInArray, minInArray } from '@visactor/vutils';
 import { PlotMakType } from './enums';
 
 export class Area extends SemanticMark<PlotAreaEncoderSpec, AreaEncodeChannels> {
@@ -96,8 +96,8 @@ export class Area extends SemanticMark<PlotAreaEncoderSpec, AreaEncodeChannels> 
         y1: (datum: any, el: IElement, params: any) => {
           const scale = params[scaleYId];
           const domain = scale.domain();
-          const min = minInArray(domain);
-          const max = maxInArray(domain);
+          const min = minInArray<number>(domain);
+          const max = maxInArray<number>(domain);
           const baseValue = min > 0 ? min : max < 0 ? max : 0;
 
           return scale.scale(baseValue);

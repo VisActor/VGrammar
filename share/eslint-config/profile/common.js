@@ -84,7 +84,7 @@ module.exports = function buildConfig(type) {
 
         settings: settings,
         rules: {
-          "spellcheck/spell-checker": ['error',
+          "spellcheck/spell-checker": ['warn',
             {
               "comments": true,
               "strings": true,

@@ -1,4 +1,4 @@
-import type { IGraphicAttribute, ITextAttribute } from '@visactor/vrender-core';
+import type { IGraphicAttribute, IRichTextCharacter, ITextAttribute } from '@visactor/vrender-core';
 import type {
   AxisBaseAttributes,
   BaseLabelAttrs,
@@ -201,14 +201,14 @@ export interface PlayerSpec extends ComponentSpec<Partial<PlayerAttributes>> {
 // title component
 
 export interface ITitle extends IComponent {
-  title: (text: MarkFunctionType<string | number | number[] | string[]> | Nil) => this;
-  subTitle: (text: MarkFunctionType<string | number | number[] | string[]> | Nil) => this;
+  title: (text: MarkFunctionType<string | number | number[] | string[] | IRichTextCharacter[]> | Nil) => this;
+  subTitle: (text: MarkFunctionType<string | number | number[] | string[] | IRichTextCharacter[]> | Nil) => this;
 }
 
 export interface TitleSpec extends ComponentSpec<Partial<TitleAttrs>> {
   componentType: ComponentEnum.title;
-  title?: MarkFunctionType<string | number | number[] | string[]>;
-  subTitle?: MarkFunctionType<string | number | number[] | string[]>;
+  title?: MarkFunctionType<string | number | number[] | string[] | IRichTextCharacter[]>;
+  subTitle?: MarkFunctionType<string | number | number[] | string[] | IRichTextCharacter[]>;
 }
 
 // scrollbar component
