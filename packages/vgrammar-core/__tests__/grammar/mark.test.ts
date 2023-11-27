@@ -1,12 +1,13 @@
 import { Mark } from '../../src/view/mark';
 import { isNil } from '@visactor/vutils';
-import { createSimpleElement, getMockedView, registerDefaultTransforms } from '../util';
+import { createSimpleElement, getMockedView, registerDefaultGraphics, registerDefaultTransforms } from '../util';
 import { DiffState } from '../../src';
 import { initBrowserEnv } from '../../src/env';
 
 initBrowserEnv();
 
 registerDefaultTransforms();
+registerDefaultGraphics();
 
 const view = getMockedView();
 
