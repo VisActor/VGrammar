@@ -350,7 +350,7 @@ export class SankeyLayout {
         );
 
         if (values.length) {
-          link.value = Math.min.apply(null, values);
+          link.value = minInArray(values);
         }
       });
     }
