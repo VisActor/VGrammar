@@ -1,6 +1,7 @@
 import type { IPointLike } from '@visactor/vutils';
 import { Factory } from '../core/factory';
 import type { WaveEncoderSpec } from '../types';
+import { registerGlyphGraphic } from '../graph/mark/graphic';
 
 export const registerWaveGlyph = () => {
   Factory.registerGlyph<WaveEncoderSpec>('wave', {
@@ -35,4 +36,5 @@ export const registerWaveGlyph = () => {
         wave2: { curveType: 'monotoneX', fillOpacity: 0.33 }
       };
     });
+  registerGlyphGraphic();
 };
