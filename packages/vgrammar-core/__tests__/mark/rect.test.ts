@@ -1,7 +1,9 @@
 import { createSimpleElement } from '../util';
 import { initBrowserEnv } from '../../src/env';
+import { registerRectGraphic } from '../../src';
 
 initBrowserEnv();
+registerRectGraphic();
 
 test('cornerRadius can be set to Rect', function () {
   const element = createSimpleElement();
