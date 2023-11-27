@@ -15,15 +15,26 @@ export function groupData<T>(
   key: ((datum: T) => symbol | string) | string,
   sort?: (a: T, b: T) => number
 ): GroupedData<T> {
-  const groupedData = new Map();
   if (!data || data.length === 0) {
-    return { keys: [], data: groupedData };
+    return null;
   }
+  const groupedData = new Map();
   if (!key) {
     groupedData.set(DefaultKey, sort ? data.slice().sort(sort) : data.slice());
     return { keys: DefaultGroupKeys, data: groupedData };
   }
   const keyGetter = parseField(key);
+
+  if (data.length === 1) {
+    const key = keyGetter(data[0]);
+    groupedData.set(key, [data[0]]);
+
+    return {
+      keys: [key],
+      data: groupedData
+    };
+  }
+
   const keys = new Set<string>();
   data.forEach(entry => {
     const key = keyGetter(entry);
@@ -47,7 +58,7 @@ export class Differ<T> {
   private callback: (key: symbol | string, data: T[] | null, prevData: T[] | null) => void;
 
   constructor(data?: T[], key?: ((datum: T) => symbol | string) | string, sort?: (a: T, b: T) => number) {
-    this.prevData = groupData(data ?? [], key ?? null, sort);
+    this.prevData = data?.length ? groupData(data, key ?? null, sort) : null;
   }
 
   setCurrentData(currentData: GroupedData<T>) {
@@ -59,7 +70,7 @@ export class Differ<T> {
   }
 
   doDiff() {
-    if (this.callback) {
+    if (this.callback && this.prevData) {
       const prevMap = new Map(this.prevData.data);
       const currentKeys = this.currentData.keys;
       currentKeys.forEach(key => {
@@ -72,6 +83,11 @@ export class Differ<T> {
           this.callback(key, null, prevMap.get(key));
         }
       });
+    } else {
+      const currentKeys = this.currentData.keys;
+      currentKeys.forEach(key => {
+        this.callback(key, this.currentData.data.get(key), null);
+      });
     }
   }
 
@@ -80,12 +96,12 @@ export class Differ<T> {
   }
 
   updateToCurrent() {
-    this.prevData = this.currentData ?? { keys: [], data: new Map() };
+    this.prevData = this.currentData;
     this.currentData = null;
   }
 
   reset() {
-    this.prevData = { keys: [], data: new Map() };
+    this.prevData = null;
   }
 }
 

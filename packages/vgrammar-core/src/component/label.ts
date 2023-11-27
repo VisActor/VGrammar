@@ -5,7 +5,7 @@ import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vrender-component
 // eslint-disable-next-line no-duplicate-imports
 import { DataLabel } from '@visactor/vrender-components';
 import type {
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   IElement,
   IGroupMark,
   IMark,
@@ -25,7 +25,7 @@ import { Factory } from '../core/factory';
 export const generateLabelAttributes = (
   marks: IMark[],
   groupSize: { width: number; height: number },
-  encoder: BaseSignleEncodeSpec,
+  encoder: BaseSingleEncodeSpec,
   labelStyle: MarkFunctionType<Partial<BaseLabelAttrs>>,
   parameters: any,
   theme?: ITheme
@@ -183,7 +183,7 @@ export class Label extends Component implements ILabel {
             return generateLabelAttributes(
               marks,
               size,
-              encoder as BaseSignleEncodeSpec,
+              encoder as BaseSingleEncodeSpec,
               this.spec.labelStyle,
               parameters,
               theme

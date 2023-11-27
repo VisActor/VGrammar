@@ -9,8 +9,8 @@ import type {
   IElement,
   MarkFunctionType,
   AttributeTransform,
-  GetSignleEncodeSpecByType,
-  BaseSignleEncodeSpec
+  GetSingleEncodeSpecByType,
+  BaseSingleEncodeSpec
 } from '../types';
 import { Mark } from '../view/mark';
 import { isArray, isNil, isNumber } from '@visactor/vutils';
@@ -25,7 +25,7 @@ export class Cell extends Mark {
 
   protected _encoders: StateEncodeSpec | null;
 
-  encodeState(state: string, channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>) {
+  encodeState(state: string, channel: string | BaseSingleEncodeSpec, value?: MarkFunctionType<any>) {
     super.encodeState(state, channel, value);
 
     this._updateComponentEncoders(state);
@@ -38,7 +38,7 @@ export class Cell extends Mark {
       this._encoders = {};
     }
 
-    const userEncoder = this.spec.encode[state] as GetSignleEncodeSpecByType<'cell'>;
+    const userEncoder = this.spec.encode[state] as GetSingleEncodeSpecByType<'cell'>;
 
     if (userEncoder && state === 'update') {
       const params = this.parameters();
@@ -76,7 +76,7 @@ export class Cell extends Mark {
 
           return userEncodeRes;
         }
-      } as GetSignleEncodeSpecByType<'cell'>;
+      } as GetSingleEncodeSpecByType<'cell'>;
     } else {
       this._encoders[state] = userEncoder;
     }

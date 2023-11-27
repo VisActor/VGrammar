@@ -39,7 +39,7 @@ import type {
   Nil,
   IAnimate,
   MarkStateSortSpec,
-  BaseSignleEncodeSpec
+  BaseSingleEncodeSpec
 } from '../types';
 import { isFieldEncode, isScaleEncode, parseEncodeType } from '../parse/mark';
 import { getGrammarOutput, parseField, isFunctionType } from '../parse/util';
@@ -279,8 +279,7 @@ export class Mark extends GrammarBase implements IMark {
       return;
     }
     const currentData = data ?? DefaultMarkData;
-    const groupKeyGetter = parseField(this.spec.groupBy ?? (() => DefaultKey));
-    const res = groupData(currentData, groupKeyGetter, this.spec.groupSort);
+    const res = groupData(currentData, this.spec.groupBy, this.spec.groupSort);
     const groupKeys = res.keys as string[];
 
     this._groupKeys = groupKeys;
@@ -375,13 +374,13 @@ export class Mark extends GrammarBase implements IMark {
     return this.setFunctionSpec(state, 'state');
   }
 
-  encode(channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any> | boolean, clear?: boolean): this {
+  encode(channel: string | BaseSingleEncodeSpec, value?: MarkFunctionType<any> | boolean, clear?: boolean): this {
     return this.encodeState(DiffState.update, channel, value, clear);
   }
 
   encodeState(
     state: string,
-    channel: string | BaseSignleEncodeSpec,
+    channel: string | BaseSingleEncodeSpec,
     value?: MarkFunctionType<any> | boolean,
     clear?: boolean
   ): this {
@@ -855,11 +854,7 @@ export class Mark extends GrammarBase implements IMark {
     }
 
     this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK);
-    if (this.markType === GrammarMarkType.group) {
-      graphicItem.name = `${this.id() || this.markType}`;
-
-      this.graphicParent.insertIntoKeepIdx(graphicItem as unknown as INode, this.graphicIndex);
-    } else if (this.renderContext?.progressive) {
+    if (this.renderContext?.progressive) {
       let group: IGroup;
 
       if (this._groupKeys) {

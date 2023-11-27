@@ -491,13 +491,13 @@ export type GetEncoderSpecByType<T, P = any> = T extends keyof BasicEncoderSpecM
   : StateEncodeSpec<GenerateBasicEncoderSpec<IGraphicAttribute> & P>;
 
 export type BaseEncodeSpec<P = any> = StateEncodeSpec<GenerateBasicEncoderSpec<IGraphicAttribute & P>>;
-export type BaseSignleEncodeSpec<P = any> =
+export type BaseSingleEncodeSpec<P = any> =
   | GenerateEncoderSpec<GenerateBasicEncoderSpec<IGraphicAttribute & P>>
   | StateProxyEncodeSpec<GenerateBasicEncoderSpec<IGraphicAttribute & P>>;
 
-export type GetSignleEncodeSpecByType<T, P = any> = T extends keyof BasicEncoderSpecMap
+export type GetSingleEncodeSpecByType<T, P = any> = T extends keyof BasicEncoderSpecMap
   ? GenerateEncoderSpec<BasicEncoderSpecMap[T]> | StateProxyEncodeSpec<BasicEncoderSpecMap[T]>
-  : BaseSignleEncodeSpec<P>;
+  : BaseSingleEncodeSpec<P>;
 
 export type MarkSpec =
   | GenerateMarkSpec<string, any>
