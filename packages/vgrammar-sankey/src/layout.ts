@@ -1,6 +1,6 @@
 import { calculateNodeValue } from './hierarchy';
 import type { ILogger } from '@visactor/vutils';
-import { isNil, clamp, minInArray, isFunction, isNumber, isString, Logger } from '@visactor/vutils';
+import { isNil, clamp, minInArray, isFunction, isNumber, isString, Logger, isValid, isNumeric } from '@visactor/vutils';
 import type {
   SankeyData,
   SankeyOptions,
@@ -269,13 +269,8 @@ export class SankeyLayout {
     return { nodes, links, nodeMap };
   }
 
-  computeNodeLinks(data: SankeyData) {
-    if (!('links' in data)) {
-      this._isHierarchic = true;
-      return this.computeHierarchicNodeLinks(data.nodes);
-    }
-
-    let nodes: SankeyNodeElement[] = [];
+  computeSourceTargetNodeLinks(data: { nodes?: SankeyNodeDatum[]; links: SankeyLinkDatum[] }) {
+    const nodes: SankeyNodeElement[] = [];
     const links: SankeyLinkElement[] = [];
     const nodeMap: Record<string | number, SankeyNodeElement> = {};
 
@@ -355,10 +350,29 @@ export class SankeyLayout {
         );
 
         if (values.length) {
-          link.value = minInArray(values);
+          link.value = Math.min.apply(null, values);
         }
       });
     }
+
+    return { nodeMap, nodes, links };
+  }
+
+  computeNodeLinks(data: SankeyData) {
+    let res: {
+      nodeMap: Record<string | number, SankeyNodeElement>;
+      nodes: SankeyNodeElement[];
+      links: SankeyLinkElement[];
+    };
+    if (!('links' in data)) {
+      this._isHierarchic = true;
+      res = this.computeHierarchicNodeLinks(data.nodes);
+    } else {
+      res = this.computeSourceTargetNodeLinks(data);
+    }
+
+    let nodes = res.nodes;
+    const links = res.links;
 
     if (this.options.linkSortBy) {
       for (let i = 0, len = nodes.length; i < len; i++) {
@@ -371,7 +385,7 @@ export class SankeyLayout {
       nodes = nodes.filter(node => node.targetLinks.length || node.sourceLinks.length);
     }
 
-    return { nodes, links, nodeMap };
+    return { nodes, links, nodeMap: res.nodeMap };
   }
 
   computeNodeValues(nodes: SankeyNodeElement[]) {
