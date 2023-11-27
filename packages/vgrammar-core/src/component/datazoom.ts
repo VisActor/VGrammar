@@ -5,7 +5,7 @@ import { DataZoom as DatazoomComponent } from '@visactor/vrender-components';
 import { isNil, isString, merge, mixin } from '@visactor/vutils';
 import { ComponentEnum } from '../graph/enums';
 import type {
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   ChannelEncodeType,
   IData,
   IElement,
@@ -161,7 +161,7 @@ export class Datazoom extends Component implements IDatazoom {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
             const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
-            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSingleEncodeSpec, datum, element, parameters);
             return generateDatazoomAttributes(dataGrammar?.getValue?.(), theme, addition);
           }
         };

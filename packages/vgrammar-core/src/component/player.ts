@@ -9,7 +9,7 @@ import type {
 // eslint-disable-next-line no-duplicate-imports
 import { ContinuousPlayer, DiscretePlayer } from '@visactor/vrender-components';
 import type {
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   IData,
   IElement,
   IGroupMark,
@@ -139,7 +139,7 @@ export class Player extends Component implements IPlayer {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
             const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
-            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSingleEncodeSpec, datum, element, parameters);
             const source = this.spec.source;
             const sourceDataGrammar = isArray(source)
               ? null
