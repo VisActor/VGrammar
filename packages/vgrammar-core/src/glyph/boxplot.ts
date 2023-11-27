@@ -7,7 +7,7 @@ import type {
   TypeAnimation
 } from '../types';
 import { Factory } from '../core/factory';
-import { registerGlyphGraphic } from '../graph/mark/graphic';
+import { registerGlyphGraphic, registerRectGraphic, registerRuleGraphic } from '../graph/mark/graphic';
 
 export interface IBoxplotScaleAnimationOptions {
   center?: number;
@@ -510,4 +510,6 @@ export function registerBarBoxplotGlyph() {
   Factory.registerAnimationType('barBoxplotScaleIn', barBoxplotScaleIn);
   Factory.registerAnimationType('barBoxplotScaleOut', barBoxplotScaleOut);
   registerGlyphGraphic();
+  registerRectGraphic();
+  registerRuleGraphic();
 }
