@@ -47,6 +47,7 @@ export const getMockedView = () => {
     background: () => 'white',
     getCurrentTheme: () => defaultTheme
   };
+  registerDefaultGraphics();
   (view as any).renderer = new CanvasRenderer(view as any);
   (view as any).renderer.initialize(500, 500, {}, {});
 
@@ -74,6 +75,7 @@ export function createSimpleElement(
     isProgressive: () => false,
     getAttributeTransforms: () => transformsByType[options?.transformType ?? markType]
   } as any;
+  registerDefaultGraphics();
   mark.addGraphicItem = () => {
     return (createGraphicItem as any)(mark, markType, {});
   };
