@@ -33,3 +33,4 @@ export * from './env';
 export * from './interactions';
 export * from './semantic-marks/cell';
 export * from './semantic-marks/interval';
+export * from './graph/mark/graphic';
