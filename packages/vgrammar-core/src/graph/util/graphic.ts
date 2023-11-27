@@ -8,7 +8,7 @@ import { Factory } from '../../core/factory';
 import { Logger } from '@visactor/vutils';
 
 export const isMarkType = (type: string) => {
-  return !!Factory.getGraphicType[type];
+  return !!GrammarMarkType[type];
 };
 
 export function createGraphicItem(mark: IMark, markType: string, attrs: any = {}) {
@@ -39,8 +39,10 @@ export function createGlyphGraphicItem(mark: IMark, glyphMeta: IGlyphMeta, attrs
   const subGraphics: IGraphic[] = Object.keys(glyphMarks).map(name => {
     if (Factory.getGraphicType(glyphMarks[name])) {
       const graphic = Factory.createGraphic(glyphMarks[name]);
-      graphic.name = name;
-      return graphic;
+      if (graphic) {
+        graphic.name = name;
+        return graphic;
+      }
     }
   });
   graphicItem.setSubGraphic(subGraphics);
