@@ -8,7 +8,20 @@ export const spec = {
       scaleX: 'xscale',
       scaleY: 'yscale',
       radiusX: 100,
-      radiusY: 100,
+      radiusY: 100
+    },
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'line',
+      crosshairType: 'x'
+    },
+
+    {
+      type: 'crosshair',
+      scale: 'yscale',
+      crosshairShape: 'line',
+      crosshairType: 'y'
     }
   ],
 
@@ -176,7 +189,7 @@ export const spec = {
       dependency: ['viewBox'],
       range: (scale, params) => {
         return [20, 60];
-      },
+      }
     },
     {
       id: 'color',
@@ -232,39 +245,6 @@ export const spec = {
       }
     },
 
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'line',
-      crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
-          };
-        }
-      }
-    },
-
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'yscale',
-      crosshairShape: 'line',
-      crosshairType: 'y',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { x: params.viewBox.x1 },
-            end: { x: params.viewBox.x2 }
-          };
-        }
-      }
-    },
     {
       type: 'component',
       componentType: 'legend',
