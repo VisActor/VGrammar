@@ -2,7 +2,13 @@ import { isValidNumber } from '@visactor/vutils';
 import type { IGlyphElement, ViolinEncoderSpec } from '../types';
 import { Factory } from '../core/factory';
 import type { IBaseScale } from '@visactor/vscale';
-import { registerGlyphGraphic } from '../graph/mark/graphic';
+import {
+  registerGlyphGraphic,
+  registerPolygonGraphic,
+  registerRectGraphic,
+  registerRuleGraphic,
+  registerSymbolGraphic
+} from '../graph/mark/graphic';
 
 const defaultDensitySize = 30;
 
@@ -157,4 +163,8 @@ export const registerViolinGlyph = () => {
       };
     });
   registerGlyphGraphic();
+  registerPolygonGraphic();
+  registerRuleGraphic();
+  registerRectGraphic();
+  registerSymbolGraphic();
 };
