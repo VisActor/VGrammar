@@ -11,8 +11,8 @@ import type {
   IElement,
   MarkFunctionType,
   AttributeTransform,
-  GetSignleEncodeSpecByType,
-  BaseSignleEncodeSpec
+  GetSingleEncodeSpecByType,
+  BaseSingleEncodeSpec
 } from '../types';
 import { Mark } from '../view/mark';
 import { isNil, maxInArray, minInArray } from '@visactor/vutils';
@@ -28,7 +28,7 @@ export class Interval extends Mark {
 
   protected _encoders: StateEncodeSpec;
 
-  encodeState(state: string, channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>) {
+  encodeState(state: string, channel: string | BaseSingleEncodeSpec, value?: MarkFunctionType<any>) {
     super.encodeState(state, channel, value);
 
     this._updateComponentEncoders(state);
@@ -41,7 +41,7 @@ export class Interval extends Mark {
       this._encoders = {};
     }
 
-    const userEncoder = this.spec.encode[state] as GetSignleEncodeSpecByType<'interval'>;
+    const userEncoder = this.spec.encode[state] as GetSingleEncodeSpecByType<'interval'>;
 
     if (userEncoder && state === 'update') {
       const params = this.parameters();
@@ -104,7 +104,7 @@ export class Interval extends Mark {
 
           return userEncodeRes;
         }
-      } as GetSignleEncodeSpecByType<'interval'>;
+      } as GetSingleEncodeSpecByType<'interval'>;
     } else {
       this._encoders[state] = userEncoder;
     }

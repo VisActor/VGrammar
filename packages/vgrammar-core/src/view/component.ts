@@ -1,5 +1,5 @@
 import { DefaultKey } from '../graph/constants';
-import { GrammarMarkType } from '../graph/enums';
+import { GrammarMarkType, HOOK_EVENT } from '../graph/enums';
 import type {
   IGroupMark,
   IView,
@@ -9,10 +9,10 @@ import type {
   Nil,
   MarkFunctionType,
   StateEncodeSpec,
-  BaseSignleEncodeSpec
+  BaseSingleEncodeSpec
 } from '../types';
-import { Mark } from './mark';
 import { Factory } from '../core/factory';
+import { Mark } from './mark';
 
 export class Component extends Mark implements IComponent {
   declare markType: GrammarMarkType.component;
@@ -43,17 +43,26 @@ export class Component extends Mark implements IComponent {
     const graphicItem =
       newGraphicItem ??
       Factory.createGraphicComponent(this.componentType, attrs, { mode: this.mode, skipDefault: this.spec.skipTheme });
-    return super.addGraphicItem(attrs, groupKey, graphicItem);
+    this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK);
+    (this.graphicParent as any).appendChild(graphicItem);
+
+    this.emit(HOOK_EVENT.AFTER_ADD_VRENDER_MARK);
+
+    return graphicItem;
   }
 
   join(data: IData | string | Nil) {
     return super.join(data, DefaultKey);
   }
 
-  encodeState(state: string, channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>) {
+  encodeState(state: string, channel: string | BaseSingleEncodeSpec, value?: MarkFunctionType<any>) {
     super.encodeState(state, channel, value);
     this._updateComponentEncoders();
     return this;
+  }
+
+  parseRenderContext() {
+    return { large: false };
   }
 
   protected _prepareRejoin() {

@@ -4,7 +4,7 @@ import type { TitleAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { Title as TitleComponent } from '@visactor/vrender-components';
 import type {
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   IElement,
   IGroupMark,
   ITheme,
@@ -72,7 +72,7 @@ export class Title extends Component implements ITitle {
             const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             const title = invokeFunctionType(this.spec.title, parameters, datum, element);
             const subTitle = invokeFunctionType(this.spec.subTitle, parameters, datum, element);
-            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSingleEncodeSpec, datum, element, parameters);
             return generateTitleAttributes(title, subTitle, theme, addition);
           }
         };

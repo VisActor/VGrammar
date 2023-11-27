@@ -1,6 +1,6 @@
 import { isNil, isNumber, isString } from '@visactor/vutils';
 import { field as getFieldAccessor } from '@visactor/vgrammar-util';
-import type { BaseSignleEncodeSpec, IElement, MarkElementItem } from '../../types';
+import type { BaseSingleEncodeSpec, IElement, MarkElementItem } from '../../types';
 import { isFieldEncode, isScaleEncode } from '../../parse/mark';
 import { getGrammarOutput, invokeFunctionType, isFunctionType } from '../../parse/util';
 import { isPositionOrSizeChannel } from '../attributes/helpers';
@@ -13,7 +13,7 @@ import { Factory } from '../../core/factory';
 export function invokeEncoderToItems(
   element: IElement,
   items: MarkElementItem[],
-  encoder: BaseSignleEncodeSpec,
+  encoder: BaseSingleEncodeSpec,
   parameters: any,
   onlyFullEncodeFirst?: boolean
 ) {
@@ -66,7 +66,7 @@ export function invokeEncoderToItems(
  * invoke encoder for single item
  * use invokeEncoderToItems instead if item amount is large
  */
-export function invokeEncoder(encoder: BaseSignleEncodeSpec, datum: any, element: IElement, parameters: any) {
+export function invokeEncoder(encoder: BaseSingleEncodeSpec, datum: any, element: IElement, parameters: any) {
   if (!encoder) {
     return null;
   }
@@ -100,7 +100,7 @@ export function invokeEncoder(encoder: BaseSignleEncodeSpec, datum: any, element
   return attributes;
 }
 
-export function splitEncoderInLarge(markType: string, encoder: BaseSignleEncodeSpec, glyphType?: string) {
+export function splitEncoderInLarge(markType: string, encoder: BaseSingleEncodeSpec, glyphType?: string) {
   // function encoder can not be splitted
   if (isFunctionType(encoder)) {
     return { themeEncoder: {}, positionEncoder: encoder };
