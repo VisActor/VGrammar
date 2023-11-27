@@ -1,4 +1,6 @@
 import * as transforms from '../src/transforms/index';
+import * as graphics from '../src/graph/mark/graphic';
+
 import { createGlyphGraphicItem, createGraphicItem } from '../src/graph/util/graphic';
 import { createElement } from '../src/graph/util/element';
 import { transformsByType } from '../src/graph/attributes';
@@ -9,6 +11,12 @@ import { defaultTheme } from '../src/theme/default';
 export function registerDefaultTransforms() {
   Object.keys(transforms).forEach(key => {
     transforms[key]();
+  });
+}
+
+export function registerDefaultGraphics() {
+  Object.keys(graphics).forEach(key => {
+    graphics[key]();
   });
 }
 

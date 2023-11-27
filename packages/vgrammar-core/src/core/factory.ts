@@ -1,4 +1,4 @@
-import type { IGraphic } from '@visactor/vrender-core';
+import type { IGraphic, IGraphicAttribute } from '@visactor/vrender-core';
 import type {
   GlyphChannelEncoder,
   GlyphDefaultEncoder,
@@ -31,6 +31,7 @@ export class Factory {
   private static _glyphs: Record<string, IGlyphMeta<any, any>> = {};
   private static _animations: Record<string, TypeAnimation<IGlyphElement> | TypeAnimation<IElement>> = {};
   private static _interactions: Record<string, IInteractionConstructor> = {};
+  private static _graphics: Record<string, (attributes: IGraphicAttribute) => IGraphic> = {};
 
   static registerPlotMarks(key: string, mark: IPlotMarkConstructor) {
     Factory._plotMarks[key] = mark;
@@ -171,4 +172,20 @@ export class Factory {
 
     return new Ctor(view, options);
   }
+
+  static registerGraphic = (graphicType: string, creator: (attributes: IGraphicAttribute) => IGraphic) => {
+    Factory._graphics[graphicType] = creator;
+  };
+
+  static getGraphicType = (graphicType: string) => {
+    return Factory._graphics[graphicType];
+  };
+
+  static createGraphic = (graphicType: string, attributes?: IGraphicAttribute) => {
+    const creator = Factory._graphics[graphicType];
+    if (!creator) {
+      return null;
+    }
+    return creator(attributes);
+  };
 }

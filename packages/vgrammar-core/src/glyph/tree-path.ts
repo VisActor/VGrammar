@@ -2,6 +2,7 @@ import type { IAnimationParameters, TypeAnimation, TreePathEncoderSpec } from '.
 import type { IElement } from '../types/element';
 import { Factory } from '../core/factory';
 import { isNil } from '@visactor/vutils';
+import { registerGlyphGraphic } from '../graph/mark/graphic';
 
 export interface TreePathConfig {
   direction?: 'horizontal' | 'vertical' | 'LR' | 'RL' | 'TB' | 'BL' | 'radial';
@@ -260,8 +261,8 @@ export const registerTreePathGlyph = () => {
         endArrow: { zIndex: 2 }
       };
     });
-
   Factory.registerAnimationType('treePathGrowIn', treePathGrowIn);
   Factory.registerAnimationType('treePathGrowOut', treePathGrowOut);
   Factory.registerAnimationType('treePathUpdate', treePathUpdate);
+  registerGlyphGraphic();
 };
