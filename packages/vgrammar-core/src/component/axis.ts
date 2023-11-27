@@ -5,7 +5,7 @@ import type { CircleAxisAttributes, LineAxisAttributes, ComponentOptions } from 
 import { CircleAxis as CircleAxisComponent, LineAxis as LineAxisComponent } from '@visactor/vrender-components';
 import type { IBaseScale } from '@visactor/vscale';
 import type {
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   IElement,
   IGroupMark,
   IScale,
@@ -201,7 +201,7 @@ export class Axis extends ScaleComponent implements IAxis {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
             const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
-            let addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
+            let addition = invokeEncoder(encoder as BaseSingleEncodeSpec, datum, element, parameters);
             const inside = invokeFunctionType(this.spec.inside, parameters, datum, element);
             const baseValue = invokeFunctionType(this.spec.baseValue, parameters, datum, element);
 

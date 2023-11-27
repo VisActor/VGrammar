@@ -29,7 +29,7 @@ import {
 import { getLineSegmentConfigs, getLinePointsFromSegments, parseCollectionMarkAttributes } from './attributes/line';
 import type {
   BaseEncodeSpec,
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   IElement,
   IMark,
   IMarkConfig,
@@ -333,7 +333,7 @@ export class Element implements IElement {
     return this.states && this.states.includes(state);
   }
 
-  addState(state: string | string[], attrs?: BaseSignleEncodeSpec) {
+  addState(state: string | string[], attrs?: BaseSingleEncodeSpec) {
     const states = array(state);
     const nextStates = states.reduce((nextStates: string[], state: string) => {
       if (!nextStates.includes(state)) {

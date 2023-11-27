@@ -4,7 +4,7 @@ import type { Direction, OrientType, ScrollBarAttributes } from '@visactor/vrend
 // eslint-disable-next-line no-duplicate-imports
 import { ScrollBar as ScrollbarComponent } from '@visactor/vrender-components';
 import type {
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   IElement,
   IGroupMark,
   ITheme,
@@ -187,7 +187,7 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
             const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
             const direction = invokeFunctionType(this.spec.direction, parameters, datum, element);
             const position = invokeFunctionType(this.spec.position, parameters, datum, element);
-            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSingleEncodeSpec, datum, element, parameters);
             const targetMark = this.spec.container
               ? isString(this.spec.container)
                 ? this.view.getMarkById(this.spec.container)

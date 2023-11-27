@@ -5,7 +5,7 @@ import type { CircleAxisGridAttributes, ComponentOptions, LineAxisGridAttributes
 import { CircleAxisGrid, LineAxisGrid } from '@visactor/vrender-components';
 import type { IBaseScale } from '@visactor/vscale';
 import type {
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   IElement,
   IGroupMark,
   IScale,
@@ -168,7 +168,7 @@ export class Grid extends ScaleComponent implements IGrid {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
             const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
-            let addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
+            let addition = invokeEncoder(encoder as BaseSingleEncodeSpec, datum, element, parameters);
             let scaleGrammar: IScale;
             const baseValue = invokeFunctionType(this.spec.baseValue, parameters, datum, element);
 
