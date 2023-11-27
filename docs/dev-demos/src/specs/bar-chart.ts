@@ -12,6 +12,22 @@ export const spec = {
   //     window: false
   //   }
   // },
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      container: 'mainGroup',
+      crosshairType: 'x',
+      crosshairShape: 'rect'
+    },
+    {
+      type: 'crosshair',
+      scale: 'yscale',
+      container: 'mainGroup',
+      crosshairType: 'y',
+      crosshairShape: 'rect'
+    }
+  ],
   events: [
     {
       type: '@bar:mousedown',
@@ -153,6 +169,7 @@ export const spec = {
   marks: [
     {
       type: 'group',
+      id: 'mainGroup',
       encode: {
         enter: { x: 40, y: 40, width: 320, height: 320 }
       },
@@ -171,20 +188,7 @@ export const spec = {
         //   crosshairType: 'y',
         //   crosshairShape: 'line'
         // },
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'xscale',
-          crosshairType: 'x',
-          crosshairShape: 'rect'
-        },
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'yscale',
-          crosshairType: 'y',
-          crosshairShape: 'rect'
-        },
+
         {
           type: 'rect',
           id: 'bar',
