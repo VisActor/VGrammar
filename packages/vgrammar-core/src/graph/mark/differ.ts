@@ -15,10 +15,10 @@ export function groupData<T>(
   key: ((datum: T) => symbol | string) | string,
   sort?: (a: T, b: T) => number
 ): GroupedData<T> {
-  if (!data || data.length === 0) {
-    return null;
-  }
   const groupedData = new Map();
+  if (!data || data.length === 0) {
+    return { keys: [], data: groupedData };
+  }
   if (!key) {
     groupedData.set(DefaultKey, sort ? data.slice().sort(sort) : data.slice());
     return { keys: DefaultGroupKeys, data: groupedData };
@@ -70,7 +70,10 @@ export class Differ<T> {
   }
 
   doDiff() {
-    if (this.callback && this.prevData) {
+    if (!this.callback) {
+      return;
+    }
+    if (this.currentData && this.prevData) {
       const prevMap = new Map(this.prevData.data);
       const currentKeys = this.currentData.keys;
       currentKeys.forEach(key => {
@@ -83,10 +86,14 @@ export class Differ<T> {
           this.callback(key, null, prevMap.get(key));
         }
       });
-    } else {
+    } else if (this.currentData) {
       const currentKeys = this.currentData.keys;
       currentKeys.forEach(key => {
         this.callback(key, this.currentData.data.get(key), null);
+      });
+    } else if (this.prevData) {
+      this.prevData.keys.forEach(key => {
+        this.callback(key, null, this.prevData.data.get(key));
       });
     }
   }
