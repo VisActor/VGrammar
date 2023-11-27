@@ -444,3 +444,18 @@ test('layout when  divideNodeValueToLink = true', () => {
   });
   expect(result.links[0].y0).toBeCloseTo(50);
 });
+
+test('hierarchy data sankey can be sort', () => {
+  const data = { nodes: hierarchyData01 };
+
+  const layout = new SankeyLayout({
+    nodeKey: (datum: any) => datum.name,
+    linkSortBy: (a: any, b: any) => {
+      return a.value - b.value;
+    }
+  });
+  const result = layout.layout(data, { width: 800, height: 400 });
+
+  expect(result.nodes.length).toBe(11);
+  expect(result.nodes[0].sourceLinks.map(link => link.value)).toEqual([0, 30, 35]);
+});
