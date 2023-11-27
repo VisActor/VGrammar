@@ -105,6 +105,30 @@ import {
   registerViewRoam,
   registerFishEye,
 
+  // graphics
+  registerCircleGraphic,
+  registerArcGraphic,
+  registerArc3dGraphic,
+  registerPyramid3dGraphic,
+  registerAreaGraphic,
+  registerGroupGraphic,
+  registerImageGraphic,
+  registerRect3dGraphic,
+  registerLineGraphic,
+  registerPathGraphic,
+  registerRectGraphic,
+  registerRuleGraphic,
+  registerShapeGraphic,
+  registerSymbolGraphic,
+  registerTextGraphic,
+  registerPolygonGraphic,
+  registerRichTextGraphic,
+  registerCellGraphic,
+  registerIntervalGraphic,
+  registerGlyphGraphic,
+  registerLargeRectsGraphic,
+  registerLargeSymbolsGraphic,
+
   // envs
   initAutoEnv
 } from '@visactor/vgrammar-core';
@@ -207,7 +231,31 @@ View.useRegisters([
   registerViewScroll,
   registerViewDrag,
   registerViewRoam,
-  registerFishEye
+  registerFishEye,
+
+  // graphics
+  registerCircleGraphic,
+  registerArcGraphic,
+  registerArc3dGraphic,
+  registerPyramid3dGraphic,
+  registerAreaGraphic,
+  registerGroupGraphic,
+  registerImageGraphic,
+  registerRect3dGraphic,
+  registerLineGraphic,
+  registerPathGraphic,
+  registerRectGraphic,
+  registerRuleGraphic,
+  registerShapeGraphic,
+  registerSymbolGraphic,
+  registerTextGraphic,
+  registerPolygonGraphic,
+  registerRichTextGraphic,
+  registerCellGraphic,
+  registerIntervalGraphic,
+  registerGlyphGraphic,
+  registerLargeRectsGraphic,
+  registerLargeSymbolsGraphic
 ]);
 
 initAutoEnv();
