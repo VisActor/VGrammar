@@ -23,44 +23,6 @@ function storeOriginAttributes(
 }
 
 export const transformsByType: Record<string, AttributeTransform[]> = {
-  [GrammarMarkType.largeRects]: [
-    {
-      channels: ['x', 'y', 'y1', 'x1', 'width', 'height'],
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        graphicAttributes.x = 0;
-        graphicAttributes.y = 0;
-      }
-    }
-  ],
-  [GrammarMarkType.largeSymbols]: [
-    {
-      channels: ['x', 'y', 'size'],
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        graphicAttributes.x = 0;
-        graphicAttributes.y = 0;
-      }
-    }
-  ],
-  [GrammarMarkType.area]: [
-    {
-      channels: ['x', 'y', 'x1', 'y1'],
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        graphicAttributes.x = 0;
-        graphicAttributes.y = 0;
-        graphicAttributes.x1 = 0;
-        graphicAttributes.y1 = 0;
-      }
-    }
-  ],
-  [GrammarMarkType.line]: [
-    {
-      channels: ['x', 'y', 'defined'],
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        graphicAttributes.x = 0;
-        graphicAttributes.y = 0;
-      }
-    }
-  ],
   [GrammarMarkType.rect]: [
     {
       channels: ['x', 'y', 'x1', 'y1', 'width', 'height'],

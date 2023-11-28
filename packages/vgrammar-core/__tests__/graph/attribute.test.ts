@@ -261,10 +261,7 @@ test('cloneTransformAttributes()', () => {
     width: 100,
     x: 10
   });
-  expect(cloneTransformAttributes('area', { x: 10, x1: 20, fill: 'red', fillOpacity: 1 })).toEqual({
-    x: 10,
-    x1: 20
-  });
+  expect(cloneTransformAttributes('area', { x: 10, x1: 20, fill: 'red', fillOpacity: 1 })).toEqual({});
   expect(
     cloneTransformAttributes('text', { x: 10, x1: 20, fill: 'red', fillOpacity: 1, text: 'aaa', limit: 100 })
   ).toEqual({
