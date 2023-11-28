@@ -112,24 +112,18 @@ test('enableSegments is true', function () {
     points: null,
     segments: [
       {
-        context: 0,
         points: [
           { x: 0, y: 10, context: 0, stroke: 'red' },
           { x: 1, y: 10, context: 1, stroke: 'red' }
         ],
-        stroke: 'red',
-        x: 0,
-        y: 0
+        stroke: 'red'
       },
       {
-        context: 2,
         points: [
           { x: 2, y: 10, context: 2, stroke: 'green' },
           { x: 3, y: 10, context: 3, stroke: 'green' }
         ],
-        stroke: 'green',
-        x: 0,
-        y: 0
+        stroke: 'green'
       }
     ],
     stroke: 'red'
