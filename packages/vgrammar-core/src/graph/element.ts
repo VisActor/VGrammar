@@ -26,7 +26,7 @@ import {
   isValidPointsChannel,
   isPointsMarkType
 } from './attributes/helpers';
-import { getLineSegmentConfigs, getLinePointsFromSegments } from './attributes/line';
+import { getLineSegmentConfigs, getLinePointsFromSegments, parseCollectionMarkAttributes } from './attributes/line';
 import type {
   BaseEncodeSpec,
   BaseSignleEncodeSpec,
@@ -470,9 +470,7 @@ export class Element implements IElement {
       const enableSegments = this.mark.getSpec().enableSegments;
       const itemNextAttrs = items.map(item => item.nextAttrs);
       const isProgressive = this.mark.isProgressive();
-      nextAttrs = Object.assign({}, nextAttrs);
-      delete nextAttrs.x;
-      delete nextAttrs.y;
+      nextAttrs = parseCollectionMarkAttributes(nextAttrs);
 
       if (markType === GrammarMarkType.line || markType === GrammarMarkType.area) {
         const linePoints = getLinePoints(items, true, lastPoints, markType === GrammarMarkType.area);

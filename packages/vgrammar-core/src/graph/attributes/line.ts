@@ -144,7 +144,7 @@ export function getLineSegmentConfigs(items: any[], points: any[], element?: IEl
 
   if (segments.length >= 2) {
     return segments.map(entry => {
-      const res = transformAttributes(GrammarMarkType.line, entry.attrs, element) as any;
+      const res = transformAttributes(GrammarMarkType.line, parseCollectionMarkAttributes(entry.attrs), element) as any;
 
       res.points = points.slice(entry.startIndex, isNil(entry.endIndex) ? points.length : entry.endIndex);
       return res;
@@ -161,4 +161,31 @@ export function getLinePointsFromSegments(segments: any[]) {
   return segments.reduce((points, segment) => {
     return points.concat(segment.points);
   }, []);
+}
+
+export function parseCollectionMarkAttributes(itemNextAttrs: any) {
+  const result = {};
+
+  if (!itemNextAttrs) {
+    return result;
+  }
+
+  Object.keys(itemNextAttrs).forEach(key => {
+    if (
+      key === 'x' ||
+      key === 'y' ||
+      key === 'x1' ||
+      key === 'y1' ||
+      key === 'defined' ||
+      key === 'size' ||
+      key === 'width' ||
+      key === 'height' ||
+      key === 'context'
+    ) {
+      return;
+    }
+    result[key] = itemNextAttrs[key];
+  });
+
+  return result;
 }
