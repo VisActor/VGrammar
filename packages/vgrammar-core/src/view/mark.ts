@@ -132,7 +132,7 @@ export class Mark extends GrammarBase implements IMark {
 
     // remove old encode
     Object.keys(this.spec.encode ?? {}).forEach(state => {
-      this.encodeState(state, {});
+      this.encodeState(state, {}, true);
     });
 
     // add new encode
@@ -375,11 +375,16 @@ export class Mark extends GrammarBase implements IMark {
     return this.setFunctionSpec(state, 'state');
   }
 
-  encode(channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>): this {
-    return this.encodeState(DiffState.update, channel, value);
+  encode(channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any> | boolean, clear?: boolean): this {
+    return this.encodeState(DiffState.update, channel, value, clear);
   }
 
-  encodeState(state: string, channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any>): this {
+  encodeState(
+    state: string,
+    channel: string | BaseSignleEncodeSpec,
+    value?: MarkFunctionType<any> | boolean,
+    clear?: boolean
+  ): this {
     if (state === DiffState.enter) {
       this._isReentered = true;
     }
@@ -392,11 +397,20 @@ export class Mark extends GrammarBase implements IMark {
       if (isFunctionType(lastEncoder)) {
         this.detach(parseEncodeType(lastEncoder, this.view));
       } else {
-        if (isString(channel)) {
-          this.detach(parseEncodeType(this.spec.encode[state][channel], this.view));
+        const isSingleChannel = isString(channel);
+        const clearAll = (isSingleChannel && clear) || (!isSingleChannel && value);
+
+        if (clearAll) {
+          Object.keys(lastEncoder).forEach(c => {
+            this.detach(parseEncodeType(lastEncoder[c], this.view));
+          });
+
+          this.spec.encode[state] = {};
+        } else if (isSingleChannel) {
+          this.detach(parseEncodeType(lastEncoder[channel], this.view));
         } else {
           Object.keys(channel).forEach(c => {
-            this.detach(parseEncodeType(this.spec.encode[state][c], this.view));
+            this.detach(parseEncodeType(lastEncoder[c], this.view));
           });
         }
       }
