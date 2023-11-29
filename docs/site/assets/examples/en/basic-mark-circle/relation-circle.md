@@ -15,7 +15,7 @@ In this chart, we use the radius of the `circle` to represent the size of the co
 ```javascript livedemo template=vgrammar
 VGrammar.registerRippleGlyph();
 const spec = {
-  padding: { top: 5, right: 5, bottom: 30, left: 60 },
+  padding: 0,
 
   data: [
     {
@@ -52,33 +52,21 @@ const spec = {
         { word: 'SOUGOU输入法', pv: 264, ratio: 89, sim: 452 },
         { word: '微软拼音', pv: 2772, ratio: 93, sim: 443 }
       ]
-    }
-  ],
-
-  scales: [
-    {
-      id: 'sizeScale',
-      type: 'linear',
-      domain: { data: 'table', field: 'pv' },
-      range: [12, 30]
     },
     {
-      id: 'radiusScale',
-      type: 'linear',
-      dependency: ['viewBox'],
-      domain: { data: 'table', field: 'sim' },
-      zero: true,
-      range: (scale, params) => {
-        const minRadius = Math.max(Math.min(params.viewBox.width() / 2, params.viewBox.height() / 2) * 0.2, 20);
-        const maxRadius = Math.max(params.viewBox.width(), params.viewBox.height()) / 2;
-        return [minRadius, maxRadius];
-      }
-    },
-    {
-      id: 'angleScale',
-      type: 'band',
-      domain: { data: 'table', field: 'word' },
-      range: [Math.PI / 2, (-3 * Math.PI) / 2]
+      id: 'relation',
+      source: 'table',
+      transform: [
+        {
+          type: 'circularRelation',
+          field: 'sim',
+          radiusRange: [12, 30],
+          radiusField: 'pv',
+          width: { signal: 'viewWidth' },
+          height: { signal: 'viewHeight' },
+          innerRadius: '40%'
+        }
+      ]
     }
   ],
 
@@ -106,7 +94,7 @@ const spec = {
     },
     {
       type: 'circle',
-      dependency: ['viewBox', 'radiusScale'],
+      dependency: ['viewBox'],
       encode: {
         update: {
           x: (datum, element, params) => {
@@ -116,7 +104,7 @@ const spec = {
             return params.viewBox.y1 + params.viewBox.height() / 2;
           },
           radius: (datum, element, params) => {
-            return params.radiusScale.range()[0];
+            return (0.2 * Math.max(params.viewBox.width(), params.viewBox.height())) / 2;
           },
           fill: '#6690F2'
         }
@@ -143,24 +131,13 @@ const spec = {
     },
     {
       type: 'circle',
-      from: { data: 'table' },
-      dependency: ['viewBox', 'angleScale', 'sizeScale', 'radiusScale'],
+      from: { data: 'relation' },
       encode: {
-        update: (datum, element, params) => {
-          const viewBox = params.viewBox;
-          const angleScale = params.angleScale;
-          const radius = params.radiusScale.scale(datum.sim);
-          const domain = angleScale.domain();
-          const angle = angleScale.scale(datum.word) + (domain.indexOf(datum.word) % 2 ? Math.PI : 0);
-          const cx = viewBox.x1 + viewBox.width() / 2;
-          const cy = viewBox.y1 + viewBox.height() / 2;
-
-          return {
-            x: cx + radius * Math.cos(angle),
-            y: cy + radius * Math.sin(angle),
-            radius: params.sizeScale.scale(datum.pv),
-            fill: '#6690F2'
-          };
+        update: {
+          x: { field: 'x' },
+          y: { field: 'y' },
+          radius: { field: 'radius' },
+          fill: '#6690F2'
         },
         hover: {
           fill: 'red'
@@ -169,26 +146,16 @@ const spec = {
     },
     {
       type: 'text',
-      from: { data: 'table' },
-      dependency: ['viewBox', 'angleScale', 'sizeScale', 'radiusScale'],
+      from: { data: 'relation' },
       encode: {
-        update: (datum, element, params) => {
-          const viewBox = params.viewBox;
-          const angleScale = params.angleScale;
-          const radius = params.radiusScale.scale(datum.sim);
-          const domain = angleScale.domain();
-          const angle = angleScale.scale(datum.word) + (domain.indexOf(datum.word) % 2 ? Math.PI : 0);
-          const cx = viewBox.x1 + viewBox.width() / 2;
-          const cy = viewBox.y1 + viewBox.height() / 2;
-
-          return {
-            x: cx + radius * Math.cos(angle),
-            y: cy + radius * Math.sin(angle) + params.sizeScale.scale(datum.pv) + 10,
-            text: datum.word,
-            textAlign: 'center',
-            textBaseline: 'middle',
-            fill: '#333'
-          };
+        update: {
+          x: { field: 'x' },
+          y: { field: 'y' },
+          text: { field: 'datum.word' },
+          fontSize: 12,
+          textAlign: 'center',
+          textBaseline: 'middle',
+          fill: '#333'
         },
         hover: {
           fill: 'red'
@@ -201,7 +168,8 @@ const spec = {
 const vGrammarView = new View({
   autoFit: true,
   container: document.getElementById(CONTAINER_ID),
-  hover: true
+  hover: true,
+  logLevel: 5
 });
 vGrammarView.parseSpec(spec);
 

@@ -62,6 +62,7 @@ importers:
       '@types/react-dom': ^18.0.0
       '@visactor/vgrammar': workspace:0.9.4
       '@visactor/vgrammar-coordinate': workspace:0.9.4
+      '@visactor/vgrammar-core': workspace:0.9.4
       '@visactor/vgrammar-hierarchy': workspace:0.9.4
       '@visactor/vgrammar-plot': workspace:0.9.4
       '@visactor/vgrammar-projection': workspace:0.9.4
@@ -97,6 +98,7 @@ importers:
       '@arco-design/web-react': 2.46.1_dkfbrx5dbnqck2dtpdwvtytcpu
       '@visactor/vgrammar': link:../../packages/vgrammar
       '@visactor/vgrammar-coordinate': link:../../packages/vgrammar-coordinate
+      '@visactor/vgrammar-core': link:../../packages/vgrammar-core
       '@visactor/vgrammar-hierarchy': link:../../packages/vgrammar-hierarchy
       '@visactor/vgrammar-plot': link:../../packages/vgrammar-plot
       '@visactor/vgrammar-projection': link:../../packages/vgrammar-projection
