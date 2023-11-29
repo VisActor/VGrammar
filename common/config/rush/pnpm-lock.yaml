@@ -68,7 +68,6 @@ importers:
       '@visactor/vgrammar-sankey': workspace:0.9.4
       '@visactor/vgrammar-util': workspace:0.9.4
       '@visactor/vgrammar-wordcloud': workspace:0.9.4
-      '@visactor/vgrammar-wordcloud-shape': workspace:0.9.4
       '@visactor/vrender': ~0.16.17
       '@visactor/vrender-core': ~0.16.17
       '@visactor/vrender-kits': ~0.16.17
