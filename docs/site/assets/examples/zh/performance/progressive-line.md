@@ -51,10 +51,20 @@ const spec = {
       nice: true
     }
   ],
+  interactions: [
+    {
+      type: 'crosshair',
+      container: '#container',
+      scale: 'xscale',
+      crosshairShape: 'rect',
+      crosshairType: 'x'
+    }
+  ],
 
   marks: [
     {
       type: 'group',
+      id: 'container',
       dependency: ['viewBox'],
       encode: {
         update: (scale, elment, params) => {
@@ -102,13 +112,7 @@ const spec = {
             }
           }
         },
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'xscale',
-          crosshairShape: 'rect',
-          crosshairType: 'x'
-        },
+
         {
           type: 'line',
           id: 'line',
