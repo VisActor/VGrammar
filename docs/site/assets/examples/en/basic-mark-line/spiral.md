@@ -62,6 +62,30 @@ const spec = {
       }
     }
   ],
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'line',
+      crosshairType: 'angle',
+      dependencies: ['viewBox'],
+      attributes: (scale, elment, params) => {
+        return {
+          radius: Math.min(params.viewBox.height(), params.viewBox.width()) / 2,
+          center: {
+            x: (params.viewBox.x1 + params.viewBox.x2) / 2,
+            y: (params.viewBox.y1 + params.viewBox.y2) / 2
+          }
+        };
+      }
+    },
+    {
+      type: 'tooltip',
+      selector: '#symbol',
+      title: { value: { field: 'time' } },
+      content: [{ key: 'a', value: { field: 'a' } }]
+    }
+  ],
 
   marks: [
     {
@@ -124,25 +148,6 @@ const spec = {
         }
       }
     },
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'line',
-      crosshairType: 'angle',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            radius: Math.min(params.viewBox.height(), params.viewBox.width()) / 2,
-            center: {
-              x: (params.viewBox.x1 + params.viewBox.x2) / 2,
-              y: (params.viewBox.y1 + params.viewBox.y2) / 2
-            }
-          };
-        }
-      }
-    },
 
     {
       type: 'line',
@@ -159,7 +164,7 @@ const spec = {
           lineWidth: 2
         }
       }
-    },
+    }
     // {
     //   type: 'symbol',
     //   id: 'symbol',
@@ -176,13 +181,6 @@ const spec = {
     //     }
     //   }
     // },
-    {
-      type: 'component',
-      componentType: 'tooltip',
-      target: 'symbol',
-      title: { value: { field: 'time' } },
-      content: [{ key: 'a', value: { field: 'a' } }]
-    }
   ]
 };
 

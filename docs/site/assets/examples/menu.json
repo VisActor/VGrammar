@@ -204,6 +204,13 @@
             "zh": "气泡图",
             "en": "Bubble Chart"
           }
+        },
+        {
+          "path": "jitter-symbol",
+          "title": {
+            "zh": "扰动点图",
+            "en": "Jitter points"
+          }
         }
       ]
     },
@@ -556,8 +563,8 @@
         {
           "path": "slider",
           "title": {
-            "zh": "基础散点图",
-            "en": "Basic Scatterplot"
+            "zh": "Slider",
+            "en": "Slider"
           }
         }
       ]

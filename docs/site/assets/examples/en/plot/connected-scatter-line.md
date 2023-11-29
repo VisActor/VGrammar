@@ -359,6 +359,8 @@ plot
   .encode('y', 'gas')
   .axis('x', { tickCount: 5 })
   .axis('y', { tickCount: 5 })
+  .grid('x', true)
+  .grid('y', true)
   .scale('x', { type: 'linear' })
   .tooltip(false)
   .crosshair('x', false)

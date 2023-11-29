@@ -207,6 +207,36 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'line',
+      crosshairType: 'x',
+      dependencies: ['viewBox'],
+      attributes: (scale, elment, params) => {
+        return {
+          start: { y: params.viewBox.y1 },
+          end: { y: params.viewBox.y2 }
+        };
+      }
+    },
+
+    {
+      type: 'crosshair',
+      scale: 'yscale',
+      crosshairShape: 'line',
+      crosshairType: 'y',
+      dependencies: ['viewBox'],
+      attributes: (scale, elment, params) => {
+        return {
+          start: { x: params.viewBox.x1 },
+          end: { x: params.viewBox.x2 }
+        };
+      }
+    }
+  ],
+
   marks: [
     {
       type: 'component',
@@ -242,39 +272,6 @@ const spec = {
       }
     },
 
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'line',
-      crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
-          };
-        }
-      }
-    },
-
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'yscale',
-      crosshairShape: 'line',
-      crosshairType: 'y',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { x: params.viewBox.x1 },
-            end: { x: params.viewBox.x2 }
-          };
-        }
-      }
-    },
     {
       type: 'component',
       componentType: 'legend',
