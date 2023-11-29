@@ -1126,9 +1126,28 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      container: '#container',
+      scale: 'xscale',
+      crosshairShape: 'line',
+      crosshairType: 'x'
+    },
+
+    {
+      type: 'crosshair',
+      container: '#container',
+      scale: 'yscale',
+      crosshairShape: 'line',
+      crosshairType: 'y'
+    }
+  ],
+
   marks: [
     {
       type: 'group',
+      id: 'container',
       dependency: ['viewBox'],
       encode: {
         update: (scale, elment, params) => {
@@ -1142,24 +1161,6 @@ const spec = {
       },
 
       marks: [
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'xscale',
-          crosshairShape: 'line',
-          crosshairType: 'x',
-          dependency: ['viewBox']
-        },
-
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'yscale',
-          crosshairShape: 'line',
-          crosshairType: 'y',
-          dependency: ['viewBox']
-        },
-
         {
           type: 'symbol',
           from: { data: 'markData' },
