@@ -1,18 +1,18 @@
 ---
 category: examples
 group: basic-mark-symbol
-title: 气泡图
-order: 3-1
+title: 扰动点图
+order: 3-2
 cover:
 ---
 
-# 气泡图
+# 扰动点图
 
-当将数据映射到 `Symbol` 图元的`size`通道的时候，这种图表我们一般称为气泡图
+当我们只关心点在一个维度的值时，我们可以通过`jitter`变换将点“抖开”
 
 ## 关键配置
 
-- `size` 通道进行数据映射
+- `transform: [{ type: 'jitter' }]` 设置变换类型为`jitter`
 
 ## 代码演示
 
@@ -26059,6 +26059,22 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'rect',
+      crosshairType: 'x',
+      dependencies: ['viewBox'],
+      attributes: (scale, elment, params) => {
+        return {
+          start: { y: params.viewBox.y1 },
+          end: { y: params.viewBox.y2 }
+        };
+      }
+    }
+  ],
+
   marks: [
     {
       type: 'component',
@@ -26077,22 +26093,6 @@ const spec = {
       }
     },
 
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'rect',
-      crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
-          };
-        }
-      }
-    },
     {
       type: 'component',
       componentType: 'legend',

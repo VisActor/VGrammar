@@ -218,7 +218,7 @@ const spec = {
       domain: { data: 'stack', field: 'month' },
       dependency: ['viewBox'],
       range: (scale, params) => {
-        return [params.viewBox.x1, params.viewBox.x2];
+        return [0, params.viewBox.width()];
       },
       padding: 0.05,
       round: true
@@ -229,7 +229,7 @@ const spec = {
       domain: { data: 'stack', field: ['curValue', 'lastValue'] },
       dependency: ['viewBox'],
       range: (scale, params) => {
-        return [params.viewBox.y2, params.viewBox.y1];
+        return [params.viewBox.height(), 0];
       },
       nice: true
     },
@@ -252,87 +252,24 @@ const spec = {
     }
   ],
 
-  marks: [
+  interactions: [
     {
-      type: 'component',
-      componentType: 'axis',
-      scale: 'xscale',
-      tickCount: -1,
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            x: params.viewBox.x1,
-            y: params.viewBox.y2,
-            start: { x: 0, y: 0 },
-            end: { x: params.viewBox.width(), y: 0 }
-          };
-        }
-      }
-    },
-    {
-      type: 'component',
-      componentType: 'axis',
-      scale: 'yscale',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            x: params.viewBox.x1,
-            y: params.viewBox.y1,
-            start: { x: 0, y: params.viewBox.height() },
-            end: { x: 0, y: 0 },
-            verticalFactor: -1
-          };
-        }
-      }
-    },
-    {
-      type: 'component',
-      componentType: 'crosshair',
+      type: 'crosshair',
       scale: 'xscale',
       crosshairShape: 'rect',
       crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
-          };
-        }
-      }
+      container: '#container'
     },
     {
-      type: 'rect',
-      id: 'stackRect',
-      from: { data: 'stack' },
-      groupBy: 'product',
-      key: 'month',
-      encode: {
-        update: {
-          x: { scale: 'xscale', field: 'month', band: 0.25 },
-          width: { scale: 'xscale', band: 0.5 },
-          y: { scale: 'yscale', field: 'curValue' },
-          y1: { scale: 'yscale', field: 'lastValue' },
-          fill: { scale: 'color', field: 'product' }
-        },
-        hover: {
-          fill: 'red'
-        }
-      }
-    },
-    {
-      type: 'component',
-      componentType: 'tooltip',
-      target: 'stackRect',
+      type: 'tooltip',
+      selector: '#stackRect',
       title: { value: { field: 'month' } },
-      dependency: ['color'],
+      dependencies: ['color'],
       content: [
         {
           key: '数量',
           value: { field: 'value' },
-          symbol: (datum, element, params) => {
+          symbol: (datum, params) => {
             return {
               symbolType: 'square',
               fill: params.color.scale(datum.product)
@@ -341,14 +278,88 @@ const spec = {
         },
         {
           key: '总计',
-          value: (datum, element, params) => {
+          value: (datum, params) => {
             return datum.sum;
           },
-          symbol: (datum, element, params) => {
+          symbol: (datum, params) => {
             return {
               symbolType: 'square',
               fill: params.color.scale(datum.product)
             };
+          }
+        }
+      ]
+    }
+  ],
+
+  marks: [
+    {
+      type: 'group',
+      id: 'container',
+      dependency: ['viewBox'],
+      encode: {
+        update: (scale, elment, params) => {
+          return {
+            x: params.viewBox.x1,
+            y: params.viewBox.y1,
+            width: params.viewBox.width(),
+            height: params.viewBox.height()
+          };
+        }
+      },
+
+      marks: [
+        {
+          type: 'component',
+          componentType: 'axis',
+          scale: 'xscale',
+          tickCount: -1,
+          dependency: ['viewBox'],
+          encode: {
+            update: (scale, elment, params) => {
+              return {
+                x: 0,
+                y: params.viewBox.height(),
+                start: { x: 0, y: 0 },
+                end: { x: params.viewBox.width(), y: 0 }
+              };
+            }
+          }
+        },
+        {
+          type: 'component',
+          componentType: 'axis',
+          scale: 'yscale',
+          dependency: ['viewBox'],
+          encode: {
+            update: (scale, elment, params) => {
+              return {
+                x: 0,
+                y: 0,
+                start: { x: 0, y: params.viewBox.height() },
+                end: { x: 0, y: 0 },
+                verticalFactor: -1
+              };
+            }
+          }
+        },
+        {
+          type: 'rect',
+          id: 'stackRect',
+          from: { data: 'stack' },
+          groupBy: 'product',
+          key: 'month',
+          encode: {
+            update: {
+              x: { scale: 'xscale', field: 'month', band: 0.25 },
+              width: { scale: 'xscale', band: 0.5 },
+              y: { scale: 'yscale', field: 'curValue' },
+              y1: { scale: 'yscale', field: 'lastValue' },
+              fill: { scale: 'color', field: 'product' }
+            },
+            hover: {
+              fill: 'red'
+            }
           }
         }
       ]

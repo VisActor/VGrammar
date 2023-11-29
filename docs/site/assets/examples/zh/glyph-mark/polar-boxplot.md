@@ -127,6 +127,25 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'angleScale',
+      crosshairShape: 'rect',
+      crosshairType: 'angle',
+      attributes: (datum, element, params) => {
+        return {
+          radius: params.polar.radius,
+          center: {
+            x: params.polar.x,
+            y: params.polar.y
+          }
+        };
+      },
+      dependencies: 'polar'
+    }
+  ],
+
   marks: [
     {
       type: 'component',
@@ -162,25 +181,7 @@ const spec = {
       },
       dependency: 'polar'
     },
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'angleScale',
-      crosshairShape: 'rect',
-      crosshairType: 'angle',
-      encode: {
-        update: (datum, element, params) => {
-          return {
-            radius: params.polar.radius,
-            center: {
-              x: params.polar.x,
-              y: params.polar.y
-            }
-          };
-        }
-      },
-      dependency: 'polar'
-    },
+
     {
       type: 'glyph',
       from: { data: 'table' },
