@@ -61,43 +61,185 @@ VGrammar.Factory.registerGlyph('event', {
       label: {
         textAlign: 'center',
         textBaseline: 'top',
-        // fontFamily: '行楷-简',
         fontSize: 12,
         fontStyle: 'normal',
         lineHeight: 24,
         fillOpacity: 0.6,
-        fill: '#fff'
+        fill: '#000'
       },
-      event: { textAlign: 'center', fontFamily: '行楷-简', fontSize: 20, fontStyle: 'bold', lineHeight: 16 },
+      event: { textAlign: 'center', fontSize: 20, fontStyle: 'bold', lineHeight: 16 },
       dot: { shape: 'circle', size: 10, fillOpacity: 0.5 },
-      line: { lineWidth: 1, strokeOpacity: 0.3, stroke: '#fff' }
+      line: { lineWidth: 1, strokeOpacity: 0.3, stroke: '#000' }
     };
   });
 
 const spec = {
   padding: { top: 0, right: 0, bottom: 60, left: 0 },
-  background: 'black',
 
   data: [
     {
       id: 'source',
       values: [
-        { year: '2014-8', event: '订阅号创建', name: '玄魂', node: 'node' },
-        { year: '2015', event: '沉寂', name: '玄魂', node: 'node' },
-        { year: '2016-4', event: '暗网系列', name: '玄魂', node: 'node' },
-        { year: '2016-5', event: 'kali Linux 系列', name: '玄魂', node: 'node1' },
-        { year: '2016-6', event: '黑客编程系列', name: '玄魂', node: 'node' },
-        { year: '2016-7', event: '如何学习 Python 系列', name: '玄魂', node: 'node' },
-        { year: '2016-8', event: `启动'每周1书'赠送计划`, name: '玄魂', node: 'node' },
-        { year: '2018-3', event: '如何学 Python 新番', name: '初音', node: 'node' },
-        { year: '2018-4', event: 'linux 基础系列', name: '初音', node: 'node' },
-        { year: '2018-5', event: 'CTF 实战系列', name: '初音', node: 'node1' },
-        { year: '2018-7', event: 'Kali Linux Web渗透测试手册(第二版) 翻译系列', name: '掣雷小组', node: 'node1' },
-        { year: '2019-8', event: 'CVE 漏洞系列', name: 'power7089', node: 'node1' },
-        { year: '2020-5', event: '磐石计划 ', name: '陈殷', node: 'node1' },
-        { year: '2020-12', event: '移动端逆向系列 ', name: 'WhITECat安全团队', node: 'node1' },
-        { year: '2021-8', event: '炼石计划', name: 'power7089', node: 'node1' },
-        { year: '2023-7', event: '玄魂工作室正式告别', name: '玄魂', node: 'node1' }
+        {
+          year: '1896',
+          event: 'April 6-15',
+          name: 'Athens'
+        },
+        {
+          year: '1900',
+          event: 'May 20-October 28',
+          name: 'Paris'
+        },
+        {
+          year: '1904',
+          event: 'July 1-November 23',
+          name: 'St. Louis'
+        },
+        {
+          year: '1908',
+          event: 'April 27-October 31',
+          name: 'London'
+        },
+        {
+          year: '1912',
+          event: 'May 5-July 22',
+          name: 'Stockholm'
+        },
+        {
+          year: '1916',
+          event: 'Canceled',
+          name: 'Berlin'
+        },
+        {
+          year: '1920',
+          event: 'April 20-September 12',
+          name: 'Antwerp'
+        },
+        {
+          year: '1924',
+          event: 'May 4-July 27',
+          name: 'Paris'
+        },
+        {
+          year: '1928',
+          event: 'May 17-August 12',
+          name: 'Amsterdam'
+        },
+        {
+          year: '1932',
+          event: 'July 30-August 14',
+          name: 'Los Angeles'
+        },
+        {
+          year: '1936',
+          event: 'August 1-16',
+          name: 'Berlin'
+        },
+        {
+          year: '1940',
+          event: 'Canceled',
+          name: 'Tokyo'
+        },
+        {
+          year: '1944',
+          event: 'Canceled',
+          name: 'London'
+        },
+        {
+          year: '1948',
+          event: 'July 29-August 14',
+          name: 'London'
+        },
+        {
+          year: '1952',
+          event: 'July 19-August 3',
+          name: 'Helsinki'
+        },
+        {
+          year: '1956',
+          event: 'November 22-December 8',
+          name: 'Melbourne'
+        },
+        {
+          year: '1960',
+          event: 'August 25-September 11',
+          name: 'Rome'
+        },
+        {
+          year: '1964',
+          event: 'October 10-24',
+          name: 'Tokyo'
+        },
+        {
+          year: '1968',
+          event: 'October 12-27',
+          name: 'Mexico City'
+        },
+        {
+          year: '1972',
+          event: 'August 26-September 10',
+          name: 'Munich'
+        },
+        {
+          year: '1976',
+          event: 'July 17-August 1',
+          name: 'Montreal'
+        },
+        {
+          year: '1980',
+          event: 'July 19-August 3',
+          name: 'Moscow'
+        },
+        {
+          year: '1984',
+          event: 'July 28-August 12',
+          name: 'Los Angeles'
+        },
+        {
+          year: '1988',
+          event: 'September 17-October 2',
+          name: 'Seoul'
+        },
+        {
+          year: '1992',
+          event: 'July 25-August 9',
+          name: 'Barcelona'
+        },
+        {
+          year: '1996',
+          event: 'July 19-August 9',
+          name: 'Atlanta'
+        },
+        {
+          year: '2000',
+          event: 'September 15-October 1',
+          name: 'Sydney'
+        },
+        {
+          year: '2004',
+          event: 'August 13-29',
+          name: 'Athens'
+        },
+        {
+          year: '2008',
+          event: 'August 8-24',
+          name: 'Beijing'
+        },
+        {
+          year: '2012',
+          event: 'July 27-August 12',
+          name: 'London'
+        },
+        {
+          year: '2016',
+          event: 'August 5-21',
+          name: 'Rio'
+        },
+        {
+          year: '2021',
+          event: 'July 23-August 8',
+          name: 'Tokyo'
+        }
       ]
     },
     {
@@ -142,18 +284,16 @@ const spec = {
       type: 'ordinal',
       domain: { data: 'table', field: 'year' },
       range: [
-        '#5383F4',
-        '#7BCF8E',
-        '#FF9D2C',
-        '#FFDB26',
-        '#7568D9',
-        '#80D8FB',
-        '#1857A3',
-        '#CAB0E8',
-        '#FF8867',
-        '#B9E493',
-        '#2CB4A8',
-        '#B9E4E3'
+        '#6690F2',
+        '#70D6A3',
+        '#B4E6E2',
+        '#63B5FC',
+        '#FF8F62',
+        '#FFDC83',
+        '#BCC5FD',
+        '#A29BFE',
+        '#63C4C7',
+        '#F68484'
       ]
     }
   ],
@@ -174,7 +314,7 @@ const spec = {
             x1: params.width,
             lineWidth: 1,
             strokeOpacity: 0.3,
-            stroke: '#fff'
+            stroke: '#000'
           };
         }
       }
@@ -187,7 +327,7 @@ const spec = {
         enter: [
           {
             loop: true,
-            duration: 10000,
+            duration: 20000,
             easing: 'linear',
             channel: {
               dx: {
@@ -232,7 +372,7 @@ const spec = {
         enter: [
           {
             loop: true,
-            duration: 10000,
+            duration: 20000,
             easing: 'linear',
             channel: {
               dx: {

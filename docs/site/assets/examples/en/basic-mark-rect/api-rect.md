@@ -94,7 +94,6 @@ const yAxis = vGrammarView
       verticalFactor: -1
     };
   });
-const crosshair = vGrammarView;
 
 const rect = vGrammarView
   .mark('rect', group)

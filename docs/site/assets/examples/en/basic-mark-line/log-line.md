@@ -100,6 +100,27 @@ const spec = {
       }
     }
   ],
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'line',
+      crosshairType: 'x',
+      dependencies: ['viewBox'],
+      attributes: (scale, elment, params) => {
+        return {
+          start: { y: params.viewBox.y1 },
+          end: { y: params.viewBox.y2 }
+        };
+      }
+    },
+    {
+      type: 'tooltip',
+      selector: '#symbol',
+      title: { value: { field: 'time' } },
+      content: [{ key: 'a', value: { field: 'a' } }]
+    }
+  ],
 
   marks: [
     {
@@ -119,22 +140,7 @@ const spec = {
         }
       }
     },
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'line',
-      crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
-          };
-        }
-      }
-    },
+
     {
       type: 'component',
       componentType: 'axis',
@@ -183,13 +189,6 @@ const spec = {
           lineWidth: 2
         }
       }
-    },
-    {
-      type: 'component',
-      componentType: 'tooltip',
-      target: 'symbol',
-      title: { value: { field: 'time' } },
-      content: [{ key: 'a', value: { field: 'a' } }]
     }
   ]
 };

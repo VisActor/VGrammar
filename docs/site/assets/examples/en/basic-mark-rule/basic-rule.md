@@ -100,6 +100,22 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'line',
+      crosshairType: 'x',
+      dependencies: ['viewBox'],
+      attributes: (scale, elment, params) => {
+        return {
+          start: { y: params.viewBox.y1 },
+          end: { y: params.viewBox.y2 }
+        };
+      }
+    }
+  ],
+
   marks: [
     {
       type: 'rule',
@@ -171,23 +187,6 @@ const spec = {
             start: { x: 0, y: params.viewBox.height() },
             end: { x: 0, y: 0 },
             verticalFactor: -1
-          };
-        }
-      }
-    },
-
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'line',
-      crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
           };
         }
       }

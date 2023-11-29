@@ -124,9 +124,35 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      container: '#container',
+      scale: 'xscale',
+      crosshairShape: 'rect',
+      crosshairType: 'y'
+    },
+    {
+      type: 'tooltip',
+      selector: '#rect',
+      title: { visible: false, value: 'value' },
+      content: [
+        {
+          key: { field: 'name' },
+          value: { field: 'value' },
+          symbol: {
+            symbolType: 'circle',
+            fill: '#6690F2'
+          }
+        }
+      ]
+    }
+  ],
+
   marks: [
     {
       type: 'group',
+      id: 'container',
       dependency: ['viewBox'],
       encode: {
         update: (scale, elment, params) => {
@@ -140,13 +166,6 @@ const spec = {
       },
 
       marks: [
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'xscale',
-          crosshairShape: 'rect',
-          crosshairType: 'y'
-        },
         {
           type: 'rect',
           id: 'rect',
@@ -182,22 +201,6 @@ const spec = {
               text: datum => `${datum.name}: ${datum.value}`
             }
           }
-        },
-        {
-          type: 'component',
-          componentType: 'tooltip',
-          target: 'rect',
-          title: { visible: false, value: 'value' },
-          content: [
-            {
-              key: { field: 'name' },
-              value: { field: 'value' },
-              symbol: {
-                symbolType: 'circle',
-                fill: '#6690F2'
-              }
-            }
-          ]
         }
       ]
     }

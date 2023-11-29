@@ -205,7 +205,6 @@ const spec = {
       transform: [
         {
           type: 'stack',
-          //orient: 'negative',
           dimensionField: 'month',
           stackField: 'value',
           asStack: 'value',
@@ -260,6 +259,52 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'rect',
+      crosshairType: 'x',
+      dependencies: ['viewBox'],
+      attributes: (scale, elment, params) => {
+        return {
+          start: { y: params.viewBox.y1 },
+          end: { y: params.viewBox.y2 }
+        };
+      }
+    },
+    {
+      type: 'tooltip',
+      selector: '#stack',
+      title: { value: { field: 'month' } },
+      dependencies: ['color'],
+      content: [
+        {
+          key: '数量',
+          value: { field: 'value' },
+          symbol: (datum, params) => {
+            return {
+              symbolType: 'square',
+              fill: params.color.scale(datum.product)
+            };
+          }
+        },
+        {
+          key: '占比',
+          value: (datum, params) => {
+            return (datum.percent * 100).toFixed(2) + '%';
+          },
+          symbol: (datum, params) => {
+            return {
+              symbolType: 'square',
+              fill: params.color.scale(datum.product)
+            };
+          }
+        }
+      ]
+    }
+  ],
+
   marks: [
     {
       type: 'component',
@@ -295,22 +340,7 @@ const spec = {
         }
       }
     },
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'rect',
-      crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
-          };
-        }
-      }
-    },
+
     {
       type: 'rect',
       id: 'stack',
@@ -329,37 +359,6 @@ const spec = {
           fill: 'red'
         }
       }
-    },
-    {
-      type: 'component',
-      componentType: 'tooltip',
-      target: 'stack',
-      title: { value: { field: 'month' } },
-      dependency: ['color'],
-      content: [
-        {
-          key: '数量',
-          value: { field: 'value' },
-          symbol: (datum, element, params) => {
-            return {
-              symbolType: 'square',
-              fill: params.color.scale(datum.product)
-            };
-          }
-        },
-        {
-          key: '占比',
-          value: (datum, element, params) => {
-            return (datum.percent * 100).toFixed(2) + '%';
-          },
-          symbol: (datum, element, params) => {
-            return {
-              symbolType: 'square',
-              fill: params.color.scale(datum.product)
-            };
-          }
-        }
-      ]
     }
   ]
 };
