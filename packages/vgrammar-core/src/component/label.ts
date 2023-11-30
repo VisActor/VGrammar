@@ -49,6 +49,7 @@ export const generateLabelAttributes = (
           }
           break;
         case GrammarMarkType.rect:
+        case GrammarMarkType.rect3d:
         case GrammarMarkType.interval:
           currentTheme = theme?.components?.rectLabel;
           break;
