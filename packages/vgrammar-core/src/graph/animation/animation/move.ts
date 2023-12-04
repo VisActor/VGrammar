@@ -10,12 +10,21 @@ export const moveIn: TypeAnimation<IElement> = (
   animationParameters: IAnimationParameters
 ) => {
   const offset = options?.offset ?? 0;
-  // consider the offset of group
-  const groupBounds = animationParameters.group ? animationParameters.group.getBounds() : null;
-  const groupWidth = groupBounds?.width() ?? animationParameters.width;
-  const groupHeight = groupBounds?.height() ?? animationParameters.height;
-  const changedX = (options?.orient === 'negative' ? groupWidth : 0) + offset;
-  const changedY = (options?.orient === 'negative' ? groupHeight : 0) + offset;
+  let changedX = 0;
+  let changedY = 0;
+
+  if (options?.orient === 'negative') {
+    // consider the offset of group
+    const groupBounds = animationParameters.group ? animationParameters.group.getBounds() : null;
+    const groupWidth = groupBounds?.width() ?? animationParameters.width;
+    const groupHeight = groupBounds?.height() ?? animationParameters.height;
+
+    changedX = groupWidth;
+    changedY = groupHeight;
+  }
+
+  changedX += offset;
+  changedY += offset;
   const point = isFunction(options?.point)
     ? options.point.call(null, element.getDatum(), element, animationParameters)
     : options?.point;
