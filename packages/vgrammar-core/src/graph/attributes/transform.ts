@@ -13,10 +13,20 @@ function storeOriginAttributes(
   element: IElement,
   markName: string
 ): Record<string, any> {
-  const prevStoredAttrs = (element as IGlyphElement).getGraphicAttribute(name, false, markName) ?? {};
+  const prevStoredAttrs = (element as IGlyphElement).getGraphicAttribute(name, false, markName);
+
+  if (prevStoredAttrs) {
+    channels.forEach(channel => {
+      if (channel in nextAttrs) {
+        prevStoredAttrs[channel] = nextAttrs[channel];
+      }
+    });
+
+    return prevStoredAttrs;
+  }
   const storedAttrs = {};
   channels.forEach(channel => {
-    storedAttrs[channel] = nextAttrs[channel] ?? prevStoredAttrs[channel];
+    storedAttrs[channel] = nextAttrs[channel];
   });
   graphicAttributes[name] = storedAttrs;
   return storedAttrs;
@@ -128,11 +138,15 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
         if (nextAttrs.image) {
           graphicAttributes.background = nextAttrs.image;
           graphicAttributes.fill = false;
+        } else if (storedAttrs.image) {
+          graphicAttributes.background = storedAttrs.image;
+          graphicAttributes.fill = false;
         } else {
-          graphicAttributes.fill = nextAttrs.fill;
-          graphicAttributes.background = nextAttrs.background;
+          graphicAttributes.fill = storedAttrs.fill;
+          graphicAttributes.background = storedAttrs.background;
         }
-      }
+      },
+      storedAttrs: 'imageAttrs'
     }
   ],
   [GrammarMarkType.richtext]: [
