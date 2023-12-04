@@ -288,16 +288,17 @@ export class Animate implements IAnimate {
       }
       const width = this.mark.view.width();
       const height = this.mark.view.height();
+      const animationParameters = {
+        width,
+        height,
+        group: this.mark.group ?? null,
+        mark: this.mark,
+        view: this.mark.view,
+        elementCount: animatedElements.length,
+        elementIndex: 0
+      };
       animatedElements.forEach((element, index) => {
-        const animationParameters: IAnimationParameters = {
-          width,
-          height,
-          group: this.mark.group ?? null,
-          mark: this.mark,
-          view: this.mark.view,
-          elementCount: animatedElements.length,
-          elementIndex: index
-        };
+        animationParameters.elementIndex = index;
         // add animation parameter into parameters
         const mergedParameters = Object.assign({ [DefaultAnimationParameters]: animationParameters }, parameters);
         const animationUnit = this.getAnimationUnit(

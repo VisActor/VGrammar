@@ -141,7 +141,9 @@ function growWidthInOverall(
     if (isNumber(options?.overall)) {
       overallValue = options.overall;
     } else if (animationParameters.group) {
-      overallValue = animationParameters.group.getBounds().width();
+      overallValue = (animationParameters as any).groupWidth ?? animationParameters.group.getBounds().width();
+
+      (animationParameters as any).groupWidth = overallValue;
     } else {
       overallValue = animationParameters.width;
     }
@@ -198,7 +200,9 @@ function growWidthOutOverall(
     if (isNumber(options?.overall)) {
       overallValue = options.overall;
     } else if (animationParameters.group) {
-      overallValue = animationParameters.group.getBounds().width();
+      overallValue = (animationParameters as any).groupWidth ?? animationParameters.group.getBounds().width();
+
+      (animationParameters as any).groupWidth = overallValue;
     } else {
       overallValue = animationParameters.width;
     }
@@ -260,7 +264,9 @@ function growHeightInOverall(
     if (isNumber(options?.overall)) {
       overallValue = options?.overall;
     } else if (animationParameters.group) {
-      overallValue = animationParameters.group.getBounds().height();
+      overallValue = (animationParameters as any).groupHeight ?? animationParameters.group.getBounds().height();
+
+      (animationParameters as any).groupHeight = overallValue;
     } else {
       overallValue = animationParameters.height;
     }
@@ -317,7 +323,9 @@ function growHeightOutOverall(
     if (isNumber(options?.overall)) {
       overallValue = options.overall;
     } else if (animationParameters.group) {
-      overallValue = animationParameters.group.getBounds().height();
+      overallValue = (animationParameters as any).groupHeight ?? animationParameters.group.getBounds().height();
+
+      (animationParameters as any).groupHeight = overallValue;
     } else {
       overallValue = animationParameters.height;
     }
