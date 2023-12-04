@@ -115,14 +115,14 @@ export class Factory {
     };
   }
 
-  static createGrammar(type: string, view: IView) {
+  static createGrammar(type: string, view: IView, grammarType: string) {
     const Ctor = Factory._grammars[type]?.grammarClass;
 
     if (!Ctor) {
       return null;
     }
 
-    return new Ctor(view);
+    return new Ctor(view, grammarType);
   }
 
   static getGrammars() {

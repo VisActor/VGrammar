@@ -284,8 +284,8 @@ export interface IMark extends IGrammarBase, IProgressiveGrammar {
   getScales: () => Record<string, IBaseScale> | undefined;
 }
 
-export interface IGrammarBaseConstructor {
-  new (view: IView): IGrammarBase;
+export interface IGrammarBaseConstructor<T extends string = any> {
+  new (view: IView, grammarType: T): IGrammarBase;
 }
 
 export interface ProgressiveContext {
