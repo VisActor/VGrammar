@@ -67,9 +67,14 @@ const changePointsX = (
   const points = element.getGraphicAttribute('points', false);
   return points.map((point: IPointLike) => {
     if (options?.orient === 'negative') {
-      const groupRight = animationParameters.group
-        ? animationParameters.group.getBounds().width()
-        : animationParameters.width;
+      let groupRight = animationParameters.width;
+
+      if (animationParameters.group) {
+        groupRight = (animationParameters as any).groupWidth ?? animationParameters.group.getBounds().width();
+
+        (animationParameters as any).groupWidth = groupRight;
+      }
+
       return {
         x: groupRight,
         y: point.y,
@@ -120,9 +125,14 @@ const changePointsY = (
   const points = element.getGraphicAttribute('points', false);
   return points.map((point: IPointLike) => {
     if (options?.orient === 'negative') {
-      const groupBottom = animationParameters.group
-        ? animationParameters.group.getBounds().height()
-        : animationParameters.height;
+      let groupBottom = animationParameters.height;
+
+      if (animationParameters.group) {
+        groupBottom = (animationParameters as any).groupHeight ?? animationParameters.group.getBounds().height();
+
+        (animationParameters as any).groupHeight = groupBottom;
+      }
+
       return {
         x: point.x,
         y: groupBottom,
