@@ -2,7 +2,7 @@ import type { IGlyphMeta, IMark } from '../../types';
 import type { IGraphic } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
 
-import { HOOK_EVENT, GrammarMarkType } from '../enums';
+import { GrammarMarkType } from '../enums';
 import { BridgeElementKey } from '../constants';
 import { Factory } from '../../core/factory';
 import { Logger } from '@visactor/vutils';
@@ -12,8 +12,6 @@ export const isMarkType = (type: string) => {
 };
 
 export function createGraphicItem(mark: IMark, markType: string, attrs: any = {}) {
-  mark.emit(HOOK_EVENT.BEFORE_CREATE_VRENDER_MARK);
-
   const graphicItem: IGraphic = Factory.getGraphicType(markType)
     ? Factory.createGraphic(markType, attrs)
     : Factory.createGraphicComponent(markType, attrs, {
@@ -25,12 +23,10 @@ export function createGraphicItem(mark: IMark, markType: string, attrs: any = {}
     logger.error(`create ${markType} graphic failed!`);
   }
 
-  mark.emit(HOOK_EVENT.AFTER_CREATE_VRENDER_MARK);
   return graphicItem;
 }
 
 export function createGlyphGraphicItem(mark: IMark, glyphMeta: IGlyphMeta, attrs: any = {}) {
-  mark.emit(HOOK_EVENT.BEFORE_CREATE_VRENDER_MARK);
   if (!Factory.getGraphicType(GrammarMarkType.glyph)) {
     return;
   }
@@ -46,8 +42,6 @@ export function createGlyphGraphicItem(mark: IMark, glyphMeta: IGlyphMeta, attrs
     }
   });
   graphicItem.setSubGraphic(subGraphics);
-
-  mark.emit(HOOK_EVENT.AFTER_CREATE_VRENDER_MARK);
   return graphicItem;
 }
 
