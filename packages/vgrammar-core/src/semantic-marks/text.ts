@@ -12,6 +12,7 @@ export class Text extends Mark {
   addGraphicItem(initAttrs: any, groupKey?: string) {
     const textConfig = initAttrs?.text;
     const isRich = textConfig?.type === 'rich';
+
     const graphicItem = createGraphicItem(
       this as IMark,
       isRich ? GrammarMarkType.richtext : GrammarMarkType.text,
