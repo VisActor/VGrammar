@@ -264,7 +264,7 @@ const spec = {
       type: 'tooltip',
       selector: '#stackRect',
       title: { value: { field: 'month' } },
-      dependencies: ['color'],
+      dependency: ['color'],
       content: [
         {
           key: '数量',

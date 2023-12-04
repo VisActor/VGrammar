@@ -266,7 +266,7 @@ const spec = {
       scale: 'xscale',
       crosshairShape: 'line',
       crosshairType: 'x',
-      dependencies: ['viewBox'],
+      dependency: ['viewBox'],
       attributes: (scale, elment, params) => {
         return {
           start: { y: params.viewBox.y1 },

@@ -68,7 +68,7 @@ const spec = {
       scale: 'xscale',
       crosshairShape: 'line',
       crosshairType: 'angle',
-      dependencies: ['viewBox'],
+      dependency: ['viewBox'],
       attributes: (scale, elment, params) => {
         return {
           radius: Math.min(params.viewBox.height(), params.viewBox.width()) / 2,

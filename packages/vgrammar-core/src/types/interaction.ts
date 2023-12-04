@@ -21,7 +21,7 @@ export interface FilterDataTarget {
 }
 
 export interface IBaseInteractionOptions {
-  dependencies?: string | string[] | IGrammarBase | IGrammarBase[];
+  dependency?: string | string[] | IGrammarBase | IGrammarBase[];
 
   shouldStart?: (e: any) => boolean;
 
