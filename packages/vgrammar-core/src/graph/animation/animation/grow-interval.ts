@@ -47,10 +47,13 @@ function growIntervalInOverall(
     const x1 = element.getGraphicAttribute('x1', false);
     let overallValue: number;
     if (options?.orient === 'negative') {
-      const groupRight = animationParameters.group
-        ? animationParameters.group.getBounds().width()
-        : animationParameters.width;
-      overallValue = isNumber(options?.overall) ? options?.overall : groupRight;
+      if (isNumber(options?.overall)) {
+        overallValue = options.overall;
+      } else if (animationParameters.group) {
+        overallValue = animationParameters.group.getBounds().width();
+      } else {
+        overallValue = animationParameters.width;
+      }
     } else {
       overallValue = isNumber(options?.overall) ? options?.overall : 0;
     }
@@ -64,10 +67,13 @@ function growIntervalInOverall(
   const y1 = element.getGraphicAttribute('y1', false);
   let overallValue: number;
   if (options?.orient === 'negative') {
-    const groupBottom = animationParameters.group
-      ? animationParameters.group.getBounds().height()
-      : animationParameters.height;
-    overallValue = isNumber(options?.overall) ? options?.overall : groupBottom;
+    if (isNumber(options?.overall)) {
+      overallValue = options?.overall;
+    } else if (animationParameters.group) {
+      overallValue = animationParameters.group.getBounds().height();
+    } else {
+      overallValue = animationParameters.height;
+    }
   } else {
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }
@@ -143,10 +149,13 @@ function growIntervalOutOverall(
     const prevX1 = element.getGraphicAttribute('x1', true);
     let overallValue: number;
     if (options?.orient === 'negative') {
-      const groupRight = animationParameters.group
-        ? animationParameters.group.getBounds().width()
-        : animationParameters.height;
-      overallValue = isNumber(options?.overall) ? options?.overall : groupRight;
+      if (isNumber(options?.overall)) {
+        overallValue = options.overall;
+      } else if (animationParameters.group) {
+        overallValue = animationParameters.group.getBounds().width();
+      } else {
+        overallValue = animationParameters.width;
+      }
     } else {
       overallValue = isNumber(options?.overall) ? options?.overall : 0;
     }
@@ -160,10 +169,13 @@ function growIntervalOutOverall(
   const prevY1 = element.getGraphicAttribute('y1', true);
   let overallValue: number;
   if (options?.orient === 'negative') {
-    const groupBottom = animationParameters.group
-      ? animationParameters.group.getBounds().height()
-      : animationParameters.height;
-    overallValue = isNumber(options?.overall) ? options?.overall : groupBottom;
+    if (isNumber(options?.overall)) {
+      overallValue = options?.overall;
+    } else if (animationParameters.group) {
+      overallValue = animationParameters.group.getBounds().height();
+    } else {
+      overallValue = animationParameters.height;
+    }
   } else {
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }

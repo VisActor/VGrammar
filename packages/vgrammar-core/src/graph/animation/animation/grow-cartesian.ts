@@ -138,10 +138,13 @@ function growWidthInOverall(
   const width = element.getGraphicAttribute('width', false);
   let overallValue: number;
   if (options?.orient === 'negative') {
-    const groupRight = animationParameters.group
-      ? animationParameters.group.getBounds().width()
-      : animationParameters.width;
-    overallValue = isNumber(options?.overall) ? options?.overall : groupRight;
+    if (isNumber(options?.overall)) {
+      overallValue = options.overall;
+    } else if (animationParameters.group) {
+      overallValue = animationParameters.group.getBounds().width();
+    } else {
+      overallValue = animationParameters.width;
+    }
   } else {
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }
@@ -192,10 +195,13 @@ function growWidthOutOverall(
 
   let overallValue: number;
   if (options?.orient === 'negative') {
-    const groupRight = animationParameters.group
-      ? animationParameters.group.getBounds().width()
-      : animationParameters.width;
-    overallValue = isNumber(options?.overall) ? options?.overall : groupRight;
+    if (isNumber(options?.overall)) {
+      overallValue = options.overall;
+    } else if (animationParameters.group) {
+      overallValue = animationParameters.group.getBounds().width();
+    } else {
+      overallValue = animationParameters.width;
+    }
   } else {
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }
@@ -251,10 +257,13 @@ function growHeightInOverall(
 
   let overallValue: number;
   if (options?.orient === 'negative') {
-    const groupBottom = animationParameters.group
-      ? animationParameters.group.getBounds().height()
-      : animationParameters.height;
-    overallValue = isNumber(options?.overall) ? options?.overall : groupBottom;
+    if (isNumber(options?.overall)) {
+      overallValue = options?.overall;
+    } else if (animationParameters.group) {
+      overallValue = animationParameters.group.getBounds().height();
+    } else {
+      overallValue = animationParameters.height;
+    }
   } else {
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }
@@ -305,10 +314,13 @@ function growHeightOutOverall(
 
   let overallValue: number;
   if (options?.orient === 'negative') {
-    const groupBottom = animationParameters.group
-      ? animationParameters.group.getBounds().height()
-      : animationParameters.height;
-    overallValue = isNumber(options?.overall) ? options?.overall : groupBottom;
+    if (isNumber(options?.overall)) {
+      overallValue = options.overall;
+    } else if (animationParameters.group) {
+      overallValue = animationParameters.group.getBounds().height();
+    } else {
+      overallValue = animationParameters.height;
+    }
   } else {
     overallValue = isNumber(options?.overall) ? options?.overall : 0;
   }
