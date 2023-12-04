@@ -876,7 +876,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
                 const scale = params[anotherDimScaleId];
                 return scale && isDiscrete(scale.type) ? scale.range()[1] + (scale?.bandwidth?.() ?? 0) / 2 : undefined;
               };
-              interactionSpec.dependencies = [anotherDimScaleId];
+              interactionSpec.dependency = [anotherDimScaleId];
             }
           }
           res.interactions.push(interactionSpec);
@@ -969,7 +969,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           attributes: {
             zIndex: 1000
           },
-          dependencies: [this.getScaleId(colorChannel), this.getScaleId('shape')]
+          dependency: [this.getScaleId(colorChannel), this.getScaleId('shape')]
         };
         res.interactions.push(interactionSpec);
       }
@@ -987,7 +987,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           attributes: {
             zIndex: 1000
           },
-          dependencies: [this.getScaleId(colorChannel), this.getScaleId('shape')]
+          dependency: [this.getScaleId(colorChannel), this.getScaleId('shape')]
         };
         res.interactions.push(interactionSpec);
       }

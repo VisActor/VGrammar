@@ -106,7 +106,7 @@ const spec = {
           end: { x: params.viewBox.x2 }
         };
       },
-      dependencies: ['viewBox']
+      dependency: ['viewBox']
     }
   ],
 
