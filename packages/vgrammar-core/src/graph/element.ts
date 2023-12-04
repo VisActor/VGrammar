@@ -76,14 +76,16 @@ export class Element implements IElement {
     // 统一读取mark中是否可交互的配置
     const attrTransforms = this.mark.getAttributeTransforms();
 
-    this.graphicItem = this.mark.addGraphicItem(attrTransforms ? {} : attributes, this.groupKey);
+    this.graphicItem = this.mark.addGraphicItem(
+      attrTransforms ? transformAttributes(attrTransforms, attributes, this) : attributes,
+      this.groupKey
+    );
 
     if (!this.graphicItem) {
       return;
     }
     // 统一读取mark中是否可交互的配置
     this.graphicItem[BridgeElementKey] = this;
-
     if (attrTransforms) {
       this.graphicItem.onBeforeAttributeUpdate = (attributes: any) => {
         // mark might be released
@@ -93,14 +95,12 @@ export class Element implements IElement {
         const graphicAttributes = transformAttributes(attrTransforms, attributes, this);
         return graphicAttributes;
       };
-      this.graphicItem.setAttributes(attributes);
     }
 
     // transform initial attributes
-
     this.clearGraphicAttributes();
     if (this.mark.needAnimate()) {
-      this.setPrevGraphicAttributes({});
+      this.setPrevGraphicAttributes(null);
       this.setNextGraphicAttributes(attributes);
       this.setFinalGraphicAttributes(attributes);
     }
@@ -459,11 +459,11 @@ export class Element implements IElement {
     let nextAttrs = item?.nextAttrs;
 
     if (
+      isPointsMarkType(markType) &&
       items &&
       items.length &&
       isNil(item.nextAttrs?.points) &&
-      (computePoints === true || isValidPointsChannel(Object.keys(item.nextAttrs), this.mark.markType)) &&
-      isPointsMarkType(markType)
+      (computePoints === true || isValidPointsChannel(Object.keys(item.nextAttrs), this.mark.markType))
     ) {
       const lastPoints = this.getGraphicAttribute('points', false);
       const lastSegments = this.getGraphicAttribute('segments', false);
@@ -641,16 +641,16 @@ export class Element implements IElement {
 
   clearChangedGraphicAttributes() {
     if (this.graphicItem) {
-      this.setPrevGraphicAttributes({});
-      this.setNextGraphicAttributes({});
+      this.setPrevGraphicAttributes(null);
+      this.setNextGraphicAttributes(null);
     }
   }
 
   clearGraphicAttributes() {
     if (this.graphicItem) {
-      this.setPrevGraphicAttributes({});
-      this.setNextGraphicAttributes({});
-      this.setFinalGraphicAttributes({});
+      (this.graphicItem as any).prevAttrs && this.setPrevGraphicAttributes(null);
+      (this.graphicItem as any).nextAttrs && this.setNextGraphicAttributes(null);
+      (this.graphicItem as any).finalAttrs && this.setFinalGraphicAttributes(null);
     }
   }
 
