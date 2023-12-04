@@ -388,9 +388,7 @@ export class Mark extends GrammarBase implements IMark {
       this._isReentered = true;
     }
 
-    if (!this.spec.encode[state]) {
-      this.spec.encode[state] = {};
-    } else {
+    if (this.spec.encode[state]) {
       const lastEncoder = this.spec.encode[state];
       // detach last dependencies
       if (isFunctionType(lastEncoder)) {
@@ -414,21 +412,27 @@ export class Mark extends GrammarBase implements IMark {
         }
       }
     }
-    // update encode & append new dependencies
-    if (isString(channel)) {
-      this.spec.encode[state][channel] = value;
-      this.attach(parseEncodeType(value, this.view));
-    } else if (isFunctionType(channel)) {
-      this.spec.encode[state] = channel;
-      this.attach(parseEncodeType(channel, this.view));
-    } else {
-      Object.assign(this.spec.encode[state], channel);
-      if (channel) {
+
+    if (channel) {
+      if (!this.spec.encode[state]) {
+        this.spec.encode[state] = {};
+      }
+
+      // update encode & append new dependencies
+      if (isString(channel)) {
+        this.spec.encode[state][channel] = value;
+        this.attach(parseEncodeType(value, this.view));
+      } else if (isFunctionType(channel)) {
+        this.spec.encode[state] = channel;
+        this.attach(parseEncodeType(channel, this.view));
+      } else if (channel) {
+        Object.assign(this.spec.encode[state], channel);
         Object.values(channel).forEach(channelEncoder => {
           this.attach(parseEncodeType(channelEncoder, this.view));
         });
       }
     }
+
     this.commit();
     return this;
   }
@@ -629,9 +633,7 @@ export class Mark extends GrammarBase implements IMark {
       const group = getGrammarOutput(this.spec.group, parameters) as IGroupMark;
       this.group = group;
       if (group) {
-        this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK);
         group.appendChild(this);
-        this.emit(HOOK_EVENT.AFTER_ADD_VRENDER_MARK);
       }
     }
 
@@ -853,7 +855,6 @@ export class Mark extends GrammarBase implements IMark {
       return;
     }
 
-    this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK);
     if (this.renderContext?.progressive) {
       let group: IGroup;
 
@@ -876,8 +877,6 @@ export class Mark extends GrammarBase implements IMark {
     } else {
       (this.graphicParent as any).appendChild(graphicItem);
     }
-    this.emit(HOOK_EVENT.AFTER_ADD_VRENDER_MARK);
-
     return graphicItem;
   }
 

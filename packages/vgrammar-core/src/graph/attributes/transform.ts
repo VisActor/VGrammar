@@ -128,15 +128,11 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
         if (nextAttrs.image) {
           graphicAttributes.background = nextAttrs.image;
           graphicAttributes.fill = false;
-        } else if (storedAttrs.image) {
-          graphicAttributes.background = storedAttrs.image;
-          graphicAttributes.fill = false;
         } else {
-          graphicAttributes.fill = storedAttrs.fill;
-          graphicAttributes.background = storedAttrs.background;
+          graphicAttributes.fill = nextAttrs.fill;
+          graphicAttributes.background = nextAttrs.background;
         }
-      },
-      storedAttrs: 'imageAttrs'
+      }
     }
   ],
   [GrammarMarkType.richtext]: [
