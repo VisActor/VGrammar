@@ -1,5 +1,8 @@
 import {
   View,
+  // grammar,
+  registerScale,
+  registerCoordinate,
   // semantic mark
   registerCellMark,
   registerIntervalMark,
@@ -118,6 +121,10 @@ import {
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
+  // grammars
+  registerScale,
+  registerCoordinate,
+  // marks
   registerCellMark,
   registerIntervalMark,
   // components

@@ -1,7 +1,7 @@
 import { isNil } from '@visactor/vutils';
 import type { IBandLikeScale, IRangeFactor, IBaseScale, TickData, ScaleFishEyeOptions } from '@visactor/vscale';
 import { supportRangeFactor } from '@visactor/vscale';
-import type { IGrammarBase, IView, MarkFunctionType } from '../types';
+import type { IGrammarBase, IGrammarBaseConstructor, IView } from '../types';
 import type { Nil } from '../types/base';
 import type { GrammarType, IScale } from '../types/grammar';
 import type {
@@ -16,6 +16,7 @@ import type {
 import { GrammarBase } from './grammar-base';
 import { configureScale, createScale, parseScaleConfig, parseScaleDomainRange } from '../parse/scale';
 import { HOOK_EVENT } from '../graph/enums';
+import { Factory } from '../core/factory';
 
 export class Scale extends GrammarBase implements IScale {
   readonly grammarType: GrammarType = 'scale';
@@ -195,3 +196,7 @@ export class Scale extends GrammarBase implements IScale {
     this.scale = null;
   }
 }
+
+export const registerScale = () => {
+  Factory.registerGrammar('scale', Scale as IGrammarBaseConstructor<GrammarScaleType>, 'scales');
+};
