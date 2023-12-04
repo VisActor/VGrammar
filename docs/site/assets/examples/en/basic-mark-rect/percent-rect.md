@@ -265,7 +265,7 @@ const spec = {
       scale: 'xscale',
       crosshairShape: 'rect',
       crosshairType: 'x',
-      dependencies: ['viewBox'],
+      dependency: ['viewBox'],
       attributes: (scale, elment, params) => {
         return {
           start: { y: params.viewBox.y1 },
@@ -277,7 +277,7 @@ const spec = {
       type: 'tooltip',
       selector: '#stack',
       title: { value: { field: 'month' } },
-      dependencies: ['color'],
+      dependency: ['color'],
       content: [
         {
           key: '数量',
