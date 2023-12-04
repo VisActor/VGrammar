@@ -1,8 +1,5 @@
 import '../util';
 import { Plot } from '../../src';
-import { initBrowserEnv } from '@visactor/vgrammar-core';
-
-initBrowserEnv();
 
 test('add rect-x by api', () => {
   const plot = new Plot({
