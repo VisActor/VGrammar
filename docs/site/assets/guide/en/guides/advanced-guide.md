@@ -187,7 +187,7 @@ After the registration of the composite glyph is complete, it can be used like t
 
 ## Custom Syntax Elements
 
-All VGrammar syntax elements run according to dependencies. When the existing syntax elements do not meet the requirements, users can try to implement custom syntax elements. Next, take the `vgrammar-projection` implementation of the `Projection` syntax element as an example, explain how to customize the syntax element and use it in the VGrammar visual chart.
+All VGrammar syntax elements run according to dependency. When the existing syntax elements do not meet the requirements, users can try to implement custom syntax elements. Next, take the `vgrammar-projection` implementation of the `Projection` syntax element as an example, explain how to customize the syntax element and use it in the VGrammar visual chart.
 
 ### Implementation of Syntax Class
 
