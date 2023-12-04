@@ -142,7 +142,7 @@ const spec = {
           }
         };
       },
-      dependencies: 'polar'
+      dependency: 'polar'
     }
   ],
 

@@ -6,7 +6,7 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
 
   constructor(view: IView, options: T) {
     this.view = view;
-    this.depend(options?.dependencies);
+    this.depend(options?.dependency);
   }
 
   references: Map<IGrammarBase, number> = new Map();
