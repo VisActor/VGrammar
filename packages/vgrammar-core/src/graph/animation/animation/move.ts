@@ -15,12 +15,16 @@ export const moveIn: TypeAnimation<IElement> = (
 
   if (options?.orient === 'negative') {
     // consider the offset of group
-    const groupBounds = animationParameters.group ? animationParameters.group.getBounds() : null;
-    const groupWidth = groupBounds?.width() ?? animationParameters.width;
-    const groupHeight = groupBounds?.height() ?? animationParameters.height;
+    if (animationParameters.group) {
+      changedX = (animationParameters as any).groupWidth ?? animationParameters.group.getBounds().width();
+      changedY = (animationParameters as any).groupHeight ?? animationParameters.group.getBounds().height();
 
-    changedX = groupWidth;
-    changedY = groupHeight;
+      (animationParameters as any).groupWidth = changedX;
+      (animationParameters as any).groupHeight = changedY;
+    } else {
+      changedX = animationParameters.width;
+      changedY = animationParameters.height;
+    }
   }
 
   changedX += offset;
