@@ -1,5 +1,9 @@
 import {
+  initBrowserEnv,
   View,
+  registerScale,
+  registerCoordinate,
+
   // components
   registerAxis,
   registerLegend,
@@ -89,7 +93,11 @@ import {
   registerLargeSymbolsGraphic
 } from '@visactor/vgrammar-core';
 
+initBrowserEnv();
+
 View.useRegisters([
+  registerScale,
+  registerCoordinate,
   registerAxis,
   registerLegend,
   registerSlider,
