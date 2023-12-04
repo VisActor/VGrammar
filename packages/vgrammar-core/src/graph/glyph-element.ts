@@ -14,7 +14,7 @@ import { BridgeElementKey, CollectionMarkType } from './constants';
 import { DiffState, HOOK_EVENT, GrammarMarkType } from './enums';
 import { Element } from './element';
 import { invokeEncoderToItems } from './mark/encode';
-import type { IGraphicAttribute, IGlyph } from '@visactor/vrender-core';
+import type { IGraphicAttribute, IGlyph } from '@visactor/vrender/es/core';
 
 export class GlyphElement extends Element implements IGlyphElement {
   declare graphicItem: IGlyph;

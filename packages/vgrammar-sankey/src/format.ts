@@ -1,4 +1,4 @@
-import type { IRectGraphicAttribute, IPolygonGraphicAttribute, IPathGraphicAttribute } from '@visactor/vrender-core';
+import type { IRectGraphicAttribute, IPolygonGraphicAttribute, IPathGraphicAttribute } from '@visactor/vrender/es/core';
 import type { IPointLike } from '@visactor/vutils';
 import { isNil } from '@visactor/vutils';
 import type { SankeyNodeElement, SankeyLinkElement } from './interface';

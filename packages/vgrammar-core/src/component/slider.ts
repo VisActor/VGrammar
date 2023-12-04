@@ -1,5 +1,5 @@
 import { isNil, merge, mixin } from '@visactor/vutils';
-import type { IGraphic } from '@visactor/vrender-core';
+import type { IGraphic } from '@visactor/vrender/es/core';
 import type { SliderAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { Slider as SliderComponent } from '@visactor/vrender-components';

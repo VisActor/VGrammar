@@ -1,4 +1,4 @@
-import type { IGraphic } from '@visactor/vrender-core';
+import type { IGraphic } from '@visactor/vrender/es/core';
 import type { IBaseScale } from '@visactor/vscale';
 // eslint-disable-next-line no-duplicate-imports
 import { isContinuous } from '@visactor/vscale';

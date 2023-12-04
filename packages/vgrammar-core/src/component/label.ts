@@ -1,6 +1,6 @@
 import { load } from './../util/data';
 import { array, isNil, isString, merge, last } from '@visactor/vutils';
-import type { IGraphic } from '@visactor/vrender-core';
+import type { IGraphic } from '@visactor/vrender/es/core';
 import type { BaseLabelAttrs, DataLabelAttrs } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { DataLabel } from '@visactor/vrender-components';

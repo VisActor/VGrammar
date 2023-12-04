@@ -27,7 +27,8 @@
     "eslint": "eslint --debug --fix src/",
     "build": "bundle --clean",
     "dev": "bundle --clean -f es -w",
-    "test": ""
+    "test": "",
+    "analysis-core": "bundle -f umd -a -i index.ts"
   },
   "dependencies": {
     "@visactor/vgrammar-core": "workspace:0.9.4"

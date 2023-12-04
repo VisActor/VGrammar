@@ -1,4 +1,4 @@
-import type { IGraphicAttribute, IRichTextCharacter, ITextAttribute } from '@visactor/vrender-core';
+import type { IGraphicAttribute, ITextAttribute, IRichTextCharacter } from '@visactor/vrender/es/core';
 import type {
   AxisBaseAttributes,
   BaseLabelAttrs,

@@ -1,5 +1,5 @@
 import type { IGlyphMeta, IMark } from '../../types';
-import type { IGraphic } from '@visactor/vrender-core';
+import type { IGraphic } from '@visactor/vrender/es/core';
 // eslint-disable-next-line no-duplicate-imports
 
 import { HOOK_EVENT, GrammarMarkType } from '../enums';

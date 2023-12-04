@@ -1,10 +1,10 @@
 import type { IBoundsLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
 import { isObject } from '@visactor/vutils';
-import type { IEventTarget, IColor, ILayer, Stage } from '@visactor/vrender-core';
+import type { IEventTarget, IColor, ILayer, Stage } from '@visactor/vrender/es/core';
 // eslint-disable-next-line no-duplicate-imports
-import { createStage, waitForAllSubLayers } from '@visactor/vrender-core';
-import { DragNDrop, Gesture } from '@visactor/vrender-kits';
+import { createStage, waitForAllSubLayers } from '@visactor/vrender/es/core';
+import { DragNDrop, Gesture } from '@visactor/vrender/es/kits';
 import type { IViewOptions, IView, IMark, IViewEventConfig } from '../types';
 import type { IRenderer } from '../types/renderer';
 import { HOOK_EVENT } from './enums';

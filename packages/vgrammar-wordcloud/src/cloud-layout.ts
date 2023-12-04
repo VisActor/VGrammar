@@ -10,7 +10,7 @@
 /**
  * 小程序canvas相关API，getImageData、draw都是异步的，导致渐进渲染流程处理非常麻烦，实际上小程序并未使用这个算法，所以暂时不考虑支持小程序
  */
-import { vglobal } from '@visactor/vrender-core';
+import { vglobal } from '@visactor/vrender/es/core';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import { isString, merge } from '@visactor/vutils';
 import type { Bounds, IBaseLayoutOptions, TagItemAttribute, TagItemFunction, TagOutputItem } from './interface';

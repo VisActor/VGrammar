@@ -1,5 +1,5 @@
-import { initBrowserEnv, initNodeEnv } from '@visactor/vrender-kits';
-import { isBrowserEnv, isNodeEnv } from '@visactor/vrender-core';
+import { initBrowserEnv, initNodeEnv } from '@visactor/vrender/es/kits';
+import { isBrowserEnv, isNodeEnv } from '@visactor/vrender/es/core';
 
 export const initAutoEnv = () => {
   if (isBrowserEnv()) {

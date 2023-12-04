@@ -1,6 +1,6 @@
-import type { EasingType, IGraphic } from '@visactor/vrender-core';
+import type { EasingType, IGraphic } from '@visactor/vrender/es/core';
 // eslint-disable-next-line no-duplicate-imports
-import { ACustomAnimate, AttributeUpdateType, NOWORK_ANIMATE_ATTR } from '@visactor/vrender-core';
+import { ACustomAnimate, AttributeUpdateType, NOWORK_ANIMATE_ATTR } from '@visactor/vrender/es/core';
 import { isArray, isFunction, isNil, isObject, isValid } from '@visactor/vutils';
 import type {
   IAnimationChannelInterpolator,

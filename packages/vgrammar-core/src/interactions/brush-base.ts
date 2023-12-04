@@ -1,7 +1,7 @@
 import { Brush, IOperateType } from '@visactor/vrender-components';
 import type { BrushOptions, IElement, IGlyphElement, IMark, IView, InteractionEventHandler } from '../types';
 import { BaseInteraction } from './base';
-import type { IGraphic, IPolygon, IRectGraphicAttribute } from '@visactor/vrender-core';
+import type { IGraphic, IPolygon, IRectGraphicAttribute } from '@visactor/vrender/es/core';
 import {
   polygonContainPoint,
   type IBounds,

@@ -1,8 +1,8 @@
 /**
  * use when mark render in large mode or progressive mode
  */
-import type { IGroupGraphicAttribute, IPath, ICustomPath2D } from '@visactor/vrender-core';
-import { Group, CustomPath2D } from '@visactor/vrender-core';
+import type { IGroupGraphicAttribute, IPath, ICustomPath2D } from '@visactor/vrender/es/core';
+import { Group, CustomPath2D } from '@visactor/vrender/es/core';
 
 interface LargeRectsAttribute extends IGroupGraphicAttribute {
   points: Float32Array | number[];

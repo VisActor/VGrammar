@@ -1,4 +1,4 @@
-import type { IPolygon } from '@visactor/vrender-core';
+import type { IPolygon } from '@visactor/vrender/es/core';
 import type { DrillDownOptions, IElement, IGlyphElement, IView, InteractionEvent } from '../types';
 import { BrushBase } from './brush-base';
 import { isString, type IBounds, array } from '@visactor/vutils';

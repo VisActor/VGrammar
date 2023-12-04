@@ -1,5 +1,5 @@
 import type { EventEmitter, IBounds, IPointLike } from '@visactor/vutils';
-import type { IGraphic, IGroup } from '@visactor/vrender-core';
+import type { IGraphic, IGroup } from '@visactor/vrender/es/core';
 import type { IBaseScale, ScaleFishEyeOptions, TickData } from '@visactor/vscale';
 import type { ITransform, TransformSpec } from './transform';
 import type { DataFormatSpec, IDataFilter } from './data';

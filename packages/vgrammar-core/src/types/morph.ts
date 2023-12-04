@@ -1,4 +1,4 @@
-import type { EasingType } from '@visactor/vrender-core';
+import type { EasingType } from '@visactor/vrender/es/core';
 import type { DiffResult, Nil } from './base';
 import type { IElement } from './element';
 import type { IGrammarBase, IMark } from './grammar';

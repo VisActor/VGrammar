@@ -40,9 +40,9 @@ import type {
   MarkType,
   StateProxyEncodeSpec
 } from '../types';
-import type { IGraphic, ILine, IGraphicAttribute } from '@visactor/vrender-core';
+import type { IGraphic, ILine, IGraphicAttribute } from '@visactor/vrender/es/core';
 // eslint-disable-next-line no-duplicate-imports
-import { CustomPath2D } from '@visactor/vrender-core';
+import { CustomPath2D } from '@visactor/vrender/es/core';
 import { invokeFunctionType, parseField } from '../parse/util';
 
 export class Element implements IElement {

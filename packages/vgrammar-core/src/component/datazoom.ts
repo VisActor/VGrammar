@@ -1,4 +1,4 @@
-import type { IGraphic } from '@visactor/vrender-core';
+import type { IGraphic } from '@visactor/vrender/es/core';
 import type { DataZoomAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 import { DataZoom as DatazoomComponent } from '@visactor/vrender-components';

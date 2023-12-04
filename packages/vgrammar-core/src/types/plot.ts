@@ -12,7 +12,7 @@ import type {
   TitleAttrs
 } from '@visactor/vrender-components';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
-import type { IColor } from '@visactor/vrender-core';
+import type { IColor } from '@visactor/vrender/es/core';
 import type { IEnvironmentOptions, IRendererOptions, IRunningConfig, ViewSpec, srIOption3DType, IView } from './view';
 import type { CommonPaddingSpec, ValueOf } from './base';
 import type { BasicEncoderSpecMap, LinkPathEncoderSpec, MarkRelativeItemSpec } from './mark';

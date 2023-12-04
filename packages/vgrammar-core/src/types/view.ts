@@ -1,5 +1,5 @@
 import type { EventEmitter, IBounds, ILogger } from '@visactor/vutils';
-import type { EnvType, IStage, IColor, IOption3D, ILayer, IStageParams } from '@visactor/vrender-core';
+import type { EnvType, IStage, IColor, IOption3D, ILayer, IStageParams } from '@visactor/vrender/es/core';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { DataSpec } from './data';
 import type { SignalFunctionType, SignalSpec } from './signal';

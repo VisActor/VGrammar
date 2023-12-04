@@ -1,5 +1,5 @@
 import { isArray, isString, merge, mixin } from '@visactor/vutils';
-import type { IGraphic } from '@visactor/vrender-core';
+import type { IGraphic } from '@visactor/vrender/es/core';
 import type {
   ContinuousPlayerAttributes,
   DiscretePlayerAttributes,

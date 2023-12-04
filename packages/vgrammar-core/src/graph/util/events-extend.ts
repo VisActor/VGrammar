@@ -1,4 +1,4 @@
-import type { FederatedEvent } from '@visactor/vrender-core';
+import type { FederatedEvent } from '@visactor/vrender/es/core';
 import type { IElement } from './../../types/element';
 import type { IView } from './../../types/view';
 import { point } from './point';

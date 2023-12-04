@@ -30,7 +30,7 @@ export * from './component';
 export * from './transforms';
 export * from './graph/animation/animation';
 
-export { vglobal } from '@visactor/vrender-core';
+export { vglobal } from '@visactor/vrender/es/core';
 export * from './env';
 export * from './interactions';
 export * from './semantic-marks/cell';

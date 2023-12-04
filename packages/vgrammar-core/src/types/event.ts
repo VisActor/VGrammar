@@ -1,4 +1,4 @@
-import type { CustomEvent, FederatedEvent } from '@visactor/vrender-core';
+import type { CustomEvent, FederatedEvent } from '@visactor/vrender/es/core';
 import type { IAnimationConfig, IElement, IGlyphElement, IMark } from '.';
 import type { MarkType } from './mark';
 import type { SignalDependency } from './signal';

@@ -1,4 +1,4 @@
-import { morphPath, multiToOneMorph, oneToMultiMorph } from '@visactor/vrender-core';
+import { morphPath, multiToOneMorph, oneToMultiMorph } from '@visactor/vrender/es/core';
 import { isNil, isNumber, isValidNumber } from '@visactor/vutils';
 import type { IElement, IGrammarBase, IMark, IRunningConfig, MarkSpec } from '../../types';
 import type { DiffResult } from '../../types/base';
