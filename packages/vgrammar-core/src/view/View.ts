@@ -62,7 +62,6 @@ import {
   SIGNAL_VIEW_BOX
 } from './constants';
 import { Signal } from './signal';
-import { Scale } from './scale';
 import {
   BuiltInSignalID,
   builtInSignals,
@@ -77,7 +76,6 @@ import { GroupMark } from './group';
 import { Mark } from './mark';
 import { defaultDoLayout } from '../graph/layout/layout';
 import { GlyphMark } from './glyph';
-import { Coordinate } from './coordinate';
 import type { IMorph } from '../types/morph';
 import { Morph } from '../graph/animation/morph';
 import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
@@ -289,16 +287,22 @@ export default class View extends EventEmitter implements IView {
   }
 
   scale(type: GrammarScaleType) {
-    const scale: IScale = new Scale(this, type);
-    this.grammars.record(scale);
-    this._dataflow.add(scale);
+    const scale = Factory.createGrammar('scale', this, type) as IScale;
+
+    if (scale) {
+      this.grammars.record(scale);
+      this._dataflow.add(scale);
+    }
     return scale;
   }
 
   coordinate(type: CoordinateType) {
-    const coordinate: ICoordinate = new Coordinate(this, type);
-    this.grammars.record(coordinate);
-    this._dataflow.add(coordinate);
+    const coordinate = Factory.createGrammar('coordinate', this, type) as ICoordinate;
+
+    if (coordinate) {
+      this.grammars.record(coordinate);
+      this._dataflow.add(coordinate);
+    }
     return coordinate;
   }
 
@@ -383,7 +387,7 @@ export default class View extends EventEmitter implements IView {
   }
 
   customized(type: string, spec: any) {
-    const grammar = Factory.createGrammar(type, this);
+    const grammar = Factory.createGrammar(type, this, spec?.type);
 
     if (grammar) {
       grammar.parse(spec);
@@ -495,13 +499,13 @@ export default class View extends EventEmitter implements IView {
 
     if (spec.coordinates?.length) {
       spec.coordinates.forEach(coordinate => {
-        this.coordinate(coordinate.type).parse(coordinate);
+        this.coordinate(coordinate.type)?.parse(coordinate);
       });
     }
 
     if (spec.scales?.length) {
       spec.scales.forEach(scale => {
-        this.scale(scale.type).parse(scale);
+        this.scale(scale.type)?.parse(scale);
       });
     }
 

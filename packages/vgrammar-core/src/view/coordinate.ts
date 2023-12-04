@@ -1,9 +1,10 @@
 import type { IBaseCoordinate, CoordinateType } from '@visactor/vgrammar-coordinate';
 import type { Nil } from '../types/base';
-import type { GrammarType, ICoordinate, IGrammarBase, IView } from '../types';
+import type { GrammarType, ICoordinate, IGrammarBase, IGrammarBaseConstructor, IView } from '../types';
 import type { CoordinateFunctionType, CoordinateSpec } from '../types/coordinate';
 import { GrammarBase } from './grammar-base';
 import { configureCoordinate, createCoordinate } from '../parse/coordinate';
+import { Factory } from '../core/factory';
 
 export class Coordinate extends GrammarBase implements ICoordinate {
   readonly grammarType: GrammarType = 'coordinate';
@@ -92,3 +93,7 @@ export class Coordinate extends GrammarBase implements ICoordinate {
     this.coordinate = null;
   }
 }
+
+export const registerCoordinate = () => {
+  Factory.registerGrammar('coordinate', Coordinate as IGrammarBaseConstructor<CoordinateType>, 'coordinates');
+};

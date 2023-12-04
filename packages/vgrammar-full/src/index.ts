@@ -14,6 +14,9 @@ import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-s
 
 import {
   View,
+  // grammars
+  registerScale,
+  registerCoordinate,
   // semantic mark
   registerCellMark,
   registerIntervalMark,
@@ -134,6 +137,9 @@ import {
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
+  // grammars
+  registerScale,
+  registerCoordinate,
   // semantic marks
   registerCellMark,
   registerIntervalMark,
