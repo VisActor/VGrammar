@@ -6,6 +6,8 @@ export * from './graph';
 export * from './interactions';
 
 export { View } from './view';
+export { Scale, registerScale } from './view/scale';
+export { Coordinate, registerCoordinate } from './view/coordinate';
 export { parseFunctionType, invokeFunctionType } from './parse/util';
 export { GrammarBase } from './view/grammar-base';
 export * from './util/text';
