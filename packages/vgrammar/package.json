@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar",
-  "version": "0.9.4",
+  "version": "0.10.0-alpha.4",
   "description": "simple package of vgrammar.",
   "keywords": [
     "visualization",
@@ -31,7 +31,7 @@
     "analysis-core": "bundle -f umd -a -i index.ts"
   },
   "dependencies": {
-    "@visactor/vgrammar-core": "workspace:0.9.4"
+    "@visactor/vgrammar-core": "workspace:0.10.0-alpha.4"
   },
   "devDependencies": {
     "d3-array": "1.x",
