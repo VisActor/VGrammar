@@ -1,5 +1,5 @@
 import { transform } from '../src/wordcloud-shape';
-import { initBrowserEnv } from '@visactor/vrender-kits';
+import { initBrowserEnv } from '@visactor/vrender/es/kits';
 
 initBrowserEnv();
 

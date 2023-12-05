@@ -1,4 +1,4 @@
-import { Rect } from '@visactor/vrender-core';
+import { Rect } from '@visactor/vrender/es/core';
 import { createSimpleElement } from '../util';
 import { initBrowserEnv } from '../../src/env';
 

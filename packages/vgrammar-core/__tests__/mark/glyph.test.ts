@@ -1,4 +1,4 @@
-import { Glyph, Rect, Line } from '@visactor/vrender-core';
+import { Glyph, Rect, Line } from '@visactor/vrender/es/core';
 import { createElement } from '../../src/graph/util/element';
 import type { IGlyphElement } from '../../src/types';
 import { emptyFunction, getMockedView, registerDefaultGraphics } from '../util';
