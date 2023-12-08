@@ -38,10 +38,12 @@ export class BrushFilter extends BrushBase<BrushFilterOptions> {
     return super.getEvents();
   }
 
-  handleBrushUpdate = (options: {
-    operateType: string;
-    operateMask: IPolygon;
-    operatedMaskAABBBounds: { [name: string]: IBounds };
+  handleBrushUpdate = (event: {
+    type: string;
+    detail: {
+      operateMask: IPolygon;
+      operatedMaskAABBBounds: { [name: string]: IBounds };
+    };
   }) => {
     const elements: (IElement | IGlyphElement)[] = [];
 
@@ -49,7 +51,7 @@ export class BrushFilter extends BrushBase<BrushFilterOptions> {
 
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        const isActive = this.isBrushContainGraphicItem(options.operateMask, el.getGraphicItem());
+        const isActive = this.isBrushContainGraphicItem(event.detail.operateMask, el.getGraphicItem());
 
         if (isActive) {
           elements.push(el);
@@ -73,6 +75,6 @@ export class BrushFilter extends BrushBase<BrushFilterOptions> {
       }
     }
 
-    this.dispatchEvent(options, elements);
+    this.dispatchEvent(event, elements);
   };
 }
