@@ -16,16 +16,18 @@ export class BrushActive extends BrushBase<BrushActiveOptions> {
     super(view, Object.assign({}, BrushActive.defaultOptions, option));
   }
 
-  handleBrushUpdate = (options: {
-    operateType: string;
-    operateMask: IPolygon;
-    operatedMaskAABBBounds: { [name: string]: IBounds };
+  handleBrushUpdate = (event: {
+    type: string;
+    detail: {
+      operateMask: IPolygon;
+      operatedMaskAABBBounds: { [name: string]: IBounds };
+    };
   }) => {
     const elements: (IElement | IGlyphElement)[] = [];
 
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        const isActive = this.isBrushContainGraphicItem(options.operateMask, el.getGraphicItem());
+        const isActive = this.isBrushContainGraphicItem(event.detail.operateMask, el.getGraphicItem());
 
         if (isActive) {
           elements.push(el);
@@ -36,6 +38,6 @@ export class BrushActive extends BrushBase<BrushActiveOptions> {
       });
     });
 
-    this.dispatchEvent(options, elements);
+    this.dispatchEvent(event, elements);
   };
 }

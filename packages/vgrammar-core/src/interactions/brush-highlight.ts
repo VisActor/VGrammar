@@ -18,14 +18,16 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
     super(view, Object.assign({}, BrushHighlight.defaultOptions, option));
   }
 
-  handleBrushUpdate = (options: {
-    operateType: string;
-    operateMask: IPolygon;
-    operatedMaskAABBBounds: { [name: string]: IBounds };
+  handleBrushUpdate = (event: {
+    type: string;
+    detail: {
+      operateMask: IPolygon;
+      operatedMaskAABBBounds: { [name: string]: IBounds };
+    };
   }) => {
     const elements: (IElement | IGlyphElement)[] = [];
 
-    if (options.operateType === IOperateType.brushClear) {
+    if (event.type === IOperateType.brushClear) {
       this._marks.forEach(mark => {
         mark.elements.forEach(el => {
           el.removeState(this.options.blurState);
@@ -35,7 +37,7 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
     } else {
       this._marks.forEach(mark => {
         mark.elements.forEach(el => {
-          const isHighlight = this.isBrushContainGraphicItem(options.operateMask, el.getGraphicItem());
+          const isHighlight = this.isBrushContainGraphicItem(event.detail.operateMask, el.getGraphicItem());
 
           if (isHighlight) {
             elements.push(el);
@@ -49,6 +51,6 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
       });
     }
 
-    this.dispatchEvent(options, elements);
+    this.dispatchEvent(event, elements);
   };
 }
