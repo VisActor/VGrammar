@@ -100,7 +100,7 @@ export class Element implements IElement {
     // transform initial attributes
     this.clearGraphicAttributes();
     if (this.mark.needAnimate()) {
-      this.setPrevGraphicAttributes(null);
+      this.setPrevGraphicAttributes({});
       this.setNextGraphicAttributes(attributes);
       this.setFinalGraphicAttributes(attributes);
     }
