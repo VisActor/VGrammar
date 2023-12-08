@@ -1,10 +1,11 @@
 # Add 'core' label to any change within the 'core' package
-'@pkg/core':
-  - changed-files:
-      - any-glob-to-any-file: ['packages/vgrammar-core/src/**']
+@pkg/core:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ['packages/vgrammar-core/src/**']
 
 # Add 'coordinate' label to any change within the 'core' package
-'@pkg/coordinate':
+@pkg/coordinate:
   - changed-files:
       - any-glob-to-any-file: ['packages/vgrammar-coordinate/src/**']
 
