@@ -165,15 +165,23 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
       delayType: this.options.delayType,
       delayTime: this.options.delayTime
     });
-    this._brushComp.setUpdateDragMaskCallback(this.handleBrushUpdate);
 
+    this._brushComp.addEventListener(IOperateType.brushClear, this.handleBrushUpdate);
+    this._brushComp.addEventListener(IOperateType.moveEnd, this.handleBrushUpdate);
+    this._brushComp.addEventListener(IOperateType.drawEnd, this.handleBrushUpdate);
+    this._brushComp.addEventListener(IOperateType.drawStart, this.handleBrushUpdate);
+    this._brushComp.addEventListener(IOperateType.moveStart, this.handleBrushUpdate);
+    this._brushComp.addEventListener(IOperateType.drawing, this.handleBrushUpdate);
+    this._brushComp.addEventListener(IOperateType.moving, this.handleBrushUpdate);
     (stage.defaultLayer as any).appendChild(this._brushComp);
   };
 
-  abstract handleBrushUpdate: (options: {
-    operateType: string;
-    operateMask: IPolygon;
-    operatedMaskAABBBounds: { [name: string]: IBounds };
+  abstract handleBrushUpdate: (event: {
+    type: string;
+    detail: {
+      operateMask: IPolygon;
+      operatedMaskAABBBounds: { [name: string]: IBounds };
+    };
   }) => void;
 
   unbind(): void {
@@ -187,25 +195,27 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
   }
 
   protected dispatchEvent(
-    options: {
-      operateType: string;
-      operateMask: IPolygon;
-      operatedMaskAABBBounds: { [name: string]: IBounds };
+    event: {
+      type: string;
+      detail: {
+        operateMask: IPolygon;
+        operatedMaskAABBBounds: { [name: string]: IBounds };
+      };
     },
     activeElements: (IElement | IGlyphElement)[]
   ) {
-    const params = { operateType: options.operateType, operateMask: options.operateMask, activeElements };
-    if (options.operateType === IOperateType.drawStart || options.operateType === IOperateType.moveStart) {
+    const params = { operateType: event.type, operateMask: event.detail.operateMask, activeElements };
+    if (event.type === IOperateType.drawStart || event.type === IOperateType.moveStart) {
       this.view.emit('brushStart', params);
       if (this.options.onStart) {
         this.options.onStart(params);
       }
-    } else if (options.operateType === IOperateType.drawing || options.operateType === IOperateType.moving) {
+    } else if (event.type === IOperateType.drawing || event.type === IOperateType.moving) {
       this.view.emit('brushUpdate', params);
       if (this.options.onUpdate) {
         this.options.onEnd(params);
       }
-    } else if (options.operateType === IOperateType.drawEnd || options.operateType === IOperateType.moveEnd) {
+    } else if (event.type === IOperateType.drawEnd || event.type === IOperateType.moveEnd) {
       this.view.emit('brushEnd', params);
       if (this.options.onEnd) {
         this.options.onEnd(params);
