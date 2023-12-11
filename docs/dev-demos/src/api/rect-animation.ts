@@ -60,7 +60,7 @@ export const callback = (view: IView) => {
       easing: 'linear'
     });
     setTimeout(() => {
-      bar.touch();
+      bar.commit();
       view.runAsync();
     }, 2100);
   });

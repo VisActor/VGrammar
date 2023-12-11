@@ -38,8 +38,7 @@ export class GlyphElement extends Element implements IGlyphElement {
       return;
     }
 
-    const attrs = Object.assign({}, attributes);
-    this.graphicItem = this.mark.addGraphicItem(attrs, this.groupKey) as IGlyph;
+    this.graphicItem = this.mark.addGraphicItem(attributes, this.groupKey) as IGlyph;
     this.graphicItem[BridgeElementKey] = this;
     this.graphicItem.onBeforeAttributeUpdate = this._onGlyphAttributeUpdate(false);
 
@@ -381,22 +380,22 @@ export class GlyphElement extends Element implements IGlyphElement {
   }
 
   clearChangedGraphicAttributes() {
-    this.setPrevGraphicAttributes({});
-    this.setNextGraphicAttributes({});
+    this.setPrevGraphicAttributes(null);
+    this.setNextGraphicAttributes(null);
     Object.keys(this.glyphGraphicItems).forEach(markName => {
-      this.setPrevGraphicAttributes({}, markName);
-      this.setNextGraphicAttributes({}, markName);
+      this.setPrevGraphicAttributes(null, markName);
+      this.setNextGraphicAttributes(null, markName);
     });
   }
 
   clearGraphicAttributes() {
-    this.setPrevGraphicAttributes({});
-    this.setNextGraphicAttributes({});
-    this.setFinalGraphicAttributes({});
+    this.setPrevGraphicAttributes(null);
+    this.setNextGraphicAttributes(null);
+    this.setFinalGraphicAttributes(null);
     Object.keys(this.glyphGraphicItems).forEach(markName => {
-      this.setPrevGraphicAttributes({}, markName);
-      this.setNextGraphicAttributes({}, markName);
-      this.setFinalGraphicAttributes({}, markName);
+      this.setPrevGraphicAttributes(null, markName);
+      this.setNextGraphicAttributes(null, markName);
+      this.setFinalGraphicAttributes(null, markName);
     });
   }
 
