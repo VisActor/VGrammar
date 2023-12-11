@@ -334,29 +334,36 @@ export class Element implements IElement {
   }
 
   addState(state: string | string[], attrs?: BaseSingleEncodeSpec) {
-    const states = array(state);
-    const nextStates = states.reduce((nextStates: string[], state: string) => {
+    if (!this.graphicItem) {
+      return;
+    }
+
+    const isRuntimeStateUpdate = attrs && isString(state) && !isObjEqual(attrs, this.runtimeStatesEncoder?.[state]);
+    if (isRuntimeStateUpdate) {
+      const nextStates = this.states.slice();
       if (!nextStates.includes(state)) {
         nextStates.push(state);
+      }
+      this._updateRuntimeStates(state, attrs);
+
+      this.useStates(nextStates);
+      return;
+    }
+
+    const encode = (this.mark.getSpec() as MarkSpec).encode;
+    const states = array(state);
+    const nextStates = states.reduce((nextStates: string[], stateName: string) => {
+      if (!nextStates.includes(stateName) && encode?.[stateName]) {
+        nextStates.push(stateName);
       }
       return nextStates;
     }, this.states.slice());
 
-    const isRuntimeStateUpdate = attrs && isString(state) && !isObjEqual(attrs, this.runtimeStatesEncoder?.[state]);
-    if (isRuntimeStateUpdate) {
-      this._updateRuntimeStates(state, attrs);
+    if (nextStates.length !== this.states.length) {
+      this.useStates(nextStates);
     }
 
-    if (nextStates.length === this.states.length) {
-      if (isRuntimeStateUpdate && this.graphicItem) {
-        this.graphicItem.clearStates();
-        this.useStates(nextStates);
-      }
-
-      return;
-    }
-
-    this.useStates(nextStates);
+    return;
   }
 
   removeState(state: string | string[]) {
