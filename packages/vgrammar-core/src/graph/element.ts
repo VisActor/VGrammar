@@ -100,7 +100,7 @@ export class Element implements IElement {
     // transform initial attributes
     this.clearGraphicAttributes();
     if (this.mark.needAnimate()) {
-      this.setPrevGraphicAttributes({});
+      this.setPrevGraphicAttributes(null);
       this.setNextGraphicAttributes(attributes);
       this.setFinalGraphicAttributes(attributes);
     }
@@ -513,9 +513,9 @@ export class Element implements IElement {
     if (this.mark.needAnimate()) {
       // If mark need animate, diff attributes.
       const nextGraphicAttributes = this.diffAttributes(graphicAttributes);
-      const prevGraphicAttributes = this.getPrevGraphicAttributes();
+      const prevGraphicAttributes = this.getPrevGraphicAttributes() ?? {};
+      const finalGraphicAttributes = this.getFinalGraphicAttributes() ?? {};
 
-      const finalGraphicAttributes = this.getFinalGraphicAttributes();
       Object.keys(nextGraphicAttributes).forEach(channel => {
         prevGraphicAttributes[channel] = this.getGraphicAttribute(channel);
         finalGraphicAttributes[channel] = nextGraphicAttributes[channel];
