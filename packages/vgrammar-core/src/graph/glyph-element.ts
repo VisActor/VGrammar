@@ -331,8 +331,8 @@ export class GlyphElement extends Element implements IGlyphElement {
     if (this.mark.needAnimate()) {
       // If mark need animate, diff attributes.
       const nextGraphicAttributes = this.diffAttributes(graphicAttributes, markName);
-      const prevGraphicAttributes = this.getPrevGraphicAttributes(markName);
-      const finalGraphicAttributes = this.getFinalGraphicAttributes(markName);
+      const prevGraphicAttributes = this.getPrevGraphicAttributes(markName) ?? {};
+      const finalGraphicAttributes = this.getFinalGraphicAttributes(markName) ?? {};
       Object.keys(nextGraphicAttributes).forEach(channel => {
         prevGraphicAttributes[channel] = graphicItem.attribute[channel];
         finalGraphicAttributes[channel] = nextGraphicAttributes[channel];
