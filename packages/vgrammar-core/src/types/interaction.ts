@@ -21,6 +21,8 @@ export interface FilterDataTarget {
 }
 
 export interface IBaseInteractionOptions {
+  id?: string;
+
   dependencies?: string | string[] | IGrammarBase | IGrammarBase[];
 
   shouldStart?: (e: any) => boolean;
@@ -40,17 +42,18 @@ export interface IBaseInteractionOptions {
   onReset?: (e: any) => boolean;
 }
 
-export interface IInteraction {
+export interface IInteraction<T = any> {
+  readonly options: T;
   readonly type: string;
   depend: (grammar: IGrammarBase[] | IGrammarBase | string[] | string) => void;
   bind: () => void;
   unbind: () => void;
 }
 
-export interface IInteractionConstructor {
+export interface IInteractionConstructor<T = any> {
   readonly type: string;
 
-  new (view: IView, options?: any): IInteraction;
+  new (view: IView, options?: T): IInteraction<T>;
 }
 
 /**
@@ -91,6 +94,10 @@ export interface ElementSelectOptions extends IBaseInteractionOptions {
    * the selected state name
    */
   state?: string;
+  /**
+   * the non-selected state name
+   */
+  reverseState?: string;
   /**
    * the reset trigger event name
    */
