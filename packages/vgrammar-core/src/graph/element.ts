@@ -161,7 +161,7 @@ export class Element implements IElement {
   }
 
   getStates() {
-    return this.states.slice();
+    return this.states;
   }
 
   updateData(groupKey: string | null, data: any[], key: MarkKeySpec) {
@@ -343,6 +343,8 @@ export class Element implements IElement {
       const nextStates = this.states.slice();
       if (!nextStates.includes(state)) {
         nextStates.push(state);
+      } else {
+        this.graphicItem.clearStates();
       }
       this._updateRuntimeStates(state, attrs);
 
@@ -420,12 +422,12 @@ export class Element implements IElement {
     }
     this.mark.emit(HOOK_EVENT.BEFORE_ELEMENT_STATE, { states }, this);
 
-    this.states = states.slice();
     const stateSort = this.mark.getSpec()?.stateSort;
 
     if (stateSort) {
-      this.states.sort(stateSort);
+      states.sort(stateSort);
     }
+    this.states = states;
 
     const stateAnimationEnable = isBoolean(hasAnimation)
       ? hasAnimation
