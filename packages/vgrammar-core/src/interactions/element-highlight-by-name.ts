@@ -2,6 +2,7 @@ import { InteractionStateEnum } from '../graph/enums';
 import type { ElementHighlightByNameOptions, IElement, IGlyphElement, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 import { array, isNil } from '@visactor/vutils';
+import { generateFilterValue } from './utils';
 
 export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNameOptions> {
   static type: string = 'element-highlight-by-name';
@@ -35,7 +36,7 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
   }
 
   protected _filterByName(e: InteractionEvent) {
-    const names = array(this.options.name);
+    const names = array(this.options.graphicName);
     return e?.target?.name && names.includes(e.target.name);
   }
 
@@ -56,9 +57,11 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
         return;
       }
 
+      const filterValue = generateFilterValue(this.options);
+
       this._marks.forEach(mark => {
         mark.elements.forEach(el => {
-          const isHighlight = el[this.options.filterType] === itemKey;
+          const isHighlight = filterValue(el) === itemKey;
           if (isHighlight) {
             el.removeState(this.options.blurState);
             el.addState(this.options.highlightState);

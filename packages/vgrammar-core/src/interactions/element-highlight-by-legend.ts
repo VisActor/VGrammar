@@ -10,6 +10,7 @@ import type {
 import { BaseInteraction } from './base';
 import { LegendEvent } from '@visactor/vrender-components';
 import { isNil } from '@visactor/vutils';
+import { generateFilterValue } from './utils';
 
 export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightByLegendOptions> {
   static type: string = 'element-highlight-by-legend';
@@ -46,10 +47,11 @@ export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightBy
     if (isNil(itemKey)) {
       return;
     }
+    const filterValue = generateFilterValue(this.options);
 
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        const isHighlight = el[this.options.filterType] === itemKey;
+        const isHighlight = filterValue(el) === itemKey;
 
         if (isHighlight) {
           el.removeState(this.options.blurState);
