@@ -63,7 +63,7 @@ export class GlyphElement extends Element implements IGlyphElement {
 
   useStates(states: string[], hasAnimation?: boolean) {
     if (!this.graphicItem) {
-      return;
+      return false;
     }
     this.mark.emit(HOOK_EVENT.BEFORE_ELEMENT_STATE, { states }, this);
 
@@ -77,6 +77,8 @@ export class GlyphElement extends Element implements IGlyphElement {
     this.graphicItem.useStates(this.states, stateAnimationEnable);
 
     this.mark.emit(HOOK_EVENT.AFTER_ELEMENT_STATE, { states }, this);
+
+    return true;
   }
 
   protected getStateAttrs = (stateName: string, nextStates: string[]) => {
