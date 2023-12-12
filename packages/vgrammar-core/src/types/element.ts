@@ -151,9 +151,9 @@ export interface IElement {
   getStates: () => string[];
   hasState: (state: string) => boolean;
   clearStates: (noAnimation?: boolean) => void;
-  addState: (state: string | string[], attrs?: any) => void;
-  removeState: (state: string | string[]) => void;
-  useStates: (states: string[], noAnimation?: boolean) => void;
+  addState: (state: string | string[], attrs?: any) => boolean;
+  removeState: (state: string | string[]) => boolean;
+  useStates: (states: string[], noAnimation?: boolean) => boolean;
 }
 
 export interface IGlyphElement<P = any> extends IElement {

@@ -335,7 +335,7 @@ export class Element implements IElement {
 
   addState(state: string | string[], attrs?: BaseSingleEncodeSpec) {
     if (!this.graphicItem) {
-      return;
+      return false;
     }
 
     const isRuntimeStateUpdate = attrs && isString(state) && !isObjEqual(attrs, this.runtimeStatesEncoder?.[state]);
@@ -349,7 +349,7 @@ export class Element implements IElement {
       this._updateRuntimeStates(state, attrs);
 
       this.useStates(nextStates);
-      return;
+      return true;
     }
 
     const encode = (this.mark.getSpec() as MarkSpec).encode;
@@ -363,16 +363,22 @@ export class Element implements IElement {
 
     if (nextStates.length !== this.states.length) {
       this.useStates(nextStates);
+
+      return true;
     }
 
-    return;
+    return false;
   }
 
   removeState(state: string | string[]) {
+    if (!this.graphicItem) {
+      return false;
+    }
+
     const states = array(state);
     const nextStates = this.states.filter(state => !states.includes(state));
     if (nextStates.length === this.states.length) {
-      return;
+      return false;
     }
 
     if (this.runtimeStatesEncoder) {
@@ -381,6 +387,8 @@ export class Element implements IElement {
       });
     }
     this.useStates(nextStates);
+
+    return true;
   }
 
   protected getStateAttrs = (stateName: string, nextStates: string[]) => {
@@ -418,7 +426,7 @@ export class Element implements IElement {
 
   useStates(states: string[], hasAnimation?: boolean) {
     if (!this.graphicItem) {
-      return;
+      return false;
     }
     this.mark.emit(HOOK_EVENT.BEFORE_ELEMENT_STATE, { states }, this);
 
@@ -437,6 +445,8 @@ export class Element implements IElement {
     this.graphicItem.useStates(this.states, stateAnimationEnable);
 
     this.mark.emit(HOOK_EVENT.AFTER_ELEMENT_STATE, { states }, this);
+
+    return true;
   }
 
   protected diffAttributes(graphicAttributes: { [channel: string]: any }) {
