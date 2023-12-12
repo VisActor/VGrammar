@@ -22,21 +22,24 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   }
 
   protected getEvents() {
+    const resetTrigger = this.options.resetTrigger;
+    const trigger = this.options.trigger;
+
     const events = [
       {
-        type: this.options.trigger,
+        type: trigger,
         handler: this.handleStart
       }
     ];
 
     const eventName =
-      this.options.resetTrigger === 'empty'
-        ? this.options.trigger
-        : this.options.resetTrigger.includes('view:')
-        ? this.options.resetTrigger.replace('view:', '')
-        : this.options.resetTrigger;
+      resetTrigger === 'empty'
+        ? trigger
+        : resetTrigger && resetTrigger.includes('view:')
+        ? resetTrigger.replace('view:', '')
+        : resetTrigger;
 
-    if (eventName !== this.options.trigger) {
+    if (eventName !== trigger) {
       events.push({ type: eventName as EventType, handler: this.handleReset });
       this._isToggle = false;
     } else {
@@ -46,41 +49,52 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
     return events;
   }
 
-  clearPrevElements() {
+  clearPrevElements(isMultiple?: boolean, isActive?: boolean) {
+    const { state, reverseState } = this.options;
+
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        if (el.hasState(this.options.state)) {
-          el.removeState(this.options.state);
+        if (!isMultiple && el.hasState(state)) {
+          el.removeState(state);
+        }
+
+        if (reverseState) {
+          if (isActive) {
+            el.addState(reverseState);
+          } else {
+            el.removeState(reverseState);
+          }
         }
       });
     });
   }
 
   handleStart = (e: InteractionEvent) => {
-    if (e.element && this._marks && this._marks.includes(e.element.mark)) {
-      if (!this.options.isMultiple) {
-        this.clearPrevElements();
-      }
+    const { state, trigger, resetTrigger, reverseState } = this.options;
 
-      if (e.element.hasState(this.options.state)) {
-        if (this.options.resetTrigger === this.options.trigger) {
-          e.element.removeState(this.options.state);
+    if (e.element && this._marks && this._marks.includes(e.element.mark)) {
+      this.clearPrevElements(this.options.isMultiple, true);
+
+      if (e.element.hasState(state)) {
+        if (resetTrigger === trigger) {
+          e.element.removeState(state);
+
+          reverseState && e.element.addState(reverseState);
         }
       } else {
-        e.element.addState(this.options.state);
+        reverseState && e.element.removeState(reverseState);
+        e.element.addState(state);
       }
-    } else if (
-      this._isToggle &&
-      (this.options.resetTrigger === 'empty' || this.options.resetTrigger.includes('view:'))
-    ) {
+    } else if (this._isToggle && (resetTrigger === 'empty' || resetTrigger?.includes('view:'))) {
       this.clearPrevElements();
     }
   };
 
   handleReset = (e: InteractionEvent) => {
+    const { resetTrigger, state, reverseState } = this.options;
     const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
 
-    if (this.options.resetTrigger === 'empty' || this.options.resetTrigger.includes('view:')) {
+    if (resetTrigger === 'empty' || resetTrigger?.includes('view:')) {
       if (!hasActiveElement) {
         this.clearPrevElements();
       }

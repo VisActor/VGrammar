@@ -1,6 +1,6 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { EventEmitter, debounce, isObject, isString, getContainerSize, Logger, array } from '@visactor/vutils';
+import { EventEmitter, debounce, isObject, isString, getContainerSize, Logger, array, isNil } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
 import { vglobal } from '@visactor/vrender-core';
@@ -1425,11 +1425,21 @@ export default class View extends EventEmitter implements IView {
     return interaction;
   }
 
-  removeInteraction(type: string | IInteraction) {
+  removeInteraction(type: string | IInteraction, id?: string) {
     if (this._boundInteractions) {
-      const instances = this._boundInteractions.filter(
-        interaction => (isString(type) && interaction.type === type) || interaction === type
-      );
+      const instances = this._boundInteractions.filter(interaction => {
+        if (!isNil(id)) {
+          return interaction.options?.id === id;
+        }
+
+        if (isString(type)) {
+          return interaction.type === type;
+        }
+
+        if (type) {
+          return interaction === type;
+        }
+      });
 
       if (instances.length) {
         instances.forEach(instance => {
