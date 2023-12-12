@@ -50,11 +50,10 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
 
         this._resetType = 'self';
       }
-    } else if (isNumber(resetTrigger) && resetTrigger > 0) {
+    } else if (isNumber(resetTrigger)) {
       eventName = null;
       this._resetType = 'timeout';
     } else {
-      eventName = null;
       this._resetType = null;
     }
 
