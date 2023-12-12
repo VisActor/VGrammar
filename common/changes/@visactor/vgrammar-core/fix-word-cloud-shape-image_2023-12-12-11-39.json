@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: fix `loadImage()` of word-cloud-shape\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}
