@@ -33,14 +33,16 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
   }
 
   clearPrevElements() {
+    const { highlightState, blurState } = this.options;
+
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        if (el.hasState(this.options.highlightState)) {
-          el.removeState(this.options.highlightState);
+        if (highlightState && el.hasState(highlightState)) {
+          el.removeState(highlightState);
         }
 
-        if (el.hasState(this.options.blurState)) {
-          el.removeState(this.options.blurState);
+        if (blurState && el.hasState(blurState)) {
+          el.removeState(blurState);
         }
       });
     });
@@ -48,16 +50,18 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
 
   handleStart = (e: InteractionEvent) => {
     if (e.element && this._marks && this._marks.includes(e.element.mark)) {
+      const { highlightState, blurState } = this.options;
+
       this._marks.forEach(mark => {
         mark.elements.forEach(el => {
           const isHighlight = el === e.element;
 
           if (isHighlight) {
-            el.removeState(this.options.blurState);
-            el.addState(this.options.highlightState);
+            el.removeState(blurState);
+            el.addState(highlightState);
           } else {
-            el.removeState(this.options.highlightState);
-            el.addState(this.options.blurState);
+            el.removeState(highlightState);
+            el.addState(blurState);
           }
         });
       });

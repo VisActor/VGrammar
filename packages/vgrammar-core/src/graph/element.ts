@@ -330,7 +330,7 @@ export class Element implements IElement {
   }
 
   hasState(state: string) {
-    return this.states && this.states.includes(state);
+    return this.states && state && this.states.includes(state);
   }
 
   addState(state: string | string[], attrs?: BaseSingleEncodeSpec) {
@@ -353,7 +353,7 @@ export class Element implements IElement {
     const encode = (this.mark.getSpec() as MarkSpec).encode;
     const states = array(state);
     const nextStates = states.reduce((nextStates: string[], stateName: string) => {
-      if (!nextStates.includes(stateName) && encode?.[stateName]) {
+      if (stateName && !nextStates.includes(stateName) && encode?.[stateName]) {
         nextStates.push(stateName);
       }
       return nextStates;
