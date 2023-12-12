@@ -3,6 +3,7 @@ import type { ElementActiveByLegendOptions, IElement, IGlyphElement, IMark, IVie
 import { BaseInteraction } from './base';
 import { LegendEvent } from '@visactor/vrender-components';
 import { isNil } from '@visactor/vutils';
+import { generateFilterValue } from './utils';
 
 export class ElementActiveByLegend extends BaseInteraction<ElementActiveByLegendOptions> {
   static type: string = 'element-active-by-legend';
@@ -42,9 +43,11 @@ export class ElementActiveByLegend extends BaseInteraction<ElementActiveByLegend
       return;
     }
 
+    const filterValue = generateFilterValue(this.options);
+
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        const isActive = el[this.options.filterType] === itemKey;
+        const isActive = filterValue(el) === itemKey;
 
         if (isActive) {
           el.addState(this.options.state);

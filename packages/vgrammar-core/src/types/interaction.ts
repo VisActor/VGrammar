@@ -21,6 +21,7 @@ export interface FilterDataTarget {
 }
 
 export interface IBaseInteractionOptions {
+  type: string;
   id?: string;
 
   dependency?: string | string[] | IGrammarBase | IGrammarBase[];
@@ -67,11 +68,11 @@ export interface ElementActiveOptions extends IBaseInteractionOptions {
   /**
    * the trigger event name
    */
-  trigger?: EventType;
+  trigger?: EventType | EventType[];
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType;
+  resetTrigger?: EventType | EventType[];
   /**
    * the active state name
    */
@@ -89,7 +90,7 @@ export interface ElementSelectOptions extends IBaseInteractionOptions {
   /**
    * the trigger event name
    */
-  trigger?: EventType;
+  trigger?: EventType | EventType[];
   /**
    * the selected state name
    */
@@ -101,7 +102,7 @@ export interface ElementSelectOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType | ViewEventType | 'empty' | number;
+  resetTrigger?: EventType | EventType[] | ViewEventType | 'empty' | number;
   /**
    * whether or not support multiple selected
    */
@@ -134,10 +135,21 @@ export interface ElementHighlightOptions extends IBaseInteractionOptions {
   blurState?: string;
 }
 
+export interface ElementFilterOptions {
+  /**
+   * the filter type of element
+   */
+  filterType?: 'key' | 'groupKey';
+  /**
+   * the field to be filtered
+   */
+  filterField?: string;
+}
+
 /**
  * the interaction to set the active state of specified marks trigger by legend
  */
-export interface ElementActiveByLegendOptions extends IBaseInteractionOptions {
+export interface ElementActiveByLegendOptions extends IBaseInteractionOptions, ElementFilterOptions {
   /**
    * the selector of marks
    */
@@ -146,16 +158,12 @@ export interface ElementActiveByLegendOptions extends IBaseInteractionOptions {
    * the active state name
    */
   state?: string;
-  /**
-   * the highlight state name
-   */
-  filterType?: 'key' | 'groupKey';
 }
 
 /**
  * the interaction to set the active state of specified marks trigger by legend
  */
-export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions {
+export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions, ElementFilterOptions {
   /**
    * the selector of marks
    */
@@ -168,14 +176,10 @@ export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions
    * the blur state name
    */
   blurState?: string;
-  /**
-   * the highlight state name
-   */
-  filterType?: 'key' | 'groupKey';
 }
 
 export interface ElementHighlightByNameOptions extends ElementHighlightByLegendOptions {
-  name?: string | string[];
+  graphicName?: string | string[];
   /**
    * the trigger event name
    */
@@ -590,7 +594,8 @@ export type InteractionSpec =
   | ViewScrollSpec
   | ViewDragSpec
   | SankeyHighlightSpec
-  | FishEyeSpec;
+  | FishEyeSpec
+  | IBaseInteractionOptions;
 
 export interface ViewNavigationRange {
   needUpdate?: boolean;
