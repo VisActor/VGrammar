@@ -70,6 +70,14 @@ export function loadImage(url: string) {
   }
   return new Promise((resolve, reject) => {
     const imageMark = createImage({ image: url });
+    const imgData = imageMark.resources?.get(url);
+
+    if (imgData && imgData.state === 'success' && imgData.data) {
+      resolve(imgData.data);
+
+      return;
+    }
+
     imageMark.successCallback = () => {
       if (imageMark) {
         const imgData = imageMark.resources?.get(url);
