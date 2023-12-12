@@ -101,7 +101,7 @@ export interface ElementSelectOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType | ViewEventType | 'empty';
+  resetTrigger?: EventType | ViewEventType | 'empty' | number;
   /**
    * whether or not support multiple selected
    */
