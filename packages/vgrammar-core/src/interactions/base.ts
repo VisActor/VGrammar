@@ -1,4 +1,4 @@
-import { array, isNil, isString, isValid } from '@visactor/vutils';
+import { array, isArray, isNil, isString, isValid } from '@visactor/vutils';
 import type { IBaseInteractionOptions, IGrammarBase, IView, InteractionEventHandler } from '../types';
 
 export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
@@ -11,7 +11,7 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
 
   references: Map<IGrammarBase, number> = new Map();
 
-  protected abstract getEvents(): Array<{ type: string; handler: InteractionEventHandler }>;
+  protected abstract getEvents(): Array<{ type: string | string[]; handler: InteractionEventHandler }>;
 
   depend(grammar: IGrammarBase[] | IGrammarBase | string[] | string) {
     this.references.clear();
@@ -39,7 +39,13 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
 
     (events ?? []).forEach(evt => {
       if (evt.type && evt.handler) {
-        this.view.addEventListener(evt.type, evt.handler);
+        if (isArray(evt.type)) {
+          evt.type.forEach(evtType => {
+            evtType && this.view.addEventListener(evtType, evt.handler);
+          });
+        } else {
+          this.view.addEventListener(evt.type, evt.handler);
+        }
       }
     });
   }
@@ -50,7 +56,13 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
 
     (events ?? []).forEach(evt => {
       if (evt.type && evt.handler) {
-        this.view.removeEventListener(evt.type, evt.handler);
+        if (isArray(evt.type)) {
+          evt.type.forEach(evtType => {
+            evtType && this.view.removeEventListener(evtType, evt.handler);
+          });
+        } else {
+          this.view.removeEventListener(evt.type, evt.handler);
+        }
       }
     });
   }
