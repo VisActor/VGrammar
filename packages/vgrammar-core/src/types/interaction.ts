@@ -21,7 +21,6 @@ export interface FilterDataTarget {
 }
 
 export interface IBaseInteractionOptions {
-  type: string;
   id?: string;
 
   dependency?: string | string[] | IGrammarBase | IGrammarBase[];
@@ -567,6 +566,10 @@ export interface FishEyeSpec extends FishEyeOptions {
   type: 'fish-eye';
 }
 
+export interface CustomizedInteractionSpec extends IBaseInteractionOptions {
+  type: string;
+}
+
 export type InteractionSpec =
   | ElementActiveSpec
   | ElementSelectSpec
@@ -595,7 +598,7 @@ export type InteractionSpec =
   | ViewDragSpec
   | SankeyHighlightSpec
   | FishEyeSpec
-  | IBaseInteractionOptions;
+  | CustomizedInteractionSpec;
 
 export interface ViewNavigationRange {
   needUpdate?: boolean;
