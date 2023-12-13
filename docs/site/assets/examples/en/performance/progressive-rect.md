@@ -50,6 +50,16 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      container: '#container',
+      scale: 'xscale',
+      crosshairShape: 'rect',
+      crosshairType: 'x'
+    }
+  ],
+
   marks: [
     {
       type: 'group',
@@ -99,13 +109,6 @@ const spec = {
               };
             }
           }
-        },
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'xscale',
-          crosshairShape: 'rect',
-          crosshairType: 'x'
         },
         {
           type: 'rect',

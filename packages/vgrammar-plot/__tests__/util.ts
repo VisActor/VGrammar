@@ -1,5 +1,9 @@
 import {
+  initBrowserEnv,
   View,
+  registerScale,
+  registerCoordinate,
+
   // components
   registerAxis,
   registerLegend,
@@ -63,10 +67,37 @@ import {
   registerJitterTransform,
   registerJitterXTransform,
   registerJitterYTransform,
-  registerSymmetryTransform
+  registerSymmetryTransform,
+  // graphics
+  registerCircleGraphic,
+  registerArcGraphic,
+  registerArc3dGraphic,
+  registerPyramid3dGraphic,
+  registerAreaGraphic,
+  registerGroupGraphic,
+  registerImageGraphic,
+  registerRect3dGraphic,
+  registerLineGraphic,
+  registerPathGraphic,
+  registerRectGraphic,
+  registerRuleGraphic,
+  registerShapeGraphic,
+  registerSymbolGraphic,
+  registerTextGraphic,
+  registerPolygonGraphic,
+  registerRichTextGraphic,
+  registerCellGraphic,
+  registerIntervalGraphic,
+  registerGlyphGraphic,
+  registerLargeRectsGraphic,
+  registerLargeSymbolsGraphic
 } from '@visactor/vgrammar-core';
 
+initBrowserEnv();
+
 View.useRegisters([
+  registerScale,
+  registerCoordinate,
   registerAxis,
   registerLegend,
   registerSlider,
@@ -129,5 +160,28 @@ View.useRegisters([
   registerRotateOutAnimation,
   registerScaleInAnimation,
   registerScaleOutAnimation,
-  registerUpdateAnimation
+  registerUpdateAnimation,
+  // graphics
+  registerCircleGraphic,
+  registerArcGraphic,
+  registerArc3dGraphic,
+  registerPyramid3dGraphic,
+  registerAreaGraphic,
+  registerGroupGraphic,
+  registerImageGraphic,
+  registerRect3dGraphic,
+  registerLineGraphic,
+  registerPathGraphic,
+  registerRectGraphic,
+  registerRuleGraphic,
+  registerShapeGraphic,
+  registerSymbolGraphic,
+  registerTextGraphic,
+  registerPolygonGraphic,
+  registerRichTextGraphic,
+  registerCellGraphic,
+  registerIntervalGraphic,
+  registerGlyphGraphic,
+  registerLargeRectsGraphic,
+  registerLargeSymbolsGraphic
 ]);

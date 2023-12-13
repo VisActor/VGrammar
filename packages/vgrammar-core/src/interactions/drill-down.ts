@@ -49,10 +49,12 @@ export class DrillDown extends BrushBase<DrillDownOptions> {
     ];
   }
 
-  handleBrushUpdate = (options: {
-    operateType: string;
-    operateMask: IPolygon;
-    operatedMaskAABBBounds: { [name: string]: IBounds };
+  handleBrushUpdate = (event: {
+    type: string;
+    detail: {
+      operateMask: IPolygon;
+      operatedMaskAABBBounds: { [name: string]: IBounds };
+    };
   }) => {
     const elements: (IElement | IGlyphElement)[] = [];
 
@@ -60,7 +62,7 @@ export class DrillDown extends BrushBase<DrillDownOptions> {
 
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        const isActive = this.isBrushContainGraphicItem(options.operateMask, el.getGraphicItem());
+        const isActive = this.isBrushContainGraphicItem(event.detail.operateMask, el.getGraphicItem());
 
         if (isActive) {
           elements.push(el);
@@ -84,7 +86,7 @@ export class DrillDown extends BrushBase<DrillDownOptions> {
       }
     }
 
-    this.dispatchEvent(options, elements);
+    this.dispatchEvent(event, elements);
   };
 
   handleTrigger = (event: InteractionEvent) => {

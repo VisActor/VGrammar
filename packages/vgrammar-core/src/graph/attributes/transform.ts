@@ -13,47 +13,26 @@ function storeOriginAttributes(
   element: IElement,
   markName: string
 ): Record<string, any> {
-  const prevStoredAttrs = (element as IGlyphElement).getGraphicAttribute(name, false, markName) ?? {};
+  const prevStoredAttrs = (element as IGlyphElement).getGraphicAttribute(name, false, markName);
+
+  if (prevStoredAttrs) {
+    channels.forEach(channel => {
+      if (channel in nextAttrs) {
+        prevStoredAttrs[channel] = nextAttrs[channel];
+      }
+    });
+
+    return prevStoredAttrs;
+  }
   const storedAttrs = {};
   channels.forEach(channel => {
-    storedAttrs[channel] = nextAttrs[channel] ?? prevStoredAttrs[channel];
+    storedAttrs[channel] = nextAttrs[channel];
   });
   graphicAttributes[name] = storedAttrs;
   return storedAttrs;
 }
 
 export const transformsByType: Record<string, AttributeTransform[]> = {
-  [GrammarMarkType.rect]: [
-    {
-      channels: ['x', 'y', 'x1', 'y1', 'width', 'height'],
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        // width
-        if (isValidNumber(nextAttrs.width) || (!isValidNumber(nextAttrs.x1) && isValidNumber(storedAttrs.width))) {
-          graphicAttributes.x = Math.min(storedAttrs.x ?? 0, storedAttrs.x1 ?? Infinity);
-          graphicAttributes.width = storedAttrs.width;
-        } else if (isValidNumber(nextAttrs.x1) || (!isValidNumber(nextAttrs.width) && isValidNumber(storedAttrs.x1))) {
-          graphicAttributes.x = Math.min(storedAttrs.x, storedAttrs.x1);
-          graphicAttributes.width = Math.abs(storedAttrs.x1 - storedAttrs.x);
-        } else {
-          graphicAttributes.x = Math.min(storedAttrs.x ?? 0, storedAttrs.x1 ?? Infinity);
-          graphicAttributes.width = storedAttrs.width;
-        }
-
-        // height
-        if (isValidNumber(nextAttrs.height) || (!isValidNumber(nextAttrs.y1) && isValidNumber(storedAttrs.height))) {
-          graphicAttributes.y = Math.min(storedAttrs.y ?? 0, storedAttrs.y1 ?? Infinity);
-          graphicAttributes.height = storedAttrs.height;
-        } else if (isValidNumber(nextAttrs.y1) || (!isValidNumber(nextAttrs.height) && isValidNumber(storedAttrs.y1))) {
-          graphicAttributes.y = Math.min(storedAttrs.y, storedAttrs.y1);
-          graphicAttributes.height = Math.abs(storedAttrs.y1 - storedAttrs.y);
-        } else {
-          graphicAttributes.y = Math.min(storedAttrs.y ?? 0, storedAttrs.y1 ?? Infinity);
-          graphicAttributes.height = storedAttrs.height;
-        }
-      },
-      storedAttrs: 'sizeAttrs'
-    }
-  ],
   rect3d: [
     {
       channels: ['x', 'y', 'z', 'x1', 'y1', 'width', 'height', 'length'],

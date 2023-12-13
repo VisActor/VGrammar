@@ -1,10 +1,11 @@
-import type { IMark } from '../../src';
+import { registerGroupGraphic, type IMark } from '../../src';
 import { Data } from '../../src/view/data';
 import { Mark } from '../../src/view/mark';
 import { getMockedView } from '../util';
 import { initBrowserEnv } from '../../src/env';
 
 initBrowserEnv();
+registerGroupGraphic();
 
 test('group encode of mark', () => {
   const mockView = getMockedView();

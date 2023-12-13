@@ -27,6 +27,13 @@ export const spec = {
       type: 'element-highlight-by-name',
       name: 'axis-label',
       selector: '#points'
+    },
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'line',
+      crosshairType: 'x',
+      container: 'root'
     }
   ],
 
@@ -87,57 +94,6 @@ export const spec = {
         }
       }
     },
-    // {
-    //   type: 'component',
-    //   componentType: 'axis',
-    //   scale: 'yscale',
-    //   dependency: ['viewBox'],
-    //   encode: {
-    //     update: (scale, elment, params) => {
-    //       return {
-    //         x: params.viewBox.x1,
-    //         y: params.viewBox.y1,
-    //         start: { x: 0, y: params.viewBox.height() },
-    //         end: { x: 0, y: 0 },
-    //         verticalFactor: -1
-    //       };
-    //     }
-    //   }
-    // },
-
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'line',
-      crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
-          };
-        }
-      }
-    },
-
-    // {
-    //   type: 'component',
-    //   componentType: 'crosshair',
-    //   scale: 'yscale',
-    //   crosshairShape: 'line',
-    //   crosshairType: 'y',
-    //   dependency: ['viewBox'],
-    //   encode: {
-    //     update: (scale, elment, params) => {
-    //       return {
-    //         start: { x: params.viewBox.x1 },
-    //         end: { x: params.viewBox.x2 }
-    //       };
-    //     }
-    //   }
-    // },
 
     {
       type: 'component',

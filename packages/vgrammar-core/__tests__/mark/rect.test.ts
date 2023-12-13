@@ -1,7 +1,9 @@
 import { createSimpleElement } from '../util';
 import { initBrowserEnv } from '../../src/env';
+import { registerRectGraphic } from '../../src';
 
 initBrowserEnv();
+registerRectGraphic();
 
 test('cornerRadius can be set to Rect', function () {
   const element = createSimpleElement();
@@ -88,25 +90,10 @@ test('size channels can be set to Rect', function () {
   expect(element.getGraphicItem().attribute).toEqual({
     x: 10,
     y: 10,
-    width: 10,
-    height: 10,
-    sizeAttrs: {
-      x: 10,
-      y: 10,
-      x1: 20,
-      y1: 20,
-      width: undefined,
-      height: undefined
-    }
-  });
-  expect(element.getGraphicAttribute('sizeAttrs')).toEqual({
-    x: 10,
-    y: 10,
     x1: 20,
-    y1: 20,
-    width: undefined,
-    height: undefined
+    y1: 20
   });
+  expect(element.getGraphicAttribute('sizeAttrs')).toBeUndefined();
   expect(element.getGraphicAttribute('x')).toBe(10);
   expect(element.getGraphicAttribute('y')).toBe(10);
   expect(element.getGraphicAttribute('x1')).toBe(20);

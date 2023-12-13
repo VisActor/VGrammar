@@ -5,7 +5,7 @@ import { DataZoom as DatazoomComponent } from '@visactor/vrender-components';
 import { isNil, isString, merge, mixin } from '@visactor/vutils';
 import { ComponentEnum } from '../graph/enums';
 import type {
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   ChannelEncodeType,
   IData,
   IElement,
@@ -108,7 +108,9 @@ export class Datazoom extends Component implements IDatazoom {
   addGraphicItem(attrs: any, groupKey?: string) {
     const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
     const initialAttributes = Object.assign({}, theme?.components?.datazoom, attrs);
-    const graphicItem = Factory.createGraphicComponent(this.componentType, initialAttributes);
+    const graphicItem = Factory.createGraphicComponent(this.componentType, initialAttributes, {
+      skipDefault: this.spec.skipTheme
+    });
     const datazoom = graphicItem as unknown as DatazoomComponent;
     datazoom.setStatePointToData(state => {
       if (this.spec.preview) {
@@ -159,7 +161,7 @@ export class Datazoom extends Component implements IDatazoom {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
             const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
-            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSingleEncodeSpec, datum, element, parameters);
             return generateDatazoomAttributes(dataGrammar?.getValue?.(), theme, addition);
           }
         };

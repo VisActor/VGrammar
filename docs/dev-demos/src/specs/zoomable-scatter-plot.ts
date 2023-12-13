@@ -51,7 +51,23 @@ export const spec = {
     {
       type: 'fish-eye',
       scaleX: 'xscale'
-    }
+    },
+
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'line',
+      crosshairType: 'x',
+      container: 'mainGroup'
+    },
+
+    {
+      type:  'crosshair',
+      scale: 'yscale',
+      crosshairShape: 'line',
+      crosshairType: 'y',
+      container: 'mainGroup'
+    },
   ],
 
   scales: [
@@ -92,6 +108,7 @@ export const spec = {
     {
       type: 'group',
       dependency: ['viewBox'],
+      id: 'mainGroup',
       
       encode: {
         update: (scale, elment, params) => {
@@ -138,39 +155,7 @@ export const spec = {
             }
           }
         },
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'xscale',
-          crosshairShape: 'line',
-          crosshairType: 'x',
-          dependency: ['viewBox'],
-          encode: {
-            update: (scale, elment, params) => {
-              return {
-                start: { y: 0 },
-                end: { y: params.viewBox.height() }
-              };
-            }
-          }
-        },
-    
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'yscale',
-          crosshairShape: 'line',
-          crosshairType: 'y',
-          dependency: ['viewBox'],
-          encode: {
-            update: (scale, elment, params) => {
-              return {
-                start: { x: 0 },
-                end: { x: params.viewBox.width() }
-              };
-            }
-          }
-        },
+        
 
         {
           type: 'group',

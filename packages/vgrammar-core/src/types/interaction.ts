@@ -21,7 +21,9 @@ export interface FilterDataTarget {
 }
 
 export interface IBaseInteractionOptions {
-  dependencies?: string | string[] | IGrammarBase | IGrammarBase[];
+  id?: string;
+
+  dependency?: string | string[] | IGrammarBase | IGrammarBase[];
 
   shouldStart?: (e: any) => boolean;
 
@@ -40,17 +42,18 @@ export interface IBaseInteractionOptions {
   onReset?: (e: any) => boolean;
 }
 
-export interface IInteraction {
+export interface IInteraction<T = any> {
+  readonly options: T;
   readonly type: string;
   depend: (grammar: IGrammarBase[] | IGrammarBase | string[] | string) => void;
   bind: () => void;
   unbind: () => void;
 }
 
-export interface IInteractionConstructor {
+export interface IInteractionConstructor<T = any> {
   readonly type: string;
 
-  new (view: IView, options?: any): IInteraction;
+  new (view: IView, options?: T): IInteraction<T>;
 }
 
 /**
@@ -64,11 +67,11 @@ export interface ElementActiveOptions extends IBaseInteractionOptions {
   /**
    * the trigger event name
    */
-  trigger?: EventType;
+  trigger?: EventType | EventType[];
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType;
+  resetTrigger?: EventType | EventType[];
   /**
    * the active state name
    */
@@ -86,15 +89,19 @@ export interface ElementSelectOptions extends IBaseInteractionOptions {
   /**
    * the trigger event name
    */
-  trigger?: EventType;
+  trigger?: EventType | EventType[];
   /**
    * the selected state name
    */
   state?: string;
   /**
+   * the non-selected state name
+   */
+  reverseState?: string;
+  /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType | ViewEventType | 'empty';
+  resetTrigger?: EventType | EventType[] | ViewEventType | 'empty' | number;
   /**
    * whether or not support multiple selected
    */
@@ -127,10 +134,21 @@ export interface ElementHighlightOptions extends IBaseInteractionOptions {
   blurState?: string;
 }
 
+export interface ElementFilterOptions {
+  /**
+   * the filter type of element
+   */
+  filterType?: 'key' | 'groupKey';
+  /**
+   * the field to be filtered
+   */
+  filterField?: string;
+}
+
 /**
  * the interaction to set the active state of specified marks trigger by legend
  */
-export interface ElementActiveByLegendOptions extends IBaseInteractionOptions {
+export interface ElementActiveByLegendOptions extends IBaseInteractionOptions, ElementFilterOptions {
   /**
    * the selector of marks
    */
@@ -139,16 +157,12 @@ export interface ElementActiveByLegendOptions extends IBaseInteractionOptions {
    * the active state name
    */
   state?: string;
-  /**
-   * the highlight state name
-   */
-  filterType?: 'key' | 'groupKey';
 }
 
 /**
  * the interaction to set the active state of specified marks trigger by legend
  */
-export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions {
+export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions, ElementFilterOptions {
   /**
    * the selector of marks
    */
@@ -161,14 +175,10 @@ export interface ElementHighlightByLegendOptions extends IBaseInteractionOptions
    * the blur state name
    */
   blurState?: string;
-  /**
-   * the highlight state name
-   */
-  filterType?: 'key' | 'groupKey';
 }
 
 export interface ElementHighlightByNameOptions extends ElementHighlightByLegendOptions {
-  name?: string | string[];
+  graphicName?: string | string[];
   /**
    * the trigger event name
    */
@@ -408,7 +418,7 @@ export interface SankeyHighlightOptions extends IBaseInteractionOptions {
    * the blur state name
    */
   blurState?: string;
-  /** set higlight state to different type of nodes */
+  /** set highlight state to different type of nodes */
   effect?: 'adjacency' | 'related';
 }
 
@@ -556,6 +566,10 @@ export interface FishEyeSpec extends FishEyeOptions {
   type: 'fish-eye';
 }
 
+export interface CustomizedInteractionSpec extends IBaseInteractionOptions {
+  type: string;
+}
+
 export type InteractionSpec =
   | ElementActiveSpec
   | ElementSelectSpec
@@ -583,7 +597,8 @@ export type InteractionSpec =
   | ViewScrollSpec
   | ViewDragSpec
   | SankeyHighlightSpec
-  | FishEyeSpec;
+  | FishEyeSpec
+  | CustomizedInteractionSpec;
 
 export interface ViewNavigationRange {
   needUpdate?: boolean;

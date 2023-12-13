@@ -6,6 +6,8 @@ export * from './graph';
 export * from './interactions';
 
 export { View } from './view';
+export { Scale, registerScale } from './view/scale';
+export { Coordinate, registerCoordinate } from './view/coordinate';
 export { parseFunctionType, invokeFunctionType } from './parse/util';
 export { GrammarBase } from './view/grammar-base';
 export * from './util/text';
@@ -33,3 +35,4 @@ export * from './env';
 export * from './interactions';
 export * from './semantic-marks/cell';
 export * from './semantic-marks/interval';
+export * from './graph/mark/graphic';

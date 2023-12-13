@@ -1,6 +1,6 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { EventEmitter, debounce, isObject, isString, getContainerSize, Logger, array } from '@visactor/vutils';
+import { EventEmitter, debounce, isObject, isString, getContainerSize, Logger, array, isNil } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
 import { vglobal } from '@visactor/vrender-core';
@@ -62,7 +62,6 @@ import {
   SIGNAL_VIEW_BOX
 } from './constants';
 import { Signal } from './signal';
-import { Scale } from './scale';
 import {
   BuiltInSignalID,
   builtInSignals,
@@ -77,7 +76,6 @@ import { GroupMark } from './group';
 import { Mark } from './mark';
 import { defaultDoLayout } from '../graph/layout/layout';
 import { GlyphMark } from './glyph';
-import { Coordinate } from './coordinate';
 import type { IMorph } from '../types/morph';
 import { Morph } from '../graph/animation/morph';
 import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
@@ -289,16 +287,22 @@ export default class View extends EventEmitter implements IView {
   }
 
   scale(type: GrammarScaleType) {
-    const scale: IScale = new Scale(this, type);
-    this.grammars.record(scale);
-    this._dataflow.add(scale);
+    const scale = Factory.createGrammar('scale', this, type) as IScale;
+
+    if (scale) {
+      this.grammars.record(scale);
+      this._dataflow.add(scale);
+    }
     return scale;
   }
 
   coordinate(type: CoordinateType) {
-    const coordinate: ICoordinate = new Coordinate(this, type);
-    this.grammars.record(coordinate);
-    this._dataflow.add(coordinate);
+    const coordinate = Factory.createGrammar('coordinate', this, type) as ICoordinate;
+
+    if (coordinate) {
+      this.grammars.record(coordinate);
+      this._dataflow.add(coordinate);
+    }
     return coordinate;
   }
 
@@ -383,7 +387,7 @@ export default class View extends EventEmitter implements IView {
   }
 
   customized(type: string, spec: any) {
-    const grammar = Factory.createGrammar(type, this);
+    const grammar = Factory.createGrammar(type, this, spec?.type);
 
     if (grammar) {
       grammar.parse(spec);
@@ -495,13 +499,13 @@ export default class View extends EventEmitter implements IView {
 
     if (spec.coordinates?.length) {
       spec.coordinates.forEach(coordinate => {
-        this.coordinate(coordinate.type).parse(coordinate);
+        this.coordinate(coordinate.type)?.parse(coordinate);
       });
     }
 
     if (spec.scales?.length) {
       spec.scales.forEach(scale => {
-        this.scale(scale.type).parse(scale);
+        this.scale(scale.type)?.parse(scale);
       });
     }
 
@@ -1421,11 +1425,21 @@ export default class View extends EventEmitter implements IView {
     return interaction;
   }
 
-  removeInteraction(type: string | IInteraction) {
+  removeInteraction(type: string | IInteraction, id?: string) {
     if (this._boundInteractions) {
-      const instances = this._boundInteractions.filter(
-        interaction => (isString(type) && interaction.type === type) || interaction === type
-      );
+      const instances = this._boundInteractions.filter(interaction => {
+        if (!isNil(id)) {
+          return interaction.options?.id === id;
+        }
+
+        if (isString(type)) {
+          return interaction.type === type;
+        }
+
+        if (type) {
+          return interaction === type;
+        }
+      });
 
       if (instances.length) {
         instances.forEach(instance => {

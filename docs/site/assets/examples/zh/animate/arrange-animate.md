@@ -212,6 +212,16 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'rect',
+      crosshairType: 'x',
+      container: '#container'
+    }
+  ],
+
   scales: [
     {
       id: 'xscale',
@@ -219,7 +229,7 @@ const spec = {
       domain: { data: 'stack', field: 'month' },
       dependency: ['viewBox'],
       range: (scale, params) => {
-        return [params.viewBox.x1, params.viewBox.x2];
+        return [0, params.viewBox.width()];
       },
 
       padding: 0.05,
@@ -231,7 +241,7 @@ const spec = {
       domain: { data: 'stack', field: ['value', 'lastValue'] },
       dependency: ['viewBox'],
       range: (scale, params) => {
-        return [params.viewBox.y2, params.viewBox.y1];
+        return [params.viewBox.height(), 0];
       },
       nice: true
     },
@@ -256,93 +266,95 @@ const spec = {
 
   marks: [
     {
-      type: 'text',
-      id: 'title',
-      encode: {
-        update: (datum, element, params) => {
-          return {
-            x: params.viewBox.x1 + 10,
-            y: 5,
-            fill: '#000',
-            fontSize: 24,
-            text: '全年产品销售额统计',
-            textBaseline: 'top'
-          };
-        }
-      },
-      dependency: ['viewBox']
-    },
-    {
-      type: 'component',
-      id: 'leftAxis',
-      componentType: 'axis',
-      scale: 'xscale',
-      tickCount: -1,
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            x: params.viewBox.x1,
-            y: params.viewBox.y2,
-            start: { x: 0, y: 0 },
-            end: { x: params.viewBox.width(), y: 0 }
-          };
-        }
-      }
-    },
-    {
-      type: 'component',
-      componentType: 'axis',
-      id: 'bottomAxis',
-      scale: 'yscale',
+      type: 'group',
+      id: 'container',
       dependency: ['viewBox'],
       encode: {
         update: (scale, elment, params) => {
           return {
             x: params.viewBox.x1,
             y: params.viewBox.y1,
-            start: { x: 0, y: params.viewBox.height() },
-            end: { x: 0, y: 0 },
-            verticalFactor: -1
+            width: params.viewBox.width(),
+            height: params.viewBox.height()
           };
-        }
-      }
-    },
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'rect',
-      crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
-          };
-        }
-      }
-    },
-    {
-      type: 'rect',
-      id: 'bar',
-      from: { data: 'stack' },
-      groupBy: 'product',
-      key: 'month',
-      encode: {
-        update: {
-          x: { scale: 'xscale', field: 'month', band: 0.25 },
-          width: { scale: 'xscale', band: 0.5 },
-          y: { scale: 'yscale', field: 'value' },
-          y1: { scale: 'yscale', field: 'lastValue' },
-          fill: { scale: 'color', field: 'product' }
-        },
-        hover: {
-          fill: 'red'
         }
       },
-      dependency: ['viewBox']
+
+      marks: [
+        {
+          type: 'text',
+          id: 'title',
+          encode: {
+            update: (datum, element, params) => {
+              return {
+                x: 10,
+                y: -25,
+                fill: '#000',
+                fontSize: 24,
+                text: '全年产品销售额统计',
+                textBaseline: 'top'
+              };
+            }
+          },
+          dependency: ['viewBox']
+        },
+        {
+          type: 'component',
+          id: 'leftAxis',
+          componentType: 'axis',
+          scale: 'xscale',
+          tickCount: -1,
+          dependency: ['viewBox'],
+          encode: {
+            update: (scale, elment, params) => {
+              return {
+                x: 0,
+                y: params.viewBox.height(),
+                start: { x: 0, y: 0 },
+                end: { x: params.viewBox.width(), y: 0 }
+              };
+            }
+          }
+        },
+        {
+          type: 'component',
+          componentType: 'axis',
+          id: 'bottomAxis',
+          scale: 'yscale',
+          dependency: ['viewBox'],
+          encode: {
+            update: (scale, elment, params) => {
+              return {
+                x: 0,
+                y: 0,
+                start: { x: 0, y: params.viewBox.height() },
+                end: { x: 0, y: 0 },
+                verticalFactor: -1
+              };
+            }
+          }
+        },
+        {
+          type: 'rect',
+          id: 'bar',
+          from: { data: 'stack' },
+          groupBy: 'product',
+          key: 'month',
+          encode: {
+            update: {
+              x: { scale: 'xscale', field: 'month', band: 0.25 },
+              width: { scale: 'xscale', band: 0.5 },
+              y: { scale: 'yscale', field: 'value' },
+              y1: { scale: 'yscale', field: 'lastValue' },
+              fill: { scale: 'color', field: 'product' }
+            },
+            hover: {
+              fill: 'red'
+            }
+          },
+          dependency: ['viewBox']
+        }
+      ]
     }
   ]
 };
@@ -355,9 +367,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
-
-setTimeout(() => {
+vGrammarView.runAsync().then(() => {
   const title = vGrammarView.getMarkById('title');
   const leftAxis = vGrammarView.getMarkById('leftAxis');
   const bottomAxis = vGrammarView.getMarkById('bottomAxis');
@@ -394,7 +404,7 @@ setTimeout(() => {
       options: { overall: viewBox.getValue().y2, orient: 'negative' }
     })
     .after(animation2);
-}, 500);
+});
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

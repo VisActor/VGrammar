@@ -1,4 +1,6 @@
 import * as transforms from '../src/transforms/index';
+import * as graphics from '../src/graph/mark/graphic';
+
 import { createGlyphGraphicItem, createGraphicItem } from '../src/graph/util/graphic';
 import { createElement } from '../src/graph/util/element';
 import { transformsByType } from '../src/graph/attributes';
@@ -9,6 +11,12 @@ import { defaultTheme } from '../src/theme/default';
 export function registerDefaultTransforms() {
   Object.keys(transforms).forEach(key => {
     transforms[key]();
+  });
+}
+
+export function registerDefaultGraphics() {
+  Object.keys(graphics).forEach(key => {
+    graphics[key]();
   });
 }
 
@@ -39,6 +47,7 @@ export const getMockedView = () => {
     background: () => 'white',
     getCurrentTheme: () => defaultTheme
   };
+  registerDefaultGraphics();
   (view as any).renderer = new CanvasRenderer(view as any);
   (view as any).renderer.initialize(500, 500, {}, {});
 
@@ -66,6 +75,7 @@ export function createSimpleElement(
     isProgressive: () => false,
     getAttributeTransforms: () => transformsByType[options?.transformType ?? markType]
   } as any;
+  registerDefaultGraphics();
   mark.addGraphicItem = () => {
     return (createGraphicItem as any)(mark, markType, {});
   };

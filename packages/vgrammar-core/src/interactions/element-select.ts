@@ -1,3 +1,4 @@
+import { isNumber, isString } from '@visactor/vutils';
 import { InteractionStateEnum } from '../graph/enums';
 import type { ElementSelectOptions, EventType, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
@@ -11,8 +12,9 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
     trigger: 'click'
   };
   options: ElementSelectOptions;
-  protected _isToggle?: boolean;
+  protected _resetType?: 'view' | 'self' | 'timeout';
   protected _marks?: IMark[];
+  private _timer?: number;
 
   constructor(view: IView, options?: ElementSelectOptions) {
     super(view, options);
@@ -22,57 +24,93 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   }
 
   protected getEvents() {
+    const resetTrigger = this.options.resetTrigger;
+    const trigger = this.options.trigger;
+
     const events = [
       {
-        type: this.options.trigger,
+        type: trigger,
         handler: this.handleStart
       }
     ];
 
-    const eventName =
-      this.options.resetTrigger === 'empty'
-        ? this.options.trigger
-        : this.options.resetTrigger.includes('view:')
-        ? this.options.resetTrigger.replace('view:', '')
-        : this.options.resetTrigger;
+    let eventName = resetTrigger;
 
-    if (eventName !== this.options.trigger) {
-      events.push({ type: eventName as EventType, handler: this.handleReset });
-      this._isToggle = false;
+    if (resetTrigger === 'empty') {
+      eventName = trigger as EventType;
+
+      this._resetType = 'view';
+    } else if (isString(resetTrigger)) {
+      if (resetTrigger.includes('view:')) {
+        eventName = resetTrigger.replace('view:', '') as EventType;
+
+        this._resetType = 'view';
+      } else {
+        eventName = resetTrigger;
+
+        this._resetType = 'self';
+      }
+    } else if (isNumber(resetTrigger)) {
+      eventName = null;
+      this._resetType = 'timeout';
     } else {
-      this._isToggle = true;
+      this._resetType = null;
+    }
+
+    if (eventName && eventName !== trigger) {
+      events.push({ type: eventName as EventType, handler: this.handleReset });
     }
 
     return events;
   }
 
-  clearPrevElements() {
+  clearPrevElements = (isMultiple?: boolean, isActive?: boolean) => {
+    const { state, reverseState } = this.options;
+
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        if (el.hasState(this.options.state)) {
-          el.removeState(this.options.state);
+        if (!isMultiple && el.hasState(state)) {
+          el.removeState(state);
+        }
+
+        if (reverseState) {
+          if (isActive) {
+            el.addState(reverseState);
+          } else {
+            el.removeState(reverseState);
+          }
         }
       });
     });
-  }
+  };
 
   handleStart = (e: InteractionEvent) => {
-    if (e.element && this._marks && this._marks.includes(e.element.mark)) {
-      if (!this.options.isMultiple) {
-        this.clearPrevElements();
-      }
+    const { state, reverseState } = this.options;
 
-      if (e.element.hasState(this.options.state)) {
-        if (this.options.resetTrigger === this.options.trigger) {
-          e.element.removeState(this.options.state);
+    if (e.element && this._marks && this._marks.includes(e.element.mark)) {
+      this.clearPrevElements(this.options.isMultiple, true);
+
+      if (e.element.hasState(state)) {
+        if (this._resetType === 'self') {
+          e.element.removeState(state);
+
+          reverseState && e.element.addState(reverseState);
         }
       } else {
-        e.element.addState(this.options.state);
+        if (this._timer) {
+          clearTimeout(this._timer);
+        }
+
+        reverseState && e.element.removeState(reverseState);
+        e.element.addState(state);
+
+        if (this._resetType === 'timeout') {
+          this._timer = setTimeout(() => {
+            this.clearPrevElements();
+          }, this.options.resetTrigger as number) as unknown as number;
+        }
       }
-    } else if (
-      this._isToggle &&
-      (this.options.resetTrigger === 'empty' || this.options.resetTrigger.includes('view:'))
-    ) {
+    } else if (this._resetType === 'view') {
       this.clearPrevElements();
     }
   };
@@ -80,11 +118,9 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   handleReset = (e: InteractionEvent) => {
     const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
 
-    if (this.options.resetTrigger === 'empty' || this.options.resetTrigger.includes('view:')) {
-      if (!hasActiveElement) {
-        this.clearPrevElements();
-      }
-    } else if (hasActiveElement) {
+    if (this._resetType === 'view' && !hasActiveElement) {
+      this.clearPrevElements();
+    } else if (this._resetType === 'self' && hasActiveElement) {
       this.clearPrevElements();
     }
   };

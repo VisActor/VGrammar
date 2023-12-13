@@ -1,5 +1,6 @@
 import type { IElement, RipplePointEncoderSpec } from '../types';
 import { Factory } from '../core/factory';
+import { registerGlyphGraphic, registerSymbolGraphic } from '../graph/mark/graphic';
 
 export const registerRippleGlyph = () => {
   Factory.registerGlyph<RipplePointEncoderSpec>('ripplePoint', {
@@ -26,4 +27,6 @@ export const registerRippleGlyph = () => {
         ripple2: { fillOpacity: 0.25 }
       };
     });
+  registerGlyphGraphic();
+  registerSymbolGraphic();
 };

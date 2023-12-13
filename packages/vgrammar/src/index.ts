@@ -1,5 +1,8 @@
 import {
   View,
+  // grammar,
+  registerScale,
+  registerCoordinate,
   // semantic mark
   registerCellMark,
   registerIntervalMark,
@@ -67,7 +70,7 @@ import {
   registerJitterXTransform,
   registerJitterYTransform,
   registerSymmetryTransform,
-  initAllEnv,
+  initAutoEnv,
 
   // interactions
   registerElementActive,
@@ -90,10 +93,38 @@ import {
   registerViewScroll,
   registerViewDrag,
   registerViewRoam,
-  registerFishEye
+  registerFishEye,
+
+  // graphics
+  registerCircleGraphic,
+  registerArcGraphic,
+  registerArc3dGraphic,
+  registerPyramid3dGraphic,
+  registerAreaGraphic,
+  registerGroupGraphic,
+  registerImageGraphic,
+  registerRect3dGraphic,
+  registerLineGraphic,
+  registerPathGraphic,
+  registerRectGraphic,
+  registerRuleGraphic,
+  registerShapeGraphic,
+  registerSymbolGraphic,
+  registerTextGraphic,
+  registerPolygonGraphic,
+  registerRichTextGraphic,
+  registerCellGraphic,
+  registerIntervalGraphic,
+  registerGlyphGraphic,
+  registerLargeRectsGraphic,
+  registerLargeSymbolsGraphic
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
+  // grammars
+  registerScale,
+  registerCoordinate,
+  // marks
   registerCellMark,
   registerIntervalMark,
   // components
@@ -184,9 +215,33 @@ View.useRegisters([
   registerViewScroll,
   registerViewDrag,
   registerViewRoam,
-  registerFishEye
+  registerFishEye,
+
+  // graphics
+  registerCircleGraphic,
+  registerArcGraphic,
+  registerArc3dGraphic,
+  registerPyramid3dGraphic,
+  registerAreaGraphic,
+  registerGroupGraphic,
+  registerImageGraphic,
+  registerRect3dGraphic,
+  registerLineGraphic,
+  registerPathGraphic,
+  registerRectGraphic,
+  registerRuleGraphic,
+  registerShapeGraphic,
+  registerSymbolGraphic,
+  registerTextGraphic,
+  registerPolygonGraphic,
+  registerRichTextGraphic,
+  registerCellGraphic,
+  registerIntervalGraphic,
+  registerGlyphGraphic,
+  registerLargeRectsGraphic,
+  registerLargeSymbolsGraphic
 ]);
 
-initAllEnv();
+initAutoEnv();
 
 export * from '@visactor/vgrammar-core';

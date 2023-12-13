@@ -107,6 +107,53 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'yScale',
+      crosshairShape: 'rect',
+      crosshairType: 'y',
+      container: '#left'
+    },
+    {
+      type: 'crosshair',
+      scale: 'yScale',
+      crosshairShape: 'rect',
+      crosshairType: 'y',
+      container: '#right'
+    },
+    {
+      type: 'tooltip',
+      selector: '#rightRect',
+      title: { value: '2021' },
+      content: [
+        {
+          key: { field: 'sales' },
+          value: { field: '2021' },
+          symbol: {
+            symbolType: 'square',
+            fill: '#70D6A3'
+          }
+        }
+      ]
+    },
+    {
+      type: 'tooltip',
+      selector: '#leftRect',
+      title: { value: '2020' },
+      content: [
+        {
+          key: { field: 'sales' },
+          value: { field: '2020' },
+          symbol: {
+            symbolType: 'square',
+            fill: '#6690F2'
+          }
+        }
+      ]
+    }
+  ],
+
   marks: [
     {
       type: 'group',
@@ -124,14 +171,6 @@ const spec = {
       },
 
       marks: [
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'yScale',
-          crosshairShape: 'rect',
-          crosshairType: 'y',
-          dependency: ['viewBox']
-        },
         {
           type: 'component',
           componentType: 'axis',
@@ -166,22 +205,6 @@ const spec = {
               fill: 'red'
             }
           }
-        },
-        {
-          type: 'component',
-          componentType: 'tooltip',
-          target: 'leftRect',
-          title: { value: '2020' },
-          content: [
-            {
-              key: { field: 'sales' },
-              value: { field: '2020' },
-              symbol: {
-                symbolType: 'square',
-                fill: '#6690F2'
-              }
-            }
-          ]
         }
       ]
     },
@@ -202,14 +225,6 @@ const spec = {
       },
 
       marks: [
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'yScale',
-          crosshairShape: 'rect',
-          crosshairType: 'y',
-          dependency: ['viewBox']
-        },
         {
           type: 'component',
           componentType: 'axis',
@@ -243,22 +258,6 @@ const spec = {
               fill: 'red'
             }
           }
-        },
-        {
-          type: 'component',
-          componentType: 'tooltip',
-          target: 'rightRect',
-          title: { value: '2021' },
-          content: [
-            {
-              key: { field: 'sales' },
-              value: { field: '2021' },
-              symbol: {
-                symbolType: 'square',
-                fill: '#70D6A3'
-              }
-            }
-          ]
         }
       ]
     },

@@ -1,8 +1,5 @@
 import '../util';
 import { Plot } from '../../src';
-import { initBrowserEnv } from '@visactor/vgrammar-core';
-
-initBrowserEnv();
 
 test('add interval by api', () => {
   const plot = new Plot({
@@ -27,8 +24,20 @@ test('add interval by api', () => {
 
   const rectMark = marks[0];
   expect(rectMark.elements.length).toEqual(2);
-  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ width: 316, height: 0, fill: '#6690F2' });
-  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ width: 316, height: 590, fill: '#6690F2' });
+  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
+    x: 39.5,
+    y: 590,
+    x1: 355.5,
+    y1: 590,
+    fill: '#6690F2'
+  });
+  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
+    x: 434.5,
+    y: 0,
+    x1: 750.5,
+    y1: 590,
+    fill: '#6690F2'
+  });
 });
 
 test('add range interval by api', () => {
@@ -54,8 +63,20 @@ test('add range interval by api', () => {
 
   const rectMark = marks[0];
   expect(rectMark.elements.length).toEqual(2);
-  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ width: 316, height: 59, fill: '#6690F2' });
-  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ width: 316, height: 472, fill: '#6690F2' });
+  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
+    x: 39.5,
+    x1: 355.5,
+    y: 590,
+    y1: 531,
+    fill: '#6690F2'
+  });
+  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
+    x: 434.5,
+    y: 0,
+    x1: 750.5,
+    y1: 472,
+    fill: '#6690F2'
+  });
 });
 
 test('add grouped interval by api', () => {
@@ -84,11 +105,26 @@ test('add grouped interval by api', () => {
 
   const rectMark = marks[0];
   expect(rectMark.elements.length).toEqual(4);
-  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ width: 158, height: 0, fill: '#6690F2' });
-  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ width: 158, fill: '#6690F2' });
-  expect(rectMark.elements[2].getGraphicItem().attribute).toMatchObject({ width: 158, fill: '#70D6A3' });
-  expect((rectMark.elements[2].getGraphicItem().attribute as any).height).toBeCloseTo(252.8571428571429);
-  expect(rectMark.elements[3].getGraphicItem().attribute).toMatchObject({ width: 158, fill: '#70D6A3' });
+  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
+    x: 39.5,
+    y: 590,
+    x1: 197.5,
+    y1: 590,
+    fill: '#6690F2'
+  });
+  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ x: 434.5, x1: 592.5, fill: '#6690F2' });
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(505.7142857142858);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).y1).toBeCloseTo(590);
+  expect(rectMark.elements[2].getGraphicItem().attribute).toMatchObject({ x: 197.5, x1: 355.5, fill: '#70D6A3' });
+  expect((rectMark.elements[2].getGraphicItem().attribute as any).y).toBeCloseTo(337.1428571428571);
+  expect((rectMark.elements[2].getGraphicItem().attribute as any).y1).toBeCloseTo(590);
+  expect(rectMark.elements[3].getGraphicItem().attribute).toMatchObject({
+    x: 592.5,
+    y: 0,
+    y1: 590,
+    x1: 750.5,
+    fill: '#70D6A3'
+  });
 });
 
 test('add interval by api in cartesian coordinate', () => {
@@ -114,8 +150,20 @@ test('add interval by api in cartesian coordinate', () => {
 
   const rectMark = marks[0];
   expect(rectMark.elements.length).toEqual(2);
-  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ width: 0, height: 236, fill: '#6690F2' });
-  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ width: 790, height: 236, fill: '#6690F2' });
+  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
+    x: 0,
+    x1: 0,
+    y: 324.5,
+    y1: 560.5,
+    fill: '#6690F2'
+  });
+  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
+    x: 790,
+    y: 29.5,
+    x1: 0,
+    y1: 265.5,
+    fill: '#6690F2'
+  });
 });
 
 test('add interval by api in polar coordinate', () => {

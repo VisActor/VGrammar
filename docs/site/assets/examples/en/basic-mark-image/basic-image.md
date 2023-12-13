@@ -128,9 +128,35 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'rect',
+      crosshairType: 'x',
+      container: '#container'
+    },
+    {
+      type: 'tooltip',
+      selector: '#rect',
+      title: { visible: false, value: 'value' },
+      content: [
+        {
+          key: { field: 'name' },
+          value: { field: 'value' },
+          symbol: {
+            symbolType: 'circle',
+            fill: '#6690F2'
+          }
+        }
+      ]
+    }
+  ],
+
   marks: [
     {
       type: 'group',
+      id: 'container',
       dependency: ['viewBox'],
       encode: {
         update: (scale, elment, params) => {
@@ -179,13 +205,6 @@ const spec = {
           }
         },
         {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'xscale',
-          crosshairShape: 'rect',
-          crosshairType: 'x'
-        },
-        {
           type: 'rect',
           id: 'rect',
           from: { data: 'table' },
@@ -223,22 +242,6 @@ const spec = {
               image: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/a222eb3ecfe32db85220dda0d.png'
             }
           }
-        },
-        {
-          type: 'component',
-          componentType: 'tooltip',
-          target: 'rect',
-          title: { visible: false, value: 'value' },
-          content: [
-            {
-              key: { field: 'name' },
-              value: { field: 'value' },
-              symbol: {
-                symbolType: 'circle',
-                fill: '#6690F2'
-              }
-            }
-          ]
         }
       ]
     }

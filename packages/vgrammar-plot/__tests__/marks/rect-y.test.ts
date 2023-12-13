@@ -1,8 +1,5 @@
 import '../util';
 import { Plot } from '../../src';
-import { initBrowserEnv } from '@visactor/vgrammar-core';
-
-initBrowserEnv();
 
 test('add rect-y by api', () => {
   const plot = new Plot({
@@ -27,12 +24,12 @@ test('add rect-y by api', () => {
 
   const rectMark = marks[0];
   expect(rectMark.elements.length).toEqual(2);
-  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ x: 0, width: 790, fill: '#6690F2' });
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).y).toBeCloseTo(196.66666666666666);
-  expect((rectMark.elements[0].getGraphicItem().attribute as any).height).toBeCloseTo(196.66666666666666);
-  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ x: 0, width: 790, fill: '#6690F2' });
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(0);
-  expect((rectMark.elements[1].getGraphicItem().attribute as any).height).toBeCloseTo(196.66666666666666);
+  expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({ x: 0, x1: 790, fill: '#6690F2' });
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).y).toBeCloseTo(393.3333333333333);
+  expect((rectMark.elements[0].getGraphicItem().attribute as any).y1).toBeCloseTo(196.66666666666666);
+  expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({ x: 0, x1: 790, fill: '#6690F2' });
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).y).toBeCloseTo(196.66666666666666);
+  expect((rectMark.elements[1].getGraphicItem().attribute as any).y1).toBeCloseTo(0);
 });
 
 test('add rect-y by api and channel y is linear', () => {
@@ -60,15 +57,15 @@ test('add rect-y by api and channel y is linear', () => {
   expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
     x: 0,
     y: 590,
-    width: 790,
-    height: 0,
+    x1: 790,
+    y1: 590,
     fill: '#6690F2'
   });
   expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
     x: 0,
     y: 0,
-    width: 790,
-    height: 590,
+    x1: 790,
+    y1: 590,
     fill: '#6690F2'
   });
 });
@@ -99,15 +96,15 @@ test('add rect-y by api and scale y is band', () => {
   expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
     x: 0,
     y: 295,
-    width: 790,
-    height: 295,
+    x1: 790,
+    y1: 590,
     fill: '#6690F2'
   });
   expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
     x: 0,
     y: 0,
-    width: 790,
-    height: 295,
+    x1: 790,
+    y1: 295,
     fill: '#6690F2'
   });
 });
@@ -181,29 +178,29 @@ test('add grouped rect-y by api', () => {
   expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
     x: 0,
     y: 295,
-    width: 790,
-    height: 295,
+    x1: 790,
+    y1: 590,
     fill: '#6690F2'
   });
   expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
     x: 0,
     y: 0,
-    width: 790,
-    height: 295,
+    x1: 790,
+    y1: 295,
     fill: '#6690F2'
   });
   expect(rectMark.elements[2].getGraphicItem().attribute).toMatchObject({
     x: 0,
     y: 295,
-    width: 790,
-    height: 295,
+    x1: 790,
+    y1: 590,
     fill: '#70D6A3'
   });
   expect(rectMark.elements[3].getGraphicItem().attribute).toMatchObject({
     x: 0,
     y: 0,
-    width: 790,
-    height: 295,
+    x1: 790,
+    y1: 295,
     fill: '#70D6A3'
   });
 });
@@ -233,15 +230,15 @@ test('add rect-y by api and channel x is linear and transpose coordinate', () =>
   expect(rectMark.elements[0].getGraphicItem().attribute).toMatchObject({
     x: 0,
     y: 0,
-    width: 0,
-    height: 790,
+    x1: 0,
+    y1: 790,
     fill: '#6690F2'
   });
   expect(rectMark.elements[1].getGraphicItem().attribute).toMatchObject({
-    x: 0,
+    x1: 0,
     y: 0,
-    width: 790,
-    height: 790,
+    x: 790,
+    y1: 790,
     fill: '#6690F2'
   });
 });

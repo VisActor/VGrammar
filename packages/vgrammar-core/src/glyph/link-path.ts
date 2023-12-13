@@ -2,6 +2,7 @@ import type { IAnimationParameters, LinkPathEncoderSpec, TypeAnimation } from '.
 import type { IElement } from '../types/element';
 import { Factory } from '../core/factory';
 import { isNil } from '@visactor/vutils';
+import { registerGlyphGraphic, registerPathGraphic } from '../graph/mark/graphic';
 
 export interface LinkPathConfig {
   direction?: 'horizontal' | 'vertical' | 'LR' | 'RL' | 'TB' | 'BL' | 'radial';
@@ -299,4 +300,6 @@ export const registerLinkPathGlyph = () => {
   Factory.registerAnimationType('linkPathGrowIn', linkPathGrowIn);
   Factory.registerAnimationType('linkPathGrowOut', linkPathGrowOut);
   Factory.registerAnimationType('linkPathUpdate', linkPathUpdate);
+  registerGlyphGraphic();
+  registerPathGraphic();
 };

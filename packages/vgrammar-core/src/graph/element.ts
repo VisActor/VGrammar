@@ -29,7 +29,7 @@ import {
 import { getLineSegmentConfigs, getLinePointsFromSegments, parseCollectionMarkAttributes } from './attributes/line';
 import type {
   BaseEncodeSpec,
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   IElement,
   IMark,
   IMarkConfig,
@@ -76,14 +76,16 @@ export class Element implements IElement {
     // 统一读取mark中是否可交互的配置
     const attrTransforms = this.mark.getAttributeTransforms();
 
-    this.graphicItem = this.mark.addGraphicItem(attrTransforms ? {} : attributes, this.groupKey);
+    this.graphicItem = this.mark.addGraphicItem(
+      attrTransforms ? transformAttributes(attrTransforms, attributes, this) : attributes,
+      this.groupKey
+    );
 
     if (!this.graphicItem) {
       return;
     }
     // 统一读取mark中是否可交互的配置
     this.graphicItem[BridgeElementKey] = this;
-
     if (attrTransforms) {
       this.graphicItem.onBeforeAttributeUpdate = (attributes: any) => {
         // mark might be released
@@ -93,14 +95,12 @@ export class Element implements IElement {
         const graphicAttributes = transformAttributes(attrTransforms, attributes, this);
         return graphicAttributes;
       };
-      this.graphicItem.setAttributes(attributes);
     }
 
     // transform initial attributes
-
     this.clearGraphicAttributes();
     if (this.mark.needAnimate()) {
-      this.setPrevGraphicAttributes({});
+      this.setPrevGraphicAttributes(null);
       this.setNextGraphicAttributes(attributes);
       this.setFinalGraphicAttributes(attributes);
     }
@@ -161,7 +161,7 @@ export class Element implements IElement {
   }
 
   getStates() {
-    return this.states.slice();
+    return this.states;
   }
 
   updateData(groupKey: string | null, data: any[], key: MarkKeySpec) {
@@ -330,40 +330,55 @@ export class Element implements IElement {
   }
 
   hasState(state: string) {
-    return this.states && this.states.includes(state);
+    return this.states && state && this.states.includes(state);
   }
 
-  addState(state: string | string[], attrs?: BaseSignleEncodeSpec) {
-    const states = array(state);
-    const nextStates = states.reduce((nextStates: string[], state: string) => {
+  addState(state: string | string[], attrs?: BaseSingleEncodeSpec) {
+    if (!this.graphicItem) {
+      return false;
+    }
+
+    const isRuntimeStateUpdate = attrs && isString(state) && !isObjEqual(attrs, this.runtimeStatesEncoder?.[state]);
+    if (isRuntimeStateUpdate) {
+      const nextStates = this.states.slice();
       if (!nextStates.includes(state)) {
         nextStates.push(state);
+      } else {
+        this.graphicItem.clearStates();
+      }
+      this._updateRuntimeStates(state, attrs);
+
+      this.useStates(nextStates);
+      return true;
+    }
+
+    const encode = (this.mark.getSpec() as MarkSpec).encode;
+    const states = array(state);
+    const nextStates = states.reduce((nextStates: string[], stateName: string) => {
+      if (stateName && !nextStates.includes(stateName) && encode?.[stateName]) {
+        nextStates.push(stateName);
       }
       return nextStates;
     }, this.states.slice());
 
-    const isRuntimeStateUpdate = attrs && isString(state) && !isObjEqual(attrs, this.runtimeStatesEncoder?.[state]);
-    if (isRuntimeStateUpdate) {
-      this._updateRuntimeStates(state, attrs);
+    if (nextStates.length !== this.states.length) {
+      this.useStates(nextStates);
+
+      return true;
     }
 
-    if (nextStates.length === this.states.length) {
-      if (isRuntimeStateUpdate && this.graphicItem) {
-        this.graphicItem.clearStates();
-        this.useStates(nextStates);
-      }
-
-      return;
-    }
-
-    this.useStates(nextStates);
+    return false;
   }
 
   removeState(state: string | string[]) {
+    if (!this.graphicItem) {
+      return false;
+    }
+
     const states = array(state);
     const nextStates = this.states.filter(state => !states.includes(state));
     if (nextStates.length === this.states.length) {
-      return;
+      return false;
     }
 
     if (this.runtimeStatesEncoder) {
@@ -372,6 +387,8 @@ export class Element implements IElement {
       });
     }
     this.useStates(nextStates);
+
+    return true;
   }
 
   protected getStateAttrs = (stateName: string, nextStates: string[]) => {
@@ -409,16 +426,16 @@ export class Element implements IElement {
 
   useStates(states: string[], hasAnimation?: boolean) {
     if (!this.graphicItem) {
-      return;
+      return false;
     }
     this.mark.emit(HOOK_EVENT.BEFORE_ELEMENT_STATE, { states }, this);
 
-    this.states = states.slice();
     const stateSort = this.mark.getSpec()?.stateSort;
 
     if (stateSort) {
-      this.states.sort(stateSort);
+      states.sort(stateSort);
     }
+    this.states = states;
 
     const stateAnimationEnable = isBoolean(hasAnimation)
       ? hasAnimation
@@ -428,6 +445,8 @@ export class Element implements IElement {
     this.graphicItem.useStates(this.states, stateAnimationEnable);
 
     this.mark.emit(HOOK_EVENT.AFTER_ELEMENT_STATE, { states }, this);
+
+    return true;
   }
 
   protected diffAttributes(graphicAttributes: { [channel: string]: any }) {
@@ -459,11 +478,11 @@ export class Element implements IElement {
     let nextAttrs = item?.nextAttrs;
 
     if (
+      isPointsMarkType(markType) &&
       items &&
       items.length &&
       isNil(item.nextAttrs?.points) &&
-      (computePoints === true || isValidPointsChannel(Object.keys(item.nextAttrs), this.mark.markType)) &&
-      isPointsMarkType(markType)
+      (computePoints === true || isValidPointsChannel(Object.keys(item.nextAttrs), this.mark.markType))
     ) {
       const lastPoints = this.getGraphicAttribute('points', false);
       const lastSegments = this.getGraphicAttribute('segments', false);
@@ -513,9 +532,9 @@ export class Element implements IElement {
     if (this.mark.needAnimate()) {
       // If mark need animate, diff attributes.
       const nextGraphicAttributes = this.diffAttributes(graphicAttributes);
-      const prevGraphicAttributes = this.getPrevGraphicAttributes();
+      const prevGraphicAttributes = this.getPrevGraphicAttributes() ?? {};
+      const finalGraphicAttributes = this.getFinalGraphicAttributes() ?? {};
 
-      const finalGraphicAttributes = this.getFinalGraphicAttributes();
       Object.keys(nextGraphicAttributes).forEach(channel => {
         prevGraphicAttributes[channel] = this.getGraphicAttribute(channel);
         finalGraphicAttributes[channel] = nextGraphicAttributes[channel];
@@ -641,16 +660,16 @@ export class Element implements IElement {
 
   clearChangedGraphicAttributes() {
     if (this.graphicItem) {
-      this.setPrevGraphicAttributes({});
-      this.setNextGraphicAttributes({});
+      this.setPrevGraphicAttributes(null);
+      this.setNextGraphicAttributes(null);
     }
   }
 
   clearGraphicAttributes() {
     if (this.graphicItem) {
-      this.setPrevGraphicAttributes({});
-      this.setNextGraphicAttributes({});
-      this.setFinalGraphicAttributes({});
+      (this.graphicItem as any).prevAttrs && this.setPrevGraphicAttributes(null);
+      (this.graphicItem as any).nextAttrs && this.setNextGraphicAttributes(null);
+      (this.graphicItem as any).finalAttrs && this.setFinalGraphicAttributes(null);
     }
   }
 

@@ -39,7 +39,7 @@ import type {
   Nil,
   IAnimate,
   MarkStateSortSpec,
-  BaseSignleEncodeSpec
+  BaseSingleEncodeSpec
 } from '../types';
 import { isFieldEncode, isScaleEncode, parseEncodeType } from '../parse/mark';
 import { getGrammarOutput, parseField, isFunctionType } from '../parse/util';
@@ -279,8 +279,7 @@ export class Mark extends GrammarBase implements IMark {
       return;
     }
     const currentData = data ?? DefaultMarkData;
-    const groupKeyGetter = parseField(this.spec.groupBy ?? (() => DefaultKey));
-    const res = groupData(currentData, groupKeyGetter, this.spec.groupSort);
+    const res = groupData(currentData, this.spec.groupBy, this.spec.groupSort);
     const groupKeys = res.keys as string[];
 
     this._groupKeys = groupKeys;
@@ -375,13 +374,13 @@ export class Mark extends GrammarBase implements IMark {
     return this.setFunctionSpec(state, 'state');
   }
 
-  encode(channel: string | BaseSignleEncodeSpec, value?: MarkFunctionType<any> | boolean, clear?: boolean): this {
+  encode(channel: string | BaseSingleEncodeSpec, value?: MarkFunctionType<any> | boolean, clear?: boolean): this {
     return this.encodeState(DiffState.update, channel, value, clear);
   }
 
   encodeState(
     state: string,
-    channel: string | BaseSignleEncodeSpec,
+    channel: string | BaseSingleEncodeSpec,
     value?: MarkFunctionType<any> | boolean,
     clear?: boolean
   ): this {
@@ -389,9 +388,7 @@ export class Mark extends GrammarBase implements IMark {
       this._isReentered = true;
     }
 
-    if (!this.spec.encode[state]) {
-      this.spec.encode[state] = {};
-    } else {
+    if (this.spec.encode[state]) {
       const lastEncoder = this.spec.encode[state];
       // detach last dependencies
       if (isFunctionType(lastEncoder)) {
@@ -415,21 +412,27 @@ export class Mark extends GrammarBase implements IMark {
         }
       }
     }
-    // update encode & append new dependencies
-    if (isString(channel)) {
-      this.spec.encode[state][channel] = value;
-      this.attach(parseEncodeType(value, this.view));
-    } else if (isFunctionType(channel)) {
-      this.spec.encode[state] = channel;
-      this.attach(parseEncodeType(channel, this.view));
-    } else {
-      Object.assign(this.spec.encode[state], channel);
-      if (channel) {
+
+    if (channel) {
+      if (!this.spec.encode[state]) {
+        this.spec.encode[state] = {};
+      }
+
+      // update encode & append new dependencies
+      if (isString(channel)) {
+        this.spec.encode[state][channel] = value;
+        this.attach(parseEncodeType(value, this.view));
+      } else if (isFunctionType(channel)) {
+        this.spec.encode[state] = channel;
+        this.attach(parseEncodeType(channel, this.view));
+      } else if (channel) {
+        Object.assign(this.spec.encode[state], channel);
         Object.values(channel).forEach(channelEncoder => {
           this.attach(parseEncodeType(channelEncoder, this.view));
         });
       }
     }
+
     this.commit();
     return this;
   }
@@ -630,9 +633,7 @@ export class Mark extends GrammarBase implements IMark {
       const group = getGrammarOutput(this.spec.group, parameters) as IGroupMark;
       this.group = group;
       if (group) {
-        this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK);
         group.appendChild(this);
-        this.emit(HOOK_EVENT.AFTER_ADD_VRENDER_MARK);
       }
     }
 
@@ -854,12 +855,7 @@ export class Mark extends GrammarBase implements IMark {
       return;
     }
 
-    this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK);
-    if (this.markType === GrammarMarkType.group) {
-      graphicItem.name = `${this.id() || this.markType}`;
-
-      this.graphicParent.insertIntoKeepIdx(graphicItem as unknown as INode, this.graphicIndex);
-    } else if (this.renderContext?.progressive) {
+    if (this.renderContext?.progressive) {
       let group: IGroup;
 
       if (this._groupKeys) {
@@ -881,8 +877,6 @@ export class Mark extends GrammarBase implements IMark {
     } else {
       (this.graphicParent as any).appendChild(graphicItem);
     }
-    this.emit(HOOK_EVENT.AFTER_ADD_VRENDER_MARK);
-
     return graphicItem;
   }
 

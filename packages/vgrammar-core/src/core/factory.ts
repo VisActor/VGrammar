@@ -1,4 +1,4 @@
-import type { IGraphic } from '@visactor/vrender-core';
+import type { IGraphic, IGraphicAttribute } from '@visactor/vrender-core';
 import type {
   GlyphChannelEncoder,
   GlyphDefaultEncoder,
@@ -19,17 +19,19 @@ import type {
   TypeAnimation
 } from '../types';
 import { GlyphMeta } from '../view/glyph-meta';
+import type { ComponentOptions } from '@visactor/vrender-components';
 
 export class Factory {
   private static _plotMarks: Record<string, IPlotMarkConstructor> = {};
   private static _marks: Record<string, IMarkConstructor> = {};
   private static _components: Record<string, IComponentConstructor> = {};
-  private static _graphicComponents: Record<string, (attrs: any, mode?: '2d' | '3d') => IGraphic> = {};
+  private static _graphicComponents: Record<string, (attrs: any, options?: ComponentOptions) => IGraphic> = {};
   private static _transforms: Record<string, ITransform> = {};
   private static _grammars: Record<string, { grammarClass: IGrammarBaseConstructor; specKey: string }> = {};
   private static _glyphs: Record<string, IGlyphMeta<any, any>> = {};
   private static _animations: Record<string, TypeAnimation<IGlyphElement> | TypeAnimation<IElement>> = {};
   private static _interactions: Record<string, IInteractionConstructor> = {};
+  private static _graphics: Record<string, (attributes: IGraphicAttribute) => IGraphic> = {};
 
   static registerPlotMarks(key: string, mark: IPlotMarkConstructor) {
     Factory._plotMarks[key] = mark;
@@ -76,18 +78,18 @@ export class Factory {
     return !!Factory._components[componentType];
   }
 
-  static registerGraphicComponent(key: string, creator: (attrs: any, mode?: '2d' | '3d') => IGraphic) {
+  static registerGraphicComponent(key: string, creator: (attrs: any, options?: ComponentOptions) => IGraphic) {
     Factory._graphicComponents[key] = creator;
   }
 
-  static createGraphicComponent(componentType: string, attrs: any, mode?: '2d' | '3d') {
+  static createGraphicComponent(componentType: string, attrs: any, options?: ComponentOptions) {
     const compCreator = Factory._graphicComponents[componentType];
 
     if (!compCreator) {
       return null;
     }
 
-    return compCreator(attrs, mode);
+    return compCreator(attrs, options);
   }
 
   static registerTransform(type: string, transform: Omit<ITransform, 'type'>, isBuiltIn?: boolean) {
@@ -113,14 +115,14 @@ export class Factory {
     };
   }
 
-  static createGrammar(type: string, view: IView) {
+  static createGrammar(type: string, view: IView, grammarType: string) {
     const Ctor = Factory._grammars[type]?.grammarClass;
 
     if (!Ctor) {
       return null;
     }
 
-    return new Ctor(view);
+    return new Ctor(view, grammarType);
   }
 
   static getGrammars() {
@@ -170,4 +172,20 @@ export class Factory {
 
     return new Ctor(view, options);
   }
+
+  static registerGraphic = (graphicType: string, creator: (attributes: IGraphicAttribute) => IGraphic) => {
+    Factory._graphics[graphicType] = creator;
+  };
+
+  static getGraphicType = (graphicType: string) => {
+    return Factory._graphics[graphicType];
+  };
+
+  static createGraphic = (graphicType: string, attributes?: IGraphicAttribute) => {
+    const creator = Factory._graphics[graphicType];
+    if (!creator) {
+      return null;
+    }
+    return creator(attributes);
+  };
 }

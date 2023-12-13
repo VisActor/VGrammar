@@ -1080,6 +1080,8 @@ plot
   .scale('shape', { range: ['diamond', 'triangle', 'cross'] })
   .axis('x', { tickCount: 5 })
   .axis('y', { tickCount: 5 })
+  .grid('x')
+  .grid('y')
   .tooltip({
     staticContentKey: ['sepalLength', 'sepalWidth'],
     content: [

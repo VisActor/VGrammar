@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-core",
-  "version": "0.9.4",
+  "version": "0.10.0",
   "description": "VGrammar is a visual grammar library",
   "keywords": [
     "grammar",
@@ -28,22 +28,21 @@
     "eslint": "eslint --debug --fix src/",
     "build": "bundle --clean",
     "dev": "bundle --clean -f es -w",
-    "analysis": "bundle -f umd -a",
-    "analysis-core": "bundle -f umd -a -i core.ts",
+    "analysis": "bundle -f umd -a -i index.ts",
     "start": "vite ./vite",
     "test": "jest",
     "test-cov": "jest -w 16 --coverage",
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vgrammar-coordinate": "workspace:0.9.4",
-    "@visactor/vgrammar-util": "workspace:0.9.4",
-    "@visactor/vscale": "~0.16.18",
-    "@visactor/vrender-core": "~0.16.17",
-    "@visactor/vrender-kits": "~0.16.17",
-    "@visactor/vrender-components": "~0.16.17",
-    "@visactor/vutils": "~0.16.18",
-    "@visactor/vdataset": "~0.16.18"
+    "@visactor/vgrammar-coordinate": "workspace:0.10.0",
+    "@visactor/vgrammar-util": "workspace:0.10.0",
+    "@visactor/vscale": "~0.17.1",
+    "@visactor/vrender-core": "~0.17.2",
+    "@visactor/vrender-kits": "~0.17.2",
+    "@visactor/vrender-components": "~0.17.2",
+    "@visactor/vutils": "~0.17.1",
+    "@visactor/vdataset": "~0.17.1"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",

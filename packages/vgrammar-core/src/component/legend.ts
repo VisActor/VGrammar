@@ -8,7 +8,7 @@ import { DiscreteLegend, ColorContinuousLegend, SizeContinuousLegend } from '@vi
 import { array, isString, merge, last, mixin } from '@visactor/vutils';
 import { ComponentEnum, LegendEnum } from '../graph/enums';
 import type {
-  BaseSignleEncodeSpec,
+  BaseSingleEncodeSpec,
   IElement,
   IGroupMark,
   IScale,
@@ -156,7 +156,9 @@ export class Legend extends ScaleComponent implements ILegend {
   }
 
   addGraphicItem(attrs: any, groupKey?: string) {
-    const graphicItem = Factory.createGraphicComponent(this._getLegendComponentType(), attrs);
+    const graphicItem = Factory.createGraphicComponent(this._getLegendComponentType(), attrs, {
+      skipDefault: this.spec.skipTheme
+    });
     return super.addGraphicItem(attrs, groupKey, graphicItem);
   }
 
@@ -172,7 +174,7 @@ export class Legend extends ScaleComponent implements ILegend {
         res[state] = {
           callback: (datum: any, element: IElement, parameters: any) => {
             const theme = this.spec.skipTheme ? null : this.view.getCurrentTheme();
-            const addition = invokeEncoder(encoder as BaseSignleEncodeSpec, datum, element, parameters);
+            const addition = invokeEncoder(encoder as BaseSingleEncodeSpec, datum, element, parameters);
             const scale = scaleGrammar?.getScale?.();
             switch (this._getLegendComponentType()) {
               case LegendEnum.discreteLegend:

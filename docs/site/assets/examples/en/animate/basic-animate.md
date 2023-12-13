@@ -383,13 +383,21 @@ const spec = {
       transform: [
         {
           type: 'stack',
-          //orient: 'negative',
           dimensionField: 'month',
           stackField: 'value',
           asStack: 'value',
           asPrevStack: 'lastValue'
         }
       ]
+    }
+  ],
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'xscale',
+      crosshairShape: 'rect',
+      crosshairType: 'x',
+      container: '#container'
     }
   ],
 
@@ -400,7 +408,7 @@ const spec = {
       domain: { data: 'stack', field: 'month' },
       dependency: ['viewBox'],
       range: (scale, params) => {
-        return [params.viewBox.x1, params.viewBox.x2];
+        return [0, params.viewBox.width()];
       },
 
       padding: 0.05,
@@ -412,7 +420,7 @@ const spec = {
       domain: { data: 'stack', field: ['value', 'lastValue'] },
       dependency: ['viewBox'],
       range: (scale, params) => {
-        return [params.viewBox.y2, params.viewBox.y1];
+        return [params.viewBox.height(), 0];
       },
       nice: true
     },
@@ -434,96 +442,97 @@ const spec = {
       ]
     }
   ],
-
   marks: [
     {
-      type: 'component',
-      componentType: 'axis',
-      scale: 'xscale',
-      tickCount: -1,
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            x: params.viewBox.x1,
-            y: params.viewBox.y2,
-            start: { x: 0, y: 0 },
-            end: { x: params.viewBox.width(), y: 0 }
-          };
-        }
-      }
-    },
-    {
-      type: 'component',
-      componentType: 'axis',
-      scale: 'yscale',
+      type: 'group',
+      id: 'container',
       dependency: ['viewBox'],
       encode: {
         update: (scale, elment, params) => {
           return {
             x: params.viewBox.x1,
             y: params.viewBox.y1,
-            start: { x: 0, y: params.viewBox.height() },
-            end: { x: 0, y: 0 },
-            verticalFactor: -1
+            width: params.viewBox.width(),
+            height: params.viewBox.height()
           };
-        }
-      }
-    },
-    {
-      type: 'component',
-      componentType: 'crosshair',
-      scale: 'xscale',
-      crosshairShape: 'rect',
-      crosshairType: 'x',
-      dependency: ['viewBox'],
-      encode: {
-        update: (scale, elment, params) => {
-          return {
-            start: { y: params.viewBox.y1 },
-            end: { y: params.viewBox.y2 }
-          };
-        }
-      }
-    },
-    {
-      type: 'rect',
-      from: { data: 'stack' },
-      groupBy: 'product',
-      key: 'month',
-      encode: {
-        update: {
-          x: { scale: 'xscale', field: 'month', band: 0.25 },
-          width: { scale: 'xscale', band: 0.5 },
-          y: { scale: 'yscale', field: 'value' },
-          y1: { scale: 'yscale', field: 'lastValue' },
-          fill: { scale: 'color', field: 'product' }
-        },
-        hover: {
-          fill: 'red'
         }
       },
-      animation: {
-        enter: {
-          type: 'growHeightIn',
-          duration: 2000,
-          options: (datum, element, params) => {
-            return { overall: params.viewBox.y2, orient: 'negative' };
+      marks: [
+        {
+          type: 'component',
+          componentType: 'axis',
+          scale: 'xscale',
+          tickCount: -1,
+          dependency: ['viewBox'],
+          encode: {
+            update: (scale, elment, params) => {
+              return {
+                x: 0,
+                y: params.viewBox.height(),
+                start: { x: 0, y: 0 },
+                end: { x: params.viewBox.width(), y: 0 }
+              };
+            }
           }
         },
-        update: {
-          type: 'update',
-          duration: 2000
+        {
+          type: 'component',
+          componentType: 'axis',
+          scale: 'yscale',
+          dependency: ['viewBox'],
+          encode: {
+            update: (scale, elment, params) => {
+              return {
+                x: 0,
+                y: 0,
+                start: { x: 0, y: params.viewBox.height() },
+                end: { x: 0, y: 0 },
+                verticalFactor: -1
+              };
+            }
+          }
         },
-        exit: {
-          type: 'fadeOut',
-          duration: 2000
-        },
-        state: {
-          duration: 500
+
+        {
+          type: 'rect',
+          from: { data: 'stack' },
+          groupBy: 'product',
+          key: 'month',
+          encode: {
+            update: {
+              x: { scale: 'xscale', field: 'month', band: 0.25 },
+              width: { scale: 'xscale', band: 0.5 },
+              y: { scale: 'yscale', field: 'value' },
+              y1: { scale: 'yscale', field: 'lastValue' },
+              fill: { scale: 'color', field: 'product' }
+            },
+            hover: {
+              fill: 'red'
+            }
+          },
+          animation: {
+            enter: {
+              type: 'growHeightIn',
+              duration: 2000,
+              options: (datum, element, params) => {
+                return { overall: params.viewBox.y2, orient: 'negative' };
+              }
+            },
+            update: {
+              type: 'update',
+              duration: 2000
+            },
+            exit: {
+              type: 'fadeOut',
+              duration: 2000
+            },
+            state: {
+              duration: 500
+            }
+          },
+          dependency: ['viewBox']
         }
-      },
-      dependency: ['viewBox']
+      ]
     }
   ]
 };

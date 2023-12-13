@@ -14,6 +14,9 @@ import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-s
 
 import {
   View,
+  // grammars
+  registerScale,
+  registerCoordinate,
   // semantic mark
   registerCellMark,
   registerIntervalMark,
@@ -105,11 +108,38 @@ import {
   registerViewRoam,
   registerFishEye,
 
+  // graphics
+  registerCircleGraphic,
+  registerArcGraphic,
+  registerArc3dGraphic,
+  registerPyramid3dGraphic,
+  registerAreaGraphic,
+  registerGroupGraphic,
+  registerImageGraphic,
+  registerRect3dGraphic,
+  registerLineGraphic,
+  registerPathGraphic,
+  registerRectGraphic,
+  registerRuleGraphic,
+  registerShapeGraphic,
+  registerSymbolGraphic,
+  registerTextGraphic,
+  registerPolygonGraphic,
+  registerRichTextGraphic,
+  registerCellGraphic,
+  registerIntervalGraphic,
+  registerGlyphGraphic,
+  registerLargeRectsGraphic,
+  registerLargeSymbolsGraphic,
+
   // envs
-  initAllEnv
+  initAutoEnv
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
+  // grammars
+  registerScale,
+  registerCoordinate,
   // semantic marks
   registerCellMark,
   registerIntervalMark,
@@ -207,7 +237,31 @@ View.useRegisters([
   registerViewScroll,
   registerViewDrag,
   registerViewRoam,
-  registerFishEye
+  registerFishEye,
+
+  // graphics
+  registerCircleGraphic,
+  registerArcGraphic,
+  registerArc3dGraphic,
+  registerPyramid3dGraphic,
+  registerAreaGraphic,
+  registerGroupGraphic,
+  registerImageGraphic,
+  registerRect3dGraphic,
+  registerLineGraphic,
+  registerPathGraphic,
+  registerRectGraphic,
+  registerRuleGraphic,
+  registerShapeGraphic,
+  registerSymbolGraphic,
+  registerTextGraphic,
+  registerPolygonGraphic,
+  registerRichTextGraphic,
+  registerCellGraphic,
+  registerIntervalGraphic,
+  registerGlyphGraphic,
+  registerLargeRectsGraphic,
+  registerLargeSymbolsGraphic
 ]);
 
-initAllEnv();
+initAutoEnv();

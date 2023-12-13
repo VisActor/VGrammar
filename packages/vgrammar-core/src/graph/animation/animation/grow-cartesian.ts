@@ -1,5 +1,4 @@
-import type { IRectGraphicAttribute } from '@visactor/vrender-core';
-import { isNil, isNumber } from '@visactor/vutils';
+import { isNil, isNumber, isValid } from '@visactor/vutils';
 import type { IGrowCartesianAnimationOptions, IAnimationParameters, IElement, TypeAnimation } from '../../../types';
 
 // grow center
@@ -8,51 +7,82 @@ export const growCenterIn: TypeAnimation<IElement> = (
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const x = element.getGraphicAttribute('x', false);
-  const x1 = element.getGraphicAttribute('x1', false);
-
-  const y = element.getGraphicAttribute('y', false);
-  const y1 = element.getGraphicAttribute('y1', false);
-
-  const width = element.getGraphicAttribute('width', false);
-  const height = element.getGraphicAttribute('height', false);
-
-  const computedX = (element.getGraphicItem().attribute as IRectGraphicAttribute).x;
-  const computedY = (element.getGraphicItem().attribute as IRectGraphicAttribute).y;
-  const computedWidth = (element.getGraphicItem().attribute as IRectGraphicAttribute).width;
-  const computedHeight = (element.getGraphicItem().attribute as IRectGraphicAttribute).height;
   switch (options?.direction) {
-    case 'x':
+    case 'x': {
+      const x = element.getGraphicAttribute('x', false);
+      const x1 = element.getGraphicAttribute('x1', false);
+      const width = element.getGraphicAttribute('width', false);
+
       return {
-        from: {
-          x: computedX + computedWidth / 2,
-          x1: isNil(x1) ? undefined : computedX + computedWidth / 2,
-          width: isNil(width) ? undefined : 0
-        },
+        from: isValid(width)
+          ? {
+              x: x + width / 2,
+              x1: undefined,
+              width: 0
+            }
+          : {
+              x: (x + x1) / 2,
+              x1: (x + x1) / 2,
+              width: undefined
+            },
         to: { x, x1, width }
       };
-    case 'y':
+    }
+    case 'y': {
+      const y = element.getGraphicAttribute('y', false);
+      const y1 = element.getGraphicAttribute('y1', false);
+      const height = element.getGraphicAttribute('height', false);
+
       return {
-        from: {
-          y: computedY + computedHeight / 2,
-          y1: isNil(y1) ? undefined : computedY + computedHeight / 2,
-          height: isNil(height) ? undefined : 0
-        },
+        from: isValid(height)
+          ? {
+              y: y + height / 2,
+              y1: undefined,
+              height: 0
+            }
+          : {
+              y: (y + y1) / 2,
+              y1: (y + y1) / 2,
+              height: undefined
+            },
         to: { y, y1, height }
       };
+    }
     case 'xy':
-    default:
+    default: {
+      const x = element.getGraphicAttribute('x', false);
+      const x1 = element.getGraphicAttribute('x1', false);
+      const width = element.getGraphicAttribute('width', false);
+      const y = element.getGraphicAttribute('y', false);
+      const y1 = element.getGraphicAttribute('y1', false);
+      const height = element.getGraphicAttribute('height', false);
+      const from: any = {};
+
+      if (isValid(width)) {
+        from.x = x + width / 2;
+        from.width = 0;
+        from.x1 = undefined;
+      } else {
+        from.x = (x + x1) / 2;
+        from.x1 = (x + x1) / 2;
+        from.width = undefined;
+      }
+
+      if (isValid(height)) {
+        from.y = y + height / 2;
+        from.height = 0;
+        from.y1 = undefined;
+      } else {
+        from.y = (y + y1) / 2;
+        from.y1 = (y + y1) / 2;
+        from.height = undefined;
+      }
+
       return {
-        from: {
-          x: computedX + computedWidth / 2,
-          y: computedY + computedHeight / 2,
-          x1: isNil(x1) ? undefined : computedX + computedWidth / 2,
-          y1: isNil(y1) ? undefined : computedY + computedHeight / 2,
-          width: isNil(width) ? undefined : 0,
-          height: isNil(height) ? undefined : 0
-        },
+        from,
         to: { x, y, x1, y1, width, height }
       };
+    }
   }
 };
 
@@ -61,44 +91,79 @@ export const growCenterOut: TypeAnimation<IElement> = (
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const x1 = element.getGraphicAttribute('x1', false);
-  const y1 = element.getGraphicAttribute('y1', false);
-  const width = element.getGraphicAttribute('width', false);
-  const height = element.getGraphicAttribute('height', false);
-
-  const computedX = (element.getGraphicItem().attribute as IRectGraphicAttribute).x;
-  const computedWidth = (element.getGraphicItem().attribute as IRectGraphicAttribute).width;
-  const computedY = (element.getGraphicItem().attribute as IRectGraphicAttribute).y;
-  const computedHeight = (element.getGraphicItem().attribute as IRectGraphicAttribute).height;
   switch (options?.direction) {
-    case 'x':
+    case 'x': {
+      const x = element.getGraphicAttribute('x', false);
+      const x1 = element.getGraphicAttribute('x1', false);
+      const width = element.getGraphicAttribute('width', false);
+
       return {
-        to: {
-          x: computedX + computedWidth / 2,
-          x1: isNil(x1) ? undefined : computedX + computedWidth / 2,
-          width: isNil(width) ? undefined : 0
-        }
+        to: isValid(width)
+          ? {
+              x: x + width / 2,
+              x1: undefined,
+              width: 0
+            }
+          : {
+              x: (x + x1) / 2,
+              x1: (x + x1) / 2,
+              width: undefined
+            }
       };
-    case 'y':
+    }
+    case 'y': {
+      const y = element.getGraphicAttribute('y', false);
+      const y1 = element.getGraphicAttribute('y1', false);
+      const height = element.getGraphicAttribute('height', false);
+
       return {
-        to: {
-          y: computedY + computedHeight / 2,
-          y1: isNil(y1) ? undefined : computedY + computedHeight / 2,
-          height: isNil(height) ? undefined : 0
-        }
+        to: isValid(height)
+          ? {
+              y: y + height / 2,
+              y1: undefined,
+              height: 0
+            }
+          : {
+              y: (y + y1) / 2,
+              y1: (y + y1) / 2,
+              height: undefined
+            }
       };
+    }
     case 'xy':
-    default:
+    default: {
+      const x = element.getGraphicAttribute('x', false);
+      const y = element.getGraphicAttribute('y', false);
+      const x1 = element.getGraphicAttribute('x1', false);
+      const y1 = element.getGraphicAttribute('y1', false);
+      const width = element.getGraphicAttribute('width', false);
+      const height = element.getGraphicAttribute('height', false);
+      const to: any = {};
+
+      if (isValid(width)) {
+        to.x = x + width / 2;
+        to.width = 0;
+        to.x1 = undefined;
+      } else {
+        to.x = (x + x1) / 2;
+        to.x1 = (x + x1) / 2;
+        to.width = undefined;
+      }
+
+      if (isValid(height)) {
+        to.y = y + height / 2;
+        to.height = 0;
+        to.y1 = undefined;
+      } else {
+        to.y = (y + y1) / 2;
+        to.y1 = (y + y1) / 2;
+        to.height = undefined;
+      }
+
       return {
-        to: {
-          x: computedX + computedWidth / 2,
-          y: computedY + computedHeight / 2,
-          x1: isNil(x1) ? undefined : computedX + computedWidth / 2,
-          y1: isNil(y1) ? undefined : computedY + computedHeight / 2,
-          width: isNil(width) ? undefined : 0,
-          height: isNil(height) ? undefined : 0
-        }
+        to
       };
+    }
   }
 };
 
@@ -112,15 +177,16 @@ function growWidthInIndividual(
   const x1 = element.getGraphicAttribute('x1', false);
   const width = element.getGraphicAttribute('width', false);
 
-  const computedX = (element.getGraphicItem().attribute as IRectGraphicAttribute).x;
-  const computedWidth = (element.getGraphicItem().attribute as IRectGraphicAttribute).width;
-  const computedX1 = computedX + computedWidth;
   if (options?.orient === 'negative') {
+    const computedX1 = isValid(width) ? Math.max(x, x + width) : Math.max(x, x1);
+
     return {
       from: { x: computedX1, x1: isNil(x1) ? undefined : computedX1, width: isNil(width) ? undefined : 0 },
       to: { x: x, x1: x1, width: width }
     };
   }
+
+  const computedX = isValid(width) ? Math.min(x, x + width) : Math.min(x, x1);
   return {
     from: { x: computedX, x1: isNil(x1) ? undefined : computedX, width: isNil(width) ? undefined : 0 },
     to: { x: x, x1: x1, width: width }
@@ -171,17 +237,19 @@ function growWidthOutIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
+  const x = element.getGraphicAttribute('x', false);
   const x1 = element.getGraphicAttribute('x1', false);
   const width = element.getGraphicAttribute('width', false);
 
-  const computedX = (element.getGraphicItem().attribute as IRectGraphicAttribute).x;
-  const computedWidth = (element.getGraphicItem().attribute as IRectGraphicAttribute).width;
-  const computedX1 = computedX + computedWidth;
   if (options?.orient === 'negative') {
+    const computedX1 = isValid(width) ? Math.max(x, x + width) : Math.max(x, x1);
+
     return {
       to: { x: computedX1, x1: isNil(x1) ? undefined : computedX1, width: isNil(width) ? undefined : 0 }
     };
   }
+
+  const computedX = isValid(width) ? Math.min(x, x + width) : Math.min(x, x1);
   return {
     to: { x: computedX, x1: isNil(x1) ? undefined : computedX, width: isNil(width) ? undefined : 0 }
   };
@@ -235,15 +303,15 @@ function growHeightInIndividual(
   const y1 = element.getGraphicAttribute('y1', false);
   const height = element.getGraphicAttribute('height', false);
 
-  const computedY = (element.getGraphicItem().attribute as IRectGraphicAttribute).y;
-  const computedHeight = (element.getGraphicItem().attribute as IRectGraphicAttribute).height;
-  const computedY1 = computedY + computedHeight;
   if (options?.orient === 'negative') {
+    const computedY1 = isValid(height) ? Math.max(y, y + height) : Math.max(y, y1);
     return {
       from: { y: computedY1, y1: isNil(y1) ? undefined : computedY1, height: isNil(height) ? undefined : 0 },
       to: { y: y, y1: y1, height: height }
     };
   }
+
+  const computedY = isValid(height) ? Math.min(y, y + height) : Math.min(y, y1);
   return {
     from: { y: computedY, y1: isNil(y1) ? undefined : computedY, height: isNil(height) ? undefined : 0 },
     to: { y: y, y1: y1, height: height }
@@ -294,17 +362,19 @@ function growHeightOutIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
+  const y = element.getGraphicAttribute('y', false);
   const y1 = element.getGraphicAttribute('y1', false);
   const height = element.getGraphicAttribute('height', false);
 
-  const computedY = (element.getGraphicItem().attribute as IRectGraphicAttribute).y;
-  const computedHeight = (element.getGraphicItem().attribute as IRectGraphicAttribute).height;
-  const computedY1 = computedY + computedHeight;
   if (options?.orient === 'negative') {
+    const computedY1 = isValid(height) ? Math.max(y, y + height) : Math.max(y, y1);
+
     return {
       to: { y: computedY1, y1: isNil(y1) ? undefined : computedY1, height: isNil(height) ? undefined : 0 }
     };
   }
+
+  const computedY = isValid(height) ? Math.min(y, y + height) : Math.min(y, y1);
   return {
     to: { y: computedY, y1: isNil(y1) ? undefined : computedY, height: isNil(height) ? undefined : 0 }
   };

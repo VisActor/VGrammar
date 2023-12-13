@@ -38,8 +38,7 @@ export class GlyphElement extends Element implements IGlyphElement {
       return;
     }
 
-    const attrs = Object.assign({}, attributes);
-    this.graphicItem = this.mark.addGraphicItem(attrs, this.groupKey) as IGlyph;
+    this.graphicItem = this.mark.addGraphicItem(attributes, this.groupKey) as IGlyph;
     this.graphicItem[BridgeElementKey] = this;
     this.graphicItem.onBeforeAttributeUpdate = this._onGlyphAttributeUpdate(false);
 
@@ -63,7 +62,7 @@ export class GlyphElement extends Element implements IGlyphElement {
 
   useStates(states: string[], hasAnimation?: boolean) {
     if (!this.graphicItem) {
-      return;
+      return false;
     }
     this.mark.emit(HOOK_EVENT.BEFORE_ELEMENT_STATE, { states }, this);
 
@@ -77,6 +76,8 @@ export class GlyphElement extends Element implements IGlyphElement {
     this.graphicItem.useStates(this.states, stateAnimationEnable);
 
     this.mark.emit(HOOK_EVENT.AFTER_ELEMENT_STATE, { states }, this);
+
+    return true;
   }
 
   protected getStateAttrs = (stateName: string, nextStates: string[]) => {
@@ -332,8 +333,8 @@ export class GlyphElement extends Element implements IGlyphElement {
     if (this.mark.needAnimate()) {
       // If mark need animate, diff attributes.
       const nextGraphicAttributes = this.diffAttributes(graphicAttributes, markName);
-      const prevGraphicAttributes = this.getPrevGraphicAttributes(markName);
-      const finalGraphicAttributes = this.getFinalGraphicAttributes(markName);
+      const prevGraphicAttributes = this.getPrevGraphicAttributes(markName) ?? {};
+      const finalGraphicAttributes = this.getFinalGraphicAttributes(markName) ?? {};
       Object.keys(nextGraphicAttributes).forEach(channel => {
         prevGraphicAttributes[channel] = graphicItem.attribute[channel];
         finalGraphicAttributes[channel] = nextGraphicAttributes[channel];
@@ -381,22 +382,22 @@ export class GlyphElement extends Element implements IGlyphElement {
   }
 
   clearChangedGraphicAttributes() {
-    this.setPrevGraphicAttributes({});
-    this.setNextGraphicAttributes({});
+    this.setPrevGraphicAttributes(null);
+    this.setNextGraphicAttributes(null);
     Object.keys(this.glyphGraphicItems).forEach(markName => {
-      this.setPrevGraphicAttributes({}, markName);
-      this.setNextGraphicAttributes({}, markName);
+      this.setPrevGraphicAttributes(null, markName);
+      this.setNextGraphicAttributes(null, markName);
     });
   }
 
   clearGraphicAttributes() {
-    this.setPrevGraphicAttributes({});
-    this.setNextGraphicAttributes({});
-    this.setFinalGraphicAttributes({});
+    this.setPrevGraphicAttributes(null);
+    this.setNextGraphicAttributes(null);
+    this.setFinalGraphicAttributes(null);
     Object.keys(this.glyphGraphicItems).forEach(markName => {
-      this.setPrevGraphicAttributes({}, markName);
-      this.setNextGraphicAttributes({}, markName);
-      this.setFinalGraphicAttributes({}, markName);
+      this.setPrevGraphicAttributes(null, markName);
+      this.setNextGraphicAttributes(null, markName);
+      this.setFinalGraphicAttributes(null, markName);
     });
   }
 

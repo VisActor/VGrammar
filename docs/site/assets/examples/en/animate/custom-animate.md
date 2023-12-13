@@ -93,6 +93,23 @@ const spec = {
     }
   ],
 
+  interactions: [
+    {
+      type: 'crosshair',
+      scale: 'yScale',
+      container: '#container',
+      crosshairShape: 'rect',
+      crosshairType: 'y',
+      attributes: (datum, element, params) => {
+        return {
+          start: { x: params.viewBox.x1 },
+          end: { x: params.viewBox.x2 }
+        };
+      },
+      dependency: ['viewBox']
+    }
+  ],
+
   marks: [
     {
       type: 'text',
@@ -134,22 +151,6 @@ const spec = {
       dependency: ['viewBox'],
 
       marks: [
-        {
-          type: 'component',
-          componentType: 'crosshair',
-          scale: 'yScale',
-          crosshairShape: 'rect',
-          crosshairType: 'y',
-          encode: {
-            update: (datum, element, params) => {
-              return {
-                start: { x: params.viewBox.x1 },
-                end: { x: params.viewBox.x2 }
-              };
-            }
-          },
-          dependency: ['viewBox']
-        },
         {
           type: 'component',
           componentType: 'axis',

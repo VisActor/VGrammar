@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import { View, ISignal, registerGlyph } from '@visactor/vgrammar';
+import { View, ISignal, Factory } from '@visactor/vgrammar';
 
-const glyphMeta = registerGlyph(
+const glyphMeta = Factory.registerGlyph(
   'testGlyph',
   { rect: 'rect', rule: 'rule' },
   {
