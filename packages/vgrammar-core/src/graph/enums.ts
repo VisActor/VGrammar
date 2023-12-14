@@ -218,15 +218,3 @@ export enum InteractionStateEnum {
   highlight = 'highlight',
   blur = 'blur'
 }
-export enum InteractionEventEnum {
-  viewDragStart = 'viewDragStart',
-  viewDragUpdate = 'viewDragUpdate',
-  viewDragEnd = 'viewDragEnd',
-
-  viewScrollStart = 'viewScrollStart',
-  viewScrollEnd = 'viewScrollEnd',
-
-  viewZoomStart = 'viewZoomStart',
-  viewZoomEnd = 'viewZoomEnd',
-  viewZoomReset = 'viewZoomReset'
-}

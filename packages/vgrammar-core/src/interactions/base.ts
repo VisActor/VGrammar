@@ -4,6 +4,10 @@ import type { IBaseInteractionOptions, IGrammarBase, IView, InteractionEventHand
 export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
   readonly view: IView;
 
+  options: T;
+
+  type: string;
+
   constructor(view: IView, options: T) {
     this.view = view;
     this.depend(options?.dependency);
@@ -65,5 +69,19 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
         }
       }
     });
+  }
+
+  protected dispatchEvent(type: 'start' | 'reset' | 'update' | 'end', params: any) {
+    this.view.emit(`${this.type}:${type}`, params);
+
+    if (type === 'start' && this.options.onStart) {
+      this.options.onStart(params);
+    } else if (type === 'reset' && this.options.onReset) {
+      this.options.onReset(params);
+    } else if (type === 'update' && this.options.onUpdate) {
+      this.options.onUpdate(params);
+    } else if (type === 'end' && this.options.onEnd) {
+      this.options.onEnd(params);
+    }
   }
 }

@@ -108,15 +108,6 @@ export class FishEye extends BaseInteraction<FishEyeOptions> {
     if (needUpdate) {
       this.view.runSync();
     }
-
-    // this.dispatchEvent(type, newRange, e);
-  }
-
-  protected dispatchEvent(type: string, viewRange: ViewNavigationRange, e?: InteractionEvent) {
-    this.view.emit(type, {
-      viewRange,
-      event: e
-    });
   }
 
   shouldHandle(e: InteractionEvent) {

@@ -75,6 +75,6 @@ export class BrushFilter extends BrushBase<BrushFilterOptions> {
       }
     }
 
-    this.dispatchEvent(event, elements);
+    this._dispatchEvent(event, elements);
   };
 }

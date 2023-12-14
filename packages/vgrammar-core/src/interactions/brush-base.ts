@@ -194,7 +194,7 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
     }
   }
 
-  protected dispatchEvent(
+  protected _dispatchEvent(
     event: {
       type: string;
       detail: {
@@ -206,25 +206,13 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
   ) {
     const params = { operateType: event.type, operateMask: event.detail.operateMask, activeElements };
     if (event.type === IOperateType.drawStart || event.type === IOperateType.moveStart) {
-      this.view.emit('brushStart', params);
-      if (this.options.onStart) {
-        this.options.onStart(params);
-      }
+      this.dispatchEvent('start', params);
     } else if (event.type === IOperateType.drawing || event.type === IOperateType.moving) {
-      this.view.emit('brushUpdate', params);
-      if (this.options.onUpdate) {
-        this.options.onEnd(params);
-      }
+      this.dispatchEvent('update', params);
     } else if (event.type === IOperateType.drawEnd || event.type === IOperateType.moveEnd) {
-      this.view.emit('brushEnd', params);
-      if (this.options.onEnd) {
-        this.options.onEnd(params);
-      }
+      this.dispatchEvent('end', params);
     } else {
-      this.view.emit('brushReset', params);
-      if (this.options.onReset) {
-        this.options.onReset(params);
-      }
+      this.dispatchEvent('reset', params);
     }
   }
 }

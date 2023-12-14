@@ -86,7 +86,7 @@ export class DrillDown extends BrushBase<DrillDownOptions> {
       }
     }
 
-    this.dispatchEvent(event, elements);
+    this._dispatchEvent(event, elements);
   };
 
   handleTrigger = (event: InteractionEvent) => {
