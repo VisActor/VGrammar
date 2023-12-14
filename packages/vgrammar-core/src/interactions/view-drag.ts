@@ -1,5 +1,4 @@
 import { throttle } from '@visactor/vutils';
-import { InteractionEventEnum } from '../graph/enums';
 import type { ViewDragOptions, IView, InteractionEvent, IViewDragMixin } from '../types';
 import { ViewNavigationBase } from './view-navigation-base';
 
@@ -45,11 +44,7 @@ export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
       this._initGrammars();
     }
 
-    this.updateView(
-      InteractionEventEnum.viewDragStart,
-      this.handleDragStart(e, this._state, { reversed: this.options.reversed }),
-      e
-    );
+    this.updateView('start', this.handleDragStart(e, this._state, { reversed: this.options.reversed }), e);
   };
 
   handleUpdateInner = (e: InteractionEvent) => {
@@ -57,11 +52,7 @@ export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
       return;
     }
 
-    this.updateView(
-      InteractionEventEnum.viewDragUpdate,
-      this.handleDragUpdate(e, this._state, { reversed: this.options.reversed }),
-      e
-    );
+    this.updateView('update', this.handleDragUpdate(e, this._state, { reversed: this.options.reversed }), e);
   };
 
   handleEnd = (e: InteractionEvent) => {
@@ -69,10 +60,6 @@ export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
       return;
     }
 
-    this.updateView(
-      InteractionEventEnum.viewDragEnd,
-      this.handleDragEnd(e, this._state, { reversed: this.options.reversed }),
-      e
-    );
+    this.updateView('end', this.handleDragEnd(e, this._state, { reversed: this.options.reversed }), e);
   };
 }

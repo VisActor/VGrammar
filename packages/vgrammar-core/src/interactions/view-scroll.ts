@@ -1,5 +1,4 @@
 import { throttle } from '@visactor/vutils';
-import { InteractionEventEnum } from '../graph/enums';
 import type { ViewScrollOptions, IView, InteractionEvent, IViewScrollMixin } from '../types';
 import { ViewNavigationBase } from './view-navigation-base';
 
@@ -44,11 +43,7 @@ export class ViewScroll extends ViewNavigationBase<ViewScrollOptions> {
       this._initGrammars();
     }
 
-    this.updateView(
-      InteractionEventEnum.viewScrollStart,
-      (this as unknown as IViewScrollMixin).handleScrollStart(e, this._state, this.options),
-      e
-    );
+    this.updateView('start', (this as unknown as IViewScrollMixin).handleScrollStart(e, this._state, this.options), e);
   };
 
   handleEnd = (e: InteractionEvent) => {
@@ -57,10 +52,6 @@ export class ViewScroll extends ViewNavigationBase<ViewScrollOptions> {
       return;
     }
 
-    this.updateView(
-      InteractionEventEnum.viewScrollEnd,
-      (this as unknown as IViewScrollMixin).handleScrollEnd(e, this._state, this.options),
-      e
-    );
+    this.updateView('end', (this as unknown as IViewScrollMixin).handleScrollEnd(e, this._state, this.options), e);
   };
 }

@@ -1,5 +1,5 @@
 import { InteractionStateEnum } from '../graph/enums';
-import type { ElementHighlightOptions, IElement, IMark, IView, InteractionEvent } from '../types';
+import type { ElementHighlightOptions, IElement, IGlyphElement, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
 export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
@@ -36,18 +36,23 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
 
   clearPrevElements() {
     const { highlightState, blurState } = this.options;
+    let hasReset = false;
+    const resetElements: (IElement | IGlyphElement)[] = [];
 
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        if (highlightState && el.hasState(highlightState)) {
-          el.removeState(highlightState);
-        }
+        hasReset = el.removeState(highlightState);
+        el.removeState(blurState);
 
-        if (blurState && el.hasState(blurState)) {
-          el.removeState(blurState);
+        if (hasReset) {
+          resetElements.push(el);
         }
       });
     });
+
+    if (resetElements.length) {
+      this.dispatchEvent('reset', { elements: resetElements, options: this.options });
+    }
 
     this._lastElement = null;
     this._hasBlur = false;
@@ -61,21 +66,24 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
         return;
       }
 
+      let hasHighlight = false;
+
       if (this._lastElement && this._hasBlur) {
         this._lastElement.removeState(highlightState);
         this._lastElement.addState(blurState);
 
         e.element.removeState(blurState);
-        e.element.addState(highlightState);
+        hasHighlight = e.element.addState(highlightState);
       } else {
         let hasBlur = false;
+
         this._marks.forEach(mark => {
           mark.elements.forEach(el => {
             const isHighlight = el === e.element;
 
             if (isHighlight) {
               el.removeState(blurState);
-              el.addState(highlightState);
+              hasHighlight = el.addState(highlightState);
             } else {
               el.removeState(highlightState);
               hasBlur = el.addState(blurState);
@@ -89,6 +97,10 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
       }
 
       this._lastElement = e.element;
+
+      if (hasHighlight) {
+        this.dispatchEvent('start', { elements: [e.element], options: this.options });
+      }
     } else if (this._lastElement) {
       this.clearPrevElements();
     }

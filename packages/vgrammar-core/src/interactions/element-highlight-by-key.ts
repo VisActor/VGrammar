@@ -36,13 +36,8 @@ export class ElementHighlightByKey extends BaseInteraction<ElementHighlightOptio
   clearPrevElements() {
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        if (el.hasState(this.options.highlightState)) {
-          el.removeState(this.options.highlightState);
-        }
-
-        if (el.hasState(this.options.blurState)) {
-          el.removeState(this.options.blurState);
-        }
+        el.removeState(this.options.highlightState);
+        el.removeState(this.options.blurState);
       });
     });
   }

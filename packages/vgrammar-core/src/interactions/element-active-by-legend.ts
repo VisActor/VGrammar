@@ -61,9 +61,7 @@ export class ElementActiveByLegend extends BaseInteraction<ElementActiveByLegend
   handleReset = (e: InteractionEvent) => {
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        if (el.hasState(this.options.state)) {
-          el.removeState(this.options.state);
-        }
+        el.removeState(this.options.state);
       });
     });
   };

@@ -136,7 +136,7 @@ export abstract class ViewNavigationBase<
     }
   }
 
-  updateView(type: string, newRange: ViewNavigationRange, e?: InteractionEvent) {
+  updateView(type: 'start' | 'reset' | 'update' | 'end', newRange: ViewNavigationRange, e?: InteractionEvent) {
     if (newRange?.x && this._state?.x?.linkedComponent) {
       this._updateLinkedComponent(this._state.x.linkedComponent, newRange.x);
     }
@@ -149,14 +149,7 @@ export abstract class ViewNavigationBase<
       this.view.runAsync();
     }
 
-    this.dispatchEvent(type, newRange, e);
-  }
-
-  protected dispatchEvent(type: string, viewRange: ViewNavigationRange, e?: InteractionEvent) {
-    this.view.emit(type, {
-      viewRange,
-      event: e
-    });
+    this.dispatchEvent(type, { viewRange: newRange, event: e });
   }
 
   unbind() {

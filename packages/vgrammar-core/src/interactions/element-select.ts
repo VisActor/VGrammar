@@ -1,6 +1,14 @@
 import { isNumber, isString } from '@visactor/vutils';
 import { InteractionStateEnum } from '../graph/enums';
-import type { ElementSelectOptions, EventType, IMark, IView, InteractionEvent } from '../types';
+import type {
+  ElementSelectOptions,
+  EventType,
+  IElement,
+  IGlyphElement,
+  IMark,
+  IView,
+  InteractionEvent
+} from '../types';
 import { BaseInteraction } from './base';
 
 export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
@@ -11,10 +19,10 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
     state: InteractionStateEnum.selected,
     trigger: 'click'
   };
-  options: ElementSelectOptions;
   protected _resetType?: 'view' | 'self' | 'timeout';
   protected _marks?: IMark[];
   private _timer?: number;
+  private _hasSelected?: boolean;
 
   constructor(view: IView, options?: ElementSelectOptions) {
     super(view, options);
@@ -67,10 +75,22 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   clearPrevElements = (isMultiple?: boolean, isActive?: boolean) => {
     const { state, reverseState } = this.options;
 
+    if (!isActive && !this._hasSelected) {
+      return;
+    }
+
+    let res: boolean;
+    const elements: (IElement | IGlyphElement)[] = [];
+
+    this._hasSelected = false;
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        if (!isMultiple && el.hasState(state)) {
-          el.removeState(state);
+        if (!isMultiple) {
+          res = el.removeState(state);
+
+          if (res && !isActive) {
+            elements.push(el);
+          }
         }
 
         if (reverseState) {
@@ -82,6 +102,10 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
         }
       });
     });
+
+    if (elements.length) {
+      this.dispatchEvent('reset', { elements, options: this.options });
+    }
   };
 
   handleStart = (e: InteractionEvent) => {
@@ -102,7 +126,12 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
         }
 
         reverseState && e.element.removeState(reverseState);
-        e.element.addState(state);
+        const res = e.element.addState(state);
+        this._hasSelected = res;
+
+        if (res) {
+          this.dispatchEvent('start', { elements: [e.element], options: this.options });
+        }
 
         if (this._resetType === 'timeout') {
           this._timer = setTimeout(() => {
@@ -110,13 +139,17 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
           }, this.options.resetTrigger as number) as unknown as number;
         }
       }
-    } else if (this._resetType === 'view') {
+    } else if (this._resetType === 'view' && this._hasSelected) {
       this.clearPrevElements();
     }
   };
 
   handleReset = (e: InteractionEvent) => {
     const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
+
+    if (!this._hasSelected) {
+      return;
+    }
 
     if (this._resetType === 'view' && !hasActiveElement) {
       this.clearPrevElements();

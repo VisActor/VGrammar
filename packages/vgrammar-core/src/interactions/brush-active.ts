@@ -38,6 +38,6 @@ export class BrushActive extends BrushBase<BrushActiveOptions> {
       });
     });
 
-    this.dispatchEvent(event, elements);
+    this._dispatchEvent(event, elements);
   };
 }

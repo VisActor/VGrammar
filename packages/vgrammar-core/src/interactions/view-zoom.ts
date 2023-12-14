@@ -1,7 +1,6 @@
 import { throttle } from '@visactor/vutils';
 import type { ViewZoomOptions, IView, InteractionEvent, IScale, IData, IViewZoomMixin } from '../types';
 import { ViewNavigationBase } from './view-navigation-base';
-import { InteractionEventEnum } from '../graph/enums';
 
 export interface ViewZoom
   extends Pick<
@@ -54,7 +53,7 @@ export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
     }
 
     this.updateView(
-      InteractionEventEnum.viewZoomStart,
+      'start',
       (this as unknown as IViewZoomMixin).handleZoomStart(e, this._state, {
         rate: this.options.rate,
         focus: this.options.focus
@@ -69,7 +68,7 @@ export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
     }
 
     this.updateView(
-      InteractionEventEnum.viewZoomEnd,
+      'end',
       (this as unknown as IViewZoomMixin).handleZoomEnd(e, this._state, {
         rate: this.options.rate,
         focus: this.options.focus
@@ -83,7 +82,7 @@ export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
       return;
     }
     this.updateView(
-      InteractionEventEnum.viewZoomReset,
+      'reset',
       (this as unknown as IViewZoomMixin).handleZoomReset(e, this._state, {
         rate: this.options.rate,
         focus: this.options.focus

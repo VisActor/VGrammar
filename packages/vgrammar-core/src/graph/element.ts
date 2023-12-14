@@ -376,6 +376,11 @@ export class Element implements IElement {
     }
 
     const states = array(state);
+
+    if (!states.length) {
+      return false;
+    }
+
     const nextStates = this.states.filter(state => !states.includes(state));
     if (nextStates.length === this.states.length) {
       return false;

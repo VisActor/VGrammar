@@ -51,6 +51,6 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
       });
     }
 
-    this.dispatchEvent(event, elements);
+    this._dispatchEvent(event, elements);
   };
 }

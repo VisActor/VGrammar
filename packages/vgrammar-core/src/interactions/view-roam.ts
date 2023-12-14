@@ -11,7 +11,6 @@ import type {
   InteractionEventHandler
 } from '../types';
 import { ViewNavigationBase } from './view-navigation-base';
-import { InteractionEventEnum } from '../graph/enums';
 
 export interface ViewRoam
   extends Pick<IViewDragMixin, 'handleDragStart' | 'handleDragEnd' | 'handleDragUpdate'>,
@@ -109,7 +108,7 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       this._initGrammars();
     }
 
-    this.updateView(InteractionEventEnum.viewZoomStart, this.handleZoomStart(e, this._state, this.options.zoom), e);
+    this.updateView('start', this.handleZoomStart(e, this._state, this.options.zoom), e);
   };
 
   handleRoamZoomEnd = (e: InteractionEvent) => {
@@ -118,14 +117,14 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       return;
     }
 
-    this.updateView(InteractionEventEnum.viewZoomEnd, this.handleZoomEnd(e, this._state, this.options.zoom), e);
+    this.updateView('end', this.handleZoomEnd(e, this._state, this.options.zoom), e);
   };
 
   handleRoamZoomReset = (e: InteractionEvent) => {
     if (!e || (this.options.shouldReset && !this.options.shouldReset(e))) {
       return;
     }
-    this.updateView(InteractionEventEnum.viewZoomReset, this.handleZoomReset(e, this._state, this.options.zoom), e);
+    this.updateView('reset', this.handleZoomReset(e, this._state, this.options.zoom), e);
   };
 
   handleRoamDragStart = (e: InteractionEvent) => {
@@ -137,14 +136,14 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       this._initGrammars();
     }
 
-    this.updateView(InteractionEventEnum.viewDragStart, this.handleDragStart(e, this._state, this.options.drag), e);
+    this.updateView('start', this.handleDragStart(e, this._state, this.options.drag), e);
   };
 
   handleRoamDragUpdateInner = (e: InteractionEvent) => {
     if (!e || (this.options.shouldUpdate && !this.options.shouldUpdate(e))) {
       return;
     }
-    this.updateView(InteractionEventEnum.viewDragUpdate, this.handleDragUpdate(e, this._state, this.options.drag), e);
+    this.updateView('update', this.handleDragUpdate(e, this._state, this.options.drag), e);
   };
 
   handleRoamDragEnd = (e: InteractionEvent) => {
@@ -152,7 +151,7 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       return;
     }
 
-    this.updateView(InteractionEventEnum.viewDragEnd, this.handleDragEnd(e, this._state, this.options.drag), e);
+    this.updateView('end', this.handleDragEnd(e, this._state, this.options.drag), e);
   };
 
   handleRoamScrollStartInner = (e: InteractionEvent) => {
@@ -165,11 +164,7 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       this._initGrammars();
     }
 
-    this.updateView(
-      InteractionEventEnum.viewScrollStart,
-      this.handleScrollStart(e, this._state, this.options.scroll),
-      e
-    );
+    this.updateView('start', this.handleScrollStart(e, this._state, this.options.scroll), e);
   };
 
   handleRoamScrollEnd = (e: InteractionEvent) => {
@@ -178,6 +173,6 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       return;
     }
 
-    this.updateView(InteractionEventEnum.viewScrollEnd, this.handleScrollEnd(e, this._state, this.options.scroll), e);
+    this.updateView('end', this.handleScrollEnd(e, this._state, this.options.scroll), e);
   };
 }
