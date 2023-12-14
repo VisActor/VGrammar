@@ -1,6 +1,54 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 16 Nov 2023 03:42:57 GMT and should not be manually modified.
+This log was last generated on Thu, 14 Dec 2023 06:26:49 GMT and should not be manually modified.
+
+## 0.10.1
+Thu, 14 Dec 2023 06:26:49 GMT
+
+### Updates
+
+- fix: upgrade vrender and vutils, fix Math.min.apply and Math.max.apply
+
+
+- feat: add context api for mark
+- feat: support delay after animation config
+- feat: dispatch event in interactions
+
+
+- fix: fix `applyGraphicAttributes()` when update elements
+
+
+- fix: fix errof of animator when the graphicItem of element is null
+
+
+- fix: add `clear` to `encode()` and `encodeState()` in mark
+
+
+- fix: fix error of dataflow when some grammar element is release
+
+
+- fix: fix the issue that hierarchy sankey cannot sort link
+
+
+- fix: fix the animation issue of line when defined is set to line mark
+
+
+- fix: element should reset graphicItem when `removeAllGraphicItems()` is called
+
+
+- fix: fix `loadImage()` of word-cloud-shape
+
+
+- perf: optimize the performance of `initGraphicItem()`, dont call hooks of adding/creating graphics
+
+
+- perf: optmize the performance of initGraphicItem(), only call `onBeforeAttributeUpdate()` when need
+
+
+- perf: move `enableSegments` to spec
+
+
+- perf: grammar Scale and Coordinate can be registered, fix #266
 
 ## 0.9.0
 Thu, 16 Nov 2023 03:42:57 GMT
