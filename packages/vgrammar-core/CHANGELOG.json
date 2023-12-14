@@ -2,6 +2,63 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.10.1",
+      "tag": "@visactor/vgrammar-core_v0.10.1",
+      "date": "Thu, 14 Dec 2023 06:26:49 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: upgrade vrender and vutils, fix Math.min.apply and Math.max.apply\n\n"
+          },
+          {
+            "comment": "feat: add context api for mark"
+          },
+          {
+            "comment": "feat: support delay after animation config"
+          },
+          {
+            "comment": "feat: dispatch event in interactions\n\n"
+          },
+          {
+            "comment": "fix: fix `applyGraphicAttributes()` when update elements\n\n"
+          },
+          {
+            "comment": "fix: fix errof of animator when the graphicItem of element is null\n\n"
+          },
+          {
+            "comment": "fix: add `clear` to `encode()` and `encodeState()` in mark\n\n"
+          },
+          {
+            "comment": "fix: fix error of dataflow when some grammar element is release\n\n"
+          },
+          {
+            "comment": "fix: fix the issue that hierarchy sankey cannot sort link\n\n"
+          },
+          {
+            "comment": "fix: fix the animation issue of line when defined is set to line mark\n\n"
+          },
+          {
+            "comment": "fix: element should reset graphicItem when `removeAllGraphicItems()` is called\n\n"
+          },
+          {
+            "comment": "fix: fix `loadImage()` of word-cloud-shape\n\n"
+          },
+          {
+            "comment": "perf: optimize the performance of `initGraphicItem()`, dont call hooks of adding/creating graphics\n\n"
+          },
+          {
+            "comment": "perf: optmize the performance of initGraphicItem(), only call `onBeforeAttributeUpdate()` when need\n\n"
+          },
+          {
+            "comment": "perf: move `enableSegments` to spec\n\n"
+          },
+          {
+            "comment": "perf: grammar Scale and Coordinate can be registered, fix #266"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.9.0",
       "tag": "@visactor/vgrammar-core_v0.9.0",
       "date": "Thu, 16 Nov 2023 03:42:57 GMT",
