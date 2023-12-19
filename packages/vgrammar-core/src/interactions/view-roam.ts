@@ -73,25 +73,25 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
     const events: Array<{ type: string; handler: InteractionEventHandler }> = [];
 
     if (this.options.zoom?.enable) {
-      this.options.zoom?.trigger && events.push({ type: this.options.zoom.trigger, handler: this.handleRoamZoomStart });
-      this.options.zoom?.endTrigger &&
+      this.options.zoom.trigger && events.push({ type: this.options.zoom.trigger, handler: this.handleRoamZoomStart });
+      this.options.zoom.endTrigger &&
         events.push({ type: this.options.zoom.endTrigger, handler: this.handleRoamZoomEnd });
-      this.options.zoom?.resetTrigger &&
-        events.push({ type: this.options.zoom?.resetTrigger, handler: this.handleRoamZoomReset });
+      this.options.zoom.resetTrigger &&
+        events.push({ type: this.options.zoom.resetTrigger, handler: this.handleRoamZoomReset });
     }
 
     if (this.options.scroll?.enable) {
-      this.options.scroll?.trigger &&
+      this.options.scroll.trigger &&
         events.push({ type: this.options.scroll.trigger, handler: this.handleRoamScrollStart });
-      this.options.scroll?.trigger &&
+      this.options.scroll.trigger &&
         events.push({ type: this.options.scroll.endTrigger, handler: this.handleRoamScrollEnd });
     }
 
     if (this.options.drag?.enable) {
-      this.options.drag?.trigger && events.push({ type: this.options.drag.trigger, handler: this.handleRoamDragStart });
-      this.options.drag?.updateTrigger &&
+      this.options.drag.trigger && events.push({ type: this.options.drag.trigger, handler: this.handleRoamDragStart });
+      this.options.drag.updateTrigger &&
         events.push({ type: this.options.drag.updateTrigger, handler: this.handleRoamDragUpdate });
-      this.options.drag?.endTrigger &&
+      this.options.drag.endTrigger &&
         events.push({ type: this.options.drag.endTrigger, handler: this.handleRoamDragEnd });
     }
 

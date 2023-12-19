@@ -18,7 +18,7 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
     return null;
   }
 
-  if (attributes?.from) {
+  if (attributes.from) {
     const from = attributes.from;
     const fromKeys = Object.keys(from);
     fromKeys.forEach(channel => {
@@ -32,7 +32,7 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
       attributes.from = element.transformElementItems(items, element.mark.markType, computePoints);
     }
   }
-  if (attributes?.to) {
+  if (attributes.to) {
     const to = attributes.to;
     const toKeys = Object.keys(to);
     toKeys.forEach(channel => {

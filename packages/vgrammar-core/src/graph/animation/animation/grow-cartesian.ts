@@ -177,7 +177,7 @@ function growWidthInIndividual(
   const x1 = element.getGraphicAttribute('x1', false);
   const width = element.getGraphicAttribute('width', false);
 
-  if (options?.orient === 'negative') {
+  if (options && options.orient === 'negative') {
     const computedX1 = isValid(width) ? Math.max(x, x + width) : Math.max(x, x1);
 
     return {
@@ -203,8 +203,8 @@ function growWidthInOverall(
   const x1 = element.getGraphicAttribute('x1', false);
   const width = element.getGraphicAttribute('width', false);
   let overallValue: number;
-  if (options?.orient === 'negative') {
-    if (isNumber(options?.overall)) {
+  if (options && options.orient === 'negative') {
+    if (isNumber(options.overall)) {
       overallValue = options.overall;
     } else if (animationParameters.group) {
       overallValue = (animationParameters as any).groupWidth ?? animationParameters.group.getBounds().width();
@@ -241,7 +241,7 @@ function growWidthOutIndividual(
   const x1 = element.getGraphicAttribute('x1', false);
   const width = element.getGraphicAttribute('width', false);
 
-  if (options?.orient === 'negative') {
+  if (options && options.orient === 'negative') {
     const computedX1 = isValid(width) ? Math.max(x, x + width) : Math.max(x, x1);
 
     return {
@@ -264,8 +264,8 @@ function growWidthOutOverall(
   const width = element.getGraphicAttribute('width', false);
 
   let overallValue: number;
-  if (options?.orient === 'negative') {
-    if (isNumber(options?.overall)) {
+  if (options && options.orient === 'negative') {
+    if (isNumber(options.overall)) {
       overallValue = options.overall;
     } else if (animationParameters.group) {
       overallValue = (animationParameters as any).groupWidth ?? animationParameters.group.getBounds().width();
@@ -275,7 +275,7 @@ function growWidthOutOverall(
       overallValue = animationParameters.width;
     }
   } else {
-    overallValue = isNumber(options?.overall) ? options?.overall : 0;
+    overallValue = isNumber(options?.overall) ? options.overall : 0;
   }
   return {
     to: { x: overallValue, x1: isNil(x1) ? undefined : overallValue, width: isNil(width) ? undefined : 0 }
@@ -303,7 +303,7 @@ function growHeightInIndividual(
   const y1 = element.getGraphicAttribute('y1', false);
   const height = element.getGraphicAttribute('height', false);
 
-  if (options?.orient === 'negative') {
+  if (options && options.orient === 'negative') {
     const computedY1 = isValid(height) ? Math.max(y, y + height) : Math.max(y, y1);
     return {
       from: { y: computedY1, y1: isNil(y1) ? undefined : computedY1, height: isNil(height) ? undefined : 0 },
@@ -328,9 +328,9 @@ function growHeightInOverall(
   const height = element.getGraphicAttribute('height', false);
 
   let overallValue: number;
-  if (options?.orient === 'negative') {
-    if (isNumber(options?.overall)) {
-      overallValue = options?.overall;
+  if (options && options.orient === 'negative') {
+    if (isNumber(options.overall)) {
+      overallValue = options.overall;
     } else if (animationParameters.group) {
       overallValue = (animationParameters as any).groupHeight ?? animationParameters.group.getBounds().height();
 
@@ -339,7 +339,7 @@ function growHeightInOverall(
       overallValue = animationParameters.height;
     }
   } else {
-    overallValue = isNumber(options?.overall) ? options?.overall : 0;
+    overallValue = isNumber(options?.overall) ? options.overall : 0;
   }
   return {
     from: { y: overallValue, y1: isNil(y1) ? undefined : overallValue, height: isNil(height) ? undefined : 0 },
@@ -366,7 +366,7 @@ function growHeightOutIndividual(
   const y1 = element.getGraphicAttribute('y1', false);
   const height = element.getGraphicAttribute('height', false);
 
-  if (options?.orient === 'negative') {
+  if (options && options.orient === 'negative') {
     const computedY1 = isValid(height) ? Math.max(y, y + height) : Math.max(y, y1);
 
     return {
@@ -389,8 +389,8 @@ function growHeightOutOverall(
   const height = element.getGraphicAttribute('height', false);
 
   let overallValue: number;
-  if (options?.orient === 'negative') {
-    if (isNumber(options?.overall)) {
+  if (options && options.orient === 'negative') {
+    if (isNumber(options.overall)) {
       overallValue = options.overall;
     } else if (animationParameters.group) {
       overallValue = (animationParameters as any).groupHeight ?? animationParameters.group.getBounds().height();
@@ -400,7 +400,7 @@ function growHeightOutOverall(
       overallValue = animationParameters.height;
     }
   } else {
-    overallValue = isNumber(options?.overall) ? options?.overall : 0;
+    overallValue = isNumber(options?.overall) ? options.overall : 0;
   }
   return {
     to: { y: overallValue, y1: isNil(y1) ? undefined : overallValue, height: isNil(height) ? undefined : 0 }

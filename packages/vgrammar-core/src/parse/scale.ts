@@ -119,7 +119,7 @@ function isMultiScaleDataType(spec: MultiScaleData | any): spec is MultiScaleDat
 }
 
 function parseMultiScaleDataType(spec: MultiScaleData, view: IView): IGrammarBase[] {
-  if (spec?.datas && spec.datas.length) {
+  if (spec && spec.datas && spec.datas.length) {
     const res: IGrammarBase[] = [];
     spec.datas.forEach(data => {
       const gramarBase = parseScaleDataType(data, view);
@@ -321,17 +321,17 @@ function configureContinuousScale(spec: Omit<ContinuousScaleSpec, 'type'>, scale
     scale.rangeRound(scale.range(), true);
   }
 
-  const config = invokeFunctionType(spec.config, parameters, scale);
+  const { interpolate, clamp } = invokeFunctionType(spec.config, parameters, scale) ?? {};
 
-  if (config?.interpolate) {
-    scale.interpolate(config.interpolate, true);
+  if (interpolate) {
+    scale.interpolate(interpolate, true);
   }
 
-  if (!isNil(config?.clamp)) {
-    if (isFunction(config.clamp)) {
-      scale.clamp(true, config.clamp, true);
+  if (!isNil(clamp)) {
+    if (isFunction(clamp)) {
+      scale.clamp(true, clamp, true);
     } else {
-      scale.clamp(config.clamp, undefined, true);
+      scale.clamp(clamp, undefined, true);
     }
   }
 

@@ -103,17 +103,24 @@ export const normalizeMarkTree = (spec: ViewSpec) => {
 };
 
 export const normalizeRunningConfig = (runningConfig: IRunningConfig): IRunningConfig => {
+  const {
+    reuse = DefaultReuse,
+    morph = DefaultMorph,
+    morphAll = DefaultMorphAll,
+    animation = {},
+    enableExitAnimation = DefaultEnableExitAnimation
+  } = runningConfig ?? {};
   return {
-    reuse: runningConfig?.reuse ?? DefaultReuse,
-    morph: runningConfig?.morph ?? DefaultMorph,
-    morphAll: runningConfig?.morphAll ?? DefaultMorphAll,
+    reuse,
+    morph,
+    morphAll,
     animation: {
-      easing: runningConfig?.animation?.easing ?? DefaultAnimationEasing,
-      delay: runningConfig?.animation?.delay ?? DefaultAnimationDelay,
-      duration: runningConfig?.animation?.duration ?? DefaultAnimationDuration,
-      oneByOne: runningConfig?.animation?.oneByOne ?? DefaultAnimationOneByOne,
-      splitPath: runningConfig?.animation?.splitPath ?? DefaultSplitPath
+      easing: animation.easing ?? DefaultAnimationEasing,
+      delay: animation.delay ?? DefaultAnimationDelay,
+      duration: animation.duration ?? DefaultAnimationDuration,
+      oneByOne: animation.oneByOne ?? DefaultAnimationOneByOne,
+      splitPath: animation.splitPath ?? DefaultSplitPath
     },
-    enableExitAnimation: runningConfig?.enableExitAnimation ?? DefaultEnableExitAnimation
+    enableExitAnimation
   };
 };

@@ -9,10 +9,10 @@ function growIntervalInIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  if (options?.direction === 'x') {
+  if (options && options.direction === 'x') {
     const x = element.getGraphicAttribute('x', false);
     const x1 = element.getGraphicAttribute('x1', false);
-    if (options?.orient === 'negative') {
+    if (options.orient === 'negative') {
       return {
         from: { x: x1, x1: x1 },
         to: { x: x, x1: x1 }
@@ -25,7 +25,7 @@ function growIntervalInIndividual(
   }
   const y = element.getGraphicAttribute('y', false);
   const y1 = element.getGraphicAttribute('y1', false);
-  if (options?.orient === 'negative') {
+  if (options && options.orient === 'negative') {
     return {
       from: { y: y1, y1: y1 },
       to: { y: y, y1: y1 }
@@ -42,12 +42,12 @@ function growIntervalInOverall(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  if (options?.direction === 'x') {
+  if (options && options.direction === 'x') {
     const x = element.getGraphicAttribute('x', false);
     const x1 = element.getGraphicAttribute('x1', false);
     let overallValue: number;
-    if (options?.orient === 'negative') {
-      if (isNumber(options?.overall)) {
+    if (options.orient === 'negative') {
+      if (isNumber(options.overall)) {
         overallValue = options.overall;
       } else if (animationParameters.group) {
         overallValue = (animationParameters as any).groupWidth ?? animationParameters.group.getBounds().width();
@@ -57,7 +57,7 @@ function growIntervalInOverall(
         overallValue = animationParameters.width;
       }
     } else {
-      overallValue = isNumber(options?.overall) ? options?.overall : 0;
+      overallValue = isNumber(options?.overall) ? options.overall : 0;
     }
     return {
       from: { x: overallValue, x1: overallValue },
@@ -68,9 +68,9 @@ function growIntervalInOverall(
   const y = element.getGraphicAttribute('y', false);
   const y1 = element.getGraphicAttribute('y1', false);
   let overallValue: number;
-  if (options?.orient === 'negative') {
-    if (isNumber(options?.overall)) {
-      overallValue = options?.overall;
+  if (options && options.orient === 'negative') {
+    if (isNumber(options.overall)) {
+      overallValue = options.overall;
     } else if (animationParameters.group) {
       overallValue = (animationParameters as any).groupHeight ?? animationParameters.group.getBounds().height();
 
@@ -79,7 +79,7 @@ function growIntervalInOverall(
       overallValue = animationParameters.height;
     }
   } else {
-    overallValue = isNumber(options?.overall) ? options?.overall : 0;
+    overallValue = isNumber(options?.overall) ? options.overall : 0;
   }
   return {
     from: { y: overallValue, y1: overallValue },
@@ -100,7 +100,7 @@ export const growIntervalIn: TypeAnimation<IElement> = (
     direction: isTransposed && !isPolar ? 'x' : 'y'
   };
 
-  return options?.overall !== true
+  return options && options.overall !== true
     ? growIntervalInIndividual(element, newOptions, animationParameters)
     : growIntervalInOverall(element, newOptions, animationParameters);
 };
@@ -110,12 +110,12 @@ function growIntervalOutIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  if (options.direction === 'x') {
+  if (options && options.direction === 'x') {
     const x = element.getGraphicAttribute('x', false);
     const x1 = element.getGraphicAttribute('x1', false);
     const prevX = element.getGraphicAttribute('x', true);
     const prevX1 = element.getGraphicAttribute('x1', true);
-    if (options?.orient === 'negative') {
+    if (options.orient === 'negative') {
       return {
         from: { x: prevX, x1: prevX1 },
         to: { x: x1, x1: x1 }
@@ -131,7 +131,7 @@ function growIntervalOutIndividual(
   const y1 = element.getGraphicAttribute('y1', false);
   const prevY = element.getGraphicAttribute('y', true);
   const prevY1 = element.getGraphicAttribute('y1', true);
-  if (options?.orient === 'negative') {
+  if (options && options.orient === 'negative') {
     return {
       from: { y: prevY, y1: prevY1 },
       to: { y: y1, y1: y1 }
@@ -148,12 +148,12 @@ function growIntervalOutOverall(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  if (options?.direction === 'x') {
+  if (options && options.direction === 'x') {
     const prevX = element.getGraphicAttribute('x', true);
     const prevX1 = element.getGraphicAttribute('x1', true);
     let overallValue: number;
-    if (options?.orient === 'negative') {
-      if (isNumber(options?.overall)) {
+    if (options.orient === 'negative') {
+      if (isNumber(options.overall)) {
         overallValue = options.overall;
       } else if (animationParameters.group) {
         overallValue = (animationParameters as any).groupWidth ?? animationParameters.group.getBounds().width();
@@ -163,7 +163,7 @@ function growIntervalOutOverall(
         overallValue = animationParameters.width;
       }
     } else {
-      overallValue = isNumber(options?.overall) ? options?.overall : 0;
+      overallValue = isNumber(options?.overall) ? options.overall : 0;
     }
     return {
       from: { x: prevX, x1: prevX1 },
@@ -174,9 +174,9 @@ function growIntervalOutOverall(
   const prevY = element.getGraphicAttribute('y', true);
   const prevY1 = element.getGraphicAttribute('y1', true);
   let overallValue: number;
-  if (options?.orient === 'negative') {
-    if (isNumber(options?.overall)) {
-      overallValue = options?.overall;
+  if (options && options.orient === 'negative') {
+    if (isNumber(options.overall)) {
+      overallValue = options.overall;
     } else if (animationParameters.group) {
       overallValue = (animationParameters as any).groupHeight ?? animationParameters.group.getBounds().height();
 
@@ -185,7 +185,7 @@ function growIntervalOutOverall(
       overallValue = animationParameters.height;
     }
   } else {
-    overallValue = isNumber(options?.overall) ? options?.overall : 0;
+    overallValue = isNumber(options?.overall) ? options.overall : 0;
   }
   return {
     from: { y: prevY, y1: prevY1 },
@@ -206,7 +206,7 @@ export const growIntervalOut: TypeAnimation<IElement> = (
     direction: isTransposed && !isPolar ? 'x' : 'y'
   };
 
-  return options?.overall !== true
+  return options && options.overall !== true
     ? growIntervalOutIndividual(element, newOptions, animationParameters)
     : growIntervalOutOverall(element, newOptions, animationParameters);
 };
