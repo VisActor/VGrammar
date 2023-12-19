@@ -3,7 +3,7 @@ category: examples
 group: perf
 title: 大数据量柱图
 order: 110-0
-cover: /vgrammar/preview/performance-progressive-rect_0.7.6.png
+cover: /vgrammar/preview/performance-progressive-rect_0.7.6.gif
 ---
 
 # 大数据量柱图
