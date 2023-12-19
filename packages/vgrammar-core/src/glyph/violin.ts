@@ -107,7 +107,7 @@ export const registerViolinGlyph = () => {
       };
     })
     .registerChannelEncoder('y', (channel, encodeValue, encodeValues, datum, element, config) => {
-      if (!isHorizontal(config?.direction)) {
+      if (!config || !isHorizontal(config.direction)) {
         return null;
       }
       return {
