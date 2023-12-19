@@ -23,18 +23,13 @@ import { ScaleComponent } from './scale';
 import { ScrollbarFilter } from '../interactions/scrollbar-filter';
 import { Filter, FilterMixin } from '../interactions/filter';
 import { getComponentGraphic } from './util';
-
-function isValidDirection(direction: Direction) {
-  return direction === 'vertical' || direction === 'horizontal';
-}
-
-function isValidPosition(position: OrientType) {
-  return position === 'top' || position === 'bottom' || position === 'left' || position === 'right';
-}
-
-function isHorizontalPosition(position: OrientType) {
-  return position === 'top' || position === 'bottom';
-}
+import {
+  isHorizontal,
+  isHorizontalPosition,
+  isValidDirection,
+  isValidPosition,
+  isVertical
+} from '@visactor/vgrammar-util';
 
 export const generateScrollbarAttributes = (
   groupSize: { width: number; height: number },
@@ -55,19 +50,19 @@ export const generateScrollbarAttributes = (
     finalPosition = position;
   } else if (isValidDirection(direction) && !isValidPosition(position)) {
     finalDirection = direction;
-    finalPosition = direction === 'horizontal' ? 'bottom' : 'right';
+    finalPosition = isHorizontal(direction) ? 'bottom' : 'right';
   } else {
     finalDirection = direction;
     finalPosition =
-      direction === 'horizontal' && !isHorizontalPosition(position)
+      isHorizontal(direction) && !isHorizontalPosition(position)
         ? 'bottom'
-        : direction === 'vertical' && isHorizontalPosition(position)
+        : isVertical(direction) && isHorizontalPosition(position)
         ? 'right'
         : position;
   }
 
   const attributes: RecursivePartial<ScrollBarAttributes> = { direction: finalDirection };
-  if (finalDirection === 'horizontal') {
+  if (isHorizontal(finalDirection)) {
     const size = addition.height ?? scrollbarTheme?.height ?? 12;
 
     // top or bottom

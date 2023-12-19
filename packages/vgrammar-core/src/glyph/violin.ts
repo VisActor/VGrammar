@@ -9,6 +9,7 @@ import {
   registerRuleGraphic,
   registerSymbolGraphic
 } from '../graph/mark/graphic';
+import { isHorizontal } from '@visactor/vgrammar-util';
 
 const defaultDensitySize = 30;
 
@@ -18,7 +19,7 @@ const computeViolinPoints = (density: [number, number][], densitySize: number, s
   }
   const maxDensity = density.reduce((max, d) => Math.max(max, d[1]), 0);
 
-  if (config?.direction === 'horizontal') {
+  if (config && isHorizontal(config.direction)) {
     const topPoints = density.map(d => {
       return {
         y: -densitySize * (1 / maxDensity) * d[1],
@@ -73,7 +74,7 @@ const encodeViolin = (encodeValues: any, datum: any, element: IGlyphElement, con
     Object.assign(attributes.violin, { points });
   }
 
-  if (config?.direction === 'horizontal') {
+  if (config && isHorizontal(config.direction)) {
     if (isValidNumber(boxHeight)) {
       Object.assign(attributes.box, { y: y - boxHeight / 2, y1: y + boxHeight / 2 });
     } else {
@@ -98,7 +99,7 @@ export const registerViolinGlyph = () => {
   })
     .registerFunctionEncoder(encodeViolin)
     .registerChannelEncoder('x', (channel, encodeValue, encodeValues, datum, element, config) => {
-      if (config?.direction === 'horizontal') {
+      if (config && isHorizontal(config.direction)) {
         return null;
       }
       return {
@@ -106,7 +107,7 @@ export const registerViolinGlyph = () => {
       };
     })
     .registerChannelEncoder('y', (channel, encodeValue, encodeValues, datum, element, config) => {
-      if (!(config?.direction === 'horizontal')) {
+      if (!isHorizontal(config?.direction)) {
         return null;
       }
       return {
@@ -114,25 +115,25 @@ export const registerViolinGlyph = () => {
       };
     })
     .registerChannelEncoder('q1', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal' ? { box: { x: encodeValue } } : { box: { y: encodeValue } };
+      return config && isHorizontal(config.direction) ? { box: { x: encodeValue } } : { box: { y: encodeValue } };
     })
     .registerChannelEncoder('q3', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal' ? { box: { x1: encodeValue } } : { box: { y1: encodeValue } };
+      return config && isHorizontal(config.direction) ? { box: { x1: encodeValue } } : { box: { y1: encodeValue } };
     })
     .registerChannelEncoder('min', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal' ? { shaft: { x: encodeValue } } : { shaft: { y: encodeValue } };
+      return config && isHorizontal(config.direction) ? { shaft: { x: encodeValue } } : { shaft: { y: encodeValue } };
     })
     .registerChannelEncoder('max', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal' ? { shaft: { x1: encodeValue } } : { shaft: { y1: encodeValue } };
+      return config && isHorizontal(config.direction) ? { shaft: { x1: encodeValue } } : { shaft: { y1: encodeValue } };
     })
     .registerChannelEncoder('median', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal'
+      return config && isHorizontal(config.direction)
         ? { median: { x: encodeValue, x1: encodeValue, visible: true } }
         : { median: { y: encodeValue, y1: encodeValue, visible: true } };
     })
     .registerChannelEncoder('angle', (channel, encodeValue, encodeValues, datum, element, config) => {
       const defaultAnchor =
-        config?.direction === 'horizontal'
+        config && isHorizontal(config.direction)
           ? [(encodeValues.min + encodeValues.max) / 2, encodeValues.y]
           : [encodeValues.x, (encodeValues.min + encodeValues.max) / 2];
       const anchor = encodeValues.anchor ?? defaultAnchor;
