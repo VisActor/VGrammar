@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.10.3",
+      "tag": "@visactor/vgrammar-core_v0.10.3",
+      "date": "Tue, 19 Dec 2023 10:37:04 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix the register of VRender mark in registerTextGraphic and registerBoxplotGlyph()"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.10.2",
       "tag": "@visactor/vgrammar-core_v0.10.2",
       "date": "Thu, 14 Dec 2023 11:26:29 GMT",
