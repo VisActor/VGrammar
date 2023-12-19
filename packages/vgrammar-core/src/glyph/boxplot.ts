@@ -8,6 +8,7 @@ import type {
 } from '../types';
 import { Factory } from '../core/factory';
 import { registerGlyphGraphic, registerRectGraphic, registerRuleGraphic } from '../graph/mark/graphic';
+import { isHorizontal } from '@visactor/vgrammar-util';
 
 export interface IBoxplotScaleAnimationOptions {
   center?: number;
@@ -118,7 +119,7 @@ const computeBoxplotCenter = (
   direction: 'vertical' | 'horizontal',
   options: IBoxplotScaleAnimationOptions
 ) => {
-  if (isValidNumber(options?.center)) {
+  if (options && isValidNumber(options.center)) {
     return options.center;
   }
   let median: number;
@@ -126,7 +127,7 @@ const computeBoxplotCenter = (
   let min: number;
   let q1: number;
   let q3: number;
-  if (direction === 'horizontal') {
+  if (isHorizontal(direction)) {
     median = glyphElement.getGraphicAttribute('points', false, 'median')?.[0]?.x;
     max = glyphElement.getGraphicAttribute('points', false, 'max')?.[0]?.x;
     min = glyphElement.getGraphicAttribute('points', false, 'min')?.[0]?.x;
@@ -182,7 +183,7 @@ const encodeBoxplotSize = (encodeValues: any, datum: any, element: IGlyphElement
   const ruleWidth = encodeValues.ruleWidth ?? element.getGraphicAttribute('ruleWidth', false);
   const ruleHeight = encodeValues.ruleHeight ?? element.getGraphicAttribute('ruleHeight', false);
 
-  if (config?.direction === 'horizontal') {
+  if (config && isHorizontal(config.direction)) {
     if (isValidNumber(boxHeight)) {
       Object.assign(attributes.box, { y: y - boxHeight / 2, y1: y + boxHeight / 2 });
       Object.assign(attributes.median, { y: y - boxHeight / 2, y1: y + boxHeight / 2 });
@@ -246,7 +247,7 @@ export function registerBoxplotGlyph() {
     ])
     .registerFunctionEncoder(encodeBoxplotSize)
     .registerChannelEncoder('x', (channel, encodeValue, encodeValues, datum, element, config) => {
-      if (config?.direction === 'horizontal') {
+      if (config && isHorizontal(config.direction)) {
         return null;
       }
       return {
@@ -254,7 +255,7 @@ export function registerBoxplotGlyph() {
       };
     })
     .registerChannelEncoder('y', (channel, encodeValue, encodeValues, datum, element, config) => {
-      if (!(config?.direction === 'horizontal')) {
+      if (!isHorizontal(config?.direction)) {
         return null;
       }
       return {
@@ -262,13 +263,13 @@ export function registerBoxplotGlyph() {
       };
     })
     .registerChannelEncoder('q1', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal' ? { box: { x: encodeValue } } : { box: { y: encodeValue } };
+      return config && isHorizontal(config.direction) ? { box: { x: encodeValue } } : { box: { y: encodeValue } };
     })
     .registerChannelEncoder('q3', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal' ? { box: { x1: encodeValue } } : { box: { y1: encodeValue } };
+      return config && isHorizontal(config.direction) ? { box: { x1: encodeValue } } : { box: { y1: encodeValue } };
     })
     .registerChannelEncoder('min', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal'
+      return config && isHorizontal(config.direction)
         ? {
             shaft: { x: encodeValue },
             min: { x: encodeValue, x1: encodeValue, visible: true }
@@ -279,7 +280,7 @@ export function registerBoxplotGlyph() {
           };
     })
     .registerChannelEncoder('max', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal'
+      return config && isHorizontal(config.direction)
         ? {
             shaft: { x1: encodeValue },
             max: { x: encodeValue, x1: encodeValue, visible: true }
@@ -290,7 +291,7 @@ export function registerBoxplotGlyph() {
           };
     })
     .registerChannelEncoder('median', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal'
+      return config && isHorizontal(config.direction)
         ? {
             median: { x: encodeValue, x1: encodeValue, visible: true }
           }
@@ -300,7 +301,7 @@ export function registerBoxplotGlyph() {
     })
     .registerChannelEncoder('angle', (channel, encodeValue, encodeValues, datum, element, config) => {
       const defaultAnchor =
-        config?.direction === 'horizontal'
+        config && isHorizontal(config.direction)
           ? [(encodeValues.min + encodeValues.max) / 2, encodeValues.y]
           : [encodeValues.x, (encodeValues.min + encodeValues.max) / 2];
       const anchor = encodeValues.anchor ?? defaultAnchor;
@@ -337,7 +338,7 @@ const computeBarBoxplotCenter = (
   let min: number;
   let q1: number;
   let q3: number;
-  if (direction === 'horizontal') {
+  if (isHorizontal(direction)) {
     median = glyphElement.getGraphicAttribute('points', false, 'median')?.[0]?.x;
 
     const minMaxBoxWidth = glyphElement.getGraphicAttribute('width', false, 'minMaxBox');
@@ -397,7 +398,7 @@ const encodeBarBoxplotSize = (encodeValues: any, datum: any, element: IGlyphElem
   const minMaxHeight = encodeValues.minMaxHeight ?? element.getGraphicAttribute('minMaxHeight', false);
   const q1q3Height = encodeValues.q1q3Height ?? element.getGraphicAttribute('q1q3Height', false);
 
-  if (config?.direction === 'horizontal') {
+  if (config && isHorizontal(config.direction)) {
     if (isValidNumber(minMaxHeight)) {
       Object.assign(attributes.minMaxBox, { y: y - minMaxHeight / 2, y1: y + minMaxHeight / 2 });
     } else {
@@ -456,21 +457,27 @@ export function registerBarBoxplotGlyph() {
     ])
     .registerFunctionEncoder(encodeBarBoxplotSize)
     .registerChannelEncoder('q1', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal' ? { q1q3Box: { x: encodeValue } } : { q1q3Box: { y: encodeValue } };
+      return config && isHorizontal(config.direction)
+        ? { q1q3Box: { x: encodeValue } }
+        : { q1q3Box: { y: encodeValue } };
     })
     .registerChannelEncoder('q3', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal' ? { q1q3Box: { x1: encodeValue } } : { q1q3Box: { y1: encodeValue } };
+      return config && isHorizontal(config.direction)
+        ? { q1q3Box: { x1: encodeValue } }
+        : { q1q3Box: { y1: encodeValue } };
     })
     .registerChannelEncoder('min', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal' ? { minMaxBox: { x: encodeValue } } : { minMaxBox: { y: encodeValue } };
+      return config && isHorizontal(config.direction)
+        ? { minMaxBox: { x: encodeValue } }
+        : { minMaxBox: { y: encodeValue } };
     })
     .registerChannelEncoder('max', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal'
+      return config && isHorizontal(config.direction)
         ? { minMaxBox: { x1: encodeValue } }
         : { minMaxBox: { y1: encodeValue } };
     })
     .registerChannelEncoder('median', (channel, encodeValue, encodeValues, datum, element, config) => {
-      return config?.direction === 'horizontal'
+      return config && isHorizontal(config.direction)
         ? { median: { x: encodeValue, x1: encodeValue, visible: true } }
         : { median: { y: encodeValue, y1: encodeValue, visible: true } };
     })

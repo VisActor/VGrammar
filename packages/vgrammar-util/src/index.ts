@@ -26,3 +26,5 @@ export * from './types';
 
 export { regressionLinear } from './regression-linear';
 export { parseViewBox } from './view-box';
+
+export * from './direction';
