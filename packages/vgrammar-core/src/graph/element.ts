@@ -480,7 +480,7 @@ export class Element implements IElement {
       return {};
     }
 
-    let nextAttrs = item?.nextAttrs;
+    let nextAttrs = item.nextAttrs;
 
     if (
       isPointsMarkType(markType) &&

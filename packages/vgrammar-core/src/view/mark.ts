@@ -933,7 +933,7 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   clearProgressive() {
-    if (this.renderContext?.progressive) {
+    if (this.renderContext && this.renderContext.progressive) {
       this.elements = [];
 
       (this.graphicParent as any).children.forEach((group: IGroup) => {
@@ -942,7 +942,7 @@ export class Mark extends GrammarBase implements IMark {
       (this.graphicParent as any).removeAllChild();
     }
 
-    if (this.renderContext?.beforeTransformProgressive) {
+    if (this.renderContext && this.renderContext.beforeTransformProgressive) {
       this.renderContext.beforeTransformProgressive.release();
     }
 
@@ -950,7 +950,7 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   restartProgressive() {
-    if (this.renderContext?.progressive) {
+    if (this.renderContext && this.renderContext.progressive) {
       this.renderContext.progressive.currentIndex = 0;
     }
   }
@@ -1163,7 +1163,7 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   getBounds() {
-    return this.graphicItem ? this.graphicItem.AABBBounds : this.elements?.[0]?.getGraphicItem()?.AABBBounds;
+    return this.graphicItem ? this.graphicItem.AABBBounds : this.getGroupGraphicItem()?.AABBBounds;
   }
 
   getMorphConfig(): { morph: boolean; morphKey: string; morphElementKey: string } {

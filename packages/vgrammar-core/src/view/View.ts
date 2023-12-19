@@ -514,26 +514,26 @@ export default class View extends EventEmitter implements IView {
     Object.keys(customizedGrammars).forEach(key => {
       const { specKey } = customizedGrammars[key];
 
-      if (spec[specKey]?.length) {
+      if (spec[specKey] && spec[specKey].length) {
         spec[specKey].forEach((specValue: any) => {
           this.customized(key, specValue);
         });
       }
     });
 
-    if (spec.marks?.length) {
+    if (spec.marks && spec.marks.length) {
       spec.marks.forEach(mark => {
         this.parseMarkSpec(mark);
       });
     }
 
-    if (spec.events?.length) {
+    if (spec.events && spec.events.length) {
       spec.events.forEach(eventConfig => {
         this.event(eventConfig);
       });
     }
 
-    if (spec.interactions?.length) {
+    if (spec.interactions && spec.interactions.length) {
       spec.interactions.forEach(interaction => {
         this.interaction(interaction.type, interaction);
       });
@@ -604,14 +604,14 @@ export default class View extends EventEmitter implements IView {
     } else {
       this._theme = theme;
     }
-
+    const { background, padding } = this._spec ?? {};
     if (this._theme) {
-      this.background(this._spec?.background ?? this._options.background ?? this._theme.background);
-      this.padding(this._spec?.padding ?? this._options.padding ?? this._theme.padding);
+      this.background(background ?? this._options.background ?? this._theme.background);
+      this.padding(padding ?? this._options.padding ?? this._theme.padding);
       this.renderer.stage()?.setTheme?.(Object.assign({}, this._theme.marks));
     } else {
-      this.background(this._spec?.background ?? this._options.background);
-      this.padding(this._spec?.padding ?? this._options.padding);
+      this.background(background ?? this._options.background);
+      this.padding(padding ?? this._options.padding);
     }
 
     return this;

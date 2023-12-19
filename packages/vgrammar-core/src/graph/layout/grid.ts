@@ -115,15 +115,17 @@ export const doGridLayout = (
 ) => {
   const layout = group.getSpec().layout as MarkGridContainerSpec;
   const grid = computeGrid(layout, parentLayoutBounds.width(), parentLayoutBounds.height());
-  children?.forEach(mark => {
-    const markLayout = mark.getSpec().layout as MarkGridItemSpec;
-    mark.layoutBounds = getCellBounds(
-      grid,
-      markLayout.gridRowStart,
-      markLayout.gridRowEnd,
-      markLayout.gridColumnStart,
-      markLayout.gridColumnEnd
-    );
-    mark.commit();
-  });
+  if (children) {
+    children.forEach(mark => {
+      const markLayout = mark.getSpec().layout as MarkGridItemSpec;
+      mark.layoutBounds = getCellBounds(
+        grid,
+        markLayout.gridRowStart,
+        markLayout.gridRowEnd,
+        markLayout.gridColumnStart,
+        markLayout.gridColumnEnd
+      );
+      mark.commit();
+    });
+  }
 };

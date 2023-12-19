@@ -23,7 +23,7 @@ const getCenterPoints = (
   center.x /= points.length;
   center.y /= points.length;
 
-  if (options?.center) {
+  if (options && options.center) {
     if (isValidNumber(options.center.x)) {
       center.x = options.center.x;
     }
@@ -66,7 +66,7 @@ const changePointsX = (
 ) => {
   const points = element.getGraphicAttribute('points', false);
   return points.map((point: IPointLike) => {
-    if (options?.orient === 'negative') {
+    if (options && options.orient === 'negative') {
       let groupRight = animationParameters.width;
 
       if (animationParameters.group) {
@@ -124,7 +124,7 @@ const changePointsY = (
 ) => {
   const points = element.getGraphicAttribute('points', false);
   return points.map((point: IPointLike) => {
-    if (options?.orient === 'negative') {
+    if (options && options.orient === 'negative') {
       let groupBottom = animationParameters.height;
 
       if (animationParameters.group) {

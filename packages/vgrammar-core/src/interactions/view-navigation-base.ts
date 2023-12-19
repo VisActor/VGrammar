@@ -137,15 +137,15 @@ export abstract class ViewNavigationBase<
   }
 
   updateView(type: 'start' | 'reset' | 'update' | 'end', newRange: ViewNavigationRange, e?: InteractionEvent) {
-    if (newRange?.x && this._state?.x?.linkedComponent) {
+    if (newRange && newRange.x && this._state?.x?.linkedComponent) {
       this._updateLinkedComponent(this._state.x.linkedComponent, newRange.x);
     }
 
-    if (newRange?.y && this._state?.y?.linkedComponent) {
+    if (newRange && newRange.y && this._state?.y?.linkedComponent) {
       this._updateLinkedComponent(this._state.y.linkedComponent, newRange.y);
     }
 
-    if (newRange?.needUpdate) {
+    if (newRange && newRange.needUpdate) {
       this.view.runAsync();
     }
 
