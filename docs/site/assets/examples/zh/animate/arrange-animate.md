@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: 动画编排
 order: 60-4
-cover: /vgrammar/preview/animate-arrange-animate_0.7.6.png
+cover: /vgrammar/preview/animate-arrange-animate_0.7.6.gif
 ---
 
 # 动画编排
