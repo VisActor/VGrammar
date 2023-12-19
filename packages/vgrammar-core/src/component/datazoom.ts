@@ -24,6 +24,7 @@ import { parseEncodeType } from '../parse/mark';
 import { Factory } from '../core/factory';
 import { DatazoomFilter } from '../interactions/datazoom-filter';
 import { Filter, FilterMixin } from '../interactions/filter';
+import { getComponentGraphic } from './util';
 
 export const generateDatazoomAttributes = (
   data: any[],
@@ -87,26 +88,22 @@ export class Datazoom extends Component implements IDatazoom {
   }
 
   setStartEndValue(start?: number, end?: number) {
-    if (this.elements[0]) {
-      const datazoom = this.elements[0].getGraphicItem?.() as unknown as DatazoomComponent;
-      if (datazoom && datazoom.setStartAndEnd) {
-        datazoom.setStartAndEnd(start, end);
-      }
+    const datazoom = getComponentGraphic<DatazoomComponent>(this);
+    if (datazoom && datazoom.setStartAndEnd) {
+      datazoom.setStartAndEnd(start, end);
     }
     return this;
   }
 
   getStartEndValue() {
-    if (this.elements[0]) {
-      const datazoom = this.elements[0].getGraphicItem?.() as unknown as DatazoomComponent;
+    const datazoom = getComponentGraphic<DatazoomComponent>(this);
 
-      if (datazoom) {
-        const state = datazoom.state;
-        return {
-          start: state.start,
-          end: state.end
-        };
-      }
+    if (datazoom) {
+      const state = datazoom.state;
+      return {
+        start: state.start,
+        end: state.end
+      };
     }
 
     return null;
@@ -190,7 +187,7 @@ export class Datazoom extends Component implements IDatazoom {
   }
 
   getDatazoomMainScale() {
-    const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as DatazoomComponent;
+    const datazoom = getComponentGraphic<DatazoomComponent>(this);
     if (datazoom && this.spec.preview) {
       const isHorizontal = datazoom.attribute.orient === 'top' || datazoom.attribute.orient === 'bottom';
       const scale = isHorizontal ? this.spec.preview.x?.scale : this.spec.preview.y?.scale;

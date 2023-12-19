@@ -22,6 +22,7 @@ import { invokeFunctionType } from '../parse/util';
 import { Factory } from '../core/factory';
 import { SliderFilter } from '../interactions/slider-filter';
 import { Filter, FilterMixin } from '../interactions/filter';
+import { getComponentGraphic } from './util';
 
 export const generateSliderAttributes = (
   min: number,
@@ -58,7 +59,8 @@ export class Slider extends Component implements ISlider {
   }
 
   setStartEndValue(start?: number, end?: number) {
-    const slider = this.elements[0]?.getGraphicItem?.() as unknown as SliderComponent;
+    const slider = getComponentGraphic<SliderComponent>(this);
+    SliderComponent;
     slider.setValue([start, end]);
     return this;
   }

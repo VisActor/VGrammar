@@ -26,6 +26,7 @@ import { invokeEncoder } from '../graph/mark/encode';
 import { Factory } from '../core/factory';
 import { PlayerFilter } from '../interactions/player-filter';
 import { Filter, FilterMixin } from '../interactions/filter';
+import { getComponentGraphic } from './util';
 
 export const generateContinuousPlayerAttributes = (
   data: any[],
@@ -93,28 +94,28 @@ export class Player extends Component implements IPlayer {
 
   play() {
     // FIXME: unite IDiscretePlayer and IContinuousPlayer interface in vis-component
-    const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as IDiscretePlayer;
+    const datazoom = getComponentGraphic<IDiscretePlayer>(this);
     datazoom.play();
     return this;
   }
 
   pause() {
     // FIXME: unite IDiscretePlayer and IContinuousPlayer interface in vis-component
-    const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as IDiscretePlayer;
+    const datazoom = getComponentGraphic<IDiscretePlayer>(this);
     datazoom.pause();
     return this;
   }
 
   backward() {
     // FIXME: unite IDiscretePlayer and IContinuousPlayer interface in vis-component
-    const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as IDiscretePlayer;
+    const datazoom = getComponentGraphic<IDiscretePlayer>(this);
     datazoom.backward();
     return this;
   }
 
   forward() {
     // FIXME: unite IDiscretePlayer and IContinuousPlayer interface in vis-component
-    const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as IDiscretePlayer;
+    const datazoom = getComponentGraphic<IDiscretePlayer>(this);
     datazoom.forward();
     return this;
   }

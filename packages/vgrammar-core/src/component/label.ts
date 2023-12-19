@@ -28,48 +28,49 @@ export const generateLabelAttributes = (
   encoder: BaseSingleEncodeSpec,
   labelStyle: MarkFunctionType<Partial<BaseLabelAttrs>>,
   parameters: any,
-  theme?: ITheme
+  theme: ITheme = {}
 ): DataLabelAttrs => {
-  const labelTheme = theme?.components?.dataLabel;
+  const labelTheme = theme.components?.dataLabel;
   const dataLabels = marks
     .map((mark, index) => {
       const labelParameters = { ...parameters, labelIndex: index };
-      const addition = invokeFunctionType(labelStyle, labelParameters, mark);
+      const addition = invokeFunctionType(labelStyle, labelParameters, mark) ?? {};
+      const { components = {} } = theme;
       let currentTheme: any = {};
 
       switch (mark.markType) {
         case GrammarMarkType.line:
         case GrammarMarkType.area:
-          if (addition?.type === 'line') {
-            currentTheme = theme?.components?.lineLabel;
-          } else if (addition?.type === 'area') {
-            currentTheme = theme?.components?.areaLabel;
+          if (addition.type === 'line') {
+            currentTheme = components.lineLabel;
+          } else if (addition.type === 'area') {
+            currentTheme = components.areaLabel;
           } else {
-            currentTheme = theme?.components?.lineDataLabel;
+            currentTheme = components.lineDataLabel;
           }
           break;
         case GrammarMarkType.rect:
         case GrammarMarkType.rect3d:
         case GrammarMarkType.interval:
-          currentTheme = theme?.components?.rectLabel;
+          currentTheme = components.rectLabel;
           break;
         case GrammarMarkType.symbol:
         case GrammarMarkType.circle:
         case GrammarMarkType.cell:
-          currentTheme = theme?.components?.symbolLabel;
+          currentTheme = components.symbolLabel;
           break;
         case GrammarMarkType.arc:
         case GrammarMarkType.arc3d:
-          currentTheme = theme?.components?.arcLabel;
+          currentTheme = components.arcLabel;
           break;
         case GrammarMarkType.polygon:
         case GrammarMarkType.path:
         default:
-          currentTheme = theme?.components?.pointLabel;
+          currentTheme = components.pointLabel;
           break;
       }
 
-      const data: any[] = addition?.data ?? [];
+      const data: any[] = addition.data ?? [];
       const themeDatum = currentTheme?.data?.[0] ?? {};
 
       if (data && data.length > 0) {

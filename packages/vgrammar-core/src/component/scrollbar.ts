@@ -22,6 +22,7 @@ import { Factory } from '../core/factory';
 import { ScaleComponent } from './scale';
 import { ScrollbarFilter } from '../interactions/scrollbar-filter';
 import { Filter, FilterMixin } from '../interactions/filter';
+import { getComponentGraphic } from './util';
 
 function isValidDirection(direction: Direction) {
   return direction === 'vertical' || direction === 'horizontal';
@@ -151,7 +152,7 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
   }
 
   setScrollStart(start: number) {
-    const scrollbar = this.elements[0]?.getGraphicItem?.() as unknown as ScrollbarComponent;
+    const scrollbar = getComponentGraphic<ScrollbarComponent>(this);
     const range = scrollbar?.attribute?.range;
     if (scrollbar && range) {
       const nextRange: [number, number] = [start, range[1] - range[0] + start];
@@ -161,7 +162,7 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
   }
 
   getScrollRange() {
-    const scrollbar = this.elements[0]?.getGraphicItem?.() as unknown as ScrollbarComponent;
+    const scrollbar = getComponentGraphic<ScrollbarComponent>(this);
 
     if (scrollbar) {
       return scrollbar.getScrollRange();
