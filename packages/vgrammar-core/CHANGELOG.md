@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 14 Dec 2023 11:26:29 GMT and should not be manually modified.
+This log was last generated on Tue, 19 Dec 2023 10:37:04 GMT and should not be manually modified.
+
+## 0.10.3
+Tue, 19 Dec 2023 10:37:04 GMT
+
+### Updates
+
+- fix: fix the register of VRender mark in registerTextGraphic and registerBoxplotGlyph()
 
 ## 0.10.2
 Thu, 14 Dec 2023 11:26:29 GMT
