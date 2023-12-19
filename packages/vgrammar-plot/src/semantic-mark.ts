@@ -73,7 +73,7 @@ import type {
 } from '@visactor/vgrammar-core';
 // eslint-disable-next-line no-duplicate-imports
 import { ComponentEnum, SIGNAL_VIEW_BOX, BuiltInEncodeNames, ThemeManager, Factory } from '@visactor/vgrammar-core';
-import { field as getFieldAccessor, toPercent } from '@visactor/vgrammar-util';
+import { field as getFieldAccessor, isHorizontal, isVertical, toPercent } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import type { ITextAttribute } from '@visactor/vrender-core';
 
@@ -745,9 +745,9 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           const markLayout =
             layout ??
             (isPlainObject(option) && !isNil((option as LegendBaseAttributes).layout)
-              ? (option as LegendBaseAttributes).layout === 'horizontal'
+              ? isHorizontal((option as LegendBaseAttributes).layout)
                 ? { position: 'top', align: 'center' }
-                : (option as LegendBaseAttributes).layout === 'vertical'
+                : isVertical((option as LegendBaseAttributes).layout)
                 ? { position: 'right', align: 'middle' }
                 : { position: 'top', align: 'center' }
               : { position: 'top', align: 'center' });
@@ -1030,9 +1030,9 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
           const markLayout =
             layout ??
             (isPlainObject(option) && !isNil((option as SliderAttributes).layout)
-              ? (option as SliderAttributes).layout === 'horizontal'
+              ? isHorizontal((option as SliderAttributes).layout)
                 ? { position: 'top', align: 'center' }
-                : (option as SliderAttributes).layout === 'vertical'
+                : isVertical((option as SliderAttributes).layout)
                 ? { position: 'right', align: 'middle' }
                 : { position: 'top', align: 'center' }
               : { position: 'top', align: 'center' });

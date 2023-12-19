@@ -10,7 +10,7 @@ import type {
   SankeyNodeElement,
   HierarchyNodeDatum
 } from './interface';
-import { field } from '@visactor/vgrammar-util';
+import { field, isVertical } from '@visactor/vgrammar-util';
 
 function left(node: SankeyNodeElement) {
   return node.depth;
@@ -127,7 +127,7 @@ export class SankeyLayout {
             height: Math.abs(config.y1 - config.y0)
           };
 
-    if (this.options.direction === 'vertical') {
+    if (isVertical(this.options.direction)) {
       this._viewBox = {
         x0: viewBox.y0,
         x1: viewBox.y1,
@@ -158,7 +158,7 @@ export class SankeyLayout {
     const columns = this.computeNodeBreadths(nodes);
     this.computeLinkBreadths(nodes);
 
-    if (this.options.direction === 'vertical') {
+    if (isVertical(this.options.direction)) {
       nodes.forEach(node => {
         const y0 = node.y0;
         const y1 = node.y1;
