@@ -22,7 +22,6 @@ import { Factory } from '../core/factory';
 import { ScaleComponent } from './scale';
 import { ScrollbarFilter } from '../interactions/scrollbar-filter';
 import { Filter, FilterMixin } from '../interactions/filter';
-import { getComponentGraphic } from './util';
 import {
   isHorizontal,
   isHorizontalPosition,
@@ -147,7 +146,7 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
   }
 
   setScrollStart(start: number) {
-    const scrollbar = getComponentGraphic<ScrollbarComponent>(this);
+    const scrollbar = this.getGroupGraphicItem() as unknown as ScrollbarComponent;
     const range = scrollbar?.attribute?.range;
     if (scrollbar && range) {
       const nextRange: [number, number] = [start, range[1] - range[0] + start];
@@ -157,7 +156,7 @@ export class Scrollbar extends ScaleComponent implements IScrollbar {
   }
 
   getScrollRange() {
-    const scrollbar = getComponentGraphic<ScrollbarComponent>(this);
+    const scrollbar = this.getGroupGraphicItem() as unknown as ScrollbarComponent;
 
     if (scrollbar) {
       return scrollbar.getScrollRange();
