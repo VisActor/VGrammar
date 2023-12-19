@@ -25,7 +25,6 @@ import { invokeEncoder } from '../graph/mark/encode';
 import { Factory } from '../core/factory';
 import { LegendFilter } from '../interactions/legend-filter';
 import { Filter, FilterMixin } from '../interactions/filter';
-import { getComponentGraphic } from './util';
 
 export const generateDiscreteLegendAttributes = (
   scale: IBaseScale,
@@ -151,7 +150,8 @@ export class Legend extends ScaleComponent implements ILegend {
 
   setSelected(selectedValues: any[]) {
     // FIXME: provide ILegend interface in vis-component
-    const legend = getComponentGraphic<DiscreteLegend>(this);
+    const legend = this.getGroupGraphicItem() as unknown as DiscreteLegend;
+
     legend.setSelected(selectedValues);
     return this;
   }

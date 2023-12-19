@@ -1159,7 +1159,9 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   getGroupGraphicItem() {
-    return this.elements?.[0]?.getGraphicItem?.();
+    if (this.elements && this.elements[0] && this.elements[0].getGraphicItem) {
+      return this.elements[0].getGraphicItem();
+    }
   }
 
   getBounds() {
