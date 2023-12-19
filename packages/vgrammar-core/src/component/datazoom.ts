@@ -49,7 +49,8 @@ export class Datazoom extends Component implements IDatazoom {
 
   protected parseAddition(spec: DatazoomSpec) {
     super.parseAddition(spec);
-    this.preview(spec.preview?.data, spec.preview?.x, spec.preview?.y, spec.preview?.x1, spec.preview?.y1);
+    const { data, x, y, x1, y1 } = spec.preview ?? {};
+    this.preview(data, x, y, x1, y1);
     this._updateComponentEncoders();
     return this;
   }
@@ -86,20 +87,26 @@ export class Datazoom extends Component implements IDatazoom {
   }
 
   setStartEndValue(start?: number, end?: number) {
-    const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as DatazoomComponent;
-    datazoom?.setStartAndEnd?.(start, end);
+    if (this.elements[0]) {
+      const datazoom = this.elements[0].getGraphicItem?.() as unknown as DatazoomComponent;
+      if (datazoom && datazoom.setStartAndEnd) {
+        datazoom.setStartAndEnd(start, end);
+      }
+    }
     return this;
   }
 
   getStartEndValue() {
-    const datazoom = this.elements[0]?.getGraphicItem?.() as unknown as DatazoomComponent;
+    if (this.elements[0]) {
+      const datazoom = this.elements[0].getGraphicItem?.() as unknown as DatazoomComponent;
 
-    if (datazoom) {
-      const state = datazoom.state;
-      return {
-        start: state.start,
-        end: state.end
-      };
+      if (datazoom) {
+        const state = datazoom.state;
+        return {
+          start: state.start,
+          end: state.end
+        };
+      }
     }
 
     return null;
@@ -118,32 +125,33 @@ export class Datazoom extends Component implements IDatazoom {
       }
       return state;
     });
+    const { data, x, y, x1, y1 } = this.spec.preview ?? {};
 
     datazoom.setPreviewPointsX((datum: any) => {
-      if (this.spec.preview?.x && this.spec.preview?.data) {
-        return invokeEncoder({ x: this.spec.preview.x }, datum, this.elements[0], this.parameters()).x;
+      if (x && data) {
+        return invokeEncoder({ x }, datum, this.elements[0], this.parameters()).x;
       }
 
       return undefined;
     });
     datazoom.setPreviewPointsY((datum: any) => {
-      if (this.spec.preview?.y && this.spec.preview?.data) {
-        return invokeEncoder({ y: this.spec.preview.y }, datum, this.elements[0], this.parameters()).y;
+      if (y && data) {
+        return invokeEncoder({ y }, datum, this.elements[0], this.parameters()).y;
       }
 
       return undefined;
     });
 
     datazoom.setPreviewPointsX1((datum: any) => {
-      if (this.spec.preview?.x1 && this.spec.preview?.data) {
-        return invokeEncoder({ x1: this.spec.preview.x1 }, datum, this.elements[0], this.parameters()).x1;
+      if (x1 && data) {
+        return invokeEncoder({ x1 }, datum, this.elements[0], this.parameters()).x1;
       }
 
       return undefined;
     });
     datazoom.setPreviewPointsY1((datum: any) => {
-      if (this.spec.preview?.y1 && this.spec.preview?.data) {
-        return invokeEncoder({ y1: this.spec.preview.y1 }, datum, this.elements[0], this.parameters()).y1;
+      if (y1 && data) {
+        return invokeEncoder({ y1 }, datum, this.elements[0], this.parameters()).y1;
       }
 
       return undefined;
