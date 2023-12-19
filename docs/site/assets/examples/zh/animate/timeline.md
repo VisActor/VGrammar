@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: 事件轴&动画
 order: 60-5
-cover: /vgrammar/preview/animate-timeline_0.7.6.png
+cover: /vgrammar/preview/animate-timeline_0.7.6.gif
 ---
 
 # 事件轴&动画

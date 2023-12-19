@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: Timeline & Animation
 order: 60-5
-cover: /vgrammar/preview/animate-timeline_0.7.6.png
+cover: /vgrammar/preview/animate-timeline_0.7.6.gif
 ---
 
 # Timeline & Animation

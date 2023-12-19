@@ -3,7 +3,7 @@ category: examples
 group: perf
 title: Large Data Volume Bar Chart
 order: 110-0
-cover: /vgrammar/preview/performance-progressive-rect_0.7.6.png
+cover: /vgrammar/preview/performance-progressive-rect_0.7.6.gif
 ---
 
 # Large Data Volume Bar Chart

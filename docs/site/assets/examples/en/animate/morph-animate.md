@@ -3,7 +3,7 @@ category: examples
 group: animate
 title: Morph Animation
 order: 60-2
-cover: /vgrammar/preview/animate-morph-animate_0.7.6.png
+cover: /vgrammar/preview/animate-morph-animate_0.7.6.gif
 ---
 
 # Morph Animation
