@@ -33,11 +33,11 @@ export const generateFilterByMark = (evtSpec: Partial<ParsedViewEventSpec | Pars
 };
 
 export const parseHandler = (callback: EventCallback, config: { debounce?: number; throttle?: number }) => {
-  if (config?.debounce) {
+  if (config && config.debounce) {
     return debounce(callback, config.debounce);
   }
 
-  if (config?.throttle) {
+  if (config && config.throttle) {
     return throttle(callback, config.throttle);
   }
 

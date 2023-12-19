@@ -21,11 +21,12 @@ export const transform = (options: TreeTramsformOptions, upstreamData: Hierarchi
   );
 
   if (options.flatten) {
+    const { maxDepth } = options ?? {};
     const nodes: TreeNodeElement[] = [];
-    flattenNodes(res, nodes, { maxDepth: options?.maxDepth });
+    flattenNodes(res, nodes, { maxDepth });
     const links: TreeLinkElement[] = [];
 
-    flattenTreeLinks(res, links, { maxDepth: options?.maxDepth });
+    flattenTreeLinks(res, links, { maxDepth });
 
     return { nodes, links };
   }

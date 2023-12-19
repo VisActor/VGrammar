@@ -14,10 +14,12 @@ export const update: TypeAnimation<IElement> = (
 ) => {
   const from = Object.assign({}, element.getPrevGraphicAttributes());
   const to = Object.assign({}, element.getNextGraphicAttributes());
-  array(options?.excludeChannels).forEach(key => {
-    delete from[key];
-    delete to[key];
-  });
+  if (options) {
+    array(options.excludeChannels).forEach(key => {
+      delete from[key];
+      delete to[key];
+    });
+  }
   Object.keys(to).forEach(key => {
     if (isEqual(key, from, to)) {
       delete from[key];

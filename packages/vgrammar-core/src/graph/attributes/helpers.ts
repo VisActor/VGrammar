@@ -57,15 +57,15 @@ export function getLinePoints(
   }
   return items.map((item, index) => {
     const attrs = item.nextAttrs;
-
+    const { x, y, x1, y1, defined } = lastPoints?.[index] ?? {};
     if (isNil(attrs.x)) {
-      attrs.x = lastPoints?.[index]?.x;
+      attrs.x = x;
     }
     if (isNil(attrs.y)) {
-      attrs.y = lastPoints?.[index]?.y;
+      attrs.y = y;
     }
 
-    if (isNil(attrs.defined) && lastPoints?.[index]?.defined === false) {
+    if (isNil(attrs.defined) && defined === false) {
       attrs.defined = false;
     }
 
@@ -73,10 +73,10 @@ export function getLinePoints(
 
     if (isArea) {
       if (isNil(attrs.x1)) {
-        attrs.x1 = lastPoints?.[index]?.x1;
+        attrs.x1 = x1;
       }
       if (isNil(attrs.y1)) {
-        attrs.y1 = lastPoints?.[index]?.y1;
+        attrs.y1 = y1;
       }
     }
 
@@ -87,7 +87,7 @@ export function getLinePoints(
 export function getLargeRectsPoints(
   items?: MarkElementItem[],
   includeOnePoint?: boolean,
-  lastPoints?: Float32Array | number[]
+  lastPoints: Float32Array | number[] = []
 ): Float32Array | number[] {
   if (!items || !items.length || (items.length === 1 && includeOnePoint)) {
     return [];
@@ -96,10 +96,10 @@ export function getLargeRectsPoints(
 
   items.forEach((item, index) => {
     const attrs = item.nextAttrs;
-    const x = attrs.x ?? lastPoints?.[index * 4];
-    const y = attrs.y ?? lastPoints?.[index * 4 + 1];
-    const width = attrs.width ?? lastPoints?.[index * 4 + 2];
-    const y1 = attrs.y1 ?? lastPoints?.[index * 4 + 3];
+    const x = attrs.x ?? lastPoints[index * 4];
+    const y = attrs.y ?? lastPoints[index * 4 + 1];
+    const width = attrs.width ?? lastPoints[index * 4 + 2];
+    const y1 = attrs.y1 ?? lastPoints[index * 4 + 3];
     arr[index * 4] = x;
     arr[index * 4 + 1] = y;
     arr[index * 4 + 2] = width;
@@ -112,7 +112,7 @@ export function getLargeRectsPoints(
 export function getLargeSymbolsPoints(
   items?: MarkElementItem[],
   includeOnePoint?: boolean,
-  lastPoints?: Float32Array | number[]
+  lastPoints: Float32Array | number[] = []
 ): Float32Array | number[] {
   if (!items || !items.length || (items.length === 1 && includeOnePoint)) {
     return [];
@@ -121,8 +121,8 @@ export function getLargeSymbolsPoints(
 
   items.forEach((item, index) => {
     const attrs = item.nextAttrs;
-    const x = attrs.x ?? lastPoints?.[index * 2];
-    const y = attrs.y ?? lastPoints?.[index * 2 + 1];
+    const x = attrs.x ?? lastPoints[index * 2];
+    const y = attrs.y ?? lastPoints[index * 2 + 1];
     arr[index * 2] = x;
     arr[index * 2 + 1] = y;
   });

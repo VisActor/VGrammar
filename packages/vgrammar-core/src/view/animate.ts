@@ -17,12 +17,12 @@ export class ViewAnimate implements IViewAnimate {
 
   stop() {
     this._view.traverseMarkTree(mark => {
-      mark.animate?.stop?.();
+      mark.animate && mark.animate.stop?.();
     });
     this._additionalAnimateMarks.forEach(mark => {
       // if mark is not released
-      if (mark.view) {
-        mark.animate?.stop?.();
+      if (mark.view && mark.animate) {
+        mark.animate.stop?.();
       }
     });
     // clear all additional animate marks after animations are stopped
@@ -32,12 +32,12 @@ export class ViewAnimate implements IViewAnimate {
 
   pause() {
     this._view.traverseMarkTree(mark => {
-      mark.animate?.pause?.();
+      mark.animate && mark.animate.pause?.();
     });
     this._additionalAnimateMarks.forEach(mark => {
       // if mark is not released
-      if (mark.view) {
-        mark.animate?.pause?.();
+      if (mark.view && mark.animate) {
+        mark.animate.pause?.();
       }
     });
     return this;
@@ -45,12 +45,12 @@ export class ViewAnimate implements IViewAnimate {
 
   resume() {
     this._view.traverseMarkTree(mark => {
-      mark.animate?.resume?.();
+      mark.animate && mark.animate.resume?.();
     });
     this._additionalAnimateMarks.forEach(mark => {
       // if mark is not released
-      if (mark.view) {
-        mark.animate?.resume?.();
+      if (mark.view && mark.animate) {
+        mark.animate.resume?.();
       }
     });
     return this;
@@ -59,7 +59,7 @@ export class ViewAnimate implements IViewAnimate {
   enable() {
     this.isEnabled = true;
     this._view.traverseMarkTree(mark => {
-      mark.animate?.enable?.();
+      mark.animate && mark.animate.enable?.();
     });
     return this;
   }
@@ -67,13 +67,13 @@ export class ViewAnimate implements IViewAnimate {
   disable() {
     this.isEnabled = false;
     this._view.traverseMarkTree(mark => {
-      mark.animate?.disable?.();
+      mark.animate && mark.animate.disable?.();
     });
     // stop all addition animations when animate is disabled
     this._additionalAnimateMarks.forEach(mark => {
       // if mark is not released
-      if (mark.view) {
-        mark.animate?.stop?.();
+      if (mark.view && mark.animate) {
+        mark.animate.stop?.();
       }
     });
     // clear all additional animate marks after animations are stopped
@@ -83,14 +83,14 @@ export class ViewAnimate implements IViewAnimate {
 
   enableAnimationState(state: string | string[]) {
     this._view.traverseMarkTree(mark => {
-      mark.animate?.enableAnimationState?.(state);
+      mark.animate && mark.animate.enableAnimationState?.(state);
     });
     return this;
   }
 
   disableAnimationState(state: string | string[]) {
     this._view.traverseMarkTree(mark => {
-      mark.animate?.disableAnimationState?.(state);
+      mark.animate && mark.animate.disableAnimationState?.(state);
     });
     return this;
   }

@@ -9,11 +9,11 @@ export const moveIn: TypeAnimation<IElement> = (
   options: IMoveAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const offset = options?.offset ?? 0;
+  const { offset = 0, orient, direction, point: pointOpt } = options ?? {};
   let changedX = 0;
   let changedY = 0;
 
-  if (options?.orient === 'negative') {
+  if (orient === 'negative') {
     // consider the offset of group
     if (animationParameters.group) {
       changedX = (animationParameters as any).groupWidth ?? animationParameters.group.getBounds().width();
@@ -29,12 +29,10 @@ export const moveIn: TypeAnimation<IElement> = (
 
   changedX += offset;
   changedY += offset;
-  const point = isFunction(options?.point)
-    ? options.point.call(null, element.getDatum(), element, animationParameters)
-    : options?.point;
-  const fromX = isValidNumber(point?.x) ? point.x : changedX;
-  const fromY = isValidNumber(point?.y) ? point.y : changedY;
-  switch (options?.direction) {
+  const point = isFunction(pointOpt) ? pointOpt.call(null, element.getDatum(), element, animationParameters) : pointOpt;
+  const fromX = point && isValidNumber(point.x) ? point.x : changedX;
+  const fromY = point && isValidNumber(point.y) ? point.y : changedY;
+  switch (direction) {
     case 'x':
       return {
         from: { x: fromX },
@@ -62,20 +60,19 @@ export const moveOut: TypeAnimation<IElement> = (
   options: IMoveAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const offset = options?.offset ?? 0;
+  const { offset = 0, orient, direction, point: pointOpt } = options ?? {};
+
   // consider the offset of group
   const groupBounds = animationParameters.group ? animationParameters.group.getBounds() : null;
   const groupWidth = groupBounds?.width() ?? animationParameters.width;
   const groupHeight = groupBounds?.height() ?? animationParameters.height;
-  const changedX = (options?.orient === 'negative' ? groupWidth : 0) + offset;
-  const changedY = (options?.orient === 'negative' ? groupHeight : 0) + offset;
-  const point = isFunction(options?.point)
-    ? options.point.call(null, element.getDatum(), element, animationParameters)
-    : options?.point;
-  const fromX = isValidNumber(point?.x) ? point.x : changedX;
-  const fromY = isValidNumber(point?.y) ? point.y : changedY;
+  const changedX = (orient === 'negative' ? groupWidth : 0) + offset;
+  const changedY = (orient === 'negative' ? groupHeight : 0) + offset;
+  const point = isFunction(pointOpt) ? pointOpt.call(null, element.getDatum(), element, animationParameters) : pointOpt;
+  const fromX = point && isValidNumber(point.x) ? point.x : changedX;
+  const fromY = point && isValidNumber(point.y) ? point.y : changedY;
 
-  switch (options?.direction) {
+  switch (direction) {
     case 'x':
       return {
         from: { x: element.getGraphicAttribute('x', true) },

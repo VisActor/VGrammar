@@ -143,7 +143,7 @@ export class ViewZoomMixin implements IViewZoomMixin {
     e.stopPropagation();
     e.preventDefault();
 
-    if (zoomOptions?.realtime) {
+    if (zoomOptions && zoomOptions.realtime) {
       return this._handleZooming(
         e as unknown as { zoomDelta: number; zoomX: number; zoomY: number },
         navState,
@@ -171,7 +171,7 @@ export class ViewZoomMixin implements IViewZoomMixin {
   ): ViewNavigationRange {
     this._lastScale = null;
     const res =
-      zoomOptions?.realtime === false && this._zoomPos
+      zoomOptions && zoomOptions.realtime === false && this._zoomPos
         ? this._handleZooming(this._zoomPos, navState, zoomOptions)
         : null;
 

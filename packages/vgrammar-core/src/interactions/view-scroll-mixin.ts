@@ -59,7 +59,7 @@ export class ViewScrollMixin implements IViewScrollMixin {
       return;
     }
 
-    if (scrollOptions?.realtime) {
+    if (scrollOptions && scrollOptions.realtime) {
       return handleScrolling({ x: (e as any).scrollX, y: (e as any).scrollY }, navState, scrollOptions);
     }
 

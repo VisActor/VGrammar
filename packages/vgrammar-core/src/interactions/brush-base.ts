@@ -39,9 +39,7 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
     // 根据变换矩阵得到brushMask的实际坐标
     const points = brushMask.attribute.points;
     const { a, b, c, d, e, f } = brushMask.globalTransMatrix;
-
-    const dx = offset?.x ?? 0;
-    const dy = offset?.y ?? 0;
+    const { x: dx = 0, y: dy = 0 } = offset ?? {};
 
     const pointsCoord = points.map((p: IPointLike) => {
       return {
@@ -96,8 +94,7 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
     graphicItem: IGraphic,
     offset?: { x: number; y: number }
   ) {
-    const dx = offset?.x ?? 0;
-    const dy = offset?.y ?? 0;
+    const { x: dx = 0, y: dy = 0 } = offset ?? {};
 
     const globalAABBBoundsOffset = brushMask.globalAABBBounds
       .clone()
@@ -116,7 +113,7 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
     if (graphicItem.type === 'symbol' || graphicItem.type === 'circle') {
       return globalAABBBoundsOffset.contains(x, y);
     } else if (graphicItem.type === 'rect') {
-      const { width = 0, height = 0 } = graphicItem?.attribute as IRectGraphicAttribute;
+      const { width = 0, height = 0 } = graphicItem.attribute as IRectGraphicAttribute;
       return isRectIntersect(globalAABBBoundsOffset, { x1: x, y1: y, x2: x + width, y2: y + height }, false);
     }
     return brushMask.globalAABBBounds.intersects(graphicItem.globalAABBBounds);

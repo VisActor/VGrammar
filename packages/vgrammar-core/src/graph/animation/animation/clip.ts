@@ -8,7 +8,7 @@ export const clipIn: TypeAnimation<IElement> = (
 ) => {
   const clipDimension = element.getGraphicAttribute('clipRangeByDimension', false);
   const clipRange = element.getGraphicAttribute('clipRange', false) ?? 1;
-  if (options?.clipDimension) {
+  if (options && options.clipDimension) {
     return {
       from: { clipRange: 0, clipRangeByDimension: options.clipDimension },
       to: { clipRange: clipRange, clipRangeByDimension: clipDimension }
@@ -27,7 +27,7 @@ export const clipOut: TypeAnimation<IElement> = (
 ) => {
   const clipDimension = element.getGraphicAttribute('clipRangeByDimension', true);
   const clipRange = element.getGraphicAttribute('clipRange', true) ?? 1;
-  if (options?.clipDimension) {
+  if (options && options.clipDimension) {
     return {
       from: { clipRange: clipRange, clipRangeByDimension: options.clipDimension },
       to: { clipRange: 0, clipRangeByDimension: clipDimension }

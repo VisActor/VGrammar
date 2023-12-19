@@ -199,7 +199,7 @@ export const transformAttributes = (
     ? transformsByType[markType]
     : (markType as AttributeTransform[]);
 
-  if (transforms?.length) {
+  if (transforms && transforms.length) {
     const tags: boolean[] = [];
 
     changedKeys.forEach(key => {

@@ -124,11 +124,12 @@ export class CirclePackingLayout {
       x: viewBox.x0 + viewBox.width / 2,
       y: viewBox.y0 + viewBox.height / 2
     };
-
-    if (this.options?.nodeSort !== false) {
-      const sort = (
-        isFunction(this.options?.nodeSort) ? this.options.nodeKey : CirclePackingLayout.defaultOpionts.nodeSort
-      ) as (a: CirclePackingNodeElement, b: CirclePackingNodeElement) => number;
+    const { nodeSort, setRadius, padding, includeRoot } = this.options ?? {};
+    if (nodeSort !== false) {
+      const sort = (isFunction(nodeSort) ? this.options.nodeKey : CirclePackingLayout.defaultOpionts.nodeSort) as (
+        a: CirclePackingNodeElement,
+        b: CirclePackingNodeElement
+      ) => number;
       // 默认排序，布局效果更好
       eachBefore([root], (node: CirclePackingNodeElement) => {
         if (node.children && node.children.length) {
@@ -136,8 +137,8 @@ export class CirclePackingLayout {
         }
       });
     }
-    if (this.options?.setRadius) {
-      eachBefore([root], radiusLeaf(this.options.setRadius));
+    if (setRadius) {
+      eachBefore([root], radiusLeaf(setRadius));
       eachAfter([root], packChildrenRandom(this._getPadding, 0.5, random));
       eachBefore([root], translateChild(1, this._maxDepth));
     } else {
@@ -146,12 +147,12 @@ export class CirclePackingLayout {
       eachBefore([root], radiusLeaf(CirclePackingLayout.defaultOpionts.setRadius));
       // layout by value
       eachAfter([root], packChildrenRandom(zero, 1, random));
-      if (this.options?.padding) {
+      if (padding) {
         eachAfter([root], packChildrenRandom(this._getPadding, root.radius / size, random));
       }
       eachBefore([root], translateChild(size / (2 * root.radius), this._maxDepth));
     }
 
-    return this.options?.includeRoot ? [root] : nodes;
+    return includeRoot ? [root] : nodes;
   }
 }

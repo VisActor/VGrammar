@@ -14,7 +14,7 @@ const growAngleInIndividual = (
   options: IGrowAngleAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  if (options?.orient === 'anticlockwise') {
+  if (options && options.orient === 'anticlockwise') {
     return {
       from: { startAngle: element.getGraphicAttribute('endAngle', false) },
       to: { startAngle: element.getGraphicAttribute('startAngle', false) }
@@ -31,8 +31,8 @@ const growAngleInOverall = (
   options: IGrowAngleAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  if (options?.orient === 'anticlockwise') {
-    const overallValue = isNumber(options?.overall) ? options.overall : Math.PI * 2;
+  if (options && options.orient === 'anticlockwise') {
+    const overallValue = isNumber(options.overall) ? options.overall : Math.PI * 2;
     return {
       from: {
         startAngle: overallValue,
@@ -72,7 +72,7 @@ const growAngleOutIndividual = (
   options: IGrowAngleAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  if (options?.orient === 'anticlockwise') {
+  if (options && options.orient === 'anticlockwise') {
     return {
       from: { startAngle: element.getGraphicAttribute('startAngle', true) },
       to: { startAngle: element.getGraphicAttribute('endAngle', false) }
@@ -89,8 +89,8 @@ const growAngleOutOverall = (
   options: IGrowAngleAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  if (options?.orient === 'anticlockwise') {
-    const overallValue = isNumber(options?.overall) ? options.overall : Math.PI * 2;
+  if (options && options.orient === 'anticlockwise') {
+    const overallValue = isNumber(options.overall) ? options.overall : Math.PI * 2;
     return {
       from: {
         startAngle: element.getGraphicAttribute('startAngle', true),
@@ -132,7 +132,7 @@ const growRadiusInIndividual = (
   options: IGrowRadiusAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  if (options?.orient === 'inside') {
+  if (options && options.orient === 'inside') {
     return {
       from: { innerRadius: element.getGraphicAttribute('outerRadius', false) },
       to: { innerRadius: element.getGraphicAttribute('innerRadius', false) }
@@ -177,7 +177,7 @@ const growRadiusOutIndividual = (
   options: IGrowRadiusAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  if (options?.orient === 'inside') {
+  if (options && options.orient === 'inside') {
     return {
       from: { innerRadius: element.getGraphicAttribute('innerRadius', true) },
       to: { innerRadius: element.getGraphicAttribute('outerRadius', false) }
