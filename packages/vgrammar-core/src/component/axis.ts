@@ -80,7 +80,7 @@ export const generateCoordinateAxisAttribute = (
   isGrid?: boolean
 ) => {
   const axisPosition = scale.getCoordinateAxisPosition();
-  if (layout?.position === 'auto') {
+  if (layout && layout.position === 'auto') {
     // FIXME: too hack
     layout.position = inside ? 'content' : axisPosition;
   }
