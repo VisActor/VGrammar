@@ -112,6 +112,7 @@ export const registerSymbolGraphic = () => {
 
 export const registerTextGraphic = () => {
   registerText();
+  registerRichtext();
   Factory.registerGraphic(GrammarMarkType.text, createText);
 };
 
@@ -132,6 +133,7 @@ export const registerCellGraphic = () => {
 
 export const registerIntervalGraphic = () => {
   registerRect();
+  registerArc();
   Factory.registerGraphic(GrammarMarkType.interval, createRect);
 };
 

@@ -323,6 +323,9 @@ export function registerBoxplotGlyph() {
 
   Factory.registerAnimationType('boxplotScaleIn', boxplotScaleIn);
   Factory.registerAnimationType('boxplotScaleOut', boxplotScaleOut);
+  registerGlyphGraphic();
+  registerRectGraphic();
+  registerRuleGraphic();
 }
 
 const computeBarBoxplotCenter = (
