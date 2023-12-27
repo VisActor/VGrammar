@@ -42,6 +42,10 @@ export default class CanvasRenderer implements IRenderer {
     return this._stage ?? null;
   }
 
+  gestureController() {
+    return this._gestureController ?? null;
+  }
+
   canvas() {
     if (this._stage) {
       return this._stage.window.getNativeHandler().nativeCanvas;
