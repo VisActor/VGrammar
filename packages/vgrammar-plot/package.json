@@ -37,11 +37,11 @@
     "@visactor/vgrammar-util": "workspace:0.10.4",
     "@visactor/vgrammar-coordinate": "workspace:0.10.4",
     "@visactor/vgrammar-core": "workspace:0.10.4",
-    "@visactor/vscale": "~0.17.1",
-    "@visactor/vrender-components": "~0.17.6",
-    "@visactor/vrender-core": "~0.17.6",
-    "@visactor/vrender-kits": "~0.17.6",
-    "@visactor/vutils": "~0.17.1"
+    "@visactor/vscale": "~0.17.3",
+    "@visactor/vrender-components": "~0.17.8",
+    "@visactor/vrender-core": "~0.17.8",
+    "@visactor/vrender-kits": "~0.17.8",
+    "@visactor/vutils": "~0.17.3"
   },
   "devDependencies": {
     "d3-array": "1.x",
