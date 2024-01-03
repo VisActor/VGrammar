@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-wordcloud",
+      "comment": "feat: export wordcloud shapes",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-wordcloud"
+}
