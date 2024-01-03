@@ -12,3 +12,5 @@ export const registerWordCloudTransforms = () => {
     true
   );
 };
+
+export { shapes } from './shapes';
