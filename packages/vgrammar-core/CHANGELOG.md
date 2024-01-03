@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 29 Dec 2023 07:42:10 GMT and should not be manually modified.
+This log was last generated on Wed, 03 Jan 2024 13:41:42 GMT and should not be manually modified.
+
+## 0.10.5
+Wed, 03 Jan 2024 13:41:42 GMT
+
+### Updates
+
+- fix: fix the bug of invalid animation when no type and channel
+
+
 
 ## 0.10.4
 Fri, 29 Dec 2023 07:42:10 GMT
