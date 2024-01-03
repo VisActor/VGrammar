@@ -167,10 +167,15 @@ export class Animator implements IAnimator {
     } else {
       const customAnimates = effects
         .map((effect, index) => {
-          const attributes =
-            (effect.type
-              ? typeAnimationAttributes(this.element, effect, animationParameters, parameters)
-              : channelAnimationAttributes(this.element, effect, animationParameters, parameters)) ?? {};
+          const attributes = effect.type
+            ? typeAnimationAttributes(this.element, effect, animationParameters, parameters)
+            : effect.channel
+            ? channelAnimationAttributes(this.element, effect, animationParameters, parameters)
+            : undefined;
+
+          if (!attributes) {
+            return null;
+          }
           const customOption = attributes?.custom || effect?.custom;
           const customParametersOption = attributes?.customParameters || effect?.customParameters;
 
@@ -209,7 +214,7 @@ export class Animator implements IAnimator {
 
       if (customAnimates.length === 1) {
         graphicAnimate.play(customAnimates[0]);
-      } else {
+      } else if (customAnimates.length > 1) {
         graphicAnimate.play(new AnimateGroup(duration, customAnimates));
       }
     }
