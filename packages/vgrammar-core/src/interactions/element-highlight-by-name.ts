@@ -10,7 +10,7 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
 
   static defaultOptions: ElementHighlightByNameOptions = {
     trigger: 'pointerover',
-    resetTrigger: 'pointerout',
+    triggerOff: 'pointerout',
     highlightState: InteractionStateEnum.highlight,
     blurState: InteractionStateEnum.blur,
     filterType: 'groupKey'
@@ -31,7 +31,7 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
         type: this.options.trigger,
         handler: this.handleStart
       },
-      { type: this.options.resetTrigger, handler: this.handleReset }
+      { type: this.options.triggerOff, handler: this.handleReset }
     ];
   }
 

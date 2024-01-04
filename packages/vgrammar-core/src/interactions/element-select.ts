@@ -32,7 +32,7 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   }
 
   protected getEvents() {
-    const resetTrigger = this.options.resetTrigger;
+    const triggerOff = this.options.triggerOff;
     const trigger = this.options.trigger;
 
     const events = [
@@ -42,23 +42,23 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
       }
     ];
 
-    let eventName = resetTrigger;
+    let eventName = triggerOff;
 
-    if (resetTrigger === 'empty') {
+    if (triggerOff === 'empty') {
       eventName = trigger as EventType;
 
       this._resetType = 'view';
-    } else if (isString(resetTrigger)) {
-      if (resetTrigger.includes('view:')) {
-        eventName = resetTrigger.replace('view:', '') as EventType;
+    } else if (isString(triggerOff)) {
+      if (triggerOff.includes('view:')) {
+        eventName = triggerOff.replace('view:', '') as EventType;
 
         this._resetType = 'view';
       } else {
-        eventName = resetTrigger;
+        eventName = triggerOff;
 
         this._resetType = 'self';
       }
-    } else if (isNumber(resetTrigger)) {
+    } else if (isNumber(triggerOff)) {
       eventName = null;
       this._resetType = 'timeout';
     } else {
@@ -136,7 +136,7 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
         if (this._resetType === 'timeout') {
           this._timer = setTimeout(() => {
             this.clearPrevElements();
-          }, this.options.resetTrigger as number) as unknown as number;
+          }, this.options.triggerOff as number) as unknown as number;
         }
       }
     } else if (this._resetType === 'view' && this._hasSelected) {
