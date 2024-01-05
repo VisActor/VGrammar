@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-core",
+      "comment": "fix: growPoints animtion not work for area mark ",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core"
+}
