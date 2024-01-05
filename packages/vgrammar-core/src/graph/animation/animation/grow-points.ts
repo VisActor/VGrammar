@@ -32,6 +32,9 @@ const getCenterPoints = (
     }
   }
 
+  center.x1 = center.x;
+  center.y1 = center.y;
+
   return points.map(() => Object.assign(center));
 };
 
