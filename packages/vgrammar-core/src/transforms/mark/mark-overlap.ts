@@ -23,6 +23,11 @@ function overlapX(elements: IElement[], delta: number, deltaMul: number, useRadi
     let itemDelta = delta;
 
     elements.forEach(element => {
+      if (element.getGraphicAttribute('visible') === false) {
+        // skip hidden points
+        return;
+      }
+
       const r = element.getGraphicAttribute('size') / 2;
       const currentX = element.getGraphicAttribute('x');
       if (useDeltaMul) {
@@ -50,6 +55,11 @@ function overlapY(elements: IElement[], delta: number, deltaMul: number, useRadi
     let itemDelta = delta;
 
     elements.forEach(element => {
+      if (element.getGraphicAttribute('visible') === false) {
+        // skip hidden points
+        return;
+      }
+
       const r = element.getGraphicAttribute('size') / 2;
       const currentY = element.getGraphicAttribute('y');
       if (useDeltaMul) {
@@ -79,6 +89,11 @@ function overlapXY(elements: IElement[], delta: number, deltaMul: number, useRad
     let itemDelta = delta;
 
     elements.forEach(element => {
+      if (element.getGraphicAttribute('visible') === false) {
+        // skip hidden points
+        return;
+      }
+
       const r = element.getGraphicAttribute('size') / 2;
       const currentX = element.getGraphicAttribute('x');
       const currentY = element.getGraphicAttribute('y');
