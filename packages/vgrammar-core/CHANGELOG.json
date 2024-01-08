@@ -2,6 +2,24 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.10.6",
+      "tag": "@visactor/vgrammar-core_v0.10.6",
+      "date": "Sat, 06 Jan 2024 02:08:51 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: growPoints animtion not work for area mark "
+          },
+          {
+            "comment": "fix: fix the bug of invalid animation when no type and channel\n\n"
+          },
+          {
+            "comment": "fix: fix the issue of mark-overlap which may show hidden points by user\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.10.5",
       "tag": "@visactor/vgrammar-core_v0.10.5",
       "date": "Wed, 03 Jan 2024 13:41:42 GMT",
