@@ -48,8 +48,6 @@ export class Layout implements IProgressiveTransformResult<any[]> {
   }
 
   layout(data: any[]) {
-    this.isImageFinished = false;
-    this.isLayoutFinished = false;
     this.data = data;
 
     const options = this.options;
@@ -86,16 +84,25 @@ export class Layout implements IProgressiveTransformResult<any[]> {
       segmentationInput.randomGenerator = fakeRandom();
     }
 
-    loadAndHandleImage(segmentationInput)
-      .then((shapeImage: CanvasImageSource) => {
-        this.shapeImage = shapeImage;
-        this.isImageFinished = true;
-      })
-      .catch(error => {
-        this.shapeImage = null;
-        this.isImageFinished = true;
-      });
-    this.segmentationInput = segmentationInput;
+    const imagePromise = loadAndHandleImage(segmentationInput);
+
+    if (imagePromise) {
+      this.segmentationInput = segmentationInput;
+      this.isImageFinished = false;
+      this.isLayoutFinished = false;
+      imagePromise
+        .then((shapeImage: CanvasImageSource) => {
+          this.shapeImage = shapeImage;
+          this.isImageFinished = true;
+        })
+        .catch(error => {
+          this.shapeImage = null;
+          this.isImageFinished = true;
+        });
+    } else {
+      this.isImageFinished = true;
+      this.isLayoutFinished = true;
+    }
   }
 
   unfinished(): boolean {

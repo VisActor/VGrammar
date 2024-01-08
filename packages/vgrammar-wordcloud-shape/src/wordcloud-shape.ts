@@ -45,7 +45,10 @@ export const transform = (
 
   layout.layout(upstreamData);
 
-  return {
-    progressive: layout
-  } as unknown as IProgressiveTransformResult<any[]>;
+  if (layout.unfinished()) {
+    return {
+      progressive: layout
+    } as unknown as IProgressiveTransformResult<any[]>;
+  }
+  return layout.output();
 };

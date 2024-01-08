@@ -2,8 +2,14 @@ import type { CloudWordType, SegmentationInputType, SegmentationOutputType } fro
 import { loadImage } from './util';
 
 export function loadAndHandleImage(segmentationInput: SegmentationInputType): Promise<CanvasImageSource> {
-  return loadImage(segmentationInput.shapeUrl).then((shapeImage: unknown) => {
-    if (segmentationInput.removeWhiteBorder && shapeImage) {
+  const imagePromise = loadImage(segmentationInput.shapeUrl);
+
+  if (!imagePromise) {
+    return null;
+  }
+
+  return imagePromise.then((shapeImage: unknown) => {
+    if (segmentationInput && segmentationInput.removeWhiteBorder && shapeImage) {
       return removeBorder(shapeImage, segmentationInput.tempCanvas, segmentationInput.tempCtx);
     }
 
