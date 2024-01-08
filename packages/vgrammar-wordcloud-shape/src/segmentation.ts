@@ -1,14 +1,14 @@
 import type { CloudWordType, SegmentationInputType, SegmentationOutputType } from './interface';
 import { loadImage } from './util';
 
-export async function loadAndHandleImage(segmentationInput: SegmentationInputType): Promise<CanvasImageSource> {
-  const shapeImage = (await loadImage(segmentationInput.shapeUrl)) as CanvasImageSource;
+export function loadAndHandleImage(segmentationInput: SegmentationInputType): Promise<CanvasImageSource> {
+  return loadImage(segmentationInput.shapeUrl).then((shapeImage: unknown) => {
+    if (segmentationInput.removeWhiteBorder && shapeImage) {
+      return removeBorder(shapeImage, segmentationInput.tempCanvas, segmentationInput.tempCtx);
+    }
 
-  if (segmentationInput.removeWhiteBorder && shapeImage) {
-    return removeBorder(shapeImage, segmentationInput.tempCanvas, segmentationInput.tempCtx);
-  }
-
-  return shapeImage;
+    return shapeImage;
+  });
 }
 
 /**
