@@ -278,7 +278,7 @@ export class Crosshair extends BaseInteraction<CrosshairOptions> {
 
   static defaultOptions: Omit<CrosshairOptions, 'target'> = {
     trigger: 'pointermove',
-    resetTrigger: 'pointerleave',
+    triggerOff: 'pointerleave',
     crosshairType: 'x',
     crosshairShape: 'line'
   };
@@ -300,7 +300,7 @@ export class Crosshair extends BaseInteraction<CrosshairOptions> {
         handler: this.handleCrosshairShow
       },
       {
-        type: this.options.resetTrigger,
+        type: this.options.triggerOff,
         handler: this.handleCrosshairHide
       }
     ];

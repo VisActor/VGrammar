@@ -32,7 +32,7 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       focus: true,
       trigger: 'wheel',
       endTrigger: 'pointerup',
-      resetTrigger: 'dblclick',
+      triggerOff: 'dblclick',
       rate: 1
     },
     scroll: {
@@ -76,8 +76,8 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       this.options.zoom.trigger && events.push({ type: this.options.zoom.trigger, handler: this.handleRoamZoomStart });
       this.options.zoom.endTrigger &&
         events.push({ type: this.options.zoom.endTrigger, handler: this.handleRoamZoomEnd });
-      this.options.zoom.resetTrigger &&
-        events.push({ type: this.options.zoom.resetTrigger, handler: this.handleRoamZoomReset });
+      this.options.zoom.triggerOff &&
+        events.push({ type: this.options.zoom.triggerOff, handler: this.handleRoamZoomReset });
     }
 
     if (this.options.scroll?.enable) {

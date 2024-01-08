@@ -10,7 +10,7 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
     highlightState: InteractionStateEnum.highlight,
     blurState: InteractionStateEnum.blur,
     trigger: 'pointerover',
-    resetTrigger: 'pointerout'
+    triggerOff: 'pointerout'
   };
   options: ElementHighlightOptions;
   protected _marks?: IMark[];
@@ -30,7 +30,7 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
         type: this.options.trigger,
         handler: this.handleStart
       },
-      { type: this.options.resetTrigger, handler: this.handleReset }
+      { type: this.options.triggerOff, handler: this.handleReset }
     ];
   }
 

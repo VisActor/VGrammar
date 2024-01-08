@@ -18,7 +18,7 @@ export class SankeyHighlight extends BaseInteraction<SankeyHighlightOptions> {
     highlightState: InteractionStateEnum.highlight,
     blurState: InteractionStateEnum.blur,
     trigger: 'pointerover',
-    resetTrigger: 'pointerout',
+    triggerOff: 'pointerout',
     effect: 'related'
   };
   options: SankeyHighlightOptions;
@@ -40,7 +40,7 @@ export class SankeyHighlight extends BaseInteraction<SankeyHighlightOptions> {
         type: this.options.trigger,
         handler: this.handleStart
       },
-      { type: this.options.resetTrigger, handler: this.handleReset }
+      { type: this.options.triggerOff, handler: this.handleReset }
     ];
   }
 

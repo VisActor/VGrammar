@@ -53,7 +53,7 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
 
   static defaultOptions: Omit<DimensionTooltipOptions, 'target'> = {
     trigger: 'pointermove',
-    resetTrigger: 'pointerleave'
+    triggerOff: 'pointerleave'
   };
   protected _avoidMarks: IMark[] = [];
   protected _lastDatum: any;
@@ -77,7 +77,7 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
 
     return [
       { type: this.options.trigger, handler: this.handleTooltipShow },
-      { type: this.options.resetTrigger, handler: this.handleTooltipHide }
+      { type: this.options.triggerOff, handler: this.handleTooltipHide }
     ];
   }
 

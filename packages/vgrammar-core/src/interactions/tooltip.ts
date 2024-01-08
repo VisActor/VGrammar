@@ -9,7 +9,7 @@ export class Tooltip extends BaseTooltip<TooltipOptions> {
 
   static defaultOptions: Omit<TooltipOptions, 'target'> = {
     trigger: 'pointermove',
-    resetTrigger: 'pointerleave'
+    triggerOff: 'pointerleave'
   };
   protected _lastElement: IElement;
 
@@ -21,7 +21,7 @@ export class Tooltip extends BaseTooltip<TooltipOptions> {
   protected getEvents() {
     return [
       { type: this.options.trigger, handler: this.handleTooltipShow },
-      { type: this.options.resetTrigger, handler: this.handleTooltipHide }
+      { type: this.options.triggerOff, handler: this.handleTooltipHide }
     ];
   }
 

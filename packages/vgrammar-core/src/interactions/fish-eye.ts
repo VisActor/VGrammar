@@ -38,7 +38,7 @@ export class FishEye extends BaseInteraction<FishEyeOptions> {
       { type: this.options.trigger, handler: this.handleStart },
       { type: this.options.updateTrigger, handler: this.handleUpdate },
       { type: this.options.endTrigger, handler: this.handleEnd },
-      { type: this.options.resetTrigger, handler: this.handleReset }
+      { type: this.options.triggerOff, handler: this.handleReset }
     ];
   }
 
@@ -152,7 +152,7 @@ export class FishEye extends BaseInteraction<FishEyeOptions> {
       return;
     }
 
-    if (!this.options.resetTrigger && this._isActive) {
+    if (!this.options.triggerOff && this._isActive) {
       this._isActive = false;
       this.updateView(null, e);
     }
