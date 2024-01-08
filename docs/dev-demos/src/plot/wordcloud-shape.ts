@@ -10,11 +10,10 @@ export const runner = (plot: IPlot) => {
   // plot.coordinate('polar', { transpose: false })
 
   plot.wordcloudShape()
-    .data(data, [{
+    .data(data)
+    .transform([{
       type: 'wordcloudShape',
       shape: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg',
-      size: [600.5, 800.5]
-      // shape: `${window.location.origin}/src/image/shape_logo.png`,
     }])
     .encode('text', 'challenge_name')
     .encode('color', 'challenge_name')

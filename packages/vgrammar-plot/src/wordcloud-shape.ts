@@ -40,7 +40,7 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
     return GrammarMarkType.text;
   }
 
-  setDefaultDataTransform(): TransformSpec[] {
+  setDefaultMarkTransform(): TransformSpec[] {
     return [
       {
         type: 'wordcloudShape',
@@ -50,10 +50,24 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
           },
           dependency: ['viewBox']
         },
+        dataIndexKey: 'text_key',
         colorList: this.getPalette(),
         text: { field: this.spec.encode?.text }
       }
     ];
+  }
+
+  setMainMarkSpec(parsedMainSpec: any) {
+    const shapeTransform = parsedMainSpec.transform
+      ? parsedMainSpec.transform.find((entry: any) => entry.type === 'wordcloudShape')
+      : null;
+
+    if (shapeTransform) {
+      return {
+        key: shapeTransform.dataIndexKey ?? 'defaultDataIndexKey'
+      };
+    }
+    return {};
   }
 
   protected setMainMarkEnterEncode() {
