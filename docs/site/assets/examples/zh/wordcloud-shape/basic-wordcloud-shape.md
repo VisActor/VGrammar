@@ -223,19 +223,49 @@ const spec = {
         { text: '马屁', value: 0.003564053364476559 },
         { text: '曹禺', value: 0.003564053364476559 }
       ]
-    },
+    }
+  ],
+
+  scales: [
     {
-      id: 'shapeData',
-      source: 'table',
+      id: 'colorScale',
+      type: 'ordinal',
+
+      domain: { data: 'table', field: 'text' },
+      range: [
+        '#5383F4',
+        '#7BCF8E',
+        '#FF9D2C',
+        '#FFDB26',
+        '#7568D9',
+        '#80D8FB',
+        '#1857A3',
+        '#CAB0E8',
+        '#FF8867',
+        '#B9E493',
+        '#2CB4A8',
+        '#B9E4E3'
+      ]
+    }
+  ],
+
+  marks: [
+    {
+      type: 'text',
+      from: { data: 'table' },
+
       dependency: ['viewBox'],
+
       transform: [
         {
           type: 'wordcloudShape',
+          dataIndexKey: 'data_key',
           size: {
             value: params => {
               return [params.viewBox.width(), params.viewBox.height()];
             }
           },
+
           fontSize: { field: 'value' },
           text: { field: 'text' },
           colorList: [
@@ -267,61 +297,10 @@ const spec = {
           // fillingXRatioStep: 0.008, // 步长为宽度的比例
           // fillingYRatioStep: 0.008
         }
-      ]
-    },
-    {
-      id: 'keywords',
-      source: 'shapeData',
-      transform: [
-        {
-          type: 'filter',
-          callback: datum => {
-            return !datum.isFillingWord;
-          }
-        }
-      ]
-    },
-    {
-      id: 'filling',
-      source: 'shapeData',
-      transform: [
-        {
-          type: 'filter',
-          callback: datum => {
-            return datum.isFillingWord;
-          }
-        }
-      ]
-    }
-  ],
+      ],
 
-  scales: [
-    {
-      id: 'colorScale',
-      type: 'ordinal',
+      key: 'data_key',
 
-      domain: { data: 'table', field: 'text' },
-      range: [
-        '#5383F4',
-        '#7BCF8E',
-        '#FF9D2C',
-        '#FFDB26',
-        '#7568D9',
-        '#80D8FB',
-        '#1857A3',
-        '#CAB0E8',
-        '#FF8867',
-        '#B9E493',
-        '#2CB4A8',
-        '#B9E4E3'
-      ]
-    }
-  ],
-
-  marks: [
-    {
-      type: 'text',
-      from: { data: 'keywords' },
       encode: {
         enter: {
           text: { field: 'text' },
@@ -342,28 +321,6 @@ const spec = {
         },
         hover: {
           fillOpacity: 0.5
-        }
-      }
-    },
-    {
-      type: 'text',
-      from: { data: 'filling' },
-      encode: {
-        enter: {
-          text: { field: 'text' },
-          textAlign: 'center',
-          textBaseline: 'alphabetic',
-          fill: { field: 'color' },
-          fontFamily: { field: 'fontFamily' },
-          fontWeight: { field: 'fontWeight' },
-          fontStyle: { field: 'fontStyle' },
-          fillOpacity: { field: 'opacity' }
-        },
-        update: {
-          x: { field: 'x' },
-          y: { field: 'y' },
-          angle: { field: 'angle' },
-          fontSize: { field: 'fontSize' }
         }
       }
     }
