@@ -186,20 +186,20 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
         const distSize0 = Math.max(d.width, d.height);
         if (distSize0 <= maxSize0) {
           // 扩大尺寸满足最小字体要求 =》 按照要求扩大board
-          this.expandBoard(this._board, distSize0 / this._size[0]);
+          this.expandBoard(this._board, this._bounds, distSize0 / this._size[0]);
         } else if (this.options.clip) {
           // 扩大尺寸不满足最小字体要求，但支持裁剪 =》 按最大尺寸扩大，裁剪词语
-          this.expandBoard(this._board, maxSize0 / this._size[0]);
+          this.expandBoard(this._board, this._bounds, maxSize0 / this._size[0]);
         } else {
           // 扩大尺寸不满足最小字体要求，且不支持裁剪 =》 丢弃词语
           return true;
         }
       } else if (this._placeStatus === 3) {
         // 扩大画布
-        this.expandBoard(this._board);
+        this.expandBoard(this._board, this._bounds);
       } else {
         // 扩大画布
-        this.expandBoard(this._board);
+        this.expandBoard(this._board, this._bounds);
       }
       // 更新一次状态，下次大尺寸词语进入裁剪
       this.updateBoardExpandStatus(d.fontSize);
@@ -353,7 +353,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
   }
 
   // 扩充 bitmap
-  private expandBoard(board: number[], factor?: any) {
+  private expandBoard(board: number[], bounds: Bounds, factor?: any) {
     const expandedLeftWidth = (this._size[0] * (factor || 1.1) - this._size[0]) >> 5;
     let diffWidth = expandedLeftWidth * 2 > 2 ? expandedLeftWidth : 2;
     if (diffWidth % 2 !== 0) {
@@ -374,6 +374,12 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     }
     this.insertZerosToArray(board, 0, heightArr.length + diffWidth / 2);
     this._size = [w + (diffWidth << 5), h + diffHeight];
+    if (bounds) {
+      bounds[0].x += (diffWidth << 5) / 2;
+      bounds[0].y += diffHeight / 2;
+      bounds[1].x += (diffWidth << 5) / 2;
+      bounds[1].y += diffHeight / 2;
+    }
   }
 
   // 分组扩充填充数组, 一次填充超过大概126000+会报stack overflow，worker环境下大概6w,这边取个比较小的
