@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-core",
+      "comment": "feat(wordcloud): add shape of rect",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core"
+}
