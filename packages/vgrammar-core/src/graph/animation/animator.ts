@@ -167,16 +167,14 @@ export class Animator implements IAnimator {
     } else {
       const customAnimates = effects
         .map((effect, index) => {
-          const attributes = effect.type
-            ? typeAnimationAttributes(this.element, effect, animationParameters, parameters)
-            : effect.channel
-            ? channelAnimationAttributes(this.element, effect, animationParameters, parameters)
-            : undefined;
+          const attributes =
+            (effect.type
+              ? typeAnimationAttributes(this.element, effect, animationParameters, parameters)
+              : effect.channel
+              ? channelAnimationAttributes(this.element, effect, animationParameters, parameters)
+              : undefined) ?? {};
 
-          if (!attributes) {
-            return null;
-          }
-          const customOption = attributes?.custom || effect?.custom;
+          const customOption = attributes.custom || effect?.custom;
           const customParametersOption = attributes?.customParameters || effect?.customParameters;
 
           if (
