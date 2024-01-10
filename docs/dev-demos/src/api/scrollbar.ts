@@ -90,13 +90,13 @@ export const runner = (view: IView) => {
     // console.log('clipXScrollBar', e.detail.value);
     const range = e.detail.value;
     clipXSignal.value(range);
-    view.runAsync();
+    view.run();
   });
   clipYScrollbar.addEventListener('scroll', (e: any) => {
     // console.log('clipYScrollBar', e.detail.value);
     const range = e.detail.value;
     clipYSignal.value(range);
-    view.runAsync();
+    view.run();
   });
 
   const containerGroup = view.group(windowGroup).encode({

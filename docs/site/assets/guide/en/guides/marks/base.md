@@ -280,11 +280,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 Key configuration is as follows:
 
 ```js
@@ -467,11 +468,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ### Simplification of Large Data Volume Graphics
 
 After enabling progressive rendering, the rendering effect of specific graphic elements will be simplified to improve rendering speed.

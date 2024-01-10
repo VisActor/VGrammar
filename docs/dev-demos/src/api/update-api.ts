@@ -334,24 +334,24 @@ export const callback = (view: IView) => {
   updateToMorphButton.addEventListener('click', () => {
     view.removeAllGrammars();
     morphExample(view);
-    view.runAsync({ morph: true, animation: { duration: 1000, easing: 'linear' } });
+    view.run({ morph: true, animation: { duration: 1000, easing: 'linear' } });
   });
 
   updateToMultiMorphButton.addEventListener('click', () => {
     view.removeAllGrammars();
     multiMorphExample(view);
-    view.runAsync({ morph: true, animation: { duration: 1000, easing: 'linear' } });
+    view.run({ morph: true, animation: { duration: 1000, easing: 'linear' } });
   });
 
   updateToReuseButton.addEventListener('click', () => {
     view.removeAllGrammars();
     reuseExample(view);
-    view.runAsync();
+    view.run();
   });
 
   updateToOriginButton.addEventListener('click', () => {
     view.removeAllGrammars();
     originExample(view);
-    view.runAsync({ morph: true, animation: { delay: 500, duration: 1000, easing: 'linear' } });
+    view.run({ morph: true, animation: { delay: 500, duration: 1000, easing: 'linear' } });
   });
 };

@@ -139,7 +139,7 @@ export const callback = (view: IView) => {
     data.push({ category: 'L', amount: 12, index: 11 });
     data.push({ category: 'M', amount: 59, index: 12 });
     view.getDataById('data')?.values(data);
-    view.runAsync();
+    view.run();
   });
   updateButton1.addEventListener('click', () => {
     // unshift
@@ -148,7 +148,7 @@ export const callback = (view: IView) => {
     data.unshift({ category: 'Y', amount: 12, index: -2 });
     data.unshift({ category: 'X', amount: 37, index: -3 });
     view.getDataById('data')?.values(data);
-    view.runAsync();
+    view.run();
   });
   updateButton2.addEventListener('click', () => {
     // pop
@@ -157,7 +157,7 @@ export const callback = (view: IView) => {
     data.pop();
     data.pop();
     view.getDataById('data')?.values(data);
-    view.runAsync();
+    view.run();
   });
   updateButton3.addEventListener('click', () => {
     // shift
@@ -166,7 +166,7 @@ export const callback = (view: IView) => {
     data.shift();
     data.shift();
     view.getDataById('data')?.values(data);
-    view.runAsync();
+    view.run();
   });
   updateButton4.addEventListener('click', () => {
     // unshift & push
@@ -178,7 +178,7 @@ export const callback = (view: IView) => {
     data.push({ category: 'L', amount: 12, index: 11 });
     data.push({ category: 'M', amount: 59, index: 12 });
     view.getDataById('data')?.values(data);
-    view.runAsync();
+    view.run();
   });
   updateButton5.addEventListener('click', () => {
     // shift & pop
@@ -190,7 +190,7 @@ export const callback = (view: IView) => {
     data.pop();
     data.pop();
     view.getDataById('data')?.values(data);
-    view.runAsync();
+    view.run();
   });
   updateButton6.addEventListener('click', () => {
     // all new data
@@ -207,11 +207,11 @@ export const callback = (view: IView) => {
       { category: 'J-1', amount: 37, index: 9 }
     ];
     view.getDataById('data')?.values(data);
-    view.runAsync();
+    view.run();
   });
   restoreButton.addEventListener('click', () => {
     view.getDataById('data')?.values(originData.slice());
-    view.runAsync();
+    view.run();
   });
   clipXButton.addEventListener('click', () => {
     view.getMarkById('line')?.animate.run({

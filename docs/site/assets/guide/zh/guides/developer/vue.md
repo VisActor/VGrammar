@@ -46,11 +46,11 @@ export default defineComponent({
         });
         view.parseSpec(parseSpec(chartProps) as any);
 
-        view.runAsync();
+        view.run();
         return true;
       } else if (view) {
         view.updateSpec(parseSpec(chartProps) as any);
-        view.runAsync();
+        view.run();
 
         return true;
       }
@@ -133,11 +133,11 @@ function createOrUpdateChart(chartProps: TreemapProps) {
     });
     view.parseSpec(parseSpec(chartProps) as any);
 
-    view.runAsync();
+    view.run();
     return true;
   } else if (view) {
     view.updateSpec(parseSpec(chartProps) as any);
-    view.runAsync();
+    view.run();
 
     return true;
   }

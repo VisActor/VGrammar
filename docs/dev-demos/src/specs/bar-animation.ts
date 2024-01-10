@@ -335,16 +335,16 @@ export const callback = (view: IView) => {
   increaseButton.addEventListener('click', () => {
     const filterSignal = view.getSignalById('filterSignal');
     filterSignal.value(filterSignal.output() + 1);
-    view.runAsync();
+    view.run();
   });
   decreaseButton.addEventListener('click', () => {
     const filterSignal = view.getSignalById('filterSignal');
     filterSignal.value(filterSignal.output() - 1);
-    view.runAsync();
+    view.run();
   });
   disappearButton.addEventListener('click', () => {
     view.getSignalById('animationState').value('disappear');
-    view.runAsync();
+    view.run();
   });
   loopRunButton.addEventListener('click', () => {
     if (!isLooping) {

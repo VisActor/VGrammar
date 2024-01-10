@@ -241,7 +241,7 @@ export const callback = (view: IView) => {
   });
   disappearButton.addEventListener('click', () => {
     view.getSignalById('animationState').value('disappear');
-    view.runAsync();
+    view.run();
   });
 
   (window as any).animate = () => {

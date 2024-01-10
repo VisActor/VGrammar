@@ -223,11 +223,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 - barBoxplot: 变种箱形图元，glyphType 为 `'barBoxplot'`。在使用变种箱形图元之前，需要执行 `registerBarBoxplotGlyph()` 对图元进行注册。示例：
 
 <div class="examples-ref-container" id="examples-ref-bar-boxplot" data-path="glyph-mark/bar-boxplot">
@@ -433,11 +434,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 涟漪点图元 (RipplePoint)
 
 涟漪点图元是一种具有涟漪效果的点图元，通常用于强调某个特定的数据点或者表示某个位置上的数据变化。在地图可视化、时间序列分析等场景中，涟漪点图元可以表达数据的空间分布、数据变化的动态过程等。使用场景包括表示地震、疫情、新闻事件等的传播过程。
@@ -662,11 +664,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 波浪图元 (Wave)
 
 波浪图元是一种模拟波动的图元，用于表现数据随时间的波动情况。在股票交易、天气预报等领域，波浪图元可以展示数据的波动趋势、周期性变化等。使用场景包括展示股票价格、气温/降水量的波动。
@@ -798,11 +801,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 连线图元 (LinkPath)
 
 连线图元是一种用于表示数据间连接的图元，常用于表示网络关系、空间联系等。社交网络、物流运输、知图谱等领域的可视化中，连线图元可以表示数据间的连接关系、传播过程等。使用场景包括展示用户之间的关注关系、货物的传递等。
@@ -1064,11 +1068,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 树线图元(TreePath)
 
 TreePath 和 LinkPath 的含义差不多，用于展示没有宽度的连线
@@ -1583,11 +1588,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 小提琴图元(Violin)
 
 Violin 图元是箱型图元与概率密度图元的组合，一组数据统计以及概率密度分布情况。它包含数据的最大值、最小值、中位数、上四分位数（Q1）、下四分位数（Q3）以及概率密度分布。
@@ -1871,11 +1877,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 自定义组合图元
 
 在 VGrammar 中，开发者不仅可以使用以上几种内置的组合图元，还可以通过组合现有的基本图元，自定义创建更丰富的可视化效果。
@@ -2141,7 +2148,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

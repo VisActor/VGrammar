@@ -134,6 +134,6 @@ export const callback = (chartInstance: any) => {
   });
   disappearButton.addEventListener('click', () => {
     chartInstance.getSignalById('animationState').value('disappear');
-    chartInstance.runAsync();
+    chartInstance.run();
   });
 };

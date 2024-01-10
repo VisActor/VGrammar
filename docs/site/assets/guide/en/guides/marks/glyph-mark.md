@@ -223,11 +223,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 - barBoxplot: Variant boxplot glyph, with glyphType as `'barBoxplot'`. Before using a variant boxplot glyph, you need to execute `registerBarBoxplotGlyph()` to register the glyph. Example:
 
 <div class="examples-ref-container" id="examples-ref-bar-boxplot" data-path="glyph-mark/bar-boxplot">
@@ -433,11 +434,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## RipplePoint Glyph
 
 RipplePoint is a point glyph with a ripple effect, typically used to emphasize a specific data point or indicate data changes at a specific location. In map visualization and time series analysis, RipplePoint glyphs can express the spatial distribution of data and the dynamic process of data change. Application scenarios include showing the spread of earthquakes, epidemics, news events, etc.
@@ -661,11 +663,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Wave Glyph
 
 The wave glyph is a glyph that simulates fluctuations and is used to express data fluctuations over time. In fields such as stock trading and weather forecasting, wave glyphs can display data fluctuation trends and periodic changes. Application scenarios include displaying stock prices and temperature/precipitation fluctuations.
@@ -796,11 +799,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## LinkPath Glyph
 
 The LinkPath glyph is a glyph used to represent connections between data, commonly used to represent network relationships, spatial relationships, etc. In visualizations of social networks, transportation, and knowledge graphs, LinkPath glyphs can represent relationships and propagate processes between data. Application scenarios include displaying relationships between users, goods delivery, etc.
@@ -1061,11 +1065,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## TreePath Glyph
 
 TreePath has a similar meaning to LinkPath, used to display connections without width
@@ -1580,11 +1585,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Custom Composite Glyph
 
 In VGrammar, developers can not only use the built-in composite glyphs mentioned above, but also create richer visualization effects by combining existing basic glyphs.
@@ -1850,7 +1856,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

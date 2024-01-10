@@ -274,11 +274,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 通过 API 形式创建
 
 开发者可以通过 api 接口创建可视化场景中的所有语法元素，并使用可视化实例执行渲染：
@@ -407,11 +408,12 @@ vGrammarView.interaction('crosshair', {
   crosshairShape: 'rect'
 });
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 销毁可视化实例
 
 当容器被销毁，或者需要创建新的实例的时候，调用可视化实例的销毁方法，能够更好释放内存，避免内存泄露问题：
