@@ -125,7 +125,6 @@ export default class View extends EventEmitter implements IView {
 
   grammars: IRecordedGrammars;
 
-  private _isReleased: boolean;
   private _spec: ViewSpec;
   private _config: IViewThemeConfig;
   private _options: IViewOptions;
@@ -618,9 +617,6 @@ export default class View extends EventEmitter implements IView {
   }
 
   setCurrentTheme(theme: ITheme | string, render: boolean = true) {
-    if (this._isReleased) {
-      return;
-    }
     this.theme(theme);
     // trigger encode for all marks
     this.grammars.getAllMarks().forEach(mark => {
@@ -630,9 +626,6 @@ export default class View extends EventEmitter implements IView {
     if (render) {
       this.evaluate();
 
-      if (this._isReleased) {
-        return;
-      }
       // FIXME: trigger render
       this.renderer.render(true);
     } else {
@@ -818,9 +811,6 @@ export default class View extends EventEmitter implements IView {
   }
 
   private evaluate(runningConfig?: IRunningConfig) {
-    if (this._isReleased) {
-      return;
-    }
     const normalizedRunningConfig = normalizeRunningConfig(runningConfig);
 
     const grammarWillDetach = this._cachedGrammars.size() > 0;
@@ -846,10 +836,6 @@ export default class View extends EventEmitter implements IView {
     // evaluate dataflow
     this._dataflow.evaluate();
 
-    if (this._isReleased) {
-      return;
-    }
-
     if (this._needBuildLayoutTree) {
       this.buildLayoutTree();
       this._needBuildLayoutTree = false;
@@ -862,10 +848,6 @@ export default class View extends EventEmitter implements IView {
       if (this._dataflow.hasCommitted()) {
         this._layoutState = LayoutState.reevaluate;
         this._dataflow.evaluate();
-
-        if (this._isReleased) {
-          return;
-        }
       }
 
       this._layoutState = LayoutState.after;
@@ -1525,7 +1507,6 @@ export default class View extends EventEmitter implements IView {
 
   // --- release ---
   release() {
-    this._isReleased = true;
     this._unBindResizeEvent();
     this.clearProgressive();
     Factory.unregisterRuntimeTransforms();
