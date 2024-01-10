@@ -29,14 +29,3 @@ export const parseFormat = (data: any, format?: DataFormatSpec): Datum[] => {
   const options = format.type === 'dsv' ? { delimiter: format.delimiter } : {};
   return parsers[format.type](data, options, new DataView(new DataSet()));
 };
-
-// TODO: use ResourceLoader instead
-// resource loader do not support plain text loading for now
-export const load = async (url: string) => {
-  try {
-    const response = await fetch(url);
-    return response.text();
-  } catch (error) {
-    return null;
-  }
-};

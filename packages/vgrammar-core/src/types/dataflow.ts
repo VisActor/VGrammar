@@ -11,8 +11,7 @@ export interface IDataflow {
   remove: (grammar: IGrammarBase) => void;
   hasCommitted: () => boolean;
   commit: (grammar: IGrammarBase) => this;
-  evaluate: () => Promise<boolean>;
-  evaluateSync: () => boolean;
+  evaluate: () => boolean;
   runBefore: (callback?: IDataflowCallback) => void;
   runAfter: (callback?: IDataflowCallback) => void;
 }

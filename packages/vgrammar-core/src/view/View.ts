@@ -146,10 +146,6 @@ export default class View extends EventEmitter implements IView {
   private _theme: ITheme;
 
   private _dataflow: Dataflow;
-  /** 正在执行的dataflow */
-  private _currentDataflow?: Promise<any>;
-  /** 正在执行的任务 */
-  private _running?: Promise<this>;
 
   /** 初次渲染或者更新spec，需要构建布局树 */
   private _needBuildLayoutTree?: boolean;
@@ -620,7 +616,8 @@ export default class View extends EventEmitter implements IView {
   getCurrentTheme() {
     return this._theme;
   }
-  async setCurrentTheme(theme: ITheme | string, render: boolean = true) {
+
+  setCurrentTheme(theme: ITheme | string, render: boolean = true) {
     if (this._isReleased) {
       return;
     }
@@ -631,7 +628,7 @@ export default class View extends EventEmitter implements IView {
     });
 
     if (render) {
-      await this.evaluate();
+      this.evaluate();
 
       if (this._isReleased) {
         return;
@@ -639,7 +636,7 @@ export default class View extends EventEmitter implements IView {
       // FIXME: trigger render
       this.renderer.render(true);
     } else {
-      await this._dataflow.evaluate();
+      this._dataflow.evaluate();
     }
 
     return this;
@@ -806,57 +803,6 @@ export default class View extends EventEmitter implements IView {
     return this;
   }
 
-  runSync(runningConfig?: IRunningConfig) {
-    this.evaluateSync(runningConfig);
-
-    return this;
-  }
-
-  isRunning() {
-    return this._running;
-  }
-
-  async runAsync(runningConfig?: IRunningConfig) {
-    if (this._isReleased) {
-      return;
-    }
-    // await previously queued functions
-    while (this._running) {
-      await this._running;
-      if (this._isReleased) {
-        break;
-      }
-    }
-
-    // run dataflow, manage running promise
-    const clear = () => {
-      this._running = null;
-    };
-
-    (this._running = this.evaluate(runningConfig)).then(clear, clear);
-
-    return this._running;
-  }
-
-  async runNextTick(runningConfig?: IRunningConfig) {
-    // delay the evaluate progress to next tick
-    if (!this._currentDataflow) {
-      this._currentDataflow = Promise.resolve().then(() => {
-        return this.runAsync(runningConfig)
-          .then(() => {
-            this._currentDataflow = null;
-          })
-          .catch((e: any) => {
-            this._currentDataflow = null;
-            this.logger.error(e);
-          });
-      });
-    }
-    await this._currentDataflow;
-
-    return this;
-  }
-
   private doRender(immediately: boolean) {
     this.emit(HOOK_EVENT.BEFORE_DO_RENDER);
     // render as needed
@@ -871,7 +817,7 @@ export default class View extends EventEmitter implements IView {
     this.emit(HOOK_EVENT.AFTER_DO_RENDER);
   }
 
-  private async evaluate(runningConfig?: IRunningConfig) {
+  private evaluate(runningConfig?: IRunningConfig) {
     if (this._isReleased) {
       return;
     }
@@ -894,11 +840,11 @@ export default class View extends EventEmitter implements IView {
     }
 
     this.clearProgressive();
-    // stop auto render of vrender to avoid the case that vrender auto render before the asynchronous task is done
+    // stop auto render of vrender to avoid the case that vrender auto render before the the task is done
     this.renderer?.preventRender(true);
 
     // evaluate dataflow
-    await this._dataflow.evaluate();
+    this._dataflow.evaluate();
 
     if (this._isReleased) {
       return;
@@ -915,7 +861,7 @@ export default class View extends EventEmitter implements IView {
 
       if (this._dataflow.hasCommitted()) {
         this._layoutState = LayoutState.reevaluate;
-        await this._dataflow.evaluate();
+        this._dataflow.evaluate();
 
         if (this._isReleased) {
           return;
@@ -927,7 +873,7 @@ export default class View extends EventEmitter implements IView {
         this.handleLayoutEnd();
       }
     }
-    // enable auto render of vrender after the asynchronous task is done
+    // enable auto render of vrender after the task is done
     this.renderer?.preventRender(false);
     this._layoutState = null;
 
@@ -936,65 +882,6 @@ export default class View extends EventEmitter implements IView {
     // resize again if width/height signal is updated duration dataflow
     this._resizeRenderer();
     this.doRender(false);
-
-    this._willMorphMarks?.forEach(morphMarks => {
-      this._morph.morph(morphMarks.prev, morphMarks.next, normalizedRunningConfig);
-    });
-    this._willMorphMarks = null;
-
-    this.releaseCachedGrammars(normalizedRunningConfig);
-
-    this.doPreProgressive();
-
-    return this;
-  }
-
-  private evaluateSync(runningConfig?: IRunningConfig) {
-    const normalizedRunningConfig = normalizeRunningConfig(runningConfig);
-
-    const grammarWillDetach = this._cachedGrammars.size() > 0;
-
-    if (grammarWillDetach) {
-      this.reuseCachedGrammars(normalizedRunningConfig);
-      this.detachCachedGrammar();
-    }
-
-    const hasResize = this._resizeRenderer();
-    const hasUpdate = this._dataflow.hasCommitted();
-
-    if (!grammarWillDetach && !hasUpdate && !this._layoutState && !hasResize) {
-      return this;
-    }
-
-    this.clearProgressive();
-    // evaluate dataflow
-    this._dataflow.evaluateSync();
-
-    if (this._needBuildLayoutTree) {
-      this.buildLayoutTree();
-      this._needBuildLayoutTree = false;
-    }
-
-    if (this._layoutState) {
-      this._layoutState = LayoutState.layouting;
-      this.doLayout();
-
-      if (this._dataflow.hasCommitted()) {
-        this._layoutState = LayoutState.reevaluate;
-        this._dataflow.evaluateSync();
-      }
-
-      this._layoutState = LayoutState.after;
-      if (this._layoutMarks?.length) {
-        this.handleLayoutEnd();
-      }
-    }
-    this._layoutState = null;
-
-    this.findProgressiveMarks();
-
-    this._resizeRenderer();
-    this.doRender(true);
 
     this._willMorphMarks?.forEach(morphMarks => {
       this._morph.morph(morphMarks.prev, morphMarks.next, normalizedRunningConfig);
@@ -1206,7 +1093,7 @@ export default class View extends EventEmitter implements IView {
     }
   }, 100);
 
-  async resize(width: number, height: number, render: boolean = true) {
+  resize(width: number, height: number, render: boolean = true) {
     let needDataflow = false;
 
     // width value changed: update signal, skip resize op
@@ -1224,9 +1111,9 @@ export default class View extends EventEmitter implements IView {
     // run dataflow on width/height signal change
     if (needDataflow) {
       if (render) {
-        await this.evaluate();
+        this.evaluate();
       } else {
-        await this._dataflow.evaluate();
+        this._dataflow.evaluate();
       }
     }
 
@@ -1321,7 +1208,7 @@ export default class View extends EventEmitter implements IView {
         }
 
         if (hasCommitted) {
-          this.runAsync();
+          this.run();
         }
       },
       { throttle, debounce }
@@ -1556,7 +1443,6 @@ export default class View extends EventEmitter implements IView {
     }
     this._bindResizeEvent();
 
-    this._currentDataflow = null;
     // update layout tree after initialization
     this._needBuildLayoutTree = true;
     this._layoutState = LayoutState.before;

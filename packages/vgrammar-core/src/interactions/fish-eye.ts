@@ -106,7 +106,7 @@ export class FishEye extends BaseInteraction<FishEyeOptions> {
     }
 
     if (needUpdate) {
-      this.view.runSync();
+      this.view.run();
     }
   }
 

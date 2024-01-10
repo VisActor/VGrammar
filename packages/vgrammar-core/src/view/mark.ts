@@ -233,11 +233,7 @@ export class Mark extends GrammarBase implements IMark {
     const stage = this.view.renderer?.stage();
 
     this.init(stage, parameters);
-    const transformData = this.evaluateTransformSync(
-      this._getTransformsBeforeJoin(),
-      data ?? DefaultMarkData,
-      parameters
-    );
+    const transformData = this.evaluateTransform(this._getTransformsBeforeJoin(), data ?? DefaultMarkData, parameters);
     let inputData = transformData?.progressive ? data : (transformData as any[]);
 
     this.evaluateGroup(inputData);
@@ -301,24 +297,14 @@ export class Mark extends GrammarBase implements IMark {
     return this.transforms ? this.transforms.filter(entry => entry.markPhase === 'beforeJoin') : [];
   }
 
-  async evaluate(data: any[], parameters: any) {
+  evaluate(data: any[], parameters: any) {
     this.evaluateMainTasks(data, parameters);
     if (!this.renderContext?.progressive) {
-      await this.evaluateTransform(this._getTransformsAfterEncode(), this.elements, parameters);
+      this.evaluateTransform(this._getTransformsAfterEncode(), this.elements, parameters);
     }
 
     return this;
   }
-
-  evaluateSync = (data: any[], parameters: any) => {
-    this.evaluateMainTasks(data, parameters);
-
-    if (!this.renderContext?.progressive) {
-      this.evaluateTransformSync(this._getTransformsAfterEncode(), this.elements, parameters);
-    }
-
-    return this;
-  };
 
   output() {
     return this;
@@ -835,7 +821,7 @@ export class Mark extends GrammarBase implements IMark {
 
       this._isReentered = false;
 
-      this.evaluateTransformSync(this._getTransformsAfterEncodeItems(), elements, parameters);
+      this.evaluateTransform(this._getTransformsAfterEncodeItems(), elements, parameters);
 
       elements.forEach(element => {
         element.encodeGraphic(this.isCollectionMark() ? groupEncodeAttrs?.[element.groupKey] : null);
@@ -1039,7 +1025,7 @@ export class Mark extends GrammarBase implements IMark {
     });
     this._isReentered = false;
 
-    this.evaluateTransformSync(this._getTransformsAfterEncodeItems(), elements, parameters);
+    this.evaluateTransform(this._getTransformsAfterEncodeItems(), elements, parameters);
 
     elements.forEach(element => {
       element.encodeGraphic();
@@ -1138,7 +1124,7 @@ export class Mark extends GrammarBase implements IMark {
     const progressiveTransforms = this._getTransformsAfterEncode()?.filter(entry => entry.canProgressive === true);
 
     if (progressiveTransforms?.length) {
-      this.evaluateTransformSync(progressiveTransforms, this.elements, parameters);
+      this.evaluateTransform(progressiveTransforms, this.elements, parameters);
     }
 
     this.renderContext.progressive.currentIndex += 1;

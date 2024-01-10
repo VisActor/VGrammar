@@ -146,7 +146,7 @@ export abstract class ViewNavigationBase<
     }
 
     if (newRange && newRange.needUpdate) {
-      this.view.runAsync();
+      this.view.run();
     }
 
     this.dispatchEvent(type, { viewRange: newRange, event: e });
