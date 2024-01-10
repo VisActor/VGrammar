@@ -27,8 +27,8 @@ test('group encode of mark', () => {
 
   mark.join(data, 'key');
 
-  (data as any).runSync();
-  (mark as any).runSync();
+  (data as any).run();
+  (mark as any).run();
 
   expect(mark.elements.length).toBe(2);
   expect(mark.elements[0].getGraphicAttribute('fill')).toEqual('red');
@@ -59,8 +59,8 @@ test('group encode of collection mark', () => {
 
   mark.join(data, 'x', null, 'group');
 
-  (data as any).runSync();
-  (mark as any).runSync();
+  (data as any).run();
+  (mark as any).run();
 
   expect(mark.elements.length).toBe(2);
   expect(mark.elements[0].getGraphicAttribute('fill')).toEqual('red');
@@ -113,8 +113,8 @@ test('group encode of group mark', () => {
 
   mark.join(data, 'key');
 
-  (data as any).runSync();
-  (mark as any).runSync();
+  (data as any).run();
+  (mark as any).run();
 
   expect(mark.elements.length).toBe(2);
   expect(mark.elements[0].getGraphicAttribute('fill')).toEqual('red');
