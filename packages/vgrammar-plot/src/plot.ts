@@ -190,22 +190,7 @@ export class Plot implements IPlot {
       }
       this._hasInited = true;
 
-      this.view.runSync(morphConfig);
-    }
-
-    return this;
-  }
-
-  async runAsync(morphConfig?: IRunningConfig) {
-    if (this.view) {
-      if (!this._hasInited) {
-        this.view.parseSpec(this.parseViewSpec());
-      } else {
-        this.view.updateSpec(this.parseViewSpec());
-      }
-      this._hasInited = true;
-
-      await this.view.runAsync(morphConfig);
+      this.view.run(morphConfig);
     }
 
     return this;
