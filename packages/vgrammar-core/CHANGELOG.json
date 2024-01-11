@@ -2,6 +2,33 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.10.7",
+      "tag": "@visactor/vgrammar-core_v0.10.7",
+      "date": "Thu, 11 Jan 2024 02:31:38 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: custom animtion with no attributes did not take effect"
+          },
+          {
+            "comment": "fix: growPoints animtion not work for area mark "
+          },
+          {
+            "comment": "fix: fix the bug of invalid animation when no type and channel\n\n"
+          },
+          {
+            "comment": "fix: fix the issue of mark-overlap which may show hidden points by user\n\n"
+          },
+          {
+            "comment": "fix(wordcloud): slove problem of addtional padding error. fix @Visactor/VChart#1873"
+          },
+          {
+            "comment": "feat(wordcloud): add shape of rect"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.10.6",
       "tag": "@visactor/vgrammar-core_v0.10.6",
       "date": "Sat, 06 Jan 2024 02:08:51 GMT",
