@@ -25,7 +25,7 @@ export const createBinds = (signals: any, chartInstance: any, container: HTMLDiv
           const signalInstance = chartInstance.getSignalById(signal.id);
 
           signalInstance.value(value);
-          chartInstance.runAsync();
+          chartInstance.run();
         });
       }
     });

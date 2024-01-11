@@ -17,7 +17,7 @@ for(let i = 0; i< 100; i++) {
   )
 }
 export const spec = {
-  width: 10,
+  width: 100,
   height: 200,
   padding: 5,
   data: [{

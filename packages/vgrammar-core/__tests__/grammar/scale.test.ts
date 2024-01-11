@@ -134,8 +134,8 @@ test('set the domain ang range of a band scale by data', function () {
   expect(scale.output().domain()).toEqual([]);
   expect(scale.output().range()).toEqual([0, 1]);
 
-  dataA.runSync();
-  scale.runSync();
+  dataA.run();
+  scale.run();
   expect(scale.output().domain()).toEqual(['A', 'C']);
   expect(scale.output().range()).toEqual([1, 2]);
 });
@@ -155,8 +155,8 @@ test('set the domain ang range of a linear scale by data', function () {
   expect(scale.output().domain()).toEqual([0, 1]);
   expect(scale.output().range()).toEqual([0, 1]);
 
-  dataA.runSync();
-  scale.runSync();
+  dataA.run();
+  scale.run();
   expect(scale.output().domain()).toEqual([1, 200]);
   expect(scale.output().range()).toEqual([1, 100]);
 });
@@ -186,9 +186,9 @@ test('set the domain ang range of a band scale by multi data', function () {
   expect(scale.output().domain()).toEqual([]);
   expect(scale.output().range()).toEqual([0, 1]);
 
-  dataA.runSync();
-  dataB.runSync();
-  scale.runSync();
+  dataA.run();
+  dataB.run();
+  scale.run();
   expect(scale.output().domain()).toEqual(['A', 'C', 'E', 'F']);
 });
 
@@ -219,9 +219,9 @@ test('set the domain ang range of a linear scale by multi data', function () {
   expect(scale.output().domain()).toEqual([0, 1]);
   expect(scale.output().range()).toEqual([0, 1]);
 
-  dataA.runSync();
-  dataB.runSync();
-  scale.runSync();
+  dataA.run();
+  dataB.run();
+  scale.run();
   expect(scale.output().domain()).toEqual([0, 250]);
 });
 
@@ -240,9 +240,9 @@ test('identity scale dont set domain', function () {
   expect(scale.output().domain()).toBeUndefined();
   expect(scale.output().range()).toBeUndefined();
 
-  dataA.runSync();
-  dataB.runSync();
-  scale.runSync();
+  dataA.run();
+  dataB.run();
+  scale.run();
   expect(scale.output().scale(1)).toEqual(1);
   expect(scale.output().scale(10)).toEqual(10);
 });
@@ -275,9 +275,9 @@ test('identity scale has domain', function () {
   expect(scale.output().domain()).toBeUndefined();
   expect(scale.output().range()).toBeUndefined();
 
-  dataA.runSync();
-  dataB.runSync();
-  scale.runSync();
+  dataA.run();
+  dataB.run();
+  scale.run();
   expect(scale.output().domain()).toEqual([1, 2, 100, 200, 0, 1, 150, 250]);
   expect(scale.output().range()).toEqual([1, 2, 100, 200, 0, 1, 150, 250]);
   expect(scale.output().scale(1)).toBe(1);

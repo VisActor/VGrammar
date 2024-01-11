@@ -296,7 +296,7 @@ const createChartBySpec = (spec: any) => {
 
   (window as any).view = chartInstance;
 
-  chartInstance.runSync();
+  chartInstance.run();
 
   const runFinish = performance.now();
     console.log('================ all time =====================', runFinish - start);
@@ -360,7 +360,7 @@ const createChartByPlot = (runner: any) => {
   (window as any).view = chartInstance;
   runner(chartInstance);
 
-  chartInstance.runAsync();
+  chartInstance.run();
 
   return chartInstance;
 };

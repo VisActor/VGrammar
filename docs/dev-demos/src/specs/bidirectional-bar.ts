@@ -9,16 +9,6 @@ export const spec = {
   signals: [
     { id: 'chartWidth', value: 300 },
     { id: 'chartPad', value: 20 },
-    // {
-    //   id: 'width',
-    //   update: {
-    //     // "2 * chartWidth + chartPad"
-    //     callback: (signal: any, params: any) => {
-    //       return 2 * params.chartWidth + params.chartPad;
-    //     },
-    //     dependency: ['chartWidth', 'chartPad']
-    //   }
-    // },
     {
       id: 'year',
       value: 2000
@@ -41,7 +31,7 @@ export const spec = {
       transform: [
         {
           // 给每个geoJson feature一个唯一id，绘图顺序保证和id从小到大一致
-          type: 'aggregate',
+          type: 'unfold',
           groupBy: ['gender', 'level'],
           cross: true
         }

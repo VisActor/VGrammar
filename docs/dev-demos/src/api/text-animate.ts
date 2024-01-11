@@ -42,7 +42,7 @@ export const runner = (view: View) => {
   //   });
   // window['update'] = () => {
   //   growText.encode('textAlign', 'center');
-  //   view.runAsync();
+  //   view.run();
   // }
 
   const fadeText = view

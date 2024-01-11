@@ -248,10 +248,10 @@ export const callback = (view: IView) => {
 
   // exitButton.addEventListener('click', () => {
   //   view.getDataById('data')?.values([]);
-  //   view.runAsync();
+  //   view.run();
   // });
   // enterButton.addEventListener('click', () => {
   //   view.getDataById('data')?.values(originData);
-  //   view.runAsync();
+  //   view.run();
   // });
 };

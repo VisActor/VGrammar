@@ -630,24 +630,6 @@ Run the entire View, ts type definition is as follows:
 
 Where `runningConfig` is used to set global transition and other animation related configurations when updating the `view`
 
-### runNextTick
-
-Similar to `run`, parameters and type definitions are the same, except that the entire View is run at the next frame rate
-
-### runAsync
-
-Similar to `run`, asynchronously run the entire View update logic; usage example is as follows:
-
-```ts
-await view.runAsync();
-
-console.log(view);
-```
-
-### runSync
-
-Similar to `run`, parameters and type definitions are the same, run the entire View update logic synchronously
-
 ### runBefore
 
 Set the callback function before each view is updated and run. The ts type definition is as follows:

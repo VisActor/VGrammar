@@ -31,7 +31,7 @@ export class FilterMixin {
           this._filterValue = getFilterValue(event);
         }
         dataGrammar.commit();
-        this.view.runAsync();
+        this.view.run();
       };
 
       this._dataFilter = {

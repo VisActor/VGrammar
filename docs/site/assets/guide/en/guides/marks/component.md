@@ -245,11 +245,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 A simple polar coordinate axis example is:
 
 <div class="examples-ref-container" id="examples-ref-axis-polar" data-path="mark-interval/polar-interval"></div>
@@ -459,11 +460,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Legend
 
 Legends are mainly used to display the identification of different data series in charts, helping users understand the chart content. For different types of charts, such as line charts and bar charts, legends can represent various information (such as color, shape, etc.).
@@ -717,11 +719,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Slider
 
 The slider is an interactive component for filtering and scaling data. Users can adjust the data range by dragging the slider bar. Users can control the data range by dragging the slider gap and position. By operating the slider, users can view the data in a specified range according to their needs.
@@ -2002,11 +2005,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Datazoom
 
 The datazoom is used to view specific parts of long data sequences. It can easily expand and contract the data visualization range, providing a more intuitive interactive experience. By setting the datazoom, users can more easily view or filter information of interest, improving data analysis efficiency.
@@ -2231,11 +2235,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Label
 
 Labels are used to add text descriptions to visualization graphical elements, helping users quickly understand the specific information of data points.
@@ -2483,11 +2488,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Player
 
 In visualization scenarios, sometimes it is necessary to display the process of data changing over time. By using the player feature, users can observe the dynamic changes of data through the timeline.

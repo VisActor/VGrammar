@@ -86,9 +86,9 @@ async function createImage(obj, fullPath) {
     }
     
     if (plot) {
-      await plot.runAsync();
+      await plot.run();
     } else {
-      await view.runAsync();
+      await view.run();
     }
 
     const buffer = view.getImageBuffer();
@@ -150,7 +150,7 @@ function getSpecFromCode(codeString) {
 function getPlotFromCode(codeString) {
   // eslint-disable-next-line no-eval
   try {
-    const plotRunIndex = codeString.indexOf('plot.runAsync();')
+    const plotRunIndex = codeString.indexOf('plot.run();')
 
     if (plotRunIndex >= 0) {
       let mainCode = codeString.substr(0, plotRunIndex);
@@ -189,7 +189,7 @@ function getPlotFromCode(codeString) {
 function getViewFromCode(codeString) {
   // eslint-disable-next-line no-eval
   try {
-    const viewRunIndex = codeString.indexOf('vGrammarView.runAsync();')
+    const viewRunIndex = codeString.indexOf('vGrammarView.run();')
     let mainCode = codeString;
 
     if (viewRunIndex >= 0) {

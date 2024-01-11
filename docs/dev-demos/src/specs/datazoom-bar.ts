@@ -313,7 +313,7 @@ export const callback = (view: IView) => {
       { name: 'L', value: Math.floor(100 * Math.random()) },
       { name: 'M', value: Math.floor(100 * Math.random()) }
     ]);
-    view.runAsync();
+    view.run();
   });
 };
 

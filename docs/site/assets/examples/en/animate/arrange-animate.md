@@ -367,7 +367,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync().then(() => {
+vGrammarView.run().then(() => {
   const title = vGrammarView.getMarkById('title');
   const leftAxis = vGrammarView.getMarkById('leftAxis');
   const bottomAxis = vGrammarView.getMarkById('bottomAxis');

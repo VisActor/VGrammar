@@ -154,7 +154,6 @@ export const transform = (options: SampleTransformOptions, upstreamData: any[]) 
   }
 
   const skipfirst = options.skipfirst;
-  // 如果是ChartSpace的第一次数据流(evaluateAsync)，不需要采样，返回一条数据供布局使用
   // 这里需要依据this.value.length判断是不是第一次数据流，
   // 以避免点击图例，updateChartData等操作清空所有label
   if (skipfirst) {
