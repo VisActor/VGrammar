@@ -470,12 +470,6 @@ export class Element implements IElement {
     return diffResult;
   }
 
-  getConnectStyle() {
-    const encoder = (this.mark.getSpec() as MarkSpec).encode?.[BuiltInEncodeNames.connectNulls];
-
-    return invokeEncoder(encoder, this.getDatum(), this, this.mark.parameters());
-  }
-
   /**
    * tranform the attribute to graphic attribute
    * @param items
@@ -504,7 +498,7 @@ export class Element implements IElement {
       const lastPoints = this.getGraphicAttribute('points', false);
       const lastSegments = this.getGraphicAttribute('segments', false);
       const enableSegments = markSpec.enableSegments;
-      const connectNulls = markSpec.connectNulls;
+      const connectNullsEncoder = (this.mark.getSpec() as MarkSpec).encode?.[BuiltInEncodeNames.connectNulls];
       const itemNextAttrs = items.map(item => item.nextAttrs);
       const isProgressive = this.mark.isProgressive();
       nextAttrs = parseCollectionMarkAttributes(nextAttrs);
@@ -517,11 +511,11 @@ export class Element implements IElement {
           nextAttrs.segments = ((this.graphicItem as ILine)?.attribute?.segments ?? []).concat([
             { points: linePoints }
           ]);
-        } else if (connectNulls) {
+        } else if (connectNullsEncoder) {
           nextAttrs.segments = getConnectLineSegmentConfigs(itemNextAttrs, linePoints, this);
 
           if (nextAttrs.segments && nextAttrs.segments.some((seg: any) => seg.isConnect)) {
-            const connectStyle = this.getConnectStyle();
+            const connectStyle = invokeEncoder(connectNullsEncoder, this.getDatum(), this, this.mark.parameters());
 
             connectStyle &&
               nextAttrs.segments.forEach((seg: any) => {

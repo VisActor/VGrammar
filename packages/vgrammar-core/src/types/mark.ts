@@ -255,11 +255,6 @@ export interface IMarkConfig {
    * only used in line/area mark
    */
   enableSegments?: boolean;
-  /**
-   * only used in line/area mark
-   * @since 0.11.0
-   */
-  connectNulls?: boolean;
 }
 
 /**
