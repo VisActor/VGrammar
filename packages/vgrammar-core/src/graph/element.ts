@@ -506,7 +506,7 @@ export class Element implements IElement {
       if (markType === GrammarMarkType.line || markType === GrammarMarkType.area) {
         const linePoints = getLinePoints(items, true, lastPoints, markType === GrammarMarkType.area);
 
-        // chartspace新增了配置，用于开启线段解析；渐进渲染状态不支持线段样式；也不支持连接线
+        // vchart新增了配置，用于开启线段解析；渐进渲染状态不支持线段样式；也不支持连接线
         if (isProgressive) {
           nextAttrs.segments = ((this.graphicItem as ILine)?.attribute?.segments ?? []).concat([
             { points: linePoints }
