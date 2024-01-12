@@ -6,10 +6,14 @@ import type {
   IElement,
   IGlyphElement,
   IMark,
+  IToggleStateMixin,
   IView,
   InteractionEvent
 } from '../types';
 import { BaseInteraction } from './base';
+import { groupMarksByState } from './utils';
+
+export interface ElementSelect extends IToggleStateMixin, BaseInteraction<ElementSelectOptions> {}
 
 export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   static type: string = 'element-select';
@@ -21,14 +25,16 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   };
   protected _resetType?: 'view' | 'self' | 'timeout';
   protected _marks?: IMark[];
+  protected _stateMarks: Record<string, IMark[]>;
   private _timer?: number;
-  private _hasSelected?: boolean;
+  protected _statedElements?: (IElement | IGlyphElement)[];
 
   constructor(view: IView, options?: ElementSelectOptions) {
     super(view, options);
     this.options = Object.assign({}, ElementSelect.defaultOptions, options);
 
     this._marks = view.getMarksBySelector(this.options.selector);
+    this._stateMarks = groupMarksByState(this._marks, [this.options.state, this.options.reverseState]);
   }
 
   protected getEvents() {
@@ -72,66 +78,45 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
     return events;
   }
 
-  clearPrevElements = (isMultiple?: boolean, isActive?: boolean) => {
+  clearPrevElements = () => {
     const { state, reverseState } = this.options;
 
-    if (!isActive && !this._hasSelected) {
-      return;
-    }
+    if (this._statedElements && this._statedElements.length) {
+      this.clearAllStates(state, reverseState);
+      this.dispatchEvent('reset', { elements: this._statedElements, options: this.options });
 
-    let res: boolean;
-    const elements: (IElement | IGlyphElement)[] = [];
-
-    this._hasSelected = false;
-    this._marks.forEach(mark => {
-      mark.elements.forEach(el => {
-        if (!isMultiple) {
-          res = el.removeState(state);
-
-          if (res && !isActive) {
-            elements.push(el);
-          }
-        }
-
-        if (reverseState) {
-          if (isActive) {
-            el.addState(reverseState);
-          } else {
-            el.removeState(reverseState);
-          }
-        }
-      });
-    });
-
-    if (elements.length) {
-      this.dispatchEvent('reset', { elements, options: this.options });
+      this._statedElements = [];
     }
   };
 
   handleStart = (e: InteractionEvent) => {
-    const { state, reverseState } = this.options;
+    const { state, reverseState, isMultiple } = this.options;
 
     if (e.element && this._marks && this._marks.includes(e.element.mark)) {
-      this.clearPrevElements(this.options.isMultiple, true);
-
       if (e.element.hasState(state)) {
         if (this._resetType === 'self') {
-          e.element.removeState(state);
+          if (this._statedElements) {
+            this._statedElements = this._statedElements.filter(el => el !== e.element);
+          }
 
-          reverseState && e.element.addState(reverseState);
+          this.updateStates(state, reverseState);
         }
       } else {
         if (this._timer) {
           clearTimeout(this._timer);
         }
+        e.element.addState(state);
 
-        reverseState && e.element.removeState(reverseState);
-        const res = e.element.addState(state);
-        this._hasSelected = res;
-
-        if (res) {
-          this.dispatchEvent('start', { elements: [e.element], options: this.options });
+        if (!this._statedElements) {
+          this._statedElements = [];
         }
+        if (isMultiple) {
+          this._statedElements.push(e.element);
+        } else {
+          this._statedElements[0] = e.element;
+        }
+        this.updateStates(state, reverseState);
+        this.dispatchEvent('start', { elements: this._statedElements, options: this.options });
 
         if (this._resetType === 'timeout') {
           this._timer = setTimeout(() => {
@@ -139,7 +124,7 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
           }, this.options.resetTrigger as number) as unknown as number;
         }
       }
-    } else if (this._resetType === 'view' && this._hasSelected) {
+    } else if (this._resetType === 'view' && this._statedElements && this._statedElements.length) {
       this.clearPrevElements();
     }
   };
@@ -147,7 +132,7 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   handleReset = (e: InteractionEvent) => {
     const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
 
-    if (!this._hasSelected) {
+    if (!this._statedElements || !this._statedElements.length) {
       return;
     }
 

@@ -1,6 +1,22 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Sat, 06 Jan 2024 02:08:51 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Jan 2024 02:31:38 GMT and should not be manually modified.
+
+## 0.10.7
+Thu, 11 Jan 2024 02:31:38 GMT
+
+### Updates
+
+- fix: custom animtion with no attributes did not take effect
+- fix: growPoints animtion not work for area mark 
+- fix: fix the bug of invalid animation when no type and channel
+
+
+- fix: fix the issue of mark-overlap which may show hidden points by user
+
+
+- fix(wordcloud): slove problem of addtional padding error. fix @Visactor/VChart#1873
+- feat(wordcloud): add shape of rect
 
 ## 0.10.6
 Sat, 06 Jan 2024 02:08:51 GMT

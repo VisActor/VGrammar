@@ -25,6 +25,7 @@ import { ViewScrollMixin } from './view-scroll-mixin';
 import { ViewDragMixin } from './view-drag-mixin';
 import { ViewRoam } from './view-roam';
 import { FishEye } from './fish-eye';
+import { ToggleStateMixin } from './toggle-state-mixin';
 
 export { BaseTooltip } from './base-tooltip';
 export { BaseInteraction } from './base';
@@ -62,10 +63,12 @@ export const registerElementActive = () => {
 };
 
 export const registerElementSelect = () => {
+  mixin(ElementSelect, ToggleStateMixin);
   Factory.registerInteraction(ElementSelect.type, ElementSelect);
 };
 
 export const registerElementHighlight = () => {
+  mixin(ElementHighlight, ToggleStateMixin);
   Factory.registerInteraction(ElementHighlight.type, ElementHighlight);
 };
 
