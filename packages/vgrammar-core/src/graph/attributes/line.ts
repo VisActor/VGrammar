@@ -173,7 +173,7 @@ export function getConnectLineSegmentConfigs(items: any[], points: IPointLike[],
   items.forEach((item, index) => {
     point = points[index];
 
-    if (point.defined !== false) {
+    if (point && point.defined !== false) {
       if (!isPrevDefined) {
         // start a segment
         curSegment = {
