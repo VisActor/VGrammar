@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.10.8",
+      "tag": "@visactor/vgrammar-core_v0.10.8",
+      "date": "Fri, 12 Jan 2024 10:55:45 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: upgrade @visactor/vrender-core to locked 0.17.14"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.10.7",
       "tag": "@visactor/vgrammar-core_v0.10.7",
       "date": "Thu, 11 Jan 2024 02:31:38 GMT",
