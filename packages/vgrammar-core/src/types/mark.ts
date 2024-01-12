@@ -142,7 +142,7 @@ export type GenerateBaseEncodeSpec<BasicSpec = GenerateBasicEncoderSpec<IGraphic
   | GenerateEncoderSpec<BasicSpec>
   | MarkFunctionCallback<BasicSpec>;
 
-export type StateProxyEncodeSpec<T = any> = (datum: any, element: IElement, state: string, nextStates: string[]) => T;
+export type StateProxyEncodeSpec<T = any> = (datum: any, element: IElement, state?: string, nextStates?: string[]) => T;
 
 export type StateEncodeSpec<BasicSpec = GenerateBasicEncoderSpec<IGraphicAttribute>> =
   | {
@@ -253,9 +253,13 @@ export interface IMarkConfig {
   attributeTransforms?: AttributeTransform[];
   /**
    * only used in line/area mark
-   * TODO
    */
   enableSegments?: boolean;
+  /**
+   * only used in line/area mark
+   * @since 0.11.0
+   */
+  connectNulls?: boolean;
 }
 
 /**

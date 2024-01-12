@@ -1,4 +1,5 @@
-import type { IColor, IColorStop } from '@visactor/vrender-core';
+import type { IColor, IColorStop, ISegment } from '@visactor/vrender-core';
+import type { IPointLike } from '@visactor/vutils';
 import { isNil, isString } from '@visactor/vutils';
 import { transformAttributes } from './transform';
 import { GrammarMarkType } from '../enums';
@@ -144,11 +145,96 @@ export function getLineSegmentConfigs(items: any[], points: any[], element?: IEl
 
   if (segments.length >= 2) {
     return segments.map(entry => {
-      const res = transformAttributes(GrammarMarkType.line, parseCollectionMarkAttributes(entry.attrs), element) as any;
+      const res = parseCollectionMarkAttributes(entry.attrs) as any;
 
       res.points = points.slice(entry.startIndex, isNil(entry.endIndex) ? points.length : entry.endIndex);
       return res;
     });
+  }
+
+  return null;
+}
+
+/**
+ * get the segments for connectNulls
+ * @param {*} item
+ * @returns {IPointLike[]}
+ */
+export function getConnectLineSegmentConfigs(items: any[], points: IPointLike[], element?: IElement) {
+  if (!items || items.length <= 1) {
+    return null;
+  }
+  const enableSegments = element ? element.mark.getSpec().enableSegments : false;
+  let segments: { isConnect?: boolean; points: any[]; items: any[] }[] = [];
+  let point: IPointLike = null;
+  let isPrevDefined: boolean;
+  let curSegment: { isConnect?: boolean; points: any[]; items: any[] };
+
+  items.forEach((item, index) => {
+    point = points[index];
+
+    if (point.defined !== false) {
+      if (!isPrevDefined) {
+        // start a segment
+        curSegment = {
+          items: [],
+          points: []
+        };
+        segments.push(curSegment);
+      }
+
+      curSegment.points.push(point);
+      curSegment.items.push(item);
+
+      if (isPrevDefined === false) {
+        curSegment.isConnect = true;
+
+        curSegment = {
+          items: [],
+          points: []
+        };
+        segments.push(curSegment);
+      }
+
+      isPrevDefined = true;
+    } else {
+      isPrevDefined = false;
+    }
+  });
+
+  segments = segments.filter(seg => seg.points.length > 0);
+
+  if (segments.length >= 2) {
+    const res: ISegment[] = [];
+
+    segments.forEach(entry => {
+      if (entry.isConnect) {
+        res.push({
+          points: entry.points,
+          isConnect: true
+        } as ISegment);
+        return;
+      } else if (enableSegments) {
+        const subSegments = getLineSegmentConfigs(entry.items, entry.points, element);
+
+        if (subSegments) {
+          subSegments.forEach(subSeg => {
+            res.push(subSeg);
+          });
+
+          return;
+        }
+      }
+
+      const seg = parseCollectionMarkAttributes(entry.items[0]) as any;
+      seg.points = entry.points;
+
+      res.push(seg);
+    });
+
+    return res;
+  } else if (enableSegments) {
+    return getLineSegmentConfigs(items, points, element);
   }
 
   return null;
