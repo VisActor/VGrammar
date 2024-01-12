@@ -25,6 +25,8 @@ const failedPreviewLists = [];
 const IMAGE_WIDTH = 640;
 const IMAGE_HEIGHT = 480;
 
+VGrammar.initNodeEnv();
+
 function getPreviewPrefix(fullPath) {
   return fullPath.replaceAll('/', '-');
 }
@@ -32,6 +34,7 @@ function getPreviewPrefix(fullPath) {
 function getPreviewName(fullPath) {
   return `${getPreviewPrefix(fullPath)}_${version}.png`;
 }
+
 
 async function createImage(obj, fullPath) {
   let view = null;
@@ -87,9 +90,9 @@ async function createImage(obj, fullPath) {
     }
     
     if (plot) {
-      await plot.run();
+      plot.run();
     } else {
-      await view.run();
+      view.run();
     }
 
     const buffer = view.getImageBuffer();
