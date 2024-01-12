@@ -7,7 +7,8 @@ export enum BuiltInEncodeNames {
   enter = 'enter',
   update = 'update',
   exit = 'exit',
-  group = 'group'
+  group = 'group',
+  connectNulls = 'connectNulls'
 }
 
 /**

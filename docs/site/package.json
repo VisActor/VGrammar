@@ -8,6 +8,7 @@
     "watch": "node ./libs/template-parse/build.js --env dev --watch",
     "start": "npx concurrently --kill-others \"npm:watch\" \"npm:serve\"",
     "preview": "node ./libs/preview.js",
+    "preview-empty": "node ./libs/preview.js --empty",
     "example-ref": "node ./libs/update-example-reference.js"
   },
   "dependencies": {
@@ -53,6 +54,7 @@
     "globby": "11.1.0",
     "chokidar": "^3.5.0",
     "react-device-detect": "^2.2.2",
-    "canvas": "^2.5.0"
+    "canvas": "^2.5.0",
+    "minimist": "1.2.8"
   }
 }

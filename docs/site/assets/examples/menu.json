@@ -100,6 +100,20 @@
             "zh": "阿基米德螺线",
             "en": "Archimedean Spiral"
           }
+        },
+        {
+          "path": "connect-nulls-line",
+          "title": {
+            "zh": "空白点连线",
+            "en": "Connect nulls of line"
+          }
+        },
+        {
+          "path": "connect-nulls-segments",
+          "title": {
+            "zh": "空白点连接的分段曲线",
+            "en": "Connect nulls of segments"
+          }
         }
       ]
     },
@@ -143,6 +157,20 @@
           "title": {
             "zh": "区间面积图",
             "en": "区间面积图"
+          }
+        },
+        {
+          "path": "connect-nulls-area",
+          "title": {
+            "zh": "空白点连线",
+            "en": "Connect nulls of area"
+          }
+        },
+        {
+          "path": "connect-nulls-segments-area",
+          "title": {
+            "zh": "空白点连接的分段面积",
+            "en": "Connect nulls of segments area"
           }
         }
       ]
