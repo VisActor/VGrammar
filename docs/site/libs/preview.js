@@ -11,6 +11,7 @@ const VisUtil = require('@visactor/vutils');
 const Canvas = require('canvas');
 const fse = require('fs-extra');
 const package = require('../../../packages/vgrammar/package.json');
+const minimist = require('minimist');
 
 const examplesDirectory = path.resolve(__dirname, '../assets/examples');
 const previewDirectory = path.resolve(__dirname, '../public/vgrammar/preview');
@@ -258,28 +259,42 @@ function readExampleMenu() {
   return JSON.parse(data);
 }
 
-async function previewMenuItem(menuItem, parentPath) {
+async function previewMenuItem(menuItem, parentPath, options) {
   const fullPath = parentPath === '' ? menuItem.path : `${parentPath}/${menuItem.path}`;
   if (menuItem.children) {
     for (const childMenuItem of menuItem.children) {
-      await previewMenuItem(childMenuItem, fullPath);
+      await previewMenuItem(childMenuItem, fullPath, options);
     }
   } else {
-    const hasCopy = copyStaticPreview(fullPath);
-
-    if (hasCopy) { return; }
 
     const example = fs.readFileSync(path.resolve(examplesDirectory, 'zh', `${fullPath}.md`), { encoding: 'utf-8' });
     const code = getCodeFromMd(example);
-    if (!code) {
-      failedPreviewLists.push(fullPath);
-      return;
-    }
-    const res = await createImage(code, fullPath);
 
-    if (res) {
-      writePreviewToExample(fullPath);
+    let isFail = false;
+
+
+    if (code) {
+      if (options && options.onlyEmpty) {
+        if (!/cover:([ ])*(\S)+\n/.exec(example)) {
+          // no cover now
+          isFail = !createImage(code, fullPath)
+          writePreviewToExample(fullPath);
+        }
+      } else {
+        const hasCopy = copyStaticPreview(fullPath);
+
+        if (!hasCopy) {
+          isFail = !createImage(code, fullPath)
+          writePreviewToExample(fullPath);
+        }
+      }
+      
+
     } else {
+      isFail = true;
+    }
+    
+    if (isFail) {
       failedPreviewLists.push(fullPath);
     }
   }
@@ -308,13 +323,19 @@ function copyStaticPreview(fullPath) {
 }
 
 async function preview() {
+  const argv = require('minimist')(process.argv.slice(2));
+  const onlyEmpty = !!(argv.e || argv.empty);
   const examplesMenu = readExampleMenu();
-  fse.emptyDirSync(previewDirectory);
+  
+  if (!onlyEmpty) {
+    fse.emptyDirSync(previewDirectory);
+  } else {
+    initStaticPreviewList();
+  }
 
-  initStaticPreviewList();
 
   for (const menuItem of examplesMenu.children) {
-    await previewMenuItem(menuItem, '');
+    await previewMenuItem(menuItem, '', { onlyEmpty });
   }
   const failPath = path.resolve(previewDirectory, failListName);
   console.log(`Failure count: ${failedPreviewLists.length}, failed list written to ${failPath}`);
