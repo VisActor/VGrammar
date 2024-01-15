@@ -208,10 +208,13 @@ const spec = {
           from: { data: 'table' },
           dependency: ['yscale'],
           setCustomizedShape: (data, attrs, path) => {
-            path.moveTo(attrs.width / 2, 0);
-            path.quadraticCurveTo(0.55 * attrs.width, 0.67 * attrs.height, attrs.width, attrs.height);
-            path.lineTo(0, attrs.height);
-            path.quadraticCurveTo(0.45 * attrs.width, 0.67 * attrs.height, attrs.width / 2, 0);
+            const width = attrs.width == null ? attrs.x1 - attrs.x : attrs.width;
+            const height = attrs.height == null ? attrs.y1 - attrs.y : attrs.height;
+
+            path.moveTo(width / 2, 0);
+            path.quadraticCurveTo(0.55 * width, 0.67 * height, width, height);
+            path.lineTo(0, height);
+            path.quadraticCurveTo(0.45 * width, 0.67 * height, width / 2, 0);
             path.closePath();
             return path;
           },

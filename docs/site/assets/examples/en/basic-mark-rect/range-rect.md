@@ -88,6 +88,31 @@ const spec = {
       crosshairShape: 'rect',
       crosshairType: 'x',
       container: '#container'
+    },
+
+    {
+      type: 'tooltip',
+      selector: '#rect',
+      title: { value: { field: 'date' } },
+      content: [
+        {
+          key: '最高值',
+          value: { field: 'high' },
+          symbol: {
+            symbolType: 'circle',
+            fill: '#6690F2'
+          }
+        },
+
+        {
+          key: '最低值',
+          value: { field: 'low' },
+          symbol: {
+            symbolType: 'circle',
+            fill: '#6690F2'
+          }
+        }
+      ]
     }
   ],
 
@@ -158,32 +183,6 @@ const spec = {
               fill: 'red'
             }
           }
-        },
-
-        {
-          type: 'component',
-          componentType: 'tooltip',
-          target: 'rect',
-          title: { value: { field: 'date' } },
-          content: [
-            {
-              key: '最高值',
-              value: { field: 'high' },
-              symbol: {
-                symbolType: 'circle',
-                fill: '#6690F2'
-              }
-            },
-
-            {
-              key: '最低值',
-              value: { field: 'low' },
-              symbol: {
-                symbolType: 'circle',
-                fill: '#6690F2'
-              }
-            }
-          ]
         }
       ]
     }

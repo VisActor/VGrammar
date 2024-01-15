@@ -192,11 +192,8 @@ const spec = {
     },
     {
       type: 'component',
+      id: 'dataZoom',
       componentType: 'datazoom',
-      target: {
-        data: 'markData',
-        filter: 'time'
-      },
       dependency: ['viewBox'],
       preview: {
         data: 'table',
@@ -213,6 +210,17 @@ const spec = {
             end: 1
           };
         }
+      }
+    }
+  ],
+
+  interactions: [
+    {
+      type: 'datazoom-filter',
+      source: '#dataZoom',
+      target: {
+        data: 'markData',
+        filter: 'time'
       }
     }
   ]

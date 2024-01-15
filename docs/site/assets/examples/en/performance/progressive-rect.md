@@ -57,6 +57,21 @@ const spec = {
       scale: 'xscale',
       crosshairShape: 'rect',
       crosshairType: 'x'
+    },
+    {
+      type: 'tooltip',
+      selector: '#rect',
+      title: { visible: false, value: 'value' },
+      content: [
+        {
+          key: { field: 'name' },
+          value: { field: 'value' },
+          symbol: {
+            symbolType: 'circle',
+            fill: '#6690F2'
+          }
+        }
+      ]
     }
   ],
 
@@ -131,22 +146,6 @@ const spec = {
               fill: 'red'
             }
           }
-        },
-        {
-          type: 'component',
-          componentType: 'tooltip',
-          target: 'rect',
-          title: { visible: false, value: 'value' },
-          content: [
-            {
-              key: { field: 'name' },
-              value: { field: 'value' },
-              symbol: {
-                symbolType: 'circle',
-                fill: '#6690F2'
-              }
-            }
-          ]
         }
       ]
     }
