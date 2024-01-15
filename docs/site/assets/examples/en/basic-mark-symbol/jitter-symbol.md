@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-symbol
 title: jitter points
 order: 3-2
-cover:
+cover: /vgrammar/preview/basic-mark-symbol-jitter-symbol_0.10.8.png
 ---
 
 # jitter points

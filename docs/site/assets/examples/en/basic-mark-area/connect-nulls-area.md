@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-area
 title: Connect nulls of area
 order: 1-1
-cover:
+cover: /vgrammar/preview/basic-mark-area-connect-nulls-area_0.10.8.png
 ---
 
 # Connect nulls of area

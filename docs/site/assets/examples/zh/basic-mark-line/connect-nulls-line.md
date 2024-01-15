@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-line
 title: 空白点连线
 order: 1-1
-cover:
+cover: /vgrammar/preview/basic-mark-line-connect-nulls-line_0.10.8.png
 ---
 
 # 空白点连线

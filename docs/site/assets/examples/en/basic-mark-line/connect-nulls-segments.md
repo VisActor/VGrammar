@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-line
 title: Connect nulls of segments
 order: 1-1
-cover:
+cover: /vgrammar/preview/basic-mark-line-connect-nulls-segments_0.10.8.png
 ---
 
 # Connect nulls of segments
