@@ -663,6 +663,11 @@ export interface IViewDragMixin {
   ) => ViewNavigationRange;
 }
 
+export interface IToggleStateMixin {
+  updateStates: (state?: string, reverseState?: string) => void;
+  clearAllStates: (state?: string, reverseState?: string) => void;
+}
+
 export interface ViewStateByDim {
   scale?: IScale;
   data?: IData;

@@ -1,6 +1,17 @@
 import { InteractionStateEnum } from '../graph/enums';
-import type { ElementHighlightOptions, IElement, IGlyphElement, IMark, IView, InteractionEvent } from '../types';
+import type {
+  ElementHighlightOptions,
+  IElement,
+  IGlyphElement,
+  IMark,
+  IToggleStateMixin,
+  IView,
+  InteractionEvent
+} from '../types';
 import { BaseInteraction } from './base';
+import { groupMarksByState } from './utils';
+
+export interface ElementHighlight extends IToggleStateMixin, BaseInteraction<ElementHighlightOptions> {}
 
 export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
   static type: string = 'element-highlight';
@@ -14,14 +25,16 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
   };
   options: ElementHighlightOptions;
   protected _marks?: IMark[];
+  protected _stateMarks: Record<string, IMark[]>;
   protected _lastElement?: IElement;
-  protected _hasBlur?: boolean;
+  protected _statedElements?: (IElement | IGlyphElement)[];
 
   constructor(view: IView, options?: ElementHighlightOptions) {
     super(view, options);
     this.options = Object.assign({}, ElementHighlight.defaultOptions, options);
 
     this._marks = view.getMarksBySelector(this.options.selector);
+    this._stateMarks = groupMarksByState(this._marks, [this.options.highlightState, this.options.blurState]);
   }
 
   protected getEvents() {
@@ -36,26 +49,14 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
 
   clearPrevElements() {
     const { highlightState, blurState } = this.options;
-    let hasReset = false;
-    const resetElements: (IElement | IGlyphElement)[] = [];
 
-    this._marks.forEach(mark => {
-      mark.elements.forEach(el => {
-        hasReset = el.removeState(highlightState);
-        el.removeState(blurState);
+    if (this._lastElement) {
+      this.clearAllStates(highlightState, blurState);
 
-        if (hasReset) {
-          resetElements.push(el);
-        }
-      });
-    });
+      this.dispatchEvent('reset', { elements: [this._lastElement], options: this.options });
 
-    if (resetElements.length) {
-      this.dispatchEvent('reset', { elements: resetElements, options: this.options });
+      this._lastElement = null;
     }
-
-    this._lastElement = null;
-    this._hasBlur = false;
   }
 
   handleStart = (e: InteractionEvent) => {
@@ -65,42 +66,13 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
       if (this._lastElement === e.element) {
         return;
       }
+      this._statedElements = [e.element];
 
-      let hasHighlight = false;
-
-      if (this._lastElement && this._hasBlur) {
-        this._lastElement.removeState(highlightState);
-        this._lastElement.addState(blurState);
-
-        e.element.removeState(blurState);
-        hasHighlight = e.element.addState(highlightState);
-      } else {
-        let hasBlur = false;
-
-        this._marks.forEach(mark => {
-          mark.elements.forEach(el => {
-            const isHighlight = el === e.element;
-
-            if (isHighlight) {
-              el.removeState(blurState);
-              hasHighlight = el.addState(highlightState);
-            } else {
-              el.removeState(highlightState);
-              hasBlur = el.addState(blurState);
-
-              if (hasBlur) {
-                this._hasBlur = true;
-              }
-            }
-          });
-        });
-      }
+      this.updateStates(highlightState, blurState);
 
       this._lastElement = e.element;
 
-      if (hasHighlight) {
-        this.dispatchEvent('start', { elements: [e.element], options: this.options });
-      }
+      this.dispatchEvent('start', { elements: [e.element], options: this.options });
     } else if (this._lastElement) {
       this.clearPrevElements();
     }
