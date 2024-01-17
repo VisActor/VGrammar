@@ -1,3 +1,18 @@
+# v0.10.9
+
+2024-01-17
+
+
+**What's Changed**
+
+
+* feat: upgrade @visactor/vrender-core to locked 0.17.14 by @neuqzxy in https://github.com/VisActor/VGrammar/pull/310
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.10.8...v0.10.9
+
+[更多详情请查看 v0.10.9](https://github.com/VisActor/VGrammar/releases/tag/v0.10.9)
+
 # v0.10.8
 
 2024-01-12
