@@ -503,11 +503,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ### 旭日图
 
 旭日图（Sunburst）是一种以环形结构展示多层级数据关系的图表。旭日图的每个扇区代表一个层级节点，从中心向外表示从根节点到叶节点的层级结构。扇区的大小通常表示节点权重或者其他相对重要度数值。旭日图适用于显示复杂数量的层级数据关系和比较权重，例如文件系统的存储分布、组织架构的人员比例等。
@@ -1017,11 +1018,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ### 树图
 
 树图（Tree）是一种以连接线将树形结构的层级节点串联起来的图表。树图从根节点开始，沿着连接线不断分支，直至叶子节点，形成一个完整的层级关系图。树图适用于显示层级关系明确、深度有限的数据结构，例如公司组织架构、地区政区划分等。
@@ -1552,11 +1554,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ### 矩形树图
 
 矩形树图（Treemap）是一种将层级数据分隔成嵌套矩形的图表。矩形的面积表示节点的权重或者其他相对重要度数值，嵌套关系表示层级结构。矩形树图适用于展示节点间相对权重的层级关系，例如磁盘空间占用情况、销售数据等。
@@ -2050,11 +2053,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 桑基图
 
 桑基图（Sankey）是一种用来表示节点之间流量转移关系的图表。桑基图的节点表示数据实体，而流的大小通常由连接线的宽度来表示。桑基图适用于展示多个相互独立的节点之间的流量转移情况，例如能源流向分析、网站访问路径等。
@@ -2716,11 +2720,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 词云
 
 词云（Wordcloud）是一种将文字数据呈现为词汇组成的云形图像的图表。每个词汇的大小表示其权重或其他数值，视觉上呈现出数据中关键词的重要性差异。词云适用于展示关键词的权重差异，例如文本内容关键词分析、搜索热点关键词等。
@@ -3152,11 +3157,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 形状词云
 
 形状词云（WordcloudShape）是一种基于词云将文字数据呈现在特定形状的图表。与词云相同，每个词汇的大小表示其权重或其他数值，同时形状词云还具较强的视觉美感。形状词云适用于展示关键词的权重差异，同时具有较高的视觉冲击力，例如品牌宣传、商业推广等。
@@ -3658,7 +3664,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

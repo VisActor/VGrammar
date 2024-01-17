@@ -71,7 +71,7 @@ export interface ElementActiveOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType | EventType[];
+  triggerOff?: EventType | EventType[];
   /**
    * the active state name
    */
@@ -101,7 +101,7 @@ export interface ElementSelectOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType | EventType[] | ViewEventType | 'empty' | number;
+  triggerOff?: EventType | EventType[] | ViewEventType | 'empty' | number;
   /**
    * whether or not support multiple selected
    */
@@ -123,7 +123,7 @@ export interface ElementHighlightOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType;
+  triggerOff?: EventType;
   /**
    * the highlight state name
    */
@@ -186,7 +186,7 @@ export interface ElementHighlightByNameOptions extends ElementHighlightByLegendO
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType;
+  triggerOff?: EventType;
 
   parseData?: (e: InteractionEvent) => any;
 }
@@ -273,7 +273,7 @@ export interface RollUpOptions extends DataFilterOptions {
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType | ViewEventType | 'empty';
+  triggerOff?: EventType | ViewEventType | 'empty';
 }
 
 export type CustomTooltipCallback = (
@@ -303,7 +303,7 @@ export interface TooltipOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType;
+  triggerOff?: EventType;
 
   title?: ITooltipRow | string | CustomTooltipCallback;
   content?: ITooltipRow | ITooltipRow[] | CustomTooltipCallback;
@@ -334,7 +334,7 @@ export interface CrosshairOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType;
+  triggerOff?: EventType;
   scale?: IScale | string;
   crosshairType?: CrosshairType;
   crosshairShape?: CrosshairShape;
@@ -361,7 +361,7 @@ export interface ViewZoomSimpleOptions {
   focus?: boolean;
   trigger?: EventType;
   endTrigger?: EventType;
-  resetTrigger?: EventType;
+  triggerOff?: EventType;
 }
 
 export type ViewZoomOptions = ViewZoomSimpleOptions & IBaseInteractionOptions & ViewNavigationBaseOptions;
@@ -409,7 +409,7 @@ export interface SankeyHighlightOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  resetTrigger?: EventType;
+  triggerOff?: EventType;
   /**
    * the highlight state name
    */
@@ -461,7 +461,7 @@ export interface FishEyeOptions extends IBaseInteractionOptions {
   /**
    * the trigger event of reset
    */
-  resetTrigger?: string;
+  triggerOff?: string;
 }
 
 export interface ElementActiveSpec extends ElementActiveOptions {

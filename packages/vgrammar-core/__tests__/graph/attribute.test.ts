@@ -1,6 +1,7 @@
 import {
   cloneTransformAttributes,
   getLineSegmentConfigs,
+  getConnectLineSegmentConfigs,
   isPositionOrSizeChannel,
   transformAttributes
 } from '../../src/graph/attributes';
@@ -410,4 +411,31 @@ test('transformAttributes() of "text"', () => {
       maxLineWidth: undefined
     }
   });
+});
+
+test('getConnectLineSegmentConfigs()', () => {
+  expect(getConnectLineSegmentConfigs([], [])).toBeNull();
+  expect(getConnectLineSegmentConfigs([{}, {}, {}], [])).toBeNull();
+
+  expect(
+    getConnectLineSegmentConfigs(
+      [{ lineDash: [1, 1] }, { lineDash: [1, 1] }, { lineDash: [1, 1] }, { lineDash: [1, 1] }],
+      [
+        { x: 0, y: 0 },
+        { x: 1, y: 0, defined: false },
+        { x: 2, y: 0 },
+        { x: 3, y: 0 }
+      ]
+    )
+  ).toEqual([
+    { lineDash: [1, 1], points: [{ x: 0, y: 0 }] },
+    {
+      isConnect: true,
+      points: [{ x: 2, y: 0 }]
+    },
+    {
+      lineDash: [1, 1],
+      points: [{ x: 3, y: 0 }]
+    }
+  ]);
 });

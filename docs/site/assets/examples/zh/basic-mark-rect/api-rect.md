@@ -131,7 +131,7 @@ vGrammarView.interaction('crosshair', {
   crosshairShape: 'rect'
 });
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

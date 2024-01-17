@@ -274,11 +274,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Create through API form
 
 Developers can create all grammar elements in the visualization scene through the API interface and use the visualization instance to perform rendering:
@@ -408,11 +409,12 @@ vGrammarView.interaction('crosshair', {
   crosshairShape: 'rect'
 });
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Destroy Visualization Instance
 
 When the container is destroyed or a new instance needs to be created, calling the visualization instance's destroy method can better release memory and avoid memory leakage problems:

@@ -165,7 +165,7 @@ export const callback = (view: IView) => {
     text.coordinate(undefined);
     area.coordinate(undefined);
 
-    view.runAsync();
+    view.run();
   });
 
   polarButton.addEventListener('click', () => {
@@ -183,6 +183,6 @@ export const callback = (view: IView) => {
     text.coordinate(polar);
     area.coordinate(polar);
 
-    view.runAsync();
+    view.run();
   });
 };

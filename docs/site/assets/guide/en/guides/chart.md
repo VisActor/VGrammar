@@ -503,11 +503,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ### Sunburst Charts
 
 Sunburst charts are a type of chart that displays multi-level data relationships in a ring-shaped structure. Each sector of a sunburst chart represents a hierarchical node, with the center being the root node and the outer layers representing the leaf nodes. The sector size usually represents node weight or other relative importance values. Sunburst charts are suitable for displaying complex hierarchical data relationships and comparing weights, such as file system storage allocation, and employee proportions within organizational structures.
@@ -1017,11 +1018,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ### Tree Charts
 
 Tree charts are a type of chart that uses connecting lines to link tree-structured hierarchical nodes. Tree charts start from the root node and branch out along the connecting lines until the leaf nodes, forming a complete hierarchical relationship diagram. Tree charts are suitable for displaying hierarchical relationships with clear boundaries and limited depths, such as company organizational structures and regional divisions.
@@ -1552,11 +1554,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ### Treemap Charts
 
 Treemap charts are a type of chart that segments hierarchical data into nested rectangles. The area of the rectangles represents node weight or other relative importance values, and the nesting relationship represents hierarchical structure. Treemap charts are suitable for displaying hierarchical relationships with relative weight differences, such as disk space usage and sales data.
@@ -2050,11 +2053,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Sankey Charts
 
 Sankey charts are a type of chart used to represent the flow transfer relationship between nodes. The nodes in a Sankey chart represent data entities, and the flow size is usually represented by the width of the connecting lines. Sankey charts are suitable for displaying flow transfer situations between multiple independent nodes, such as energy flow analysis and website visit paths.

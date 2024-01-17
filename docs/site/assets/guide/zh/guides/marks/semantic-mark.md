@@ -220,11 +220,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 单元图元 (Cell)
 
 单元图元通常用于表示数据集某一个单位范围内的数值比例，可以用于创建热力图等可视化效果。单元图元类型声明为 `'cell'`。
@@ -545,7 +546,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

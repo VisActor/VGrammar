@@ -17,7 +17,7 @@ export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
     focus: true,
     trigger: 'wheel',
     endTrigger: 'pointerup',
-    resetTrigger: 'dblclick',
+    triggerOff: 'dblclick',
     rate: 1,
     throttle: 100
   };
@@ -38,7 +38,7 @@ export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
     return [
       { type: this.options.trigger, handler: this.handleStart },
       { type: this.options.endTrigger, handler: this.handleEnd },
-      { type: this.options.resetTrigger, handler: this.handleReset }
+      { type: this.options.triggerOff, handler: this.handleReset }
     ];
   }
 

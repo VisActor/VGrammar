@@ -504,16 +504,16 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(roseSpec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 setTimeout(() => {
   vGrammarView.updateSpec(radarSpec);
-  vGrammarView.runAsync({ morph: true });
+  vGrammarView.run({ morph: true });
 }, 500);
 
 setTimeout(() => {
   vGrammarView.updateSpec(funnelSpec);
-  vGrammarView.runAsync({ morph: true });
+  vGrammarView.run({ morph: true });
 }, 2000);
 
 // 只为了方便控制太调试用，不要拷贝

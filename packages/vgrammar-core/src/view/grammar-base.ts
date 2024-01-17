@@ -92,39 +92,10 @@ export abstract class GrammarBase extends EventEmitter implements IGrammarBase {
     return super.emit(event, ...args);
   }
 
-  abstract evaluate(upstream: any, parameters: any): this | Promise<this>;
+  abstract evaluate(upstream: any, parameters: any): this | this;
   abstract output(): any;
-  evaluateSync?: (upstream: any, parameters: any) => this;
 
-  async evaluateTransform(transforms: IGrammarTask[], upstream: any, parameters: any) {
-    if (!transforms || !transforms.length) {
-      return upstream;
-    }
-    let currentUpstreamData = upstream;
-    let i = 0;
-    const n = transforms.length;
-
-    while (i < n) {
-      const task = transforms[i];
-
-      this.emit(HOOK_EVENT.BEFORE_TRANSFORM, task.type);
-      currentUpstreamData = task.transform(
-        task.isRawOptions ? task.options : parseOptions(task.options, parameters),
-        currentUpstreamData,
-        parameters,
-        this.view
-      );
-      if ((currentUpstreamData as any)?.then) {
-        currentUpstreamData = await currentUpstreamData;
-      }
-      i++;
-      this.emit(HOOK_EVENT.AFTER_TRANSFORM, task.type);
-    }
-
-    return currentUpstreamData;
-  }
-
-  evaluateTransformSync(transforms: IGrammarTask[], upstream: any, parameters: any) {
+  evaluateTransform(transforms: IGrammarTask[], upstream: any, parameters: any) {
     if (!transforms || !transforms.length) {
       return upstream;
     }
@@ -221,16 +192,6 @@ export abstract class GrammarBase extends EventEmitter implements IGrammarBase {
   run() {
     const upstream = this.grammarSource?.output();
     const parameters = this.parameters();
-    return this.evaluate(upstream, parameters);
-  }
-
-  runSync() {
-    const upstream = this.grammarSource?.output();
-    const parameters = this.parameters();
-
-    if (this.evaluateSync) {
-      return this.evaluateSync(upstream, parameters);
-    }
     return this.evaluate(upstream, parameters);
   }
 

@@ -180,10 +180,10 @@ export const callback = (view: IView) => {
 
   exitButton.addEventListener('click', () => {
     view.lookupData('data')?.values([]);
-    view.runAsync();
+    view.run();
   });
   enterButton.addEventListener('click', () => {
     view.lookupData('data')?.values(originData);
-    view.runAsync();
+    view.run();
   });
 };

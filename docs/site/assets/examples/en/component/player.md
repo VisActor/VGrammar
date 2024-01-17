@@ -3,7 +3,7 @@ category: examples
 group: component
 title: Player
 order: 50-2
-cover:
+cover: /vgrammar/preview/component-player_0.10.8.png
 ---
 
 # Player
@@ -153,6 +153,8 @@ player.on('onPause', a => {
 rect.on('animationEnd', () => {
   animate = null;
 });
+
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

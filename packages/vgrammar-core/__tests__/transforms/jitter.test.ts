@@ -40,8 +40,8 @@ test('jitter transform', () => {
 
   mark.join(data, 'key');
 
-  (data as any).runSync();
-  (mark as any).runSync();
+  (data as any).run();
+  (mark as any).run();
 
   expect(mark.elements[0].getGraphicItem().attribute).toMatchObject({ x: 5, y: 10 });
   expect(mark.elements[1].getGraphicItem().attribute).toMatchObject({ x: 6, y: 11 });

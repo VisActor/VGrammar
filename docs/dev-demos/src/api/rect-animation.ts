@@ -61,7 +61,7 @@ export const callback = (view: IView) => {
     });
     setTimeout(() => {
       bar.commit();
-      view.runAsync();
+      view.run();
     }, 2100);
   });
   streamLightButton.addEventListener('click', () => {
@@ -88,7 +88,7 @@ export const callback = (view: IView) => {
     });
     setTimeout(() => {
       bar.encode('angle', 0);
-      view.runAsync();
+      view.run();
     }, 2100);
   });
 };

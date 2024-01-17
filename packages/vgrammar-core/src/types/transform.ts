@@ -386,7 +386,7 @@ export type IFunctionTransform<Options = any, Input = any, Output = any> = (
   data?: Input,
   params?: Record<string, any>,
   view?: IView
-) => Output | Promise<Output> | IProgressiveTransformResult<Output>;
+) => Output | IProgressiveTransformResult<Output>;
 export interface ITransform<Options = any, Input = any, Output = any> {
   type: string;
   markPhase?: 'beforeJoin' | 'afterEncode' | 'afterEncodeItems';

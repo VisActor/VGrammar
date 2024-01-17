@@ -148,23 +148,23 @@ export const callback = (chartInstance: any) => {
   increaseButton.addEventListener('click', () => {
     const signal = chartInstance.getSignalById('filterSignal');
     signal.value(signal.output() + 1);
-    chartInstance.runAsync();
+    chartInstance.run();
   });
   decreaseButton.addEventListener('click', () => {
     const signal = chartInstance.getSignalById('filterSignal').value();
     signal.value(signal.output() - 1);
-    chartInstance.runAsync();
+    chartInstance.run();
   });
   disappearButton.addEventListener('click', () => {
     chartInstance.getSignalById('animationState').value('disappear');
-    chartInstance.runAsync();
+    chartInstance.run();
   });
   darkThemeButton.addEventListener('click', () => {
     chartInstance.setCurrentTheme('dark');
-    chartInstance.runAsync();
+    chartInstance.run();
   });
   defaultThemeButton.addEventListener('click', () => {
     chartInstance.setCurrentTheme('default');
-    chartInstance.runAsync();
+    chartInstance.run();
   });
 };

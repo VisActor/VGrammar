@@ -122,6 +122,6 @@ export const callback = (view: IView) => {
       datum.v = datum.v + (Math.random() * 20 - 10);
       return datum;
     }));
-    view.runAsync();
+    view.run();
   });
 };

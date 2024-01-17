@@ -249,7 +249,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync().then(() => {
+vGrammarView.run().then(() => {
   vGrammarView.getMarkById('bar').animate.runAnimationByState('loop');
 });
 

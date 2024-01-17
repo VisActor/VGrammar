@@ -238,11 +238,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Arc Mark (Arc)
 
 Arc mark s used to draw arcs and can create visualization effects such as pie charts and ring charts. The graphic type is declared as `'arc'`.
@@ -357,11 +358,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Area Mark (Area)
 
 Area mark is used to draw areas between closed curves and coordinate axes, creating visualization effects such as area charts. The graphic type is declared as `'area'`.
@@ -586,11 +588,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Line Mark (Line)
 
 Line mark is used to draw lines and can create visualization effects such as line charts. The graphic type is declared as `'line'`.
@@ -763,11 +766,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Symbol Mark (Symbol)
 
 Symbol mark is used to draw specific shapes such as circles and rectangles, and can create visualization effects like scatter plots. The graphic type is declared as `'symbol'`.
@@ -1998,11 +2002,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Path Mark (Path)
 
 Path mark is used to draw arbitrary shapes of paths, creating visualization effects such as custom shapes and geographic trajectories. The graphic type is declared as `'path'`.
@@ -2242,11 +2247,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Shape Mark (Shape)
 
 Shape mark is used to draw custom shapes and can create visualization effects such as maps. The graphic type is declared as `'shape'`.
@@ -2477,11 +2483,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Rich Text Mark (Richtext)
 
 Rich text mark is used to draw styled text and can create visualization effects such as highlights and links. The graphic type is declared as `'richtext'`.
@@ -2695,11 +2702,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## Polygon Mark (Polygon)
 
 Polygon mark is used to draw polygons and can create visualization effects such as funnel charts and convex hulls. The graphic type is declared as `'polygon'`.
@@ -2856,11 +2864,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 3D Rectangle Mark (Rect3d)
 
 3D rectangle mark is used to draw cuboids and can create visualization effects such as bar charts in 3D visualizations. The graphic type is declared as `'rect3d'`.
@@ -3062,11 +3071,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 3D Arc Mark (Arc3d)
 
 3D arc mark is used to draw cylinders and can create visualization effects such as pie charts and ring charts in 3D visualizations. The graphic type is declared as `'arc3d'`.
@@ -3184,11 +3194,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 3D Pyramid Mark (Pyramid3d)
 
 3D pyramid marks is used to draw pyramid-shaped hexahedrons and can create visualization effects such as funnel charts in 3D visualizations. The graphic type is declared as `'pyramid3d'`.
@@ -3333,7 +3344,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

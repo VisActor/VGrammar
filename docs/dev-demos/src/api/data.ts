@@ -60,6 +60,6 @@ export const callback = (view: View) => {
       { category: 'B', amount: Math.floor(100 * Math.random()), index: 1 },
       { category: 'C', amount: Math.floor(100 * Math.random()), index: 2 }
     ]);
-    view.runAsync();
+    view.run();
   });
 };

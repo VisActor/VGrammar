@@ -60,9 +60,6 @@
 
 {{ elif: ${type} === 'line' || ${type} === 'area' }}
 
-#${prefix} enableSegments(boolean)
-是否开启分段样式；因为分段样式解析需要一定的性能消耗，所以仅在开了了该功能的时候，会检测所有的点对应的样式不一样的时候，自动开启分段样式
-
 #${prefix} curveType(string)
 
 线的类型，支持如下选项：

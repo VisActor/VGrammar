@@ -236,16 +236,16 @@ const vGrammarView = new VGrammarView({
 });
 vGrammarView.parseSpec(roseSpec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 setTimeout(() => {
   vGrammarView.updateSpec(radarSpec);
-  vGrammarView.runAsync({ morph: true });
+  vGrammarView.run({ morph: true });
 }, 500);
 
 setTimeout(() => {
   vGrammarView.updateSpec(funnelSpec);
-  vGrammarView.runAsync({ morph: true });
+  vGrammarView.run({ morph: true });
 }, 2000);
 ```
 
@@ -281,7 +281,7 @@ type AnimationEvent = {
   mark: IMark;
   animationState: string;
   animationConfig: IAnimationConfig;
-}
+};
 ```
 
 图元支持的动画事件，现在有：

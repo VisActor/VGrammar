@@ -161,6 +161,6 @@ export const callback = (chartInstance: IView) => {
 
     chartInstance.getDataById('table').update(newValues);
 
-    chartInstance.runAsync();
+    chartInstance.run();
   });
 };

@@ -198,16 +198,13 @@ export interface IView {
 
   // --- Evaluate API ---
   run: (runningConfig?: IRunningConfig) => this;
-  runNextTick: (runningConfig?: IRunningConfig) => Promise<this>;
-  runAsync: (runningConfig?: IRunningConfig) => Promise<this>;
-  runSync: (runningConfig?: IRunningConfig) => this;
   runBefore: (callback: (view: IView) => void) => this;
   runAfter: (callback: (view: IView) => void) => this;
 
   // --- Theme API ---
   theme: (theme: ITheme | string) => this;
   getCurrentTheme: () => ITheme;
-  setCurrentTheme: (theme: ITheme | string, render?: boolean) => Promise<this>;
+  setCurrentTheme: (theme: ITheme | string, render?: boolean) => this;
 
   // --- Global Config API ---
   background: (value?: IColor) => IColor;
@@ -233,7 +230,7 @@ export interface IView {
     ...args: EventEmitter.EventArgs<string | symbol, T>
   ) => boolean;
 
-  resize: (width: number, height: number, render?: boolean) => Promise<this>;
+  resize: (width: number, height: number, render?: boolean) => this;
   traverseMarkTree: (apply: (mark: IMark) => any, filter?: (mark: IMark) => boolean, leafFirst?: boolean) => this;
 
   getLayoutState: () => string;

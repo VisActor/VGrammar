@@ -192,11 +192,8 @@ const spec = {
     },
     {
       type: 'component',
+      id: 'dataZoom',
       componentType: 'datazoom',
-      target: {
-        data: 'markData',
-        filter: 'time'
-      },
       dependency: ['viewBox'],
       preview: {
         data: 'table',
@@ -215,6 +212,17 @@ const spec = {
         }
       }
     }
+  ],
+
+  interactions: [
+    {
+      type: 'datazoom-filter',
+      source: '#dataZoom',
+      target: {
+        data: 'markData',
+        filter: 'time'
+      }
+    }
   ]
 };
 
@@ -225,7 +233,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

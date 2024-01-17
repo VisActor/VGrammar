@@ -16,7 +16,7 @@ import { invokeParameterFunctionType, isGrammar, parseFunctionType } from '../pa
 import { parseTransformSpec } from '../parse/transform';
 import type { Nil } from '../types/base';
 import { HOOK_EVENT } from '../graph/enums';
-import { load, parseFormat } from '../util/data';
+import { parseFormat } from '../util/data';
 
 export class Data extends GrammarBase implements IData {
   readonly grammarType: GrammarType = 'data';
@@ -129,32 +129,24 @@ export class Data extends GrammarBase implements IData {
     return this._input;
   };
 
-  private load = (
-    options:
-      | { url: ParameterFunctionType<string>; format?: ParameterFunctionType<DataFormatSpec> }
-      | { values: any; format?: ParameterFunctionType<DataFormatSpec> }
-  ) => {
+  private load = (options: { values: any; format?: ParameterFunctionType<DataFormatSpec> }) => {
     if ((options as { values: any; format?: ParameterFunctionType<DataFormatSpec> }).values) {
       return this.ingest(options as { values: any; format?: ParameterFunctionType<DataFormatSpec> });
     }
-    const url = invokeParameterFunctionType((options as { url: ParameterFunctionType<string> }).url, this.parameters());
-    // default format for loaded data is json
-    const format = invokeParameterFunctionType(options.format, this.parameters()) ?? { type: 'json' };
-    return load(url).then(data => this.ingest({ values: data, format }));
   };
 
   private relay = (options: any[]) => {
     return options[0];
   };
 
-  async evaluate(upstream: any, parameters: any) {
+  evaluate(upstream: any, parameters: any) {
     this.view.emit(HOOK_EVENT.BEFORE_EVALUATE_DATA);
     const tasks = this._isLoaded ? this.transforms : this._loadTasks.concat(this.transforms);
     if (this.grammarSource) {
       this._input = upstream;
     }
 
-    const values = await this.evaluateTransform(tasks, this._input, parameters);
+    const values = this.evaluateTransform(tasks, this._input, parameters);
     const filteredValues = this._evaluateFilter(values, parameters);
     this.setValues(filteredValues);
 
@@ -163,21 +155,6 @@ export class Data extends GrammarBase implements IData {
 
     return this;
   }
-
-  evaluateSync = (upstream: any, parameters: any) => {
-    this.view.emit(HOOK_EVENT.BEFORE_EVALUATE_DATA);
-    const tasks = this._isLoaded ? this.transforms : this._loadTasks.concat(this.transforms);
-
-    const values = this.evaluateTransformSync(tasks, this.grammarSource ? upstream : this._input, parameters);
-    const filteredValues = this._evaluateFilter(values, parameters);
-    this.setValues(filteredValues);
-
-    this._isLoaded = true;
-
-    this.view.emit(HOOK_EVENT.AFTER_EVALUATE_DATA);
-
-    return this;
-  };
 
   output() {
     return this._values;

@@ -296,8 +296,9 @@ const createChartBySpec = (spec: any) => {
 
   (window as any).view = chartInstance;
 
-  chartInstance.runAsync().then(() => {
-    const runFinish = performance.now();
+  chartInstance.run();
+
+  const runFinish = performance.now();
     console.log('================ all time =====================', runFinish - start);
     let sum = 0;
     console.table(
@@ -319,8 +320,6 @@ const createChartBySpec = (spec: any) => {
     );
 
     console.log('sum', sum);
-
-  });
 
   return chartInstance;
 };
@@ -361,7 +360,7 @@ const createChartByPlot = (runner: any) => {
   (window as any).view = chartInstance;
   runner(chartInstance);
 
-  chartInstance.runAsync();
+  chartInstance.run();
 
   return chartInstance;
 };

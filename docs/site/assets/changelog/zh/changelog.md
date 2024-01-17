@@ -1,3 +1,17 @@
+# v0.10.8
+
+2024-01-12
+
+**What's Changed**
+* Fix/custom animation not take effect by @xiaoluoHe in https://github.com/VisActor/VGrammar/pull/303
+* Fix/wordcloud additional padding by @skie1997 in https://github.com/VisActor/VGrammar/pull/302
+* fix: fix bug of element-select and element-highlight by @xile611 in https://github.com/VisActor/VGrammar/pull/305
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.10.7...v0.10.8
+
+[更多详情请查看 v0.10.8](https://github.com/VisActor/VGrammar/releases/tag/v0.10.8)
+
 # v0.10.7
 
 2024-01-08
