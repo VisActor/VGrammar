@@ -1,3 +1,16 @@
+
+# v0.11.1
+
+2024-01-17
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix bug of `evaluate()` in View
+
+
+[更多详情请查看 v0.11.1](https://github.com/VisActor/VGrammar/releases/tag/v0.11.1)
+
 # v0.11.0
 
 2024-01-17
