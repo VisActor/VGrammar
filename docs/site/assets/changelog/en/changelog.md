@@ -8,8 +8,41 @@
 - **@visactor/vgrammar-core**: fix bug of `evaluate()` in View
 
 
-
 [more detail about v0.11.1](https://github.com/VisActor/VGrammar/releases/tag/v0.11.1)
+
+
+# v0.11.0
+
+2024-01-17
+
+**🆕 New feature**
+
+- **@visactor/vgrammar-core**: support `connectNulls` of line/area mark
+- **@visactor/vgrammar-core**: upgrade @visactor/vrender-core to locked 0.17.14
+
+**🔨 Refactor**
+
+- **BREAKING** **@visactor/vgrammar-core**: rename `resetTrigger` to `triggerOff` in interactions
+- **BREAKING** **@visactor/vgrammar-core**: remove `runAsync` and `runSync` in view
+- **@visactor/vgrammar-core**: refactor wordcloud-shape to support renderSync
+
+[more detail about v0.11.0](https://github.com/VisActor/VGrammar/releases/tag/v0.11.0)
+
+
+# v0.10.9
+
+2024-01-17
+
+**What's Changed**
+
+
+* feat: upgrade @visactor/vrender-core to locked 0.17.14 by @neuqzxy in https://github.com/VisActor/VGrammar/pull/310
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.10.8...v0.10.9
+
+[more detail about v0.10.9](https://github.com/VisActor/VGrammar/releases/tag/v0.10.9)
+
 
 # v0.10.8
 
