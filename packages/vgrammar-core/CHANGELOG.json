@@ -2,6 +2,30 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.0",
+      "tag": "@visactor/vgrammar-core_v0.11.0",
+      "date": "Mon, 15 Jan 2024 11:12:26 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: support `connectNulls` of line/area mark"
+          },
+          {
+            "comment": "feat: upgrade @visactor/vrender-core to locked 0.17.14"
+          },
+          {
+            "comment": "refactor!: rename `resetTrigger` to `triggerOff` in interactions\n\n"
+          },
+          {
+            "comment": "refactor!: remove `runAsync` and `runSync` in view"
+          },
+          {
+            "comment": "refactor: refactor wordcloud-shape to support renderSync\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.10.7",
       "tag": "@visactor/vgrammar-core_v0.10.7",
       "date": "Thu, 11 Jan 2024 02:31:38 GMT",

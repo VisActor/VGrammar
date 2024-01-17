@@ -770,12 +770,12 @@ export const callback = (view: IView) => {
 
   updateToMorphButton.addEventListener('click', () => {
     view.updateSpec(singleMorphSpec);
-    view.runAsync({ morph: true, animation: { delay: 500, duration: 1000, easing: 'quadInOut' } });
+    view.run({ morph: true, animation: { delay: 500, duration: 1000, easing: 'quadInOut' } });
   });
 
   updateToMultiMorphButton.addEventListener('click', () => {
     view.updateSpec(multiMorphSpec);
-    view.runAsync({
+    view.run({
       morph: true,
       animation: { duration: 1000, easing: 'quadInOut', oneByOne: 50, splitPath: 'clone' }
     });
@@ -783,11 +783,11 @@ export const callback = (view: IView) => {
 
   updateToReuseButton.addEventListener('click', () => {
     view.updateSpec(reuseSpec);
-    view.runAsync();
+    view.run();
   });
 
   updateToOriginButton.addEventListener('click', () => {
     view.updateSpec(spec);
-    view.runAsync({ morph: true, animation: { delay: 500, duration: 1000, easing: 'quadInOut', oneByOne: 50 } });
+    view.run({ morph: true, animation: { delay: 500, duration: 1000, easing: 'quadInOut', oneByOne: 50 } });
   });
 };

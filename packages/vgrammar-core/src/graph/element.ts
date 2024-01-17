@@ -16,7 +16,7 @@ import { isEqual } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import { BridgeElementKey } from './constants';
 import { DiffState, HOOK_EVENT, GrammarMarkType, BuiltInEncodeNames } from './enums';
-import { invokeEncoderToItems } from './mark/encode';
+import { invokeEncoder, invokeEncoderToItems } from './mark/encode';
 import { removeGraphicItem } from './util/graphic';
 import { transformAttributes } from './attributes/transform';
 import {
@@ -26,7 +26,12 @@ import {
   isValidPointsChannel,
   isPointsMarkType
 } from './attributes/helpers';
-import { getLineSegmentConfigs, getLinePointsFromSegments, parseCollectionMarkAttributes } from './attributes/line';
+import {
+  getLineSegmentConfigs,
+  getLinePointsFromSegments,
+  parseCollectionMarkAttributes,
+  getConnectLineSegmentConfigs
+} from './attributes/line';
 import type {
   BaseEncodeSpec,
   BaseSingleEncodeSpec,
@@ -489,9 +494,11 @@ export class Element implements IElement {
       isNil(item.nextAttrs?.points) &&
       (computePoints === true || isValidPointsChannel(Object.keys(item.nextAttrs), this.mark.markType))
     ) {
+      const markSpec = this.mark.getSpec();
       const lastPoints = this.getGraphicAttribute('points', false);
       const lastSegments = this.getGraphicAttribute('segments', false);
-      const enableSegments = this.mark.getSpec().enableSegments;
+      const enableSegments = markSpec.enableSegments;
+      const connectNullsEncoder = (this.mark.getSpec() as MarkSpec).encode?.[BuiltInEncodeNames.connectNulls];
       const itemNextAttrs = items.map(item => item.nextAttrs);
       const isProgressive = this.mark.isProgressive();
       nextAttrs = parseCollectionMarkAttributes(nextAttrs);
@@ -499,8 +506,27 @@ export class Element implements IElement {
       if (markType === GrammarMarkType.line || markType === GrammarMarkType.area) {
         const linePoints = getLinePoints(items, true, lastPoints, markType === GrammarMarkType.area);
 
-        // chartspace新增了配置，用于开启线段解析；渐进渲染状态不支持线段样式
-        if (enableSegments && !isProgressive) {
+        // vchart新增了配置，用于开启线段解析；渐进渲染状态不支持线段样式；也不支持连接线
+        if (isProgressive) {
+          nextAttrs.segments = ((this.graphicItem as ILine)?.attribute?.segments ?? []).concat([
+            { points: linePoints }
+          ]);
+        } else if (connectNullsEncoder) {
+          nextAttrs.segments = getConnectLineSegmentConfigs(itemNextAttrs, linePoints, this);
+
+          if (nextAttrs.segments && nextAttrs.segments.some((seg: any) => seg.isConnect)) {
+            const connectStyle = invokeEncoder(connectNullsEncoder, this.getDatum(), this, this.mark.parameters());
+
+            connectStyle &&
+              nextAttrs.segments.forEach((seg: any) => {
+                if (seg.isConnect) {
+                  Object.assign(seg, connectStyle);
+                }
+              });
+          }
+          // when connectNulls, points need to be saved
+          nextAttrs.points = linePoints;
+        } else if (enableSegments) {
           const points = !linePoints || linePoints.length === 0 ? getLinePointsFromSegments(lastSegments) : linePoints;
           const segments = getLineSegmentConfigs(itemNextAttrs, points, this);
 
@@ -511,10 +537,6 @@ export class Element implements IElement {
             nextAttrs.segments = null;
             nextAttrs.points = points;
           }
-        } else if (isProgressive) {
-          nextAttrs.segments = ((this.graphicItem as ILine)?.attribute?.segments ?? []).concat([
-            { points: linePoints }
-          ]);
         } else {
           nextAttrs.points = linePoints;
           nextAttrs.segments = null;

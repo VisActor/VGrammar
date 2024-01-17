@@ -252,18 +252,18 @@ export const spec = {
             }
           }
         },
-        {
-          type: 'component',
-          componentType: 'tooltip',
-          target: 'bar',
-          encode: { update: { offsetX: 40 } },
-          title: { value: 'HEY!HEY!HEY!' },
-          content: {
-            key: { text: 'amount', fillColor: 'red' },
-            value: datum => datum.amount,
-            symbol: { fillColor: 'red', symbolType: 'square' }
-          }
-        }
+        // {
+        //   type: 'component',
+        //   componentType: 'tooltip',
+        //   target: 'bar',
+        //   encode: { update: { offsetX: 40 } },
+        //   title: { value: 'HEY!HEY!HEY!' },
+        //   content: {
+        //     key: { text: 'amount', fillColor: 'red' },
+        //     value: datum => datum.amount,
+        //     symbol: { fillColor: 'red', symbolType: 'square' }
+        //   }
+        // }
       ]
     },
     {
@@ -370,14 +370,14 @@ export const callback = (chartInstance: any) => {
   });
   increaseButton.addEventListener('click', () => {
     chartInstance.signal('filterSignal', chartInstance.signal('filterSignal') + 1);
-    chartInstance.runAsync();
+    chartInstance.run();
   });
   decreaseButton.addEventListener('click', () => {
     chartInstance.signal('filterSignal', chartInstance.signal('filterSignal') - 1);
-    chartInstance.runAsync();
+    chartInstance.run();
   });
   disappearButton.addEventListener('click', () => {
     chartInstance.signal('animationState', 'disappear');
-    chartInstance.runAsync();
+    chartInstance.run();
   });
 };

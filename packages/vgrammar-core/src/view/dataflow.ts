@@ -18,12 +18,9 @@ export default class Dataflow implements IDataflow {
   private _heap?: Heap;
   private _beforeRunner?: IDataflowCallback;
   private _afterRunner?: IDataflowCallback;
-  /** 正在运行dataflow */
-  private _isRunning?: boolean;
   private _updateCounter: number;
   /** 是否完成初次渲染 */
   private _finishFirstRender?: boolean;
-  private _isReleased: boolean;
 
   constructor() {
     this.logger = Logger.getInstance();
@@ -35,17 +32,8 @@ export default class Dataflow implements IDataflow {
     this._heap = new Heap((a, b) => a?.qrank - b?.qrank);
     this._beforeRunner = null;
     this._afterRunner = null;
-    this._isRunning = false;
     this._updateCounter = 0;
     this._finishFirstRender = false;
-  }
-
-  async asyncCallback(callback: (context: IDataflow) => any) {
-    try {
-      await callback(this);
-    } catch (err) {
-      this.logger.error(err);
-    }
   }
 
   add(grammar: IGrammarBase) {
@@ -131,14 +119,8 @@ export default class Dataflow implements IDataflow {
 
   // OPERATOR UPDATES
   commit(grammar: IGrammarBase) {
-    if (this._isRunning) {
-      // this may lead to a problem, the same op may be added to the queue multiple times
-      // if in midst of propagation, add to priority queue
-      this._enqueue(grammar);
-    } else {
-      // otherwise, queue for next propagation
-      this._committed.add(grammar);
-    }
+    // otherwise, queue for next propagation
+    this._committed.add(grammar);
 
     return this;
   }
@@ -161,98 +143,7 @@ export default class Dataflow implements IDataflow {
     }
   }
 
-  async evaluate() {
-    if (this._isReleased) {
-      return;
-    }
-    // invoke prerun function, if provided
-    if (this._beforeRunner) {
-      await this.asyncCallback(this._beforeRunner);
-    }
-
-    // exit early if there are no updates
-    if (!this._committed.length) {
-      this.logger.info('Dataflow invoked, but nothing to do.');
-      return false;
-    }
-
-    this._isRunning = true;
-    this._updateCounter += 1;
-    let count = 0;
-    let grammar;
-    let next;
-    let dt;
-    let error;
-
-    if (this.logger.canLogInfo()) {
-      dt = Date.now();
-      this.logger.debug(`-- START PROPAGATION (${this._updateCounter}) -----`);
-    }
-
-    this._beforeEvaluate();
-
-    try {
-      while (this._heap.size() > 0) {
-        if (this._isReleased) {
-          break;
-        }
-        // dequeue grammar with highest priority
-        grammar = this._heap.pop();
-
-        if (!grammar) {
-          continue;
-        }
-
-        // re-queue if rank changed
-        if (grammar.rank !== grammar.qrank) {
-          this._enqueue(grammar);
-          continue;
-        }
-
-        next = grammar.run();
-
-        // await if grammar returned a promise
-        if (next && next.then) {
-          next = await next;
-        }
-
-        // finish evaluation if dataflow is stopped during asynchronous process
-        if (!this._isRunning) {
-          return false;
-        }
-
-        this._logGrammarRunInfo(grammar);
-        this._enqueueTargets(grammar);
-        count += 1;
-      }
-    } catch (err) {
-      this._heap.clear();
-      error = err;
-    }
-    if (this._isReleased) {
-      return false;
-    }
-
-    this._isRunning = false;
-
-    if (this.logger.canLogInfo()) {
-      dt = Date.now() - dt;
-      this.logger.info(`> ${count} grammars; ${dt} ms`);
-    }
-
-    if (error) {
-      this.logger.error(error);
-    } else if (this._afterRunner) {
-      // invoke callbacks queued via runAfter
-      await this.asyncCallback(this._afterRunner);
-    }
-
-    this._finishFirstRender = true;
-
-    return true;
-  }
-
-  evaluateSync() {
+  evaluate() {
     // invoke prerun function, if provided
     if (this._beforeRunner) {
       this._beforeRunner(this);
@@ -264,7 +155,6 @@ export default class Dataflow implements IDataflow {
       return false;
     }
 
-    this._isRunning = true;
     this._updateCounter += 1;
     let count = 0;
     let grammar;
@@ -292,14 +182,12 @@ export default class Dataflow implements IDataflow {
         continue;
       }
 
-      grammar.runSync();
+      grammar.run();
 
       this._logGrammarRunInfo(grammar);
       this._enqueueTargets(grammar);
       count += 1;
     }
-
-    this._isRunning = false;
 
     if (this.logger.canLogInfo()) {
       dt = Date.now() - dt;
@@ -317,13 +205,6 @@ export default class Dataflow implements IDataflow {
     return true;
   }
 
-  private stop() {
-    if (!this._isRunning) {
-      return;
-    }
-    this._isRunning = false;
-  }
-
   runBefore(callback?: IDataflowCallback) {
     this._beforeRunner = callback;
   }
@@ -333,10 +214,6 @@ export default class Dataflow implements IDataflow {
   }
 
   release() {
-    // stop asynchronous evaluation
-    this.stop();
-    this._isReleased = true;
-
     if (this._heap) {
       this._heap.clear();
       this._heap = null;

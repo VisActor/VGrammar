@@ -186,7 +186,6 @@ export interface IPlot {
   ///--------- life cycle ---------///
 
   run: (runningConfig?: IRunningConfig) => this;
-  runAsync: (runningConfig?: IRunningConfig) => Promise<this>;
   release: () => this;
   parseSpec: (spec: PlotSpec) => this;
   updateSpec: (spec: PlotSpec) => this;

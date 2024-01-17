@@ -73,7 +73,7 @@ export const callback = (chartInstance: any) => {
   removeButton.addEventListener('click', () => {
     const leftBar = chartInstance.getMarkById('leftBar');
     chartInstance.removeModel(leftBar);
-    chartInstance.runAsync();
+    chartInstance.run();
   });
 
   addButton.addEventListener('click', () => {
@@ -84,6 +84,6 @@ export const callback = (chartInstance: any) => {
       height: 150,
       fill: 'pink'
     });
-    chartInstance.runAsync();
+    chartInstance.run();
   });
 };

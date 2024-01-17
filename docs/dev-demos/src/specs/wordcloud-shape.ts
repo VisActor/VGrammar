@@ -61,8 +61,54 @@ export const spec = {
             return datum.sum_count;
           }
         },
+      ]
+    },
+    // {
+    //   id: 'keywords',
+    //   source: 'table',
+    //   transform: [
+    //     {
+    //       type: 'filter',
+    //       callback: (datum: any) => {
+    //         return !datum.isFillingWord;
+    //       }
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 'filling',
+    //   source: 'table',
+    //   transform: [
+    //     {
+    //       type: 'filter',
+    //       callback: (datum: any) => {
+    //         return datum.isFillingWord;
+    //       }
+    //     }
+    //   ]
+    // }
+  ],
+  scales: [
+    {
+      id: 'keyWordsColor',
+      type: 'ordinal',
+      range: ['#d5a928', '#652c90', '#939597']
+    },
+    {
+      id: 'fillingWordsColor',
+      type: 'ordinal',
+      range: ['#000']
+    }
+  ],
+  marks: [
+    // keywords
+    {
+      type: 'text',
+      from: { data: 'table' },
+      transform: [
         {
           type: 'wordcloudShape',
+          dataIndexKey: 'text_key',
           size: [CANVAS_WIDTH, CANVAS_HEIGHT],
           fontFamily: { field: 'font' },
           fontSize: { field: 'value' },
@@ -161,50 +207,8 @@ export const spec = {
           fillingXRatioStep: 0.008, // 步长为宽度的比例
           fillingYRatioStep: 0.008
         }
-      ]
-    },
-    {
-      id: 'keywords',
-      source: 'table',
-      transform: [
-        {
-          type: 'filter',
-          callback: (datum: any) => {
-            return !datum.isFillingWord;
-          }
-        }
-      ]
-    },
-    {
-      id: 'filling',
-      source: 'table',
-      transform: [
-        {
-          type: 'filter',
-          callback: (datum: any) => {
-            return datum.isFillingWord;
-          }
-        }
-      ]
-    }
-  ],
-  scales: [
-    {
-      id: 'keyWordsColor',
-      type: 'ordinal',
-      range: ['#d5a928', '#652c90', '#939597']
-    },
-    {
-      id: 'fillingWordsColor',
-      type: 'ordinal',
-      range: ['#000']
-    }
-  ],
-  marks: [
-    // keywords
-    {
-      type: 'text',
-      from: { data: 'keywords' },
+      ],
+      key: 'text_key',
       encode: {
         enter: {
           // "text": { "field": "challenge_name" },
@@ -215,14 +219,14 @@ export const spec = {
           fontFamily: { field: 'fontFamily' },
           fontWeight: { field: 'fontWeight' },
           fontStyle: { field: 'fontStyle' },
-          visible: { field: 'visible' }
+          // visible: { field: 'visible' }
         },
         update: {
           x: { field: 'x' },
           y: { field: 'y' },
           angle: { field: 'angle' },
           fontSize: { field: 'fontSize' },
-          fillOpacity: { field: 'opacity' }
+          // fillOpacity: { field: 'opacity' }
         },
         hover: {
           fillOpacity: { value: 0.5 }
@@ -230,28 +234,28 @@ export const spec = {
       }
     },
     // fillingwords
-    {
-      type: 'text',
-      from: { data: 'filling' },
-      encode: {
-        enter: {
-          text: { field: 'name' },
-          textAlign: 'center',
-          textBaseline: 'alphabetic',
-          fill: { field: 'color' },
-          fontFamily: { field: 'fontFamily' },
-          fontWeight: { field: 'fontWeight' },
-          fontStyle: { field: 'fontStyle' },
-          fillOpacity: { field: 'opacity' }
-        },
-        update: {
-          x: { field: 'x' },
-          y: { field: 'y' },
-          angle: { field: 'angle' },
-          fontSize: { field: 'fontSize' }
-        }
-      }
-    }
+    // {
+    //   type: 'text',
+    //   from: { data: 'filling' },
+    //   encode: {
+    //     enter: {
+    //       text: { field: 'name' },
+    //       textAlign: 'center',
+    //       textBaseline: 'alphabetic',
+    //       fill: { field: 'color' },
+    //       fontFamily: { field: 'fontFamily' },
+    //       fontWeight: { field: 'fontWeight' },
+    //       fontStyle: { field: 'fontStyle' },
+    //       fillOpacity: { field: 'opacity' }
+    //     },
+    //     update: {
+    //       x: { field: 'x' },
+    //       y: { field: 'y' },
+    //       angle: { field: 'angle' },
+    //       fontSize: { field: 'fontSize' }
+    //     }
+    //   }
+    // }
     // {
     //   id: 'marks',
     //   type: 'symbol',

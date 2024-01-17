@@ -9,7 +9,7 @@ export class RollUp extends Filter {
 
   static defaultOptions: Omit<RollUpOptions, 'target'> = {
     trigger: 'click',
-    resetTrigger: 'empty'
+    triggerOff: 'empty'
   };
   options: RollUpOptions;
 
@@ -51,11 +51,11 @@ export class RollUp extends Filter {
     ];
 
     const eventName =
-      this.options.resetTrigger === 'empty'
+      this.options.triggerOff === 'empty'
         ? this.options.trigger
-        : this.options.resetTrigger.includes('view:')
-        ? this.options.resetTrigger.replace('view:', '')
-        : this.options.resetTrigger;
+        : this.options.triggerOff.includes('view:')
+        ? this.options.triggerOff.replace('view:', '')
+        : this.options.triggerOff;
 
     if (eventName !== this.options.trigger) {
       events.push({

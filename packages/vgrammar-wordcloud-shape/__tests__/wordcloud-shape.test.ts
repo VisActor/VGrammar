@@ -10,7 +10,7 @@ test('Wordcloud shape should return empty data when shape is wrong', async () =>
     { text: 'baz', size: 25, index: 2 },
     { text: 'abc', size: 1, index: 3 }
   ];
-  const result = await transform(
+  const result = transform(
     {
       size: [500, 500],
       text: { field: 'text' },
@@ -29,7 +29,7 @@ test('Wordcloud shape should return empty data when size is undefined', async ()
     { text: 'baz', size: 25, index: 2 },
     { text: 'abc', size: 1, index: 3 }
   ];
-  const result = await transform(
+  const result = transform(
     {
       size: undefined,
       text: { field: 'text' },
@@ -48,7 +48,7 @@ test('Wordcloud shape should return empty data when size is [0, 0]', async () =>
     { text: 'baz', size: 25, index: 2 },
     { text: 'abc', size: 1, index: 3 }
   ];
-  const result = await transform(
+  const result = transform(
     {
       size: [0, 0],
       text: { field: 'text' },

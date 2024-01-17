@@ -238,11 +238,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 弧形图元 (Arc)
 
 弧形图元用于绘制圆弧，可以用来创建饼图、环形图等可视化效果。图元类型声明为 `'arc'`。
@@ -357,11 +358,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 面积图元 (Area)
 
 面积图元用于绘制封闭曲线与坐标轴之间的区域，可以用来创建面积图等可视化效果。图元类型声明为 `'area'`。
@@ -586,11 +588,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 线图元 (Line)
 
 线图元用于绘制折线，可以用来创建折线图等可视化效果。图元类型声明为 `'line'`。
@@ -763,11 +766,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 符号图元 (Symbol)
 
 符号图元用于绘制特定图形，如圆、矩形等，可以用来创建散点图等可视化效果。图元类型声明为 `'symbol'`。
@@ -1998,11 +2002,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 路径图元 (Path)
 
 路径图元用于绘制任意形状的路径，可以用来创建自定义的图形和地理轨迹等可视化效果。图元类型声明为 `'path'`。
@@ -2242,11 +2247,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 形状图元 (Shape)
 
 形状图元用于绘制自定义形状，可以用来创建地图等可视化效果。图元类型声明为 `'shape'`。
@@ -2477,11 +2483,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 富文本图元 (Richtext)
 
 富文本图元用于绘制带有样式的文本，可以用来创建高亮、链接等可视化效果。图元类型声明为 `'richtext'`。
@@ -2695,11 +2702,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 多边形图元 (Polygon)
 
 多边形图元用于绘制多边形，可以用来创建漏斗图、凸包等可视化效果。图元类型声明为 `'polygon'`。
@@ -2856,11 +2864,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 三维矩形图元 (Rect3d)
 
 三维矩形图元用于绘制长方体，可以用来创建三维可视化中的柱状图等可视化效果。图元类型声明为 `'rect3d'`。
@@ -3062,11 +3071,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 三维弧形图元 (Arc3d)
 
 三维弧形图元用于绘制柱体，可以用来创建三维可视化中的饼图、环形图等可视化效果。图元类型声明为 `'arc3d'`。
@@ -3184,11 +3194,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 三维金字塔图元 (Pyramid3d)
 
 三维金字塔图元用于绘制金字塔形状的六面体，可以用来创建三维可视化中的漏斗图等可视化效果。图元类型声明为 `'pyramid3d'`。
@@ -3333,7 +3344,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

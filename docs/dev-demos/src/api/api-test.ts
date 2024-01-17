@@ -69,7 +69,7 @@ export const callback = (view: View) => {
   updateEnterButton.addEventListener('click', () => {
     const dataBar = view.getMarkById('dataBar');
     dataBar.encodeState('enter', { fill: () => { console.log('reenter!'); return 'red'; } });
-    view.runAsync();
+    view.run();
   });
   updateDataButton.addEventListener('click', () => {
     const data = view.getDataById('data');
@@ -78,6 +78,6 @@ export const callback = (view: View) => {
       { category: 'B', amount: Math.floor(100 * Math.random()), index: 1 },
       { category: 'C', amount: Math.floor(100 * Math.random()), index: 2 }
     ]);
-    view.runAsync();
+    view.run();
   });
 };

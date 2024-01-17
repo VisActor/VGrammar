@@ -245,11 +245,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 一个简单的极坐标系轴示例为：
 
 <div class="examples-ref-container" id="examples-ref-axis-polar" data-path="mark-interval/polar-interval"></div>
@@ -459,11 +460,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 图例 (Legend)
 
 图例组件主要用于呈现图表中不同数据系列的标识，帮助用户理解图表内容。对于不同类型的图表，如折线图、柱状图等，图例可以表示多种信息（如颜色、形状等）。
@@ -717,11 +719,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 筛选器 (Slider)
 
 筛选器是一种实现数据过滤和缩放的交互组件。用户通过拖动筛选器条，实现对数据范围的调整。用户可以通过拖动滑块间距和位置来控制数据范围。通过操作筛选器，用户可根据需要查看指定范围的数据。
@@ -2002,11 +2005,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 缩略轴 (Datazoom)
 
 缩略轴用于在较长的数据序列中进行局部查看。它可以方便地放大和缩小数据可视化范围，并提供一个较为直观的交互体验。通过设置缩略轴，用户可以更轻松地查看或筛选感兴趣的信息，提高数据分析效率。
@@ -2231,11 +2235,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 标签 (Label)
 
 标签通常用于向可视化图形元素添加文字说明，帮助用户快速了解数据点的具体信息。
@@ -2483,11 +2488,12 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
 ```
+
 ## 播放器 (Player)
 
 在可视化场景中，有时需要展示数据随时间变化的过程。通过使用放器功能，用户可以通过时间线轴观察数据的动态变化。

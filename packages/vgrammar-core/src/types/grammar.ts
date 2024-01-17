@@ -100,7 +100,6 @@ export interface IGrammarBase {
   output: () => any;
   parse: (spec: any) => this;
   parameters: () => { [key: string]: any };
-  evaluateSync?: (upstream: any, parameters: any) => this;
   getSpec: () => any;
   reuse: (grammar: IGrammarBase) => this;
   /** clear references */

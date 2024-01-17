@@ -1097,7 +1097,7 @@ plot
   })
   .legend('group', true, { position: 'top', align: 'middle' });
 
-plot.runAsync();
+plot.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = plot;

@@ -40,7 +40,7 @@ export const runner = (view: IView) => {
     .id('container')
     .layout((...args) => {
       yScale.range([view.viewHeight() / 2, 0]);
-      data1.update([
+      data1.values([
         { category: 'A', amount: 28, index: 0 },
         { category: 'B', amount: 55, index: 1 },
         { category: 'C', amount: 43, index: 2 }
@@ -102,14 +102,14 @@ export const callback = (view: IView) => {
   triggerButton.innerText = 'trigger';
   document.getElementById('footer')?.appendChild(triggerButton);
   triggerButton.addEventListener('click', () => {
-    data1.update([
+    data1.values([
       // { category: 'B', amount: 55, index: 1 },
       { category: 'C', amount: 43, index: 2 },
       { category: 'D', amount: 91, index: 3 },
       { category: 'E', amount: 81, index: 4 }
     ]);
     container.layout(() => {
-      data1.update([
+      data1.values([
         { category: 'B', amount: 55, index: 1 },
         // { category: 'C', amount: 43, index: 2 },
         { category: 'D', amount: 91, index: 3 },
@@ -118,7 +118,7 @@ export const callback = (view: IView) => {
       ]);
     });
     view.updateLayoutTag();
-    view.runAsync();
+    view.run();
 
     console.log('Trigger dataflow:');
     console.log(` -- data1: last([A, B, C]) -> update([C, D, E]) -> layout([B, D, F])`);

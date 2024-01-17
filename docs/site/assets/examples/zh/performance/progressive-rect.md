@@ -57,6 +57,21 @@ const spec = {
       scale: 'xscale',
       crosshairShape: 'rect',
       crosshairType: 'x'
+    },
+    {
+      type: 'tooltip',
+      selector: '#rect',
+      title: { visible: false, value: 'value' },
+      content: [
+        {
+          key: { field: 'name' },
+          value: { field: 'value' },
+          symbol: {
+            symbolType: 'circle',
+            fill: '#6690F2'
+          }
+        }
+      ]
     }
   ],
 
@@ -160,7 +175,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

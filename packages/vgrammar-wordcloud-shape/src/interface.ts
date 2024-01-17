@@ -155,3 +155,79 @@ export type CloudWordType = {
   sprite?: number[];
   LT?: [number, number]; // 左上角点
 };
+
+export interface WordCloudShapeOptions {
+  // data index key
+  dataIndexKey?: string;
+
+  // font value 相关
+  text: FieldOption | TagItemAttribute<string> | string;
+
+  // font style 相关
+  size?: [number, number];
+  fontFamily?: FieldOption | TagItemAttribute<string> | string;
+  fontStyle?: FieldOption | TagItemAttribute<string> | string;
+  fontOpacity?: FieldOption | TagItemAttribute<number> | number;
+  fontWeight?: FieldOption | TagItemAttribute<string> | string;
+  fontSize?: FieldOption | TagItemAttribute<number> | number;
+  fontSizeRange?: [number, number];
+  padding?: FieldOption | TagItemAttribute<number> | number;
+
+  // font color 相关
+  colorMode?: 'linear' | 'ordinal';
+  colorField?: FieldOption;
+  colorHexField?: FieldOption;
+  colorList?: string[];
+
+  // font rotate 相关
+  rotate?: FieldOption | TagItemAttribute<number> | number;
+  rotateList?: number[];
+
+  // layout 相关
+  shape: string;
+  random?: boolean;
+  textLayoutTimes?: number;
+  layoutMode?: 'default' | 'ensureMapping' | 'ensureMappingEnlarge';
+  ratio?: number;
+  removeWhiteBorder?: boolean;
+  fontSizeShrinkFactor?: number;
+  stepFactor?: number;
+  importantWordCount?: number;
+  globalShinkLimit?: number;
+  fontSizeEnlargeFactor?: number;
+
+  // fill 相关
+  fillingRatio?: number;
+  fillingTimes?: number;
+  fillingXRatioStep?: number;
+  fillingYRatioStep?: number;
+  fillingXStep?: number;
+  fillingYStep?: number;
+  fillingInitialFontSize?: number;
+  fillingDeltaFontSize?: number;
+  fillingInitialOpacity?: number;
+  fillingDeltaOpacity?: number;
+
+  // fill font style 相关
+  fillingFontFamily?: FieldOption | TagItemAttribute<string> | string;
+  fillingFontStyle?: FieldOption | TagItemAttribute<string> | string;
+  fillingFontWeight?: FieldOption | TagItemAttribute<string> | string;
+  fillingPadding?: FieldOption | TagItemAttribute<number> | number;
+  fillingDeltaFontSizeFactor?: number;
+
+  // fill color 相关
+  fillingColorList?: string[];
+  fillingColorField?: FieldOption;
+
+  // fill rotate 相关
+  fillingRotateList?: number[];
+
+  as?: AsType;
+
+  // 核心词最小初始布局字号
+  minInitFontSize?: number;
+  // 核心词最小布局字号
+  minFontSize?: number;
+  // 填充词词最小布局字号
+  minFillFoontSize?: number;
+}

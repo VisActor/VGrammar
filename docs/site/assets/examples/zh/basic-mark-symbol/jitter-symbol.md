@@ -3,7 +3,7 @@ category: examples
 group: basic-mark-symbol
 title: 扰动点图
 order: 3-2
-cover:
+cover: /vgrammar/preview/basic-mark-symbol-jitter-symbol_0.10.8.png
 ---
 
 # 扰动点图
@@ -26139,7 +26139,7 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

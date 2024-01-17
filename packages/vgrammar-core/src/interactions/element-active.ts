@@ -9,7 +9,7 @@ export class ElementActive extends BaseInteraction<ElementActiveOptions> {
   static defaultOptions: ElementActiveOptions = {
     state: InteractionStateEnum.active,
     trigger: 'pointerover',
-    resetTrigger: 'pointerout'
+    triggerOff: 'pointerout'
   };
   options: ElementActiveOptions;
   protected _marks?: IMark[];
@@ -27,7 +27,7 @@ export class ElementActive extends BaseInteraction<ElementActiveOptions> {
         type: this.options.trigger,
         handler: this.handleStart
       },
-      { type: this.options.resetTrigger, handler: this.handleReset }
+      { type: this.options.triggerOff, handler: this.handleReset }
     ];
   }
 

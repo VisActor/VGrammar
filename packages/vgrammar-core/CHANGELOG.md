@@ -1,6 +1,21 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 11 Jan 2024 02:31:38 GMT and should not be manually modified.
+This log was last generated on Mon, 15 Jan 2024 11:12:26 GMT and should not be manually modified.
+
+## 0.11.0
+Mon, 15 Jan 2024 11:12:26 GMT
+
+### Updates
+
+- feat: support `connectNulls` of line/area mark
+- feat: upgrade @visactor/vrender-core to locked 0.17.14
+- refactor!: rename `resetTrigger` to `triggerOff` in interactions
+
+
+- refactor!: remove `runAsync` and `runSync` in view
+- refactor: refactor wordcloud-shape to support renderSync
+
+
 
 ## 0.10.7
 Thu, 11 Jan 2024 02:31:38 GMT

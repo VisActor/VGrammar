@@ -32,11 +32,11 @@ export class BarChart extends Component<BarChartProps> {
       });
       view.parseSpec(this.parseSpec() as any);
 
-      view.runAsync();
+      view.run();
       this.view = view;
     } else if (this.view) {
       this.view.updateSpec(this.parseSpec() as any);
-      this.view.runAsync();
+      this.view.run();
     }
   }
 
@@ -92,7 +92,7 @@ export const Treemap = (props: TreemapProps) => {
         });
         view.parseSpec(parseSpec(chartProps) as any);
 
-        view.runAsync();
+        view.run();
 
         viewRef.current = view;
         (window as any).treemap = view;
@@ -100,7 +100,7 @@ export const Treemap = (props: TreemapProps) => {
         return true;
       } else if (viewRef.current) {
         viewRef.current.updateSpec(parseSpec(chartProps) as any);
-        viewRef.current.runAsync();
+        viewRef.current.run();
 
         return true;
       }

@@ -372,11 +372,11 @@ export const callback = (view: IView) => {
 
   exitButton.addEventListener('click', () => {
     view.getDataById('data')?.values([]);
-    view.runAsync();
+    view.run();
   });
   enterButton.addEventListener('click', () => {
     view.getDataById('data')?.values(originData);
-    view.runAsync();
+    view.run();
   });
   updateButton.addEventListener('click', () => {
     view.getDataById('data')?.values([
@@ -413,6 +413,6 @@ export const callback = (view: IView) => {
         y5: 500
       }
     ]);
-    view.runAsync();
+    view.run();
   });
 };

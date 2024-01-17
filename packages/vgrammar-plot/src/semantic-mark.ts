@@ -1587,7 +1587,7 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     return this.spec.style;
   }
 
-  protected setMainMarkSpec() {
+  protected setMainMarkSpec(parsedMainSpec: any) {
     return {};
   }
 
@@ -1636,31 +1636,28 @@ export abstract class SemanticMark<EncodeSpec, K extends string> implements ISem
     marks = marks.concat(titleSpec.marks);
     interactions = interactions.concat(titleSpec.interactions);
 
-    marks.push(
-      Object.assign(
-        {
-          id: this.getMarkId(),
-          type: this.setMarkType(),
-          coordinate: this._coordinate?.id,
-          from: {
-            data: filteredDataId
-          },
-          groupBy: (this.spec.encode as any)?.group,
-          layout: {
-            position: 'content',
-            skipBeforeLayouted: true
-          },
-          dependency: this.viewSpec.scales.map(scale => scale.id).concat(SIGNAL_VIEW_BOX),
-          transform: this.convertMarkTransform(this.spec.transform, this.setDefaultMarkTransform()),
-          animation: this.convertMarkAnimation(),
-          encode: Object.assign({}, this.spec.state, {
-            enter: this.setMainMarkEnterEncode(),
-            update: this.convertMarkEncode(this.spec.encode)
-          })
-        },
-        this.setMainMarkSpec()
-      )
-    );
+    const parsedMainMarkSpec = {
+      id: this.getMarkId(),
+      type: this.setMarkType(),
+      coordinate: this._coordinate?.id,
+      from: {
+        data: filteredDataId
+      },
+      groupBy: (this.spec.encode as any)?.group,
+      layout: {
+        position: 'content',
+        skipBeforeLayouted: true
+      },
+      dependency: this.viewSpec.scales.map(scale => scale.id).concat(SIGNAL_VIEW_BOX),
+      transform: this.convertMarkTransform(this.spec.transform, this.setDefaultMarkTransform()),
+      animation: this.convertMarkAnimation(),
+      encode: Object.assign({}, this.spec.state, {
+        enter: this.setMainMarkEnterEncode(),
+        update: this.convertMarkEncode(this.spec.encode)
+      })
+    };
+
+    marks.push(Object.assign(parsedMainMarkSpec, this.setMainMarkSpec(parsedMainMarkSpec)));
 
     const otherMarks = this.setMultiMarksSpec();
 

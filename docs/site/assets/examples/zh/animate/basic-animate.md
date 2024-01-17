@@ -545,21 +545,21 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.runAsync();
+vGrammarView.run();
 
 setTimeout(() => {
   View.getDataById('table').values(nextData);
-  vGrammarView.runAsync();
+  vGrammarView.run();
 }, 3000);
 
 setTimeout(() => {
   View.getDataById('table').values([]);
-  vGrammarView.runAsync();
+  vGrammarView.run();
 }, 6000);
 
 setTimeout(() => {
   View.getDataById('table').values(originData);
-  vGrammarView.runAsync();
+  vGrammarView.run();
 }, 9000);
 
 // 只为了方便控制太调试用，不要拷贝
