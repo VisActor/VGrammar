@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Mon, 15 Jan 2024 11:12:26 GMT and should not be manually modified.
+This log was last generated on Wed, 17 Jan 2024 02:53:26 GMT and should not be manually modified.
+
+## 0.11.1
+Wed, 17 Jan 2024 02:53:26 GMT
+
+### Updates
+
+- fix: fix bug of `evaluate()` in View
+
+
 
 ## 0.11.0
 Mon, 15 Jan 2024 11:12:26 GMT
