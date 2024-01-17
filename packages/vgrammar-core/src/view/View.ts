@@ -830,8 +830,6 @@ export default class View extends EventEmitter implements IView {
     }
 
     this.clearProgressive();
-    // stop auto render of vrender to avoid the case that vrender auto render before the the task is done
-    this.renderer?.preventRender(true);
 
     // evaluate dataflow
     this._dataflow.evaluate();
@@ -855,15 +853,14 @@ export default class View extends EventEmitter implements IView {
         this.handleLayoutEnd();
       }
     }
-    // enable auto render of vrender after the task is done
-    this.renderer?.preventRender(false);
+
     this._layoutState = null;
 
     this.findProgressiveMarks();
 
     // resize again if width/height signal is updated duration dataflow
     this._resizeRenderer();
-    this.doRender(false);
+    this.doRender(true);
 
     this._willMorphMarks?.forEach(morphMarks => {
       this._morph.morph(morphMarks.prev, morphMarks.next, normalizedRunningConfig);

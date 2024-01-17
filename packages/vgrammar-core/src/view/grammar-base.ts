@@ -92,7 +92,7 @@ export abstract class GrammarBase extends EventEmitter implements IGrammarBase {
     return super.emit(event, ...args);
   }
 
-  abstract evaluate(upstream: any, parameters: any): this | this;
+  abstract evaluate(upstream: any, parameters: any): this;
   abstract output(): any;
 
   evaluateTransform(transforms: IGrammarTask[], upstream: any, parameters: any) {
