@@ -1,3 +1,23 @@
+# v0.11.0
+
+2024-01-17
+
+
+**🆕 新增功能**
+
+- **@visactor/vgrammar-core**: support `connectNulls` of line/area mark
+- **@visactor/vgrammar-core**: upgrade @visactor/vrender-core to locked 0.17.14
+
+**🔨 功能重构**
+
+- **BREAKING** **@visactor/vgrammar-core**: rename `resetTrigger` to `triggerOff` in interactions
+- **BREAKING** **@visactor/vgrammar-core**: remove `runAsync` and `runSync` in view
+- **@visactor/vgrammar-core**: refactor wordcloud-shape to support renderSync
+
+
+
+[更多详情请查看 v0.11.0](https://github.com/VisActor/VGrammar/releases/tag/v0.11.0)
+
 # v0.10.8
 
 2024-01-12
