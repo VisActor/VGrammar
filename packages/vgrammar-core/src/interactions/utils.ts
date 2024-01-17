@@ -20,7 +20,8 @@ export const groupMarksByState = (marks: IMark[], states: string[]): Record<stri
   const res = {};
 
   marks.forEach(mark => {
-    const encode = (mark.getSpec() as MarkSpec).encode;
+    const markSpec = (mark && mark.getSpec()) as MarkSpec;
+    const encode = markSpec && markSpec.encode;
 
     if (!encode) {
       return;

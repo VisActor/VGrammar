@@ -227,24 +227,32 @@ export default class View extends EventEmitter implements IView {
       return null;
     }
     const selectors = array(selector);
-    let res: IMark[] = [];
-
+    const res: IMark[] = [];
     selectors.forEach(selectorStr => {
       if (isGrammar(selectorStr)) {
-        res = res.concat(selectorStr);
+        res.push(selectorStr);
         return;
       }
 
       if (selectorStr[0] === ID_PREFIX) {
-        res = res.concat(this.getMarkById(selectorStr.slice(1)));
+        const mark = this.getMarkById(selectorStr.slice(1));
+
+        mark && res.push(mark);
+
+        return;
       }
 
-      if (selectorStr[0] === NAME_PREFIX) {
-        res = res.concat(this.getMarksByName(selectorStr.slice(1)));
-      }
+      const marks =
+        selectorStr[0] === NAME_PREFIX
+          ? this.getMarksByName(selectorStr.slice(1))
+          : isMarkType(selectorStr)
+          ? this.getMarksByType(selectorStr)
+          : null;
 
-      if (isMarkType(selectorStr)) {
-        res = res.concat(this.getMarksByType(selectorStr));
+      if (marks && marks.length) {
+        marks.forEach(mark => {
+          res.push(mark);
+        });
       }
     });
 
