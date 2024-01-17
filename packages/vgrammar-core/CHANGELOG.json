@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.1",
+      "tag": "@visactor/vgrammar-core_v0.11.1",
+      "date": "Wed, 17 Jan 2024 02:53:26 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix bug of `evaluate()` in View\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.0",
       "tag": "@visactor/vgrammar-core_v0.11.0",
       "date": "Mon, 15 Jan 2024 11:12:26 GMT",

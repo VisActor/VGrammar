@@ -106,6 +106,7 @@ export interface IGrammarBase {
   clear: () => void;
   /** release all memory storage */
   release: () => void;
+  evaluate: (upstream: any, parameters: any) => this;
 }
 
 export interface IData extends IGrammarBase {
