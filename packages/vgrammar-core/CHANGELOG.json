@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.3",
+      "tag": "@visactor/vgrammar-core_v0.11.3",
+      "date": "Thu, 18 Jan 2024 11:25:11 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix bug of `stateSort`, wrong useage of `stateSort`\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.2",
       "tag": "@visactor/vgrammar-core_v0.11.2",
       "date": "Thu, 18 Jan 2024 02:43:49 GMT",

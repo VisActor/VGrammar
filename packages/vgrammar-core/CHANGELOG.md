@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 18 Jan 2024 02:43:49 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Jan 2024 11:25:11 GMT and should not be manually modified.
+
+## 0.11.3
+Thu, 18 Jan 2024 11:25:11 GMT
+
+### Updates
+
+- fix: fix bug of `stateSort`, wrong useage of `stateSort`
+
+
 
 ## 0.11.2
 Thu, 18 Jan 2024 02:43:49 GMT
