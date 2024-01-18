@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Wed, 17 Jan 2024 02:53:26 GMT and should not be manually modified.
+This log was last generated on Thu, 18 Jan 2024 02:43:49 GMT and should not be manually modified.
+
+## 0.11.2
+Thu, 18 Jan 2024 02:43:49 GMT
+
+### Updates
+
+- feat: add new params `supportsTouchEvents` and `supportsPointerEvents`
 
 ## 0.11.1
 Wed, 17 Jan 2024 02:53:26 GMT
