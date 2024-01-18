@@ -199,8 +199,8 @@ export class Element implements IElement {
     const newStateValues = array(invokeFunctionType(markState, parameters, this.getDatum(), this));
     const stateSort = this.mark.getSpec()?.stateSort;
 
-    if (stateSort) {
-      stateSort.sort(stateSort);
+    if (stateSort && newStateValues.length) {
+      newStateValues.sort(stateSort);
     }
 
     const isStateChanged =
