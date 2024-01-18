@@ -1,3 +1,18 @@
+# v0.10.10
+
+2024-01-18
+
+
+**功能修复**
+
+
+* fix: fix bug of `getMarksBySelector()`
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.10.9...v0.10.10
+
+[更多详情请查看 v0.10.10](https://github.com/VisActor/VGrammar/releases/tag/v0.10.10)
+
 
 # v0.11.1
 
