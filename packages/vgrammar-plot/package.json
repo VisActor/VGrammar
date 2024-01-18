@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-plot",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "Plots of vgrammar.",
   "keywords": [
     "plot",
@@ -34,13 +34,13 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vgrammar-util": "workspace:0.11.1",
-    "@visactor/vgrammar-coordinate": "workspace:0.11.1",
-    "@visactor/vgrammar-core": "workspace:0.11.1",
+    "@visactor/vgrammar-util": "workspace:0.11.2",
+    "@visactor/vgrammar-coordinate": "workspace:0.11.2",
+    "@visactor/vgrammar-core": "workspace:0.11.2",
     "@visactor/vscale": "~0.17.3",
-    "@visactor/vrender-components": "0.17.14",
-    "@visactor/vrender-core": "0.17.14",
-    "@visactor/vrender-kits": "0.17.14",
+    "@visactor/vrender-components": "0.17.16",
+    "@visactor/vrender-core": "0.17.16",
+    "@visactor/vrender-kits": "0.17.16",
     "@visactor/vutils": "~0.17.3"
   },
   "devDependencies": {

@@ -216,7 +216,9 @@ export default class CanvasRenderer implements IRenderer {
         autoRender: true,
         pluginList: viewOptions.pluginList,
         enableHtmlAttribute: viewOptions.enableHtmlAttribute,
-        optimize: viewOptions.optimize
+        optimize: viewOptions.optimize,
+        supportsTouchEvents: viewOptions.supportsTouchEvents,
+        supportsPointerEvents: viewOptions.supportsPointerEvents
       });
 
     if (viewOptions.options3d?.enable) {
