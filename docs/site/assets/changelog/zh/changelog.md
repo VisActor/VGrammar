@@ -1,3 +1,16 @@
+# v0.11.2
+
+2024-01-18
+
+
+**🆕 新增功能**
+
+- **@visactor/vgrammar-core**: add new params `supportsTouchEvents` and `supportsPointerEvents`
+
+
+
+[更多详情请查看 v0.11.2](https://github.com/VisActor/VGrammar/releases/tag/v0.11.2)
+
 # v0.10.10
 
 2024-01-18
