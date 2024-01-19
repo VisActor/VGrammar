@@ -28,7 +28,7 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
     });
     const computePoints = isValidPointsChannel(fromKeys, element.mark.markType) && !isValid(from.segments);
     if (computePoints) {
-      const items = element.items.map(item => Object.assign({}, item, { nextAttrs: from }));
+      const items = element.items.map(item => Object.assign({}, item, { nextAttrs: Object.assign({}, from) }));
       attributes.from = element.transformElementItems(items, element.mark.markType, computePoints);
     }
   }
@@ -42,7 +42,7 @@ const transformAnimationAttributes = (attributes: IParsedAnimationAttrs, element
     });
     const computePoints = isValidPointsChannel(toKeys, element.mark.markType) && !isValid(to.segments);
     if (computePoints) {
-      const items = element.items.map(item => Object.assign({}, item, { nextAttrs: to }));
+      const items = element.items.map(item => Object.assign({}, item, { nextAttrs: Object.assign({}, to) }));
       attributes.to = element.transformElementItems(items, element.mark.markType, computePoints);
     }
   }
@@ -64,6 +64,7 @@ export function typeAnimationAttributes(
     return null;
   }
   const attributes = Factory.getAnimationType(effect.type)(element as IGlyphElement, options, animationParameters);
+
   return transformAnimationAttributes(attributes, element);
 }
 
