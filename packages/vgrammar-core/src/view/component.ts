@@ -21,7 +21,7 @@ export class Component extends Mark implements IComponent {
 
   protected mode?: '2d' | '3d';
 
-  protected _componentDatum = { [DefaultKey]: 0 };
+  protected _componentDatum: any = { [DefaultKey]: 0 };
   protected _encoders: StateEncodeSpec;
 
   constructor(view: IView, componentType: string, group?: IGroupMark, mode?: '2d' | '3d') {
@@ -71,6 +71,14 @@ export class Component extends Mark implements IComponent {
 
   protected evaluateJoin(data: any[]) {
     this.spec.key = DefaultKey;
+
+    if (data) {
+      this._componentDatum = {
+        data,
+        [DefaultKey]: this._componentDatum[DefaultKey]
+      };
+    }
+
     // component mark do not support data join
     return super.evaluateJoin([this._componentDatum]);
   }
