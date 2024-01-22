@@ -1,3 +1,16 @@
+# v0.11.3
+
+2024-01-22
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix bug of `stateSort`, wrong useage of `stateSort`
+
+
+
+[更多详情请查看 v0.11.3](https://github.com/VisActor/VGrammar/releases/tag/v0.11.3)
+
 # v0.11.2
 
 2024-01-18
