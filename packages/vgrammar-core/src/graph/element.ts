@@ -220,6 +220,11 @@ export class Element implements IElement {
     const graphicAttributes = this.transformElementItems(this.items, this.mark.markType);
 
     if (attrs) {
+      if (this.mark.isCollectionMark()) {
+        // todo `defined` should not be a channel in line/area
+        delete attrs.defined;
+      }
+
       Object.assign(graphicAttributes, attrs);
     }
 
