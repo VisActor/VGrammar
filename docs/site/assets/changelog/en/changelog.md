@@ -1,3 +1,16 @@
+# v0.10.11
+
+2024-01-22
+
+
+**🆕 New feature**
+
+- **@visactor/vgrammar-core**: upgrade vrender
+
+
+
+[more detail about v0.10.11](https://github.com/VisActor/VGrammar/releases/tag/v0.10.11)
+
 # v0.11.2
 
 2024-01-18
