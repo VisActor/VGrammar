@@ -73,10 +73,11 @@ export class Component extends Mark implements IComponent {
     this.spec.key = DefaultKey;
 
     if (data) {
-      this._componentDatum = {
-        data,
-        [DefaultKey]: this._componentDatum[DefaultKey]
-      };
+      (data as any)[DefaultKey] = this._componentDatum[DefaultKey];
+
+      this._componentDatum = data;
+    } else {
+      this._componentDatum = { [DefaultKey]: this._componentDatum[DefaultKey] };
     }
 
     // component mark do not support data join
