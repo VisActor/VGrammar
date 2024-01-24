@@ -1,15 +1,14 @@
-# v0.10.11
+# v0.11.3
 
 2024-01-22
 
+**🐛 Bug fix**
 
-**🆕 New feature**
-
-- **@visactor/vgrammar-core**: upgrade vrender
-
+- **@visactor/vgrammar-core**: fix bug of `stateSort`, wrong useage of `stateSort`
 
 
-[more detail about v0.10.11](https://github.com/VisActor/VGrammar/releases/tag/v0.10.11)
+
+[more detail about v0.11.3](https://github.com/VisActor/VGrammar/releases/tag/v0.11.3)
 
 # v0.11.2
 
@@ -23,6 +22,18 @@
 
 
 [more detail about v0.11.2](https://github.com/VisActor/VGrammar/releases/tag/v0.11.2)
+
+# v0.10.11
+
+2024-01-22
+
+**🆕 New feature**
+
+- **@visactor/vgrammar-core**: upgrade vrender
+
+
+[more detail about v0.10.11](https://github.com/VisActor/VGrammar/releases/tag/v0.10.11)
+
 
 # v0.10.10
 

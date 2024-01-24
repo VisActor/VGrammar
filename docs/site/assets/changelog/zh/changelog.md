@@ -1,15 +1,13 @@
-# v0.10.11
+# v0.11.3
 
 2024-01-22
 
+**🐛 功能修复**
 
-**🆕 新增功能**
-
-- **@visactor/vgrammar-core**: upgrade vrender
-
+- **@visactor/vgrammar-core**: fix bug of `stateSort`, wrong useage of `stateSort`
 
 
-[更多详情请查看 v0.10.11](https://github.com/VisActor/VGrammar/releases/tag/v0.10.11)
+[更多详情请查看 v0.11.3](https://github.com/VisActor/VGrammar/releases/tag/v0.11.3)
 
 # v0.11.2
 
@@ -21,23 +19,7 @@
 - **@visactor/vgrammar-core**: add new params `supportsTouchEvents` and `supportsPointerEvents`
 
 
-
 [更多详情请查看 v0.11.2](https://github.com/VisActor/VGrammar/releases/tag/v0.11.2)
-
-# v0.10.10
-
-2024-01-18
-
-
-**功能修复**
-
-
-* fix: fix bug of `getMarksBySelector()`
-
-
-**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.10.9...v0.10.10
-
-[更多详情请查看 v0.10.10](https://github.com/VisActor/VGrammar/releases/tag/v0.10.10)
 
 
 # v0.11.1
@@ -68,6 +50,32 @@
 - **@visactor/vgrammar-core**: refactor wordcloud-shape to support renderSync
 
 [更多详情请查看 v0.11.0](https://github.com/VisActor/VGrammar/releases/tag/v0.11.0)
+
+# v0.10.11
+
+2024-01-22
+
+**🆕 新增功能**
+
+- **@visactor/vgrammar-core**: upgrade vrender
+
+
+[更多详情请查看 v0.10.11](https://github.com/VisActor/VGrammar/releases/tag/v0.10.11)
+
+# v0.10.10
+
+2024-01-18
+
+
+**功能修复**
+
+
+* fix: fix bug of `getMarksBySelector()`
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.10.9...v0.10.10
+
+[更多详情请查看 v0.10.10](https://github.com/VisActor/VGrammar/releases/tag/v0.10.10)
 
 
 # v0.10.9
