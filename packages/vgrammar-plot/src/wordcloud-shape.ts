@@ -74,7 +74,7 @@ export class WordcloudShapeSemanticMark extends SemanticMark<
     return merge(
       {
         textAlign: 'center',
-        textBaseline: 'middle'
+        textBaseline: 'alphabetic'
       },
       this.spec.style
     );
