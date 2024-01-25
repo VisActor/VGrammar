@@ -37,12 +37,12 @@
   "dependencies": {
     "@visactor/vgrammar-coordinate": "workspace:0.11.3",
     "@visactor/vgrammar-util": "workspace:0.11.3",
-    "@visactor/vscale": "~0.17.3",
-    "@visactor/vrender-core": "0.17.16",
-    "@visactor/vrender-kits": "0.17.16",
-    "@visactor/vrender-components": "0.17.16",
-    "@visactor/vutils": "~0.17.3",
-    "@visactor/vdataset": "~0.17.3"
+    "@visactor/vscale": "~0.17.4",
+    "@visactor/vrender-core": "0.17.19",
+    "@visactor/vrender-kits": "0.17.19",
+    "@visactor/vrender-components": "0.17.19",
+    "@visactor/vutils": "~0.17.4",
+    "@visactor/vdataset": "~0.17.4"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
