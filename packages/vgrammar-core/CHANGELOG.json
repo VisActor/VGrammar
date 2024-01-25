@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.5",
+      "tag": "@visactor/vgrammar-core_v0.11.5",
+      "date": "Thu, 25 Jan 2024 12:20:07 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "perf: optimize the performance of element-highlight\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.4",
       "tag": "@visactor/vgrammar-core_v0.11.4",
       "date": "Thu, 25 Jan 2024 08:14:38 GMT",
