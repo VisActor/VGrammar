@@ -1,3 +1,22 @@
+# v0.11.4
+
+2024-01-25
+
+
+**🆕 New feature**
+
+- **@visactor/vgrammar-core**: support data of component
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: fix bug of line animation when defined of line change
+- **@visactor/vgrammar-core**: support `stateSort` in `mark.configure()`
+- **@visactor/vgrammar-core**: fix issue with set `alphabetic` in wordcloud-shape
+
+
+
+[more detail about v0.11.4](https://github.com/VisActor/VGrammar/releases/tag/v0.11.4)
+
 # v0.11.3
 
 2024-01-22
