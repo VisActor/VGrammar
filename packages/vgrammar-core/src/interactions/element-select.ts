@@ -55,8 +55,8 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
 
       this._resetType = 'view';
     } else if (isString(triggerOff)) {
-      if (triggerOff.includes('view:')) {
-        eventName = triggerOff.replace('view:', '') as EventType;
+      if ((triggerOff as string).includes('view:')) {
+        eventName = (triggerOff as string).replace('view:', '') as EventType;
 
         this._resetType = 'view';
       } else {
@@ -95,11 +95,12 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
     if (e.element && this._marks && this._marks.includes(e.element.mark)) {
       if (e.element.hasState(state)) {
         if (this._resetType === 'self') {
-          if (this._statedElements) {
-            this._statedElements = this._statedElements.filter(el => el !== e.element);
-          }
-
-          this.updateStates(state, reverseState);
+          this._statedElements = this.updateStates(
+            this._statedElements && this._statedElements.filter(el => el !== e.element),
+            this._statedElements,
+            state,
+            reverseState
+          );
         }
       } else {
         if (this._timer) {
@@ -107,15 +108,12 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
         }
         e.element.addState(state);
 
-        if (!this._statedElements) {
-          this._statedElements = [];
-        }
-        if (isMultiple) {
-          this._statedElements.push(e.element);
-        } else {
-          this._statedElements[0] = e.element;
-        }
-        this.updateStates(state, reverseState);
+        this._statedElements = this.updateStates(
+          isMultiple && this._statedElements ? [...this._statedElements, e.element] : [e.element],
+          this._statedElements,
+          state,
+          reverseState
+        );
         this.dispatchEvent('start', { elements: this._statedElements, options: this.options });
 
         if (this._resetType === 'timeout') {
@@ -130,11 +128,11 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   };
 
   handleReset = (e: InteractionEvent) => {
-    const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
-
     if (!this._statedElements || !this._statedElements.length) {
       return;
     }
+
+    const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
 
     if (this._resetType === 'view' && !hasActiveElement) {
       this.clearPrevElements();
