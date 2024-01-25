@@ -1,6 +1,22 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 18 Jan 2024 11:25:11 GMT and should not be manually modified.
+This log was last generated on Thu, 25 Jan 2024 08:14:38 GMT and should not be manually modified.
+
+## 0.11.4
+Thu, 25 Jan 2024 08:14:38 GMT
+
+### Updates
+
+- feat: support data of component
+
+
+- fix: fix bug of line animation when defined of line change
+
+
+- fix: support `stateSort` in `mark.configure()`
+
+
+- fix: fix issue with set `alphabetic` in wordcloud-shape
 
 ## 0.11.3
 Thu, 18 Jan 2024 11:25:11 GMT
