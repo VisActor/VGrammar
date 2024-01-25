@@ -21,7 +21,8 @@ import type {
   IMarkConfig,
   ChannelEncodeType,
   AttributeTransform,
-  BaseSingleEncodeSpec
+  BaseSingleEncodeSpec,
+  MarkStateSortSpec
 } from './mark';
 import type { ScaleConfigureSpec, ScaleData, ScaleFunctionType, GrammarScaleType, MultiScaleData } from './scale';
 import type { IView } from './view';
@@ -240,7 +241,7 @@ export interface IMark extends IGrammarBase, IProgressiveGrammar {
     groupSort?: MarkSortSpec
   ) => this;
   coordinate: (coordinate: ICoordinate | string | Nil) => this;
-  state: (state: MarkFunctionType<string | string[]> | Nil) => this;
+  state: (state: MarkFunctionType<string | string[]> | Nil, stateSort?: MarkStateSortSpec) => this;
   encode: ((encoders: BaseSingleEncodeSpec, clear?: boolean) => this) &
     ((channel: string, value: ChannelEncodeType, clear?: boolean) => this);
   encodeState: ((state: string, channel: string, value: ChannelEncodeType, clear?: boolean) => this) &

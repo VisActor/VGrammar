@@ -45,7 +45,7 @@ import { isFieldEncode, isScaleEncode, parseEncodeType } from '../parse/mark';
 import { getGrammarOutput, parseField, isFunctionType } from '../parse/util';
 import { parseTransformSpec } from '../parse/transform';
 import { createElement } from '../graph/util/element';
-import { invokeEncoderToItems, splitEncoderInLarge } from '../graph/mark/encode';
+import { invokeEncoder, invokeEncoderToItems, splitEncoderInLarge } from '../graph/mark/encode';
 import { isPositionOrSizeChannel, transformsByType } from '../graph/attributes';
 import getExtendedEvents from '../graph/util/events-extend';
 import type { IBaseScale } from '@visactor/vscale';
@@ -484,7 +484,8 @@ export class Mark extends GrammarBase implements IMark {
       'morphElementKey',
       'attributeTransforms',
       'skipTheme',
-      'enableSegments'
+      'enableSegments',
+      'stateSort'
     ];
     if (config === null) {
       keys.forEach(key => {
@@ -791,10 +792,7 @@ export class Mark extends GrammarBase implements IMark {
         return;
       }
 
-      const nextAttrs = {};
-      const items = [Object.assign({}, el.items?.[0], { nextAttrs })];
-      invokeEncoderToItems(el, items, groupEncode, parameters);
-      res[key] = nextAttrs;
+      res[key] = invokeEncoder(groupEncode, el.items && el.items[0] && el.items[0].datum, el, parameters);
     });
 
     return res;
