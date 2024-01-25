@@ -1,6 +1,7 @@
 import { InteractionStateEnum } from '../graph/enums';
 import type {
   ElementHighlightOptions,
+  EventType,
   IElement,
   IGlyphElement,
   IMark,
@@ -10,6 +11,7 @@ import type {
 } from '../types';
 import { BaseInteraction } from './base';
 import { groupMarksByState } from './utils';
+import { isString } from '@visactor/vutils';
 
 export interface ElementHighlight extends IToggleStateMixin, BaseInteraction<ElementHighlightOptions> {}
 
@@ -28,6 +30,7 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
   protected _stateMarks: Record<string, IMark[]>;
   protected _lastElement?: IElement;
   protected _statedElements?: (IElement | IGlyphElement)[];
+  protected _resetType?: 'view' | 'self';
 
   constructor(view: IView, options?: ElementHighlightOptions) {
     super(view, options);
@@ -38,13 +41,26 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
   }
 
   protected getEvents() {
-    return [
+    const triggerOff = this.options.triggerOff;
+    const trigger = this.options.trigger;
+    const events = [
       {
-        type: this.options.trigger,
+        type: trigger,
         handler: this.handleStart
-      },
-      { type: this.options.triggerOff, handler: this.handleReset }
+      }
     ];
+
+    let eventName = triggerOff;
+    if (isString(triggerOff) && (triggerOff as string).includes('view:')) {
+      eventName = (triggerOff as string).replace('view:', '') as EventType;
+      this._resetType = 'view';
+    } else {
+      this._resetType = 'self';
+    }
+
+    events.push({ type: eventName as EventType, handler: this.handleReset });
+
+    return events;
   }
 
   clearPrevElements() {
@@ -56,6 +72,8 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
       this.dispatchEvent('reset', { elements: [this._lastElement], options: this.options });
 
       this._lastElement = null;
+
+      this._statedElements = null;
     }
   }
 
@@ -66,22 +84,27 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
       if (this._lastElement === e.element) {
         return;
       }
-      this._statedElements = [e.element];
 
-      this.updateStates(highlightState, blurState);
+      this._statedElements = this.updateStates([e.element], this._statedElements, highlightState, blurState);
 
       this._lastElement = e.element;
 
       this.dispatchEvent('start', { elements: [e.element], options: this.options });
-    } else if (this._lastElement) {
+    } else if (this._lastElement && this._resetType === 'view') {
       this.clearPrevElements();
     }
   };
 
   handleReset = (e: InteractionEvent) => {
+    if (!this._statedElements || !this._statedElements.length) {
+      return;
+    }
+
     const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
 
-    if (hasActiveElement) {
+    if (this._resetType === 'view' && !hasActiveElement) {
+      this.clearPrevElements();
+    } else if (this._resetType === 'self' && hasActiveElement) {
       this.clearPrevElements();
     }
   };

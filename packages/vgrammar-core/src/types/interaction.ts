@@ -664,7 +664,12 @@ export interface IViewDragMixin {
 }
 
 export interface IToggleStateMixin {
-  updateStates: (state?: string, reverseState?: string) => void;
+  updateStates: (
+    newStatedElements: (IElement | IGlyphElement)[],
+    prevStatedElements?: (IElement | IGlyphElement)[],
+    state?: string,
+    reverseState?: string
+  ) => (IElement | IGlyphElement)[];
   clearAllStates: (state?: string, reverseState?: string) => void;
 }
 
