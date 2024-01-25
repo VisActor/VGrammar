@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.10.11",
+      "tag": "@visactor/vgrammar-core_v0.10.11",
+      "date": "Mon, 22 Jan 2024 09:26:51 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: upgrade vrender"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.10.10",
       "tag": "@visactor/vgrammar-core_v0.10.10",
       "date": "Wed, 17 Jan 2024 09:50:09 GMT",
