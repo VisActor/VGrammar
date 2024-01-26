@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 25 Jan 2024 08:14:38 GMT and should not be manually modified.
+This log was last generated on Thu, 25 Jan 2024 12:20:07 GMT and should not be manually modified.
+
+## 0.11.5
+Thu, 25 Jan 2024 12:20:07 GMT
+
+### Updates
+
+- perf: optimize the performance of element-highlight
+
+
 
 ## 0.11.4
 Thu, 25 Jan 2024 08:14:38 GMT
