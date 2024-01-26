@@ -1,3 +1,16 @@
+# v0.11.5
+
+2024-01-26
+
+
+**⚡ 性能优化**
+
+- **@visactor/vgrammar-core**: optimize the performance of element-highlight
+
+
+
+[更多详情请查看 v0.11.5](https://github.com/VisActor/VGrammar/releases/tag/v0.11.5)
+
 # v0.11.4
 
 2024-01-25
