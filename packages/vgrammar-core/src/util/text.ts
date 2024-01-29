@@ -30,12 +30,3 @@ export function richJsx(
         : []
   };
 }
-
-export function textHtml(strings: TemplateStringsArray, ...insertVars: (string | number)[]) {
-  return {
-    type: 'html',
-    text: strings.reduce((res, temp, i) => {
-      return res + temp + (i >= insertVars.length ? '' : insertVars[i]);
-    }, '')
-  };
-}
