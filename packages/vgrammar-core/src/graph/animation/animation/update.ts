@@ -7,6 +7,10 @@ export interface IUpdateAnimationOptions {
   excludeChannels: string[];
 }
 
+const BUILT_IN_EXCLUDE_CHANNELS = {
+  symbol: ['_mo_hide_', 'visible']
+};
+
 export const update: TypeAnimation<IElement> = (
   element: IElement,
   options: IUpdateAnimationOptions,
@@ -20,6 +24,14 @@ export const update: TypeAnimation<IElement> = (
       delete to[key];
     });
   }
+  let excludeChannels: string[];
+  if (element.mark && element.mark.markType && (excludeChannels = BUILT_IN_EXCLUDE_CHANNELS[element.mark.markType])) {
+    excludeChannels.forEach(key => {
+      delete from[key];
+      delete to[key];
+    });
+  }
+
   Object.keys(to).forEach(key => {
     if (isEqual(key, from, to)) {
       delete from[key];
