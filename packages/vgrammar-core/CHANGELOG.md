@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 25 Jan 2024 12:20:07 GMT and should not be manually modified.
+This log was last generated on Mon, 29 Jan 2024 10:52:16 GMT and should not be manually modified.
+
+## 0.11.6
+Mon, 29 Jan 2024 10:52:16 GMT
+
+### Updates
+
+- fix: symbol animation of `update` may lead all the points of overlaped show again
+
+
 
 ## 0.11.5
 Thu, 25 Jan 2024 12:20:07 GMT
