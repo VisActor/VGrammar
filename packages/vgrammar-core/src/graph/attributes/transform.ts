@@ -78,7 +78,7 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
   ],
   [GrammarMarkType.text]: [
     {
-      channels: ['text', 'limit', 'autoLimit', 'maxLineWidth'],
+      channels: ['text', 'limit', 'autoLimit', 'maxLineWidth', 'textType'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
         const limit = storedAttrs.limit ?? Infinity;
         const autoLimit = storedAttrs.autoLimit ?? Infinity;
@@ -92,16 +92,8 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
           graphicAttributes.maxLineWidth = maxWidth === Infinity ? storedAttrs.maxLineWidth : maxWidth;
         }
 
-        if (isTextConfig) {
-          if (storedAttrs.text.type === 'html') {
-            graphicAttributes.html = {
-              dom: text,
-              width: nextAttrs.width ?? maxWidth,
-              height: nextAttrs.height ?? nextAttrs.fontSize,
-              anchorType: 'position'
-            };
-            graphicAttributes.text = '';
-          } else if (storedAttrs.text.type === 'rich') {
+        if (isTextConfig || storedAttrs.textType) {
+          if (storedAttrs.text.type === 'rich' || storedAttrs.textType === 'rich') {
             graphicAttributes.textConfig = text;
           } else {
             graphicAttributes.text = text;
@@ -147,30 +139,6 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
         }
       },
       storedAttrs: 'imageAttrs'
-    }
-  ],
-  [GrammarMarkType.richtext]: [
-    {
-      channels: ['text', 'textConfig'],
-      transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
-        graphicAttributes.text = null;
-
-        if (nextAttrs.text?.type === 'rich') {
-          graphicAttributes.textConfig = nextAttrs.text.text;
-        } else if (nextAttrs.textConfig?.type === 'html') {
-          graphicAttributes.html = {
-            dom: nextAttrs.textConfig.text,
-            width: nextAttrs.width,
-            height: nextAttrs.height ?? nextAttrs.fontSize,
-            anchorType: 'position'
-          };
-          graphicAttributes.text = '';
-        } else if (nextAttrs.textConfig?.type === 'rich') {
-          graphicAttributes.textConfig = nextAttrs.textConfig.text;
-        } else {
-          graphicAttributes.textConfig = nextAttrs.textConfig;
-        }
-      }
     }
   ]
 };

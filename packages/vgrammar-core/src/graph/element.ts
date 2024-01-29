@@ -79,7 +79,7 @@ export class Element implements IElement {
       return;
     }
     // 统一读取mark中是否可交互的配置
-    const attrTransforms = this.mark.getAttributeTransforms();
+    const attrTransforms = this.mark.getAttributeTransforms(attributes);
 
     this.graphicItem = this.mark.addGraphicItem(
       attrTransforms ? transformAttributes(attrTransforms, attributes, this) : attributes,

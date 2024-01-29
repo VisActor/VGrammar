@@ -303,7 +303,12 @@ export type PathMarkSpec = GenerateMarkSpec<'path'>;
 export type RuleMarkSpec = GenerateMarkSpec<'rule'>;
 export type ShapeMarkSpec = GenerateMarkSpec<'shape'>;
 export type SymbolMarkSpec = GenerateMarkSpec<'symbol'>;
-export type TextMarkSpec = GenerateMarkSpec<'text'>;
+export type TextMarkSpec = GenerateMarkSpec<
+  'text',
+  {
+    textType?: 'text' | 'rich';
+  }
+>;
 export type RichTextMarkSpec = GenerateMarkSpec<'richtext'>;
 export type PolygonMarkSpec = GenerateMarkSpec<'polygon'>;
 export type CellMarkSpec = GenerateMarkSpec<'cell'>;
