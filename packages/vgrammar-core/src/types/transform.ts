@@ -230,6 +230,7 @@ export interface MarkOverlapTransformOptions {
   forceUpdate?: boolean;
   forceUpdateStamp?: number;
   groupBy?: string;
+  sort?: boolean;
 }
 
 export interface SampleTransformOptions {
