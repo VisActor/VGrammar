@@ -374,7 +374,9 @@ export class Crosshair extends BaseInteraction<CrosshairOptions> {
   };
 
   protected handleCrosshairHide = () => {
-    this._crosshairComponent.hideAll();
+    if (this._crosshairComponent) {
+      this._crosshairComponent.hideAll();
+    }
   };
 
   protected getCrosshairComponentType() {
