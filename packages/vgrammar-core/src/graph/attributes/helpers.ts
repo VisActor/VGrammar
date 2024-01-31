@@ -46,7 +46,7 @@ export function getLinePoints(
   lastPoints?: IPointLike[],
   isArea?: boolean
 ) {
-  if (!items || !items.length || (items.length === 1 && includeOnePoint)) {
+  if (!items || !items.length || (items.length === 1 && !includeOnePoint)) {
     return [];
   }
   const hasValidChannel = items.some(item => {
@@ -89,7 +89,7 @@ export function getLargeRectsPoints(
   includeOnePoint?: boolean,
   lastPoints: Float32Array | number[] = []
 ): Float32Array | number[] {
-  if (!items || !items.length || (items.length === 1 && includeOnePoint)) {
+  if (!items || !items.length || (items.length === 1 && !includeOnePoint)) {
     return [];
   }
   const arr: Float32Array = new Float32Array(items.length * 4);
@@ -114,7 +114,7 @@ export function getLargeSymbolsPoints(
   includeOnePoint?: boolean,
   lastPoints: Float32Array | number[] = []
 ): Float32Array | number[] {
-  if (!items || !items.length || (items.length === 1 && includeOnePoint)) {
+  if (!items || !items.length || (items.length === 1 && !includeOnePoint)) {
     return [];
   }
   const arr: Float32Array = new Float32Array(items.length * 2);
