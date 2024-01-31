@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.6",
+      "tag": "@visactor/vgrammar-core_v0.11.6",
+      "date": "Mon, 29 Jan 2024 10:52:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: symbol animation of `update` may lead all the points of overlaped show again\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.5",
       "tag": "@visactor/vgrammar-core_v0.11.5",
       "date": "Thu, 25 Jan 2024 12:20:07 GMT",

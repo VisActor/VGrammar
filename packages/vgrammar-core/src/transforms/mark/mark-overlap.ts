@@ -5,7 +5,7 @@ const HIDE_KEY = '_mo_hide_';
 
 function reset(elements: IElement[]) {
   elements.forEach(element => {
-    const hide = element.getGraphicAttribute('HIDE_KEY');
+    const hide = element.getGraphicAttribute(HIDE_KEY);
 
     if (hide) {
       element.setGraphicAttribute('visible', true);
@@ -138,9 +138,11 @@ export const transform = (options: MarkOverlapTransformOptions, upstreamData: IE
   const handleOverlap = (elements: IElement[]) => {
     reset(elements);
 
-    const sortedElements = elements.slice().sort((a, b) => {
-      return a.getGraphicAttribute('x') - b.getGraphicAttribute('x');
-    });
+    const sortedElements = options.sort
+      ? elements.slice().sort((a, b) => {
+          return a.getGraphicAttribute('x') - b.getGraphicAttribute('x');
+        })
+      : elements;
 
     if (direction === 0) {
       overlapXY(sortedElements, delta, deltaMul, radius);

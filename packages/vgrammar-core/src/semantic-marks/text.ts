@@ -10,8 +10,11 @@ export class Text extends Mark {
   protected declare spec: MarkSpec;
 
   addGraphicItem(initAttrs: any, groupKey?: string) {
-    const textConfig = initAttrs?.text;
-    const isRich = textConfig?.type === 'rich';
+    const originalAttrs = initAttrs && initAttrs.limitAttrs;
+
+    const isRich =
+      originalAttrs &&
+      (originalAttrs.textType === 'rich' || (originalAttrs.text && originalAttrs.text.type === 'rich'));
 
     const graphicItem = createGraphicItem(
       this as IMark,
@@ -19,15 +22,7 @@ export class Text extends Mark {
       initAttrs
     );
 
-    if (isRich) {
-      initAttrs.textConfig = [];
-    }
-
     return super.addGraphicItem(initAttrs, groupKey, graphicItem);
-  }
-
-  getAttributeTransforms() {
-    return this.getGroupGraphicItem()?.type === 'richtext' ? transformsByType.richtext : transformsByType.text;
   }
 
   release(): void {
