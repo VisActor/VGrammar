@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.7",
+      "tag": "@visactor/vgrammar-core_v0.11.7",
+      "date": "Wed, 31 Jan 2024 09:11:36 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix the bug of line/area when has only one point\n\n"
+          },
+          {
+            "comment": "fix: fix the error of tooltip that tooltip may be released after chart update\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.6",
       "tag": "@visactor/vgrammar-core_v0.11.6",
       "date": "Mon, 29 Jan 2024 10:52:16 GMT",

@@ -1,6 +1,18 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Mon, 29 Jan 2024 10:52:16 GMT and should not be manually modified.
+This log was last generated on Wed, 31 Jan 2024 09:11:36 GMT and should not be manually modified.
+
+## 0.11.7
+Wed, 31 Jan 2024 09:11:36 GMT
+
+### Updates
+
+- fix: fix the bug of line/area when has only one point
+
+
+- fix: fix the error of tooltip that tooltip may be released after chart update
+
+
 
 ## 0.11.6
 Mon, 29 Jan 2024 10:52:16 GMT
