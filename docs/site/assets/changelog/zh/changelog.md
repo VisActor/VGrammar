@@ -1,3 +1,16 @@
+# v0.11.6
+
+2024-01-31
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: symbol animation of `update` may lead all the points of overlaped show again
+
+
+
+[更多详情请查看 v0.11.6](https://github.com/VisActor/VGrammar/releases/tag/v0.11.6)
+
 # v0.11.5
 
 2024-01-26
