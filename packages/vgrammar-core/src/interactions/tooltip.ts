@@ -26,6 +26,10 @@ export class Tooltip extends BaseTooltip<TooltipOptions> {
   }
 
   protected handleTooltipShow = throttle((event: InteractionEvent) => {
+    if (!this._tooltipComponent) {
+      return;
+    }
+
     const element = event.element;
     if (!this._marks.includes(element?.mark)) {
       this._tooltipComponent.hideAll();
@@ -64,6 +68,8 @@ export class Tooltip extends BaseTooltip<TooltipOptions> {
   }, 10) as unknown as InteractionEventHandler;
 
   protected handleTooltipHide = (event: any) => {
-    this._tooltipComponent.hideAll();
+    if (this._tooltipComponent) {
+      this._tooltipComponent.hideAll();
+    }
   };
 }
