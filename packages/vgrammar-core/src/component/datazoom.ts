@@ -9,6 +9,7 @@ import type {
   ChannelEncodeType,
   IData,
   IElement,
+  IGrammarBase,
   IGroupMark,
   ITheme,
   IView,
@@ -113,45 +114,15 @@ export class Datazoom extends Component implements IDatazoom {
     const graphicItem = Factory.createGraphicComponent(this.componentType, initialAttributes, {
       skipDefault: this.spec.skipTheme
     });
-    const datazoom = graphicItem as unknown as DatazoomComponent;
-    datazoom.setStatePointToData(state => {
-      if (this.spec.preview) {
-        return this.invertDatazoomRatio(state) ?? state;
-      }
-      return state;
-    });
-    const { data, x, y, x1, y1 } = this.spec.preview ?? {};
-
-    datazoom.setPreviewPointsX((datum: any) => {
-      if (x && data) {
-        return invokeEncoder({ x }, datum, this.elements[0], this.parameters()).x;
-      }
-
-      return undefined;
-    });
-    datazoom.setPreviewPointsY((datum: any) => {
-      if (y && data) {
-        return invokeEncoder({ y }, datum, this.elements[0], this.parameters()).y;
-      }
-
-      return undefined;
-    });
-
-    datazoom.setPreviewPointsX1((datum: any) => {
-      if (x1 && data) {
-        return invokeEncoder({ x1 }, datum, this.elements[0], this.parameters()).x1;
-      }
-
-      return undefined;
-    });
-    datazoom.setPreviewPointsY1((datum: any) => {
-      if (y1 && data) {
-        return invokeEncoder({ y1 }, datum, this.elements[0], this.parameters()).y1;
-      }
-
-      return undefined;
-    });
+    this.setDatazoomHandlers(graphicItem as unknown as DatazoomComponent);
     return super.addGraphicItem(initialAttributes, groupKey, graphicItem);
+  }
+
+  reuse(grammar: IGrammarBase) {
+    super.reuse(grammar);
+    // update datazoom handler when mark is reused
+    this.setDatazoomHandlers();
+    return this;
   }
 
   protected _updateComponentEncoders() {
@@ -193,6 +164,47 @@ export class Datazoom extends Component implements IDatazoom {
       return scaleGrammar?.getScale();
     }
     return null;
+  }
+
+  private setDatazoomHandlers(graphicItem?: DatazoomComponent) {
+    const datazoom = graphicItem ?? (this.getGroupGraphicItem() as unknown as DatazoomComponent);
+    datazoom.setStatePointToData(state => {
+      if (this.spec.preview) {
+        return this.invertDatazoomRatio(state) ?? state;
+      }
+      return state;
+    });
+
+    // set preview callbacks
+    const { data, x, y, x1, y1 } = this.spec.preview ?? {};
+    datazoom.setPreviewPointsX((datum: any) => {
+      if (x && data) {
+        return invokeEncoder({ x }, datum, this.elements[0], this.parameters()).x;
+      }
+
+      return undefined;
+    });
+    datazoom.setPreviewPointsY((datum: any) => {
+      if (y && data) {
+        return invokeEncoder({ y }, datum, this.elements[0], this.parameters()).y;
+      }
+
+      return undefined;
+    });
+    datazoom.setPreviewPointsX1((datum: any) => {
+      if (x1 && data) {
+        return invokeEncoder({ x1 }, datum, this.elements[0], this.parameters()).x1;
+      }
+
+      return undefined;
+    });
+    datazoom.setPreviewPointsY1((datum: any) => {
+      if (y1 && data) {
+        return invokeEncoder({ y1 }, datum, this.elements[0], this.parameters()).y1;
+      }
+
+      return undefined;
+    });
   }
 }
 
