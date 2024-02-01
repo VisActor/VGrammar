@@ -1,3 +1,17 @@
+# v0.11.7
+
+2024-02-01
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix the bug of line/area when has only one point
+- **@visactor/vgrammar-core**: fix the error of tooltip that tooltip may be released after chart update
+
+
+
+[更多详情请查看 v0.11.7](https://github.com/VisActor/VGrammar/releases/tag/v0.11.7)
+
 # v0.11.6
 
 2024-01-31
