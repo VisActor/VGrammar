@@ -82,6 +82,10 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
   }
 
   protected handleTooltipShow = throttle((event: any) => {
+    if (!this._tooltipComponent) {
+      return;
+    }
+
     const scaleGrammar = isString(this.options.scale) ? this.view.getScaleById(this.options.scale) : this.options.scale;
     const scale = scaleGrammar.getScale();
     const groupGraphicItem = this._container.getGroupGraphicItem();
@@ -150,6 +154,8 @@ export class DimensionTooltip extends BaseTooltip<DimensionTooltipOptions> {
   }, 10);
 
   protected handleTooltipHide = (event: any) => {
-    this._tooltipComponent.hideAll();
+    if (this._tooltipComponent) {
+      this._tooltipComponent.hideAll();
+    }
   };
 }
