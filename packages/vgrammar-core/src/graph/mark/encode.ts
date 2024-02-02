@@ -3,6 +3,7 @@ import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { BaseSingleEncodeSpec, IElement, MarkElementItem } from '../../types';
 import { isFieldEncode, isScaleEncode } from '../../parse/mark';
 import { getGrammarOutput, invokeFunctionType, isFunctionType } from '../../parse/util';
+import { isPositionOrSizeChannel } from '../attributes/helpers';
 
 /**
  * invoke encoder for multiple items
@@ -11,7 +12,8 @@ export function invokeEncoderToItems(
   element: IElement,
   items: MarkElementItem[],
   encoder: BaseSingleEncodeSpec,
-  parameters: any
+  parameters: any,
+  onlyFullEncodeFirst?: boolean
 ) {
   if (!encoder) {
     return;
@@ -25,6 +27,8 @@ export function invokeEncoderToItems(
   } else {
     Object.keys(encoder).forEach(channel => {
       const encode = encoder[channel];
+      const encodeItems =
+        onlyFullEncodeFirst && !isPositionOrSizeChannel(element.mark.markType, channel) ? [items[0]] : items;
 
       if (isScaleEncode(encode)) {
         const scale = getGrammarOutput(encode.scale, parameters);
@@ -35,7 +39,7 @@ export function invokeEncoderToItems(
 
         let to = hasField ? null : !isNil(encode?.value) ? scale.scale?.(encode.value) : 0;
 
-        items.forEach(item => {
+        encodeItems.forEach(item => {
           if (hasField) {
             to = scale.scale?.(fieldAccessor(item.datum));
           }
@@ -44,11 +48,11 @@ export function invokeEncoderToItems(
       } else if (isFieldEncode(encode)) {
         const fieldAccessor = getFieldAccessor(encode.field);
 
-        items.forEach(item => {
+        encodeItems.forEach(item => {
           item.nextAttrs[channel] = fieldAccessor(item.datum);
         });
       } else {
-        items.forEach(item => {
+        encodeItems.forEach(item => {
           item.nextAttrs[channel] = invokeFunctionType(encode, parameters, item.datum, element);
         });
       }

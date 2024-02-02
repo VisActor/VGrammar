@@ -130,6 +130,38 @@ export function getLargeSymbolsPoints(
   return arr;
 }
 
+export function isPositionOrSizeChannel(type: string, channel: string) {
+  if (['x', 'y', 'dx', 'dy'].includes(channel)) {
+    return true;
+  }
+
+  switch (type) {
+    case GrammarMarkType.arc:
+      return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'].includes(channel);
+    case GrammarMarkType.group:
+    case GrammarMarkType.rect:
+    case GrammarMarkType.image:
+      return ['width', 'height', 'y1'].includes(channel);
+    case GrammarMarkType.path:
+    case GrammarMarkType.shape:
+      return ['path', 'customPath'].includes(channel);
+    case GrammarMarkType.line:
+      return channel === 'defined';
+    case GrammarMarkType.area:
+      return ['x1', 'y1', 'defined'].includes(channel);
+    case GrammarMarkType.rule:
+      return ['x1', 'y1'].includes(channel);
+    case GrammarMarkType.symbol:
+      return channel === 'size';
+    case GrammarMarkType.polygon:
+      return channel === 'points';
+    case GrammarMarkType.text:
+      return channel === 'text';
+  }
+
+  return false;
+}
+
 export function isPointsMarkType(markType: MarkType): boolean {
   return (
     [GrammarMarkType.line, GrammarMarkType.area, GrammarMarkType.largeRects, GrammarMarkType.largeSymbols] as MarkType[]
