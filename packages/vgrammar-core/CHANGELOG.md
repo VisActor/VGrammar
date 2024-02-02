@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Wed, 31 Jan 2024 09:11:36 GMT and should not be manually modified.
+This log was last generated on Thu, 01 Feb 2024 10:33:55 GMT and should not be manually modified.
+
+## 0.11.8
+Thu, 01 Feb 2024 10:33:55 GMT
+
+### Updates
+
+- fix: update datazoom when reusing
 
 ## 0.11.7
 Wed, 31 Jan 2024 09:11:36 GMT

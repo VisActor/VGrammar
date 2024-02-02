@@ -1,3 +1,30 @@
+# v0.11.7
+
+2024-02-01
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: fix the bug of line/area when has only one point
+- **@visactor/vgrammar-core**: fix the error of tooltip that tooltip may be released after chart update
+
+
+
+[more detail about v0.11.7](https://github.com/VisActor/VGrammar/releases/tag/v0.11.7)
+
+# v0.11.6
+
+2024-01-31
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: symbol animation of `update` may lead all the points of overlaped show again
+
+
+
+[more detail about v0.11.6](https://github.com/VisActor/VGrammar/releases/tag/v0.11.6)
+
 # v0.11.5
 
 2024-01-26
