@@ -1,3 +1,16 @@
+# v0.11.8
+
+2024-02-02
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: update datazoom when reusing
+
+
+
+[more detail about v0.11.8](https://github.com/VisActor/VGrammar/releases/tag/v0.11.8)
+
 # v0.11.7
 
 2024-02-01
