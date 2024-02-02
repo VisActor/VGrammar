@@ -45,8 +45,8 @@ import { isFieldEncode, isScaleEncode, parseEncodeType } from '../parse/mark';
 import { getGrammarOutput, parseField, isFunctionType } from '../parse/util';
 import { parseTransformSpec } from '../parse/transform';
 import { createElement } from '../graph/util/element';
-import { invokeEncoder, invokeEncoderToItems, splitEncoderInLarge } from '../graph/mark/encode';
-import { isPositionOrSizeChannel, transformsByType } from '../graph/attributes';
+import { invokeEncoder, invokeEncoderToItems } from '../graph/mark/encode';
+import { transformsByType } from '../graph/attributes';
 import getExtendedEvents from '../graph/util/events-extend';
 import type { IBaseScale } from '@visactor/vscale';
 import { EVENT_SOURCE_VIEW } from './constants';
@@ -82,6 +82,8 @@ export class Mark extends GrammarBase implements IMark {
   isUpdated: boolean = true;
 
   private _groupKeys: string[];
+
+  private _groupEncodeResult: Record<string, any>;
 
   /** whether mark enter encode is updated  */
   private _isReentered: boolean = false;
@@ -279,6 +281,7 @@ export class Mark extends GrammarBase implements IMark {
     const groupKeys = res.keys as string[];
 
     this._groupKeys = groupKeys;
+    this._groupEncodeResult = null;
 
     this.differ.setCurrentData(res);
   }
@@ -776,6 +779,8 @@ export class Mark extends GrammarBase implements IMark {
       const nextAttrs = {};
       const items = [Object.assign({}, el.items?.[0], { nextAttrs })];
       invokeEncoderToItems(el, items, groupEncode, parameters);
+
+      this._groupEncodeResult = nextAttrs;
       return nextAttrs;
     }
 
@@ -795,18 +800,27 @@ export class Mark extends GrammarBase implements IMark {
       res[key] = invokeEncoder(groupEncode, el.items && el.items[0] && el.items[0].datum, el, parameters);
     });
 
+    this._groupEncodeResult = res;
+
     return res;
   }
 
-  protected evaluateEncode(elements: IElement[], encoders: any, parameters: any) {
+  protected evaluateEncode(elements: IElement[], encoders: any, parameters: any, noGroupEncode?: boolean) {
     if (encoders) {
       this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
-      const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
+
+      const groupEncodeAttrs = noGroupEncode
+        ? null
+        : this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
 
       elements.forEach(element => {
         if (this.markType === GrammarMarkType.group && groupEncodeAttrs) {
           element.items.forEach(item => {
             item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs);
+          });
+        } else if (this.markType === GrammarMarkType.glyph && this._groupEncodeResult) {
+          element.items.forEach(item => {
+            item.nextAttrs = Object.assign(item.nextAttrs, this._groupEncodeResult[element.groupKey]);
           });
         } else if (groupEncodeAttrs?.[element.groupKey] && !this.isCollectionMark()) {
           element.items.forEach(item => {
@@ -988,72 +1002,29 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   protected evaluateEncodeProgressive(elements: IElement[], encoders: any, parameters: any) {
-    if (!encoders) {
-      elements.forEach(element => {
-        element.initGraphicItem();
-      });
-
-      return;
-    }
-
-    const positionEncoders = Object.keys(encoders).reduce((res, state) => {
-      if (
-        encoders[state] &&
-        (state === BuiltInEncodeNames.enter || state === BuiltInEncodeNames.exit || state === BuiltInEncodeNames.update)
-      ) {
-        res[state] = splitEncoderInLarge(this.markType, encoders[state], (this as any).glyphType).positionEncoder;
-      }
-      return res;
-    }, {});
     const progressiveIndex = this.renderContext.progressive.currentIndex;
-    const isCollection = this.isCollectionMark();
 
-    this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
-    const groupEncodeAttrs = this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
+    if (progressiveIndex === 0) {
+      this.evaluateEncode(elements, encoders, parameters);
 
-    elements.forEach((element, index) => {
-      const onlyPos = progressiveIndex > 0 || (!isCollection && index > 0);
-      if (!onlyPos && groupEncodeAttrs?.[element.groupKey]) {
-        element.items.forEach(item => {
-          item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
-        });
-      }
+      if (
+        progressiveIndex === 0 &&
+        this._groupEncodeResult &&
+        !this.isCollectionMark() &&
+        this.markType !== GrammarMarkType.glyph
+      ) {
+        const firstElement = elements[0];
+        const firstChild = firstElement.getGraphicItem();
+        const group = firstChild?.parent;
 
-      element.encodeItems(element.items, onlyPos ? positionEncoders : encoders, this._isReentered, parameters);
-    });
-    this._isReentered = false;
-
-    this.evaluateTransform(this._getTransformsAfterEncodeItems(), elements, parameters);
-
-    elements.forEach(element => {
-      element.encodeGraphic();
-    });
-
-    this.emit(HOOK_EVENT.AFTER_ELEMENT_ENCODE, { encoders, parameters }, this);
-
-    if (progressiveIndex === 0 && !isCollection) {
-      const firstElement = elements[0];
-      const firstChild = firstElement.getGraphicItem();
-      const group = firstChild?.parent;
-
-      if (group) {
-        const attrs = firstChild.attribute;
-        const theme = {};
-        const itemAttrs = {};
-
-        Object.keys(attrs).forEach(key => {
-          if (['pickable', 'zIndex'].includes(key)) {
-            // do nothing
-          } else if (isPositionOrSizeChannel(this.markType, key)) {
-            itemAttrs[key] = attrs[key];
-          } else {
-            theme[key] = attrs[key];
+        if (group) {
+          if (this._groupEncodeResult[firstElement.groupKey]) {
+            (group as IGroup).setTheme({ common: this._groupEncodeResult[firstElement.groupKey] });
           }
-        });
-
-        (group as IGroup).setTheme({ common: theme });
-        firstChild.initAttributes(itemAttrs);
+        }
       }
+    } else {
+      this.evaluateEncode(elements, encoders, parameters, true);
     }
   }
 

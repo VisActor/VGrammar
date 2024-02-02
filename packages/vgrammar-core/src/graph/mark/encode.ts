@@ -3,9 +3,6 @@ import { field as getFieldAccessor } from '@visactor/vgrammar-util';
 import type { BaseSingleEncodeSpec, IElement, MarkElementItem } from '../../types';
 import { isFieldEncode, isScaleEncode } from '../../parse/mark';
 import { getGrammarOutput, invokeFunctionType, isFunctionType } from '../../parse/util';
-import { isPositionOrSizeChannel } from '../attributes/helpers';
-import { GrammarMarkType } from '../enums';
-import { Factory } from '../../core/factory';
 
 /**
  * invoke encoder for multiple items
@@ -14,8 +11,7 @@ export function invokeEncoderToItems(
   element: IElement,
   items: MarkElementItem[],
   encoder: BaseSingleEncodeSpec,
-  parameters: any,
-  onlyFullEncodeFirst?: boolean
+  parameters: any
 ) {
   if (!encoder) {
     return;
@@ -29,8 +25,6 @@ export function invokeEncoderToItems(
   } else {
     Object.keys(encoder).forEach(channel => {
       const encode = encoder[channel];
-      const encodeItems =
-        onlyFullEncodeFirst && !isPositionOrSizeChannel(element.mark.markType, channel) ? [items[0]] : items;
 
       if (isScaleEncode(encode)) {
         const scale = getGrammarOutput(encode.scale, parameters);
@@ -41,7 +35,7 @@ export function invokeEncoderToItems(
 
         let to = hasField ? null : !isNil(encode?.value) ? scale.scale?.(encode.value) : 0;
 
-        encodeItems.forEach(item => {
+        items.forEach(item => {
           if (hasField) {
             to = scale.scale?.(fieldAccessor(item.datum));
           }
@@ -50,11 +44,11 @@ export function invokeEncoderToItems(
       } else if (isFieldEncode(encode)) {
         const fieldAccessor = getFieldAccessor(encode.field);
 
-        encodeItems.forEach(item => {
+        items.forEach(item => {
           item.nextAttrs[channel] = fieldAccessor(item.datum);
         });
       } else {
-        encodeItems.forEach(item => {
+        items.forEach(item => {
           item.nextAttrs[channel] = invokeFunctionType(encode, parameters, item.datum, element);
         });
       }
@@ -98,47 +92,4 @@ export function invokeEncoder(encoder: BaseSingleEncodeSpec, datum: any, element
     }
   });
   return attributes;
-}
-
-export function splitEncoderInLarge(markType: string, encoder: BaseSingleEncodeSpec, glyphType?: string) {
-  // function encoder can not be splitted
-  if (isFunctionType(encoder)) {
-    return { themeEncoder: {}, positionEncoder: encoder };
-  }
-
-  const themeEncoder = {};
-  const positionEncoder = {};
-
-  if (markType === GrammarMarkType.glyph && Factory.getGlyph(glyphType)) {
-    const glyphMeta = Factory.getGlyph(glyphType);
-    const progressiveChannels = glyphMeta.getProgressiveChannels();
-    if (progressiveChannels) {
-      Object.keys(encoder).forEach(channel => {
-        if (progressiveChannels.includes(channel)) {
-          positionEncoder[channel] = encoder[channel];
-        } else {
-          themeEncoder[channel] = encoder[channel];
-        }
-      });
-    } else {
-      const markTypes: string[] = Array.from(new Set(Object.values(glyphMeta.getMarks())));
-      Object.keys(encoder).forEach(channel => {
-        if (markTypes.some(type => isPositionOrSizeChannel(type, channel))) {
-          positionEncoder[channel] = encoder[channel];
-        } else {
-          themeEncoder[channel] = encoder[channel];
-        }
-      });
-    }
-  } else {
-    Object.keys(encoder).forEach(channel => {
-      if (isPositionOrSizeChannel(markType, channel)) {
-        positionEncoder[channel] = encoder[channel];
-      } else {
-        themeEncoder[channel] = encoder[channel];
-      }
-    });
-  }
-
-  return { positionEncoder, themeEncoder };
 }

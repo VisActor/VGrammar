@@ -276,29 +276,28 @@ export class Element implements IElement {
     const updateEncoder = encoders[BuiltInEncodeNames.update];
     const enterEncoder = encoders[BuiltInEncodeNames.enter];
     const exitEncoder = encoders[BuiltInEncodeNames.exit];
-    const onlyFullEncodeFirst = this.mark.isLargeMode() || (isCollectionMark && !this.mark.getSpec().enableSegments);
 
     if (this.diffState === DiffState.enter) {
       if (enterEncoder) {
-        invokeEncoderToItems(this, items, enterEncoder, parameters, onlyFullEncodeFirst);
+        invokeEncoderToItems(this, items, enterEncoder, parameters);
       }
       if (updateEncoder) {
-        invokeEncoderToItems(this, items, updateEncoder, parameters, onlyFullEncodeFirst);
+        invokeEncoderToItems(this, items, updateEncoder, parameters);
       }
     } else if (this.diffState === DiffState.update) {
       // if mark is reentered or mark is collection type, evaluate enter encode
       if ((isCollectionMark && enterEncoder) || isReentered) {
-        invokeEncoderToItems(this, items, enterEncoder, parameters, onlyFullEncodeFirst);
+        invokeEncoderToItems(this, items, enterEncoder, parameters);
       }
       if (updateEncoder) {
-        invokeEncoderToItems(this, items, updateEncoder, parameters, onlyFullEncodeFirst);
+        invokeEncoderToItems(this, items, updateEncoder, parameters);
       }
     } else if (this.diffState === DiffState.exit && exitEncoder) {
       // if mark is reentered, evaluate enter encode
       if (isReentered) {
-        invokeEncoderToItems(this, items, enterEncoder, parameters, onlyFullEncodeFirst);
+        invokeEncoderToItems(this, items, enterEncoder, parameters);
       }
-      invokeEncoderToItems(this, items, exitEncoder, parameters, onlyFullEncodeFirst);
+      invokeEncoderToItems(this, items, exitEncoder, parameters);
     }
   }
 
