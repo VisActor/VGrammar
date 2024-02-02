@@ -119,7 +119,12 @@ export const spec = {
       progressiveStep: 2000,
       progressiveThreshold: 5000,
       encode: {
+        group: {
+          fill: { scale: 'color', field: 'group' }
+        },
+        
         update: {
+          y1: { scale: 'yscale', value: 0 },
           x: {
             // scale: 'xscale', field: 'category'
             callback: (datum: any, el: any, params: any) => {
@@ -144,8 +149,7 @@ export const spec = {
           // // width: 20,
           // width: 20,
           y: { scale: 'yscale', field: 'amount' },
-          y1: { scale: 'yscale', value: 0 },
-          fill: { scale: 'color', field: 'group' }
+          
         },
         hover: {
           fill: 'red'
