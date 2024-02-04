@@ -868,7 +868,6 @@ export default class View extends EventEmitter implements IView {
 
     // resize again if width/height signal is updated duration dataflow
     this._resizeRenderer();
-    this.doRender(true);
 
     this._willMorphMarks?.forEach(morphMarks => {
       this._morph.morph(morphMarks.prev, morphMarks.next, normalizedRunningConfig);
@@ -876,6 +875,8 @@ export default class View extends EventEmitter implements IView {
     this._willMorphMarks = null;
 
     this.releaseCachedGrammars(normalizedRunningConfig);
+
+    this.doRender(true);
 
     this.doPreProgressive();
 
