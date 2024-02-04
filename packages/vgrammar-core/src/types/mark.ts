@@ -17,7 +17,8 @@ import type {
   ITextGraphicAttribute,
   IGraphicAttribute,
   IGroupGraphicAttribute,
-  IRichTextGraphicAttribute
+  IRichTextGraphicAttribute,
+  IGraphic
 } from '@visactor/vrender-core';
 import type { Bounds, IPointLike } from '@visactor/vutils';
 import type { IAnimationConfig, IStateAnimationConfig } from './animate';
@@ -213,6 +214,7 @@ export type MarkLayoutCallback = (
 ) => void;
 
 export interface IMarkConfig {
+  clipPath?: IGraphic[] | ((elements: IElement[]) => IGraphic[]);
   clip?: boolean;
   zIndex?: number;
   interactive?: boolean;
