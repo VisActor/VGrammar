@@ -670,7 +670,6 @@ export class Mark extends GrammarBase implements IMark {
       if (!isNil(spec.clip)) {
         this.graphicItem.setAttribute('clip', spec.clip);
       }
-
       if (!isNil(spec.clipPath)) {
         this.graphicItem.setAttribute('path', isArray(spec.clipPath) ? spec.clipPath : spec.clipPath(this.elements));
       }
@@ -687,7 +686,8 @@ export class Mark extends GrammarBase implements IMark {
         element.updateGraphicItem({
           clip: spec.clip,
           zIndex: spec.zIndex,
-          interactive: spec.interactive
+          interactive: spec.interactive,
+          clipPath: spec.clipPath
         });
       });
     }
