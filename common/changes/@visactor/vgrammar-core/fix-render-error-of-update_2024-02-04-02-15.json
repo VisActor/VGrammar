@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: fix render error when update marks\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}
