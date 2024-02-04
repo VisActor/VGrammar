@@ -1,3 +1,16 @@
+# v0.11.9
+
+2024-02-04
+
+
+**🔨 Refactor**
+
+- **@visactor/vgrammar-core**: refactor progressive render of mark, fix render glyph in progressive
+
+
+
+[more detail about v0.11.9](https://github.com/VisActor/VGrammar/releases/tag/v0.11.9)
+
 # v0.11.8
 
 2024-02-02
