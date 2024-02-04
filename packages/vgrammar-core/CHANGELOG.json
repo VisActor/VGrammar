@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.9",
+      "tag": "@visactor/vgrammar-core_v0.11.9",
+      "date": "Fri, 02 Feb 2024 09:27:19 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "refactor: refactor progressive render of mark, fix render glyph in progressive\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.8",
       "tag": "@visactor/vgrammar-core_v0.11.8",
       "date": "Thu, 01 Feb 2024 10:33:55 GMT",

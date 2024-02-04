@@ -4,8 +4,6 @@ import type { BaseSingleEncodeSpec, IElement, MarkElementItem } from '../../type
 import { isFieldEncode, isScaleEncode } from '../../parse/mark';
 import { getGrammarOutput, invokeFunctionType, isFunctionType } from '../../parse/util';
 import { isPositionOrSizeChannel } from '../attributes/helpers';
-import { GrammarMarkType } from '../enums';
-import { Factory } from '../../core/factory';
 
 /**
  * invoke encoder for multiple items
@@ -98,47 +96,4 @@ export function invokeEncoder(encoder: BaseSingleEncodeSpec, datum: any, element
     }
   });
   return attributes;
-}
-
-export function splitEncoderInLarge(markType: string, encoder: BaseSingleEncodeSpec, glyphType?: string) {
-  // function encoder can not be splitted
-  if (isFunctionType(encoder)) {
-    return { themeEncoder: {}, positionEncoder: encoder };
-  }
-
-  const themeEncoder = {};
-  const positionEncoder = {};
-
-  if (markType === GrammarMarkType.glyph && Factory.getGlyph(glyphType)) {
-    const glyphMeta = Factory.getGlyph(glyphType);
-    const progressiveChannels = glyphMeta.getProgressiveChannels();
-    if (progressiveChannels) {
-      Object.keys(encoder).forEach(channel => {
-        if (progressiveChannels.includes(channel)) {
-          positionEncoder[channel] = encoder[channel];
-        } else {
-          themeEncoder[channel] = encoder[channel];
-        }
-      });
-    } else {
-      const markTypes: string[] = Array.from(new Set(Object.values(glyphMeta.getMarks())));
-      Object.keys(encoder).forEach(channel => {
-        if (markTypes.some(type => isPositionOrSizeChannel(type, channel))) {
-          positionEncoder[channel] = encoder[channel];
-        } else {
-          themeEncoder[channel] = encoder[channel];
-        }
-      });
-    }
-  } else {
-    Object.keys(encoder).forEach(channel => {
-      if (isPositionOrSizeChannel(markType, channel)) {
-        positionEncoder[channel] = encoder[channel];
-      } else {
-        themeEncoder[channel] = encoder[channel];
-      }
-    });
-  }
-
-  return { positionEncoder, themeEncoder };
 }
