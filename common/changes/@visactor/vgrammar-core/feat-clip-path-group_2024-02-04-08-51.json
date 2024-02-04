@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-core",
+      "comment": "feat: support `clipPath` in mark",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core"
+}
