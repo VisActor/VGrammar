@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 02 Feb 2024 09:27:19 GMT and should not be manually modified.
+This log was last generated on Sun, 04 Feb 2024 05:45:15 GMT and should not be manually modified.
+
+## 0.11.10
+Sun, 04 Feb 2024 05:45:15 GMT
+
+### Updates
+
+- fix: fix render error when update marks
+
+
 
 ## 0.11.9
 Fri, 02 Feb 2024 09:27:19 GMT
