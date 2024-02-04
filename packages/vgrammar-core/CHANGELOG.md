@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 01 Feb 2024 10:33:55 GMT and should not be manually modified.
+This log was last generated on Fri, 02 Feb 2024 09:27:19 GMT and should not be manually modified.
+
+## 0.11.9
+Fri, 02 Feb 2024 09:27:19 GMT
+
+### Updates
+
+- refactor: refactor progressive render of mark, fix render glyph in progressive
+
+
 
 ## 0.11.8
 Thu, 01 Feb 2024 10:33:55 GMT
