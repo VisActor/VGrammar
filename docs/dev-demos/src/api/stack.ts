@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import type { IView } from '@visactor/vgrammar';
+import type { IElement, IView } from '@visactor/vgrammar';
 import type { IBandLikeScale } from '@visactor/vscale';
 import { category10 } from '../color-utils';
+import { createRect, IGraphic } from '@visactor/vrender'
 
 const originData = [
   { category: 'A', amount: 28, index: 0, type: 'First' },
@@ -94,6 +95,50 @@ export const runner = (view: IView) => {
       },
       state: {
         duration: 1000
+      }
+    }).configure({
+      clip: true,
+      clipPath: (elements: IElement[]) => {
+        const stackMaps = {};
+
+        elements.forEach(el => {
+          const stack = el.getDatum().category;
+
+          if (!stackMaps[stack]) {
+            stackMaps[stack] = [];
+          }
+
+          stackMaps[stack].push(el);
+        });
+
+        const paths: IGraphic[] = [];
+
+        Object.keys(stackMaps).forEach(key => {
+          const children = stackMaps[key];
+          const x = children[0].getGraphicAttribute('x');
+          const width = children[0].getGraphicAttribute('width');
+          const ys: number[] = [];
+
+          children.forEach(child => {
+            ys.push(child.getGraphicAttribute('y'));
+            ys.push(child.getGraphicAttribute('y1'));
+          })
+
+          console.log(x, width, ys)
+
+          paths.push(
+            createRect({
+              x, 
+              y: Math.min.apply(null, ys), 
+              y1: Math.max.apply(null, ys), 
+              width, 
+              cornerRadius: [10, 10, 0, 0],
+              fill: 'white'
+            })
+          );
+        });
+
+        return paths;
       }
     });
   const label = view
