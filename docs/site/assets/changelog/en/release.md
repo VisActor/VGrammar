@@ -1,3 +1,11 @@
+# v0.11.12
+
+2024-02-07
+
+upgrade dependency
+
+[more detail about v0.11.12](https://github.com/VisActor/VGrammar/releases/tag/v0.11.12)
+
 # v0.11.10
 
 2024-02-04
