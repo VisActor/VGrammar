@@ -1,3 +1,16 @@
+# v0.11.10
+
+2024-02-04
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: fix render error when update marks
+
+
+
+[more detail about v0.11.10](https://github.com/VisActor/VGrammar/releases/tag/v0.11.10)
+
 # v0.11.9
 
 2024-02-04

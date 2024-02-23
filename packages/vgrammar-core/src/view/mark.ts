@@ -1,5 +1,5 @@
 import type { IGroup, INode } from '@visactor/vrender-core';
-import { isNil, isString } from '@visactor/vutils';
+import { isArray, isNil, isString } from '@visactor/vutils';
 import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
 import {
   DiffState,
@@ -473,6 +473,7 @@ export class Mark extends GrammarBase implements IMark {
   configure(config: IMarkConfig | Nil): this {
     const keys = [
       'clip',
+      'clipPath',
       'zIndex',
       'interactive',
       'context',
@@ -669,6 +670,10 @@ export class Mark extends GrammarBase implements IMark {
       if (!isNil(spec.clip)) {
         this.graphicItem.setAttribute('clip', spec.clip);
       }
+      if (!isNil(spec.clipPath)) {
+        this.graphicItem.setAttribute('path', isArray(spec.clipPath) ? spec.clipPath : spec.clipPath(this.elements));
+      }
+
       // only update interactive
       this.elementMap.forEach(element => {
         element.updateGraphicItem({
@@ -681,7 +686,8 @@ export class Mark extends GrammarBase implements IMark {
         element.updateGraphicItem({
           clip: spec.clip,
           zIndex: spec.zIndex,
-          interactive: spec.interactive
+          interactive: spec.interactive,
+          clipPath: spec.clipPath
         });
       });
     }

@@ -115,9 +115,17 @@ export class Element implements IElement {
     if (!this.graphicItem) {
       return;
     }
-
+    // only works for group mark
     if (!isNil(config.clip)) {
       this.graphicItem.setAttribute('clip', config.clip);
+    }
+    // only works for group mark
+    if (!isNil(config.zIndex)) {
+      this.graphicItem.setAttribute('zIndex', config.zIndex);
+    }
+    // only works for group mark
+    if (!isNil(config.clipPath)) {
+      this.graphicItem.setAttribute('path', isArray(config.clipPath) ? config.clipPath : config.clipPath([this]));
     }
     if (!isNil(config.interactive)) {
       this.graphicItem.setAttribute('pickable', config.interactive);
