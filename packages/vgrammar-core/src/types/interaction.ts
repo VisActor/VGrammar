@@ -48,7 +48,7 @@ export interface IInteraction<T = any> {
   depend: (grammar: IGrammarBase[] | IGrammarBase | string[] | string) => void;
   bind: () => void;
   unbind: () => void;
-  start: (element: IElement | IGlyphElement | string) => void;
+  start: (element: IElement | IGlyphElement | string | any) => void;
   reset: (element?: IElement | IGlyphElement) => void;
 }
 
