@@ -48,29 +48,41 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
       : null;
   }
 
+  start(itemKey: IElement | IGlyphElement | string) {
+    if (isNil(itemKey)) {
+      return;
+    }
+
+    const filterValue = generateFilterValue(this.options);
+
+    this._marks.forEach(mark => {
+      mark.elements.forEach(el => {
+        const isHighlight = filterValue(el) === itemKey;
+        if (isHighlight) {
+          el.removeState(this.options.blurState);
+          el.addState(this.options.highlightState);
+        } else {
+          el.removeState(this.options.highlightState);
+          el.addState(this.options.blurState);
+        }
+      });
+    });
+  }
+
+  reset() {
+    this._marks.forEach(mark => {
+      mark.elements.forEach(el => {
+        el.removeState(this.options.blurState);
+        el.removeState(this.options.highlightState);
+      });
+    });
+  }
+
   handleStart = (e: InteractionEvent, element: IElement | IGlyphElement) => {
     const shoudStart = this.options.shouldStart ? this.options.shouldStart(e) : this._filterByName(e);
     if (shoudStart) {
       const itemKey = this._parseTargetKey(e, element);
-
-      if (isNil(itemKey)) {
-        return;
-      }
-
-      const filterValue = generateFilterValue(this.options);
-
-      this._marks.forEach(mark => {
-        mark.elements.forEach(el => {
-          const isHighlight = filterValue(el) === itemKey;
-          if (isHighlight) {
-            el.removeState(this.options.blurState);
-            el.addState(this.options.highlightState);
-          } else {
-            el.removeState(this.options.highlightState);
-            el.addState(this.options.blurState);
-          }
-        });
-      });
+      this.start(itemKey);
     }
   };
 
@@ -78,12 +90,7 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
     const shoudReset = this.options.shouldReset ? this.options.shouldReset(e) : this._filterByName(e);
 
     if (shoudReset) {
-      this._marks.forEach(mark => {
-        mark.elements.forEach(el => {
-          el.removeState(this.options.blurState);
-          el.removeState(this.options.highlightState);
-        });
-      });
+      this.reset();
     }
   };
 }

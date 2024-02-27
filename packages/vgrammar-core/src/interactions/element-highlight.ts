@@ -77,35 +77,43 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
     }
   }
 
-  handleStart = (e: InteractionEvent) => {
-    if (e.element && this._marks && this._marks.includes(e.element.mark)) {
+  start(element: InteractionEvent['element']) {
+    if (element && this._marks && this._marks.includes(element.mark)) {
       const { highlightState, blurState } = this.options;
 
-      if (this._lastElement === e.element) {
+      if (this._lastElement === element) {
         return;
       }
 
-      this._statedElements = this.updateStates([e.element], this._statedElements, highlightState, blurState);
+      this._statedElements = this.updateStates([element], this._statedElements, highlightState, blurState);
 
-      this._lastElement = e.element;
+      this._lastElement = element;
 
-      this.dispatchEvent('start', { elements: [e.element], options: this.options });
+      this.dispatchEvent('start', { elements: [element], options: this.options });
     } else if (this._lastElement && this._resetType === 'view') {
       this.clearPrevElements();
     }
-  };
+  }
 
-  handleReset = (e: InteractionEvent) => {
+  reset(element: InteractionEvent['element']) {
     if (!this._statedElements || !this._statedElements.length) {
       return;
     }
 
-    const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
+    const hasActiveElement = element && this._marks && this._marks.includes(element.mark);
 
     if (this._resetType === 'view' && !hasActiveElement) {
       this.clearPrevElements();
     } else if (this._resetType === 'self' && hasActiveElement) {
       this.clearPrevElements();
     }
+  }
+
+  handleStart = (e: InteractionEvent) => {
+    this.start(e.element);
+  };
+
+  handleReset = (e: InteractionEvent) => {
+    this.reset(e.element);
   };
 }

@@ -42,9 +42,9 @@ export class ElementHighlightByKey extends BaseInteraction<ElementHighlightOptio
     });
   }
 
-  handleStart = (e: InteractionEvent) => {
-    if (e.element && this._marks && this._marks.includes(e.element.mark)) {
-      const highlightKey = e.element.key;
+  start(element: InteractionEvent['element']) {
+    if (element && this._marks && this._marks.includes(element.mark)) {
+      const highlightKey = element.key;
 
       if (isNil(highlightKey)) {
         return;
@@ -63,6 +63,33 @@ export class ElementHighlightByKey extends BaseInteraction<ElementHighlightOptio
         });
       });
     }
+  }
+
+  reset(element: InteractionEvent['element']) {
+    if (element && this._marks && this._marks.includes(element.mark)) {
+      const highlightKey = element.key;
+
+      if (isNil(highlightKey)) {
+        return;
+      }
+      this._marks.forEach(mark => {
+        mark.elements.forEach(el => {
+          const isHighlight = el.key === highlightKey;
+
+          if (isHighlight) {
+            el.removeState(this.options.blurState);
+            el.addState(this.options.highlightState);
+          } else {
+            el.removeState(this.options.highlightState);
+            el.addState(this.options.blurState);
+          }
+        });
+      });
+    }
+  }
+
+  handleStart = (e: InteractionEvent) => {
+    this.start(e.element);
   };
 
   handleReset = (e: InteractionEvent) => {
