@@ -31,19 +31,27 @@ export class ElementActive extends BaseInteraction<ElementActiveOptions> {
     ];
   }
 
-  handleStart = (e: InteractionEvent) => {
-    if (e.element) {
-      if (this._marks && this._marks.includes(e.element.mark)) {
-        e.element.addState(this.options.state);
+  start(element: InteractionEvent['element']) {
+    if (element) {
+      if (this._marks && this._marks.includes(element.mark)) {
+        element.addState(this.options.state);
       }
     }
+  }
+
+  reset(element: InteractionEvent['element']) {
+    if (element) {
+      if (this._marks && this._marks.includes(element.mark)) {
+        element.removeState(this.options.state);
+      }
+    }
+  }
+
+  handleStart = (e: InteractionEvent) => {
+    this.start(e.element);
   };
 
   handleReset = (e: InteractionEvent) => {
-    if (e.element) {
-      if (this._marks && this._marks.includes(e.element.mark)) {
-        e.element.removeState(this.options.state);
-      }
-    }
+    this.reset(e.element);
   };
 }
