@@ -41,9 +41,7 @@ export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightBy
     ];
   }
 
-  handleStart = (e: InteractionEvent, element: IElement | IGlyphElement) => {
-    const itemKey = e.detail?.data?.id;
-
+  start(itemKey: IElement | IGlyphElement | string) {
     if (isNil(itemKey)) {
       return;
     }
@@ -62,14 +60,22 @@ export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightBy
         }
       });
     });
-  };
+  }
 
-  handleReset = (e: InteractionEvent) => {
+  reset() {
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
         el.removeState(this.options.blurState);
         el.removeState(this.options.highlightState);
       });
     });
+  }
+
+  handleStart = (e: InteractionEvent, element: IElement | IGlyphElement) => {
+    this.start(e.detail?.data?.id);
+  };
+
+  handleReset = (e: InteractionEvent) => {
+    this.reset();
   };
 }

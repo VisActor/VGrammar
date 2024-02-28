@@ -10,8 +10,8 @@ import type {
   IView,
   InteractionEvent
 } from '../types';
-import { BaseInteraction } from './base';
 import { groupMarksByState } from './utils';
+import { BaseInteraction } from './base';
 
 export interface ElementSelect extends IToggleStateMixin, BaseInteraction<ElementSelectOptions> {}
 
@@ -90,13 +90,20 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   };
 
   handleStart = (e: InteractionEvent) => {
-    const { state, reverseState, isMultiple } = this.options;
+    this.start(e.element);
+  };
 
-    if (e.element && this._marks && this._marks.includes(e.element.mark)) {
-      if (e.element.hasState(state)) {
+  handleReset = (e: InteractionEvent) => {
+    this.reset(e.element);
+  };
+
+  start(element: InteractionEvent['element']) {
+    const { state, reverseState, isMultiple } = this.options;
+    if (element && this._marks && this._marks.includes(element.mark)) {
+      if (element.hasState(state)) {
         if (this._resetType === 'self') {
           this._statedElements = this.updateStates(
-            this._statedElements && this._statedElements.filter(el => el !== e.element),
+            this._statedElements && this._statedElements.filter(el => el !== element),
             this._statedElements,
             state,
             reverseState
@@ -106,10 +113,10 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
         if (this._timer) {
           clearTimeout(this._timer);
         }
-        e.element.addState(state);
+        element.addState(state);
 
         this._statedElements = this.updateStates(
-          isMultiple && this._statedElements ? [...this._statedElements, e.element] : [e.element],
+          isMultiple && this._statedElements ? [...this._statedElements, element] : [element],
           this._statedElements,
           state,
           reverseState
@@ -125,19 +132,19 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
     } else if (this._resetType === 'view' && this._statedElements && this._statedElements.length) {
       this.clearPrevElements();
     }
-  };
+  }
 
-  handleReset = (e: InteractionEvent) => {
+  reset(element: InteractionEvent['element']) {
     if (!this._statedElements || !this._statedElements.length) {
       return;
     }
 
-    const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
+    const hasActiveElement = element && this._marks && this._marks.includes(element.mark);
 
     if (this._resetType === 'view' && !hasActiveElement) {
       this.clearPrevElements();
     } else if (this._resetType === 'self' && hasActiveElement) {
       this.clearPrevElements();
     }
-  };
+  }
 }

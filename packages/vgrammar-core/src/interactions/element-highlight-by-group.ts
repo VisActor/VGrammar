@@ -1,7 +1,7 @@
 import { isNil } from '@visactor/vutils';
 import type { ElementHighlightOptions, IMark, IView, InteractionEvent } from '../types';
-import { BaseInteraction } from './base';
 import { InteractionStateEnum } from '../graph/enums';
+import { BaseInteraction } from './base';
 
 export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOptions> {
   static type: string = 'element-highlight-by-group';
@@ -42,9 +42,9 @@ export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOpt
     });
   }
 
-  handleStart = (e: InteractionEvent) => {
-    if (e.element && this._marks && this._marks.includes(e.element.mark)) {
-      const highlightKey = e.element.groupKey;
+  start(element: InteractionEvent['element']) {
+    if (element && this._marks && this._marks.includes(element.mark)) {
+      const highlightKey = element.groupKey;
 
       if (isNil(highlightKey)) {
         return;
@@ -63,13 +63,21 @@ export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOpt
         });
       });
     }
-  };
+  }
 
-  handleReset = (e: InteractionEvent) => {
-    const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
+  reset(element: InteractionEvent['element']) {
+    const hasActiveElement = element && this._marks && this._marks.includes(element.mark);
 
     if (hasActiveElement) {
       this.clearPrevElements();
     }
+  }
+
+  handleStart = (e: InteractionEvent) => {
+    this.start(e.element);
+  };
+
+  handleReset = (e: InteractionEvent) => {
+    this.reset(e.element);
   };
 }

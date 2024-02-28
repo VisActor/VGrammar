@@ -36,8 +36,8 @@ export class ElementActiveByLegend extends BaseInteraction<ElementActiveByLegend
     ];
   }
 
-  handleStart = (e: InteractionEvent, element: IElement | IGlyphElement) => {
-    const itemKey = e.detail?.data?.id;
+  start(element: IElement | IGlyphElement | string) {
+    const itemKey = element;
 
     if (isNil(itemKey)) {
       return;
@@ -56,13 +56,21 @@ export class ElementActiveByLegend extends BaseInteraction<ElementActiveByLegend
         }
       });
     });
-  };
+  }
 
-  handleReset = (e: InteractionEvent) => {
+  reset() {
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
         el.removeState(this.options.state);
       });
     });
+  }
+
+  handleStart = (e: InteractionEvent) => {
+    this.start(e.detail?.data?.id);
+  };
+
+  handleReset = (e: InteractionEvent) => {
+    this.reset();
   };
 }

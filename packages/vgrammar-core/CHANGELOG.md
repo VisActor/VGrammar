@@ -1,9 +1,16 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Mon, 05 Feb 2024 04:06:45 GMT and should not be manually modified.
+This log was last generated on Wed, 28 Feb 2024 05:16:58 GMT and should not be manually modified.
+
+## 0.11.12
+Wed, 28 Feb 2024 05:16:58 GMT
+
+### Updates
+
+- feat: pass ticker to createStage params
 
 ## 0.11.11
-Mon, 05 Feb 2024 04:06:45 GMT
+Wed, 07 Feb 2024 03:12:22 GMT
 
 ### Updates
 

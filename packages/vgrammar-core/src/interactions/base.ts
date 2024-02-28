@@ -1,5 +1,12 @@
 import { array, isArray, isNil, isString, isValid } from '@visactor/vutils';
-import type { IBaseInteractionOptions, IGrammarBase, IView, InteractionEventHandler } from '../types';
+import type {
+  IBaseInteractionOptions,
+  IElement,
+  IGlyphElement,
+  IGrammarBase,
+  IView,
+  InteractionEventHandler
+} from '../types';
 
 export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
   readonly view: IView;
@@ -69,6 +76,14 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
         }
       }
     });
+  }
+
+  start(element: IElement | IGlyphElement) {
+    // do  nothing
+  }
+
+  reset(element?: IElement | IGlyphElement) {
+    // do  nothing
   }
 
   protected dispatchEvent(type: 'start' | 'reset' | 'update' | 'end', params: any) {
