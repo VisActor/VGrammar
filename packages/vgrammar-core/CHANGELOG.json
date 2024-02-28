@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.12",
+      "tag": "@visactor/vgrammar-core_v0.11.12",
+      "date": "Wed, 28 Feb 2024 05:16:58 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: pass ticker to createStage params"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.11",
       "tag": "@visactor/vgrammar-core_v0.11.11",
       "date": "Wed, 07 Feb 2024 03:12:22 GMT",
