@@ -1,3 +1,18 @@
+# v0.11.13
+
+2024-02-28
+
+
+**What's Changed**
+
+
+* chore: upgrade vrender version by @skie1997 in https://github.com/VisActor/VGrammar/pull/370
+* feat: pass ticker to createStage params by @neuqzxy in https://github.com/VisActor/VGrammar/pull/373
+* Feat/add start and reset interaction api by @xiaoluoHe in https://github.com/VisActor/VGrammar/pull/377
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.11.11...v0.11.13
+
+[more detail about v0.11.13](https://github.com/VisActor/VGrammar/releases/tag/v0.11.13)
+
 # v0.11.11
 
 2024-02-23
