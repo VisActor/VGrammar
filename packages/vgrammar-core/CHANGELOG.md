@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Sun, 04 Feb 2024 05:45:15 GMT and should not be manually modified.
+This log was last generated on Mon, 05 Feb 2024 04:06:45 GMT and should not be manually modified.
+
+## 0.11.11
+Mon, 05 Feb 2024 04:06:45 GMT
+
+### Updates
+
+- feat: support `clipPath` in mark
 
 ## 0.11.10
 Sun, 04 Feb 2024 05:45:15 GMT
