@@ -79,6 +79,20 @@ test('slider', function () {
       fill: '#2C3542',
       fontSize: 12
     },
+    tooltip: {
+      shapeStyle: {
+        fill: '#fff',
+        lineWidth: 2,
+        stroke: '#91caff',
+        symbolType: 'circle'
+      },
+      text: {
+        style: {
+          fill: '#2C3542',
+          fontSize: 12
+        }
+      }
+    },
     x: 350,
     y: 200
   });
