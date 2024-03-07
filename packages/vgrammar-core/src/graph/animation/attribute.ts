@@ -184,23 +184,31 @@ export class AttributeAnimate extends ACustomAnimate<any> {
 
     const from = Object.assign({}, this.from);
     const to = Object.assign({}, this.to);
+    const animatedChannels: string[] = [];
     Object.keys(to).forEach(k => {
       if (excludedChannels.includes(k)) {
         from[k] = to[k];
         this.from[k] = to[k];
       } else if (isNil(from[k])) {
         from[k] = this.target.getComputedAttribute(k);
+      } else {
+        animatedChannels.push(k);
       }
       // if (this.to[k] === from[k]) {
       //   delete from[k];
       // }
     });
 
+    this.target.animates.forEach(a => {
+      if (a !== this.subAnimate.animate) {
+        a.preventAttrs(animatedChannels);
+      }
+    });
+
     this.target.setAttributes(from, false, {
       type: AttributeUpdateType.ANIMATE_UPDATE,
       animationState: { ratio: 0, end: false }
     });
-
     this._fromAttribute = from;
     this._toAttribute = to;
   }
