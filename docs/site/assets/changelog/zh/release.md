@@ -1,3 +1,17 @@
+# v0.12.1
+
+2024-03-07
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: upgrade vrender to 0.18.1
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.12.0...v0.12.1
+
+[更多详情请查看 v0.12.1](https://github.com/VisActor/VGrammar/releases/tag/v0.12.1)
+
 # v0.12.0
 
 2024-03-05
