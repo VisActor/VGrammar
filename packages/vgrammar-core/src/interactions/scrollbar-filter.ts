@@ -67,7 +67,11 @@ export class ScrollbarFilter extends Filter {
 
     return [
       {
-        type: 'scroll',
+        type: 'scrollUp',
+        handler: this.handleFilter
+      },
+      {
+        type: 'scrollDrag',
         handler: this.handleFilter
       }
     ];
