@@ -1,3 +1,17 @@
+# v0.12.0
+
+2024-03-05
+
+
+**What's Changed**
+
+* feat: upgrade vrender by @xiaoluoHe in https://github.com/VisActor/VGrammar/pull/383
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.11.14...v0.12.0
+
+[more detail about v0.12.0](https://github.com/VisActor/VGrammar/releases/tag/v0.12.0)
+
 # v0.11.14
 
 2024-02-29
