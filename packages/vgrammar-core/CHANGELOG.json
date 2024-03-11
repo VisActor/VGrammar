@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.16",
+      "tag": "@visactor/vgrammar-core_v0.11.16",
+      "date": "Mon, 11 Mar 2024 11:11:03 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix end attributes of conflict animation\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.15",
       "tag": "@visactor/vgrammar-core_v0.11.15",
       "date": "Fri, 08 Mar 2024 02:44:54 GMT",

@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 08 Mar 2024 02:44:54 GMT and should not be manually modified.
+This log was last generated on Mon, 11 Mar 2024 11:11:03 GMT and should not be manually modified.
+
+## 0.11.16
+Mon, 11 Mar 2024 11:11:03 GMT
+
+### Updates
+
+- fix: fix end attributes of conflict animation
+
+
 
 ## 0.11.15
 Fri, 08 Mar 2024 02:44:54 GMT
