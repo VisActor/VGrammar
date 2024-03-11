@@ -214,9 +214,19 @@ export class AttributeAnimate extends ACustomAnimate<any> {
   }
 
   onEnd(): void {
-    this.target.setAttributes(this._toAttribute, false, {
-      type: AttributeUpdateType.ANIMATE_END
-    });
+    if (this._toAttribute) {
+      const out = {};
+
+      Object.keys(this._toAttribute).forEach(key => {
+        if (this.subAnimate.animate.validAttr(key)) {
+          out[key] = this._toAttribute[key];
+        }
+      });
+
+      this.target.setAttributes(out, false, {
+        type: AttributeUpdateType.ANIMATE_END
+      });
+    }
   }
 
   update(end: boolean, ratio: number, out: Record<string, any>): void {
