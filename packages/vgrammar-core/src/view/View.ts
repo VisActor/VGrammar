@@ -1344,6 +1344,11 @@ export default class View extends EventEmitter implements IView {
     stage && stage.on('*', this.delegateEvent);
   }
 
+  private releaseStageEvent() {
+    const stage = this.renderer.stage();
+    stage && stage.off('*', this.delegateEvent);
+  }
+
   private delegateEvent = (event: any, type: string) => {
     const activeElement = event.target?.[BridgeElementKey];
     const extendedEvt = getExtendedEvents(this, event, activeElement, type, EVENT_SOURCE_VIEW);
@@ -1513,6 +1518,7 @@ export default class View extends EventEmitter implements IView {
 
   // --- release ---
   release() {
+    this.releaseStageEvent();
     this._unBindResizeEvent();
     this.clearProgressive();
     Factory.unregisterRuntimeTransforms();
