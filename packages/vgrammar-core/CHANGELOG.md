@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Mon, 11 Mar 2024 11:11:03 GMT and should not be manually modified.
+This log was last generated on Tue, 12 Mar 2024 08:08:28 GMT and should not be manually modified.
+
+## 0.11.17
+Tue, 12 Mar 2024 08:08:28 GMT
+
+### Updates
+
+- fix: stage events should be released
+
+
 
 ## 0.11.16
 Mon, 11 Mar 2024 11:11:03 GMT

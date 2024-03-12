@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.11.17",
+      "tag": "@visactor/vgrammar-core_v0.11.17",
+      "date": "Tue, 12 Mar 2024 08:08:28 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: stage events should be released\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.11.16",
       "tag": "@visactor/vgrammar-core_v0.11.16",
       "date": "Mon, 11 Mar 2024 11:11:03 GMT",
