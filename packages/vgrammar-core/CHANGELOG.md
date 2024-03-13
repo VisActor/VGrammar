@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Tue, 12 Mar 2024 11:51:39 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Mar 2024 02:24:03 GMT and should not be manually modified.
+
+## 0.12.4
+Wed, 13 Mar 2024 02:24:03 GMT
+
+### Updates
+
+- fix: upgrade vrender to 0.18.5 to fix issue of brush
+
+
 
 ## 0.12.3
 Tue, 12 Mar 2024 11:51:39 GMT
