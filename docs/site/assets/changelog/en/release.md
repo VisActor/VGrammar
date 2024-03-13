@@ -1,3 +1,16 @@
+# v0.12.3
+
+2024-03-13
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: stage events should be released
+
+
+
+[more detail about v0.12.3](https://github.com/VisActor/VGrammar/releases/tag/v0.12.3)
+
 # v0.12.1
 
 2024-03-07
