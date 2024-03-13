@@ -1,3 +1,16 @@
+# v0.12.2
+
+2024-03-13
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: fix end attributes of conflict animation
+
+
+
+[more detail about v0.12.2](https://github.com/VisActor/VGrammar/releases/tag/v0.12.2)
+
 # v0.12.1
 
 2024-03-07
