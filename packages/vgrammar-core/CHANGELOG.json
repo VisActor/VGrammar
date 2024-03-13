@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.12.4",
+      "tag": "@visactor/vgrammar-core_v0.12.4",
+      "date": "Wed, 13 Mar 2024 02:24:03 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: upgrade vrender to 0.18.5 to fix issue of brush\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.3",
       "tag": "@visactor/vgrammar-core_v0.12.3",
       "date": "Tue, 12 Mar 2024 11:51:39 GMT",
