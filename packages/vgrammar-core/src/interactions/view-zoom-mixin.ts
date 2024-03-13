@@ -6,7 +6,7 @@ import type {
   ViewStateByDim,
   ViewZoomSimpleOptions
 } from '../types';
-import { getFilteredValuesFromScale, getRangeOfLinkedComponent } from './view-utils';
+import { getRangeOfLinkedComponent } from './view-utils';
 
 export class ViewZoomMixin implements IViewZoomMixin {
   protected declare _state: Partial<Record<'x' | 'y', ViewStateByDim>>;
@@ -105,7 +105,7 @@ export class ViewZoomMixin implements IViewZoomMixin {
     }
 
     Object.keys(navState).forEach(dim => {
-      const { scale, data, linkedComponent, rangeFactor } = navState[dim];
+      const { scale, data, linkedComponent, rangeFactor, getCurrentRange } = navState[dim];
 
       if (linkedComponent) {
         res[dim] = this.updateZoomRange(getRangeOfLinkedComponent(linkedComponent), null, zoomPos, zoomOptions);
@@ -127,6 +127,11 @@ export class ViewZoomMixin implements IViewZoomMixin {
           res.needUpdate = true;
           res[dim] = newRange;
         }
+      } else {
+        const oldRange = (getCurrentRange ? getCurrentRange() : rangeFactor) || [0, 1];
+        const newRange = this.updateZoomRange(oldRange, null, zoomPos, zoomOptions);
+
+        res[dim] = newRange || oldRange;
       }
     });
     return res;
@@ -209,6 +214,9 @@ export class ViewZoomMixin implements IViewZoomMixin {
         }
         res.needUpdate = true;
         res[dim] = newRange;
+      } else {
+        navState[dim].rangeFactor = navState[dim].initRangeFactor;
+        res[dim] = navState[dim].initRangeFactor;
       }
     });
     return res;

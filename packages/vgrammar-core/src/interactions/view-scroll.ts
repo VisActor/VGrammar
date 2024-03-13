@@ -18,6 +18,7 @@ export class ViewScroll extends ViewNavigationBase<ViewScrollOptions> {
     throttle: 100
   };
 
+  protected _isStarted?: boolean;
   protected handleStart: (e: InteractionEvent) => void;
 
   constructor(view: IView, option?: ViewScrollOptions) {
@@ -39,19 +40,36 @@ export class ViewScroll extends ViewNavigationBase<ViewScrollOptions> {
       return;
     }
 
+    this._isStarted = true;
+
     if (!this._inited) {
       this._initGrammars();
     }
 
-    this.updateView('start', (this as unknown as IViewScrollMixin).handleScrollStart(e, this._state, this.options), e);
+    this.updateView(
+      'start',
+      (this as unknown as IViewScrollMixin).handleScrollStart(e, this._state, this.options),
+      'scroll',
+      e
+    );
   };
 
   handleEnd = (e: InteractionEvent) => {
+    if (!this._isStarted) {
+      return;
+    }
+
     (this as unknown as IViewScrollMixin).formatScrollEvent(e);
     if (!e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
       return;
     }
 
-    this.updateView('end', (this as unknown as IViewScrollMixin).handleScrollEnd(e, this._state, this.options), e);
+    this.updateView(
+      'end',
+      (this as unknown as IViewScrollMixin).handleScrollEnd(e, this._state, this.options),
+      'scroll',
+      e
+    );
+    this._isStarted = false;
   };
 }
