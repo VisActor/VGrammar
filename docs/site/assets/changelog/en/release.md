@@ -1,3 +1,17 @@
+# v0.12.4
+
+2024-03-13
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: upgrade vrender to 0.18.5 to fix issue of brush
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.12.3...v0.12.4
+
+[more detail about v0.12.4](https://github.com/VisActor/VGrammar/releases/tag/v0.12.4)
+
 
 # v0.12.3
 
