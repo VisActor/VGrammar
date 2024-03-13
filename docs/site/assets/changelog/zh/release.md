@@ -1,4 +1,19 @@
+
+# v0.12.3
+
+2024-03-13
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: stage events should be released
+
+
+[更多详情请查看 v0.12.3](https://github.com/VisActor/VGrammar/releases/tag/v0.12.3)
+
+
 # v0.12.2
+
 
 2024-03-13
 
@@ -6,7 +21,6 @@
 **🐛 功能修复**
 
 - **@visactor/vgrammar-core**: fix end attributes of conflict animation
-
 
 
 [更多详情请查看 v0.12.2](https://github.com/VisActor/VGrammar/releases/tag/v0.12.2)
