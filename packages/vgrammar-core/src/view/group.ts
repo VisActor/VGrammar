@@ -73,8 +73,9 @@ export class GroupMark extends Mark implements IGroupMark {
     }
   }
 
-  protected evaluateEncode(elements: IElement[], encoders: any, parameters: any, noGroupEncode?: boolean) {
+  protected getChannelsFromConfig(element?: IElement) {
     const spec = this.spec;
+
     const initAttrs: any = {};
 
     if (!isNil(spec.clip)) {
@@ -86,8 +87,18 @@ export class GroupMark extends Mark implements IGroupMark {
     }
 
     if (!isNil(spec.clipPath)) {
-      initAttrs.path = isFunction(spec.clipPath) ? spec.clipPath(elements) : spec.clipPath;
+      initAttrs.path = isFunction(spec.clipPath) ? spec.clipPath([element]) : spec.clipPath;
     }
+
+    if (!isNil(spec.interactive)) {
+      initAttrs.pickable = spec.interactive;
+    }
+
+    return initAttrs;
+  }
+
+  protected evaluateEncode(elements: IElement[], encoders: any, parameters: any, noGroupEncode?: boolean) {
+    const initAttrs = this.getChannelsFromConfig();
 
     if (encoders) {
       this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
