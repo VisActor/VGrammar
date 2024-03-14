@@ -75,14 +75,15 @@ export abstract class ViewNavigationBase<
     if (!scaleGrammar || !dataGrammar) {
       this._state[dim] = { data: dataGrammar, scale: scaleGrammar };
 
-      if (!scaleGrammar) {
-        if (isArray(rangeOptions)) {
-          // set the initial value of rangeFactor
-          this._state[dim].rangeFactor = rangeOptions;
-          this._state[dim].initRangeFactor = rangeOptions;
-        } else if (isFunction(rangeOptions)) {
-          this._state[dim].getCurrentRange = rangeOptions as () => [number, number];
-        }
+      if (isArray(rangeOptions)) {
+        // set the initial value of rangeFactor
+        this._state[dim].rangeFactor = rangeOptions;
+        this._state[dim].initRangeFactor = rangeOptions;
+      } else if (isFunction(rangeOptions)) {
+        this._state[dim].getCurrentRange = rangeOptions as () => [number, number];
+      } else if (scaleGrammar && scaleGrammar.getRangeFactor()) {
+        this._state[dim].rangeFactor = scaleGrammar.getRangeFactor();
+        this._state[dim].initRangeFactor = scaleGrammar.getRangeFactor();
       }
       return;
     }
