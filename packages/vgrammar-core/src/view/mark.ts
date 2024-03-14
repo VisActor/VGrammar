@@ -1,6 +1,6 @@
 import type { IGroup, INode } from '@visactor/vrender-core';
 import type { IBounds } from '@visactor/vutils';
-import { isArray, isNil, isString } from '@visactor/vutils';
+import { isArray, isFunction, isNil, isString } from '@visactor/vutils';
 import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
 import {
   DiffState,
@@ -87,7 +87,7 @@ export class Mark extends GrammarBase implements IMark {
   private _groupEncodeResult: Record<string, any>;
 
   /** whether mark enter encode is updated  */
-  private _isReentered: boolean = false;
+  protected _isReentered: boolean = false;
 
   private _context: any;
 
@@ -287,7 +287,7 @@ export class Mark extends GrammarBase implements IMark {
     this.differ.setCurrentData(res);
   }
 
-  private _getTransformsAfterEncodeItems() {
+  protected _getTransformsAfterEncodeItems() {
     return this.transforms && this.transforms.filter(entry => entry.markPhase === 'afterEncodeItems');
   }
 
@@ -677,19 +677,12 @@ export class Mark extends GrammarBase implements IMark {
 
       // only update interactive
       this.elementMap.forEach(element => {
-        element.updateGraphicItem({
-          interactive: spec.interactive
-        });
+        element.updateGraphicItem();
       });
     } else {
       // update group element graphic item attributes
       this.elementMap.forEach(element => {
-        element.updateGraphicItem({
-          clip: spec.clip,
-          zIndex: spec.zIndex,
-          interactive: spec.interactive,
-          clipPath: spec.clipPath
-        });
+        element.updateGraphicItem();
       });
     }
   }
@@ -812,7 +805,15 @@ export class Mark extends GrammarBase implements IMark {
     return res;
   }
 
+  protected getChannelsFromConfig(element?: IElement) {
+    const spec = this.spec;
+
+    return !isNil(spec.interactive) ? { pickable: spec.interactive } : null;
+  }
+
   protected evaluateEncode(elements: IElement[], encoders: any, parameters: any, noGroupEncode?: boolean) {
+    const initAttrs = this.getChannelsFromConfig();
+
     if (encoders) {
       this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
 
@@ -821,17 +822,17 @@ export class Mark extends GrammarBase implements IMark {
         : this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
 
       elements.forEach(element => {
-        if (this.markType === GrammarMarkType.group && groupEncodeAttrs) {
+        if (this.markType === GrammarMarkType.glyph && this._groupEncodeResult) {
           element.items.forEach(item => {
-            item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs);
-          });
-        } else if (this.markType === GrammarMarkType.glyph && this._groupEncodeResult) {
-          element.items.forEach(item => {
-            item.nextAttrs = Object.assign(item.nextAttrs, this._groupEncodeResult[element.groupKey]);
+            item.nextAttrs = Object.assign(item.nextAttrs, initAttrs, this._groupEncodeResult[element.groupKey]);
           });
         } else if (groupEncodeAttrs?.[element.groupKey] && !this.isCollectionMark()) {
           element.items.forEach(item => {
-            item.nextAttrs = Object.assign(item.nextAttrs, groupEncodeAttrs[element.groupKey]);
+            item.nextAttrs = Object.assign(item.nextAttrs, initAttrs, groupEncodeAttrs[element.groupKey]);
+          });
+        } else if (initAttrs) {
+          element.items.forEach(item => {
+            item.nextAttrs = Object.assign(item.nextAttrs, initAttrs);
           });
         }
 
@@ -848,7 +849,7 @@ export class Mark extends GrammarBase implements IMark {
       this.emit(HOOK_EVENT.AFTER_ELEMENT_ENCODE, { encoders, parameters }, this);
     } else {
       elements.forEach(element => {
-        element.initGraphicItem();
+        element.initGraphicItem(initAttrs);
       });
     }
   }

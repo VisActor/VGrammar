@@ -88,7 +88,7 @@ export interface IElement {
   items: MarkElementItem[];
 
   initGraphicItem: (attrs?: any) => void;
-  updateGraphicItem: (config: IMarkConfig) => void;
+  updateGraphicItem: () => void;
 
   getDatum: () => any;
   getBounds: () => any;
