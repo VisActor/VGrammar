@@ -7,6 +7,7 @@ import { createGraphicItem } from '../graph/util/graphic';
 import type { IElement, IGlyphMark, IGroupMark, IMark, IView } from '../types';
 import { Mark } from './mark';
 import { isFunction, isNil } from '@visactor/vutils';
+import { invokeEncoderToItems } from '../graph/mark/encode';
 
 export class GroupMark extends Mark implements IGroupMark {
   children: (IMark | IGroupMark | IGlyphMark)[];
@@ -95,6 +96,16 @@ export class GroupMark extends Mark implements IGroupMark {
     }
 
     return initAttrs;
+  }
+
+  protected evaluateGroupEncode(elements: IElement[], groupEncode: any, parameters: any) {
+    const el = this.elements[0];
+    const nextAttrs = {};
+    const items = [Object.assign({}, el.items?.[0], { nextAttrs })];
+    invokeEncoderToItems(el, items, groupEncode, parameters);
+
+    this._groupEncodeResult = nextAttrs;
+    return nextAttrs;
   }
 
   protected evaluateEncode(elements: IElement[], encoders: any, parameters: any, noGroupEncode?: boolean) {

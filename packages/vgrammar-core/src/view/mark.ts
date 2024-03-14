@@ -1,6 +1,6 @@
-import type { IGroup, INode } from '@visactor/vrender-core';
+import type { IGroup } from '@visactor/vrender-core';
 import type { IBounds } from '@visactor/vutils';
-import { isArray, isFunction, isNil, isString } from '@visactor/vutils';
+import { isArray, isNil, isString } from '@visactor/vutils';
 import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
 import {
   DiffState,
@@ -84,7 +84,7 @@ export class Mark extends GrammarBase implements IMark {
 
   private _groupKeys: string[];
 
-  private _groupEncodeResult: Record<string, any>;
+  protected _groupEncodeResult: Record<string, any>;
 
   /** whether mark enter encode is updated  */
   protected _isReentered: boolean = false;
@@ -774,16 +774,6 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   protected evaluateGroupEncode(elements: IElement[], groupEncode: any, parameters: any) {
-    if (this.markType === GrammarMarkType.group) {
-      const el = this.elements[0];
-      const nextAttrs = {};
-      const items = [Object.assign({}, el.items?.[0], { nextAttrs })];
-      invokeEncoderToItems(el, items, groupEncode, parameters);
-
-      this._groupEncodeResult = nextAttrs;
-      return nextAttrs;
-    }
-
     if (!this._groupKeys || !groupEncode) {
       return;
     }
