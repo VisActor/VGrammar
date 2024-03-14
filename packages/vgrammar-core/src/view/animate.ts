@@ -121,8 +121,11 @@ export class ViewAnimate implements IViewAnimate {
   }
 
   animateAddition(additionMark: IMark) {
-    additionMark.animate.animate();
-    this._additionalAnimateMarks.push(additionMark);
+    const animate = additionMark.animate.animate();
+
+    if (animate && animate.isAnimating()) {
+      this._additionalAnimateMarks.push(additionMark);
+    }
     return this;
   }
 
@@ -148,7 +151,9 @@ export class ViewAnimate implements IViewAnimate {
 
   release() {
     this._additionalAnimateMarks = [];
+    this._animations = [];
     this._view.removeEventListener(HOOK_EVENT.ALL_ANIMATION_START, this._onAnimationStart);
     this._view.removeEventListener(HOOK_EVENT.ALL_ANIMATION_END, this._onAnimationEnd);
+    this._view = null;
   }
 }
