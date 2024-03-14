@@ -79,12 +79,12 @@ export class GroupMark extends Mark implements IGroupMark {
       return;
     }
 
-    this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK);
+    this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK, { graphicItem });
 
     graphicItem.name = `${this.id() || this.markType}`;
 
     this.graphicParent.insertIntoKeepIdx(graphicItem as unknown as INode, this.graphicIndex);
-    this.emit(HOOK_EVENT.AFTER_ADD_VRENDER_MARK);
+    this.emit(HOOK_EVENT.AFTER_ADD_VRENDER_MARK, { graphicItem });
 
     return graphicItem;
   }
