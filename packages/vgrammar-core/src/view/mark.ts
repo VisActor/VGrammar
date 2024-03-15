@@ -1198,20 +1198,20 @@ export class Mark extends GrammarBase implements IMark {
 
   private initEvent() {
     if (this._delegateEvent) {
-      const stage = this.view.renderer.stage();
-      stage.on('*', this._delegateEvent);
+      const stage = this.view?.renderer?.stage();
+      stage && stage.on('*', this._delegateEvent);
     }
   }
 
   private releaseEvent() {
     if (this._delegateEvent) {
-      const stage = this.view.renderer.stage();
+      const stage = this.view?.renderer?.stage();
       stage && stage.off('*', this._delegateEvent);
     }
   }
 
   clear() {
-    super.clear();
+    this.releaseEvent();
     this.transforms = null;
 
     this.elementMap = null;
@@ -1222,6 +1222,7 @@ export class Mark extends GrammarBase implements IMark {
 
     this.group?.removeChild(this);
     this.group = null;
+    super.clear();
   }
 
   prepareRelease() {
