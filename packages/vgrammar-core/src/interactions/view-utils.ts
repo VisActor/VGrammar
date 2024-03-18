@@ -93,13 +93,14 @@ export const handleScrolling = (
       );
     } else if (scale) {
       const innerScale = scale.getScale();
-      const newRange = updateScrollRange(rangeFactor, innerScale.range(), scrollPos[dim], scrollOptions);
+      const oldRange = innerScale.getRangeFactor() || rangeFactor;
+      const newRange = updateScrollRange(oldRange, innerScale.range(), scrollPos[dim], scrollOptions);
 
       if (newRange) {
         navState[dim].rangeFactor = newRange;
 
         if (data) {
-          navState[dim].filterValue = rangeFactor;
+          navState[dim].filterValue = newRange;
 
           data.commit();
         } else {
