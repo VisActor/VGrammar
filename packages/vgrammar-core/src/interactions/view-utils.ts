@@ -93,7 +93,7 @@ export const handleScrolling = (
       );
     } else if (scale) {
       const innerScale = scale.getScale();
-      const oldRange = innerScale.getRangeFactor() || rangeFactor;
+      const oldRange = scale.getRangeFactor() || rangeFactor;
       const newRange = updateScrollRange(oldRange, innerScale.range(), scrollPos[dim], scrollOptions);
 
       if (newRange) {
