@@ -173,6 +173,10 @@ export class Factory {
     return new Ctor(view, options);
   }
 
+  static hasInteraction(interactionType: string) {
+    return !!Factory._interactions[interactionType];
+  }
+
   static registerGraphic = (graphicType: string, creator: (attributes: IGraphicAttribute) => IGraphic) => {
     Factory._graphics[graphicType] = creator;
   };
