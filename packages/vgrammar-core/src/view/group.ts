@@ -1,11 +1,13 @@
 import type { INode } from '@visactor/vrender-core';
 import { transformsByType } from '../graph/attributes';
 import { DefaultKey, DefaultMarkData } from '../graph/constants';
-import { GrammarMarkType, HOOK_EVENT } from '../graph/enums';
+import { BuiltInEncodeNames, GrammarMarkType, HOOK_EVENT } from '../graph/enums';
 import { createElement } from '../graph/util/element';
 import { createGraphicItem } from '../graph/util/graphic';
-import type { IGlyphMark, IGroupMark, IMark, IView } from '../types';
+import type { IElement, IGlyphMark, IGroupMark, IMark, IView } from '../types';
 import { Mark } from './mark';
+import { isFunction, isNil } from '@visactor/vutils';
+import { invokeEncoderToItems } from '../graph/mark/encode';
 
 export class GroupMark extends Mark implements IGroupMark {
   children: (IMark | IGroupMark | IGlyphMark)[];
@@ -69,6 +71,73 @@ export class GroupMark extends Mark implements IGroupMark {
       el.updateData(DefaultKey, DefaultMarkData, () => '', this.view);
       this.elements = [el];
       this.elementMap.set(DefaultKey, el);
+    }
+  }
+
+  protected getChannelsFromConfig(element?: IElement) {
+    const spec = this.spec;
+
+    const initAttrs: any = {};
+
+    if (!isNil(spec.clip)) {
+      initAttrs.clip = spec.clip;
+    }
+
+    if (!isNil(spec.zIndex)) {
+      initAttrs.zIndex = spec.zIndex;
+    }
+
+    if (!isNil(spec.clipPath)) {
+      initAttrs.path = isFunction(spec.clipPath) ? spec.clipPath([element]) : spec.clipPath;
+    }
+
+    if (!isNil(spec.interactive)) {
+      initAttrs.pickable = spec.interactive;
+    }
+
+    return initAttrs;
+  }
+
+  protected evaluateGroupEncode(elements: IElement[], groupEncode: any, parameters: any) {
+    const el = this.elements[0];
+    const nextAttrs = {};
+    const items = [Object.assign({}, el.items?.[0], { nextAttrs })];
+    invokeEncoderToItems(el, items, groupEncode, parameters);
+
+    this._groupEncodeResult = nextAttrs;
+    return nextAttrs;
+  }
+
+  protected evaluateEncode(elements: IElement[], encoders: any, parameters: any, noGroupEncode?: boolean) {
+    const initAttrs = this.getChannelsFromConfig();
+
+    if (encoders) {
+      this.emit(HOOK_EVENT.BEFORE_ELEMENT_ENCODE, { encoders, parameters }, this);
+
+      const groupEncodeAttrs = noGroupEncode
+        ? null
+        : this.evaluateGroupEncode(elements, encoders[BuiltInEncodeNames.group], parameters);
+
+      elements.forEach(element => {
+        element.items.forEach(item => {
+          item.nextAttrs = Object.assign(item.nextAttrs, initAttrs, groupEncodeAttrs);
+        });
+
+        element.encodeItems(element.items, encoders, this._isReentered, parameters);
+      });
+
+      this._isReentered = false;
+
+      this.evaluateTransform(this._getTransformsAfterEncodeItems(), elements, parameters);
+
+      elements.forEach(element => {
+        element.encodeGraphic();
+      });
+      this.emit(HOOK_EVENT.AFTER_ELEMENT_ENCODE, { encoders, parameters }, this);
+    } else {
+      elements.forEach(element => {
+        element.initGraphicItem(initAttrs);
+      });
     }
   }
 
