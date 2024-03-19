@@ -1164,7 +1164,7 @@ export class Mark extends GrammarBase implements IMark {
   private initEvent() {
     if (this._delegateEvent) {
       const stage = this.view.renderer.stage();
-      stage.on('*', this._delegateEvent);
+      stage && stage.on('*', this._delegateEvent);
     }
   }
 
@@ -1176,7 +1176,7 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   clear() {
-    super.clear();
+    this.releaseEvent();
     this.transforms = null;
 
     this.elementMap = null;
@@ -1187,6 +1187,7 @@ export class Mark extends GrammarBase implements IMark {
 
     this.group?.removeChild(this);
     this.group = null;
+    super.clear();
   }
 
   prepareRelease() {
