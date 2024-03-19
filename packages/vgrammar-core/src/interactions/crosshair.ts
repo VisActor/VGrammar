@@ -443,13 +443,15 @@ export class Crosshair extends BaseInteraction<CrosshairOptions> {
         this._crosshairComponent = new SectorCrosshair(this.getDefaultCrosshairAttribute());
         break;
     }
-    (stage.defaultLayer as any).appendChild(this._crosshairComponent);
+    stage.defaultLayer.appendChild(this._crosshairComponent as any);
   }
 
   unbind(): void {
     super.unbind();
 
-    if (this._crosshairComponent) {
+    const stage = this.view.renderer.stage();
+    if (this._crosshairComponent && stage) {
+      stage.defaultLayer.removeChild(this._crosshairComponent as any);
       this._crosshairComponent.release();
       this._crosshairComponent = null;
     }
