@@ -1,4 +1,4 @@
-import { isNil, isString } from '@visactor/vutils';
+import { isArray, isFunction, isNil, isString } from '@visactor/vutils';
 import type {
   FilterDataTarget,
   IBaseInteractionOptions,
@@ -55,7 +55,8 @@ export abstract class ViewNavigationBase<
     dim: 'x' | 'y',
     linkedComponent?: string | IDatazoom | IScrollbar,
     scale?: string | IScale,
-    dataTarget?: FilterDataTarget
+    dataTarget?: FilterDataTarget,
+    rangeOptions?: [number, number] | (() => [number, number])
   ) {
     const comp = this._parseLinkedComponent(linkedComponent);
 
@@ -73,6 +74,17 @@ export abstract class ViewNavigationBase<
 
     if (!scaleGrammar || !dataGrammar) {
       this._state[dim] = { data: dataGrammar, scale: scaleGrammar };
+
+      if (isArray(rangeOptions)) {
+        // set the initial value of rangeFactor
+        this._state[dim].rangeFactor = rangeOptions;
+        this._state[dim].initRangeFactor = rangeOptions;
+      } else if (isFunction(rangeOptions)) {
+        this._state[dim].getCurrentRange = rangeOptions as () => [number, number];
+      } else if (scaleGrammar && scaleGrammar.getRangeFactor()) {
+        this._state[dim].rangeFactor = scaleGrammar.getRangeFactor();
+        this._state[dim].initRangeFactor = scaleGrammar.getRangeFactor();
+      }
       return;
     }
 
@@ -111,17 +123,27 @@ export abstract class ViewNavigationBase<
   }
 
   protected _initGrammars() {
-    const { enableX, enableY, scaleX, scaleY, dataTargetX, dataTargetY, linkedComponentX, linkedComponentY } =
-      this.options;
+    const {
+      enableX,
+      enableY,
+      scaleX,
+      scaleY,
+      dataTargetX,
+      dataTargetY,
+      linkedComponentX,
+      linkedComponentY,
+      rangeX,
+      rangeY
+    } = this.options;
 
     this._state = {};
 
     if (enableX !== false) {
-      this._initStateByDim('x', linkedComponentX, scaleX, dataTargetX);
+      this._initStateByDim('x', linkedComponentX, scaleX, dataTargetX, rangeX);
     }
 
     if (enableY !== false) {
-      this._initStateByDim('y', linkedComponentY, scaleY, dataTargetY);
+      this._initStateByDim('y', linkedComponentY, scaleY, dataTargetY, rangeY);
     }
 
     this._inited = true;
@@ -136,7 +158,12 @@ export abstract class ViewNavigationBase<
     }
   }
 
-  updateView(type: 'start' | 'reset' | 'update' | 'end', newRange: ViewNavigationRange, e?: InteractionEvent) {
+  updateView(
+    type: 'start' | 'reset' | 'update' | 'end',
+    newRange: ViewNavigationRange,
+    eventType: string,
+    e?: InteractionEvent
+  ) {
     if (newRange && newRange.x && this._state?.x?.linkedComponent) {
       this._updateLinkedComponent(this._state.x.linkedComponent, newRange.x);
     }
@@ -149,7 +176,7 @@ export abstract class ViewNavigationBase<
       this.view.run();
     }
 
-    this.dispatchEvent(type, { viewRange: newRange, event: e });
+    this.dispatchEvent(type, { viewRange: newRange, event: e, eventType });
   }
 
   unbind() {

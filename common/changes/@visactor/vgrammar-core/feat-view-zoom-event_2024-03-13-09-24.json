@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat: support event of roam when no scale and bind components\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}

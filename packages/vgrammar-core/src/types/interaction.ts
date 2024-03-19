@@ -355,6 +355,8 @@ export interface ViewNavigationBaseOptions {
   throttle?: number;
   linkedComponentX?: string | IDatazoom | IScrollbar;
   linkedComponentY?: string | IDatazoom | IScrollbar;
+  rangeX?: [number, number] | (() => [number, number]);
+  rangeY?: [number, number] | (() => [number, number]);
 }
 
 export interface ViewZoomSimpleOptions {
@@ -681,5 +683,7 @@ export interface ViewStateByDim {
   linkedComponent?: IDatazoom | IScrollbar;
   filterValue?: any[];
   wholeScale?: IBaseScale;
+  initRangeFactor?: [number, number];
+  getCurrentRange?: () => [number, number];
   rangeFactor?: [number, number];
 }

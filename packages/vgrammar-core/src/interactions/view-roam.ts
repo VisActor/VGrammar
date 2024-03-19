@@ -61,6 +61,9 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
   protected handleRoamZoomStart: (e: InteractionEvent) => void;
   protected handleRoamDragUpdate: (e: InteractionEvent) => void;
   protected handleRoamScrollStart: (e: InteractionEvent) => void;
+  protected _isDragStarted?: boolean;
+  protected _isScrollStarted?: boolean;
+  protected _isZoomStarted?: boolean;
 
   constructor(view: IView, option?: ViewRoamOptions) {
     super(view, merge({}, ViewRoam.defaultOptions, option));
@@ -108,23 +111,31 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
       this._initGrammars();
     }
 
-    this.updateView('start', this.handleZoomStart(e, this._state, this.options.zoom), e);
+    this._isZoomStarted = true;
+
+    this.updateView('start', this.handleZoomStart(e, this._state, this.options.zoom), 'zoom', e);
   };
 
   handleRoamZoomEnd = (e: InteractionEvent) => {
+    if (!this._isZoomStarted) {
+      return;
+    }
+
     this.formatZoomEvent(e);
     if (!e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
       return;
     }
 
-    this.updateView('end', this.handleZoomEnd(e, this._state, this.options.zoom), e);
+    this.updateView('end', this.handleZoomEnd(e, this._state, this.options.zoom), 'zoom', e);
+    this._isZoomStarted = false;
   };
 
   handleRoamZoomReset = (e: InteractionEvent) => {
-    if (!e || (this.options.shouldReset && !this.options.shouldReset(e))) {
+    if (!this._isZoomStarted || !e || (this.options.shouldReset && !this.options.shouldReset(e))) {
       return;
     }
-    this.updateView('reset', this.handleZoomReset(e, this._state, this.options.zoom), e);
+    this.updateView('reset', this.handleZoomReset(e, this._state, this.options.zoom), 'zoom', e);
+    this._isZoomStarted = false;
   };
 
   handleRoamDragStart = (e: InteractionEvent) => {
@@ -135,23 +146,25 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
     if (!this._inited) {
       this._initGrammars();
     }
+    this._isDragStarted = true;
 
-    this.updateView('start', this.handleDragStart(e, this._state, this.options.drag), e);
+    this.updateView('start', this.handleDragStart(e, this._state, this.options.drag), 'drag', e);
   };
 
   handleRoamDragUpdateInner = (e: InteractionEvent) => {
-    if (!e || (this.options.shouldUpdate && !this.options.shouldUpdate(e))) {
+    if (!this._isDragStarted || !e || (this.options.shouldUpdate && !this.options.shouldUpdate(e))) {
       return;
     }
-    this.updateView('update', this.handleDragUpdate(e, this._state, this.options.drag), e);
+    this.updateView('update', this.handleDragUpdate(e, this._state, this.options.drag), 'drag', e);
   };
 
   handleRoamDragEnd = (e: InteractionEvent) => {
-    if (!e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
+    if (!this._isDragStarted || !e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
       return;
     }
 
-    this.updateView('end', this.handleDragEnd(e, this._state, this.options.drag), e);
+    this.updateView('end', this.handleDragEnd(e, this._state, this.options.drag), 'drag', e);
+    this._isDragStarted = false;
   };
 
   handleRoamScrollStartInner = (e: InteractionEvent) => {
@@ -163,16 +176,22 @@ export class ViewRoam extends ViewNavigationBase<ViewRoamOptions> {
     if (!this._inited) {
       this._initGrammars();
     }
+    this._isScrollStarted = true;
 
-    this.updateView('start', this.handleScrollStart(e, this._state, this.options.scroll), e);
+    this.updateView('start', this.handleScrollStart(e, this._state, this.options.scroll), 'scroll', e);
   };
 
   handleRoamScrollEnd = (e: InteractionEvent) => {
+    if (!this._isScrollStarted) {
+      return;
+    }
+
     this.formatScrollEvent(e);
     if (!e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
       return;
     }
 
-    this.updateView('end', this.handleScrollEnd(e, this._state, this.options.scroll), e);
+    this.updateView('end', this.handleScrollEnd(e, this._state, this.options.scroll), 'scroll', e);
+    this._isScrollStarted = true;
   };
 }
