@@ -52,10 +52,10 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
       if (evt.type && evt.handler) {
         if (isArray(evt.type)) {
           evt.type.forEach(evtType => {
-            evtType && this.view.addEventListener(evtType, evt.handler);
+            evtType && evtType !== 'none' && this.view.addEventListener(evtType, evt.handler);
           });
         } else {
-          this.view.addEventListener(evt.type, evt.handler);
+          evt.type !== 'none' && this.view.addEventListener(evt.type, evt.handler);
         }
       }
     });
@@ -69,10 +69,10 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
       if (evt.type && evt.handler) {
         if (isArray(evt.type)) {
           evt.type.forEach(evtType => {
-            evtType && this.view.removeEventListener(evtType, evt.handler);
+            evtType && evtType !== 'none' && this.view.removeEventListener(evtType, evt.handler);
           });
         } else {
-          this.view.removeEventListener(evt.type, evt.handler);
+          evt.type !== 'none' && this.view.removeEventListener(evt.type, evt.handler);
         }
       }
     });
