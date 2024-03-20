@@ -1,3 +1,25 @@
+# v0.12.5
+
+2024-03-20
+
+
+**🆕 新增功能**
+
+- **@visactor/vgrammar-core**: support `graphicItem` in `BEFORE_ADD_VRENDER_MARK` and `AFTER_ADD_VRENDER_MARK` hooks
+- **@visactor/vgrammar-core**: support event of roam when no scale and bind components
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: `triggerOff: none` should close end event of interactions
+- **@visactor/vgrammar-core**: unmount interaction component before releasing
+- **@visactor/vgrammar-core**: fix memory leak when reuse a mark
+- **@visactor/vgrammar-core**: the `pickable` in encoder should overwrite the `spec.pickable`
+- **@visactor/vgrammar-core**: fix rangeFactor of view-scroll
+
+
+
+[更多详情请查看 v0.12.5](https://github.com/VisActor/VGrammar/releases/tag/v0.12.5)
+
 # v0.12.4
 
 2024-03-13
