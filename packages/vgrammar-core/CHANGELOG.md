@@ -1,6 +1,31 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Wed, 13 Mar 2024 02:24:03 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Mar 2024 02:34:58 GMT and should not be manually modified.
+
+## 0.12.5
+Wed, 20 Mar 2024 02:34:58 GMT
+
+### Updates
+
+- feat: support `graphicItem` in `BEFORE_ADD_VRENDER_MARK` and `AFTER_ADD_VRENDER_MARK` hooks
+
+
+- feat: support event of roam when no scale and bind components
+
+
+- fix: `triggerOff: none` should close end event of interactions
+
+
+- fix: unmount interaction component before releasing
+- fix: fix memory leak when reuse a mark
+
+
+- fix: the `pickable` in encoder should overwrite the `spec.pickable`
+
+
+- fix: fix rangeFactor of view-scroll
+
+
 
 ## 0.12.4
 Wed, 13 Mar 2024 02:24:03 GMT

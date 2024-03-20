@@ -73,7 +73,7 @@ export interface ElementActiveOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  triggerOff?: EventType | EventType[];
+  triggerOff?: EventType | EventType[] | 'none';
   /**
    * the active state name
    */
@@ -103,7 +103,7 @@ export interface ElementSelectOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  triggerOff?: EventType | EventType[] | ViewEventType | 'empty' | number;
+  triggerOff?: EventType | EventType[] | ViewEventType | 'empty' | 'none' | number;
   /**
    * whether or not support multiple selected
    */
@@ -125,7 +125,7 @@ export interface ElementHighlightOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  triggerOff?: EventType;
+  triggerOff?: EventType | 'none';
   /**
    * the highlight state name
    */
@@ -188,7 +188,7 @@ export interface ElementHighlightByNameOptions extends ElementHighlightByLegendO
   /**
    * the reset trigger event name
    */
-  triggerOff?: EventType;
+  triggerOff?: EventType | 'none';
 
   parseData?: (e: InteractionEvent) => any;
 }
@@ -305,7 +305,7 @@ export interface TooltipOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  triggerOff?: EventType;
+  triggerOff?: EventType | 'none';
 
   title?: ITooltipRow | string | CustomTooltipCallback;
   content?: ITooltipRow | ITooltipRow[] | CustomTooltipCallback;
@@ -336,7 +336,7 @@ export interface CrosshairOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  triggerOff?: EventType;
+  triggerOff?: EventType | 'none';
   scale?: IScale | string;
   crosshairType?: CrosshairType;
   crosshairShape?: CrosshairShape;
@@ -355,6 +355,8 @@ export interface ViewNavigationBaseOptions {
   throttle?: number;
   linkedComponentX?: string | IDatazoom | IScrollbar;
   linkedComponentY?: string | IDatazoom | IScrollbar;
+  rangeX?: [number, number] | (() => [number, number]);
+  rangeY?: [number, number] | (() => [number, number]);
 }
 
 export interface ViewZoomSimpleOptions {
@@ -363,7 +365,7 @@ export interface ViewZoomSimpleOptions {
   focus?: boolean;
   trigger?: EventType;
   endTrigger?: EventType;
-  triggerOff?: EventType;
+  triggerOff?: EventType | 'none';
 }
 
 export type ViewZoomOptions = ViewZoomSimpleOptions & IBaseInteractionOptions & ViewNavigationBaseOptions;
@@ -411,7 +413,7 @@ export interface SankeyHighlightOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  triggerOff?: EventType;
+  triggerOff?: EventType | 'none';
   /**
    * the highlight state name
    */
@@ -463,7 +465,7 @@ export interface FishEyeOptions extends IBaseInteractionOptions {
   /**
    * the trigger event of reset
    */
-  triggerOff?: string;
+  triggerOff?: string | 'none';
 }
 
 export interface ElementActiveSpec extends ElementActiveOptions {
@@ -681,5 +683,7 @@ export interface ViewStateByDim {
   linkedComponent?: IDatazoom | IScrollbar;
   filterValue?: any[];
   wholeScale?: IBaseScale;
+  initRangeFactor?: [number, number];
+  getCurrentRange?: () => [number, number];
   rangeFactor?: [number, number];
 }

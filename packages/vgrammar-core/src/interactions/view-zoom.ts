@@ -28,6 +28,7 @@ export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
   protected _scaleY: IScale;
   protected _data: IData;
   protected handleStart: (e: InteractionEvent) => void;
+  protected _isStarted?: boolean;
 
   constructor(view: IView, option?: ViewZoomOptions) {
     super(view, Object.assign({}, ViewZoom.defaultOptions, option));
@@ -52,16 +53,24 @@ export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
       this._initGrammars();
     }
 
+    this._isStarted = true;
+
     this.updateView(
       'start',
       (this as unknown as IViewZoomMixin).handleZoomStart(e, this._state, {
         rate: this.options.rate,
         focus: this.options.focus
-      })
+      }),
+      'zoom',
+      e
     );
   };
 
   handleEnd = (e: InteractionEvent) => {
+    if (!this._isStarted) {
+      return;
+    }
+
     (this as unknown as IViewZoomMixin).formatZoomEvent(e);
     if (!e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
       return;
@@ -73,21 +82,28 @@ export class ViewZoom extends ViewNavigationBase<ViewZoomOptions> {
         rate: this.options.rate,
         focus: this.options.focus
       }),
+      'zoom',
       e
     );
   };
 
   handleReset = (e: InteractionEvent) => {
+    if (!this._isStarted) {
+      return;
+    }
     if (!e || (this.options.shouldReset && !this.options.shouldReset(e))) {
       return;
     }
+
     this.updateView(
       'reset',
       (this as unknown as IViewZoomMixin).handleZoomReset(e, this._state, {
         rate: this.options.rate,
         focus: this.options.focus
       }),
+      'zoom',
       e
     );
+    this._isStarted = false;
   };
 }

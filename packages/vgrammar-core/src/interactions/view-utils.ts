@@ -82,7 +82,7 @@ export const handleScrolling = (
   }
 
   Object.keys(navState).forEach(dim => {
-    const { scale, data, linkedComponent, rangeFactor, wholeScale } = navState[dim];
+    const { scale, data, linkedComponent, rangeFactor, getCurrentRange } = navState[dim];
 
     if (linkedComponent) {
       res[dim] = updateScrollRange(
@@ -93,13 +93,14 @@ export const handleScrolling = (
       );
     } else if (scale) {
       const innerScale = scale.getScale();
-      const newRange = updateScrollRange(rangeFactor, innerScale.range(), scrollPos[dim], scrollOptions);
+      const oldRange = scale.getRangeFactor() || rangeFactor;
+      const newRange = updateScrollRange(oldRange, innerScale.range(), scrollPos[dim], scrollOptions);
 
       if (newRange) {
         navState[dim].rangeFactor = newRange;
 
         if (data) {
-          navState[dim].filterValue = rangeFactor;
+          navState[dim].filterValue = newRange;
 
           data.commit();
         } else {
@@ -109,6 +110,11 @@ export const handleScrolling = (
         res.needUpdate = true;
         res[dim] = newRange;
       }
+    } else {
+      const oldRange = (getCurrentRange ? getCurrentRange() : rangeFactor) || [0, 1];
+      const newRange = updateScrollRange(oldRange, [0, 1], scrollPos[dim], scrollOptions);
+
+      res[dim] = newRange || oldRange;
     }
   });
   return res;

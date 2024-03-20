@@ -54,6 +54,9 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
       eventName = trigger as EventType;
 
       this._resetType = 'view';
+    } else if (triggerOff === 'none') {
+      eventName = null;
+      this._resetType = null;
     } else if (isString(triggerOff)) {
       if ((triggerOff as string).includes('view:')) {
         eventName = (triggerOff as string).replace('view:', '') as EventType;

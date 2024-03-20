@@ -22,6 +22,8 @@ export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
 
   protected handleUpdate: (e: InteractionEvent) => void;
 
+  protected _isStarted?: boolean;
+
   constructor(view: IView, option?: ViewDragOptions) {
     super(view, Object.assign({}, ViewDrag.defaultOptions, option));
     this.handleUpdate = throttle(this.handleUpdateInner, this.options.throttle);
@@ -39,27 +41,30 @@ export class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
     if (!e || (this.options.shouldStart && !this.options.shouldStart(e))) {
       return;
     }
+    this._isStarted = true;
 
     if (!this._inited) {
       this._initGrammars();
     }
 
-    this.updateView('start', this.handleDragStart(e, this._state, { reversed: this.options.reversed }), e);
+    this.updateView('start', this.handleDragStart(e, this._state, { reversed: this.options.reversed }), 'drag', e);
   };
 
   handleUpdateInner = (e: InteractionEvent) => {
-    if (!e || (this.options.shouldUpdate && !this.options.shouldUpdate(e))) {
+    if (!this._isStarted || !e || (this.options.shouldUpdate && !this.options.shouldUpdate(e))) {
       return;
     }
 
-    this.updateView('update', this.handleDragUpdate(e, this._state, { reversed: this.options.reversed }), e);
+    this.updateView('update', this.handleDragUpdate(e, this._state, { reversed: this.options.reversed }), 'drag', e);
   };
 
   handleEnd = (e: InteractionEvent) => {
-    if (!e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
+    if (!this._isStarted || !e || (this.options.shouldEnd && !this.options.shouldEnd(e))) {
       return;
     }
 
-    this.updateView('end', this.handleDragEnd(e, this._state, { reversed: this.options.reversed }), e);
+    this.updateView('end', this.handleDragEnd(e, this._state, { reversed: this.options.reversed }), 'drag', e);
+
+    this._isStarted = false;
   };
 }

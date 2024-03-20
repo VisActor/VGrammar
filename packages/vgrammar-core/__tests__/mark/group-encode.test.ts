@@ -1,6 +1,7 @@
 import { registerGroupGraphic, type IMark } from '../../src';
 import { Data } from '../../src/view/data';
 import { Mark } from '../../src/view/mark';
+import { GroupMark } from '../../src/view/group';
 import { getMockedView } from '../util';
 import { initBrowserEnv } from '../../src/env';
 
@@ -95,7 +96,7 @@ test('group encode of collection mark', () => {
 
 test('group encode of group mark', () => {
   const mockView = getMockedView();
-  const mark = new (Mark as any)(mockView, 'group') as IMark;
+  const mark = new (GroupMark as any)(mockView) as IMark;
 
   mark.encodeState('group', {
     fill: 'red',
@@ -103,8 +104,8 @@ test('group encode of group mark', () => {
   });
 
   mark.encodeState('update', {
-    x: (datum: any) => datum.x,
-    y: (datum: any) => datum.y
+    x: (datum: any) => 1,
+    y: (datum: any) => 10
   });
   const data = new (Data as any)(mockView, [
     { x: 1, y: 10, key: '0' },
@@ -112,11 +113,10 @@ test('group encode of group mark', () => {
   ]).id('testData');
 
   mark.join(data, 'key');
-
   (data as any).run();
   (mark as any).run();
 
-  expect(mark.elements.length).toBe(2);
+  expect(mark.elements.length).toBe(1);
   expect(mark.elements[0].getGraphicAttribute('fill')).toEqual('red');
   expect(mark.elements[0].getGraphicAttribute('stroke')).toEqual('black');
   expect(mark.elements[0].getGraphicAttribute('x')).toEqual(1);

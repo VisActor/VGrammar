@@ -1518,6 +1518,7 @@ export default class View extends EventEmitter implements IView {
 
   // --- release ---
   release() {
+    this.removeAllInteractions();
     this.releaseStageEvent();
     this._unBindResizeEvent();
     this.clearProgressive();

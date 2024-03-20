@@ -54,13 +54,15 @@ export abstract class BaseTooltip<T extends TooltipOptions> extends BaseInteract
     }
     this._tooltipComponent = new TooltipComponent({});
 
-    (stage.defaultLayer as any).appendChild(this._tooltipComponent);
+    stage.defaultLayer.appendChild(this._tooltipComponent as any);
   }
 
   unbind(): void {
     super.unbind();
 
-    if (this._tooltipComponent) {
+    const stage = this.view.renderer.stage();
+    if (this._tooltipComponent && stage) {
+      stage.defaultLayer.removeChild(this._tooltipComponent as any);
       this._tooltipComponent.release();
       this._tooltipComponent = null;
     }

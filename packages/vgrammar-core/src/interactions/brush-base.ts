@@ -170,7 +170,7 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
     this._brushComp.addEventListener(IOperateType.moveStart, this.handleBrushUpdate);
     this._brushComp.addEventListener(IOperateType.drawing, this.handleBrushUpdate);
     this._brushComp.addEventListener(IOperateType.moving, this.handleBrushUpdate);
-    (stage.defaultLayer as any).appendChild(this._brushComp);
+    stage.defaultLayer.appendChild(this._brushComp as any);
   };
 
   abstract handleBrushUpdate: (event: {
@@ -183,8 +183,10 @@ export abstract class BrushBase<T extends BrushOptions> extends BaseInteraction<
 
   unbind(): void {
     super.unbind();
+    const stage = this.view.renderer.stage();
 
-    if (this._brushComp) {
+    if (this._brushComp && stage) {
+      stage.defaultLayer.removeChild(this._brushComp as any);
       this._brushComp.releaseBrushEvents();
       this._brushComp.release();
       this._brushComp = null;
