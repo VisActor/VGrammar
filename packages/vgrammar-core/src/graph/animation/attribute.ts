@@ -173,11 +173,6 @@ export class AttributeAnimate extends ACustomAnimate<any> {
   }
 
   onBind() {
-    this.from = this.from ?? {};
-    this.to = this.to ?? {};
-  }
-
-  onStart(): void {
     const excludedChannelMap = (this.target.constructor as any).NOWORK_ANIMATE_ATTR ?? NOWORK_ANIMATE_ATTR;
     const excludedChannels = Object.keys(excludedChannelMap).filter(channel => excludedChannelMap[channel] !== 0);
     this.subAnimate.animate.preventAttrs(excludedChannels);
@@ -194,29 +189,45 @@ export class AttributeAnimate extends ACustomAnimate<any> {
       } else {
         animatedChannels.push(k);
       }
-      // if (this.to[k] === from[k]) {
-      //   delete from[k];
-      // }
     });
 
+    // prevent attributes at the animation invoking time
     this.target.animates.forEach(a => {
       if (a !== this.subAnimate.animate) {
         a.preventAttrs(animatedChannels);
       }
     });
 
-    this.target.setAttributes(from, false, {
-      type: AttributeUpdateType.ANIMATE_UPDATE,
-      animationState: { ratio: 0, end: false }
-    });
     this._fromAttribute = from;
     this._toAttribute = to;
+  }
+
+  onStart(): void {
+    if (this._fromAttribute) {
+      const from = {};
+
+      // apply attribute which has not been prevented
+      Object.keys(this._fromAttribute).forEach(key => {
+        if (this.subAnimate.animate.validAttr(key)) {
+          from[key] = this._fromAttribute[key];
+        }
+      });
+
+      this.target.setAttributes(from, !1, {
+        type: AttributeUpdateType.ANIMATE_UPDATE,
+        animationState: {
+          ratio: 0,
+          end: !1
+        }
+      });
+    }
   }
 
   onEnd(): void {
     if (this._toAttribute) {
       const out = {};
 
+      // apply attribute which has not been prevented
       Object.keys(this._toAttribute).forEach(key => {
         if (this.subAnimate.animate.validAttr(key)) {
           out[key] = this._toAttribute[key];
