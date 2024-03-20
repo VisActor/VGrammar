@@ -1,4 +1,4 @@
-import type { IPointLike } from '@visactor/vutils';
+import type { IBounds, IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
 import {
   array,
@@ -157,7 +157,7 @@ export class Element implements IElement {
 
   getBounds() {
     // FIXME: 没有更新 bounds 时拿到的 bound 可能为 null
-    return this.graphicItem?.AABBBounds;
+    return this.graphicItem?.AABBBounds as IBounds;
   }
 
   getStates() {

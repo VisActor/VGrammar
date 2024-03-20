@@ -20,6 +20,7 @@ import type {
 import type { DiffState } from '../graph/enums';
 import type { IMark, IGlyphMark } from './grammar';
 import type { BaseEncodeSpec, IMarkConfig, MarkFunctionType, MarkKeySpec, MarkType } from './mark';
+import type { IBounds } from '@visactor/vutils';
 
 export interface ElementGraphicMap {
   circle: ICircle;
@@ -91,7 +92,7 @@ export interface IElement {
   updateGraphicItem: (config: IMarkConfig) => void;
 
   getDatum: () => any;
-  getBounds: () => any;
+  getBounds: () => IBounds;
   getGraphicItem: () => IGraphic;
   removeGraphicItem: () => void;
   resetGraphicItem: () => void;

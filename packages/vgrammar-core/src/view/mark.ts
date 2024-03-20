@@ -1,4 +1,5 @@
-import type { IGroup, INode } from '@visactor/vrender-core';
+import type { IGroup } from '@visactor/vrender-core';
+import type { IBounds } from '@visactor/vutils';
 import { isNil, isString } from '@visactor/vutils';
 import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
 import {
@@ -1162,7 +1163,9 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   getBounds() {
-    return this.graphicItem ? this.graphicItem.AABBBounds : this.getGroupGraphicItem()?.AABBBounds;
+    return this.graphicItem
+      ? (this.graphicItem.AABBBounds as IBounds)
+      : (this.getGroupGraphicItem()?.AABBBounds as IBounds);
   }
 
   getMorphConfig(): { morph: boolean; morphKey: string; morphElementKey: string } {
