@@ -2,6 +2,36 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.12.5",
+      "tag": "@visactor/vgrammar-core_v0.12.5",
+      "date": "Wed, 20 Mar 2024 02:34:58 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: support `graphicItem` in `BEFORE_ADD_VRENDER_MARK` and `AFTER_ADD_VRENDER_MARK` hooks\n\n"
+          },
+          {
+            "comment": "feat: support event of roam when no scale and bind components\n\n"
+          },
+          {
+            "comment": "fix: `triggerOff: none` should close end event of interactions\n\n"
+          },
+          {
+            "comment": "fix: unmount interaction component before releasing"
+          },
+          {
+            "comment": "fix: fix memory leak when reuse a mark\n\n"
+          },
+          {
+            "comment": "fix: the `pickable` in encoder should overwrite the `spec.pickable`\n\n"
+          },
+          {
+            "comment": "fix: fix rangeFactor of view-scroll\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.4",
       "tag": "@visactor/vgrammar-core_v0.12.4",
       "date": "Wed, 13 Mar 2024 02:24:03 GMT",
