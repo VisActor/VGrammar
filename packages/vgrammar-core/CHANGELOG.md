@@ -1,6 +1,19 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Wed, 20 Mar 2024 02:34:58 GMT and should not be manually modified.
+This log was last generated on Fri, 22 Mar 2024 09:09:47 GMT and should not be manually modified.
+
+## 0.12.6
+Fri, 22 Mar 2024 09:09:47 GMT
+
+### Updates
+
+- feat: support `ReactDOM` in view options
+
+
+- fix: prevent animation attributes when binding
+- fix: fix error of component when the graphic component is not registered
+
+
 
 ## 0.12.5
 Wed, 20 Mar 2024 02:34:58 GMT
