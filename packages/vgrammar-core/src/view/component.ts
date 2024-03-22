@@ -44,10 +44,12 @@ export class Component extends Mark implements IComponent {
       newGraphicItem ??
       Factory.createGraphicComponent(this.componentType, attrs, { mode: this.mode, skipDefault: this.spec.skipTheme });
 
-    this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK, { graphicItem });
-    (this.graphicParent as any).appendChild(graphicItem);
+    if (graphicItem) {
+      this.emit(HOOK_EVENT.BEFORE_ADD_VRENDER_MARK, { graphicItem });
+      (this.graphicParent as any).appendChild(graphicItem);
 
-    this.emit(HOOK_EVENT.AFTER_ADD_VRENDER_MARK, { graphicItem });
+      this.emit(HOOK_EVENT.AFTER_ADD_VRENDER_MARK, { graphicItem });
+    }
 
     return graphicItem;
   }

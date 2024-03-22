@@ -2,6 +2,24 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.12.6",
+      "tag": "@visactor/vgrammar-core_v0.12.6",
+      "date": "Fri, 22 Mar 2024 09:09:47 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: support `ReactDOM` in view options\n\n"
+          },
+          {
+            "comment": "fix: prevent animation attributes when binding"
+          },
+          {
+            "comment": "fix: fix error of component when the graphic component is not registered\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.5",
       "tag": "@visactor/vgrammar-core_v0.12.5",
       "date": "Wed, 20 Mar 2024 02:34:58 GMT",

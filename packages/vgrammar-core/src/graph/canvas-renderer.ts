@@ -219,7 +219,8 @@ export default class CanvasRenderer implements IRenderer {
         optimize: viewOptions.optimize,
         ticker: viewOptions.ticker,
         supportsTouchEvents: viewOptions.supportsTouchEvents,
-        supportsPointerEvents: viewOptions.supportsPointerEvents
+        supportsPointerEvents: viewOptions.supportsPointerEvents,
+        ReactDOM: viewOptions.ReactDOM
       });
 
     if (viewOptions.options3d?.enable) {
