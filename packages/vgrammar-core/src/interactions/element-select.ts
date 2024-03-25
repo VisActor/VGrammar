@@ -37,6 +37,10 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
     this._stateMarks = groupMarksByState(this._marks, [this.options.state, this.options.reverseState]);
   }
 
+  getStartState(): string {
+    return this.options.state;
+  }
+
   protected getEvents() {
     const triggerOff = this.options.triggerOff;
     const trigger = this.options.trigger;

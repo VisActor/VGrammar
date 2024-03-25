@@ -31,6 +31,10 @@ export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightBy
     this._marks = view.getMarksBySelector(this.options.selector);
   }
 
+  getStartState(): string {
+    return this.options.highlightState;
+  }
+
   protected getEvents() {
     return [
       {

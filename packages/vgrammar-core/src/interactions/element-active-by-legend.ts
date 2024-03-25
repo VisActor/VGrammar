@@ -36,6 +36,10 @@ export class ElementActiveByLegend extends BaseInteraction<ElementActiveByLegend
     ];
   }
 
+  getStartState(): string {
+    return this.options.state;
+  }
+
   start(element: IElement | IGlyphElement | string) {
     const itemKey = element;
 

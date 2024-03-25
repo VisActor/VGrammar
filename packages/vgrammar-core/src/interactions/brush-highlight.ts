@@ -18,6 +18,10 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
     super(view, Object.assign({}, BrushHighlight.defaultOptions, option));
   }
 
+  getStartState(): string {
+    return this.options.highlightState;
+  }
+
   handleBrushUpdate = (event: {
     type: string;
     detail: {
