@@ -1,3 +1,21 @@
+# v0.12.6
+
+2024-03-25
+
+
+**🆕 New feature**
+
+- **@visactor/vgrammar-core**: support `ReactDOM` in view options
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: prevent animation attributes when binding
+- **@visactor/vgrammar-core**: fix error of component when the graphic component is not registered
+
+
+
+[more detail about v0.12.6](https://github.com/VisActor/VGrammar/releases/tag/v0.12.6)
+
 # v0.12.5
 
 2024-03-20
