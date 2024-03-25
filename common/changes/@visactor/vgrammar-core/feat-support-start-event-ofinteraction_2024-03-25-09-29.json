@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat: interaction app new api `getStarState()`\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}

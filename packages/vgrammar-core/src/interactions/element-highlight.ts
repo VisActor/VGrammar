@@ -40,6 +40,10 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
     this._stateMarks = groupMarksByState(this._marks, [this.options.highlightState, this.options.blurState]);
   }
 
+  getStartState(): string {
+    return this.options.highlightState;
+  }
+
   protected getEvents() {
     const triggerOff = this.options.triggerOff;
     const trigger = this.options.trigger;

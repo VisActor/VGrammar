@@ -23,6 +23,10 @@ export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOpt
     this._marks = view.getMarksBySelector(this.options.selector);
   }
 
+  getStartState(): string {
+    return this.options.highlightState;
+  }
+
   protected getEvents() {
     return [
       {
