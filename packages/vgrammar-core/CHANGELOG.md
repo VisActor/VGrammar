@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 22 Mar 2024 09:09:47 GMT and should not be manually modified.
+This log was last generated on Mon, 25 Mar 2024 10:45:05 GMT and should not be manually modified.
+
+## 0.12.7
+Mon, 25 Mar 2024 10:45:05 GMT
+
+### Updates
+
+- feat: interaction app new api `getStarState()`
+
+
 
 ## 0.12.6
 Fri, 22 Mar 2024 09:09:47 GMT

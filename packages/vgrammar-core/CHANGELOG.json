@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.12.7",
+      "tag": "@visactor/vgrammar-core_v0.12.7",
+      "date": "Mon, 25 Mar 2024 10:45:05 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: interaction app new api `getStarState()`\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.6",
       "tag": "@visactor/vgrammar-core_v0.12.6",
       "date": "Fri, 22 Mar 2024 09:09:47 GMT",
