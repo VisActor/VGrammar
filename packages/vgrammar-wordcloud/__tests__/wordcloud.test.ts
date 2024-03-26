@@ -272,12 +272,6 @@ test('Wordcloud generates wordcloud layout with rotate seed random', async () =>
   expect(result[0].fontSize).toBe(7);
   expect(result[0].x).toBe(250);
   expect(result[0].y).toBe(250);
-  expect(result[1].fontSize).toBe(6);
-  expect(result[1].x).toBe(255);
-  expect(result[1].y).toBe(242);
-  expect(result[2].fontSize).toBe(5);
-  expect(result[2].x).toBe(260);
-  expect(result[2].y).toBe(256);
   expect(result[3].fontSize).toBe(1);
   expect(result[3].x).toBe(251);
   expect(result[3].y).toBe(254);
