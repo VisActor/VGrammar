@@ -1,8 +1,8 @@
-import { degreeToRadian, isFunction, isNil, merge } from '@visactor/vutils';
+import { array, degreeToRadian, isFunction, isNil, merge } from '@visactor/vutils';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import type { IBaseLayoutOptions, TagItemFunction, TagOutputItem } from './interface';
 import { getShapeFunction } from './shapes';
-import { functor, randomHslColor } from './util';
+import { functor, randomHslColor, seedRandom } from './util';
 
 export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgressiveTransformResult {
   static defaultOptions: Partial<IBaseLayoutOptions> = {
@@ -85,7 +85,11 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
     if (!isNil(this.options.rotate)) {
       this.getTextRotate = isFunction(this.options.rotate)
         ? (d: any) => degreeToRadian((this.options.rotate as (d: any) => number)(d) ?? 0)
-        : () => degreeToRadian((this.options.rotate as number) ?? 0);
+        : (d: any, i: number) => {
+            const rotates = array(this.options.rotate as number | number[]);
+            const random = this.options.random ? Math.random() : seedRandom(i); // 如果配置了random, 则从角度列表随机取值，反之使用种子伪随机取值
+            return degreeToRadian(rotates[Math.floor(random * rotates.length)]);
+          };
     } else if (this.options.useRandomRotate) {
       const rotationRange = Math.abs(this.options.maxRotation - this.options.minRotation);
       const rotationSteps = Math.abs(Math.floor(this.options.rotationSteps));

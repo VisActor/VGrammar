@@ -229,13 +229,13 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
 
     this.result = [];
     const data = words
-      .map((d: any) => {
+      .map((d: any, i: number) => {
         return {
           text: this.getText(d),
           fontFamily: this.getTextFontFamily(d),
           fontStyle: this.getTextFontStyle(d),
           fontWeight: this.getTextFontWeight(d),
-          angle: this.getTextRotate(d),
+          angle: this.getTextRotate(d, i),
           fontSize: ~~this.getTextFontSize(d),
           padding: this.getTextPadding(d),
           xoff: 0,
