@@ -93,7 +93,7 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
     return points;
   }
 
-  private getTextInfo(item: any, shrinkRatio: number = 1): TextInfo {
+  private getTextInfo(item: any, shrinkRatio: number = 1, index: number): TextInfo {
     // calculate the acutal font size
     // fontSize === 0 means weightFactor function wants the text skipped,
     // and size < minSize means we cannot draw the text.
@@ -112,7 +112,7 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
     // Get fontWeight that will be used to set fctx.font
     const fontWeight = this.getTextFontWeight(item);
     const fontStyle = this.getTextFontStyle(item);
-    const angle = this.getTextRotate ? this.getTextRotate(item) ?? 0 : 0;
+    const angle = this.getTextRotate ? this.getTextRotate(item, index) ?? 0 : 0;
     const fontFamily = this.getTextFontFamily(item);
 
     // eslint-disable-next-line no-undef
@@ -298,7 +298,7 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
   layoutWord(index: number, shrinkRatio: number = 1): boolean {
     // get info needed to put the text onto the canvas
     const item = this.data[index];
-    const info = this.getTextInfo(item, shrinkRatio);
+    const info = this.getTextInfo(item, shrinkRatio, index);
 
     // not getting the info means we shouldn't be drawing this one.
     if (!info) {

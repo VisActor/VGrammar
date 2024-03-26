@@ -1,5 +1,5 @@
 import { CloudLayout } from './cloud-layout';
-import { isFunction, isNumber, isString, toNumber, Logger } from '@visactor/vutils';
+import { isFunction, isNumber, isString, toNumber, Logger, isArray } from '@visactor/vutils';
 import type { TagOutputItem, TagItemAttribute } from './interface';
 import { GridLayout } from './grid-layout';
 import { FastLayout } from './fast-layout';
@@ -36,7 +36,7 @@ export const transform = (
     fontWeight?: FieldOption | TagItemAttribute<string>;
     fontSize?: FieldOption | TagItemAttribute<number>;
     fontSizeRange?: [number, number];
-    rotate?: FieldOption | TagItemAttribute<number>;
+    rotate?: FieldOption | TagItemAttribute<number | number[]>;
     text: FieldOption | CallbackOption | string;
     spiral?: string;
     padding?: FieldOption | TagItemAttribute<number>;
@@ -166,7 +166,7 @@ export const transform = (
 
 // 取数逻辑
 const field = <T>(option: FieldOption | TagItemAttribute<T>) => {
-  if (isString(option) || isNumber(option) || isFunction(option)) {
+  if (isString(option) || isNumber(option) || isFunction(option) || isArray(option)) {
     return option as TagItemAttribute<T>;
   }
   return (datum: any) => datum[(option as FieldOption).field] as T;
