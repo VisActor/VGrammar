@@ -743,9 +743,9 @@ export class Element implements IElement {
    * hack support for transform & encode logic. DO NOT USE.
    */
   getItem() {
-    return this.mark.isCollectionMark() ? this.items ?? [] : this.items?.[0];
+    return this.mark && this.mark.isCollectionMark() ? this.items ?? [] : this.items?.[0];
   }
   getDatum() {
-    return this.mark.isCollectionMark() ? this.data ?? [] : this.data?.[0];
+    return this.mark && this.mark.isCollectionMark() ? this.data ?? [] : this.data?.[0];
   }
 }
