@@ -50,6 +50,7 @@ export interface IInteraction<T = any> {
   unbind: () => void;
   start: (element: IElement | IGlyphElement | string | any) => void;
   reset: (element?: IElement | IGlyphElement) => void;
+  getStartState: () => string;
 }
 
 export interface IInteractionConstructor<T = any> {

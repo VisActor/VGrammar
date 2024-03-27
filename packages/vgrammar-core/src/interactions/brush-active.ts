@@ -16,6 +16,10 @@ export class BrushActive extends BrushBase<BrushActiveOptions> {
     super(view, Object.assign({}, BrushActive.defaultOptions, option));
   }
 
+  getStartState(): string {
+    return this.options.state;
+  }
+
   handleBrushUpdate = (event: {
     type: string;
     detail: {

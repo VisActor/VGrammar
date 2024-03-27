@@ -24,6 +24,10 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
 
   protected abstract getEvents(): Array<{ type: string | string[]; handler: InteractionEventHandler }>;
 
+  getStartState(): string {
+    return null;
+  }
+
   depend(grammar: IGrammarBase[] | IGrammarBase | string[] | string) {
     this.references.clear();
     array(grammar)

@@ -31,6 +31,10 @@ export class ElementActive extends BaseInteraction<ElementActiveOptions> {
     ];
   }
 
+  getStartState(): string {
+    return this.options.state;
+  }
+
   start(element: InteractionEvent['element']) {
     if (element) {
       if (this._marks && this._marks.includes(element.mark)) {
