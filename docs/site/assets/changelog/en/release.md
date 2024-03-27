@@ -1,3 +1,16 @@
+# v0.12.7
+
+2024-03-27
+
+
+**🆕 New feature**
+
+- **@visactor/vgrammar-core**: interaction app new api `getStarState()`
+
+
+
+[more detail about v0.12.7](https://github.com/VisActor/VGrammar/releases/tag/v0.12.7)
+
 # v0.12.6
 
 2024-03-25
