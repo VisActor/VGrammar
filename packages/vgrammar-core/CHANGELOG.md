@@ -1,6 +1,18 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Mon, 25 Mar 2024 10:45:05 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Mar 2024 01:56:55 GMT and should not be manually modified.
+
+## 0.12.8
+Thu, 28 Mar 2024 01:56:55 GMT
+
+### Updates
+
+- fix: fix error when release element in stage event
+
+
+- fix: upgrade vrender to 0.18.8
+
+
 
 ## 0.12.7
 Mon, 25 Mar 2024 10:45:05 GMT

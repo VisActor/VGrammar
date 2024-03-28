@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.12.8",
+      "tag": "@visactor/vgrammar-core_v0.12.8",
+      "date": "Thu, 28 Mar 2024 01:56:55 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix error when release element in stage event\n\n"
+          },
+          {
+            "comment": "fix: upgrade vrender to 0.18.8\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.7",
       "tag": "@visactor/vgrammar-core_v0.12.7",
       "date": "Mon, 25 Mar 2024 10:45:05 GMT",
