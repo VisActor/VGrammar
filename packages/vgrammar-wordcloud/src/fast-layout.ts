@@ -58,14 +58,14 @@ export class FastLayout extends BaseLayout<IFastLayoutOptions> implements IProgr
     return true;
   }
 
-  private getTextInfo(datum: any) {
+  private getTextInfo(datum: any, index: number) {
     const info: Partial<TagItem> = {
       datum,
       fontSize: this.getTextFontSize(datum),
       fontWeight: this.getTextFontWeight(datum),
       fontStyle: this.getTextFontStyle(datum),
       fontFamily: this.getTextFontFamily(datum),
-      angle: this.getTextRotate(datum),
+      angle: this.getTextRotate(datum, index),
       text: this.getText(datum) + '',
       x: this.center[0],
       y: this.center[1]
@@ -83,7 +83,7 @@ export class FastLayout extends BaseLayout<IFastLayoutOptions> implements IProgr
 
   layoutWord(index: number) {
     const step = 0.5; // 步长决定布局时间，也决定布局结果
-    const info = this.getTextInfo(this.data[index]);
+    const info = this.getTextInfo(this.data[index], index);
 
     let angle = 2 * Math.PI;
     let radius = 0;

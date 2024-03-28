@@ -248,3 +248,28 @@ test('Wordcloud of 3d', () => {
     expect(el.fontSize).toBeLessThanOrEqual(40);
   });
 });
+
+test('Wordcloud generates wordcloud layout with rotate seed random', async () => {
+  const data = [
+    { text: 'foo', size: 49, index: 0 },
+    { text: 'bar', size: 36, index: 1 },
+    { text: 'baz', size: 25, index: 2 },
+    { text: 'abc', size: 1, index: 3 }
+  ];
+
+  const result = await transform(
+    {
+      size: [500, 500],
+      text: { field: 'text' },
+      fontSize: { field: 'size' },
+      fontSizeRange: [1, 7],
+      rotate: [0, 20, 30],
+      randomVisible: false
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontSize).toBe(7);
+  expect(result[0].x).toBe(250);
+  expect(result[0].y).toBe(250);
+});

@@ -1,6 +1,6 @@
 export type TagItemAttribute<T> = T | ((d?: any) => T);
 
-export type TagItemFunction<T> = (d?: any) => T;
+export type TagItemFunction<T> = (d?: any, i?: number) => T;
 
 export type Bounds = [{ x: number; y: number }, { x: number; y: number }];
 export interface Rect {
@@ -33,9 +33,10 @@ export interface IBaseLayoutOptions {
   maxRotation?: number;
   rotationSteps?: number;
   rotateRatio?: number;
-  rotate?: TagItemAttribute<number>;
+  rotate?: TagItemAttribute<number> | number[];
 
   random?: boolean;
+  randomVisible?: boolean;
   shape?: string | ((theta: number) => number);
   progressiveTime?: number;
   backgroundColor?: string;
