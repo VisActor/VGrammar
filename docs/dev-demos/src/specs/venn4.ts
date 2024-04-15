@@ -4,9 +4,9 @@ import { registerVennTransforms } from '@visactor/vgrammar-venn';
 registerVennTransforms();
 
 export const spec = {
-  width: 800,
+  width: 600,
   height: 600,
-  padding: 5,
+  padding: 0,
 
   data: [
     {
@@ -31,8 +31,34 @@ export const spec = {
       transform: [
         {
           type: 'venn',
-          width: { signal: 'viewWidth' },
-          height: { signal: 'viewHeight' },
+          x0: {
+            // "chartWidth + chartPad"
+            callback: (params: any) => {
+              return params.padding.left;
+            },
+            dependency: ['padding']
+          },
+          x1: {
+            // "chartWidth + chartPad"
+            callback: (params: any) => {
+              return params.padding.left + params.viewWidth;
+            },
+            dependency: ['padding', 'viewWidth']
+          },
+          y0: {
+            // "chartWidth + chartPad"
+            callback: (params: any) => {
+              return params.padding.top;
+            },
+            dependency: ['padding']
+          },
+          y1: {
+            // "chartWidth + chartPad"
+            callback: (params: any) => {
+              return params.padding.top + params.viewHeight;
+            },
+            dependency: ['padding', 'viewHeight']
+          },
         }
       ]
     }

@@ -2,9 +2,10 @@ import type { IPoint } from '@visactor/vutils';
 import type { IVennParams, VennCircleName } from './utils/interface';
 
 export interface IVennTransformOptions extends IVennParams {
-  width: number;
-  height: number;
-  padding?: number;
+  x0: number;
+  x1: number;
+  y0: number;
+  y1: number;
   orientation?: number;
   orientationOrder?: any;
 }

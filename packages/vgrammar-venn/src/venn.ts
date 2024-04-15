@@ -12,7 +12,7 @@ export const transform = (
   options: IVennTransformOptions,
   upstreamData: IVennArea[]
 ): Array<IVennCircleDatum | IVennOverlapDatum> => {
-  const { width, height, padding = 15, orientation = Math.PI / 2, orientationOrder = null } = options;
+  const { x0, x1, y0, y1, orientation = Math.PI / 2, orientationOrder = null } = options;
 
   let circles: Record<VennCircleName, IVennCircle> = {};
   let textCenters: Record<VennAreaName, IPoint> = {};
@@ -20,7 +20,7 @@ export const transform = (
   if (upstreamData.length > 0) {
     let solution = venn(upstreamData, options);
     solution = normalizeSolution(solution, orientation, orientationOrder);
-    circles = scaleSolution(solution, width, height, padding);
+    circles = scaleSolution(solution, x1 - x0, y1 - y0, x0, y0);
     textCenters = computeTextCenters(circles, upstreamData);
   }
 

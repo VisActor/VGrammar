@@ -17,7 +17,8 @@ export function scaleSolution(
   solution: Record<VennCircleName, IVennCircle>,
   width: number,
   height: number,
-  padding: number
+  x0: number,
+  y0: number
 ): Record<VennCircleName, IVennCircle> {
   const circles: IVennCircle[] = [];
   const setIds: VennCircleName[] = [];
@@ -27,9 +28,6 @@ export function scaleSolution(
       circles.push(solution[setId]);
     }
   }
-
-  width -= 2 * padding;
-  height -= 2 * padding;
 
   const bounds = getBoundingBox(circles);
   const xRange = bounds.xRange;
@@ -54,8 +52,8 @@ export function scaleSolution(
     const circle = circles[i];
     scaled[setIds[i]] = {
       radius: scaling * circle.radius,
-      x: padding + xOffset + (circle.x - xRange.min) * scaling,
-      y: padding + yOffset + (circle.y - yRange.min) * scaling
+      x: x0 + xOffset + (circle.x - xRange.min) * scaling,
+      y: y0 + yOffset + (circle.y - yRange.min) * scaling
     };
   }
 
