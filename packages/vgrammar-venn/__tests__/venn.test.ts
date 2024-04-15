@@ -17,8 +17,10 @@ test('Default transform of 3 element venn', async () => {
 
   const result = await transform(
     {
-      width: 500,
-      height: 500
+      x0: 0,
+      y0: 0,
+      x1: 500,
+      y1: 500
     },
     data
   );
@@ -28,7 +30,7 @@ test('Default transform of 3 element venn', async () => {
   expect(result[0].type).toEqual('circle');
   expect(result[3].type).toEqual('overlap');
 
-  expect((result[0] as IVennCircleDatum).radius).toBeCloseTo(148, 0);
-  expect((result[0] as IVennCircleDatum).x).toBeCloseTo(163.02, 0);
-  expect((result[0] as IVennCircleDatum).y).toBeCloseTo(315.99, 0);
+  expect((result[0] as IVennCircleDatum).radius).toBeCloseTo(160.8, 0);
+  expect((result[0] as IVennCircleDatum).x).toBeCloseTo(160.8, 0);
+  expect((result[0] as IVennCircleDatum).y).toBeCloseTo(327.1, 0);
 });
