@@ -18,6 +18,7 @@
     "@visactor/vgrammar-projection": "workspace:0.12.8",
     "@visactor/vgrammar-wordcloud": "workspace:0.12.8",
     "@visactor/vgrammar-wordcloud-shape": "workspace:0.12.8",
+    "@visactor/vgrammar-venn": "workspace:0.12.8",
     "@visactor/vgrammar-plot": "workspace:0.12.8",
     "@visactor/vutils": "~0.18.1",
     "@visactor/vrender-core": "0.18.8",

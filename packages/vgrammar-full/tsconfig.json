@@ -35,6 +35,9 @@
     },
     {
       "path": "../vgrammar-wordcloud-shape"
+    },
+    {
+      "path": "../vgrammar-venn"
     }
   ],
   "include": ["src", "./scripts"],

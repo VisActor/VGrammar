@@ -47,6 +47,9 @@
       "path": "../../packages/vgrammar-wordcloud-shape"
     },
     {
+      "path": "../../packages/vgrammar-venn"
+    },
+    {
       "path": "../../packages/vgrammar-plot"
     }
   ],
