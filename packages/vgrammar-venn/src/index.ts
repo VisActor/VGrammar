@@ -2,6 +2,8 @@ import { Factory } from '@visactor/vgrammar-core';
 
 import { transform, transformMark } from './venn';
 
+export * from './interface';
+
 export const registerVennTransforms = () => {
   Factory.registerTransform(
     'venn',
