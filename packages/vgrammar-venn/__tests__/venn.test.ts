@@ -1,3 +1,9 @@
+import {
+  VGRAMMAR_VENN_CIRCLE_RADIUS,
+  VGRAMMAR_VENN_CIRCLE_X,
+  VGRAMMAR_VENN_CIRCLE_Y,
+  VGRAMMAR_VENN_DATUM_TYPE
+} from '../src';
 import type { IVennCircleDatum } from '../src/interface';
 import { transform } from '../src/venn';
 import { initBrowserEnv } from '@visactor/vgrammar-core';
@@ -27,10 +33,10 @@ test('Default transform of 3 element venn', async () => {
 
   expect(result.length).toEqual(7);
 
-  expect(result[0].type).toEqual('circle');
-  expect(result[3].type).toEqual('overlap');
+  expect(result[0][VGRAMMAR_VENN_DATUM_TYPE]).toEqual('circle');
+  expect(result[3][VGRAMMAR_VENN_DATUM_TYPE]).toEqual('overlap');
 
-  expect((result[0] as IVennCircleDatum).radius).toBeCloseTo(160.8, 0);
-  expect((result[0] as IVennCircleDatum).x).toBeCloseTo(160.8, 0);
-  expect((result[0] as IVennCircleDatum).y).toBeCloseTo(327.1, 0);
+  expect((result[0] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_RADIUS]).toBeCloseTo(160.8, 0);
+  expect((result[0] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_X]).toBeCloseTo(160.8, 0);
+  expect((result[0] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_Y]).toBeCloseTo(327.1, 0);
 });
