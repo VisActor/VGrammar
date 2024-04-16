@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { registerVennTransforms } from '@visactor/vgrammar-venn';
+import { VGRAMMAR_VENN_CIRCLE_RADIUS, VGRAMMAR_VENN_CIRCLE_X, VGRAMMAR_VENN_CIRCLE_Y, VGRAMMAR_VENN_LABEL_X, VGRAMMAR_VENN_LABEL_Y, VGRAMMAR_VENN_OVERLAP_PATH, registerVennTransforms } from '@visactor/vgrammar-venn';
 
 registerVennTransforms();
 
@@ -80,10 +80,10 @@ export const spec = {
           ],
           encode: {
             update: {
-              x: { field: 'x' },
-              y: { field: 'y' },
+              x: { field: VGRAMMAR_VENN_CIRCLE_X },
+              y: { field: VGRAMMAR_VENN_CIRCLE_Y },
               innerRadius: 0,
-              outerRadius: { field: 'radius' },
+              outerRadius: { field: VGRAMMAR_VENN_CIRCLE_RADIUS },
               startAngle: 0,
               endAngle: Math.PI * 2,
               fill: 'red',
@@ -106,7 +106,7 @@ export const spec = {
             update: {
               x: 0,
               y: 0,
-              path: { field: 'path' },
+              path: { field: VGRAMMAR_VENN_OVERLAP_PATH },
               fill: 'blue',
               fillOpacity: 0.2,
               stroke: { field: 'stroke' },
@@ -121,8 +121,8 @@ export const spec = {
           },
           encode: {
             update: {
-              x: { field: 'labelX' },
-              y: { field: 'labelY' },
+              x: { field: VGRAMMAR_VENN_LABEL_X },
+              y: { field: VGRAMMAR_VENN_LABEL_Y },
               text: { field: 'label' },
               textAlign: 'center',
               textBaseLine: 'middle',
