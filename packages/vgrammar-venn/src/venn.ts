@@ -17,7 +17,7 @@ import type {
 } from './interface';
 import { computeTextCenters, normalizeSolution, scaleSolution, venn } from './utils';
 import type { VennCircleName, IVennArea, IVennCircle, VennAreaName, IPoint } from './utils/interface';
-import { getOverlapPath } from './utils/path';
+import { getArcsFromCircles, getPathFromArcs } from './utils/path';
 import { array } from '@visactor/vutils';
 
 export const transform = (
@@ -75,7 +75,7 @@ export const transform = (
     return {
       ...basicDatum,
       [VGRAMMAR_VENN_DATUM_TYPE]: 'overlap',
-      [VGRAMMAR_VENN_OVERLAP_PATH]: getOverlapPath(sets.map(name => circles[name]))
+      [VGRAMMAR_VENN_OVERLAP_PATH]: getPathFromArcs(getArcsFromCircles(sets.map(name => circles[name])))
     };
   });
   return data as any;
