@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: fix `calculateNodeValue()` in vgrammar-hierrachy to support string value, fix #433\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}
