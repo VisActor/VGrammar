@@ -2,7 +2,7 @@ import { ACustomAnimate } from '@visactor/vrender-core';
 import type { IVennCircle, IVennOverlapArc, VennCircleName } from './utils/interface';
 import { getArcsFromCircles, getCirclesFromArcs, getPathFromArcs } from './utils/path';
 
-export class VennOverlapAnimation extends ACustomAnimate<{ arcs: IVennOverlapArc[] }> {
+export class VennOverlapAnimation extends ACustomAnimate<{ path: string; arcs: IVennOverlapArc[] }> {
   protected fromCircles: Record<VennCircleName, IVennCircle>;
   protected toCircles: Record<VennCircleName, IVennCircle>;
 
@@ -24,9 +24,12 @@ export class VennOverlapAnimation extends ACustomAnimate<{ arcs: IVennOverlapArc
       return {
         radius: fromC.radius + (toC.radius - fromC.radius) * ratio,
         x: fromC.x + (toC.x - fromC.x) * ratio,
-        y: fromC.y + (toC.y - fromC.y) * ratio
+        y: fromC.y + (toC.y - fromC.y) * ratio,
+        setId: key
       } as IVennCircle;
     });
-    out.path = getPathFromArcs(getArcsFromCircles(circles));
+    const arcs = getArcsFromCircles(circles);
+    out.arcs = arcs;
+    out.path = getPathFromArcs(arcs);
   }
 }
