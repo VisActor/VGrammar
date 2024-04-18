@@ -58,15 +58,15 @@ test('Path transform of 3 element venn', async () => {
 
   expect(circles.length).toEqual(3);
 
-  expect(circles[0].radius).toBeCloseTo((result[0] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_RADIUS], 0);
-  expect(circles[0].x).toBeCloseTo((result[0] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_X], 0);
-  expect(circles[0].y).toBeCloseTo((result[0] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_Y], 0);
+  expect(circles[0].radius).toBeCloseTo((result[1] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_RADIUS], 0);
+  expect(circles[0].x).toBeCloseTo((result[1] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_X], 0);
+  expect(circles[0].y).toBeCloseTo((result[1] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_Y], 0);
 
-  expect(circles[1].radius).toBeCloseTo((result[1] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_RADIUS], 0);
-  expect(circles[1].x).toBeCloseTo((result[1] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_X], 0);
-  expect(circles[1].y).toBeCloseTo((result[1] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_Y], 0);
+  expect(circles[1].radius).toBeCloseTo((result[2] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_RADIUS], 0);
+  expect(circles[1].x).toBeCloseTo((result[2] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_X], 0);
+  expect(circles[1].y).toBeCloseTo((result[2] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_Y], 0);
 
-  expect(circles[2].radius).toBeCloseTo((result[2] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_RADIUS], 0);
-  expect(circles[2].x).toBeCloseTo((result[2] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_X], 0);
-  expect(circles[2].y).toBeCloseTo((result[2] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_Y], 0);
+  expect(circles[2].radius).toBeCloseTo((result[0] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_RADIUS], 0);
+  expect(circles[2].x).toBeCloseTo((result[0] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_X], 0);
+  expect(circles[2].y).toBeCloseTo((result[0] as IVennCircleDatum)[VGRAMMAR_VENN_CIRCLE_Y], 0);
 });
