@@ -9,8 +9,6 @@ export const getArcsFromCircles = (circles: IVennCircle[]) => {
   const arcs = areaStats.arcs.map(
     ({ p1, p2, circle: { radius, setId } }) => ({ p1, p2, radius, setId } as IVennOverlapArc)
   );
-  // 对 arc 重新排序
-  arcs.sort((a, b) => (b.setId < a.setId ? 1 : b.setId > a.setId ? -1 : 0));
   const result: IVennOverlapArc[] = [];
   let i = 0;
   let arc = arcs[0];
@@ -62,7 +60,7 @@ export const getArcsFromPath = (path: string) => {
 
 export const getCirclesFromArcs = (arcs: IVennOverlapArc[]) => {
   return arcs.map(arc => {
-    const { p1, p2, radius } = arc;
+    const { p1, p2, radius, setId } = arc;
     const { x: x1, y: y1 } = p1;
     const { x: x2, y: y2 } = p2;
     // 两点之间的距离
@@ -79,6 +77,6 @@ export const getCirclesFromArcs = (arcs: IVennOverlapArc[]) => {
       x = mX - (h * (y2 - y1)) / d;
       y = mY + (h * (x2 - x1)) / d;
     }
-    return { x, y, radius } as IVennCircle;
+    return { x, y, radius, setId } as IVennCircle;
   });
 };

@@ -1,19 +1,26 @@
 import { ACustomAnimate } from '@visactor/vrender-core';
-import type { IVennCircle } from './utils/interface';
-import { getArcsFromCircles, getArcsFromPath, getCirclesFromArcs, getPathFromArcs } from './utils/path';
+import type { IVennCircle, IVennOverlapArc, VennCircleName } from './utils/interface';
+import { getArcsFromCircles, getCirclesFromArcs, getPathFromArcs } from './utils/path';
 
-export class VennOverlapAnimation extends ACustomAnimate<{ path: string }> {
-  protected fromCircles: IVennCircle[];
-  protected toCircles: IVennCircle[];
+export class VennOverlapAnimation extends ACustomAnimate<{ arcs: IVennOverlapArc[] }> {
+  protected fromCircles: Record<VennCircleName, IVennCircle>;
+  protected toCircles: Record<VennCircleName, IVennCircle>;
 
   onBind(): void {
-    this.fromCircles = getCirclesFromArcs(getArcsFromPath(this.from.path));
-    this.toCircles = getCirclesFromArcs(getArcsFromPath(this.to.path));
+    this.fromCircles = {};
+    getCirclesFromArcs(this.from.arcs).forEach(c => {
+      this.fromCircles[c.setId] = c;
+    });
+    this.toCircles = {};
+    getCirclesFromArcs(this.to.arcs).forEach(c => {
+      this.toCircles[c.setId] = c;
+    });
   }
 
   onUpdate(end: boolean, ratio: number, out: Record<string, any>): void {
-    const circles = this.fromCircles.map((fromC, i) => {
-      const toC = this.toCircles[i];
+    const circles = Object.keys(this.fromCircles).map((key, i) => {
+      const fromC = this.fromCircles[key];
+      const toC = this.toCircles[key];
       return {
         radius: fromC.radius + (toC.radius - fromC.radius) * ratio,
         x: fromC.x + (toC.x - fromC.x) * ratio,

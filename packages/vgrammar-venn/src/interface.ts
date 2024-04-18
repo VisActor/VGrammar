@@ -1,5 +1,5 @@
 import type { Datum } from '@visactor/vgrammar-core';
-import type { IVennArea, IVennParams } from './utils/interface';
+import type { IVennArea, IVennOverlapArc, IVennParams } from './utils/interface';
 
 export interface IVennTransformOptions extends IVennParams {
   x0: number;
@@ -30,6 +30,7 @@ export interface IVennCircleDatum<T = Datum> extends IVennCommonDatum<T> {
 export interface IVennOverlapDatum<T = Datum> extends IVennCommonDatum<T> {
   type: 'overlap';
   path: string;
+  arcs: IVennOverlapArc[];
 }
 
 export interface IVennLabelDatum {

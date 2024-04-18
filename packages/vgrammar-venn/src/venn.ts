@@ -66,12 +66,14 @@ export const transform = (
         radius: circle.radius
       } as IVennCircleDatum;
     }
+    const arcs = getArcsFromCircles(sets.map(name => circles[name]));
     return {
       ...basicDatum,
       type: 'overlap',
       x: 0,
       y: 0,
-      path: getPathFromArcs(getArcsFromCircles(sets.map(name => circles[name])))
+      path: getPathFromArcs(arcs),
+      arcs
     } as IVennOverlapDatum;
   });
   return data;
