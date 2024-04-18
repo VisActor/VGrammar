@@ -76,5 +76,6 @@ export interface IVennOverlapArc {
   p1: IPoint;
   p2: IPoint;
   radius: number;
-  setId?: VennCircleName;
+  largeArcFlag: boolean;
+  setId: VennCircleName;
 }
