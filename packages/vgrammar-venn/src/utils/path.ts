@@ -6,34 +6,21 @@ import type { IVennAreaStats, IVennCircle, IVennOverlapArc } from './interface';
 export const getArcsFromCircles = (circles: IVennCircle[]) => {
   const areaStats: IVennAreaStats = {};
   intersectionArea(Object.values(circles), areaStats);
-  const arcs = areaStats.arcs.map(({ p1, p2, circle: { radius } }) => ({ p1, p2, radius } as IVennOverlapArc));
-  // 对 arc 重新排序，使之与传入的 circles 顺序无关
+  const arcs = areaStats.arcs.map(
+    ({ p1, p2, circle: { radius, setId } }) => ({ p1, p2, radius, setId } as IVennOverlapArc)
+  );
+  // 对 arc 重新排序
+  arcs.sort((a, b) => (b.setId < a.setId ? 1 : b.setId > a.setId ? -1 : 0));
   const result: IVennOverlapArc[] = [];
   let i = 0;
-  let mX = 0;
-  let mY = 0;
   let arc = arcs[0];
   while (i < arcs.length && arc) {
-    const { p1, p2 } = arc;
-    mX += p1.x;
-    mY += p1.y;
+    const { p2 } = arc;
     result.push(arc);
     arc = arcs.find(a => distance(a.p1, p2) < SMALL);
     i++;
   }
-  mX /= arcs.length;
-  mY /= arcs.length;
-  let minAngle = 4;
-  let startI = 0;
-  result.forEach((arc, i) => {
-    const { p1 } = arc;
-    const angle = Math.atan2(p1.y - mY, p1.x - mX);
-    if (angle < minAngle) {
-      minAngle = angle;
-      startI = i;
-    }
-  });
-  return result.map((_, i) => result[(startI + i) % result.length]);
+  return result;
 };
 
 export const getPathFromArcs = (arcs: IVennOverlapArc[]) => {

@@ -56,8 +56,9 @@ export function scaleSolution(
     scaled[setIds[i]] = {
       radius: scaling * circle.radius,
       x: x0 + xOffset + (circle.x - xRange.min) * scaling,
-      y: y0 + yOffset + (circle.y - yRange.min) * scaling
-    };
+      y: y0 + yOffset + (circle.y - yRange.min) * scaling,
+      setId: circle.setId
+    } as IVennCircle;
   }
 
   return scaled;
