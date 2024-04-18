@@ -36,6 +36,30 @@ export const getPathFromArcs = (arcs: IVennOverlapArc[]) => {
   return path;
 };
 
+export const getArcsFromPath = (path: string) => {
+  const arcs: Partial<IVennOverlapArc>[] = [];
+  const segments = path.split('A');
+  const m = segments[0];
+  let i = m.indexOf(',');
+  arcs.push({
+    p1: { x: +m.slice(1, i), y: +m.slice(i + 1) }
+  });
+  for (i = 1; i < segments.length; i++) {
+    const s = segments[i].split(',');
+    arcs[i - 1].radius = +s[0];
+    const p2x = +s[2].slice(2);
+    const p2y = +s[3].split(' ')[0];
+    arcs[i - 1].p2 = { x: p2x, y: p2y };
+    arcs[i - 1].largeArcFlag = s[1][s[1].length - 1] === '1';
+    if (i < segments.length - 1) {
+      arcs.push({
+        p1: { x: p2x, y: p2y }
+      });
+    }
+  }
+  return arcs as IVennOverlapArc[];
+};
+
 export const getCirclesFromArcs = (arcs: IVennOverlapArc[]) => {
   return arcs.map(arc => {
     const { p1, p2, radius, largeArcFlag, setId } = arc;
