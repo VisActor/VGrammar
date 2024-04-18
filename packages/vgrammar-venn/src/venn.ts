@@ -1,16 +1,7 @@
 import type { Datum } from '@visactor/vgrammar-core';
-import {
-  VGRAMMAR_VENN_CIRCLE_RADIUS,
-  VGRAMMAR_VENN_CIRCLE_X,
-  VGRAMMAR_VENN_CIRCLE_Y,
-  VGRAMMAR_VENN_DATUM_KEY,
-  VGRAMMAR_VENN_DATUM_TYPE,
-  VGRAMMAR_VENN_LABEL_X,
-  VGRAMMAR_VENN_LABEL_Y,
-  VGRAMMAR_VENN_OVERLAP_PATH
-} from './constants';
 import type {
   IVennCircleDatum,
+  IVennCommonDatum,
   IVennOverlapDatum,
   IVennTransformMarkOptions,
   IVennTransformOptions
@@ -58,32 +49,37 @@ export const transform = (
     const textCenter = textCenters[key];
     const basicDatum = {
       ...area,
-      [VGRAMMAR_VENN_DATUM_KEY]: key,
-      [VGRAMMAR_VENN_LABEL_X]: textCenter?.x,
-      [VGRAMMAR_VENN_LABEL_Y]: textCenter?.y
-    };
+      datum: area,
+      sets,
+      key,
+      size: area[valueField],
+      labelX: textCenter?.x,
+      labelY: textCenter?.y
+    } as IVennCommonDatum;
     const circle = circles[key];
     if (circle) {
       return {
         ...basicDatum,
-        [VGRAMMAR_VENN_DATUM_TYPE]: 'circle',
-        [VGRAMMAR_VENN_CIRCLE_X]: circle.x,
-        [VGRAMMAR_VENN_CIRCLE_Y]: circle.y,
-        [VGRAMMAR_VENN_CIRCLE_RADIUS]: circle.radius
-      };
+        type: 'circle',
+        x: circle.x,
+        y: circle.y,
+        radius: circle.radius
+      } as IVennCircleDatum;
     }
     return {
       ...basicDatum,
-      [VGRAMMAR_VENN_DATUM_TYPE]: 'overlap',
-      [VGRAMMAR_VENN_OVERLAP_PATH]: getPathFromArcs(getArcsFromCircles(sets.map(name => circles[name])))
-    };
+      type: 'overlap',
+      x: 0,
+      y: 0,
+      path: getPathFromArcs(getArcsFromCircles(sets.map(name => circles[name])))
+    } as IVennOverlapDatum;
   });
-  return data as any;
+  return data;
 };
 
 export const transformMark = (
   options: IVennTransformMarkOptions,
   upstreamData: Array<IVennCircleDatum | IVennOverlapDatum>
 ) => {
-  return upstreamData.filter(datum => datum[VGRAMMAR_VENN_DATUM_TYPE] === options.datumType);
+  return upstreamData.filter(datum => datum.type === options.datumType);
 };
