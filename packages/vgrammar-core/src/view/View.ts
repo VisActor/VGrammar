@@ -1523,6 +1523,7 @@ export default class View extends EventEmitter implements IView {
     this._unBindResizeEvent();
     this.clearProgressive();
     Factory.unregisterRuntimeTransforms();
+    Logger.setInstance(null);
 
     this.animate.stop();
 
