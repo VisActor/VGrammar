@@ -1,5 +1,5 @@
-import { array } from '@visactor/vutils';
-import { isEqual } from '@visactor/vgrammar-util';
+import { array, isNil, isEqual } from '@visactor/vutils';
+import { isEqual as isEmptyByKey } from '@visactor/vgrammar-util';
 import type { IElement } from '../../../types';
 import type { IAnimationParameters, TypeAnimation } from '../../../types/animate';
 
@@ -33,10 +33,23 @@ export const update: TypeAnimation<IElement> = (
   }
 
   Object.keys(to).forEach(key => {
-    if (isEqual(key, from, to)) {
+    if (isEmptyByKey(key, from, to)) {
       delete from[key];
       delete to[key];
     }
   });
+
+  const final = element.getFinalGraphicAttributes();
+
+  Object.keys(from).forEach(key => {
+    if (isNil(to[key])) {
+      if (isNil(final[key]) || isEqual(from[key], final[key])) {
+        delete from[key];
+      } else {
+        to[key] = final[key];
+      }
+    }
+  });
+
   return { from, to };
 };
