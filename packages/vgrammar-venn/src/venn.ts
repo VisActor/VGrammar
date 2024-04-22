@@ -7,8 +7,10 @@ import type {
   IVennTransformOptions
 } from './interface';
 import { computeTextCenters, normalizeSolution, scaleSolution, venn } from './utils';
-import type { VennCircleName, IVennArea, IVennCircle, VennAreaName, IPoint } from './utils/interface';
+import type { VennCircleName, IVennArea, IVennCircle, VennAreaName } from './utils/interface';
 import { getArcsFromCircles, getPathFromArcs } from './utils/path';
+import type { IPointLike } from '@visactor/vutils';
+// eslint-disable-next-line no-duplicate-imports
 import { array } from '@visactor/vutils';
 
 export const transform = (
@@ -27,7 +29,7 @@ export const transform = (
   } = options;
 
   let circles: Record<VennCircleName, IVennCircle> = {};
-  let textCenters: Record<VennAreaName, IPoint> = {};
+  let textCenters: Record<VennAreaName, IPointLike> = {};
 
   if (upstreamData.length > 0) {
     const vennData = upstreamData.map(

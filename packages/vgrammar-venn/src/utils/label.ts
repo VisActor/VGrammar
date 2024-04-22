@@ -7,15 +7,16 @@
  * @license
  */
 
-import { distance, getCenter, intersectionArea } from './circle-intersection';
-import { nelderMead } from './fmin';
-import type { VennCircleName, IPoint, IVennAreaStats, IVennArea, IVennCircle, VennAreaName } from './interface';
+import type { IOverlapAreaStats, IPointLike } from '@visactor/vutils';
+// eslint-disable-next-line no-duplicate-imports
+import { PointService, getCenter, intersectionArea, nelderMead } from '@visactor/vutils';
+import type { VennCircleName, IVennArea, IVennCircle, VennAreaName } from './interface';
 
 export function computeTextCenters(
   circles: Record<VennCircleName, IVennCircle>,
   areas: IVennArea[]
-): Record<VennAreaName, IPoint> {
-  const ret: Record<VennAreaName, IPoint> = {};
+): Record<VennAreaName, IPointLike> {
+  const ret: Record<VennAreaName, IPointLike> = {};
   const overlapped = getOverlappingCircles(circles);
   for (let i = 0; i < areas.length; ++i) {
     const area = areas[i].sets;
@@ -64,7 +65,7 @@ function getOverlappingCircles(circles: Record<VennCircleName, IVennCircle>): Re
     const a = circles[circleIds[i]];
     for (let j = i + 1; j < circleIds.length; ++j) {
       const b = circles[circleIds[j]];
-      const d = distance(a, b);
+      const d = PointService.distancePP(a, b);
 
       if (d + b.radius <= a.radius + 1e-10) {
         ret[circleIds[j]].push(circleIds[i]);
@@ -82,7 +83,7 @@ function getOverlappingCircles(circles: Record<VennCircleName, IVennCircle>): Re
 export function computeTextCenter(interior: IVennCircle[], exterior: IVennCircle[]) {
   // get an initial estimate by sampling around the interior circles
   // and taking the point with the biggest margin
-  const points: IPoint[] = [];
+  const points: IPointLike[] = [];
   for (let i = 0; i < interior.length; ++i) {
     const c = interior[i];
     points.push({ x: c.x, y: c.y });
@@ -119,14 +120,14 @@ export function computeTextCenter(interior: IVennCircle[], exterior: IVennCircle
   // etc)
   let valid = true;
   for (let i = 0; i < interior.length; ++i) {
-    if (distance(ret, interior[i]) > interior[i].radius) {
+    if (PointService.distancePP(ret, interior[i]) > interior[i].radius) {
       valid = false;
       break;
     }
   }
 
   for (let i = 0; i < exterior.length; ++i) {
-    if (distance(ret, exterior[i]) < exterior[i].radius) {
+    if (PointService.distancePP(ret, exterior[i]) < exterior[i].radius) {
       valid = false;
       break;
     }
@@ -136,7 +137,7 @@ export function computeTextCenter(interior: IVennCircle[], exterior: IVennCircle
     if (interior.length === 1) {
       ret = { x: interior[0].x, y: interior[0].y };
     } else {
-      const areaStats: IVennAreaStats = {};
+      const areaStats: IOverlapAreaStats = {};
       intersectionArea(interior, areaStats);
 
       if (areaStats.arcs.length === 0) {
@@ -163,19 +164,19 @@ export function computeTextCenter(interior: IVennCircle[], exterior: IVennCircle
   return ret;
 }
 
-function circleMargin(current: IPoint, interior: IVennCircle[], exterior: IVennCircle[]) {
-  let margin = interior[0].radius - distance(interior[0], current);
+function circleMargin(current: IPointLike, interior: IVennCircle[], exterior: IVennCircle[]) {
+  let margin = interior[0].radius - PointService.distancePP(interior[0], current);
   let i;
   let m;
   for (i = 1; i < interior.length; ++i) {
-    m = interior[i].radius - distance(interior[i], current);
+    m = interior[i].radius - PointService.distancePP(interior[i], current);
     if (m <= margin) {
       margin = m;
     }
   }
 
   for (i = 0; i < exterior.length; ++i) {
-    m = distance(exterior[i], current) - exterior[i].radius;
+    m = PointService.distancePP(exterior[i], current) - exterior[i].radius;
     if (m <= margin) {
       margin = m;
     }

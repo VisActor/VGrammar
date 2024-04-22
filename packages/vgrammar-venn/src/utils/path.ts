@@ -1,14 +1,20 @@
-import { crossProduct } from '@visactor/vutils';
-import { distance, intersectionArea } from './circle-intersection';
-import { SMALL } from './constant';
-import type { IVennAreaStats, IVennCircle, IVennOverlapArc } from './interface';
+import type { IOverlapAreaStats } from '@visactor/vutils';
+// eslint-disable-next-line no-duplicate-imports
+import { PointService, SMALL, crossProduct, intersectionArea } from '@visactor/vutils';
+import type { IVennCircle, IVennOverlapArc } from './interface';
 
 export const getArcsFromCircles = (circles: IVennCircle[]) => {
-  const areaStats: IVennAreaStats = {};
+  const areaStats: IOverlapAreaStats = {};
   intersectionArea(Object.values(circles), areaStats);
   const arcs = areaStats.arcs.map(
-    ({ p1, p2, circle: { radius, setId }, width }) =>
-      ({ p1, p2, radius, setId, largeArcFlag: width > radius } as IVennOverlapArc)
+    ({ p1, p2, circle, width }) =>
+      ({
+        p1,
+        p2,
+        radius: circle.radius,
+        setId: (circle as IVennCircle).setId,
+        largeArcFlag: width > circle.radius
+      } as IVennOverlapArc)
   );
   const result: IVennOverlapArc[] = [];
   let i = 0;
@@ -16,7 +22,7 @@ export const getArcsFromCircles = (circles: IVennCircle[]) => {
   while (i < arcs.length && arc) {
     const { p2 } = arc;
     result.push(arc);
-    arc = arcs.find(a => distance(a.p1, p2) < SMALL);
+    arc = arcs.find(a => PointService.distancePP(a.p1, p2) < SMALL);
     i++;
   }
   return result;

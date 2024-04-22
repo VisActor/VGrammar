@@ -7,7 +7,7 @@
  * @license
  */
 
-import { circleOverlap, distance, intersectionArea } from '../circle-intersection';
+import { PointService, circleOverlap, intersectionArea } from '@visactor/vutils';
 import type { VennCircleName, IVennArea, IVennCircle } from '../interface';
 
 /** Given a bunch of sets, and the desired overlaps between these sets - computes
@@ -30,7 +30,7 @@ export function lossFunction(sets: Record<VennCircleName, IVennCircle>, overlaps
     } else if (area.sets.length === 2) {
       const left = sets[area.sets[0]];
       const right = sets[area.sets[1]];
-      overlap = circleOverlap(left.radius, right.radius, distance(left, right));
+      overlap = circleOverlap(left.radius, right.radius, PointService.distancePP(left, right));
     } else {
       overlap = intersectionArea(getCircles(area.sets));
     }

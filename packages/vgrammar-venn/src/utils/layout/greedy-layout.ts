@@ -7,11 +7,12 @@
  * @license
  */
 
-import { circleCircleIntersection } from '../circle-intersection';
-import { SMALL } from '../constant';
-import type { VennCircleName, IVennArea, IVennCircle, IPoint, IVennSingleArea, IVennParams } from '../interface';
+import type { VennCircleName, IVennArea, IVennCircle, IVennSingleArea, IVennParams } from '../interface';
 import { lossFunction } from './loss';
 import { distanceFromIntersectArea } from './common';
+import type { IPointLike } from '@visactor/vutils';
+// eslint-disable-next-line no-duplicate-imports
+import { SMALL, circleCircleIntersection } from '@visactor/vutils';
 
 /** Lays out a Venn diagram greedily, going from most overlapped sets to
 least overlapped, attempting to position each new set such that the
@@ -29,7 +30,8 @@ export function greedyLayout(areas: IVennArea[], params: IVennParams): Record<Ve
         x: 1e10,
         y: 1e10,
         size: area.size,
-        radius: Math.sqrt(area.size / Math.PI)
+        radius: Math.sqrt(area.size / Math.PI),
+        setId: set
       };
       setOverlaps[set] = [];
     }
@@ -80,7 +82,7 @@ export function greedyLayout(areas: IVennArea[], params: IVennParams): Record<Ve
   }
 
   // adds a point to the output
-  function positionSet(point: IPoint, index: VennCircleName) {
+  function positionSet(point: IPointLike, index: VennCircleName) {
     circles[index].x = point.x;
     circles[index].y = point.y;
     positioned[index] = true;
@@ -103,7 +105,7 @@ export function greedyLayout(areas: IVennArea[], params: IVennParams): Record<Ve
       throw 'ERROR: missing pairwise overlap information';
     }
 
-    const points: IPoint[] = [];
+    const points: IPointLike[] = [];
     for (let j = 0; j < overlap.length; ++j) {
       // get appropriate distance from most overlapped already added set
       const p1 = circles[overlap[j].set];

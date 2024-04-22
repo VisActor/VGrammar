@@ -7,7 +7,7 @@
  * @license
  */
 
-import { conjugateGradient, norm2, scale, zeros } from '../fmin';
+import { conjugateGradient, norm2, scale, zeros } from '@visactor/vutils';
 import type { VennCircleName, IVennArea, IVennCircle, IVennParams } from '../interface';
 import { getDistanceMatrices } from './common';
 

@@ -7,9 +7,7 @@
  * @license
  */
 
-import { circleOverlap } from '../circle-intersection';
-import { SMALL } from '../constant';
-import { bisect, zerosM } from '../fmin';
+import { SMALL, circleOverlap, findZeroOfFunction, zerosM } from '@visactor/vutils';
 import type { IVennArea } from '../interface';
 
 /** Returns the distance necessary for two circles of radius r1 + r2 to
@@ -20,7 +18,7 @@ export function distanceFromIntersectArea(r1: number, r2: number, overlap: numbe
     return Math.abs(r1 - r2);
   }
 
-  return bisect(
+  return findZeroOfFunction(
     function (distance: number) {
       return circleOverlap(r1, r2, distance) - overlap;
     },

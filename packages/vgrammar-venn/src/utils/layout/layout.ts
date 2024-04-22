@@ -7,11 +7,11 @@
  * @license
  */
 
-import { nelderMead } from '../fmin';
 import type { VennCircleName, IVennArea, IVennCircle, IVennParams, VennAreaName } from '../interface';
 import { greedyLayout } from './greedy-layout';
 import { lossFunction } from './loss';
 import { constrainedMDSLayout } from './constrained-mds-layout';
+import { nelderMead } from '@visactor/vutils';
 
 /** given a list of set objects, and their corresponding overlaps.
 updates the (x, y, radius) attribute on each set such that their positions

@@ -7,7 +7,7 @@
  * @license
  */
 
-import { distance } from '../circle-intersection';
+import { PointService } from '@visactor/vutils';
 import type { VennCircleName, IVennCircle, ICluster } from '../interface';
 
 // orientates a bunch of circles to point in orientation
@@ -35,7 +35,7 @@ export function orientateCircles(circles: IVennCircle[], orientation: number, or
   if (circles.length === 2) {
     // if the second circle is a subset of the first, arrange so that
     // it is off to one side. hack for https://github.com/benfred/venn.js/issues/120
-    const dist = distance(circles[0], circles[1]);
+    const dist = PointService.distancePP(circles[0], circles[1]);
     if (dist < Math.abs(circles[1].radius - circles[0].radius)) {
       circles[1].x = circles[0].x + circles[0].radius - circles[1].radius - 1e-10;
       circles[1].y = circles[0].y;
@@ -106,7 +106,7 @@ export function disjointCluster(circles: IVennCircle[]): ICluster[] {
   for (let i = 0; i < circles.length; ++i) {
     for (let j = i + 1; j < circles.length; ++j) {
       const maxDistance = circles[i].radius + circles[j].radius;
-      if (distance(circles[i], circles[j]) + 1e-10 < maxDistance) {
+      if (PointService.distancePP(circles[i], circles[j]) + 1e-10 < maxDistance) {
         union(circles[j], circles[i]);
       }
     }
