@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Tue, 23 Apr 2024 02:53:09 GMT and should not be manually modified.
+This log was last generated on Tue, 23 Apr 2024 03:09:31 GMT and should not be manually modified.
+
+## 0.12.10
+Tue, 23 Apr 2024 03:09:31 GMT
+
+### Updates
+
+- fix: aniamtion will produce error status when a mark is encode twice, and to is empty
+
+
 
 ## 0.12.9
 Tue, 23 Apr 2024 02:53:09 GMT
