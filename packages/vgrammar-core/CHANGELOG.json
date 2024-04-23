@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.12.10",
+      "tag": "@visactor/vgrammar-core_v0.12.10",
+      "date": "Tue, 23 Apr 2024 03:09:31 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: aniamtion will produce error status when a mark is encode twice, and to is empty\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.9",
       "tag": "@visactor/vgrammar-core_v0.12.9",
       "date": "Tue, 23 Apr 2024 02:53:09 GMT",
