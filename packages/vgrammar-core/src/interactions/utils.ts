@@ -1,4 +1,5 @@
-import type { ElementFilterOptions, IElement, IMark, MarkSpec } from '../types';
+import { array, isNumber, isString } from '@visactor/vutils';
+import type { ElementFilterOptions, ElementSelectTriggerOff, EventType, IElement, IMark, MarkSpec } from '../types';
 
 export const generateFilterValue = (options: ElementFilterOptions) => {
   if (options.filterField) {
@@ -39,4 +40,33 @@ export const groupMarksByState = (marks: IMark[], states: string[]): Record<stri
   });
 
   return res;
+};
+
+export const parseTriggerOffOfSelect = (triggerOff: ElementSelectTriggerOff | ElementSelectTriggerOff[]) => {
+  const triggerOffArray = array(triggerOff);
+  const resetType: ('view' | 'self' | 'timeout')[] = [];
+  const eventNames: EventType[] = [];
+
+  triggerOffArray.forEach(off => {
+    if (off === 'empty') {
+      resetType.push('view');
+    } else if (isString(off) && off !== 'none') {
+      if ((off as string).includes('view:')) {
+        eventNames.push((off as string).replace('view:', '') as EventType);
+
+        resetType.push('view');
+      } else {
+        eventNames.push(off as EventType);
+
+        resetType.push('self');
+      }
+    } else if (isNumber(off)) {
+      resetType.push('timeout');
+    }
+  });
+
+  return {
+    eventNames,
+    resetType
+  };
 };

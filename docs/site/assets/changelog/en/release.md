@@ -1,3 +1,17 @@
+# v0.12.8
+
+2024-03-28
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: fix error when release element in stage event
+- **@visactor/vgrammar-core**: upgrade vrender to 0.18.8
+
+
+
+[more detail about v0.12.8](https://github.com/VisActor/VGrammar/releases/tag/v0.12.8)
+
 # v0.12.7
 
 2024-03-27

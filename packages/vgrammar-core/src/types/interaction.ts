@@ -81,6 +81,8 @@ export interface ElementActiveOptions extends IBaseInteractionOptions {
   state?: string;
 }
 
+export type ElementSelectTriggerOff = EventType | ViewEventType | 'empty' | 'none' | number;
+
 /**
  * the interaction to set the seleted state of specified marks
  */
@@ -104,7 +106,7 @@ export interface ElementSelectOptions extends IBaseInteractionOptions {
   /**
    * the reset trigger event name
    */
-  triggerOff?: EventType | EventType[] | ViewEventType | 'empty' | 'none' | number;
+  triggerOff?: ElementSelectTriggerOff | ElementSelectTriggerOff[];
   /**
    * whether or not support multiple selected
    */
