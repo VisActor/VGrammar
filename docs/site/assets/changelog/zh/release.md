@@ -1,3 +1,17 @@
+# v0.12.9
+
+2024-04-23
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix `calculateNodeValue()` in vgrammar-hierrachy to support string value, fix [#433](https://github.com/VisActor/VGrammar/issues/433)
+- **@visactor/vgrammar-core**: upgrade vrender from 0.18.8 to 0.18.13
+
+
+
+[更多详情请查看 v0.12.9](https://github.com/VisActor/VGrammar/releases/tag/v0.12.9)
+
 # v0.12.8
 
 2024-03-28
