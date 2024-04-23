@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.12.9",
+      "tag": "@visactor/vgrammar-core_v0.12.9",
+      "date": "Tue, 23 Apr 2024 02:53:09 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix `calculateNodeValue()` in vgrammar-hierrachy to support string value, fix #433\n\n"
+          },
+          {
+            "comment": "fix: upgrade vrender from 0.18.8 to 0.18.13\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.8",
       "tag": "@visactor/vgrammar-core_v0.12.8",
       "date": "Thu, 28 Mar 2024 01:56:55 GMT",
