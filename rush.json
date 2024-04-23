@@ -41,6 +41,13 @@
       "versionPolicyName": "vgrammarMain"
     },
     {
+      "packageName": "@visactor/vgrammar-venn",
+      "projectFolder": "packages/vgrammar-venn",
+      "tags": ["package"],
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
+    },
+    {
       "packageName": "@visactor/vgrammar-sankey",
       "projectFolder": "packages/vgrammar-sankey",
       "tags": ["package"],

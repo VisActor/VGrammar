@@ -6,6 +6,7 @@ const VGrammarHierarchy = require('@visactor/vgrammar-hierarchy');
 const VGrammarSankey = require('@visactor/vgrammar-sankey');
 const VGrammarWordcloud = require('@visactor/vgrammar-wordcloud');
 const VGrammarWordcloudShape = require('@visactor/vgrammar-wordcloud-shape');
+const VGrammarVenn = require('@visactor/vgrammar-venn');
 const VGrammarPlot = require('@visactor/vgrammar-plot');
 const VisUtil = require('@visactor/vutils');
 const Canvas = require('canvas');
@@ -63,11 +64,11 @@ async function createImage(obj, fullPath) {
       }
 
       view = new VGrammar.View(options);
-  
+
       if (spec && spec.marks) {
         spec.marks.forEach(mark => {
           mark.animation = null;
-  
+
           if (mark.marks) {
             mark.marks.forEach(childMark => {
               childMark.animation = null;
@@ -75,7 +76,7 @@ async function createImage(obj, fullPath) {
           }
         })
       }
-  
+
       view.parseSpec(spec);
     } else if (obj.view) {
       view = obj.view;
@@ -88,7 +89,7 @@ async function createImage(obj, fullPath) {
       view.width(IMAGE_WIDTH);
       view.height(IMAGE_HEIGHT);
     }
-    
+
     if (plot) {
       plot.run();
     } else {
@@ -174,11 +175,11 @@ function getPlotFromCode(codeString) {
         });
 
         ${mainCode.slice(endIndex + endStr.length)}
-        
+
 
          return plot;
         `;
-        
+
         const fun = new Function('Canvas', 'VGrammar', 'VGrammarHierarchy', 'VGrammarSankey', 'VGrammarWordcloud',  'VGrammarWordcloudShape', 'VisUtil', 'VRender', 'Plot', mainCode);
         return fun(Canvas, VGrammar, VGrammarHierarchy, VGrammarSankey, VGrammarWordcloud, VGrammarWordcloudShape, VisUtil, VRender, VGrammarPlot.Plot);
       }
@@ -218,7 +219,7 @@ function getViewFromCode(codeString) {
       });
 
       ${mainCode.slice(endIndex + endStr.length)}
-      
+
 
        return vGrammarView;
       `;
@@ -291,12 +292,12 @@ async function previewMenuItem(menuItem, parentPath, options) {
           writePreviewToExample(fullPath);
         }
       }
-      
+
 
     } else {
       isFail = true;
     }
-    
+
     if (isFail) {
       failedPreviewLists.push(fullPath);
     }
@@ -329,7 +330,7 @@ async function preview() {
   const argv = require('minimist')(process.argv.slice(2));
   const onlyEmpty = !!(argv.e || argv.empty);
   const examplesMenu = readExampleMenu();
-  
+
   if (!onlyEmpty) {
     fse.emptyDirSync(previewDirectory);
   } else {

@@ -30,6 +30,10 @@
 '@pkg/wordcloud-shape':
   - packages/vgrammar-wordcloud-shape/src/**
 
+# Add 'venn' label to any change within the 'core' package
+'@pkg/venn':
+  - packages/vgrammar-venn/src/**
+
 # Add 'test' label to any change to packages/*/__tests__/* files within the source dir
 test:
   - packages/*/__tests__/*

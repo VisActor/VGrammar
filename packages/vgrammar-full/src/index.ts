@@ -5,12 +5,14 @@ export * from '@visactor/vgrammar-projection';
 export * from '@visactor/vgrammar-sankey';
 export * from '@visactor/vgrammar-wordcloud';
 export * from '@visactor/vgrammar-wordcloud-shape';
+export * from '@visactor/vgrammar-venn';
 
 import { registerAllHierarchyTransforms } from '@visactor/vgrammar-hierarchy';
 import { registerProjection, registerGeoTransforms } from '@visactor/vgrammar-projection';
 import { registerSankeyTransforms } from '@visactor/vgrammar-sankey';
 import { registerWordCloudTransforms } from '@visactor/vgrammar-wordcloud';
 import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-shape';
+import { registerVennTransforms } from '@visactor/vgrammar-venn';
 
 import {
   View,
@@ -182,6 +184,7 @@ View.useRegisters([
   registerSankeyTransforms,
   registerWordCloudTransforms,
   registerWordCloudShapeTransforms,
+  registerVennTransforms,
 
   registerProjection,
 
