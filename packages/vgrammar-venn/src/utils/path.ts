@@ -5,7 +5,11 @@ import type { IVennCircle, IVennOverlapArc } from './interface';
 
 export const getArcsFromCircles = (circles: IVennCircle[]) => {
   const areaStats: IOverlapAreaStats = {};
-  intersectionArea(Object.values(circles), areaStats);
+  const circleList = Object.values(circles);
+  if (!circleList.length) {
+    return [];
+  }
+  intersectionArea(circleList, areaStats);
   const arcs = areaStats.arcs.map(
     ({ p1, p2, circle, width }) =>
       ({
@@ -29,6 +33,9 @@ export const getArcsFromCircles = (circles: IVennCircle[]) => {
 };
 
 export const getPathFromArcs = (arcs: IVennOverlapArc[]) => {
+  if (!arcs?.length) {
+    return '';
+  }
   let i = 0;
   let arc = arcs[0];
   const { p1 } = arc;
@@ -67,24 +74,26 @@ export const getArcsFromPath = (path: string) => {
 };
 
 export const getCirclesFromArcs = (arcs: IVennOverlapArc[]) => {
-  return arcs.map(arc => {
-    const { p1, p2, radius, largeArcFlag, setId } = arc;
-    const { x: x1, y: y1 } = p1;
-    const { x: x2, y: y2 } = p2;
-    // 两点之间的距离
-    const d = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5;
-    // 中点坐标
-    const mX = (x1 + x2) / 2;
-    const mY = (y1 + y2) / 2;
-    // 中垂线的长度
-    const h = (radius ** 2 - (d / 2) ** 2) ** 0.5;
-    // 圆心坐标
-    let x = mX + (h * (y2 - y1)) / d;
-    let y = mY - (h * (x2 - x1)) / d;
-    if (crossProduct([x2 - x1, y2 - y1], [x - x1, y - y1]) > 0 || largeArcFlag) {
-      x = mX - (h * (y2 - y1)) / d;
-      y = mY + (h * (x2 - x1)) / d;
-    }
-    return { x, y, radius, setId } as IVennCircle;
-  });
+  return (
+    arcs?.map(arc => {
+      const { p1, p2, radius, largeArcFlag, setId } = arc;
+      const { x: x1, y: y1 } = p1;
+      const { x: x2, y: y2 } = p2;
+      // 两点之间的距离
+      const d = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5;
+      // 中点坐标
+      const mX = (x1 + x2) / 2;
+      const mY = (y1 + y2) / 2;
+      // 中垂线的长度
+      const h = (radius ** 2 - (d / 2) ** 2) ** 0.5;
+      // 圆心坐标
+      let x = mX + (h * (y2 - y1)) / d;
+      let y = mY - (h * (x2 - x1)) / d;
+      if (crossProduct([x2 - x1, y2 - y1], [x - x1, y - y1]) > 0 || largeArcFlag) {
+        x = mX - (h * (y2 - y1)) / d;
+        y = mY + (h * (x2 - x1)) / d;
+      }
+      return { x, y, radius, setId } as IVennCircle;
+    }) ?? []
+  );
 };
