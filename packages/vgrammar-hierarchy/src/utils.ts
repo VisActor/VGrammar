@@ -1,4 +1,4 @@
-import { isNil } from '@visactor/vutils';
+import { isNil, toValidNumber } from '@visactor/vutils';
 import type { HierarchicalDatum, HierarchicalNodeElement } from './interface';
 
 export const calculateNodeValue = <Datum extends HierarchicalDatum, NodeElement extends HierarchicalNodeElement<Datum>>(
@@ -37,13 +37,13 @@ export const calculateNodeValue = <Datum extends HierarchicalDatum, NodeElement 
         node,
         getNodeKey
       );
-      node.value = isNil(datum.value) ? res.sum : Math.max(res.sum, node.value);
+      node.value = isNil(datum.value) ? res.sum : Math.max(res.sum, toValidNumber(datum.value));
 
       prevFlattenIndex = res.flattenIndex;
       maxDepth = Math.max(res.maxDepth, maxDepth);
     } else {
       node.isLeaf = true;
-      node.value = isNil(datum.value) ? 0 : datum.value;
+      node.value = toValidNumber(datum.value);
     }
 
     sum += Math.abs(node.value);
