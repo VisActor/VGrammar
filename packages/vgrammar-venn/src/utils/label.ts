@@ -9,7 +9,7 @@
 
 import type { IOverlapAreaStats, IPointLike } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { PointService, getCenter, intersectionArea, nelderMead } from '@visactor/vutils';
+import { PointService, getCenter, intersectionArea, nelderMead, Logger } from '@visactor/vutils';
 import type { VennCircleName, IVennArea, IVennCircle, VennAreaName } from './interface';
 
 export function computeTextCenters(
@@ -45,8 +45,8 @@ export function computeTextCenters(
     const center = computeTextCenter(interior, exterior);
     ret[area.toString()] = center;
     if (center.disjoint && areas[i].size > 0) {
-      // eslint-disable-next-line no-console
-      console.log('WARNING: area ' + area + ' not represented on screen');
+      const logger = Logger.getInstance();
+      logger.error('Area ' + area + ' not represented on screen');
     }
   }
   return ret;

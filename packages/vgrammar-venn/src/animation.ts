@@ -18,15 +18,18 @@ export class VennOverlapAnimation extends ACustomAnimate<{ path: string; arcs: I
   }
 
   onUpdate(end: boolean, ratio: number, out: Record<string, any>): void {
-    const circles = Object.keys(this.fromCircles).map((key, i) => {
+    const circles: IVennCircle[] = [];
+    Object.keys(this.fromCircles).forEach(key => {
       const fromC = this.fromCircles[key];
       const toC = this.toCircles[key];
-      return {
-        radius: fromC.radius + (toC.radius - fromC.radius) * ratio,
-        x: fromC.x + (toC.x - fromC.x) * ratio,
-        y: fromC.y + (toC.y - fromC.y) * ratio,
-        setId: key
-      } as IVennCircle;
+      if (fromC && toC) {
+        circles.push({
+          radius: fromC.radius + (toC.radius - fromC.radius) * ratio,
+          x: fromC.x + (toC.x - fromC.x) * ratio,
+          y: fromC.y + (toC.y - fromC.y) * ratio,
+          setId: key
+        } as IVennCircle);
+      }
     });
     const arcs = getArcsFromCircles(circles);
     out.arcs = arcs;
