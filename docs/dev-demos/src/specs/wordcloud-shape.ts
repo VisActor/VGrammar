@@ -166,7 +166,7 @@ export const spec = {
           fillingRatio: 0.7,
           ratio: 1,
 
-          // "fillingTimes": 4,
+          "fillingTimes": 1,
           // "fillingFontWeight": "bold",
           // "fillingFontStyle": "italic",
           fillingRotateList: ['0'],
@@ -197,7 +197,7 @@ export const spec = {
           // fillingDeltaFontSize: 0.6,
           // fillingWordsFontSizeRatio: 0.7,
           random: false,
-          textLayoutTimes: 3,
+          textLayoutTimes: 1,
           fontSizeShrinkFactor: 0.9,
           stepFactor: 4,
           layoutMode: 'ensureMappingEnlarge',
