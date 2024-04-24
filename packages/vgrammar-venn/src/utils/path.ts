@@ -29,6 +29,9 @@ export const getArcsFromCircles = (circles: IVennCircle[]) => {
 };
 
 export const getPathFromArcs = (arcs: IVennOverlapArc[]) => {
+  if (!arcs?.length) {
+    return '';
+  }
   let i = 0;
   let arc = arcs[0];
   const { p1 } = arc;
