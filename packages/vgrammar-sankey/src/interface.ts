@@ -30,11 +30,31 @@ export interface SankeyOptions {
    * 2. simple number by the unit of 'px', eg: { nodeWidth: 20 }
    * 3. function, specify the nodeWidth by cutomized calculation
    */
-  nodeWidth?: string | number | ((node: SankeyNodeElement) => number);
+  nodeWidth?: string | number | ((node?: SankeyNodeElement, nodes?: SankeyNodeElement[]) => number);
+  /**
+   * set equal node height of nodes
+   * @since 0.13.0
+   */
+  equalNodeHeight?: boolean;
+  /**
+   * set the height of node
+   * @since 0.13.0
+   */
+  nodeHeight?: number | ((node: SankeyNodeElement) => number);
+  /**
+   * set the height of link
+   * @since 0.13.0
+   */
+  linkHeight?: number | ((link: SankeyLinkElement, sourceNode: SankeyNodeElement, sourceNodeHeight: number) => number);
   /**
    * The width of link, the unit is px
    */
-  linkWidth?: number | ((link: SankeyLinkElement) => number);
+  linkWidth?:
+    | number
+    | ((
+        link: SankeyLinkElement,
+        viewBox: { x0: number; x1: number; y0: number; y1: number; width: number; height: number }
+      ) => number);
   /**
    * The minimal width of link + node
    */
@@ -64,6 +84,11 @@ export interface SankeyOptions {
   setNodeLayer?: (datum: SankeyNodeDatum) => number;
 
   dropIsolatedNode?: boolean;
+  /**
+   * set the layout type of link
+   * @since 0.13.0
+   */
+  linkOverlap?: 'start' | 'center' | 'end';
 }
 
 export interface SankeyLinkDatum {
