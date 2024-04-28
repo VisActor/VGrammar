@@ -33,6 +33,7 @@ export interface SankeyOptions {
   nodeWidth?: string | number | ((node?: SankeyNodeElement, nodes?: SankeyNodeElement[]) => number);
   /**
    * set equal node height of nodes
+   * @since 0.13.0
    */
   equalNodeHeight?: boolean;
   /**
