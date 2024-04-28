@@ -282,6 +282,7 @@ importers:
       '@visactor/vgrammar-plot': workspace:0.12.11
       '@visactor/vgrammar-projection': workspace:0.12.11
       '@visactor/vgrammar-sankey': workspace:0.12.11
+      '@visactor/vgrammar-venn': workspace:0.12.11
       '@visactor/vgrammar-wordcloud': workspace:0.12.11
       '@visactor/vgrammar-wordcloud-shape': workspace:0.12.11
       d3-array: 1.x
@@ -300,6 +301,7 @@ importers:
       '@visactor/vgrammar-plot': link:../vgrammar-plot
       '@visactor/vgrammar-projection': link:../vgrammar-projection
       '@visactor/vgrammar-sankey': link:../vgrammar-sankey
+      '@visactor/vgrammar-venn': link:../vgrammar-venn
       '@visactor/vgrammar-wordcloud': link:../vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape': link:../vgrammar-wordcloud-shape
     devDependencies:
