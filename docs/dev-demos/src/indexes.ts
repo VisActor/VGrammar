@@ -380,6 +380,19 @@ export const indexes = [
     ]
   },
   {
+    menu: 'venn',
+    children: [
+      {
+        path: 'venn3',
+        name: 'venn3'
+      },
+      {
+        path: 'venn4',
+        name: 'venn4'
+      }
+    ]
+  },
+  {
     menu: 'wordcloud-shape',
     children: [
       {
@@ -544,7 +557,7 @@ export const indexes = [
     ]
   },
   {
-    menu: 'other', 
+    menu: 'other',
     children: [
       {
         path: 'geo-path',
@@ -588,7 +601,7 @@ export const indexes = [
         name: 'area',
         type: 'plot'
       },
-      
+
       {
         path: 'sankey',
         name: 'sankey',
