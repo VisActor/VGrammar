@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.0",
+      "tag": "@visactor/vgrammar-core_v0.13.0",
+      "date": "Mon, 06 May 2024 02:27:58 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: upgrade vrender to 0.19.0\n\n"
+          },
+          {
+            "comment": "feat: add more options of sankey\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.12.11",
       "tag": "@visactor/vgrammar-core_v0.12.11",
       "date": "Wed, 24 Apr 2024 11:28:37 GMT",

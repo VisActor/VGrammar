@@ -1,6 +1,18 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Wed, 24 Apr 2024 11:28:37 GMT and should not be manually modified.
+This log was last generated on Mon, 06 May 2024 02:27:58 GMT and should not be manually modified.
+
+## 0.13.0
+Mon, 06 May 2024 02:27:58 GMT
+
+### Updates
+
+- fix: upgrade vrender to 0.19.0
+
+
+- feat: add more options of sankey
+
+
 
 ## 0.12.11
 Wed, 24 Apr 2024 11:28:37 GMT
