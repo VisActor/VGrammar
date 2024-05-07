@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Mon, 06 May 2024 02:27:58 GMT and should not be manually modified.
+This log was last generated on Tue, 07 May 2024 07:49:59 GMT and should not be manually modified.
+
+## 0.13.1
+Tue, 07 May 2024 07:49:59 GMT
+
+### Updates
+
+- fix: sankey should return right style when value is string value
+
+
 
 ## 0.13.0
 Mon, 06 May 2024 02:27:58 GMT
