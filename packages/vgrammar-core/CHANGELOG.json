@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.1",
+      "tag": "@visactor/vgrammar-core_v0.13.1",
+      "date": "Tue, 07 May 2024 07:49:59 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: sankey should return right style when value is string value\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.0",
       "tag": "@visactor/vgrammar-core_v0.13.0",
       "date": "Mon, 06 May 2024 02:27:58 GMT",
