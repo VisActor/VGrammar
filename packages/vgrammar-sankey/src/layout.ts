@@ -223,6 +223,7 @@ export class SankeyLayout {
           : parents
           ? `${parents[parents.length - 1].key}-${index}`
           : `${depth}-${index}`;
+        const nodeValue = isNil(node.value) ? 0 : toValidNumber(node.value);
 
         if (nodeMap[nodeKey]) {
           nodeMap[nodeKey].value = undefined;
@@ -232,7 +233,7 @@ export class SankeyLayout {
             datum: node,
             index: index,
             key: nodeKey,
-            value: node.value ?? 0,
+            value: nodeValue,
             sourceLinks: [] as SankeyLinkElement[],
             targetLinks: [] as SankeyLinkElement[]
           };
@@ -244,7 +245,7 @@ export class SankeyLayout {
           originalLinks.push({
             source: parents[parents.length - 1].key,
             target: nodeKey,
-            value: node.value ?? 0,
+            value: nodeValue,
             parents
           });
         }
@@ -260,7 +261,7 @@ export class SankeyLayout {
       const key = `${link.source}-${link.target}`;
 
       if (linkMap[key]) {
-        linkMap[key].value += link.value;
+        linkMap[key].value += toValidNumber(link.value);
 
         (linkMap[key].datum as SankeyLinkDatum[]).push(link);
 
