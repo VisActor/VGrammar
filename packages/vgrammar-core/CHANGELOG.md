@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Tue, 07 May 2024 07:49:59 GMT and should not be manually modified.
+This log was last generated on Wed, 08 May 2024 06:09:28 GMT and should not be manually modified.
+
+## 0.13.2
+Wed, 08 May 2024 06:09:28 GMT
+
+### Updates
+
+- feat: update version of vutils and use `seedRandom`
+
+
 
 ## 0.13.1
 Tue, 07 May 2024 07:49:59 GMT
