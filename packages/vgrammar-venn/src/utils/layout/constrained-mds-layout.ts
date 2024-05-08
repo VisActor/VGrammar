@@ -7,7 +7,7 @@
  * @license
  */
 
-import { conjugateGradient, norm2, scale, zeros } from '@visactor/vutils';
+import { conjugateGradient, norm2, scale, zeros, seedRandom } from '@visactor/vutils';
 import type { VennCircleName, IVennArea, IVennCircle, IVennParams } from '../interface';
 import { getDistanceMatrices } from './common';
 
@@ -35,8 +35,8 @@ export function constrainedMDSLayout(areas: IVennArea[], params: IVennParams): R
   // keep distances bounded, things get messed up otherwise.
   // TODO: proper preconditioner?
   const norm = norm2(distances.map(norm2)) / distances.length;
-  distances = distances.map(function (row) {
-    return row.map(function (value) {
+  distances = distances.map((row: number[]) => {
+    return row.map(value => {
       return value / norm;
     });
   });
@@ -48,7 +48,7 @@ export function constrainedMDSLayout(areas: IVennArea[], params: IVennParams): R
   let best;
   let current;
   for (i = 0; i < restarts; ++i) {
-    const initial = zeros(distances.length * 2).map(Math.random);
+    const initial = zeros(distances.length * 2).map((entry: any, i: number) => seedRandom(i));
 
     current = conjugateGradient(obj, initial, params);
     if (!best || current.fx < best.fx) {

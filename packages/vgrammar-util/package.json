@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-util",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "The common utils functions of VGrammar",
   "keywords": [
     "utils",
@@ -34,7 +34,7 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vutils": "~0.18.5"
+    "@visactor/vutils": "~0.18.6"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
