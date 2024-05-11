@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-core",
+      "comment": "fix: adapt custom animation to different vrender version",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core"
+}
