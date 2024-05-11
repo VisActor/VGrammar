@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.2",
+      "tag": "@visactor/vgrammar-core_v0.13.2",
+      "date": "Wed, 08 May 2024 06:09:28 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: update version of vutils and use `seedRandom`\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.1",
       "tag": "@visactor/vgrammar-core_v0.13.1",
       "date": "Tue, 07 May 2024 07:49:59 GMT",
