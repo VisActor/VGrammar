@@ -25,7 +25,7 @@ Mon, 06 May 2024 02:27:58 GMT
 
 ### Updates
 
-- fix: upgrade vrender to 0.19.0
+- fix: upgrade vrender to 0.19.3
 
 
 - feat: add more options of sankey
