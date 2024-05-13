@@ -21,7 +21,17 @@ Animate.mode |= AnimateMode.SET_ATTR_IMMEDIATELY;
 let GlobalAnimatorId = 0;
 
 const isCustomAnimateCtor = (custom?: IAnimationChannelInterpolator | IAnimationCustomConstructor) => {
-  return !isNil(custom) && custom.prototype instanceof ACustomAnimate;
+  if (isNil(custom)) {
+    return false;
+  }
+  return (
+    custom.prototype instanceof ACustomAnimate ||
+    // similar to ACustomAnimate, apply for different vrender version
+    ('onBind' in custom.prototype &&
+      'onStart' in custom.prototype &&
+      'onEnd' in custom.prototype &&
+      'onUpdate' in custom.prototype)
+  );
 };
 
 export class Animator implements IAnimator {
