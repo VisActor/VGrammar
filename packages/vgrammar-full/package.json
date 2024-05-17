@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-full",
-  "version": "0.13.3",
+  "version": "0.13.4",
   "description": "full packages of vgrammar.",
   "keywords": [
     "visualization",
@@ -33,14 +33,14 @@
     "test": ""
   },
   "dependencies": {
-    "@visactor/vgrammar-core": "workspace:0.13.3",
-    "@visactor/vgrammar-hierarchy": "workspace:0.13.3",
-    "@visactor/vgrammar-plot": "workspace:0.13.3",
-    "@visactor/vgrammar-projection": "workspace:0.13.3",
-    "@visactor/vgrammar-sankey": "workspace:0.13.3",
-    "@visactor/vgrammar-wordcloud": "workspace:0.13.3",
-    "@visactor/vgrammar-wordcloud-shape": "workspace:0.13.3",
-    "@visactor/vgrammar-venn": "workspace:0.13.3"
+    "@visactor/vgrammar-core": "workspace:0.13.4",
+    "@visactor/vgrammar-hierarchy": "workspace:0.13.4",
+    "@visactor/vgrammar-plot": "workspace:0.13.4",
+    "@visactor/vgrammar-projection": "workspace:0.13.4",
+    "@visactor/vgrammar-sankey": "workspace:0.13.4",
+    "@visactor/vgrammar-wordcloud": "workspace:0.13.4",
+    "@visactor/vgrammar-wordcloud-shape": "workspace:0.13.4",
+    "@visactor/vgrammar-venn": "workspace:0.13.4"
   },
   "devDependencies": {
     "d3-array": "1.x",
