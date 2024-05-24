@@ -195,6 +195,7 @@ test('layout data when innerRadius is number, outerRadius is any array', () => {
 test('layout with label', () => {
   const innerRadius = [20, 120, 220, 320];
   const outerRadius = [100, 200, 300];
+
   const layout = new SunburstLayout({ innerRadius, outerRadius, label: true });
   const result = layout.layout(mockData, { width: 800, height: 800 });
 
@@ -237,15 +238,15 @@ test('layout with label', () => {
 
   const child2 = child1.children[0];
 
-  expect(child2.innerRadius).toBeNaN();
-  expect(child2.outerRadius).toBeNaN();
+  expect(child2.innerRadius).toBeCloseTo(320);
+  expect(child2.outerRadius).toBeCloseTo(400);
   expect(child2.label).toMatchObject({
     maxLineWidth: undefined,
     textAlign: 'center',
     textBaseline: 'middle'
   });
-  expect(child2.label.x).toBeNaN();
-  expect(child2.label.y).toBeNaN();
+  expect(child2.label.x).toBeCloseTo(419.38505580896873);
+  expect(child2.label.y).toBeCloseTo(759.4777039140024);
   expect(child2.label.angle).toBeCloseTo(1.5169228934312207);
 });
 
@@ -305,7 +306,7 @@ test('layout with label of array options', () => {
 
   const child2 = child1.children[0];
 
-  expect(child2.innerRadius).toBeNaN();
-  expect(child2.outerRadius).toBeNaN();
+  expect(child2.innerRadius).toBeCloseTo(320);
+  expect(child2.outerRadius).toBeCloseTo(400);
   expect(child2.label).toBeUndefined();
 });
