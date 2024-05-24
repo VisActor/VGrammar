@@ -80,7 +80,7 @@ export class SunburstLayout {
 
       this._parsedOutterRadius = rangeArr.map((entry, index) => {
         return isOuterArray
-          ? parsedOuterRadius[index]
+          ? parsedOuterRadius[index] ?? maxRadius
           : index < maxDepth
           ? this._parsedInnerRadius[index + 1] - (isArray(gapRadius) ? gapRadius[index] ?? 0 : gapRadius)
           : (parsedOuterRadius as number);
