@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.3",
+      "tag": "@visactor/vgrammar-core_v0.13.3",
+      "date": "Fri, 17 May 2024 09:45:56 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: upgrade vrender version to 0.19.3"
+          },
+          {
+            "comment": "fix: adapt custom animation to different vrender version"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.2",
       "tag": "@visactor/vgrammar-core_v0.13.2",
       "date": "Wed, 08 May 2024 06:09:28 GMT",
