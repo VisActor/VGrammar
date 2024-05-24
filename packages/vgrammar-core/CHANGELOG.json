@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.4",
+      "tag": "@visactor/vgrammar-core_v0.13.4",
+      "date": "Fri, 24 May 2024 10:35:14 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: upgrade vrender to 0.19.5, vutils to 0.18.9\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.3",
       "tag": "@visactor/vgrammar-core_v0.13.3",
       "date": "Fri, 17 May 2024 09:45:56 GMT",
