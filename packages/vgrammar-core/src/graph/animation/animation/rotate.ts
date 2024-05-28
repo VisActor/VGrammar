@@ -6,7 +6,8 @@ export const rotateIn: TypeAnimation<IElement> = (
   options: IRotateAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAngle = element.getGraphicAttribute('angle', false) ?? 0;
+  const finalAngle = element.getFinalGraphicAttributes()?.angle ?? 0;
+
   let angle = 0;
   if (isNumberClose(finalAngle / (Math.PI * 2), 0)) {
     angle = Math.round(finalAngle / (Math.PI * 2)) * Math.PI * 2;

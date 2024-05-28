@@ -32,10 +32,11 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
     const elements: (IElement | IGlyphElement)[] = [];
 
     if (event.type === IOperateType.brushClear) {
+      const states = [this.options.blurState, this.options.highlightState];
+
       this._marks.forEach(mark => {
         mark.elements.forEach(el => {
-          el.removeState(this.options.blurState);
-          el.removeState(this.options.highlightState);
+          el.removeState(states);
         });
       });
     } else {
@@ -45,11 +46,15 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
 
           if (isHighlight) {
             elements.push(el);
-            el.removeState(this.options.blurState);
-            el.addState(this.options.highlightState);
+            el.updateStates({
+              [this.options.blurState]: false,
+              [this.options.highlightState]: true
+            });
           } else {
-            el.removeState(this.options.highlightState);
-            el.addState(this.options.blurState);
+            el.updateStates({
+              [this.options.blurState]: true,
+              [this.options.highlightState]: false
+            });
           }
         });
       });
