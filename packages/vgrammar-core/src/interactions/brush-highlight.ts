@@ -32,10 +32,11 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
     const elements: (IElement | IGlyphElement)[] = [];
 
     if (event.type === IOperateType.brushClear) {
+      const states = [this.options.blurState, this.options.highlightState];
+
       this._marks.forEach(mark => {
         mark.elements.forEach(el => {
-          el.removeState(this.options.blurState);
-          el.removeState(this.options.highlightState);
+          el.removeState(states);
         });
       });
     } else {

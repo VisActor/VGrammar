@@ -67,10 +67,10 @@ export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightBy
   }
 
   reset() {
+    const states = [this.options.blurState, this.options.highlightState];
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        el.removeState(this.options.blurState);
-        el.removeState(this.options.highlightState);
+        el.removeState(states);
       });
     });
   }

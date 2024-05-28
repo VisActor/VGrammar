@@ -38,10 +38,11 @@ export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOpt
   }
 
   clearPrevElements() {
+    const states = [this.options.highlightState, this.options.blurState];
+
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
-        el.removeState(this.options.highlightState);
-        el.removeState(this.options.blurState);
+        el.removeState(states);
       });
     });
   }
