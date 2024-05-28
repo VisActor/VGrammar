@@ -19,7 +19,14 @@ import type {
 } from '@visactor/vrender-core';
 import type { DiffState } from '../graph/enums';
 import type { IMark, IGlyphMark } from './grammar';
-import type { BaseEncodeSpec, IMarkConfig, MarkFunctionType, MarkKeySpec, MarkType } from './mark';
+import type {
+  BaseEncodeSpec,
+  BaseSingleEncodeSpec,
+  IMarkConfig,
+  MarkFunctionType,
+  MarkKeySpec,
+  MarkType
+} from './mark';
 
 export interface ElementGraphicMap {
   circle: ICircle;
@@ -154,6 +161,7 @@ export interface IElement {
   addState: (state: string | string[], attrs?: any) => boolean;
   removeState: (state: string | string[]) => boolean;
   useStates: (states: string[], noAnimation?: boolean) => boolean;
+  updateStates: (states: Record<string, boolean | BaseSingleEncodeSpec>) => any;
 }
 
 export interface IGlyphElement<P = any> extends IElement {

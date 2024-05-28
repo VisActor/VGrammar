@@ -46,11 +46,15 @@ export class BrushHighlight extends BrushBase<BrushHighlightOptions> {
 
           if (isHighlight) {
             elements.push(el);
-            el.removeState(this.options.blurState);
-            el.addState(this.options.highlightState);
+            el.updateStates({
+              [this.options.blurState]: false,
+              [this.options.highlightState]: true
+            });
           } else {
-            el.removeState(this.options.highlightState);
-            el.addState(this.options.blurState);
+            el.updateStates({
+              [this.options.blurState]: true,
+              [this.options.highlightState]: false
+            });
           }
         });
       });

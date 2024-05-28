@@ -59,11 +59,15 @@ export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOpt
           const isHighlight = el.groupKey === highlightKey;
 
           if (isHighlight) {
-            el.removeState(this.options.blurState);
-            el.addState(this.options.highlightState);
+            el.updateStates({
+              [this.options.blurState]: false,
+              [this.options.highlightState]: true
+            });
           } else {
-            el.removeState(this.options.highlightState);
-            el.addState(this.options.blurState);
+            el.updateStates({
+              [this.options.blurState]: true,
+              [this.options.highlightState]: false
+            });
           }
         });
       });

@@ -10,7 +10,8 @@ import {
   isArray,
   get,
   isEmpty,
-  isEqual as isObjEqual
+  isEqual as isObjEqual,
+  isObject
 } from '@visactor/vutils';
 import { isEqual } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
@@ -331,6 +332,65 @@ export class Element implements IElement {
 
   hasState(state: string) {
     return this.states && state && this.states.includes(state);
+  }
+
+  updateStates(states: Record<string, boolean | BaseSingleEncodeSpec>) {
+    if (!this.graphicItem) {
+      return false;
+    }
+    let nextStates = this.states.slice();
+    const encode = (this.mark.getSpec() as MarkSpec).encode;
+    let forceClearState = false;
+    let hasUpdate = false;
+
+    Object.keys(states).forEach(stateKey => {
+      if (!stateKey) {
+        return;
+      }
+
+      const stateValue = states[stateKey];
+      const isRuntimeStateUpdate =
+        isObject(stateValue) && !isObjEqual(stateValue, this.runtimeStatesEncoder?.[stateKey]);
+
+      if (isRuntimeStateUpdate) {
+        if (nextStates.includes(stateKey)) {
+          forceClearState = true;
+        } else {
+          nextStates.push(stateKey);
+        }
+        this._updateRuntimeStates(stateKey, stateValue);
+        hasUpdate = true;
+      } else if (stateValue) {
+        if (!nextStates.includes(stateKey) && encode?.[stateKey]) {
+          nextStates.push(stateKey);
+          hasUpdate = true;
+        }
+      } else {
+        if (nextStates.length) {
+          const newNextStates = nextStates.filter(state => state !== stateKey);
+
+          if (newNextStates.length !== nextStates.length) {
+            hasUpdate = true;
+            nextStates = newNextStates;
+          }
+
+          if (this.runtimeStatesEncoder && this.runtimeStatesEncoder[stateKey]) {
+            this.runtimeStatesEncoder[stateKey] = null;
+          }
+        }
+      }
+    });
+
+    if (forceClearState) {
+      this.graphicItem.clearStates();
+    }
+
+    if (hasUpdate) {
+      this.useStates(nextStates);
+      return true;
+    }
+
+    return false;
   }
 
   addState(state: string | string[], attrs?: BaseSingleEncodeSpec) {
