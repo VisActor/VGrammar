@@ -32,24 +32,26 @@ export const moveIn: TypeAnimation<IElement> = (
   const point = isFunction(pointOpt) ? pointOpt.call(null, element.getDatum(), element, animationParameters) : pointOpt;
   const fromX = point && isValidNumber(point.x) ? point.x : changedX;
   const fromY = point && isValidNumber(point.y) ? point.y : changedY;
+  const finalAttrs = element.getFinalGraphicAttributes();
+
   switch (direction) {
     case 'x':
       return {
         from: { x: fromX },
-        to: { x: element.getGraphicAttribute('x', false) }
+        to: { x: finalAttrs?.x }
       };
     case 'y':
       return {
         from: { y: fromY },
-        to: { y: element.getGraphicAttribute('y', false) }
+        to: { y: finalAttrs?.y }
       };
     case 'xy':
     default:
       return {
         from: { x: fromX, y: fromY },
         to: {
-          x: element.getGraphicAttribute('x', false),
-          y: element.getGraphicAttribute('y', false)
+          x: finalAttrs?.x,
+          y: finalAttrs?.y
         }
       };
   }
