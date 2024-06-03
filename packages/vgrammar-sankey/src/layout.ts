@@ -8,8 +8,7 @@ import {
   isNumber,
   isString,
   Logger,
-  isValid,
-  isNumeric,
+  clamper,
   toValidNumber
 } from '@visactor/vutils';
 import type {
@@ -76,6 +75,8 @@ const alignFunctions = {
   start: left,
   end: right
 };
+
+const linkClampe = clamper(0, 1);
 
 export class SankeyLayout {
   private options: SankeyOptions;
@@ -669,7 +670,11 @@ export class SankeyLayout {
           sourceNodeHeight: number
         ) => number)
       : (link: SankeyLinkElement, sourceNode: SankeyNodeElement, sourceNodeHeight: number) => {
-          return Math.max(sourceNode.value ? (sourceNodeHeight * link.value) / sourceNode.value : 0, minLinkHeight, 0);
+          return Math.max(
+            sourceNode.value ? sourceNodeHeight * linkClampe(link.value / sourceNode.value) : 0,
+            minLinkHeight,
+            0
+          );
         };
 
     for (let i = 0, columnCount = columns.length; i < columnCount; i++) {
@@ -726,6 +731,8 @@ export class SankeyLayout {
 
         if (gapY + deltaY > 0) {
           gapY += deltaY;
+
+          this._gapY = Math.min(gapY);
 
           for (let j = 1, len = nodes.length; j < len; ++j) {
             const node = nodes[j];
@@ -906,21 +913,42 @@ export class SankeyLayout {
   computeLinkBreadthsNoOverlap(nodes: SankeyNodeElement[]) {
     for (let i = 0, len = nodes.length; i < len; i++) {
       const node = nodes[i];
+
       let y0 = node.y0;
+      let reachBottom = false;
 
       for (let j = 0, linkLen = node.sourceLinks.length; j < linkLen; j++) {
         const link = node.sourceLinks[j];
-        link.y0 = y0 + link.thickness / 2;
+        if (!reachBottom) {
+          link.y0 = y0 + link.thickness / 2;
+        }
         link.x0 = node.x1;
-        y0 += link.thickness;
+
+        if (y0 + link.thickness > node.y1 || reachBottom) {
+          link.y0 = node.y1 - link.thickness / 2;
+          reachBottom = true;
+        } else {
+          y0 += link.thickness;
+        }
       }
 
       let y1 = node.y0;
+      reachBottom = false;
+
       for (let j = 0, linkLen = node.targetLinks.length; j < linkLen; j++) {
         const link = node.targetLinks[j];
-        link.y1 = y1 + link.thickness / 2;
+
+        if (!reachBottom) {
+          link.y1 = y1 + link.thickness / 2;
+        }
         link.x1 = node.x0;
-        y1 += link.thickness;
+
+        if (y1 + link.thickness > node.y1 || reachBottom) {
+          link.y1 = node.y1 - link.thickness / 2;
+          reachBottom = true;
+        } else {
+          y1 += link.thickness;
+        }
       }
     }
   }
