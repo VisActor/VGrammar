@@ -459,7 +459,10 @@ export class Element implements IElement {
   protected getStateAttrs = (stateName: string, nextStates: string[]) => {
     const isRuntimeState = !isNil(this.runtimeStatesEncoder?.[stateName]);
     const encoder = isRuntimeState
-      ? this.runtimeStatesEncoder[stateName]
+      ? {
+          ...(this.mark.getSpec() as MarkSpec).encode?.[stateName],
+          ...this.runtimeStatesEncoder[stateName]
+        }
       : (this.mark.getSpec() as MarkSpec).encode?.[stateName];
 
     if (!encoder) {
