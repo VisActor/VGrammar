@@ -88,7 +88,14 @@ export class GroupMark extends Mark implements IGroupMark {
     }
 
     if (!isNil(spec.clipPath)) {
-      initAttrs.path = isFunction(spec.clipPath) ? spec.clipPath([element]) : spec.clipPath;
+      const paths = isFunction(spec.clipPath) ? spec.clipPath([element]) : spec.clipPath;
+
+      if (paths && paths.length) {
+        initAttrs.path = paths;
+      } else {
+        initAttrs.path = null;
+        initAttrs.clip = false;
+      }
     }
 
     if (!isNil(spec.interactive)) {

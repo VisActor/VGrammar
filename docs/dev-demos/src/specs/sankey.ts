@@ -52,7 +52,7 @@ export const spec = {
           nodeWidth: { signal: 'nodeWidth' },
           nodeGap: { signal: 'nodeGap' },
           minNodeHeight: 4,
-          minLinkHeight: 1,
+          minLinkHeight: 5,
         }
       ]
     },

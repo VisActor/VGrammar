@@ -83,7 +83,10 @@ export class GlyphElement extends Element implements IGlyphElement {
   protected getStateAttrs = (stateName: string, nextStates: string[]) => {
     const isRuntimeState = !isNil(this.runtimeStatesEncoder?.[stateName]);
     const encoder = isRuntimeState
-      ? this.runtimeStatesEncoder[stateName]
+      ? {
+          ...(this.mark.getSpec() as MarkSpec).encode?.[stateName],
+          ...this.runtimeStatesEncoder[stateName]
+        }
       : (this.mark.getSpec() as MarkSpec).encode?.[stateName];
 
     const glyphStateAttributes = {} as {

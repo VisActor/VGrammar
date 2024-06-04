@@ -672,7 +672,16 @@ export class Mark extends GrammarBase implements IMark {
         this.graphicItem.setAttribute('clip', spec.clip);
       }
       if (!isNil(spec.clipPath)) {
-        this.graphicItem.setAttribute('path', isArray(spec.clipPath) ? spec.clipPath : spec.clipPath(this.elements));
+        const paths = isArray(spec.clipPath) ? spec.clipPath : spec.clipPath(this.elements);
+
+        if (paths && paths.length) {
+          this.graphicItem.setAttribute('path', paths);
+        } else {
+          this.graphicItem.setAttributes({
+            path: paths,
+            clip: false
+          });
+        }
       }
 
       // only update interactive
