@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.6",
+      "tag": "@visactor/vgrammar-core_v0.13.6",
+      "date": "Wed, 05 Jun 2024 09:41:14 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix useState when realtime encoder is assigned\n\n"
+          },
+          {
+            "comment": "feat: optimize the option `minLinkHeight` of sankey\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.4",
       "tag": "@visactor/vgrammar-core_v0.13.4",
       "date": "Fri, 24 May 2024 10:35:14 GMT",
