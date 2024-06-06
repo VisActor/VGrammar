@@ -1,6 +1,18 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 24 May 2024 10:35:14 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Jun 2024 09:41:14 GMT and should not be manually modified.
+
+## 0.13.6
+Wed, 05 Jun 2024 09:41:14 GMT
+
+### Updates
+
+- fix: fix useState when realtime encoder is assigned
+
+
+- feat: optimize the option `minLinkHeight` of sankey
+
+
 
 ## 0.13.4
 Fri, 24 May 2024 10:35:14 GMT
