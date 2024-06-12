@@ -1,8 +1,6 @@
 import type { IColor, IColorStop, ISegment } from '@visactor/vrender-core';
 import type { IPointLike } from '@visactor/vutils';
 import { isNil, isString } from '@visactor/vutils';
-import { transformAttributes } from './transform';
-import { GrammarMarkType } from '../enums';
 import type { IElement } from '../../types';
 
 const isStopsEqual = (prev: IColorStop[], next: IColorStop[]) => {
