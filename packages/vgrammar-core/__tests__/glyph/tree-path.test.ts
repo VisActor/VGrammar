@@ -8,7 +8,7 @@ registerTreePathGlyph();
 
 test('line path encode', function () {
   const element = createSimpleGlyphElement(Factory.getGlyph('treePath'));
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
   element.encodeItems(
     element.items,
