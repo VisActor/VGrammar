@@ -10,7 +10,7 @@
 export { accessor, accessorName, accessorFields } from './accessor';
 export { getter } from './getter';
 
-export { id, identity, zero, one, truthy, falsy, emptyObject } from './accessors';
+export { identity, zero } from './accessors';
 
 export { compare, ascending } from './compare';
 export { error } from './error';
