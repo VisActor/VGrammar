@@ -117,10 +117,14 @@ import {
   registerIntervalGraphic,
   registerGlyphGraphic,
   registerLargeRectsGraphic,
-  registerLargeSymbolsGraphic
+  registerLargeSymbolsGraphic,
+
+  // layout
+  registerDefaultLayout
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
+  registerDefaultLayout,
   // grammars
   registerScale,
   registerCoordinate,

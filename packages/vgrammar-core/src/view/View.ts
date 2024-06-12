@@ -74,7 +74,6 @@ import { isGrammar, parseReference } from '../parse/util';
 import { configureEnvironment } from '../graph/util/env';
 import { GroupMark } from './group';
 import { Mark } from './mark';
-import { defaultDoLayout } from '../graph/layout/layout';
 import { GlyphMark } from './glyph';
 import type { IMorph } from '../types/morph';
 import { Morph } from '../graph/animation/morph';
@@ -759,7 +758,7 @@ export default class View extends EventEmitter implements IView {
   }
 
   private doLayout() {
-    const doLayout = this._options.doLayout || defaultDoLayout;
+    const doLayout = this._options.doLayout || Factory.getDefaultLayout();
     if (doLayout && this._layoutMarks?.length) {
       this.emit(HOOK_EVENT.BEFORE_DO_LAYOUT);
       doLayout(this._layoutMarks, this._options, this);
