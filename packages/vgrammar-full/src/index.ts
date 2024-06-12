@@ -22,6 +22,7 @@ import {
   // semantic mark
   registerCellMark,
   registerIntervalMark,
+  registerGlyphMark,
   // components
   registerAxis,
   registerLegend,
@@ -148,6 +149,7 @@ View.useRegisters([
   // semantic marks
   registerCellMark,
   registerIntervalMark,
+  registerGlyphMark,
   // components
   registerAxis,
   registerLegend,
