@@ -37,3 +37,4 @@ export * from './semantic-marks/cell';
 export * from './semantic-marks/interval';
 export * from './graph/mark/graphic';
 export { registerDefaultLayout, defaultDoLayout } from './graph/layout/layout';
+export { registerGlyphMark, GlyphMark } from './view/glyph';
