@@ -16,7 +16,6 @@ export { compare, ascending } from './compare';
 export { error } from './error';
 export { extent } from './extent';
 export { field } from './field';
-export { isEqual } from './isEqual';
 
 export { splitAccessPath } from './splitAccessPath';
 

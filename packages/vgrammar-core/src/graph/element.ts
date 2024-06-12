@@ -13,7 +13,6 @@ import {
   isEqual as isObjEqual,
   isObject
 } from '@visactor/vutils';
-import { isEqual } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import { BridgeElementKey } from './constants';
 import { DiffState, HOOK_EVENT, GrammarMarkType, BuiltInEncodeNames } from './enums';
@@ -38,7 +37,6 @@ import type {
   BaseSingleEncodeSpec,
   IElement,
   IMark,
-  IMarkConfig,
   MarkElementItem,
   MarkFunctionType,
   MarkKeySpec,
@@ -521,7 +519,7 @@ export class Element implements IElement {
     const diffResult = {};
     const finalGraphicAttributes = this.getFinalGraphicAttributes();
     for (const key in graphicAttributes) {
-      if (!isEqual(key, finalGraphicAttributes, graphicAttributes) || !has(finalGraphicAttributes, key)) {
+      if (!has(finalGraphicAttributes, key) || !isObjEqual(finalGraphicAttributes[key], graphicAttributes[key])) {
         diffResult[key] = graphicAttributes[key];
       }
     }
