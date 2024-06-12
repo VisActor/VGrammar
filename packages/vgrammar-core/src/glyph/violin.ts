@@ -10,6 +10,7 @@ import {
   registerSymbolGraphic
 } from '../graph/mark/graphic';
 import { isHorizontal } from '@visactor/vgrammar-util';
+import { registerGlyphMark } from '../view/glyph';
 
 const defaultDensitySize = 30;
 
@@ -163,6 +164,7 @@ export const registerViolinGlyph = () => {
         median: { fill: '#FFFFFF', visible: false }
       };
     });
+  registerGlyphMark();
   registerGlyphGraphic();
   registerPolygonGraphic();
   registerRuleGraphic();

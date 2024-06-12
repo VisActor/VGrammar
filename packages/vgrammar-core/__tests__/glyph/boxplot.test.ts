@@ -11,7 +11,7 @@ registerBarBoxplotGlyph();
 
 test('boxplot encode', function () {
   const element = createSimpleGlyphElement(Factory.getGlyph('boxplot'));
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
   element.encodeItems(
     element.items,
@@ -54,7 +54,7 @@ test('boxplot encode', function () {
 
 test('barBoxplot encode', function () {
   const element = createSimpleGlyphElement(Factory.getGlyph('barBoxplot'));
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
   element.encodeItems(
     element.items,
@@ -87,7 +87,7 @@ test('barBoxplot encode', function () {
 
 test('boxplot animation', function () {
   const element = createSimpleGlyphElement(Factory.getGlyph('boxplot'), { transformType: 'rect' });
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
   element.encodeItems(
     element.items,
@@ -155,7 +155,7 @@ test('boxplot animation', function () {
 
 test('barBoxplot animation', function () {
   const element = createSimpleGlyphElement(Factory.getGlyph('barBoxplot'), { transformType: 'rect' });
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
   element.encodeItems(
     element.items,

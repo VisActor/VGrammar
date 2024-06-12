@@ -6,11 +6,11 @@ initBrowserEnv();
 
 test('Create element and update data', function () {
   const element = createSimpleElement();
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
   expect(element.getGraphicItem() instanceof Rect).toEqual(true);
 
-  element.updateData('key', [{ key: 0 }, { key: 1 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }, { key: 1 }], 'key');
   expect(element.items.length).toEqual(2);
   expect(element.items[0].datum.key).toEqual(0);
 });
@@ -18,7 +18,7 @@ test('Create element and update data', function () {
 test('Element executes state updating', function () {
   const element = createSimpleElement();
 
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
 
   element.state('hover');
   expect(element.getStates()).toEqual(['hover']);
@@ -35,7 +35,7 @@ test('Element executes state updating', function () {
 test('Element executes encoding', function () {
   const element = createSimpleElement();
 
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
 
   // encode enter

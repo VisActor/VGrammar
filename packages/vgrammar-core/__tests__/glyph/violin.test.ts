@@ -34,8 +34,7 @@ test('violin encode', function () {
         ]
       }
     ],
-    'key',
-    {} as any
+    'key'
   );
   element.initGraphicItem();
   element.encodeItems(
