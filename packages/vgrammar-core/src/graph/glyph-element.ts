@@ -1,5 +1,4 @@
-import { has, isNil, isBoolean, isFunction } from '@visactor/vutils';
-import { isEqual } from '@visactor/vgrammar-util';
+import { has, isNil, isBoolean, isFunction, isEqual } from '@visactor/vutils';
 import type {
   IGlyphElement,
   IGlyphMark,
@@ -326,7 +325,7 @@ export class GlyphElement extends Element implements IGlyphElement {
     const diffResult = {};
     const finalGraphicAttributes = this.getFinalGraphicAttributes(markName);
     for (const key in graphicAttributes) {
-      if (!isEqual(key, finalGraphicAttributes, graphicAttributes)) {
+      if (!has(finalGraphicAttributes, key) || !isEqual(finalGraphicAttributes[key], graphicAttributes[key])) {
         diffResult[key] = graphicAttributes[key];
       }
     }
