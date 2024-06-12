@@ -45,12 +45,12 @@ import type {
 import { isFieldEncode, isScaleEncode, parseEncodeType } from '../parse/mark';
 import { getGrammarOutput, parseField, isFunctionType } from '../parse/util';
 import { parseTransformSpec } from '../parse/transform';
-import { createElement } from '../graph/util/element';
-import { invokeEncoder, invokeEncoderToItems } from '../graph/mark/encode';
+import { invokeEncoder } from '../graph/mark/encode';
 import { transformsByType } from '../graph/attributes';
 import getExtendedEvents from '../graph/util/events-extend';
 import type { IBaseScale } from '@visactor/vscale';
 import { EVENT_SOURCE_VIEW } from './constants';
+import { Element } from '../graph/element';
 
 export class Mark extends GrammarBase implements IMark {
   readonly grammarType: GrammarType = 'mark';
@@ -694,6 +694,10 @@ export class Mark extends GrammarBase implements IMark {
     }
   }
 
+  createElement() {
+    return new Element(this);
+  }
+
   protected evaluateJoin(data: any[]) {
     this.needClear = true;
     const keyGetter = parseField(this.spec.key ?? (this.grammarSource as IData)?.getDataIDKey() ?? (() => DefaultKey));
@@ -714,7 +718,7 @@ export class Mark extends GrammarBase implements IMark {
         }
       } else if (isNil(prevData)) {
         // enter
-        element = this.elementMap.has(elementKey) ? this.elementMap.get(elementKey) : createElement(this);
+        element = this.elementMap.has(elementKey) ? this.elementMap.get(elementKey) : this.createElement();
         if (element.diffState === DiffState.exit) {
           // force element to stop exit animation if it is reentered
           element.diffState = DiffState.enter;
@@ -724,7 +728,7 @@ export class Mark extends GrammarBase implements IMark {
 
         element.diffState = DiffState.enter;
         const groupKey: string = isCollectionMark ? key : groupKeyGetter(data[0]);
-        element.updateData(groupKey, data, keyGetter, this.view);
+        element.updateData(groupKey, data, keyGetter);
         this.elementMap.set(elementKey, element);
         elements.push(element);
       } else {
@@ -733,7 +737,7 @@ export class Mark extends GrammarBase implements IMark {
         if (element) {
           element.diffState = DiffState.update;
           const groupKey: string = isCollectionMark ? key : groupKeyGetter(data[0]);
-          element.updateData(groupKey, data, keyGetter, this.view);
+          element.updateData(groupKey, data, keyGetter);
           elements.push(element);
         }
       }
@@ -982,13 +986,13 @@ export class Mark extends GrammarBase implements IMark {
         const dataSlice = data.slice(currentIndex * groupStep, (currentIndex + 1) * groupStep);
 
         if (currentIndex === 0) {
-          const element = createElement(this);
+          const element = this.createElement();
           element.diffState = DiffState.enter;
-          element.updateData(key, dataSlice, keyGetter, this.view);
+          element.updateData(key, dataSlice, keyGetter);
           elements.push(element);
         } else {
           const element = this.elements[index];
-          element.updateData(key, dataSlice, keyGetter, this.view);
+          element.updateData(key, dataSlice, keyGetter);
           elements.push(element);
         }
       });
@@ -1004,9 +1008,9 @@ export class Mark extends GrammarBase implements IMark {
       const group: IElement[] = [];
 
       dataSlice.forEach(entry => {
-        const element = createElement(this);
+        const element = this.createElement();
         element.diffState = DiffState.enter;
-        element.updateData(key, [entry], keyGetter, this.view);
+        element.updateData(key, [entry], keyGetter);
         group.push(element);
         elements.push(element);
       });

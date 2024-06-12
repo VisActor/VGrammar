@@ -63,6 +63,10 @@ export class Factory {
     return !!Factory._marks[type];
   }
 
+  static getMark(type: string) {
+    return Factory._marks[type];
+  }
+
   static registerComponent(key: string, component: IComponentConstructor) {
     Factory._components[key] = component;
   }

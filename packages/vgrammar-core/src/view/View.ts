@@ -74,7 +74,6 @@ import { isGrammar, parseReference } from '../parse/util';
 import { configureEnvironment } from '../graph/util/env';
 import { GroupMark } from './group';
 import { Mark } from './mark';
-import { GlyphMark } from './glyph';
 import type { IMorph } from '../types/morph';
 import { Morph } from '../graph/animation/morph';
 import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
@@ -321,7 +320,11 @@ export default class View extends EventEmitter implements IView {
         mark = new GroupMark(this, groupMark);
         break;
       case GrammarMarkType.glyph:
-        mark = new GlyphMark(this, markOptions?.glyphType, groupMark);
+        const GlyphMark = Factory.getMark(GrammarMarkType.glyph);
+
+        if (GlyphMark) {
+          mark = new GlyphMark(this, markOptions?.glyphType, groupMark);
+        }
         break;
       // components
       case GrammarMarkType.component:
