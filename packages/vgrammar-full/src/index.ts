@@ -135,10 +135,13 @@ import {
   registerLargeSymbolsGraphic,
 
   // envs
-  initAutoEnv
+  initAutoEnv,
+  // layout
+  registerDefaultLayout
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
+  registerDefaultLayout,
   // grammars
   registerScale,
   registerCoordinate,

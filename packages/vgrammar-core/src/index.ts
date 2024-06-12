@@ -36,3 +36,4 @@ export * from './interactions';
 export * from './semantic-marks/cell';
 export * from './semantic-marks/interval';
 export * from './graph/mark/graphic';
+export { registerDefaultLayout, defaultDoLayout } from './graph/layout/layout';
