@@ -6,7 +6,7 @@ export const fadeIn: TypeAnimation<IElement> = (
   options: any,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const finalAttrs = element.getFinalGraphicAttributes() ?? {};
 
   return {
     from: {
