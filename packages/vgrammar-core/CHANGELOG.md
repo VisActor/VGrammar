@@ -1,6 +1,16 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Wed, 05 Jun 2024 09:41:14 GMT and should not be manually modified.
+This log was last generated on Fri, 14 Jun 2024 13:12:38 GMT and should not be manually modified.
+
+## 0.13.9
+Fri, 14 Jun 2024 13:12:38 GMT
+
+### Updates
+
+- fix: upgrade vrender to 0.19.11
+
+
+- fix: fix issue of fade animation error
 
 ## 0.13.6
 Wed, 05 Jun 2024 09:41:14 GMT
