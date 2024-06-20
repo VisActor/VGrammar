@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.9",
+      "tag": "@visactor/vgrammar-core_v0.13.9",
+      "date": "Fri, 14 Jun 2024 13:12:38 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: upgrade vrender to 0.19.11\n\n"
+          },
+          {
+            "comment": "fix: fix issue of fade animation error"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.6",
       "tag": "@visactor/vgrammar-core_v0.13.6",
       "date": "Wed, 05 Jun 2024 09:41:14 GMT",
