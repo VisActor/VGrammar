@@ -74,6 +74,7 @@ import {
   initAutoEnv,
 
   // interactions
+  registerViewEventsAPI,
   registerElementActive,
   registerElementSelect,
   registerElementHighlight,
@@ -201,6 +202,7 @@ View.useRegisters([
   registerUpdateAnimation,
 
   // interactions
+  registerViewEventsAPI,
   registerElementActive,
   registerElementSelect,
   registerElementHighlight,
