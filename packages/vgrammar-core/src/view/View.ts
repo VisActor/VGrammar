@@ -1,11 +1,10 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { EventEmitter, debounce, isObject, isString, getContainerSize, Logger, array, isNil } from '@visactor/vutils';
+import { EventEmitter, debounce, isString, getContainerSize, Logger, array, isNil, isArray } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
 import { vglobal } from '@visactor/vrender-core';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
-import type { IElement } from './../types/element';
 import type {
   MarkSpec,
   IData,
@@ -17,9 +16,7 @@ import type {
   IViewEventConfig,
   Hooks,
   IMark,
-  EventSpec,
   GroupMarkSpec,
-  BaseEventSpec,
   MarkType,
   GrammarScaleType,
   SignalFunctionType,
@@ -42,7 +39,6 @@ import type {
   IInteraction
 } from '../types/';
 import { Data } from './data';
-import { initializeEventConfig, permit, prevent } from './events';
 import Dataflow from './dataflow';
 import { traverseMarkTree } from '../graph/mark-tree';
 import { BridgeElementKey } from '../graph/constants';
@@ -50,7 +46,6 @@ import CanvasRenderer from '../graph/canvas-renderer';
 import getExtendedEvents from '../graph/util/events-extend';
 import {
   BROWSER,
-  NO_TRAP,
   SIGNAL_WIDTH,
   SIGNAL_HEIGHT,
   SIGNAL_PADDING,
@@ -58,8 +53,10 @@ import {
   SIGNAL_VIEW_WIDTH,
   SIGNAL_VIEW_HEIGHT,
   EVENT_SOURCE_VIEW,
-  EVENT_SOURCE_WINDOW,
-  SIGNAL_VIEW_BOX
+  SIGNAL_VIEW_BOX,
+  ID_PREFIX,
+  NAME_PREFIX,
+  EVENT_SOURCE_WINDOW
 } from './constants';
 import { Signal } from './signal';
 import {
@@ -69,8 +66,7 @@ import {
   normalizeRunningConfig,
   normalizePadding
 } from '../parse/view';
-import { parseHandler, parseEventSelector, generateFilterByMark, ID_PREFIX, NAME_PREFIX } from '../parse/event';
-import { isGrammar, parseReference } from '../parse/util';
+import { isGrammar } from '../parse/util';
 import { configureEnvironment } from '../graph/util/env';
 import { GroupMark } from './group';
 import { Mark } from './mark';
@@ -1175,6 +1171,32 @@ export default class View extends EventEmitter implements IView {
     return this;
   }
 
+  /**
+   * 初始化事件配置，将所有配置转化为 {[key: string]: boolean } 格式。
+   * Initialize event handling configuration.
+   * @param {object} config - The configuration settings.
+   * @return {object}
+   */
+  initializeEventConfig(config: any) {
+    const eventsConfig = Object.assign({ defaults: {} }, config);
+
+    const unpack = (obj: any, keys: string[]) => {
+      keys.forEach(k => {
+        if (isArray(obj[k])) {
+          obj[k] = obj[k].reduce((set: any, key: any) => {
+            set[key] = true;
+            return set;
+          }, {});
+        }
+      });
+    };
+
+    unpack(eventsConfig.defaults, ['prevent', 'allow']);
+    unpack(eventsConfig, [EVENT_SOURCE_VIEW, EVENT_SOURCE_WINDOW]);
+
+    return eventsConfig;
+  }
+
   private initEvent() {
     // 基于 vRender 事件系统提供的委托机制
     const stage = this.renderer.stage();
@@ -1257,7 +1279,7 @@ export default class View extends EventEmitter implements IView {
     this._eventListeners = [];
 
     // initialize event configuration
-    this._eventConfig = initializeEventConfig(this._options.eventConfig);
+    this._eventConfig = this.initializeEventConfig(this._options.eventConfig);
 
     // set default theme
     this._theme = this._options.disableTheme ? null : ThemeManager.getDefaultTheme();
