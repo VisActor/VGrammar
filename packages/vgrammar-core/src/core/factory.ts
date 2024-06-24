@@ -14,6 +14,7 @@ import type {
   IMarkConstructor,
   IPlotMarkConstructor,
   ISemanticMark,
+  IStageEventPlugin,
   ITransform,
   IView,
   MarkType,
@@ -34,6 +35,7 @@ export class Factory {
   private static _interactions: Record<string, IInteractionConstructor> = {};
   private static _graphics: Record<string, (attributes: IGraphicAttribute) => IGraphic> = {};
   private static defaultLayout: (marks: IMark[], options: ILayoutOptions, view: IView) => void;
+  private static _stageEventPlugins: Record<string, IStageEventPlugin<any>>;
 
   static registerPlotMarks(key: string, mark: IPlotMarkConstructor) {
     Factory._plotMarks[key] = mark;
@@ -205,5 +207,13 @@ export class Factory {
 
   static getDefaultLayout = () => {
     return Factory.defaultLayout;
+  };
+
+  static registerStageEventPlugin = (type: string, Plugin: IStageEventPlugin<any>) => {
+    Factory._stageEventPlugins[type] = Plugin;
+  };
+
+  static getStageEventPlugin = (type: string) => {
+    return Factory._stageEventPlugins[type];
   };
 }
