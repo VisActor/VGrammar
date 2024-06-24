@@ -39,3 +39,14 @@ export * from './semantic-marks/interval';
 export * from './graph/mark/graphic';
 export { registerDefaultLayout, defaultDoLayout } from './graph/layout/layout';
 export { registerGlyphMark, GlyphMark } from './view/glyph';
+
+import { DragNDrop, Gesture } from '@visactor/vrender-kits';
+import { Factory } from './core/factory';
+
+export const registerDragPlugin = () => {
+  Factory.registerStageEventPlugin('drag', DragNDrop);
+};
+
+export const registerGesturePlugin = () => {
+  Factory.registerStageEventPlugin('gesture', Gesture);
+};
