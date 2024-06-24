@@ -8,7 +8,7 @@ import type {
   IElement
 } from '../types';
 import { isMarkType } from '../graph/util/graphic';
-import { EVENT_SOURCE_VIEW, EVENT_SOURCE_WINDOW } from '../view/constants';
+import { EVENT_SOURCE_VIEW, EVENT_SOURCE_WINDOW, ID_PREFIX, NAME_PREFIX } from '../view/constants';
 
 export const generateFilterByMark = (evtSpec: Partial<ParsedViewEventSpec | ParsedWindowEventSpec>) => {
   if (!isNil(evtSpec.markId)) {
@@ -45,8 +45,6 @@ export const parseHandler = (callback: EventCallback, config: { debounce?: numbe
 };
 
 const JOIN_SYMBOL = ':';
-export const NAME_PREFIX = '@';
-export const ID_PREFIX = '#';
 
 /**
  * Parse an event selector string.
