@@ -22,6 +22,7 @@ export {
   SIGNAL_WIDTH,
   SIGNAL_VIEW_BOX
 } from './view/constants';
+export { registerViewEventsAPI } from './view/view-event-mixin';
 
 export { ThemeManager } from './theme/theme-manager';
 

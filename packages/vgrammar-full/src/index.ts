@@ -89,6 +89,7 @@ import {
   registerSymmetryTransform,
 
   // interactions
+  registerViewEventsAPI,
   registerElementActive,
   registerElementSelect,
   registerElementHighlight,
@@ -225,6 +226,7 @@ View.useRegisters([
   registerUpdateAnimation,
 
   // register interactions
+  registerViewEventsAPI,
   registerElementActive,
   registerElementSelect,
   registerElementHighlight,
