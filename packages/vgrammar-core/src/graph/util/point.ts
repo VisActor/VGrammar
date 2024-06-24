@@ -27,10 +27,6 @@ function clientToLocal(e: Event): EventPosition {
     return getOffsetPos(e);
   }
 
-  // if (el && el.getBoundingClientRect) {
-  //   return getBoundingClientRectPos(e, el);
-  // }
-
   // for miniApp
   if (!isNil((e as any).x)) {
     return getXYPos(e);
@@ -55,57 +51,30 @@ function getOffsetPos(e: any) {
   };
 }
 
-function getBoundingClientRectPos(e: any, el: HTMLElement) {
-  const result: EventPosition = { canvasX: 0, canvasY: 0 };
-  const rect = el.getBoundingClientRect();
-  const currentWidth = rect.width;
-  const originWidth = el.offsetWidth || currentWidth;
-  const widthRatio = currentWidth / originWidth;
-  const currentHeight = rect.height;
-  const originHeight = el.offsetHeight || currentHeight;
-  const heightRatio = currentHeight / originHeight;
-  if (['touchstart', 'touchmove', 'touchend'].includes(e.type) && e.changedTouches && e.changedTouches.length) {
-    result.canvasX = (e.changedTouches[0].clientX - rect.left - (el.clientLeft || 0)) / widthRatio;
-    result.canvasY = (e.changedTouches[0].clientY - rect.top - (el.clientTop || 0)) / heightRatio;
-    result.clientX = e.changedTouches[0].clientX;
-    result.clientY = e.changedTouches[0].clientY;
-  } else {
-    result.canvasX = (e.clientX - rect.left - (el.clientLeft || 0)) / widthRatio;
-    result.canvasY = (e.clientY - rect.top - (el.clientTop || 0)) / heightRatio;
-  }
-  return result;
-}
-
 function getXYPos(e: any) {
   return { canvasX: e.x, canvasY: e.y };
 }
 
 function getChangedTouchesPos(e: any) {
-  return { canvasX: e.changedTouches[0].x, canvasY: e.changedTouches[0].y };
+  const pos = e.changedTouches[0];
+  return { canvasX: pos.x, canvasY: pos.y };
 }
 
 function defineSrPosition(event: any, pos: EventPosition, client = true) {
-  isValidNumber(pos.canvasX) &&
-    Object.defineProperty(event, 'canvasX', {
-      value: pos.canvasX,
-      writable: true
-    });
-  isValidNumber(pos.canvasY) &&
-    Object.defineProperty(event, 'canvasY', {
-      value: pos.canvasY,
-      writable: true
-    });
-  client &&
-    isValidNumber(pos.clientX) &&
-    Object.defineProperty(event, 'clientX', {
-      value: pos.clientX,
-      writable: true
-    });
-  client &&
-    isValidNumber(pos.clientY) &&
-    Object.defineProperty(event, 'clientY', {
-      value: pos.clientY,
-      writable: true
-    });
+  const keys = ['canvasX', 'canvasY'];
+
+  if (client) {
+    keys.push('clientX');
+    keys.push('clientY');
+  }
+
+  keys.forEach(key => {
+    isValidNumber(pos[key]) &&
+      Object.defineProperty(event, key, {
+        value: pos[key],
+        writable: true
+      });
+  });
+
   return [pos.canvasX, pos.canvasY];
 }

@@ -6,6 +6,7 @@ import type { IMark, IGroupMark } from '../../types/grammar';
 import type { ILayoutOptions, IView } from '../../types/view';
 import { doGridLayout } from './grid';
 import { doRelativeLayout } from './relative';
+import { Factory } from '../../core/factory';
 
 export const defaultDoLayout = (layoutMarks: IMark[], options: ILayoutOptions, view: IView) => {
   layoutMarks?.forEach(mark => {
@@ -60,4 +61,8 @@ export const defaultDoLayout = (layoutMarks: IMark[], options: ILayoutOptions, v
 
     defaultDoLayout(layoutChildren, options, view);
   });
+};
+
+export const registerDefaultLayout = () => {
+  Factory.registerDefaultLayout(defaultDoLayout);
 };

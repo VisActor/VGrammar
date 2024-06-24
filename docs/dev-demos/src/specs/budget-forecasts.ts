@@ -2,30 +2,20 @@ import { clamp } from 'lodash';
 import budgetsData from '../data/budgets.json';
 
 export const spec = {
-  description: 'A recreation of a New York Times chart showing U.S. budget forecasts versus reality.',
   width: 700,
   height: 400,
   padding: 5,
   background: '#edf1f7',
 
-  config: {
-    axisBand: {
-      bandPosition: 0,
-      labelPadding: 5,
-      tickExtra: false
-    },
-    events: {
-      globalCursor: true,
-      drag: true // 开启 drag 事件
-    }
-  },
+
   events: [
     {
       type: '@handle:mousedown',
       target: [
         {
           target: 'dragging',
-          callback: () => {
+          callback: (e) => {
+            console.log(e)
             return true;
           }
         },
@@ -50,7 +40,7 @@ export const spec = {
       }
     },
     {
-      type: 'mouseup',
+      type: 'pointerup',
       target: [
         {
           target: 'dragging',
@@ -67,7 +57,7 @@ export const spec = {
       ]
     },
     {
-      type: 'mouseupoutside',
+      type: 'pointerupoutside',
       target: [
         {
           target: 'dragging',
@@ -272,7 +262,7 @@ export const spec = {
       }
     },
     {
-      id: 'handle',
+      name: 'handle',
       type: 'symbol',
       encode: {
         enter: {

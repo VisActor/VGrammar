@@ -8,7 +8,7 @@ registerRectGraphic();
 test('cornerRadius can be set to Rect', function () {
   const element = createSimpleElement();
 
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
 
   // encode enter
@@ -40,7 +40,7 @@ test('cornerRadius can be set to Rect', function () {
 test("'strokeTop', 'strokeRight', 'strokeBottom', 'strokeLeft' can be set to Rect", function () {
   const element = createSimpleElement();
 
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
 
   // encode enter
@@ -67,7 +67,7 @@ test("'strokeTop', 'strokeRight', 'strokeBottom', 'strokeLeft' can be set to Rec
 test('size channels can be set to Rect', function () {
   const element = createSimpleElement();
 
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
 
   expect(element.getGraphicAttribute('sizeAttrs')).toBeUndefined();

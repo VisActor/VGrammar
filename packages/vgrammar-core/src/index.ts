@@ -22,6 +22,7 @@ export {
   SIGNAL_WIDTH,
   SIGNAL_VIEW_BOX
 } from './view/constants';
+export { registerViewEventsAPI } from './view/view-event-mixin';
 
 export { ThemeManager } from './theme/theme-manager';
 
@@ -36,3 +37,16 @@ export * from './interactions';
 export * from './semantic-marks/cell';
 export * from './semantic-marks/interval';
 export * from './graph/mark/graphic';
+export { registerDefaultLayout, defaultDoLayout } from './graph/layout/layout';
+export { registerGlyphMark, GlyphMark } from './view/glyph';
+
+import { DragNDrop, Gesture } from '@visactor/vrender-kits';
+import { Factory } from './core/factory';
+
+export const registerDragPlugin = () => {
+  Factory.registerStageEventPlugin('drag', DragNDrop);
+};
+
+export const registerGesturePlugin = () => {
+  Factory.registerStageEventPlugin('gesture', Gesture);
+};

@@ -1,11 +1,11 @@
 import { Glyph, Rect, Line } from '@visactor/vrender-core';
-import { createElement } from '../../src/graph/util/element';
 import type { IGlyphElement } from '../../src/types';
 import { emptyFunction, getMockedView, registerDefaultGraphics } from '../util';
 import { createGlyphGraphicItem } from '../../src/graph/util/graphic';
 import { transformsByType } from '../../src/graph/attributes';
 import { Factory } from '../../src';
 import { initBrowserEnv } from '../../src/env';
+import { GlyphElement } from '../../src/graph/glyph-element';
 
 initBrowserEnv();
 registerDefaultGraphics();
@@ -62,8 +62,8 @@ function createSimpleElement() {
   mark.addGraphicItem = () => {
     return (createGlyphGraphicItem as any)(mark, glyphMeta, {});
   };
-  const element = createElement(mark) as IGlyphElement;
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  const element = new GlyphElement(mark) as IGlyphElement;
+  element.updateData('key', [{ key: 0 }], 'key');
   return element;
 }
 
@@ -145,7 +145,7 @@ test('Create element and update data', function () {
   expect(element.getGlyphGraphicItems().rect instanceof Rect).toEqual(true);
   expect(element.getGlyphGraphicItems().rule instanceof Line).toEqual(true);
 
-  element.updateData('key', [{ key: 0 }, { key: 1 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }, { key: 1 }], 'key');
   expect(element.items.length).toEqual(2);
   expect(element.items[0].datum.key).toEqual(0);
 });

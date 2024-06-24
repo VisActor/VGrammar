@@ -8,7 +8,7 @@ registerLinkPathGlyph();
 
 test('link path encode', function () {
   const element = createSimpleGlyphElement(Factory.getGlyph('linkPath'));
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
   element.encodeItems(
     element.items,
@@ -37,7 +37,7 @@ test('link path encode', function () {
 
 test('add state to a link path', function () {
   const element = createSimpleGlyphElement(Factory.getGlyph('linkPath'));
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
   element.encodeItems(
     element.items,

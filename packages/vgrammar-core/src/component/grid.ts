@@ -320,3 +320,23 @@ export const registerGrid = () => {
 
   Factory.registerComponent(ComponentEnum.grid, Grid);
 };
+
+export const registerLineGrid = () => {
+  Factory.registerGraphicComponent(
+    GridEnum.lineAxisGrid,
+    (attrs: LineAxisGridAttributes, options?: ComponentOptions) =>
+      new LineAxisGrid(attrs, options) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.grid, Grid);
+};
+
+export const registerCircleGrid = () => {
+  Factory.registerGraphicComponent(
+    GridEnum.circleAxisGrid,
+    (attrs: CircleAxisGridAttributes, options?: ComponentOptions) =>
+      new CircleAxisGrid(attrs, options) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.grid, Grid);
+};

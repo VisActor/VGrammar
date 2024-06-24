@@ -9,6 +9,7 @@ import type {
 import { Factory } from '../core/factory';
 import { registerGlyphGraphic, registerRectGraphic, registerRuleGraphic } from '../graph/mark/graphic';
 import { isHorizontal } from '@visactor/vgrammar-util';
+import { registerGlyphMark } from '../view/glyph';
 
 export interface IBoxplotScaleAnimationOptions {
   center?: number;
@@ -323,6 +324,7 @@ export function registerBoxplotGlyph() {
 
   Factory.registerAnimationType('boxplotScaleIn', boxplotScaleIn);
   Factory.registerAnimationType('boxplotScaleOut', boxplotScaleOut);
+  registerGlyphMark();
   registerGlyphGraphic();
   registerRectGraphic();
   registerRuleGraphic();
@@ -519,6 +521,7 @@ export function registerBarBoxplotGlyph() {
 
   Factory.registerAnimationType('barBoxplotScaleIn', barBoxplotScaleIn);
   Factory.registerAnimationType('barBoxplotScaleOut', barBoxplotScaleOut);
+  registerGlyphMark();
   registerGlyphGraphic();
   registerRectGraphic();
   registerRuleGraphic();

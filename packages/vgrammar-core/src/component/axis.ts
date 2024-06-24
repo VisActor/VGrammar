@@ -269,3 +269,22 @@ export const registerAxis = () => {
 
   Factory.registerComponent(ComponentEnum.axis, Axis);
 };
+
+export const registerLineAxis = () => {
+  Factory.registerGraphicComponent(
+    AxisEnum.lineAxis,
+    (attrs: LineAxisAttributes, options?: ComponentOptions) =>
+      new LineAxisComponent(attrs, options) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.axis, Axis);
+};
+
+export const registerCircleAxis = () => {
+  Factory.registerGraphicComponent(
+    AxisEnum.circleAxis,
+    (attrs: CircleAxisAttributes) => new CircleAxisComponent(attrs) as unknown as IGraphic
+  );
+
+  Factory.registerComponent(ComponentEnum.axis, Axis);
+};

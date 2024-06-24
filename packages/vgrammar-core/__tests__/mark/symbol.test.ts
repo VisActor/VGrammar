@@ -6,7 +6,7 @@ initBrowserEnv();
 test('image channel of symbol', function () {
   const element = createSimpleElement('symbol');
 
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
 
   // encode enter
@@ -74,7 +74,7 @@ test('image channel of symbol', function () {
 test('symbolType channel of symbol', function () {
   const element = createSimpleElement('symbol');
 
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
 
   // encode enter
