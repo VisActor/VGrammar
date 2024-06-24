@@ -35,14 +35,14 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vutils": "~0.18.10",
-    "@visactor/vdataset": "~0.18.10",
+    "@visactor/vutils": "~0.18.12",
+    "@visactor/vdataset": "~0.18.12",
     "@visactor/vgrammar-coordinate": "workspace:0.13.16",
     "@visactor/vgrammar-util": "workspace:0.13.16",
-    "@visactor/vscale": "~0.18.10",
-    "@visactor/vrender-core": "0.19.19",
-    "@visactor/vrender-kits": "0.19.19",
-    "@visactor/vrender-components": "0.19.19"
+    "@visactor/vscale": "~0.18.12",
+    "@visactor/vrender-core": "0.20.0-alpha.1",
+    "@visactor/vrender-kits": "0.20.0-alpha.1",
+    "@visactor/vrender-components": "0.20.0-alpha.1"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
