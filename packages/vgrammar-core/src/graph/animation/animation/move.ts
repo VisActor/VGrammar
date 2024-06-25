@@ -9,7 +9,7 @@ export const moveIn: TypeAnimation<IElement> = (
   options: IMoveAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const { offset = 0, orient, direction, point: pointOpt } = options ?? {};
+  const { offset = 0, orient, direction, point: pointOpt, excludeChannels = [] } = options ?? {};
   let changedX = 0;
   let changedY = 0;
 
@@ -32,26 +32,31 @@ export const moveIn: TypeAnimation<IElement> = (
   const point = isFunction(pointOpt) ? pointOpt.call(null, element.getDatum(), element, animationParameters) : pointOpt;
   const fromX = point && isValidNumber(point.x) ? point.x : changedX;
   const fromY = point && isValidNumber(point.y) ? point.y : changedY;
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const finalAttrsX = excludeChannels.includes('x')
+    ? element.getGraphicItem().getNormalAttribute('x')
+    : element.getFinalGraphicAttributes()?.x;
+  const finalAttrsY = excludeChannels.includes('y')
+    ? element.getGraphicItem().getNormalAttribute('y')
+    : element.getFinalGraphicAttributes()?.y;
 
   switch (direction) {
     case 'x':
       return {
         from: { x: fromX },
-        to: { x: finalAttrs?.x }
+        to: { x: finalAttrsX }
       };
     case 'y':
       return {
         from: { y: fromY },
-        to: { y: finalAttrs?.y }
+        to: { y: finalAttrsY }
       };
     case 'xy':
     default:
       return {
         from: { x: fromX, y: fromY },
         to: {
-          x: finalAttrs?.x,
-          y: finalAttrs?.y
+          x: finalAttrsX,
+          y: finalAttrsY
         }
       };
   }
