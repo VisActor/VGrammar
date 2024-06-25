@@ -9,7 +9,8 @@ import {
   isString,
   Logger,
   clamper,
-  toValidNumber
+  toValidNumber,
+  pickWithout
 } from '@visactor/vutils';
 import type {
   SankeyData,
@@ -268,13 +269,17 @@ export class SankeyLayout {
 
         return;
       }
+      const linkDatum = pickWithout(link, ['parents']);
 
+      (linkDatum as any).parents = link.parents.map(node => {
+        return pickWithout(node, ['sourceLinks', 'targetLinks']);
+      });
       const linkElement = {
         index,
         key: `${link.source}-${link.target}`,
         source: link.source,
         target: link.target,
-        datum: [link],
+        datum: [linkDatum] as any,
         value: link.value,
         parents: link.parents.map(parent => parent.key)
       };
