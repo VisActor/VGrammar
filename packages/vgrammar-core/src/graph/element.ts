@@ -107,8 +107,8 @@ export class Element implements IElement {
     this.clearGraphicAttributes();
     if (this.mark.needAnimate()) {
       this.setPrevGraphicAttributes(null);
-      this.setNextGraphicAttributes(attributes);
-      this.setFinalGraphicAttributes(attributes);
+      this.setNextGraphicAttributes(Object.assign({}, attributes));
+      this.setFinalGraphicAttributes(Object.assign({}, attributes));
     }
   }
 
@@ -211,11 +211,6 @@ export class Element implements IElement {
     const graphicAttributes = this.transformElementItems(this.items, this.mark.markType);
 
     if (attrs) {
-      if (this.mark.isCollectionMark()) {
-        // todo `defined` should not be a channel in line/area
-        delete attrs.defined;
-      }
-
       Object.assign(graphicAttributes, attrs);
     }
 
