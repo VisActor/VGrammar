@@ -48,6 +48,7 @@ export interface IMoveAnimationOptions {
   orient?: 'positive' | 'negative';
   offset?: number;
   point?: { x?: number; y?: number } | FunctionCallback<{ x?: number; y?: number }>;
+  excludeChannels?: string[];
 }
 
 export interface IRotateAnimationOptions {
