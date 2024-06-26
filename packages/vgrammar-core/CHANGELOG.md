@@ -1,6 +1,23 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 14 Jun 2024 13:12:38 GMT and should not be manually modified.
+This log was last generated on Wed, 26 Jun 2024 10:56:09 GMT and should not be manually modified.
+
+## 0.13.10
+Wed, 26 Jun 2024 10:56:09 GMT
+
+### Updates
+
+- fix: animation attr not update when updatespec twice immediately
+- fix: fix the defined channel when it change from `update` to `group`
+
+
+- feat: add options to avoid finalAttr undefined of animation
+- fix: fix circular reference in hierarchy-data in sankey
+
+
+- fix: upgrade vrender to 0.19.14, vutils to 0.18.10
+
+
 
 ## 0.13.9
 Fri, 14 Jun 2024 13:12:38 GMT

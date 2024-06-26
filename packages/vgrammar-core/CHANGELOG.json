@@ -2,6 +2,30 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.10",
+      "tag": "@visactor/vgrammar-core_v0.13.10",
+      "date": "Wed, 26 Jun 2024 10:56:09 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: animation attr not update when updatespec twice immediately"
+          },
+          {
+            "comment": "fix: fix the defined channel when it change from `update` to `group`\n\n"
+          },
+          {
+            "comment": "feat: add options to avoid finalAttr undefined of animation"
+          },
+          {
+            "comment": "fix: fix circular reference in hierarchy-data in sankey\n\n"
+          },
+          {
+            "comment": "fix: upgrade vrender to 0.19.14, vutils to 0.18.10\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.9",
       "tag": "@visactor/vgrammar-core_v0.13.9",
       "date": "Fri, 14 Jun 2024 13:12:38 GMT",
