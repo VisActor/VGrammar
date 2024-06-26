@@ -1,6 +1,6 @@
 import type { IGroup } from '@visactor/vrender-core';
 import type { IBounds } from '@visactor/vutils';
-import { isArray, isNil, isString } from '@visactor/vutils';
+import { isArray, isNil, isString, isValid } from '@visactor/vutils';
 import { BridgeElementKey, CollectionMarkType, DefaultKey, DefaultMarkData, Mark3DType } from '../graph/constants';
 import {
   DiffState,
@@ -836,6 +836,17 @@ export class Mark extends GrammarBase implements IMark {
         }
 
         element.encodeItems(element.items, encoders, this._isReentered, parameters);
+
+        if (
+          this.isCollectionMark() &&
+          groupEncodeAttrs?.[element.groupKey] &&
+          isValid(groupEncodeAttrs[element.groupKey].defined)
+        ) {
+          element.items.forEach(item => {
+            item.nextAttrs.defined = groupEncodeAttrs[element.groupKey].defined;
+          });
+          delete groupEncodeAttrs[element.groupKey].defined;
+        }
       });
 
       this._isReentered = false;
