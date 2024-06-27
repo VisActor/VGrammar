@@ -323,9 +323,9 @@ function growHeightInOverall(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const y = element.getFinalGraphicAttributes()?.y;
-  const y1 = element.getFinalGraphicAttributes()?.y1;
-  const height = element.getFinalGraphicAttributes()?.height;
+  const y = element.getFinalGraphicAttributes()?.y ?? element.getGraphicAttribute('y');
+  const y1 = element.getFinalGraphicAttributes()?.y1 ?? element.getGraphicAttribute('y1');
+  const height = element.getFinalGraphicAttributes()?.height ?? element.getGraphicAttribute('height');
 
   let overallValue: number;
   if (options && options.orient === 'negative') {
