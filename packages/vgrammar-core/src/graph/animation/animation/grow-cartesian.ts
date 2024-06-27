@@ -9,9 +9,9 @@ export const growCenterIn: TypeAnimation<IElement> = (
 ) => {
   switch (options?.direction) {
     case 'x': {
-      const x = element.getFinalGraphicAttributes()?.x;
-      const x1 = element.getFinalGraphicAttributes()?.x1;
-      const width = element.getFinalGraphicAttributes()?.width;
+      const x = element.getFinalGraphicAttributes()?.x ?? element.getGraphicAttribute('x');
+      const x1 = element.getFinalGraphicAttributes()?.x1 ?? element.getGraphicAttribute('x1');
+      const width = element.getFinalGraphicAttributes()?.width ?? element.getGraphicAttribute('width');
 
       return {
         from: isValid(width)
@@ -29,9 +29,9 @@ export const growCenterIn: TypeAnimation<IElement> = (
       };
     }
     case 'y': {
-      const y = element.getFinalGraphicAttributes()?.y;
-      const y1 = element.getFinalGraphicAttributes()?.y1;
-      const height = element.getFinalGraphicAttributes()?.height;
+      const y = element.getFinalGraphicAttributes()?.y ?? element.getGraphicAttribute('y');
+      const y1 = element.getFinalGraphicAttributes()?.y1 ?? element.getGraphicAttribute('y1');
+      const height = element.getFinalGraphicAttributes()?.height ?? element.getGraphicAttribute('height');
 
       return {
         from: isValid(height)
@@ -50,12 +50,12 @@ export const growCenterIn: TypeAnimation<IElement> = (
     }
     case 'xy':
     default: {
-      const x = element.getFinalGraphicAttributes()?.x;
-      const x1 = element.getFinalGraphicAttributes()?.x1;
-      const width = element.getFinalGraphicAttributes()?.width;
-      const y = element.getFinalGraphicAttributes()?.y;
-      const y1 = element.getFinalGraphicAttributes()?.y1;
-      const height = element.getFinalGraphicAttributes()?.height;
+      const x = element.getFinalGraphicAttributes()?.x ?? element.getGraphicAttribute('x');
+      const x1 = element.getFinalGraphicAttributes()?.x1 ?? element.getGraphicAttribute('x1');
+      const width = element.getFinalGraphicAttributes()?.width ?? element.getGraphicAttribute('width');
+      const y = element.getFinalGraphicAttributes()?.y ?? element.getGraphicAttribute('y');
+      const y1 = element.getFinalGraphicAttributes()?.y1 ?? element.getGraphicAttribute('y1');
+      const height = element.getFinalGraphicAttributes()?.height ?? element.getGraphicAttribute('height');
       const from: any = {};
 
       if (isValid(width)) {
@@ -93,9 +93,9 @@ export const growCenterOut: TypeAnimation<IElement> = (
 ) => {
   switch (options?.direction) {
     case 'x': {
-      const x = element.getFinalGraphicAttributes()?.x;
-      const x1 = element.getFinalGraphicAttributes()?.x1;
-      const width = element.getFinalGraphicAttributes()?.width;
+      const x = element.getFinalGraphicAttributes()?.x ?? element.getGraphicAttribute('x');
+      const x1 = element.getFinalGraphicAttributes()?.x1 ?? element.getGraphicAttribute('x1');
+      const width = element.getFinalGraphicAttributes()?.width ?? element.getGraphicAttribute('width');
 
       return {
         to: isValid(width)
@@ -112,9 +112,9 @@ export const growCenterOut: TypeAnimation<IElement> = (
       };
     }
     case 'y': {
-      const y = element.getFinalGraphicAttributes()?.y;
-      const y1 = element.getFinalGraphicAttributes()?.y1;
-      const height = element.getFinalGraphicAttributes()?.height;
+      const y = element.getFinalGraphicAttributes()?.y ?? element.getGraphicAttribute('y');
+      const y1 = element.getFinalGraphicAttributes()?.y1 ?? element.getGraphicAttribute('y1');
+      const height = element.getFinalGraphicAttributes()?.height ?? element.getGraphicAttribute('height');
 
       return {
         to: isValid(height)
@@ -132,12 +132,12 @@ export const growCenterOut: TypeAnimation<IElement> = (
     }
     case 'xy':
     default: {
-      const x = element.getFinalGraphicAttributes()?.x;
-      const y = element.getFinalGraphicAttributes()?.y;
-      const x1 = element.getFinalGraphicAttributes()?.x1;
-      const y1 = element.getFinalGraphicAttributes()?.y1;
-      const width = element.getFinalGraphicAttributes()?.width;
-      const height = element.getFinalGraphicAttributes()?.height;
+      const x = element.getFinalGraphicAttributes()?.x ?? element.getGraphicAttribute('x');
+      const y = element.getFinalGraphicAttributes()?.y ?? element.getGraphicAttribute('y');
+      const x1 = element.getFinalGraphicAttributes()?.x1 ?? element.getGraphicAttribute('x1');
+      const y1 = element.getFinalGraphicAttributes()?.y1 ?? element.getGraphicAttribute('y1');
+      const width = element.getFinalGraphicAttributes()?.width ?? element.getGraphicAttribute('width');
+      const height = element.getFinalGraphicAttributes()?.height ?? element.getGraphicAttribute('height');
       const to: any = {};
 
       if (isValid(width)) {
@@ -173,9 +173,9 @@ function growWidthInIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const x = element.getFinalGraphicAttributes()?.x;
-  const x1 = element.getFinalGraphicAttributes()?.x1;
-  const width = element.getFinalGraphicAttributes()?.width;
+  const x = element.getFinalGraphicAttributes()?.x ?? element.getGraphicAttribute('x');
+  const x1 = element.getFinalGraphicAttributes()?.x1 ?? element.getGraphicAttribute('x1');
+  const width = element.getFinalGraphicAttributes()?.width ?? element.getGraphicAttribute('width');
 
   if (options && options.orient === 'negative') {
     const computedX1 = isValid(width) ? Math.max(x, x + width) : Math.max(x, x1);
@@ -199,9 +199,9 @@ function growWidthInOverall(
   animationParameters: IAnimationParameters
 ) {
   // no need to handle the situation where x > x1
-  const x = element.getFinalGraphicAttributes()?.x;
-  const x1 = element.getFinalGraphicAttributes()?.x1;
-  const width = element.getFinalGraphicAttributes()?.width;
+  const x = element.getFinalGraphicAttributes()?.x ?? element.getGraphicAttribute('x');
+  const x1 = element.getFinalGraphicAttributes()?.x1 ?? element.getGraphicAttribute('x1');
+  const width = element.getFinalGraphicAttributes()?.width ?? element.getGraphicAttribute('width');
   let overallValue: number;
   if (options && options.orient === 'negative') {
     if (isNumber(options.overall)) {
@@ -237,9 +237,9 @@ function growWidthOutIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const x = element.getFinalGraphicAttributes()?.x;
-  const x1 = element.getFinalGraphicAttributes()?.x1;
-  const width = element.getFinalGraphicAttributes()?.width;
+  const x = element.getFinalGraphicAttributes()?.x ?? element.getGraphicAttribute('x');
+  const x1 = element.getFinalGraphicAttributes()?.x1 ?? element.getGraphicAttribute('x1');
+  const width = element.getFinalGraphicAttributes()?.width ?? element.getGraphicAttribute('width');
 
   if (options && options.orient === 'negative') {
     const computedX1 = isValid(width) ? Math.max(x, x + width) : Math.max(x, x1);
@@ -260,8 +260,8 @@ function growWidthOutOverall(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const x1 = element.getFinalGraphicAttributes()?.x1;
-  const width = element.getFinalGraphicAttributes()?.width;
+  const x1 = element.getFinalGraphicAttributes()?.x1 ?? element.getGraphicAttribute('x1');
+  const width = element.getFinalGraphicAttributes()?.width ?? element.getGraphicAttribute('width');
 
   let overallValue: number;
   if (options && options.orient === 'negative') {
@@ -299,9 +299,9 @@ function growHeightInIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const y = element.getFinalGraphicAttributes()?.y;
-  const y1 = element.getFinalGraphicAttributes()?.y1;
-  const height = element.getFinalGraphicAttributes()?.height;
+  const y = element.getFinalGraphicAttributes()?.y ?? element.getGraphicAttribute('y');
+  const y1 = element.getFinalGraphicAttributes()?.y1 ?? element.getGraphicAttribute('y1');
+  const height = element.getFinalGraphicAttributes()?.height ?? element.getGraphicAttribute('height');
 
   if (options && options.orient === 'negative') {
     const computedY1 = isValid(height) ? Math.max(y, y + height) : Math.max(y, y1);
@@ -362,9 +362,9 @@ function growHeightOutIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const y = element.getFinalGraphicAttributes()?.y;
-  const y1 = element.getFinalGraphicAttributes()?.y1;
-  const height = element.getFinalGraphicAttributes()?.height;
+  const y = element.getFinalGraphicAttributes()?.y ?? element.getGraphicAttribute('y');
+  const y1 = element.getFinalGraphicAttributes()?.y1 ?? element.getGraphicAttribute('y1');
+  const height = element.getFinalGraphicAttributes()?.height ?? element.getGraphicAttribute('height');
 
   if (options && options.orient === 'negative') {
     const computedY1 = isValid(height) ? Math.max(y, y + height) : Math.max(y, y1);
@@ -385,8 +385,8 @@ function growHeightOutOverall(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const y1 = element.getFinalGraphicAttributes()?.y1;
-  const height = element.getFinalGraphicAttributes()?.height;
+  const y1 = element.getFinalGraphicAttributes()?.y1 ?? element.getGraphicAttribute('y1');
+  const height = element.getFinalGraphicAttributes()?.height ?? element.getGraphicAttribute('height');
 
   let overallValue: number;
   if (options && options.orient === 'negative') {
