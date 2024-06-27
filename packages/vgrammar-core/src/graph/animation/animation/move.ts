@@ -34,10 +34,10 @@ export const moveIn: TypeAnimation<IElement> = (
   const fromY = point && isValidNumber(point.y) ? point.y : changedY;
   const finalAttrsX = excludeChannels.includes('x')
     ? element.getGraphicAttribute('x')
-    : element.getFinalGraphicAttributes()?.x;
+    : element.getFinalAnimationAttribute('x');
   const finalAttrsY = excludeChannels.includes('y')
     ? element.getGraphicAttribute('y')
-    : element.getFinalGraphicAttributes()?.y;
+    : element.getFinalAnimationAttribute('y');
 
   switch (direction) {
     case 'x':

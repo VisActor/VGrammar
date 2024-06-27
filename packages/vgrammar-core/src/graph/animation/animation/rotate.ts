@@ -6,21 +6,21 @@ export const rotateIn: TypeAnimation<IElement> = (
   options: IRotateAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAngle = element.getFinalGraphicAttributes()?.angle ?? 0;
+  const attributeAngle = element.getFinalAnimationAttribute('angle') ?? 0;
 
   let angle = 0;
-  if (isNumberClose(finalAngle / (Math.PI * 2), 0)) {
-    angle = Math.round(finalAngle / (Math.PI * 2)) * Math.PI * 2;
+  if (isNumberClose(attributeAngle / (Math.PI * 2), 0)) {
+    angle = Math.round(attributeAngle / (Math.PI * 2)) * Math.PI * 2;
   } else if (isValidNumber(options?.angle)) {
     angle = options.angle;
   } else if (options?.orient === 'anticlockwise') {
-    angle = Math.ceil(finalAngle / (Math.PI * 2)) * Math.PI * 2;
+    angle = Math.ceil(attributeAngle / (Math.PI * 2)) * Math.PI * 2;
   } else {
-    angle = Math.floor(finalAngle / (Math.PI * 2)) * Math.PI * 2;
+    angle = Math.floor(attributeAngle / (Math.PI * 2)) * Math.PI * 2;
   }
   return {
     from: { angle },
-    to: { angle: finalAngle }
+    to: { angle: attributeAngle }
   };
 };
 

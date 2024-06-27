@@ -151,6 +151,8 @@ export interface IElement {
   getFinalGraphicAttributes: () => { [key: string]: any };
   getPrevGraphicAttributes: () => { [key: string]: any };
   getNextGraphicAttributes: () => { [key: string]: any };
+  getFinalAnimationAttribute: (channel: string) => any;
+  getFinalAnimationAttributes: () => { [key: string]: any };
   clearChangedGraphicAttributes: () => void;
   clearGraphicAttributes: () => void;
 

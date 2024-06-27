@@ -7,26 +7,26 @@ export const scaleIn: TypeAnimation<IElement> = (
   options: IScaleAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
 
   switch (options?.direction) {
     case 'x':
       return {
         from: { scaleX: 0 },
-        to: { scaleX: finalAttrs?.scaleX ?? 1 }
+        to: { scaleX: attrs?.scaleX ?? 1 }
       };
     case 'y':
       return {
         from: { scaleY: 0 },
-        to: { scaleY: finalAttrs?.scaleY ?? 1 }
+        to: { scaleY: attrs?.scaleY ?? 1 }
       };
     case 'xy':
     default:
       return {
         from: { scaleX: 0, scaleY: 0 },
         to: {
-          scaleX: finalAttrs?.scaleX ?? 1,
-          scaleY: finalAttrs?.scaleY ?? 1
+          scaleX: attrs?.scaleX ?? 1,
+          scaleY: attrs?.scaleY ?? 1
         }
       };
   }
