@@ -658,9 +658,7 @@ export class Mark extends GrammarBase implements IMark {
     this.isUpdated = true;
 
     if (!this.renderContext.progressive) {
-      if (spec.animation) {
-        this.animate.updateConfig(spec.animation);
-      }
+      this.animate.updateConfig(spec.animation);
       this.animate.updateState(spec.animationState);
     }
 

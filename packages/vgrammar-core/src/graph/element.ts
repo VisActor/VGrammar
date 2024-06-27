@@ -734,6 +734,17 @@ export class Element implements IElement {
     return (this.graphicItem as any).nextAttrs;
   }
 
+  /**
+   * 在动画执行中获取图元最终的视觉通道结果
+   * @param channel 视觉通道
+   */
+  getFinalAnimationAttribute(channel: string) {
+    return this.getFinalGraphicAttributes()?.[channel] ?? this.getGraphicAttribute(channel);
+  }
+  getFinalAnimationAttributes() {
+    return this.getFinalGraphicAttributes() ?? this.graphicItem.attribute;
+  }
+
   protected setNextGraphicAttributes(attributes: { [channel: string]: any }) {
     (this.graphicItem as any).nextAttrs = attributes;
   }

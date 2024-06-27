@@ -9,11 +9,11 @@ function growIntervalInIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
 
   if (options && options.direction === 'x') {
-    const x = finalAttrs?.x;
-    const x1 = finalAttrs?.x1;
+    const x = attrs?.x;
+    const x1 = attrs?.x1;
     if (options.orient === 'negative') {
       return {
         from: { x: x1, x1: x1 },
@@ -25,8 +25,8 @@ function growIntervalInIndividual(
       to: { x: x, y1: x1 }
     };
   }
-  const y = finalAttrs?.y;
-  const y1 = finalAttrs?.y1;
+  const y = attrs?.y;
+  const y1 = attrs?.y1;
   if (options && options.orient === 'negative') {
     return {
       from: { y: y1, y1: y1 },
@@ -44,11 +44,11 @@ function growIntervalInOverall(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
 
   if (options && options.direction === 'x') {
-    const x = finalAttrs?.x;
-    const x1 = finalAttrs?.x1;
+    const x = attrs?.x;
+    const x1 = attrs?.x1;
     let overallValue: number;
     if (options.orient === 'negative') {
       if (isNumber(options.overall)) {
@@ -69,8 +69,8 @@ function growIntervalInOverall(
     };
   }
 
-  const y = finalAttrs?.y;
-  const y1 = finalAttrs?.y1;
+  const y = attrs?.y;
+  const y1 = attrs?.y1;
   let overallValue: number;
   if (options && options.orient === 'negative') {
     if (isNumber(options.overall)) {
@@ -114,10 +114,10 @@ function growIntervalOutIndividual(
   options: IGrowCartesianAnimationOptions,
   animationParameters: IAnimationParameters
 ) {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
   if (options && options.direction === 'x') {
-    const x = finalAttrs?.x;
-    const x1 = finalAttrs?.x1;
+    const x = attrs?.x;
+    const x1 = attrs?.x1;
     const prevX = element.getGraphicAttribute('x', true);
     const prevX1 = element.getGraphicAttribute('x1', true);
     if (options.orient === 'negative') {
@@ -132,8 +132,8 @@ function growIntervalOutIndividual(
     };
   }
 
-  const y = finalAttrs?.y;
-  const y1 = finalAttrs?.y1;
+  const y = attrs?.y;
+  const y1 = attrs?.y1;
   const prevY = element.getGraphicAttribute('y', true);
   const prevY1 = element.getGraphicAttribute('y1', true);
   if (options && options.orient === 'negative') {
