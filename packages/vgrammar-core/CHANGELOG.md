@@ -1,6 +1,14 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Wed, 26 Jun 2024 10:56:09 GMT and should not be manually modified.
+This log was last generated on Fri, 28 Jun 2024 13:42:24 GMT and should not be manually modified.
+
+## 0.13.11
+Fri, 28 Jun 2024 13:42:24 GMT
+
+### Updates
+
+- fix: fix the animation config update
+- fix: fix the points generation for grow animation
 
 ## 0.13.10
 Wed, 26 Jun 2024 10:56:09 GMT

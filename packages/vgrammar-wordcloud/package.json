@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-wordcloud",
-  "version": "0.13.11",
+  "version": "0.13.12",
   "description": "WordCloud layout transform for VGrammar",
   "keywords": [
     "wordcloud",
@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "@visactor/vutils": "~0.18.10",
-    "@visactor/vgrammar-core": "workspace:0.13.11",
-    "@visactor/vgrammar-util": "workspace:0.13.11",
+    "@visactor/vgrammar-core": "workspace:0.13.12",
+    "@visactor/vgrammar-util": "workspace:0.13.12",
     "@visactor/vrender-core": "0.19.15",
     "@visactor/vrender-kits": "0.19.15"
   },
