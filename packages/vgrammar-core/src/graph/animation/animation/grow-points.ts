@@ -37,7 +37,7 @@ const getCenterPoints = (
     center.y1 = center.y;
   }
 
-  return points.map(() => Object.assign(center));
+  return points.map(point => Object.assign({}, point, center));
 };
 
 export const growPointsIn: TypeAnimation<IElement> = (
@@ -81,6 +81,7 @@ const changePointsX = (
       }
 
       return {
+        ...point,
         x: groupRight,
         y: point.y,
         x1: groupRight,
@@ -89,6 +90,7 @@ const changePointsX = (
       } as IPointLike;
     }
     return {
+      ...point,
       x: 0,
       y: point.y,
       x1: 0,
@@ -139,6 +141,7 @@ const changePointsY = (
       }
 
       return {
+        ...point,
         x: point.x,
         y: groupBottom,
         x1: point.x1,
@@ -147,6 +150,7 @@ const changePointsY = (
       } as IPointLike;
     }
     return {
+      ...point,
       x: point.x,
       y: 0,
       x1: point.x1,
