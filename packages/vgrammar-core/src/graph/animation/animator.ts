@@ -21,7 +21,7 @@ Animate.mode |= AnimateMode.SET_ATTR_IMMEDIATELY;
 let GlobalAnimatorId = 0;
 
 const isCustomAnimateCtor = (custom?: IAnimationChannelInterpolator | IAnimationCustomConstructor) => {
-  if (isNil(custom)) {
+  if (isNil(custom) || isNil(custom.prototype)) {
     return false;
   }
   return (

@@ -14,16 +14,16 @@ const growAngleInIndividual = (
   options: IGrowAngleAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
   if (options && options.orient === 'anticlockwise') {
     return {
-      from: { startAngle: finalAttrs?.endAngle },
-      to: { startAngle: finalAttrs?.startAngle }
+      from: { startAngle: attrs?.endAngle },
+      to: { startAngle: attrs?.startAngle }
     };
   }
   return {
-    from: { endAngle: finalAttrs?.startAngle },
-    to: { endAngle: finalAttrs?.endAngle }
+    from: { endAngle: attrs?.startAngle },
+    to: { endAngle: attrs?.endAngle }
   };
 };
 
@@ -32,7 +32,7 @@ const growAngleInOverall = (
   options: IGrowAngleAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
 
   if (options && options.orient === 'anticlockwise') {
     const overallValue = isNumber(options.overall) ? options.overall : Math.PI * 2;
@@ -42,8 +42,8 @@ const growAngleInOverall = (
         endAngle: overallValue
       },
       to: {
-        startAngle: finalAttrs?.startAngle,
-        endAngle: finalAttrs?.endAngle
+        startAngle: attrs?.startAngle,
+        endAngle: attrs?.endAngle
       }
     };
   }
@@ -54,8 +54,8 @@ const growAngleInOverall = (
       endAngle: overallValue
     },
     to: {
-      startAngle: finalAttrs?.startAngle,
-      endAngle: finalAttrs?.endAngle
+      startAngle: attrs?.startAngle,
+      endAngle: attrs?.endAngle
     }
   };
 };
@@ -75,17 +75,17 @@ const growAngleOutIndividual = (
   options: IGrowAngleAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
 
   if (options && options.orient === 'anticlockwise') {
     return {
       from: { startAngle: element.getGraphicAttribute('startAngle', true) },
-      to: { startAngle: finalAttrs?.endAngle }
+      to: { startAngle: attrs?.endAngle }
     };
   }
   return {
     from: { endAngle: element.getGraphicAttribute('endAngle', true) },
-    to: { endAngle: finalAttrs?.startAngle }
+    to: { endAngle: attrs?.startAngle }
   };
 };
 
@@ -137,17 +137,17 @@ const growRadiusInIndividual = (
   options: IGrowRadiusAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
 
   if (options && options.orient === 'inside') {
     return {
-      from: { innerRadius: finalAttrs?.outerRadius },
-      to: { innerRadius: finalAttrs?.innerRadius }
+      from: { innerRadius: attrs?.outerRadius },
+      to: { innerRadius: attrs?.innerRadius }
     };
   }
   return {
-    from: { outerRadius: finalAttrs?.innerRadius },
-    to: { outerRadius: finalAttrs?.outerRadius }
+    from: { outerRadius: attrs?.innerRadius },
+    to: { outerRadius: attrs?.outerRadius }
   };
 };
 
@@ -156,7 +156,7 @@ const growRadiusInOverall = (
   options: IGrowRadiusAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
   const overallValue = isNumber(options?.overall) ? options.overall : 0;
   return {
     from: {
@@ -164,8 +164,8 @@ const growRadiusInOverall = (
       outerRadius: overallValue
     },
     to: {
-      innerRadius: finalAttrs?.innerRadius,
-      outerRadius: finalAttrs?.outerRadius
+      innerRadius: attrs?.innerRadius,
+      outerRadius: attrs?.outerRadius
     }
   };
 };
@@ -185,16 +185,16 @@ const growRadiusOutIndividual = (
   options: IGrowRadiusAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAttrs = element.getFinalGraphicAttributes();
+  const attrs = element.getFinalAnimationAttributes();
   if (options && options.orient === 'inside') {
     return {
       from: { innerRadius: element.getGraphicAttribute('innerRadius', true) },
-      to: { innerRadius: finalAttrs?.outerRadius }
+      to: { innerRadius: attrs?.outerRadius }
     };
   }
   return {
     from: { outerRadius: element.getGraphicAttribute('outerRadius', true) },
-    to: { outerRadius: finalAttrs?.innerRadius }
+    to: { outerRadius: attrs?.innerRadius }
   };
 };
 

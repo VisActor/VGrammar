@@ -6,7 +6,7 @@ export const fadeIn: TypeAnimation<IElement> = (
   options: any,
   animationParameters: IAnimationParameters
 ) => {
-  const finalAttrs = element.getFinalGraphicAttributes() ?? {};
+  const attrs = element.getFinalAnimationAttributes() ?? {};
 
   return {
     from: {
@@ -15,9 +15,9 @@ export const fadeIn: TypeAnimation<IElement> = (
       strokeOpacity: 0
     },
     to: {
-      opacity: finalAttrs.opacity ?? 1,
-      fillOpacity: finalAttrs.fillOpacity ?? 1,
-      strokeOpacity: finalAttrs.strokeOpacity ?? 1
+      opacity: attrs.opacity ?? 1,
+      fillOpacity: attrs.fillOpacity ?? 1,
+      strokeOpacity: attrs.strokeOpacity ?? 1
     }
   };
 };
