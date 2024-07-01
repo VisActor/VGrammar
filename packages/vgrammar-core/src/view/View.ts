@@ -70,8 +70,7 @@ import { isGrammar } from '../parse/util';
 import { configureEnvironment } from '../graph/util/env';
 import { GroupMark } from './group';
 import { Mark } from './mark';
-import type { IMorph } from '../types/morph';
-import { Morph } from '../graph/animation/morph';
+import type { IViewDiff } from '../types/morph';
 import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
 import { ViewAnimate } from './animate';
 import type { IRenderer } from '../types/renderer';
@@ -92,6 +91,7 @@ import { ThemeManager } from '../theme/theme-manager';
 import { Factory } from '../core/factory';
 import { Component } from './component';
 import { isMarkType, removeGraphicItem } from '../graph/util/graphic';
+import { ViewDiff } from '../graph/view-diff';
 
 /**
  * Create a new View instance from a VGrammar dataflow runtime specification.
@@ -124,10 +124,9 @@ export default class View extends EventEmitter implements IView {
   private _options: IViewOptions;
 
   private _cachedGrammars: IRecordedTreeGrammars;
-  private _willMorphMarks: { prev: IMark[]; next: IMark[] }[];
 
   /** morph animate */
-  private _morph: IMorph;
+  private _differ: IViewDiff;
 
   private _eventConfig: IViewEventConfig;
   private _eventListeners: Array<{
@@ -866,10 +865,7 @@ export default class View extends EventEmitter implements IView {
     // resize again if width/height signal is updated duration dataflow
     this._resizeRenderer();
 
-    this._willMorphMarks?.forEach(morphMarks => {
-      this._morph.morph(morphMarks.prev, morphMarks.next, normalizedRunningConfig);
-    });
-    this._willMorphMarks = null;
+    (this as any).morph?.(normalizedRunningConfig);
 
     this.releaseCachedGrammars(normalizedRunningConfig);
 
@@ -881,10 +877,6 @@ export default class View extends EventEmitter implements IView {
   }
 
   private reuseCachedGrammars(runningConfig: IRunningConfig) {
-    if (!this._willMorphMarks) {
-      this._willMorphMarks = [];
-    }
-
     if (runningConfig.reuse) {
       const reuseDiffUpdate = (diff: { prev: IGrammarBase; next: IGrammarBase }) => {
         diff.next.reuse(diff.prev);
@@ -893,19 +885,19 @@ export default class View extends EventEmitter implements IView {
         this._cachedGrammars.unrecord(diff.prev);
       };
 
-      const diffedSignal = this._morph.diffGrammar(
+      const diffedSignal = this._differ.diffGrammar(
         this._cachedGrammars.getAllSignals(),
         this.grammars.getAllSignals().filter(signal => !BuiltInSignalID.includes(signal.id()))
       );
       diffedSignal.update.forEach(reuseDiffUpdate);
 
-      const diffedData = this._morph.diffGrammar(this._cachedGrammars.getAllData(), this.grammars.getAllData());
+      const diffedData = this._differ.diffGrammar(this._cachedGrammars.getAllData(), this.grammars.getAllData());
       diffedData.update.forEach(reuseDiffUpdate);
 
-      const diffedScale = this._morph.diffGrammar(this._cachedGrammars.getAllScales(), this.grammars.getAllScales());
+      const diffedScale = this._differ.diffGrammar(this._cachedGrammars.getAllScales(), this.grammars.getAllScales());
       diffedScale.update.forEach(reuseDiffUpdate);
 
-      const diffedCoordinate = this._morph.diffGrammar(
+      const diffedCoordinate = this._differ.diffGrammar(
         this._cachedGrammars.getAllCoordinates(),
         this.grammars.getAllCoordinates()
       );
@@ -914,7 +906,7 @@ export default class View extends EventEmitter implements IView {
       // TODO: reuse custom
     }
 
-    const diffedMark = this._morph.diffMark(
+    const diffedMark = this._differ.diffMark(
       this._cachedGrammars.getAllMarks(),
       this.grammars.getAllMarks().filter(mark => mark.id() !== 'root'),
       runningConfig
@@ -930,7 +922,7 @@ export default class View extends EventEmitter implements IView {
         diff.prev[0].clear();
         this._cachedGrammars.unrecord(diff.prev[0]);
       } else if ((runningConfig.morph && enableMarkMorphConfig) || runningConfig.morphAll) {
-        this._willMorphMarks.push({ prev: diff.prev, next: diff.next });
+        (this as any).addMorphMarks?.({ prev: diff.prev, next: diff.next });
       }
     });
   }
@@ -1262,7 +1254,7 @@ export default class View extends EventEmitter implements IView {
 
     this.animate = new ViewAnimate(this);
 
-    this._morph = new Morph();
+    this._differ = new ViewDiff();
 
     // 执行钩子
     if (this._options.hooks) {

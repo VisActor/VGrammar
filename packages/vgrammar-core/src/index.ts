@@ -23,6 +23,7 @@ export {
   SIGNAL_VIEW_BOX
 } from './view/constants';
 export { registerViewEventsAPI } from './view/view-event-mixin';
+export { registerViewMorphAPI } from './view/view-morph-mixin';
 
 export { ThemeManager } from './theme/theme-manager';
 
