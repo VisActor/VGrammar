@@ -18,6 +18,7 @@ import {
   registerGrid,
   registerScrollbar,
   // animations
+  registerViewMorphAPI,
   registerClipInAnimation,
   registerClipOutAnimation,
   registerFadeInAnimation,
@@ -73,7 +74,7 @@ import {
   registerSymmetryTransform,
   initAutoEnv,
 
-  // interactions
+  // interactions + animations
   registerViewEventsAPI,
   registerElementActive,
   registerElementSelect,
@@ -171,6 +172,7 @@ View.useRegisters([
   registerSymmetryTransform,
 
   // animations
+  registerViewMorphAPI,
   registerClipInAnimation,
   registerClipOutAnimation,
   registerFadeInAnimation,
