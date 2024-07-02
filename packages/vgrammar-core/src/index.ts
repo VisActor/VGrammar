@@ -51,3 +51,11 @@ export const registerDragPlugin = () => {
 export const registerGesturePlugin = () => {
   Factory.registerStageEventPlugin('gesture', Gesture);
 };
+
+import { registerViewAnimateAPI } from './view/view-animate-mixin';
+import { registerMarkAnimateAPI } from './view/mark-animate-mixin';
+
+export const registerAnimate = () => {
+  registerViewAnimateAPI();
+  registerMarkAnimateAPI();
+};

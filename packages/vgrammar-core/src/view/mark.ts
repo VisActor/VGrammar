@@ -11,7 +11,6 @@ import {
   BuiltInEncodeNames
 } from '../graph/enums';
 import { Differ, groupData } from '../graph/mark/differ';
-import { Animate } from '../graph/animation/animate';
 import { createGraphicItem, removeGraphicItem } from '../graph/util/graphic';
 import { GrammarBase } from './grammar-base';
 import type {
@@ -97,7 +96,7 @@ export class Mark extends GrammarBase implements IMark {
     progressive?: ProgressiveContext;
     beforeTransformProgressive?: IProgressiveTransformResult;
   };
-  animate: IAnimate = new Animate(this, {});
+  animate: IAnimate;
 
   protected differ = new Differ([]);
 
@@ -180,8 +179,8 @@ export class Mark extends GrammarBase implements IMark {
     this.elementMap.forEach(element => (element.mark = this));
 
     this.differ = mark.differ;
-    this.animate = mark.animate;
-    this.animate.mark = this;
+
+    (this as any).reuseAnimate?.(mark);
 
     this._context = mark._context;
     // set group in later evaluate progress
@@ -613,12 +612,7 @@ export class Mark extends GrammarBase implements IMark {
       this.initEvent();
     }
 
-    if (!this.animate) {
-      this.animate = new Animate(this, this.spec.animation);
-      if (this.needAnimate()) {
-        this.animate.updateState(this.spec.animationState);
-      }
-    }
+    (this as any).initAnimate?.(this.spec);
 
     if (!this.group) {
       // root mark will not be reused
@@ -658,8 +652,7 @@ export class Mark extends GrammarBase implements IMark {
     this.isUpdated = true;
 
     if (!this.renderContext.progressive) {
-      this.animate.updateConfig(spec.animation);
-      this.animate.updateState(spec.animationState);
+      (this as any).updateAnimate?.(spec);
     }
 
     if (this.markType !== GrammarMarkType.group) {
@@ -722,8 +715,8 @@ export class Mark extends GrammarBase implements IMark {
         if (element.diffState === DiffState.exit) {
           // force element to stop exit animation if it is reentered
           element.diffState = DiffState.enter;
-          const animators = this.animate.getElementAnimators(element, DiffState.exit);
-          animators.forEach(animator => animator.stop('start'));
+          const animators = this.animate?.getElementAnimators(element, DiffState.exit);
+          animators && animators.forEach(animator => animator.stop('start'));
         }
 
         element.diffState = DiffState.enter;
@@ -1204,7 +1197,7 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   prepareRelease() {
-    this.animate.stop();
+    this.animate?.stop();
     this.elementMap.forEach(element => (element.diffState = DiffState.exit));
     this._finalParameters = this.parameters();
   }
