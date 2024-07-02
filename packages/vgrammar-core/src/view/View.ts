@@ -72,7 +72,6 @@ import { GroupMark } from './group';
 import { Mark } from './mark';
 import type { IViewDiff } from '../types/morph';
 import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
-import { ViewAnimate } from './animate';
 import type { IRenderer } from '../types/renderer';
 import { ComponentEnum, HOOK_EVENT, LayoutState, GrammarMarkType } from '../graph/enums';
 import type {
@@ -539,9 +538,9 @@ export default class View extends EventEmitter implements IView {
     }
 
     if (spec.animation === false) {
-      this.animate.disable();
+      this.animate?.disable();
     } else {
-      this.animate.enable();
+      this.animate?.enable();
     }
 
     this.emit(HOOK_EVENT.AFTER_PARSE_VIEW);
@@ -804,7 +803,7 @@ export default class View extends EventEmitter implements IView {
     this.emit(HOOK_EVENT.BEFORE_DO_RENDER);
     // render as needed
     if (this.renderer) {
-      if (!this._progressiveMarks) {
+      if (!this._progressiveMarks && this.animate) {
         this.animate.animate();
       }
       // 绘图 =>
@@ -946,14 +945,14 @@ export default class View extends EventEmitter implements IView {
     });
     const markNodes = this._cachedGrammars.getAllMarkNodes();
     markNodes.forEach(node => {
-      node.mark.animate.stop();
-      if (runningConfig.enableExitAnimation) {
+      node.mark.animate?.stop();
+      if (runningConfig.enableExitAnimation && this.animate) {
         this.animate.animateAddition(node.mark);
       }
     });
     const releaseUp = (node: IMarkTreeNode) => {
       // do nothing when mark is already released or is still animating
-      if (!node.mark.view || node.mark.animate.getAnimatorCount() !== 0) {
+      if (!node.mark.view || (node.mark.animate && node.mark.animate.getAnimatorCount() !== 0)) {
         return;
       }
       // release when current node is leaf node
@@ -970,11 +969,11 @@ export default class View extends EventEmitter implements IView {
     };
     markNodes.forEach(node => {
       const mark = node.mark;
-      if (mark.animate.getAnimatorCount() === 0) {
+      if (mark.animate && mark.animate.getAnimatorCount() === 0) {
         releaseUp(node);
       } else {
         mark.addEventListener('animationEnd', () => {
-          if (mark.animate.getAnimatorCount() === 0) {
+          if (mark.animate && mark.animate.getAnimatorCount() === 0) {
             releaseUp(node);
           }
         });
@@ -1252,7 +1251,7 @@ export default class View extends EventEmitter implements IView {
 
     this._dataflow = new Dataflow();
 
-    this.animate = new ViewAnimate(this);
+    this.animate = (this as any).initAnimate?.(this);
 
     this._differ = new ViewDiff();
 
@@ -1376,7 +1375,7 @@ export default class View extends EventEmitter implements IView {
     Factory.unregisterRuntimeTransforms();
     Logger.setInstance(null);
 
-    this.animate.stop();
+    this.animate?.stop();
 
     this.grammars.release();
     this._cachedGrammars.release();
