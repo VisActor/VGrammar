@@ -67,9 +67,7 @@ export class GlyphElement extends Element implements IGlyphElement {
 
     this.states = states.slice();
 
-    const stateAnimationEnable = isBoolean(hasAnimation)
-      ? hasAnimation
-      : this.mark.animate.getAnimationConfigs('state').length !== 0;
+    const stateAnimationEnable = isBoolean(hasAnimation) ? hasAnimation : this.hasStateAnimation();
 
     this.graphicItem.glyphStateProxy = this.getStateAttrs;
     this.graphicItem.useStates(this.states, stateAnimationEnable);
