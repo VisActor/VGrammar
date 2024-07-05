@@ -24,7 +24,7 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
     shape: 'circle',
     progressiveTime: 0,
     progressiveStep: 0,
-    repeatFill: true,
+    repeatFill: false,
     fillTextFontSize: 12,
     maxFailCount: 20
   };
@@ -133,7 +133,7 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
   /* Return true if we had spent too much time */
   exceedTime() {
     if (this.options.progressiveStep > 0) {
-      return this.progressiveIndex >= ((this.currentStepIndex ?? 0) + 1) * this.options.progressiveStep;
+      return this.progressiveIndex >= ((this.currentStepIndex ?? -1) + 1) * this.options.progressiveStep;
     }
 
     return this.options.progressiveTime > 0 && new Date().getTime() - this.escapeTime > this.options.progressiveTime;
@@ -141,7 +141,7 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
 
   progressiveRun() {
     if (this.options.progressiveStep > 0) {
-      this.currentStepIndex = (this.currentStepIndex ?? 0) + 1;
+      this.currentStepIndex = (this.currentStepIndex ?? -1) + 1;
     } else if (this.options.progressiveTime > 0) {
       this.escapeTime = Date.now();
     }
@@ -200,7 +200,7 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
     this.failCount = 0;
     this.progressiveIndex = 0;
     if (this.options.progressiveStep > 0) {
-      this.currentStepIndex = 0;
+      this.currentStepIndex = -1;
     } else if (this.options.progressiveTime > 0) {
       this.escapeTime = Date.now();
     }

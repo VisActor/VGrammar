@@ -92,9 +92,13 @@ test('GridLayout when canvas is not empty', async () => {
     text: (datum: any) => datum.text,
     clip: true,
     fontFamily: 'sans-serif',
-    backgroundColor: 'pink'
+    shape: {
+      type: 'html',
+      backgroundColor: 'pink',
+      getDom: () => canvas
+    }
   });
-  const result = layout.layout(data, { width: 400, height: 400, canvas });
+  const result = layout.layout(data, { width: 400, height: 400 });
 
   expect(result.length).toBe(4);
   expect(result[0].datum).toBe(data[0]);
