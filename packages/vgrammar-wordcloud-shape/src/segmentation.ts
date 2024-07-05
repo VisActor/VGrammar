@@ -2,7 +2,7 @@ import type { CloudWordType, SegmentationInputType, SegmentationOutputType } fro
 import { loadImage } from './util';
 
 export function loadAndHandleImage(segmentationInput: SegmentationInputType): Promise<CanvasImageSource> {
-  const imagePromise = loadImage(segmentationInput.shapeUrl);
+  const imagePromise = loadImage(segmentationInput.shapeUrl as string);
 
   if (!imagePromise) {
     return null;
@@ -10,7 +10,12 @@ export function loadAndHandleImage(segmentationInput: SegmentationInputType): Pr
 
   return imagePromise.then((shapeImage: unknown) => {
     if (segmentationInput && segmentationInput.removeWhiteBorder && shapeImage) {
-      return removeBorder(shapeImage, segmentationInput.tempCanvas, segmentationInput.tempCtx);
+      return removeBorder(
+        shapeImage,
+        segmentationInput.tempCanvas,
+        segmentationInput.tempCtx,
+        segmentationInput.isEmptyPixel
+      );
     }
 
     return shapeImage;
@@ -49,7 +54,7 @@ export function segmentation(shapeImage: CanvasImageSource, segmentationInput: S
   for (let i = 0; i < size[1]; i++) {
     for (let j = 0; j < size[0]; j++) {
       // 当前单位域已被标记或者属于背景区域, 则跳过
-      if (labels[i * size[0] + j] !== 0 || isEmptyPixel(imageData, i, j)) {
+      if (labels[i * size[0] + j] !== 0 || segmentationInput.isEmptyPixel(imageData, i, j)) {
         continue;
       }
 
@@ -69,7 +74,7 @@ export function segmentation(shapeImage: CanvasImageSource, segmentationInput: S
           col = col < 0 ? 0 : col >= size[0] ? size[0] - 1 : col;
 
           // 邻近单位域未标记并且属于前景区域, 标记并加入队列
-          if (labels[row * size[0] + col] === 0 && !isEmptyPixel(imageData, row, col)) {
+          if (labels[row * size[0] + col] === 0 && !segmentationInput.isEmptyPixel(imageData, row, col)) {
             labels[row * size[0] + col] = curLabel;
             queue.push([row, col]);
           }
@@ -256,25 +261,14 @@ export function segmentation(shapeImage: CanvasImageSource, segmentationInput: S
 }
 
 /**
- * 判断一个像素是否是前景
- * 即 白色像素 or 透明度为 0
- * @param {*} i
- * @param {*} j
- */
-function isEmptyPixel(imageData: ImageData, i: number, j: number) {
-  const width = imageData.width;
-  return (
-    imageData.data[i * width * 4 + j * 4 + 3] === 0 ||
-    (imageData.data[i * width * 4 + j * 4 + 0] === 255 &&
-      imageData.data[i * width * 4 + j * 4 + 1] === 255 &&
-      imageData.data[i * width * 4 + j * 4 + 2] === 255)
-  );
-}
-
-/**
  * 移除图像中的白边
  */
-function removeBorder(image: any, canvas: HTMLCanvasElement | any, ctx: CanvasRenderingContext2D | null) {
+export function removeBorder(
+  image: any,
+  canvas: HTMLCanvasElement | any,
+  ctx: CanvasRenderingContext2D | null,
+  isEmptyPixel: (imageData: ImageData, i: number, j: number) => boolean
+) {
   canvas.width = image.width;
   canvas.height = image.height;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -286,16 +280,34 @@ function removeBorder(image: any, canvas: HTMLCanvasElement | any, ctx: CanvasRe
   let left = 0;
   let right = imageData.width;
 
-  while (top < bottom && rowBlank(imageData, width, top)) {
+  const rowBlank = (width: number, y: number) => {
+    for (let x = 0; x < width; ++x) {
+      if (!isEmptyPixel(imageData, y, x)) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const columnBlank = (x: number, y0: number, y1: number) => {
+    for (let y = y0; y < y1; ++y) {
+      if (!isEmptyPixel(imageData, y, x)) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  while (top < bottom && rowBlank(width, top)) {
     ++top;
   }
-  while (bottom - 1 > top && rowBlank(imageData, width, bottom - 1)) {
+  while (bottom - 1 > top && rowBlank(width, bottom - 1)) {
     --bottom;
   }
-  while (left < right && columnBlank(imageData, width, left, top, bottom)) {
+  while (left < right && columnBlank(left, top, bottom)) {
     ++left;
   }
-  while (right - 1 > left && columnBlank(imageData, width, right - 1, top, bottom)) {
+  while (right - 1 > left && columnBlank(right - 1, top, bottom)) {
     --right;
   }
 
@@ -306,24 +318,6 @@ function removeBorder(image: any, canvas: HTMLCanvasElement | any, ctx: CanvasRe
   ctx.putImageData(trimmed, 0, 0);
 
   return canvas;
-}
-
-function rowBlank(imageData: ImageData, width: number, y: number) {
-  for (let x = 0; x < width; ++x) {
-    if (!isEmptyPixel(imageData, y, x)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function columnBlank(imageData: ImageData, width: number, x: number, top: number, bottom: number) {
-  for (let y = top; y < bottom; ++y) {
-    if (!isEmptyPixel(imageData, y, x)) {
-      return false;
-    }
-  }
-  return true;
 }
 
 /**

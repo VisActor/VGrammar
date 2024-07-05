@@ -24,8 +24,14 @@ export type AsType = {
   isFillingWord: string;
   color: string;
 };
+export interface HtmlShape {
+  type: 'html';
+  backgroundColor?: string;
+  getDom: (width: number, height: number) => HTMLCanvasElement;
+}
+
 export type SegmentationInputType = {
-  shapeUrl: string;
+  shapeUrl: string | HtmlShape;
   size: [number, number];
   ratio: number;
   tempCanvas?: HTMLCanvasElement | any;
@@ -34,6 +40,7 @@ export type SegmentationInputType = {
   boardSize: [number, number];
   random: boolean;
   randomGenerator?: any;
+  isEmptyPixel?: (imageData: ImageData, i: number, j: number) => boolean;
 };
 export type ShapeConfigType = {
   x: number;
@@ -93,7 +100,7 @@ export type LayoutConfigType = {
   size: [number, number];
   ratio: number;
 
-  shapeUrl: string;
+  shapeUrl: string | HtmlShape;
   random: boolean;
   textLayoutTimes: number;
   removeWhiteBorder: boolean;
@@ -184,7 +191,7 @@ export interface WordCloudShapeOptions {
   rotateList?: number[];
 
   // layout 相关
-  shape: string;
+  shape: string | HtmlShape;
   random?: boolean;
   textLayoutTimes?: number;
   layoutMode?: 'default' | 'ensureMapping' | 'ensureMappingEnlarge';

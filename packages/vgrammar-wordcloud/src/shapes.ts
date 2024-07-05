@@ -80,11 +80,16 @@ export function getMaxRadiusAndCenter(shape: string, size: [number, number]) {
       center[1] = ~~(h / 1.5);
       maxRadius = Math.floor(Math.min(h / 1.5, w / 2));
       break;
-    case 'rect':
-      maxRadius = Math.floor(Math.max(h / 2, w / 2));
-      break;
-    default:
+    case 'circle':
+    case 'diamond':
+    case 'square':
+    case 'star':
+    case 'pentagon':
       maxRadius = Math.floor(Math.min(w / 2, h / 2));
+      break;
+    case 'rect':
+    default:
+      maxRadius = Math.floor(Math.max(w / 2, h / 2));
       break;
   }
   return { maxRadius, center };

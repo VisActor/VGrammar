@@ -10,6 +10,12 @@ export interface Rect {
   height: number;
 }
 
+export interface HtmlShape {
+  type: 'html';
+  backgroundColor?: string;
+  getDom: (width: number, height: number) => HTMLCanvasElement;
+}
+
 export interface IBaseLayoutOptions {
   text?: TagItemAttribute<string | number>;
   fontFamily?: TagItemAttribute<string>;
@@ -37,11 +43,17 @@ export interface IBaseLayoutOptions {
 
   random?: boolean;
   randomVisible?: boolean;
-  shape?: string | ((theta: number) => number);
+  shape?: string | ((theta: number) => number) | HtmlShape;
   progressiveTime?: number;
-  backgroundColor?: string;
   outputCallback?: (res: any[]) => any[];
   progressiveStep?: number;
+
+  repeatFill?: boolean;
+
+  fillTextFontSize?: number;
+
+  maxFailCount?: number;
+  maxSingleWordTryCount?: number;
 }
 
 /** the output type of layout */

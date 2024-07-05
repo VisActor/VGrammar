@@ -1,4 +1,4 @@
-import { degreeToRadian, isFunction, maxInArray, toNumber } from '@visactor/vutils';
+import { degreeToRadian, isFunction, isString, maxInArray, toNumber } from '@visactor/vutils';
 import type {
   CloudWordType,
   FieldOption,
@@ -9,12 +9,13 @@ import type {
   WordCloudShapeOptions,
   wordsConfigType
 } from './interface';
-import { loadAndHandleImage, segmentation } from './segmentation';
+import { loadAndHandleImage, removeBorder, segmentation } from './segmentation';
 import { WORDCLOUD_SHAPE_HOOK_EVENT, calTextLength, colorListEqual, fakeRandom, functor } from './util';
 import { LinearScale, OrdinalScale, SqrtScale } from '@visactor/vscale';
 import cloud from './cloud-shape-layout';
 import { type IProgressiveTransformResult, type IView } from '@visactor/vgrammar-core';
 import { vglobal } from '@visactor/vrender-core';
+import { generateIsEmptyPixel } from '@visactor/vgrammar-util';
 
 const OUTPUT = {
   x: 'x',
@@ -83,25 +84,42 @@ export class Layout implements IProgressiveTransformResult<any[]> {
     } else {
       segmentationInput.randomGenerator = fakeRandom();
     }
+    this.segmentationInput = segmentationInput;
+    if (isString(segmentationInput.shapeUrl)) {
+      segmentationInput.isEmptyPixel = generateIsEmptyPixel();
+      const imagePromise = loadAndHandleImage(segmentationInput);
 
-    const imagePromise = loadAndHandleImage(segmentationInput);
+      if (imagePromise) {
+        this.isImageFinished = false;
+        this.isLayoutFinished = false;
+        imagePromise
+          .then((shapeImage: CanvasImageSource) => {
+            this.shapeImage = shapeImage;
+            this.isImageFinished = true;
+          })
+          .catch(error => {
+            this.shapeImage = null;
+            this.isImageFinished = true;
+          });
+      } else {
+        this.isImageFinished = true;
+        this.isLayoutFinished = true;
+      }
+    } else if (segmentationInput.shapeUrl && segmentationInput.shapeUrl.type === 'html') {
+      segmentationInput.isEmptyPixel = generateIsEmptyPixel(segmentationInput.shapeUrl.backgroundColor);
 
-    if (imagePromise) {
-      this.segmentationInput = segmentationInput;
-      this.isImageFinished = false;
-      this.isLayoutFinished = false;
-      imagePromise
-        .then((shapeImage: CanvasImageSource) => {
-          this.shapeImage = shapeImage;
-          this.isImageFinished = true;
-        })
-        .catch(error => {
-          this.shapeImage = null;
-          this.isImageFinished = true;
-        });
-    } else {
+      // canvas shape
+      if (segmentationInput && segmentationInput.removeWhiteBorder) {
+        this.shapeImage = removeBorder(
+          segmentationInput.shapeUrl.getDom(options.size[0], options.size[1]) as HTMLCanvasElement,
+          segmentationInput.tempCanvas,
+          segmentationInput.tempCtx,
+          segmentationInput.isEmptyPixel
+        );
+      } else {
+        this.shapeImage = segmentationInput.shapeUrl.getDom(options.size[0], options.size[1]) as HTMLCanvasElement;
+      }
       this.isImageFinished = true;
-      this.isLayoutFinished = true;
     }
   }
 

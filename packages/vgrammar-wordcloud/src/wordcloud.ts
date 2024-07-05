@@ -52,6 +52,8 @@ export const transform = (
     progressiveStep?: number;
     depth_3d?: number;
     postProjection?: string;
+    dataIndexKey?: string;
+    repeatFill?: boolean;
   },
   upstreamData: any[]
 ) => {
@@ -124,6 +126,7 @@ export const transform = (
     random: randomVisible,
     progressiveStep: options.progressiveStep,
     progressiveTime: options.progressiveTime,
+    repeatFill: options.repeatFill,
     outputCallback: (words: any[]) => {
       const res: any[] = [];
       let t: any;
@@ -144,6 +147,10 @@ export const transform = (
           stereographicProjection(canvasSize, w, t, as, depth_3d);
         }
 
+        if (options.dataIndexKey) {
+          t[options.dataIndexKey] = `${i}`;
+        }
+
         res.push(t);
       }
       return res;
@@ -160,7 +167,6 @@ export const transform = (
       progressive: layout
     };
   }
-
   return layout.output();
 };
 

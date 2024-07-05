@@ -99,7 +99,8 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
 
   static defaultOptions: Partial<ICloudLayoutOptions> = {
     enlarge: false,
-    minFontSize: 2
+    minFontSize: 2,
+    maxSingleWordTryCount: 2
   };
 
   constructor(options: ICloudLayoutOptions) {
@@ -225,7 +226,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     this._bounds = null;
 
     const n = words.length;
-    let i = 0;
+    const i = 0;
 
     this.result = [];
     const data = words
@@ -256,25 +257,10 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
       .sort(function (a, b) {
         return b.fontSize - a.fontSize;
       });
-
+    this.originalData = data;
     this.data = data;
-    const maxSingleWordTryCount = 2;
-    let curWordTryCount = 0;
 
-    while (i < n) {
-      const drawn = this.layoutWord(i);
-
-      if (drawn || curWordTryCount >= maxSingleWordTryCount) {
-        i++;
-        curWordTryCount = 0;
-      } else {
-        curWordTryCount++;
-      }
-      this.progressiveIndex = i;
-      if (this.exceedTime()) {
-        break;
-      }
-    }
+    this.progressiveRun();
 
     if (!this.options.clip && this.options.enlarge && this._bounds) {
       this.shrinkBoard(this._bounds);

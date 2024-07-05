@@ -24,7 +24,9 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
     shape: 'circle',
     progressiveTime: 0,
     progressiveStep: 0,
-    backgroundColor: '#fff'
+    repeatFill: true,
+    fillTextFontSize: 12,
+    maxFailCount: 20
   };
 
   options: Partial<T>;
@@ -43,17 +45,22 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
   escapeTime?: number;
   result: TagOutputItem[];
   data?: any[];
+  originalData?: any[];
   currentStepIndex?: number;
   progressiveIndex?: number;
   progressiveResult?: TagOutputItem[];
+  drawnCount?: number;
+  isTryRepeatFill?: boolean;
+
+  failCount?: number;
 
   constructor(options: Partial<T>) {
     this.options = merge({}, BaseLayout.defaultOptions, options);
 
-    if (!isFunction(this.options.shape)) {
-      this.shape = getShapeFunction(this.options.shape as string);
-    } else {
+    if (isFunction(this.options.shape)) {
       this.shape = this.options.shape;
+    } else {
+      this.shape = getShapeFunction(this.options.shape as string);
     }
 
     /* function for getting the font-weight of the text */
@@ -119,6 +126,10 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
     }
   }
 
+  canRepeat() {
+    return false;
+  }
+
   /* Return true if we had spent too much time */
   exceedTime() {
     if (this.options.progressiveStep > 0) {
@@ -135,18 +146,41 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
       this.escapeTime = Date.now();
     }
 
-    if (this.data && this.progressiveIndex && this.progressiveIndex < this.data.length) {
+    if (this.data && this.progressiveIndex < this.data.length) {
       this.progressiveResult = [];
-      const len = this.data.length;
       let i = this.progressiveIndex;
 
-      while (i < len) {
-        const drawn = this.layoutWord(i);
+      let curWordTryCount = 0;
+      const maxSingleWordTryCount = this.options.maxSingleWordTryCount;
 
-        i++;
+      while (i < this.data.length && this.failCount <= this.options.maxFailCount) {
+        const drawn = this.layoutWord(i);
+        curWordTryCount++;
+
+        if (drawn || curWordTryCount >= maxSingleWordTryCount) {
+          i++;
+          curWordTryCount = 0;
+          this.failCount = drawn ? 0 : this.failCount + 1;
+        }
         this.progressiveIndex = i;
         if (this.exceedTime()) {
           break;
+        } else if (
+          i === this.data.length &&
+          this.failCount <= this.options.maxFailCount &&
+          this.options.repeatFill &&
+          this.canRepeat()
+        ) {
+          this.data = [
+            ...this.data,
+            ...this.originalData.map(entry => {
+              return {
+                ...entry,
+                isFill: true
+              };
+            })
+          ];
+          this.isTryRepeatFill = true;
         }
       }
 
@@ -163,7 +197,8 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
   ): any[];
 
   initProgressive() {
-    this.progressiveIndex = -1;
+    this.failCount = 0;
+    this.progressiveIndex = 0;
     if (this.options.progressiveStep > 0) {
       this.currentStepIndex = 0;
     } else if (this.options.progressiveTime > 0) {
