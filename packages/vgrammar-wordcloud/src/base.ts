@@ -152,8 +152,9 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
 
       let curWordTryCount = 0;
       const maxSingleWordTryCount = this.options.maxSingleWordTryCount;
+      const maxFailCount = Math.min(this.options.maxFailCount, this.originalData.length);
 
-      while (i < this.data.length && this.failCount <= this.options.maxFailCount) {
+      while (i < this.data.length && this.failCount < maxFailCount) {
         const drawn = this.layoutWord(i);
         curWordTryCount++;
 
@@ -167,7 +168,7 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
           break;
         } else if (
           i === this.data.length &&
-          this.failCount <= this.options.maxFailCount &&
+          this.failCount < maxFailCount &&
           this.options.repeatFill &&
           this.canRepeat()
         ) {
