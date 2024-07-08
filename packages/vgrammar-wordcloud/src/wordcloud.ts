@@ -83,7 +83,7 @@ export const transform = (
   const clip = options.clip ?? false;
   const minFontSize = options.minFontSize;
   const randomVisible = options.randomVisible;
-  const as = options.as || OUTPUT;
+  const as = options.as ? { ...OUTPUT, ...options.as } : OUTPUT;
   const depth_3d = options.depth_3d;
   const postProjection = options.postProjection;
 
@@ -93,7 +93,7 @@ export const transform = (
   // 只有fontSize不为固定值时，fontSizeRange才生效
   if (fontSizeRange && !isNumber(fontSize)) {
     const fsize: any = fontSize;
-    const fontSizeSqrtScale = generateSqrtScale(extent(fsize, data), fontSizeRange as number[]);
+    const fontSizeSqrtScale = generateScale(extent(fsize, data), fontSizeRange as number[]);
 
     fontSize = datum => {
       return fontSizeSqrtScale(fsize(datum));
@@ -183,11 +183,10 @@ const sqrt = (x: number) => {
 };
 
 // simulation sqrt scale
-const generateSqrtScale = (domain: number[], range: number[]) => {
+const generateScale = (domain: number[], range: number[], type?: 'linear' | 'sqrt') => {
   if (domain[0] === domain[1]) {
     return (datum: number) => range[0]; // match smallest fontsize
   }
-
   const s0 = sqrt(domain[0]);
   const s1 = sqrt(domain[1]);
   const min = Math.min(s0, s1);

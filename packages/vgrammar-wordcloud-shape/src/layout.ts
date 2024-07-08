@@ -119,7 +119,9 @@ export class Layout implements IProgressiveTransformResult<any[]> {
       } else {
         this.shapeImage = segmentationInput.shapeUrl.getDom(options.size[0], options.size[1]) as HTMLCanvasElement;
       }
+      this.doLayout();
       this.isImageFinished = true;
+      this.isLayoutFinished = true;
     }
   }
 
@@ -308,7 +310,7 @@ export class Layout implements IProgressiveTransformResult<any[]> {
     const dataIndexKey = options.dataIndexKey ?? 'defaultDataIndexKey';
 
     /** step5: 将单词信息转换为输出 */
-    const as = options.as || OUTPUT;
+    const as = options.as ? { ...OUTPUT, ...options.as } : OUTPUT;
     let w;
     let t;
     const modKeywords = [];
@@ -333,7 +335,7 @@ export class Layout implements IProgressiveTransformResult<any[]> {
 
     const fillingWordsData: any[] = [];
     fillingWords.forEach((word, index) => {
-      const t = {};
+      const t = { ...word.datum };
       t[as.x] = word.x;
       t[as.y] = word.y;
       t[as.fontFamily] = word.fontFamily;
