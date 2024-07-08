@@ -136,7 +136,7 @@ export type LayoutConfigType = {
 
   minInitFontSize: number;
   minFontSize: number;
-  minFillFoontSize: number;
+  minFillFontSize: number;
 };
 export type CloudWordType = {
   x: number;
@@ -236,5 +236,5 @@ export interface WordCloudShapeOptions {
   // 核心词最小布局字号
   minFontSize?: number;
   // 填充词词最小布局字号
-  minFillFoontSize?: number;
+  minFillFontSize?: number;
 }

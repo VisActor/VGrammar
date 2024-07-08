@@ -237,7 +237,7 @@ export class Layout implements IProgressiveTransformResult<any[]> {
 
       minInitFontSize: options.minInitFontSize || 10,
       minFontSize: options.minFontSize || 4,
-      minFillFoontSize: options.minFillFoontSize || 2
+      minFillFontSize: options.minFillFontSize || 2
     };
     // 核心词与填充词colorList和colorField不一致时，会给填充词设置独立scale
     const sameColorList = colorListEqual(wordsConfig.colorList, layoutConfig.fillingColorList);

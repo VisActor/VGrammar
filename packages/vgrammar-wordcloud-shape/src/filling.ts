@@ -22,7 +22,7 @@ export function filling(
     getFillingPadding,
     random,
     board,
-    minFillFoontSize
+    minFillFontSize
   } = layoutConfig;
 
   const { boardSize, shapeBounds, tempCtx: ctx, tempCanvas: canvas, randomGenerator } = segmentationOutput;
@@ -39,7 +39,7 @@ export function filling(
     // 完成一次填充，则更新一下填充词的属性，继续下一次填充
     fontSize = Math.max(
       fontSize > fillingDeltaFontSize ? fontSize - fillingDeltaFontSize : fillingDeltaFontSize,
-      minFillFoontSize
+      minFillFontSize
     ); // 填充词最小字号4px
     opacity = opacity > fillingDeltaOpacity ? opacity - fillingDeltaOpacity : fillingDeltaOpacity;
   }
