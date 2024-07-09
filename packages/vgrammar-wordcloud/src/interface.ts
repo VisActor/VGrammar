@@ -1,3 +1,5 @@
+import type { GeometricMaskShape, TextShapeMask } from '@visactor/vgrammar-util';
+
 export type TagItemAttribute<T> = T | ((d?: any) => T);
 
 export type TagItemFunction<T> = (d?: any, i?: number) => T;
@@ -8,12 +10,6 @@ export interface Rect {
   y: number;
   width: number;
   height: number;
-}
-
-export interface HtmlShape {
-  type: 'html';
-  backgroundColor?: string;
-  getDom: (width: number, height: number) => HTMLCanvasElement;
 }
 
 export interface IBaseLayoutOptions {
@@ -43,7 +39,7 @@ export interface IBaseLayoutOptions {
 
   random?: boolean;
   randomVisible?: boolean;
-  shape?: string | ((theta: number) => number) | HtmlShape;
+  shape?: string | ((theta: number) => number) | TextShapeMask | GeometricMaskShape;
   progressiveTime?: number;
   outputCallback?: (res: any[]) => any[];
   progressiveStep?: number;
@@ -54,6 +50,7 @@ export interface IBaseLayoutOptions {
 
   maxFailCount?: number;
   maxSingleWordTryCount?: number;
+  onUpdateMaskCanvas?: (canvas?: HTMLCanvasElement) => void;
 }
 
 /** the output type of layout */

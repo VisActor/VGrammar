@@ -8,7 +8,6 @@ export function layout(
   const { size, stepFactor } = layoutConfig;
   const {
     segmentation: { regions },
-    tempCtx: ctx,
     tempCanvas: canvas,
     boardSize,
     shapeCenter,
@@ -16,6 +15,7 @@ export function layout(
     shapeRatio
   } = segmentationOutput;
   const board = initBoardWithShape(segmentationOutput);
+  const ctx = canvas.getContext('2d');
 
   // 对每个区域开始进行布局
   for (const region of regions) {
@@ -73,14 +73,11 @@ export function layoutSelfShrink(
   const { size, stepFactor } = layoutConfig;
   const {
     segmentation: { regions },
-    tempCtx: ctx,
     tempCanvas: canvas,
-    boardSize,
-    shapeCenter,
-    shapeMaxR,
-    shapeRatio
+    boardSize
   } = segmentationOutput;
   const board = initBoardWithShape(segmentationOutput);
+  const ctx = canvas.getContext('2d');
 
   // 对每个区域开始进行布局
   for (const region of regions) {
@@ -150,13 +147,13 @@ export function layoutGlobalShrink(
   const {
     size,
     segmentation: { regions },
-    tempCtx: ctx,
     tempCanvas: canvas,
     boardSize,
     shapeCenter,
     shapeMaxR,
     shapeRatio
   } = segmentationOutput;
+  const ctx = canvas.getContext('2d');
   const boardOrigin = initBoardWithShape(segmentationOutput);
   let board = boardOrigin.slice(0);
 
@@ -275,13 +272,13 @@ export function layoutSelfEnlarge(
   const { size, stepFactor, importantWordCount } = layoutConfig;
   const {
     segmentation: { regions },
-    tempCtx: ctx,
     tempCanvas: canvas,
     boardSize,
     shapeCenter,
     shapeMaxR,
     shapeRatio
   } = segmentationOutput;
+  const ctx = canvas.getContext('2d');
   const boardOrigin = initBoardWithShape(segmentationOutput);
   let board = boardOrigin.slice(0);
 

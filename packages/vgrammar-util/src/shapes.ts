@@ -45,7 +45,7 @@ function triangleForward() {
 }
 function cardioid() {
   return function (theta: number) {
-    return 1 - Math.sin(theta);
+    return 1 + Math.sin(theta);
   };
 }
 function circle() {
@@ -69,7 +69,7 @@ export function getMaxRadiusAndCenter(shape: string, size: [number, number]) {
 
   switch (shape) {
     case 'cardioid':
-      center[1] = ~~((h / 2.7) * 0.6);
+      center[1] = ~~((h / 2.7) * 0.4);
       maxRadius = Math.floor(Math.min(w / 2.3, h / 2.6));
       break;
     case 'triangleForward':

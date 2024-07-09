@@ -1,41 +1,13 @@
 import type { CloudWordType, SegmentationInputType, SegmentationOutputType } from './interface';
-import { loadImage } from './util';
-
-export function loadAndHandleImage(segmentationInput: SegmentationInputType): Promise<CanvasImageSource> {
-  const imagePromise = loadImage(segmentationInput.shapeUrl as string);
-
-  if (!imagePromise) {
-    return null;
-  }
-
-  return imagePromise.then((shapeImage: unknown) => {
-    if (segmentationInput && segmentationInput.removeWhiteBorder && shapeImage) {
-      return removeBorder(
-        shapeImage,
-        segmentationInput.tempCanvas,
-        segmentationInput.tempCtx,
-        segmentationInput.isEmptyPixel
-      );
-    }
-
-    return shapeImage;
-  });
-}
 
 /**
  * 求图像连通区域的个数、面积、边界、中心点
  * @param {*} shape 图像 base64
  * @param {*} size 画布大小
  */
-export function segmentation(shapeImage: CanvasImageSource, segmentationInput: SegmentationInputType) {
-  const { size, tempCanvas, tempCtx: ctx } = segmentationInput;
-  const shapeConfig = scaleAndMiddleShape(shapeImage, size);
-  //   config.shapeConfig = shapeConfig
-
-  tempCanvas.width = size[0];
-  tempCanvas.height = size[1];
-  ctx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
-  ctx.drawImage(shapeImage, shapeConfig.x, shapeConfig.y, shapeConfig.width, shapeConfig.height);
+export function segmentation(segmentationInput: SegmentationInputType) {
+  const { size, maskCanvas } = segmentationInput;
+  const ctx = maskCanvas.getContext('2d');
   const imageData = ctx.getImageData(0, 0, size[0], size[1]);
   // 保存分组标签，0 是背景(像素为白色或透明度为 0)，>1 的分组
   const labels = new Array(size[0] * size[1]).fill(0);
@@ -216,7 +188,6 @@ export function segmentation(shapeImage: CanvasImageSource, segmentationInput: S
   };
   return Object.assign(segmentationInput, {
     segmentation,
-    shapeConfig,
     shapeBounds,
     shapeMaxR,
     shapeRatio,
@@ -266,11 +237,11 @@ export function segmentation(shapeImage: CanvasImageSource, segmentationInput: S
 export function removeBorder(
   image: any,
   canvas: HTMLCanvasElement | any,
-  ctx: CanvasRenderingContext2D | null,
   isEmptyPixel: (imageData: ImageData, i: number, j: number) => boolean
 ) {
   canvas.width = image.width;
   canvas.height = image.height;
+  const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(image, 0, 0);
   const width = canvas.width;
@@ -324,7 +295,7 @@ export function removeBorder(
  * 调整图像大小和位置，将图像按照长边缩放到适应画布大小，并且居中
  * 此处让图片占满画布，padding 不是这个 transform 需要考虑的
  */
-function scaleAndMiddleShape(image: any, size: [number, number]) {
+export function scaleAndMiddleShape(image: any, size: [number, number]) {
   const width = image.width;
   const height = image.height;
   let scale = size[0] / width;

@@ -1,7 +1,7 @@
 import { array, degreeToRadian, isFunction, isNil, merge, seedRandom } from '@visactor/vutils';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import type { IBaseLayoutOptions, TagItemFunction, TagOutputItem } from './interface';
-import { getShapeFunction } from './shapes';
+import { getShapeFunction } from '@visactor/vgrammar-util';
 import { functor, randomHslColor } from './util';
 
 export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgressiveTransformResult {

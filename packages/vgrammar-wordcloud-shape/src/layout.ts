@@ -9,13 +9,13 @@ import type {
   WordCloudShapeOptions,
   wordsConfigType
 } from './interface';
-import { loadAndHandleImage, removeBorder, segmentation } from './segmentation';
-import { WORDCLOUD_SHAPE_HOOK_EVENT, calTextLength, colorListEqual, fakeRandom, functor } from './util';
+import { removeBorder, scaleAndMiddleShape, segmentation } from './segmentation';
+import { WORDCLOUD_SHAPE_HOOK_EVENT, calTextLength, colorListEqual, fakeRandom, functor, loadImage } from './util';
 import { LinearScale, OrdinalScale, SqrtScale } from '@visactor/vscale';
 import cloud from './cloud-shape-layout';
 import { type IProgressiveTransformResult, type IView } from '@visactor/vgrammar-core';
 import { vglobal } from '@visactor/vrender-core';
-import { generateIsEmptyPixel } from '@visactor/vgrammar-util';
+import { generateIsEmptyPixel, generateMaskCanvas } from '@visactor/vgrammar-util';
 
 const OUTPUT = {
   x: 'x',
@@ -39,7 +39,6 @@ export class Layout implements IProgressiveTransformResult<any[]> {
 
   private isImageFinished?: boolean;
   private isLayoutFinished?: boolean;
-  private shapeImage: CanvasImageSource;
   private progressiveResult?: any[] = [];
   private segmentationInput?: SegmentationInputType;
 
@@ -59,8 +58,6 @@ export class Layout implements IProgressiveTransformResult<any[]> {
       size: options.size,
       ratio: options.ratio || 0.8,
       tempCanvas: undefined,
-      tempCtx: undefined,
-      removeWhiteBorder: options.removeWhiteBorder || false,
       boardSize: [0, 0],
       random: false,
       randomGenerator: undefined
@@ -72,7 +69,6 @@ export class Layout implements IProgressiveTransformResult<any[]> {
     tempCtx.textAlign = 'center';
     tempCtx.textBaseline = 'middle';
     segmentationInput.tempCanvas = tempCanvas;
-    segmentationInput.tempCtx = tempCtx;
 
     // board 的宽必须为 32 的倍数
     const boardW = ((options.size[0] + 31) >> 5) << 5;
@@ -87,37 +83,46 @@ export class Layout implements IProgressiveTransformResult<any[]> {
     this.segmentationInput = segmentationInput;
     if (isString(segmentationInput.shapeUrl)) {
       segmentationInput.isEmptyPixel = generateIsEmptyPixel();
-      const imagePromise = loadAndHandleImage(segmentationInput);
+      const imagePromise = loadImage(segmentationInput.shapeUrl);
 
       if (imagePromise) {
         this.isImageFinished = false;
         this.isLayoutFinished = false;
         imagePromise
-          .then((shapeImage: CanvasImageSource) => {
-            this.shapeImage = shapeImage;
+          .then(shapeImage => {
             this.isImageFinished = true;
+            const dpr = vglobal.devicePixelRatio;
+            const maskCanvas = vglobal.createCanvas({ width: options.size[0], height: options.size[1], dpr });
+            segmentationInput.maskCanvas = maskCanvas;
+            const ctx = maskCanvas.getContext('2d');
+            if (options.removeWhiteBorder) {
+              removeBorder(shapeImage, maskCanvas, segmentationInput.isEmptyPixel);
+            }
+            const shapeConfig = scaleAndMiddleShape(shapeImage, options.size);
+            ctx.clearRect(0, 0, options.size[0], options.size[1]);
+            ctx.drawImage(shapeImage, shapeConfig.x, shapeConfig.y, shapeConfig.width, shapeConfig.height);
+
+            if (this.options.onUpdateMaskCanvas) {
+              this.options.onUpdateMaskCanvas(segmentationInput.maskCanvas);
+            }
           })
           .catch(error => {
-            this.shapeImage = null;
             this.isImageFinished = true;
           });
       } else {
         this.isImageFinished = true;
         this.isLayoutFinished = true;
       }
-    } else if (segmentationInput.shapeUrl && segmentationInput.shapeUrl.type === 'html') {
+    } else if (
+      segmentationInput.shapeUrl &&
+      (segmentationInput.shapeUrl.type === 'text' || segmentationInput.shapeUrl.type === 'geometric')
+    ) {
       segmentationInput.isEmptyPixel = generateIsEmptyPixel(segmentationInput.shapeUrl.backgroundColor);
+      const maskCanvas = generateMaskCanvas(segmentationInput.shapeUrl, options.size[0], options.size[1]);
+      segmentationInput.maskCanvas = maskCanvas;
 
-      // canvas shape
-      if (segmentationInput && segmentationInput.removeWhiteBorder) {
-        this.shapeImage = removeBorder(
-          segmentationInput.shapeUrl.getDom(options.size[0], options.size[1]) as HTMLCanvasElement,
-          segmentationInput.tempCanvas,
-          segmentationInput.tempCtx,
-          segmentationInput.isEmptyPixel
-        );
-      } else {
-        this.shapeImage = segmentationInput.shapeUrl.getDom(options.size[0], options.size[1]) as HTMLCanvasElement;
+      if (this.options.onUpdateMaskCanvas) {
+        this.options.onUpdateMaskCanvas(maskCanvas);
       }
       this.doLayout();
       this.isImageFinished = true;
@@ -138,7 +143,7 @@ export class Layout implements IProgressiveTransformResult<any[]> {
       return;
     }
 
-    if (this.shapeImage) {
+    if (this.segmentationInput.maskCanvas) {
       this.doLayout();
     }
 
@@ -152,7 +157,7 @@ export class Layout implements IProgressiveTransformResult<any[]> {
   doLayout() {
     const segmentationInput = this.segmentationInput;
     // 对用户输入的图形进行预处理
-    const segmentationOutput: SegmentationOutputType = segmentation(this.shapeImage, segmentationInput);
+    const segmentationOutput: SegmentationOutputType = segmentation(segmentationInput);
     const options = this.options;
     const data = this.data;
 
@@ -196,40 +201,40 @@ export class Layout implements IProgressiveTransformResult<any[]> {
       // layout 相关
       shapeUrl: options.shape,
       random: typeof options.random === 'undefined' ? true : options.random,
-      textLayoutTimes: options.textLayoutTimes || 3,
-      removeWhiteBorder: options.removeWhiteBorder || false,
-      layoutMode: options.layoutMode || 'default',
-      fontSizeShrinkFactor: options.fontSizeShrinkFactor || 0.8,
-      stepFactor: options.stepFactor || 1,
-      importantWordCount: options.importantWordCount || 10,
+      textLayoutTimes: options.textLayoutTimes ?? 3,
+      removeWhiteBorder: options.removeWhiteBorder,
+      layoutMode: options.layoutMode ?? 'default',
+      fontSizeShrinkFactor: options.fontSizeShrinkFactor ?? 0.8,
+      stepFactor: options.stepFactor ?? 1,
+      importantWordCount: options.importantWordCount ?? 10,
       globalShinkLimit: options.globalShinkLimit || 0.2,
       // textLengthLimit: 10,
-      fontSizeEnlargeFactor: options.fontSizeEnlargeFactor || 1.5,
+      fontSizeEnlargeFactor: options.fontSizeEnlargeFactor ?? 1.5,
 
       // fill 相关
-      fillingRatio: options.fillingRatio || 0.7,
-      fillingTimes: options.fillingTimes || 4,
+      fillingRatio: options.fillingRatio ?? 0.7,
+      fillingTimes: options.fillingTimes ?? 4,
       // fillingXRatioStep: options.fillingXRatioStep || 0,
       // fillingYRatioStep: options.fillingYRatioStep || 0,
       // fillingRatioStep: 步长占长宽的比例，优先级高于fillingStep
       fillingXStep: options.fillingXRatioStep
         ? Math.max(Math.floor(options.size[0] * options.fillingXRatioStep), 1)
-        : options.fillingXStep || 4,
+        : options.fillingXStep ?? 4,
       fillingYStep: options.fillingYRatioStep
         ? Math.max(Math.floor(options.size[1] * options.fillingYRatioStep), 1)
-        : options.fillingYStep || 4,
+        : options.fillingYStep ?? 4,
       fillingInitialFontSize: options.fillingInitialFontSize,
       fillingDeltaFontSize: options.fillingDeltaFontSize,
-      fillingInitialOpacity: options.fillingInitialOpacity || 0.8,
-      fillingDeltaOpacity: options.fillingDeltaOpacity || 0.05,
+      fillingInitialOpacity: options.fillingInitialOpacity ?? 0.8,
+      fillingDeltaOpacity: options.fillingDeltaOpacity ?? 0.05,
 
       // fill font style 相关
       getFillingFontFamily: field(options.fillingFontFamily || 'sans-serif'),
       getFillingFontStyle: field(options.fillingFontStyle || 'normal'),
       getFillingFontWeight: field(options.fillingFontWeight || 'normal'),
-      getFillingPadding: field(options.fillingPadding || 0.4),
-      fillingRotateList: options.fillingRotateList || [0, 90],
-      fillingDeltaFontSizeFactor: options.fillingDeltaFontSizeFactor || 0.2,
+      getFillingPadding: field(options.fillingPadding ?? 0.4),
+      fillingRotateList: options.fillingRotateList ?? [0, 90],
+      fillingDeltaFontSizeFactor: options.fillingDeltaFontSizeFactor ?? 0.2,
 
       // fill color 相关
       fillingColorList: options.fillingColorList || ['#537EF5'],
@@ -237,9 +242,9 @@ export class Layout implements IProgressiveTransformResult<any[]> {
       // 经过计算，补充的内容
       sameColorList: false,
 
-      minInitFontSize: options.minInitFontSize || 10,
-      minFontSize: options.minFontSize || 4,
-      minFillFontSize: options.minFillFontSize || 2
+      minInitFontSize: options.minInitFontSize ?? 10,
+      minFontSize: options.minFontSize ?? 4,
+      minFillFontSize: options.minFillFontSize ?? 2
     };
     // 核心词与填充词colorList和colorField不一致时，会给填充词设置独立scale
     const sameColorList = colorListEqual(wordsConfig.colorList, layoutConfig.fillingColorList);
@@ -372,7 +377,6 @@ export class Layout implements IProgressiveTransformResult<any[]> {
   release() {
     this.segmentationInput = null;
     this.data = null;
-    this.shapeImage = null;
     this.progressiveResult = null;
     this.options = null;
   }
@@ -602,7 +606,6 @@ function initFillingWordsFontSize(
   const { getText } = wordsConfig;
   let { fillingInitialFontSize, fillingDeltaFontSize } = layoutConfig;
   const { fillingRatio } = layoutConfig;
-
   /*
    * 为避免考虑超长词将字号范围计算的非常小，并且超长词同时无法正确布局的情况
    * 需要在计算字号范围时排除超长词，超长词确定标准：

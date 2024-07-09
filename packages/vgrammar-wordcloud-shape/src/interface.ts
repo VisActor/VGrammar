@@ -1,3 +1,5 @@
+import type { GeometricMaskShape, TextShapeMask } from '@visactor/vgrammar-util';
+
 export type TagItemAttribute<T> = T | ((d?: any) => T);
 
 export type TagItemFunction<T> = (d?: any) => T;
@@ -24,19 +26,13 @@ export type AsType = {
   isFillingWord: string;
   color: string;
 };
-export interface HtmlShape {
-  type: 'html';
-  backgroundColor?: string;
-  getDom: (width: number, height: number) => HTMLCanvasElement;
-}
 
 export type SegmentationInputType = {
-  shapeUrl: string | HtmlShape;
+  shapeUrl: string | TextShapeMask | GeometricMaskShape;
   size: [number, number];
   ratio: number;
+  maskCanvas?: HTMLCanvasElement;
   tempCanvas?: HTMLCanvasElement | any;
-  tempCtx?: CanvasRenderingContext2D | null;
-  removeWhiteBorder: boolean;
   boardSize: [number, number];
   random: boolean;
   randomGenerator?: any;
@@ -64,7 +60,6 @@ export type ShapeBoundsType = {
 };
 export interface SegmentationOutputType extends SegmentationInputType {
   segmentation: segmentationType;
-  shapeConfig: ShapeConfigType;
   shapeBounds: ShapeBoundsType;
   shapeMaxR: number;
   shapeRatio: number;
@@ -100,7 +95,7 @@ export type LayoutConfigType = {
   size: [number, number];
   ratio: number;
 
-  shapeUrl: string | HtmlShape;
+  shapeUrl: string | TextShapeMask | GeometricMaskShape;
   random: boolean;
   textLayoutTimes: number;
   removeWhiteBorder: boolean;
@@ -191,7 +186,7 @@ export interface WordCloudShapeOptions {
   rotateList?: number[];
 
   // layout 相关
-  shape: string | HtmlShape;
+  shape: string | TextShapeMask | GeometricMaskShape;
   random?: boolean;
   textLayoutTimes?: number;
   layoutMode?: 'default' | 'ensureMapping' | 'ensureMappingEnlarge';
@@ -237,4 +232,6 @@ export interface WordCloudShapeOptions {
   minFontSize?: number;
   // 填充词词最小布局字号
   minFillFontSize?: number;
+
+  onUpdateMaskCanvas?: (canvas?: HTMLCanvasElement) => void;
 }

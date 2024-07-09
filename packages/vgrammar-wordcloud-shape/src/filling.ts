@@ -25,7 +25,8 @@ export function filling(
     minFillFontSize
   } = layoutConfig;
 
-  const { boardSize, shapeBounds, tempCtx: ctx, tempCanvas: canvas, randomGenerator } = segmentationOutput;
+  const { boardSize, shapeBounds, tempCanvas: canvas, randomGenerator } = segmentationOutput;
+  const ctx = canvas.getContext('2d');
 
   // const padding = fillingPadding
 

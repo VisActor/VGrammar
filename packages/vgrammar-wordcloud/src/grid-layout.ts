@@ -8,11 +8,11 @@ import { type IProgressiveTransformResult } from '@visactor/vgrammar-core';
  * Released under the MIT license
  */
 
-import type { HtmlShape, IBaseLayoutOptions } from './interface';
-import { getMaxRadiusAndCenter } from './shapes';
+import type { IBaseLayoutOptions } from './interface';
 import { isObject, merge, shuffleArray } from '@visactor/vutils';
 import { BaseLayout } from './base';
-import { generateIsEmptyPixel } from '@visactor/vgrammar-util';
+import type { CanvasMaskShape } from '@visactor/vgrammar-util';
+import { generateIsEmptyPixel, generateMaskCanvas, getMaxRadiusAndCenter } from '@visactor/vgrammar-util';
 
 interface IGridLayoutOptions extends IBaseLayoutOptions {
   gridSize?: number;
@@ -431,15 +431,18 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
     this.grid = [];
     const shape = this.options.shape;
 
-    if (isObject(shape) && (shape as HtmlShape).type === 'html' && (shape as HtmlShape).getDom) {
+    if (isObject(shape)) {
+      const canvas = generateMaskCanvas(shape as CanvasMaskShape, config.width, config.height);
       /* Read back the pixels of the canvas we got to tell which part of the
       canvas is empty.
       (no clearCanvas only works with a canvas, not divs) */
-      let imageData = ((shape as HtmlShape).getDom(config.width, config.height) as HTMLCanvasElement)
-        .getContext('2d')
-        .getImageData(0, 0, this.ngx * this.gridSize, this.ngy * this.gridSize);
+      let imageData = canvas.getContext('2d').getImageData(0, 0, this.ngx * this.gridSize, this.ngy * this.gridSize);
 
-      let isEmptyPixel = generateIsEmptyPixel((shape as HtmlShape).backgroundColor);
+      if (this.options.onUpdateMaskCanvas) {
+        this.options.onUpdateMaskCanvas(canvas);
+      }
+
+      let isEmptyPixel = generateIsEmptyPixel((shape as CanvasMaskShape).backgroundColor);
       let i;
       const singleGridLoop = (gx: number, gy: number) => {
         let y = this.gridSize;

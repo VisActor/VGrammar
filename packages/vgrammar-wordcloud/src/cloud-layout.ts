@@ -14,7 +14,7 @@ import { vglobal } from '@visactor/vrender-core';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import { isString, merge } from '@visactor/vutils';
 import type { Bounds, IBaseLayoutOptions, TagItemAttribute, TagItemFunction, TagOutputItem } from './interface';
-import { getMaxRadiusAndCenter } from './shapes';
+import { getMaxRadiusAndCenter } from '@visactor/vgrammar-util';
 import { BaseLayout } from './base';
 import { spirals } from './spirals';
 import { functor } from './util';
