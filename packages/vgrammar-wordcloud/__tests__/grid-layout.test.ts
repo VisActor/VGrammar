@@ -71,15 +71,6 @@ test('GridLayout() when clip is true, some words will be drop', async () => {
 });
 
 test('GridLayout when canvas is not empty', async () => {
-  const canvas = document.createElement('canvas');
-  canvas.width = 400;
-  canvas.height = 400;
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'pink';
-  ctx.fillRect(0, 0, 400, 400);
-  ctx.fillStyle = 'white';
-  ctx.fillRect(100, 100, 200, 200);
-
   const data = [
     { text: 'foo', fontSize: 49, index: 0 },
     { text: 'bar', fontSize: 36, index: 1 },
@@ -93,9 +84,9 @@ test('GridLayout when canvas is not empty', async () => {
     clip: true,
     fontFamily: 'sans-serif',
     shape: {
-      type: 'html',
-      backgroundColor: 'pink',
-      getDom: () => canvas
+      type: 'geometric',
+      shape: 'rect',
+      backgroundColor: 'pink'
     }
   });
   const result = layout.layout(data, { width: 400, height: 400 });
