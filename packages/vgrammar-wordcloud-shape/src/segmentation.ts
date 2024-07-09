@@ -8,7 +8,7 @@ import type { CloudWordType, SegmentationInputType, SegmentationOutputType } fro
 export function segmentation(segmentationInput: SegmentationInputType) {
   const { size, maskCanvas } = segmentationInput;
   const ctx = maskCanvas.getContext('2d');
-  const imageData = ctx.getImageData(0, 0, size[0], size[1]);
+  const imageData = ctx.getImageData(0, 0, maskCanvas.width, maskCanvas.height);
   // 保存分组标签，0 是背景(像素为白色或透明度为 0)，>1 的分组
   const labels = new Array(size[0] * size[1]).fill(0);
   // 当前的种子标签

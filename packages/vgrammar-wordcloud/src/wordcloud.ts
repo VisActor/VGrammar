@@ -110,6 +110,7 @@ export const transform = (
 
   /** 执行布局算法 */
   const layout = new Layout({
+    ...options,
     text,
     padding,
     spiral,
@@ -124,9 +125,6 @@ export const transform = (
     enlarge,
     minFontSize,
     random: randomVisible,
-    progressiveStep: options.progressiveStep,
-    progressiveTime: options.progressiveTime,
-    repeatFill: options.repeatFill,
     outputCallback: (words: any[]) => {
       const res: any[] = [];
       let t: any;

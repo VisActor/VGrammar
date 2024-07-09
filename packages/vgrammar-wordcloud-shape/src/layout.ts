@@ -91,8 +91,7 @@ export class Layout implements IProgressiveTransformResult<any[]> {
         imagePromise
           .then(shapeImage => {
             this.isImageFinished = true;
-            const dpr = vglobal.devicePixelRatio;
-            const maskCanvas = vglobal.createCanvas({ width: options.size[0], height: options.size[1], dpr });
+            const maskCanvas = vglobal.createCanvas({ width: options.size[0], height: options.size[1], dpr: 1 });
             segmentationInput.maskCanvas = maskCanvas;
             const ctx = maskCanvas.getContext('2d');
             if (options.removeWhiteBorder) {

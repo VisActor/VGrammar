@@ -42,13 +42,13 @@ export const generateMaskCanvas = (
   cacheCanvas?: HTMLCanvasElement
 ) => {
   const { backgroundColor = '#fff' } = shape;
-  const dpr = vglobal.devicePixelRatio;
+
   const maskCanvas =
     cacheCanvas ||
     vglobal.createCanvas({
       width,
       height,
-      dpr
+      dpr: 1
     });
   const tempContext = maskCanvas.getContext('2d');
   if (cacheCanvas) {
@@ -57,17 +57,16 @@ export const generateMaskCanvas = (
     tempContext.clearRect(0, 0, prevWidth, prevHeight);
     cacheCanvas.style.width = `${width}px`;
     cacheCanvas.style.height = `${height}px`;
-    cacheCanvas.width = width * dpr;
-    cacheCanvas.height = height * dpr;
+    cacheCanvas.width = width;
+    cacheCanvas.height = height;
   }
-  tempContext.scale(dpr, dpr);
   tempContext.fillStyle = backgroundColor;
-  tempContext.fillRect(0, 0, width, height);
+  tempContext.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
 
   if ((shape as TextShapeMask).type === 'text') {
-    drawTextMask(shape as TextShapeMask, width, height, tempContext);
+    drawTextMask(shape as TextShapeMask, maskCanvas.width, maskCanvas.height, tempContext);
   } else if ((shape as GeometricMaskShape).type === 'geometric') {
-    drawGeometricMask(shape as GeometricMaskShape, width, height, tempContext);
+    drawGeometricMask(shape as GeometricMaskShape, maskCanvas.width, maskCanvas.height, tempContext);
   }
 
   return maskCanvas;
