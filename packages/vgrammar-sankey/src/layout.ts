@@ -664,7 +664,7 @@ export class SankeyLayout {
           return forceNodeHeight;
         }
       : (node: SankeyNodeElement) => {
-          return Math.max(node.value * ky, minNodeHeight, 0);
+          return Math.max(node.value * ky, 0);
         };
     const getLinkHeight = isNumber(this.options.linkHeight)
       ? () => this.options.linkHeight as number
@@ -692,6 +692,7 @@ export class SankeyLayout {
       let y = this._viewBox.y0;
       let gapY = 0;
       let nodeHeight = 0;
+      let calculatedNodeHeight = 0;
       for (let j = 0, len = nodes.length; j < len; j++) {
         const node = nodes[j];
         gapY = getGapY(node);
@@ -700,7 +701,9 @@ export class SankeyLayout {
           y += gapY;
         }
 
-        nodeHeight = getNodeHeight(node);
+        calculatedNodeHeight = getNodeHeight(node);
+        nodeHeight = Math.max(calculatedNodeHeight, minNodeHeight);
+
         node.y0 = y;
         node.y1 = y + nodeHeight;
 
@@ -708,7 +711,7 @@ export class SankeyLayout {
 
         for (let k = 0, linkLen = node.sourceLinks.length; k < linkLen; k++) {
           const link = node.sourceLinks[k];
-          link.thickness = getLinkHeight(link, node, nodeHeight);
+          link.thickness = getLinkHeight(link, node, calculatedNodeHeight);
         }
       }
 
