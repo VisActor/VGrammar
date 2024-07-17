@@ -1,3 +1,5 @@
+import type { GeometricMaskShape, TextShapeMask } from '@visactor/vgrammar-util';
+
 export type TagItemAttribute<T> = T | ((d?: any) => T);
 
 export type TagItemFunction<T> = (d?: any) => T;
@@ -24,16 +26,17 @@ export type AsType = {
   isFillingWord: string;
   color: string;
 };
+
 export type SegmentationInputType = {
-  shapeUrl: string;
+  shapeUrl: string | TextShapeMask | GeometricMaskShape;
   size: [number, number];
   ratio: number;
+  maskCanvas?: HTMLCanvasElement;
   tempCanvas?: HTMLCanvasElement | any;
-  tempCtx?: CanvasRenderingContext2D | null;
-  removeWhiteBorder: boolean;
   boardSize: [number, number];
   random: boolean;
   randomGenerator?: any;
+  isEmptyPixel?: (imageData: ImageData, i: number, j: number) => boolean;
 };
 export type ShapeConfigType = {
   x: number;
@@ -57,7 +60,6 @@ export type ShapeBoundsType = {
 };
 export interface SegmentationOutputType extends SegmentationInputType {
   segmentation: segmentationType;
-  shapeConfig: ShapeConfigType;
   shapeBounds: ShapeBoundsType;
   shapeMaxR: number;
   shapeRatio: number;
@@ -93,7 +95,7 @@ export type LayoutConfigType = {
   size: [number, number];
   ratio: number;
 
-  shapeUrl: string;
+  shapeUrl: string | TextShapeMask | GeometricMaskShape;
   random: boolean;
   textLayoutTimes: number;
   removeWhiteBorder: boolean;
@@ -129,7 +131,7 @@ export type LayoutConfigType = {
 
   minInitFontSize: number;
   minFontSize: number;
-  minFillFoontSize: number;
+  minFillFontSize: number;
 };
 export type CloudWordType = {
   x: number;
@@ -184,7 +186,7 @@ export interface WordCloudShapeOptions {
   rotateList?: number[];
 
   // layout 相关
-  shape: string;
+  shape: string | TextShapeMask | GeometricMaskShape;
   random?: boolean;
   textLayoutTimes?: number;
   layoutMode?: 'default' | 'ensureMapping' | 'ensureMappingEnlarge';
@@ -229,5 +231,7 @@ export interface WordCloudShapeOptions {
   // 核心词最小布局字号
   minFontSize?: number;
   // 填充词词最小布局字号
-  minFillFoontSize?: number;
+  minFillFontSize?: number;
+
+  onUpdateMaskCanvas?: (canvas?: HTMLCanvasElement) => void;
 }

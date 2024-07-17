@@ -28,3 +28,5 @@ export { regressionLinear } from './regression-linear';
 export { parseViewBox } from './view-box';
 
 export * from './direction';
+export * from './image';
+export * from './shapes';
