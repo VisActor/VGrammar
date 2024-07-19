@@ -633,9 +633,14 @@ export class SankeyLayout {
       const maxRowCount = columns.reduce((cnt: number, column: SankeyNodeElement[]) => {
         return Math.max(cnt, column.length);
       }, 0);
-      const gapY = Math.min(this.options.nodeGap, this._viewBox.height / maxRowCount);
+      const maxStepHeight = this._viewBox.height / maxRowCount;
+      const gapY = Math.min(this.options.nodeGap, maxStepHeight);
       getGapY = () => gapY;
       this._gapY = gapY;
+
+      if ((minNodeHeight + gapY) * maxRowCount > this._viewBox.height) {
+        minNodeHeight = maxStepHeight - gapY;
+      }
 
       if (this.options.equalNodeHeight) {
         forceNodeHeight = this._viewBox.height / maxRowCount - gapY;
