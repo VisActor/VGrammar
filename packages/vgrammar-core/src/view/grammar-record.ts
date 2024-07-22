@@ -232,10 +232,10 @@ export class RecordedTreeGrammars extends RecordedGrammars implements IRecordedT
       const currentNode = this._markNodes.find(node => node.mark === mark);
       this._markNodes.forEach(node => {
         const targetMark = node.mark;
-        if (targetMark.markType === GrammarMarkType.group && (targetMark as IGroupMark).includesChild(mark, false)) {
+        if (targetMark.markType === GrammarMarkType.group && node.children.includes(currentNode)) {
           node.children = node.children.filter(n => n !== currentNode);
           currentNode.parent = null;
-        } else if (mark.markType === GrammarMarkType.group && (mark as IGroupMark).includesChild(targetMark, false)) {
+        } else if (mark.markType === GrammarMarkType.group && currentNode.children.includes(node, false)) {
           currentNode.children = currentNode.children.filter(n => n !== node);
           node.parent = null;
         }
