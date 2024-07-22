@@ -235,7 +235,7 @@ export class RecordedTreeGrammars extends RecordedGrammars implements IRecordedT
         if (targetMark.markType === GrammarMarkType.group && node.children.includes(currentNode)) {
           node.children = node.children.filter(n => n !== currentNode);
           currentNode.parent = null;
-        } else if (mark.markType === GrammarMarkType.group && currentNode.children.includes(node, false)) {
+        } else if (mark.markType === GrammarMarkType.group && currentNode.children.includes(node)) {
           currentNode.children = currentNode.children.filter(n => n !== node);
           node.parent = null;
         }
