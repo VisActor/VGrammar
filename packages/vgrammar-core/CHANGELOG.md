@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 28 Jun 2024 13:42:24 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jul 2024 03:36:00 GMT and should not be manually modified.
+
+## 0.13.15
+Tue, 16 Jul 2024 03:36:00 GMT
+
+### Updates
+
+- fix: fix height of link when set `minNodeHeight`
+
+
 
 ## 0.13.11
 Fri, 28 Jun 2024 13:42:24 GMT

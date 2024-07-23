@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.15",
+      "tag": "@visactor/vgrammar-core_v0.13.15",
+      "date": "Tue, 16 Jul 2024 03:36:00 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix height of link when set `minNodeHeight`\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.11",
       "tag": "@visactor/vgrammar-core_v0.13.11",
       "date": "Fri, 28 Jun 2024 13:42:24 GMT",
