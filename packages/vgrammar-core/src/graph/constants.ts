@@ -34,3 +34,5 @@ export const DefaultAnimationControlOptions: IAnimationControlOptions = {
   immediatelyApply: true
 };
 export const DefaultAnimationParameters = 'VGRAMMAR_ANIMATION_PARAMETERS';
+
+export const MARK_OVERLAP_HIDE_KEY = '_mo_hide_';
