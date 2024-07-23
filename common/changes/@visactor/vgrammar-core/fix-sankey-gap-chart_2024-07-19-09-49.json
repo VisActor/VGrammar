@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: fix wrong gap between node when `minNodeHeight` is very big\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}
