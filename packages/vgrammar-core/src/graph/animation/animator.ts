@@ -24,13 +24,11 @@ const isCustomAnimateCtor = (custom?: IAnimationChannelInterpolator | IAnimation
   if (isNil(custom) || isNil(custom.prototype)) {
     return false;
   }
+  const prototype = custom.prototype ?? {};
   return (
-    custom.prototype instanceof ACustomAnimate ||
+    prototype instanceof ACustomAnimate ||
     // similar to ACustomAnimate, apply for different vrender version
-    ('onBind' in custom.prototype &&
-      'onStart' in custom.prototype &&
-      'onEnd' in custom.prototype &&
-      'onUpdate' in custom.prototype)
+    ('onBind' in prototype && 'onStart' in prototype && 'onEnd' in prototype && 'onUpdate' in prototype)
   );
 };
 
