@@ -273,7 +273,8 @@ export function removeSegmentAttrs(itemNextAttrs: any, element?: IElement) {
     return itemNextAttrs;
   }
 
-  const segmentKeys = element?.mark?.markType === 'area' ? areaAttrs : strokeAttrs;
+  // TODO 现在非常hack
+  const segmentKeys = element?.mark?.markType === 'area' ? ['fillOpacity', 'strokeOpacity'] : ['strokeOpacity'];
   const result = {};
   Object.keys(itemNextAttrs).forEach(key => {
     if (segmentKeys.includes(key)) {
