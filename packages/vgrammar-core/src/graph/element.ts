@@ -595,12 +595,11 @@ export class Element implements IElement {
             nextAttrs.segments = null;
             nextAttrs.points = points;
           }
+          nextAttrs = removeSegmentAttrs(nextAttrs, this);
         } else {
           nextAttrs.points = linePoints;
           nextAttrs.segments = null;
         }
-
-        nextAttrs = removeSegmentAttrs(nextAttrs, this);
       } else if (markType === GrammarMarkType.largeRects) {
         nextAttrs.points = getLargeRectsPoints(items, true, lastPoints);
       } else if (markType === GrammarMarkType.largeSymbols) {
