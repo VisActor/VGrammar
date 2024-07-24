@@ -125,7 +125,6 @@ test('enableSegments is true', function () {
         ],
         stroke: 'green'
       }
-    ],
-    stroke: 'red'
+    ]
   });
 });

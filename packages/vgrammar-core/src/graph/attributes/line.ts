@@ -273,3 +273,20 @@ export function parseCollectionMarkAttributes(itemNextAttrs: any, element?: IEle
 
   return result;
 }
+
+export function removeSegmentAttrs(itemNextAttrs: any, element?: IElement) {
+  if (!itemNextAttrs || !itemNextAttrs.segments || !itemNextAttrs.segments.length) {
+    return itemNextAttrs;
+  }
+
+  const segmentKeys = element?.mark?.markType === 'area' ? areaAttrs : strokeAttrs;
+  const result = {};
+  Object.keys(itemNextAttrs).forEach(key => {
+    if (segmentKeys.includes(key)) {
+      return;
+    }
+    result[key] = itemNextAttrs[key];
+  });
+
+  return result;
+}
