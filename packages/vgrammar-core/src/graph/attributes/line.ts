@@ -249,25 +249,23 @@ export function getLinePointsFromSegments(segments: any[]) {
   }, []);
 }
 
-export function parseCollectionMarkAttributes(itemNextAttrs: any) {
+export function parseCollectionMarkAttributes(itemNextAttrs: any, element?: IElement) {
   const result = {};
 
   if (!itemNextAttrs) {
     return result;
   }
 
+  const skipKeys = ['x', 'y', 'x1', 'y1', 'defined', 'size', 'width', 'height', 'context'];
+  const segmentKeys =
+    itemNextAttrs.segments && itemNextAttrs.segments.length
+      ? element?.mark?.markType === 'area'
+        ? areaAttrs
+        : strokeAttrs
+      : [];
+
   Object.keys(itemNextAttrs).forEach(key => {
-    if (
-      key === 'x' ||
-      key === 'y' ||
-      key === 'x1' ||
-      key === 'y1' ||
-      key === 'defined' ||
-      key === 'size' ||
-      key === 'width' ||
-      key === 'height' ||
-      key === 'context'
-    ) {
+    if (skipKeys.includes(key) || segmentKeys.includes(key)) {
       return;
     }
     result[key] = itemNextAttrs[key];

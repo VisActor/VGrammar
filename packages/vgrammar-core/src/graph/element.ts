@@ -558,7 +558,6 @@ export class Element implements IElement {
       const connectNullsEncoder = (this.mark.getSpec() as MarkSpec).encode?.[BuiltInEncodeNames.connectNulls];
       const itemNextAttrs = items.map(item => item.nextAttrs);
       const isProgressive = this.mark.isProgressive();
-      nextAttrs = parseCollectionMarkAttributes(nextAttrs);
 
       if (markType === GrammarMarkType.line || markType === GrammarMarkType.area) {
         const linePoints = getLinePoints(items, true, lastPoints, markType === GrammarMarkType.area);
@@ -603,6 +602,8 @@ export class Element implements IElement {
       } else if (markType === GrammarMarkType.largeSymbols) {
         nextAttrs.points = getLargeSymbolsPoints(items, true, lastPoints);
       }
+
+      nextAttrs = parseCollectionMarkAttributes(nextAttrs);
     }
 
     return nextAttrs;
