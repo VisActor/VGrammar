@@ -31,7 +31,8 @@ import {
   getLineSegmentConfigs,
   getLinePointsFromSegments,
   parseCollectionMarkAttributes,
-  getConnectLineSegmentConfigs
+  getConnectLineSegmentConfigs,
+  removeSegmentAttrs
 } from './attributes/line';
 import type {
   BaseEncodeSpec,
@@ -594,6 +595,7 @@ export class Element implements IElement {
             nextAttrs.segments = null;
             nextAttrs.points = points;
           }
+          nextAttrs = removeSegmentAttrs(nextAttrs, this);
         } else {
           nextAttrs.points = linePoints;
           nextAttrs.segments = null;

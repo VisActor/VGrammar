@@ -256,18 +256,28 @@ export function parseCollectionMarkAttributes(itemNextAttrs: any) {
     return result;
   }
 
+  const skipKeys = ['x', 'y', 'x1', 'y1', 'defined', 'size', 'width', 'height', 'context'];
+
   Object.keys(itemNextAttrs).forEach(key => {
-    if (
-      key === 'x' ||
-      key === 'y' ||
-      key === 'x1' ||
-      key === 'y1' ||
-      key === 'defined' ||
-      key === 'size' ||
-      key === 'width' ||
-      key === 'height' ||
-      key === 'context'
-    ) {
+    if (skipKeys.includes(key)) {
+      return;
+    }
+    result[key] = itemNextAttrs[key];
+  });
+
+  return result;
+}
+
+export function removeSegmentAttrs(itemNextAttrs: any, element?: IElement) {
+  if (!itemNextAttrs || !itemNextAttrs.segments || !itemNextAttrs.segments.length) {
+    return itemNextAttrs;
+  }
+
+  // TODO 现在非常hack
+  const segmentKeys = element?.mark?.markType === 'area' ? ['fillOpacity', 'strokeOpacity'] : ['strokeOpacity'];
+  const result = {};
+  Object.keys(itemNextAttrs).forEach(key => {
+    if (segmentKeys.includes(key)) {
       return;
     }
     result[key] = itemNextAttrs[key];
