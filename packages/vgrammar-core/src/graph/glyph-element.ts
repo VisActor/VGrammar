@@ -132,12 +132,13 @@ export class GlyphElement extends Element implements IGlyphElement {
     this.coordinateTransformEncode(this.items);
     const graphicAttributes = this.transformElementItems(this.items, this.mark.markType);
 
+    const isGraphicInit = !this.graphicItem;
     if (!this.graphicItem) {
       this.initGraphicItem();
     }
 
-    if (this.diffState === DiffState.enter) {
-      // apply default encoder when enter
+    if (this.diffState === DiffState.enter || isGraphicInit) {
+      // apply default encoder when enter or graphic item is created
       this.graphicItem.onBeforeAttributeUpdate = this._onGlyphAttributeUpdate(true);
       this.applyGraphicAttributes(graphicAttributes);
       this.graphicItem.onBeforeAttributeUpdate = this._onGlyphAttributeUpdate(false);
@@ -202,7 +203,7 @@ export class GlyphElement extends Element implements IGlyphElement {
   private encodeDefault() {
     const defaultEncodeValues: { [markName: string]: any } = {};
     // apply default encode
-    if (this.diffState === DiffState.enter && this.glyphMeta.getDefaultEncoder()) {
+    if (this.glyphMeta.getDefaultEncoder()) {
       const defaultEncodeResult = this.glyphMeta
         .getDefaultEncoder()
         .call(null, this.getDatum(), this, this.mark.getGlyphConfig());
