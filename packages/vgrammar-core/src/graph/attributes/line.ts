@@ -249,7 +249,7 @@ export function getLinePointsFromSegments(segments: any[]) {
   }, []);
 }
 
-export function parseCollectionMarkAttributes(itemNextAttrs: any, element?: IElement) {
+export function parseCollectionMarkAttributes(itemNextAttrs: any) {
   const result = {};
 
   if (!itemNextAttrs) {
@@ -257,15 +257,9 @@ export function parseCollectionMarkAttributes(itemNextAttrs: any, element?: IEle
   }
 
   const skipKeys = ['x', 'y', 'x1', 'y1', 'defined', 'size', 'width', 'height', 'context'];
-  const segmentKeys =
-    itemNextAttrs.segments && itemNextAttrs.segments.length
-      ? element?.mark?.markType === 'area'
-        ? areaAttrs
-        : strokeAttrs
-      : [];
 
   Object.keys(itemNextAttrs).forEach(key => {
-    if (skipKeys.includes(key) || segmentKeys.includes(key)) {
+    if (skipKeys.includes(key)) {
       return;
     }
     result[key] = itemNextAttrs[key];
