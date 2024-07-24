@@ -1,6 +1,23 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Tue, 16 Jul 2024 03:36:00 GMT and should not be manually modified.
+This log was last generated on Wed, 24 Jul 2024 10:07:24 GMT and should not be manually modified.
+
+## 0.13.16
+Wed, 24 Jul 2024 10:07:24 GMT
+
+### Updates
+
+- fix: fix error style of line,area when has segments
+
+
+- fix: fix error of mark overlap when data is invalid
+
+
+- fix: fix initial attributes for reused glyph
+- fix: fix wrong gap between node when `minNodeHeight` is very big
+
+
+- fix: fix group grammar releasing
 
 ## 0.13.15
 Tue, 16 Jul 2024 03:36:00 GMT

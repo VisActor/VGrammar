@@ -633,22 +633,25 @@ export class SankeyLayout {
       const maxRowCount = columns.reduce((cnt: number, column: SankeyNodeElement[]) => {
         return Math.max(cnt, column.length);
       }, 0);
-      const gapY = Math.min(
-        minNodeHeight > 0 ? Math.max(this.options.nodeGap, minNodeHeight) : this.options.nodeGap,
-        this._viewBox.height / maxRowCount
-      );
+      const maxStepHeight = this._viewBox.height / maxRowCount;
+      const gapY = Math.min(this.options.nodeGap, maxStepHeight);
       getGapY = () => gapY;
       this._gapY = gapY;
+
+      if ((minNodeHeight + gapY) * maxRowCount > this._viewBox.height) {
+        minNodeHeight = maxStepHeight - gapY;
+      }
 
       if (this.options.equalNodeHeight) {
         forceNodeHeight = this._viewBox.height / maxRowCount - gapY;
       } else {
+        const calGapY = minNodeHeight > 0 ? Math.max(gapY, minNodeHeight) : gapY;
         ky = columns.reduce((val: number, column: SankeyNodeElement[]) => {
           const sumValue = column.reduce((sum, node) => {
             return sum + node.value;
           }, 0);
 
-          return Math.min(val, (this._viewBox.height - (column.length - 1) * gapY) / sumValue);
+          return Math.min(val, (this._viewBox.height - ((column.length - 1) * calGapY + minNodeHeight)) / sumValue);
         }, Infinity);
       }
     }
@@ -737,7 +740,7 @@ export class SankeyLayout {
       } else if (deltaY < 0 && nodes.length > 1) {
         deltaY = deltaY / (nodes.length - 1);
 
-        if (gapY + deltaY > 0) {
+        if (gapY + deltaY >= 0) {
           gapY += deltaY;
 
           this._gapY = Math.min(gapY);
