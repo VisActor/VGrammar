@@ -2,7 +2,7 @@ import { vglobal } from '@visactor/vrender-core';
 import type { GeometricMaskShape, TextShapeMask } from './types/wordcloud';
 import { getMaxRadiusAndCenter, getShapeFunction } from './shapes';
 import type { IPointLike } from '@visactor/vutils';
-import { polarToCartesian } from '@visactor/vutils';
+import { isValid, polarToCartesian } from '@visactor/vutils';
 
 export const generateIsEmptyPixel = (backgroundColor?: string) => {
   if (!backgroundColor || backgroundColor === '#fff') {
@@ -86,10 +86,18 @@ const drawTextMask = (shape: TextShapeMask, width: number, height: number, ctx: 
   let baseFontSize = 12;
 
   ctx.font = `${fontStyle} ${fontVariant} ${fontWeight} ${baseFontSize}px ${fontFamily}`;
+
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillStyle = fill ?? 'black';
-  const textWidth = ctx.measureText(text).width;
+  const textMetrics = ctx.measureText(text);
+  /** 斜体计算字体宽度存在不准的情况，暂时通过方法来解决 */
+  const scale = fontStyle !== 'normal' ? 1.1 : 1;
+  const actualWidth =
+    isValid(textMetrics.actualBoundingBoxRight) && isValid(textMetrics.actualBoundingBoxLeft)
+      ? Math.ceil(scale * (Math.abs(textMetrics.actualBoundingBoxRight) + Math.abs(textMetrics.actualBoundingBoxLeft)))
+      : 0;
+  const textWidth = Math.max(Math.ceil(textMetrics.width), actualWidth, baseFontSize);
 
   if (hollow) {
     ctx.globalCompositeOperation = 'xor';
@@ -103,7 +111,7 @@ const drawTextMask = (shape: TextShapeMask, width: number, height: number, ctx: 
     baseFontSize = Math.min(baseFontSize, height);
 
     ctx.font = `${fontStyle} ${fontVariant} ${fontWeight} ${baseFontSize}px ${fontFamily}`;
-    ctx.fillText(text, width / 2, height / 2);
+    ctx.fillText(text, Math.floor(width / 2), Math.floor(height / 2));
   }
 };
 
