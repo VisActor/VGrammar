@@ -157,6 +157,11 @@ export class Layout implements IProgressiveTransformResult<any[]> {
     const segmentationInput = this.segmentationInput;
     // 对用户输入的图形进行预处理
     const segmentationOutput: SegmentationOutputType = segmentation(segmentationInput);
+
+    if (!segmentationOutput.segmentation.regions.length) {
+      return;
+    }
+
     const options = this.options;
     const data = this.data;
 
