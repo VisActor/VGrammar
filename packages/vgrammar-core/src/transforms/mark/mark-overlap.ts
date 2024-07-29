@@ -1,15 +1,14 @@
 import { isNil } from '@visactor/vutils';
 import type { IElement, MarkOverlapTransformOptions } from '../../types';
-
-const HIDE_KEY = '_mo_hide_';
+import { MARK_OVERLAP_HIDE_KEY } from '../../graph/constants';
 
 function reset(elements: IElement[]) {
   elements.forEach(element => {
-    const hide = element.getGraphicAttribute(HIDE_KEY);
+    const hide = element.getGraphicAttribute(MARK_OVERLAP_HIDE_KEY);
 
     if (hide) {
       element.setGraphicAttribute('visible', true);
-      element.setGraphicAttribute(HIDE_KEY, false);
+      element.setGraphicAttribute(MARK_OVERLAP_HIDE_KEY, false);
     }
   });
   return elements;
@@ -35,7 +34,7 @@ function overlapX(elements: IElement[], delta: number, deltaMul: number, useRadi
       }
       if (Math.abs(currentX - lastX) < itemDelta + lastR + r) {
         if (!element.getGraphicAttribute('forceShow')) {
-          element.setGraphicAttribute(HIDE_KEY, true);
+          element.setGraphicAttribute(MARK_OVERLAP_HIDE_KEY, true);
           element.setGraphicAttribute('visible', false);
         }
       } else {
@@ -67,7 +66,7 @@ function overlapY(elements: IElement[], delta: number, deltaMul: number, useRadi
       }
       if (Math.abs(currentY - lastY) < itemDelta + lastR + r) {
         if (!element.getGraphicAttribute('forceShow')) {
-          element.setGraphicAttribute(HIDE_KEY, true);
+          element.setGraphicAttribute(MARK_OVERLAP_HIDE_KEY, true);
           element.setGraphicAttribute('visible', false);
         }
       } else {
@@ -104,7 +103,7 @@ function overlapXY(elements: IElement[], delta: number, deltaMul: number, useRad
       dis = (lastX - currentX) ** 2 + (lastY - currentY) ** 2;
       if (dis < (itemDelta + lastR + r) ** 2) {
         if (!element.getGraphicAttribute('forceShow')) {
-          element.setGraphicAttribute(HIDE_KEY, true);
+          element.setGraphicAttribute(MARK_OVERLAP_HIDE_KEY, true);
           element.setGraphicAttribute('visible', false);
         }
       } else {

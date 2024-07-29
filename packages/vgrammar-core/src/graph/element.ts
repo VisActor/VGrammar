@@ -15,7 +15,7 @@ import {
 } from '@visactor/vutils';
 import { isEqual } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
-import { BridgeElementKey } from './constants';
+import { BridgeElementKey, MARK_OVERLAP_HIDE_KEY } from './constants';
 import { DiffState, HOOK_EVENT, GrammarMarkType, BuiltInEncodeNames } from './enums';
 import { invokeEncoder, invokeEncoderToItems } from './mark/encode';
 import { removeGraphicItem } from './util/graphic';
@@ -31,7 +31,8 @@ import {
   getLineSegmentConfigs,
   getLinePointsFromSegments,
   parseCollectionMarkAttributes,
-  getConnectLineSegmentConfigs
+  getConnectLineSegmentConfigs,
+  removeSegmentAttrs
 } from './attributes/line';
 import type {
   BaseEncodeSpec,
@@ -221,6 +222,10 @@ export class Element implements IElement {
       // 更新数据流后，states计算不缓存
       this.graphicItem.states = {};
       this.graphicItem.stateProxy = null;
+
+      if (MARK_OVERLAP_HIDE_KEY in this.graphicItem.attribute && 'visible' in graphicAttributes) {
+        delete this.graphicItem.attribute[MARK_OVERLAP_HIDE_KEY];
+      }
 
       this.applyGraphicAttributes(graphicAttributes);
     }
@@ -590,6 +595,7 @@ export class Element implements IElement {
             nextAttrs.segments = null;
             nextAttrs.points = points;
           }
+          nextAttrs = removeSegmentAttrs(nextAttrs, this);
         } else {
           nextAttrs.points = linePoints;
           nextAttrs.segments = null;

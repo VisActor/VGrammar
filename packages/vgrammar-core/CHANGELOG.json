@@ -2,6 +2,30 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.13.16",
+      "tag": "@visactor/vgrammar-core_v0.13.16",
+      "date": "Wed, 24 Jul 2024 10:07:24 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix error style of line,area when has segments\n\n"
+          },
+          {
+            "comment": "fix: fix error of mark overlap when data is invalid\n\n"
+          },
+          {
+            "comment": "fix: fix initial attributes for reused glyph"
+          },
+          {
+            "comment": "fix: fix wrong gap between node when `minNodeHeight` is very big\n\n"
+          },
+          {
+            "comment": "fix: fix group grammar releasing"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.15",
       "tag": "@visactor/vgrammar-core_v0.13.15",
       "date": "Tue, 16 Jul 2024 03:36:00 GMT",
