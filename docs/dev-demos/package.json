@@ -11,7 +11,7 @@
   "devDependencies": {
     "@internal/eslint-config": "workspace:*",
     "@internal/ts-config": "workspace:*",
-    "@visactor/vutils": "~0.18.12",
+    "@visactor/vutils": "~0.18.13",
     "@visactor/vgrammar": "workspace:0.13.16",
     "@visactor/vgrammar-core": "workspace:0.13.16",
     "@visactor/vgrammar-hierarchy": "workspace:0.13.16",
