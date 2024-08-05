@@ -39,9 +39,9 @@
     "@visactor/vgrammar-util": "workspace:0.13.17",
     "@visactor/vgrammar-coordinate": "workspace:0.13.17",
     "@visactor/vgrammar-core": "workspace:0.13.17",
-    "@visactor/vrender-components": "0.19.20",
-    "@visactor/vrender-core": "0.19.20",
-    "@visactor/vrender-kits": "0.19.20"
+    "@visactor/vrender-components": "0.19.22",
+    "@visactor/vrender-core": "0.19.22",
+    "@visactor/vrender-kits": "0.19.22"
   },
   "devDependencies": {
     "d3-array": "1.x",
