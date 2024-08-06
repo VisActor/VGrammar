@@ -38,8 +38,8 @@
     "@visactor/vscale": "~0.18.13",
     "@visactor/vgrammar-core": "workspace:0.13.16",
     "@visactor/vgrammar-util": "workspace:0.13.16",
-    "@visactor/vrender-core": "0.20.0-alpha.1",
-    "@visactor/vrender-kits": "0.20.0-alpha.1"
+    "@visactor/vrender-core": "0.20.0-alpha.3",
+    "@visactor/vrender-kits": "0.20.0-alpha.3"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
