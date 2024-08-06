@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@visactor/vutils": "~0.18.13",
-    "@visactor/vrender-core": "0.20.0-alpha.1"
+    "@visactor/vrender-core": "0.20.0-alpha.2"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
