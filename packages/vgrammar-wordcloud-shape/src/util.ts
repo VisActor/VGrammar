@@ -4,7 +4,9 @@ import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './
 
 export enum WORDCLOUD_SHAPE_HOOK_EVENT {
   BEFORE_WORDCLOUD_SHAPE_LAYOUT = 'beforeWordcloudShapeLayout',
-  AFTER_WORDCLOUD_SHAPE_LAYOUT = 'afterWordcloudShapeLayout'
+  AFTER_WORDCLOUD_SHAPE_LAYOUT = 'afterWordcloudShapeLayout',
+
+  AFTER_WORDCLOUD_SHAPE_DRAW = 'afterWordcloudShapeDraw'
 }
 
 export const colorListEqual = (arr0: string[], arr1: string[]) => {
