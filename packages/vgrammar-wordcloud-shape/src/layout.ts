@@ -372,6 +372,14 @@ export class Layout implements IProgressiveTransformResult<any[]> {
     // 抛出事件
     if (this.view && this.view.emit) {
       this.view.emit(WORDCLOUD_SHAPE_HOOK_EVENT.AFTER_WORDCLOUD_SHAPE_LAYOUT, { successedWords, failedWords });
+      const stage = this.view.renderer?.stage();
+
+      if (stage) {
+        stage.hooks.afterRender.tap(WORDCLOUD_SHAPE_HOOK_EVENT.AFTER_WORDCLOUD_SHAPE_DRAW, () => {
+          this.view.emit(WORDCLOUD_SHAPE_HOOK_EVENT.AFTER_WORDCLOUD_SHAPE_DRAW, { successedWords, failedWords });
+          stage.hooks.afterRender.unTap(WORDCLOUD_SHAPE_HOOK_EVENT.AFTER_WORDCLOUD_SHAPE_DRAW);
+        });
+      }
     }
 
     // 最后将核心词和填充词合并返回
