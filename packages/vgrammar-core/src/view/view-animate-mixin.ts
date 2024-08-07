@@ -9,6 +9,8 @@ class ViewAnimateMixin {
 
   initAnimate(view: IView) {
     this.animate = new ViewAnimate(view);
+
+    return this.animate;
   }
 }
 
