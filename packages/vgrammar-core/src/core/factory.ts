@@ -35,7 +35,7 @@ export class Factory {
   private static _interactions: Record<string, IInteractionConstructor> = {};
   private static _graphics: Record<string, (attributes: IGraphicAttribute) => IGraphic> = {};
   private static defaultLayout: (marks: IMark[], options: ILayoutOptions, view: IView) => void;
-  private static _stageEventPlugins: Record<string, IStageEventPlugin<any>>;
+  private static _stageEventPlugins: Record<string, IStageEventPlugin<any>> = {};
 
   static registerPlotMarks(key: string, mark: IPlotMarkConstructor) {
     Factory._plotMarks[key] = mark;
