@@ -805,6 +805,14 @@ export default class View extends EventEmitter implements IView {
     if (this.renderer) {
       if (!this._progressiveMarks && this.animate) {
         this.animate.animate();
+      } else {
+        this.traverseMarkTree(
+          mark => {
+            mark.cleanExitElements();
+          },
+          null,
+          true
+        );
       }
       // 绘图 =>
       this.renderer.render(immediately);
