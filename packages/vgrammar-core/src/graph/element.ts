@@ -13,7 +13,6 @@ import {
   isEqual as isObjEqual,
   isObject
 } from '@visactor/vutils';
-import { isEqual } from '@visactor/vgrammar-util';
 import type { IBaseCoordinate } from '@visactor/vgrammar-coordinate';
 import { BridgeElementKey, MARK_OVERLAP_HIDE_KEY } from './constants';
 import { DiffState, HOOK_EVENT, GrammarMarkType, BuiltInEncodeNames } from './enums';
@@ -39,7 +38,6 @@ import type {
   BaseSingleEncodeSpec,
   IElement,
   IMark,
-  IMarkConfig,
   MarkElementItem,
   MarkFunctionType,
   MarkKeySpec,
@@ -123,8 +121,8 @@ export class Element implements IElement {
       (this.graphicItem as any).releaseStatus = undefined;
     }
 
-    const stateAnimation = this.mark.animate.getAnimationConfigs('state');
-    if (stateAnimation.length !== 0) {
+    const stateAnimation = this.mark.animate?.getAnimationConfigs('state');
+    if (stateAnimation && stateAnimation.length !== 0) {
       (this.graphicItem as any).stateAnimateConfig = stateAnimation[0].originConfig;
     }
   }
@@ -136,7 +134,7 @@ export class Element implements IElement {
   removeGraphicItem() {
     // stop all animation when releasing including normal animation & morphing animation
     if (this.graphicItem) {
-      this.graphicItem.animates?.forEach?.(animate => animate.stop());
+      this.graphicItem.animates?.forEach?.((animate: any) => animate.stop());
     }
 
     if (this.graphicItem) {
@@ -306,10 +304,13 @@ export class Element implements IElement {
     });
   }
 
+  hasStateAnimation() {
+    const stateAnimation = this.mark.animate?.getAnimationConfigs('state');
+    return stateAnimation && stateAnimation.length > 0;
+  }
+
   clearStates(hasAnimation?: boolean) {
-    const stateAnimationEnable = isBoolean(hasAnimation)
-      ? hasAnimation
-      : this.mark.animate.getAnimationConfigs('state').length !== 0;
+    const stateAnimationEnable = isBoolean(hasAnimation) ? hasAnimation : this.hasStateAnimation();
 
     this.states = [];
 
@@ -505,9 +506,7 @@ export class Element implements IElement {
     }
     this.states = states;
 
-    const stateAnimationEnable = isBoolean(hasAnimation)
-      ? hasAnimation
-      : this.mark.animate.getAnimationConfigs('state').length !== 0;
+    const stateAnimationEnable = isBoolean(hasAnimation) ? hasAnimation : this.hasStateAnimation();
 
     this.graphicItem.stateProxy = this.getStateAttrs;
     this.graphicItem.useStates(this.states, stateAnimationEnable);
@@ -521,7 +520,7 @@ export class Element implements IElement {
     const diffResult = {};
     const finalGraphicAttributes = this.getFinalGraphicAttributes();
     for (const key in graphicAttributes) {
-      if (!isEqual(key, finalGraphicAttributes, graphicAttributes) || !has(finalGraphicAttributes, key)) {
+      if (!has(finalGraphicAttributes, key) || !isObjEqual(finalGraphicAttributes[key], graphicAttributes[key])) {
         diffResult[key] = graphicAttributes[key];
       }
     }
@@ -629,8 +628,8 @@ export class Element implements IElement {
       this.setPrevGraphicAttributes(prevGraphicAttributes);
       this.setFinalGraphicAttributes(finalGraphicAttributes);
 
-      const currentAnimators = this.mark.animate.getElementAnimators(this);
-      const animateGraphicAttributes = currentAnimators.reduce((attributes, animator) => {
+      const currentAnimators = this.mark.animate?.getElementAnimators(this);
+      const animateGraphicAttributes = (currentAnimators || []).reduce((attributes, animator) => {
         return Object.assign(attributes, animator.getEndAttributes());
       }, {});
       const currentGraphicAttributes = Object.assign({}, animateGraphicAttributes, finalGraphicAttributes);

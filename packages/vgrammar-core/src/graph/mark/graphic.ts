@@ -40,6 +40,12 @@ import {
   createRichText,
   createGlyph
 } from '@visactor/vrender-core';
+import {
+  registerRectDataLabel,
+  registerLineDataLabel,
+  registerArcDataLabel,
+  registerSymbolDataLabel
+} from '@visactor/vrender-components';
 
 export const registerCircleGraphic = () => {
   registerShadowRoot();
@@ -51,6 +57,7 @@ export const registerArcGraphic = () => {
   registerShadowRoot();
   registerArc();
   Factory.registerGraphic(GrammarMarkType.arc, createArc);
+  registerArcDataLabel();
 };
 
 export const registerArc3dGraphic = () => {
@@ -69,6 +76,8 @@ export const registerAreaGraphic = () => {
   registerShadowRoot();
   registerArea();
   Factory.registerGraphic(GrammarMarkType.area, createArea);
+  registerLineDataLabel();
+  registerSymbolDataLabel();
 };
 
 export const registerGroupGraphic = () => {
@@ -86,6 +95,8 @@ export const registerImageGraphic = () => {
 export const registerLineGraphic = () => {
   registerShadowRoot();
   registerLine();
+  registerLineDataLabel();
+  registerSymbolDataLabel();
   Factory.registerGraphic(GrammarMarkType.line, createLine);
 };
 
@@ -98,6 +109,7 @@ export const registerPathGraphic = () => {
 export const registerRectGraphic = () => {
   registerShadowRoot();
   registerRect();
+  registerRectDataLabel();
   Factory.registerGraphic(GrammarMarkType.rect, createRect);
 };
 
@@ -122,6 +134,7 @@ export const registerShapeGraphic = () => {
 export const registerSymbolGraphic = () => {
   registerShadowRoot();
   registerSymbol();
+  registerSymbolDataLabel();
   Factory.registerGraphic(GrammarMarkType.symbol, createSymbol);
 };
 
@@ -147,13 +160,16 @@ export const registerRichTextGraphic = () => {
 export const registerCellGraphic = () => {
   registerShadowRoot();
   registerSymbol();
+  registerSymbolDataLabel();
   Factory.registerGraphic(GrammarMarkType.cell, createSymbol);
 };
 
 export const registerIntervalGraphic = () => {
   registerShadowRoot();
   registerRect();
+  registerRectDataLabel();
   registerArc();
+  registerArcDataLabel();
   Factory.registerGraphic(GrammarMarkType.interval, createRect);
 };
 

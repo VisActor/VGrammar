@@ -2,11 +2,12 @@ import * as transforms from '../src/transforms/index';
 import * as graphics from '../src/graph/mark/graphic';
 
 import { createGlyphGraphicItem, createGraphicItem } from '../src/graph/util/graphic';
-import { createElement } from '../src/graph/util/element';
+import { Element } from '../src/graph/';
 import { transformsByType } from '../src/graph/attributes';
 import type { IGlyphElement, IGlyphMeta, IParsedAnimationConfig } from '../src';
 import CanvasRenderer from '../src/graph/canvas-renderer';
 import { defaultTheme } from '../src/theme/default';
+import { GlyphElement } from '../src/graph/glyph-element';
 
 export function registerDefaultTransforms() {
   Object.keys(transforms).forEach(key => {
@@ -79,7 +80,7 @@ export function createSimpleElement(
   mark.addGraphicItem = () => {
     return (createGraphicItem as any)(mark, markType, {});
   };
-  return createElement(mark);
+  return new Element(mark);
 }
 
 export function createSimpleGlyphElement(
@@ -109,7 +110,7 @@ export function createSimpleGlyphElement(
   mark.addGraphicItem = () => {
     return (createGlyphGraphicItem as any)(mark, glyphMeta, {});
   };
-  const element = createElement(mark) as IGlyphElement;
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  const element = new GlyphElement(mark) as IGlyphElement;
+  element.updateData('key', [{ key: 0 }], 'key');
   return element;
 }

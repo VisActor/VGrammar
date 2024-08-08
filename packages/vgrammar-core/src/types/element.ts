@@ -138,7 +138,7 @@ export interface IElement {
   setItemAttributes: (attributes: { [channel: string]: any } | any[]) => void;
 
   // element 执行流程相关接口
-  updateData: (groupKey: string, data: any[], keyGenerator: MarkKeySpec, view: any) => void;
+  updateData: (groupKey: string, data: any[], keyGenerator: MarkKeySpec) => void;
   state: (markState: MarkFunctionType<string | string[]>, parameters?: any) => void;
   encodeItems: (items: MarkElementItem[], encoders: BaseEncodeSpec, isReentered?: boolean, parameters?: any) => void;
   encodeGraphic: (attributes?: any) => void;

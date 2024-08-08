@@ -15,7 +15,7 @@ test('addState to line', function () {
     }
   });
 
-  element.updateData('key', [{ key: 0 }, { key: 1 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }, { key: 1 }], 'key');
   element.initGraphicItem();
 
   // encode enter
@@ -61,7 +61,7 @@ test('enableSegments is false of line', function () {
     }
   });
 
-  element.updateData('key', [{ key: 0 }, { key: 1 }, { key: 2 }, { key: 3 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }, { key: 1 }, { key: 2 }, { key: 3 }], 'key');
   element.initGraphicItem();
 
   // encode enter
@@ -101,7 +101,7 @@ test('enableSegments is true', function () {
     }
   });
 
-  element.updateData('key', [{ key: 0 }, { key: 1 }, { key: 2 }, { key: 3 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }, { key: 1 }, { key: 2 }, { key: 3 }], 'key');
   element.initGraphicItem();
 
   // encode enter

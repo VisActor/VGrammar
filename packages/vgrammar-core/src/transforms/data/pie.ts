@@ -1,5 +1,5 @@
+import { computeQuadrant } from '@visactor/vutils';
 import type { PieTransformOption } from '../../types';
-import { computeQuadrant } from '../util/util';
 
 export const transform = (options: PieTransformOption, upstreamData: any[]) => {
   if (!upstreamData || upstreamData.length === 0) {

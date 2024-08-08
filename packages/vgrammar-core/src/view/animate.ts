@@ -121,7 +121,7 @@ export class ViewAnimate implements IViewAnimate {
   }
 
   animateAddition(additionMark: IMark) {
-    const animate = additionMark.animate.animate();
+    const animate = additionMark.animate?.animate();
 
     if (animate && animate.isAnimating()) {
       this._additionalAnimateMarks.push(additionMark);

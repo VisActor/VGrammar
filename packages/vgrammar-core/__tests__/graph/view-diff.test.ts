@@ -1,10 +1,10 @@
-import { Morph } from '../../src/graph/animation/morph';
+import { ViewDiff } from '../../src/graph/view-diff';
 import { initBrowserEnv } from '../../src/env';
 
 initBrowserEnv();
 
 test('morph', function () {
-  const morph = new Morph();
+  const morph = new ViewDiff();
 
   const grammarResult = morph.diffGrammar(
     [{ id: () => 'a' }, { id: () => 'b' }, { id: () => 'c' }] as any,

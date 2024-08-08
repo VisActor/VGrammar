@@ -9,10 +9,12 @@ import type {
   IGrammarBaseConstructor,
   IGroupMark,
   IInteractionConstructor,
+  ILayoutOptions,
   IMark,
   IMarkConstructor,
   IPlotMarkConstructor,
   ISemanticMark,
+  IStageEventPlugin,
   ITransform,
   IView,
   MarkType,
@@ -32,6 +34,8 @@ export class Factory {
   private static _animations: Record<string, TypeAnimation<IGlyphElement> | TypeAnimation<IElement>> = {};
   private static _interactions: Record<string, IInteractionConstructor> = {};
   private static _graphics: Record<string, (attributes: IGraphicAttribute) => IGraphic> = {};
+  private static defaultLayout: (marks: IMark[], options: ILayoutOptions, view: IView) => void;
+  private static _stageEventPlugins: Record<string, IStageEventPlugin<any>> = {};
 
   static registerPlotMarks(key: string, mark: IPlotMarkConstructor) {
     Factory._plotMarks[key] = mark;
@@ -59,6 +63,10 @@ export class Factory {
 
   static hasMark(type: string) {
     return !!Factory._marks[type];
+  }
+
+  static getMark(type: string) {
+    return Factory._marks[type];
   }
 
   static registerComponent(key: string, component: IComponentConstructor) {
@@ -191,5 +199,21 @@ export class Factory {
       return null;
     }
     return creator(attributes);
+  };
+
+  static registerDefaultLayout = (layout: (marks: IMark[], options: ILayoutOptions, view: IView) => void) => {
+    Factory.defaultLayout = layout;
+  };
+
+  static getDefaultLayout = () => {
+    return Factory.defaultLayout;
+  };
+
+  static registerStageEventPlugin = (type: string, Plugin: IStageEventPlugin<any>) => {
+    Factory._stageEventPlugins[type] = Plugin;
+  };
+
+  static getStageEventPlugin = (type: string) => {
+    return Factory._stageEventPlugins[type];
   };
 }

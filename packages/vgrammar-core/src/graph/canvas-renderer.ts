@@ -4,10 +4,12 @@ import { isObject } from '@visactor/vutils';
 import type { IEventTarget, IColor, ILayer, Stage } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
 import { createStage, waitForAllSubLayers } from '@visactor/vrender-core';
-import { DragNDrop, Gesture } from '@visactor/vrender-kits';
 import type { IViewOptions, IView, IMark, IViewEventConfig } from '../types';
 import type { IRenderer } from '../types/renderer';
 import { HOOK_EVENT } from './enums';
+import type { DragNDrop } from '@visactor/vrender-kits';
+import type { Gesture } from '@visactor/vrender-kits';
+import { Factory } from '../core/factory';
 
 export default class CanvasRenderer implements IRenderer {
   private _width: number;
@@ -236,14 +238,17 @@ export default class CanvasRenderer implements IRenderer {
     const layer = viewOptions.layer ?? (stage.defaultLayer as ILayer);
     this._view.emit(HOOK_EVENT.AFTER_CREATE_VRENDER_LAYER);
 
-    if (this._eventConfig?.drag) {
+    if (this._eventConfig?.drag && Factory.getStageEventPlugin('drag')) {
       // 允许 drag 事件
-      this._dragController = new DragNDrop(stage as unknown as IEventTarget);
+      this._dragController = new (Factory.getStageEventPlugin('drag'))(stage as unknown as IEventTarget) as DragNDrop;
     }
-    if (this._eventConfig?.gesture) {
+    if (this._eventConfig?.gesture && Factory.getStageEventPlugin('gesture')) {
       const gestureConfig = isObject(this._eventConfig.gesture) ? this._eventConfig.gesture : {};
       // 允许手势
-      this._gestureController = new Gesture(stage as unknown as IEventTarget, gestureConfig);
+      this._gestureController = new (Factory.getStageEventPlugin('gesture'))(
+        stage as unknown as IEventTarget,
+        gestureConfig
+      ) as Gesture;
     }
 
     return {

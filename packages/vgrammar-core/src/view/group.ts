@@ -2,7 +2,6 @@ import type { INode } from '@visactor/vrender-core';
 import { transformsByType } from '../graph/attributes';
 import { DefaultKey, DefaultMarkData } from '../graph/constants';
 import { BuiltInEncodeNames, GrammarMarkType, HOOK_EVENT } from '../graph/enums';
-import { createElement } from '../graph/util/element';
 import { createGraphicItem } from '../graph/util/graphic';
 import type { IElement, IGlyphMark, IGroupMark, IMark, IView } from '../types';
 import { Mark } from './mark';
@@ -66,9 +65,9 @@ export class GroupMark extends Mark implements IGroupMark {
 
   protected evaluateJoin(data: any[]) {
     if (!this.elements.length) {
-      const el = createElement(this);
+      const el = this.createElement();
 
-      el.updateData(DefaultKey, DefaultMarkData, () => '', this.view);
+      el.updateData(DefaultKey, DefaultMarkData, () => '');
       this.elements = [el];
       this.elementMap.set(DefaultKey, el);
     }
