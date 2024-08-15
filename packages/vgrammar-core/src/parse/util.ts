@@ -127,9 +127,9 @@ export const isGrammar = (el: any): el is IGrammarBase => {
 
 export const parseField = <T>(field: ((datum: T) => symbol | string) | string | symbol) => {
   if (isFunction(field)) {
-    return field;
+    return field as (datum: T) => symbol | string;
   }
-  return (datum: T) => datum[field];
+  return (datum: T) => datum[field as string | symbol];
 };
 
 export const parseColor = (color: any): string | null => {

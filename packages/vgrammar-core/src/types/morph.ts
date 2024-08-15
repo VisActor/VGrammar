@@ -22,9 +22,7 @@ export interface IMorphAnimationConfig {
   splitPath?: MorphFunctionValueType<'clone' | Nil>;
 }
 
-export interface IMorph {
+export interface IViewDiff {
   diffGrammar: <U extends IGrammarBase>(prevGrammars: U[], nextGrammars: U[]) => DiffResult<U, U>;
   diffMark: (prevMarks: IMark[], nextMarks: IMark[], runningConfig: IRunningConfig) => DiffResult<IMark[], IMark[]>;
-
-  morph: (prevMarks: IMark[], nextMarks: IMark[], runningConfig: IRunningConfig) => void;
 }

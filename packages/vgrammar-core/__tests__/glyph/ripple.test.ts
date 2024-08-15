@@ -8,7 +8,7 @@ registerRippleGlyph();
 
 test('ripple encode', function () {
   const element = createSimpleGlyphElement(Factory.getGlyph('ripplePoint'));
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
   element.encodeItems(
     element.items,
