@@ -45,28 +45,6 @@ export function partition(data?: any[], groupBy?: FieldGetterFunction[], field?:
   return groups;
 }
 
-export function normalizeAngle(angle: number): number {
-  while (angle < 0) {
-    angle += Math.PI * 2;
-  }
-  while (angle >= Math.PI * 2) {
-    angle -= Math.PI * 2;
-  }
-  return angle;
-}
-
-export function computeQuadrant(angle: number): 1 | 2 | 3 | 4 {
-  angle = normalizeAngle(angle);
-  if (angle > 0 && angle <= Math.PI / 2) {
-    return 2;
-  } else if (angle > Math.PI / 2 && angle <= Math.PI) {
-    return 3;
-  } else if (angle > Math.PI && angle <= (3 * Math.PI) / 2) {
-    return 4;
-  }
-  return 1;
-}
-
 export function sum(arr: any[]) {
   return arr.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 }

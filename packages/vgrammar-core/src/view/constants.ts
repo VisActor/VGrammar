@@ -12,3 +12,6 @@ export const SIGNAL_VIEW_BOX = 'viewBox';
 export const SIGNAL_AUTOFIT = 'autoFit';
 
 export const DEFAULT_HOVER_STATE = 'hover';
+
+export const NAME_PREFIX = '@';
+export const ID_PREFIX = '#';

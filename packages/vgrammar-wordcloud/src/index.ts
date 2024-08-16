@@ -13,4 +13,4 @@ export const registerWordCloudTransforms = () => {
   );
 };
 
-export { shapes } from './shapes';
+export { shapes } from '@visactor/vgrammar-util';

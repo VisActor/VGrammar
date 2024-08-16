@@ -19,7 +19,7 @@ import type { ILogger } from '@visactor/vutils';
 import { Logger, isNil, merge } from '@visactor/vutils';
 import { mergeGrammarSpecs } from './util';
 import { PlotMakType } from './enums';
-import { Factory, SIGNAL_VIEW_BOX, View } from '@visactor/vgrammar-core';
+import { Factory, SIGNAL_VIEW_BOX, View, registerDefaultLayout } from '@visactor/vgrammar-core';
 
 export class Plot implements IPlot {
   static useMarks(marks: IPlotMarkConstructor[]) {
@@ -35,6 +35,8 @@ export class Plot implements IPlot {
   private _theme?: string;
 
   constructor(option?: IPlotOptions) {
+    registerDefaultLayout();
+
     this.view = new View(option);
     this._semanticMarks = [];
     this._logger = Logger.getInstance();

@@ -1,6 +1,19 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Tue, 13 Aug 2024 10:55:34 GMT and should not be manually modified.
+This log was last generated on Thu, 15 Aug 2024 08:29:53 GMT and should not be manually modified.
+
+## 0.14.0
+Thu, 15 Aug 2024 08:29:53 GMT
+
+### Updates
+
+- feat: support event `afterWordcloudShapeDraw`
+
+
+- feat: support text mask in wordcloud
+- fix: optimize size of text mask in word-cloud-shape when fontStyle is italic
+
+
 
 ## 0.13.20
 Tue, 13 Aug 2024 10:55:34 GMT

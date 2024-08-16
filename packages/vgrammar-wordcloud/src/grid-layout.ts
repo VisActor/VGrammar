@@ -1,4 +1,5 @@
-import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
+import { type IProgressiveTransformResult } from '@visactor/vgrammar-core';
+
 /*!
  * wordcloud2.js
  * http://timdream.org/wordcloud2.js/
@@ -8,9 +9,10 @@ import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
  */
 
 import type { IBaseLayoutOptions } from './interface';
-import { getMaxRadiusAndCenter } from './shapes';
-import { merge, shuffleArray } from '@visactor/vutils';
+import { isObject, merge, shuffleArray } from '@visactor/vutils';
 import { BaseLayout } from './base';
+import type { CanvasMaskShape } from '@visactor/vgrammar-util';
+import { generateIsEmptyPixel, generateMaskCanvas, getMaxRadiusAndCenter } from '@visactor/vgrammar-util';
 
 interface IGridLayoutOptions extends IBaseLayoutOptions {
   gridSize?: number;
@@ -42,7 +44,8 @@ interface TextInfo {
 export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgressiveTransformResult {
   static defaultOptions: Partial<IGridLayoutOptions> = {
     gridSize: 8,
-    ellipticity: 1
+    ellipticity: 1,
+    maxSingleWordTryCount: 1
   };
 
   private gridSize: number;
@@ -98,7 +101,11 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
     // fontSize === 0 means weightFactor function wants the text skipped,
     // and size < minSize means we cannot draw the text.
     const sizeShrinkRatio = this.options.clip ? 1 : shrinkRatio;
-    const fontSize = Math.max(Math.floor(this.getTextFontSize(item) * sizeShrinkRatio), this.options.minFontSize);
+
+    const fontSize = Math.max(
+      Math.floor((this.isTryRepeatFill ? this.options.fillTextFontSize : this.getTextFontSize(item)) * sizeShrinkRatio),
+      this.options.minFontSize
+    );
     let word = this.getText(item) + '';
 
     if (this.options.clip) {
@@ -240,6 +247,20 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
       angle,
       text: word
     };
+  }
+
+  private calculateEmptyRate() {
+    const totalCount = this.ngx * this.ngy;
+    let emptyCount = 0;
+
+    for (let gx = 0; gx < this.ngx; gx++) {
+      for (let gy = 0; gy < this.ngy; gy++) {
+        if (this.grid[gx][gy]) {
+          emptyCount++;
+        }
+      }
+    }
+    return emptyCount / totalCount;
   }
 
   /* Help function to updateGrid */
@@ -398,62 +419,45 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
     };
 
     this.result.push(output);
+
     if (this.progressiveResult) {
       this.progressiveResult.push(output);
     }
   }
 
-  private initGrid(canvas?: HTMLCanvasElement) {
+  private initGrid(config: { width: number; height: number }) {
     /* Clear the canvas only if the clearCanvas is set,
          if not, update the grid to the current canvas state */
     this.grid = [];
+    const shape = this.options.shape;
 
-    let i;
-
-    if (!canvas) {
-      /* fill the grid with empty state */
-      let gx = this.ngx;
-      while (gx--) {
-        this.grid[gx] = [];
-        let gy = this.ngy;
-        while (gy--) {
-          this.grid[gx][gy] = true;
-        }
-      }
-    } else {
-      /* Determine bgPixel by creating
-                another canvas and fill the specified background color. */
-      // eslint-disable-next-line no-undef
-      let bctx = document.createElement('canvas').getContext('2d');
-
-      bctx.fillStyle = this.options.backgroundColor;
-      bctx.fillRect(0, 0, 1, 1);
-      let bgPixel = bctx.getImageData(0, 0, 1, 1).data;
-
+    if (isObject(shape)) {
+      const canvas = generateMaskCanvas(shape as CanvasMaskShape, config.width, config.height);
       /* Read back the pixels of the canvas we got to tell which part of the
-                canvas is empty.
-                (no clearCanvas only works with a canvas, not divs) */
-      let imageData = canvas
-        .getContext('2d')
-        .getImageData(0, 0, this.ngx * this.gridSize, this.ngy * this.gridSize).data;
+      canvas is empty.
+      (no clearCanvas only works with a canvas, not divs) */
+      let imageData = canvas.getContext('2d').getImageData(0, 0, this.ngx * this.gridSize, this.ngy * this.gridSize);
 
+      if (this.options.onUpdateMaskCanvas) {
+        this.options.onUpdateMaskCanvas(canvas);
+      }
+
+      let isEmptyPixel = generateIsEmptyPixel((shape as CanvasMaskShape).backgroundColor);
+      let i;
       const singleGridLoop = (gx: number, gy: number) => {
         let y = this.gridSize;
         while (y--) {
           let x = this.gridSize;
           while (x--) {
             i = 4;
-            while (i--) {
-              if (
-                imageData[((gy * this.gridSize + y) * this.ngx * this.gridSize + (gx * this.gridSize + x)) * 4 + i] !==
-                bgPixel[i]
-              ) {
-                this.grid[gx][gy] = false;
-                return;
-              }
+
+            if (!isEmptyPixel(imageData, gy * this.gridSize + y, gx * this.gridSize + x)) {
+              this.grid[gx][gy] = true;
+              return;
             }
           }
         }
+        this.grid[gx][gy] = false;
       };
 
       let gx = this.ngx;
@@ -469,15 +473,29 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
         }
       }
 
-      imageData = bctx = bgPixel = undefined;
+      imageData = isEmptyPixel = undefined;
+    } else {
+      /* fill the grid with empty state */
+      let gx = this.ngx;
+      while (gx--) {
+        this.grid[gx] = [];
+        let gy = this.ngy;
+        while (gy--) {
+          this.grid[gx][gy] = true;
+        }
+      }
     }
   }
 
-  layout(
-    data: any[],
-    config: { width: number; height: number; origin?: [number, number]; canvas?: HTMLCanvasElement }
-  ) {
+  canRepeat() {
+    return this.calculateEmptyRate() > 1e-3;
+  }
+
+  layout(data: any[], config: { width: number; height: number; origin?: [number, number] }) {
     this.initProgressive();
+    this.drawnCount = 0;
+    this.isTryRepeatFill = false;
+    this.originalData = data;
     this.data = data;
     this.pointsAtRadius = [];
     this.ngx = Math.floor(config.width / this.gridSize);
@@ -492,22 +510,9 @@ export class GridLayout extends BaseLayout<IGridLayoutOptions> implements IProgr
     // Maxium radius to look for space
     this.maxRadius = Math.floor(maxRadius / this.gridSize);
 
-    this.initGrid(config.canvas);
+    this.initGrid(config);
     this.result = [];
 
-    let i = 0;
-
-    while (i < data.length) {
-      const drawn = this.layoutWord(i);
-
-      i++;
-      this.progressiveIndex = i;
-
-      if (this.exceedTime()) {
-        break;
-      }
-    }
-
-    return this.result;
+    return this.progressiveRun();
   }
 }

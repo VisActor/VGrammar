@@ -6,6 +6,7 @@ import {
   // semantic mark
   registerCellMark,
   registerIntervalMark,
+  registerGlyphMark,
   // components
   registerAxis,
   registerLegend,
@@ -17,6 +18,8 @@ import {
   registerGrid,
   registerScrollbar,
   // animations
+  registerAnimate,
+  registerViewMorphAPI,
   registerClipInAnimation,
   registerClipOutAnimation,
   registerFadeInAnimation,
@@ -72,7 +75,8 @@ import {
   registerSymmetryTransform,
   initAutoEnv,
 
-  // interactions
+  // interactions + animations
+  registerViewEventsAPI,
   registerElementActive,
   registerElementSelect,
   registerElementHighlight,
@@ -117,16 +121,21 @@ import {
   registerIntervalGraphic,
   registerGlyphGraphic,
   registerLargeRectsGraphic,
-  registerLargeSymbolsGraphic
+  registerLargeSymbolsGraphic,
+
+  // layout
+  registerDefaultLayout
 } from '@visactor/vgrammar-core';
 
 View.useRegisters([
+  registerDefaultLayout,
   // grammars
   registerScale,
   registerCoordinate,
   // marks
   registerCellMark,
   registerIntervalMark,
+  registerGlyphMark,
   // components
   registerAxis,
   registerLegend,
@@ -164,6 +173,8 @@ View.useRegisters([
   registerSymmetryTransform,
 
   // animations
+  registerAnimate,
+  registerViewMorphAPI,
   registerClipInAnimation,
   registerClipOutAnimation,
   registerFadeInAnimation,
@@ -195,6 +206,7 @@ View.useRegisters([
   registerUpdateAnimation,
 
   // interactions
+  registerViewEventsAPI,
   registerElementActive,
   registerElementSelect,
   registerElementHighlight,
