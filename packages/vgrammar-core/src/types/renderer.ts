@@ -1,5 +1,5 @@
 import type { IBoundsLike } from '@visactor/vutils';
-import type { IColor, Stage } from '@visactor/vrender-core';
+import type { IColor, IEventTarget, Stage } from '@visactor/vrender-core';
 import type { IViewEventConfig, IViewOptions } from './view';
 
 export interface IRenderer {
@@ -24,4 +24,10 @@ export interface IRenderer {
   // toImageData: () => Promise<ImageData | undefined>;
 
   release: () => void;
+}
+
+export interface IStageEventPlugin<T> {
+  new (taget: IEventTarget, cfg?: T): {
+    release: () => void;
+  };
 }

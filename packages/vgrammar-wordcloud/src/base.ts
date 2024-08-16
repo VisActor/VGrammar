@@ -1,7 +1,7 @@
 import { array, degreeToRadian, isFunction, isNil, merge, seedRandom } from '@visactor/vutils';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import type { IBaseLayoutOptions, TagItemFunction, TagOutputItem } from './interface';
-import { getShapeFunction } from './shapes';
+import { getShapeFunction } from '@visactor/vgrammar-util';
 import { functor, randomHslColor } from './util';
 
 export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgressiveTransformResult {
@@ -24,7 +24,9 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
     shape: 'circle',
     progressiveTime: 0,
     progressiveStep: 0,
-    backgroundColor: '#fff'
+    repeatFill: false,
+    fillTextFontSize: 12,
+    maxFailCount: 20
   };
 
   options: Partial<T>;
@@ -43,17 +45,22 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
   escapeTime?: number;
   result: TagOutputItem[];
   data?: any[];
+  originalData?: any[];
   currentStepIndex?: number;
   progressiveIndex?: number;
   progressiveResult?: TagOutputItem[];
+  drawnCount?: number;
+  isTryRepeatFill?: boolean;
+
+  failCount?: number;
 
   constructor(options: Partial<T>) {
     this.options = merge({}, BaseLayout.defaultOptions, options);
 
-    if (!isFunction(this.options.shape)) {
-      this.shape = getShapeFunction(this.options.shape as string);
-    } else {
+    if (isFunction(this.options.shape)) {
       this.shape = this.options.shape;
+    } else {
+      this.shape = getShapeFunction(this.options.shape as string);
     }
 
     /* function for getting the font-weight of the text */
@@ -119,10 +126,14 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
     }
   }
 
+  canRepeat() {
+    return false;
+  }
+
   /* Return true if we had spent too much time */
   exceedTime() {
     if (this.options.progressiveStep > 0) {
-      return this.progressiveIndex >= ((this.currentStepIndex ?? 0) + 1) * this.options.progressiveStep;
+      return this.progressiveIndex >= ((this.currentStepIndex ?? -1) + 1) * this.options.progressiveStep;
     }
 
     return this.options.progressiveTime > 0 && new Date().getTime() - this.escapeTime > this.options.progressiveTime;
@@ -130,23 +141,47 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
 
   progressiveRun() {
     if (this.options.progressiveStep > 0) {
-      this.currentStepIndex = (this.currentStepIndex ?? 0) + 1;
+      this.currentStepIndex = (this.currentStepIndex ?? -1) + 1;
     } else if (this.options.progressiveTime > 0) {
       this.escapeTime = Date.now();
     }
 
-    if (this.data && this.progressiveIndex && this.progressiveIndex < this.data.length) {
+    if (this.data && this.progressiveIndex < this.data.length) {
       this.progressiveResult = [];
-      const len = this.data.length;
       let i = this.progressiveIndex;
 
-      while (i < len) {
-        const drawn = this.layoutWord(i);
+      let curWordTryCount = 0;
+      const maxSingleWordTryCount = this.options.maxSingleWordTryCount;
+      const maxFailCount = Math.min(this.options.maxFailCount, this.originalData.length);
 
-        i++;
+      while (i < this.data.length && this.failCount < maxFailCount) {
+        const drawn = this.layoutWord(i);
+        curWordTryCount++;
+
+        if (drawn || curWordTryCount >= maxSingleWordTryCount) {
+          i++;
+          curWordTryCount = 0;
+          this.failCount = drawn ? 0 : this.failCount + 1;
+        }
         this.progressiveIndex = i;
         if (this.exceedTime()) {
           break;
+        } else if (
+          i === this.data.length &&
+          this.failCount < maxFailCount &&
+          this.options.repeatFill &&
+          this.canRepeat()
+        ) {
+          this.data = [
+            ...this.data,
+            ...this.originalData.map(entry => {
+              return {
+                ...entry,
+                isFill: true
+              };
+            })
+          ];
+          this.isTryRepeatFill = true;
         }
       }
 
@@ -163,9 +198,10 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
   ): any[];
 
   initProgressive() {
-    this.progressiveIndex = -1;
+    this.failCount = 0;
+    this.progressiveIndex = 0;
     if (this.options.progressiveStep > 0) {
-      this.currentStepIndex = 0;
+      this.currentStepIndex = -1;
     } else if (this.options.progressiveTime > 0) {
       this.escapeTime = Date.now();
     }

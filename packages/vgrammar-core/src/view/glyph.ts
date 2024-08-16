@@ -3,8 +3,10 @@ import type { IGlyphMark, IGroupMark, IView, GlyphMarkSpec, IGlyphMeta } from '.
 import { createGlyphGraphicItem } from '../graph/util/graphic';
 import { Mark } from './mark';
 import { Factory } from '../core/factory';
+import { GlyphElement } from '../graph/glyph-element';
 
 export class GlyphMark extends Mark implements IGlyphMark {
+  static markType = GrammarMarkType.glyph;
   protected declare spec: GlyphMarkSpec;
   declare markType: GrammarMarkType.glyph;
   readonly glyphType: string;
@@ -35,4 +37,11 @@ export class GlyphMark extends Mark implements IGlyphMark {
     const graphicItem = createGlyphGraphicItem(this, this.glyphMeta, attrs);
     return super.addGraphicItem(attrs, groupKey, graphicItem);
   }
+
+  createElement() {
+    return new GlyphElement(this);
+  }
 }
+export const registerGlyphMark = () => {
+  Factory.registerMark(GrammarMarkType.glyph, GlyphMark);
+};

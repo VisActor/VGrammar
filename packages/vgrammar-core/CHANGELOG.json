@@ -2,6 +2,24 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.14.0",
+      "tag": "@visactor/vgrammar-core_v0.14.0",
+      "date": "Thu, 15 Aug 2024 08:29:53 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: support event `afterWordcloudShapeDraw`\n\n"
+          },
+          {
+            "comment": "feat: support text mask in wordcloud"
+          },
+          {
+            "comment": "fix: optimize size of text mask in word-cloud-shape when fontStyle is italic\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.13.20",
       "tag": "@visactor/vgrammar-core_v0.13.20",
       "date": "Tue, 13 Aug 2024 10:55:34 GMT",

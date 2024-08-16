@@ -1,11 +1,10 @@
 import type { IBounds, ILogger } from '@visactor/vutils';
 // eslint-disable-next-line no-duplicate-imports
-import { EventEmitter, debounce, isObject, isString, getContainerSize, Logger, array, isNil } from '@visactor/vutils';
+import { EventEmitter, debounce, isString, getContainerSize, Logger, array, isNil, isArray } from '@visactor/vutils';
 import type { IColor } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
 import { vglobal } from '@visactor/vrender-core';
 import type { CoordinateType } from '@visactor/vgrammar-coordinate';
-import type { IElement } from './../types/element';
 import type {
   MarkSpec,
   IData,
@@ -17,9 +16,7 @@ import type {
   IViewEventConfig,
   Hooks,
   IMark,
-  EventSpec,
   GroupMarkSpec,
-  BaseEventSpec,
   MarkType,
   GrammarScaleType,
   SignalFunctionType,
@@ -42,7 +39,6 @@ import type {
   IInteraction
 } from '../types/';
 import { Data } from './data';
-import { initializeEventConfig, permit, prevent } from './events';
 import Dataflow from './dataflow';
 import { traverseMarkTree } from '../graph/mark-tree';
 import { BridgeElementKey } from '../graph/constants';
@@ -50,7 +46,6 @@ import CanvasRenderer from '../graph/canvas-renderer';
 import getExtendedEvents from '../graph/util/events-extend';
 import {
   BROWSER,
-  NO_TRAP,
   SIGNAL_WIDTH,
   SIGNAL_HEIGHT,
   SIGNAL_PADDING,
@@ -58,8 +53,10 @@ import {
   SIGNAL_VIEW_WIDTH,
   SIGNAL_VIEW_HEIGHT,
   EVENT_SOURCE_VIEW,
-  EVENT_SOURCE_WINDOW,
-  SIGNAL_VIEW_BOX
+  SIGNAL_VIEW_BOX,
+  ID_PREFIX,
+  NAME_PREFIX,
+  EVENT_SOURCE_WINDOW
 } from './constants';
 import { Signal } from './signal';
 import {
@@ -69,17 +66,12 @@ import {
   normalizeRunningConfig,
   normalizePadding
 } from '../parse/view';
-import { parseHandler, parseEventSelector, generateFilterByMark, ID_PREFIX, NAME_PREFIX } from '../parse/event';
-import { isGrammar, parseReference } from '../parse/util';
+import { isGrammar } from '../parse/util';
 import { configureEnvironment } from '../graph/util/env';
 import { GroupMark } from './group';
 import { Mark } from './mark';
-import { defaultDoLayout } from '../graph/layout/layout';
-import { GlyphMark } from './glyph';
-import type { IMorph } from '../types/morph';
-import { Morph } from '../graph/animation/morph';
+import type { IViewDiff } from '../types/morph';
 import { RecordedGrammars, RecordedTreeGrammars } from './grammar-record';
-import { ViewAnimate } from './animate';
 import type { IRenderer } from '../types/renderer';
 import { ComponentEnum, HOOK_EVENT, LayoutState, GrammarMarkType } from '../graph/enums';
 import type {
@@ -98,6 +90,7 @@ import { ThemeManager } from '../theme/theme-manager';
 import { Factory } from '../core/factory';
 import { Component } from './component';
 import { isMarkType, removeGraphicItem } from '../graph/util/graphic';
+import { ViewDiff } from '../graph/view-diff';
 
 /**
  * Create a new View instance from a VGrammar dataflow runtime specification.
@@ -130,10 +123,9 @@ export default class View extends EventEmitter implements IView {
   private _options: IViewOptions;
 
   private _cachedGrammars: IRecordedTreeGrammars;
-  private _willMorphMarks: { prev: IMark[]; next: IMark[] }[];
 
   /** morph animate */
-  private _morph: IMorph;
+  private _differ: IViewDiff;
 
   private _eventConfig: IViewEventConfig;
   private _eventListeners: Array<{
@@ -155,7 +147,6 @@ export default class View extends EventEmitter implements IView {
   private _layoutMarks?: IMark[];
 
   private _background?: IColor;
-  private _eventCache: Record<string, () => void>;
   /** 当前是否存在增量渲染元素 */
   private _progressiveMarks?: IMark[];
   private _progressiveRafId?: number;
@@ -322,7 +313,11 @@ export default class View extends EventEmitter implements IView {
         mark = new GroupMark(this, groupMark);
         break;
       case GrammarMarkType.glyph:
-        mark = new GlyphMark(this, markOptions?.glyphType, groupMark);
+        const GlyphMark = Factory.getMark(GrammarMarkType.glyph);
+
+        if (GlyphMark) {
+          mark = new GlyphMark(this, markOptions?.glyphType, groupMark);
+        }
         break;
       // components
       case GrammarMarkType.component:
@@ -532,7 +527,7 @@ export default class View extends EventEmitter implements IView {
 
     if (spec.events && spec.events.length) {
       spec.events.forEach(eventConfig => {
-        this.event(eventConfig);
+        (this as any).event?.(eventConfig);
       });
     }
 
@@ -543,9 +538,9 @@ export default class View extends EventEmitter implements IView {
     }
 
     if (spec.animation === false) {
-      this.animate.disable();
+      this.animate?.disable();
     } else {
-      this.animate.enable();
+      this.animate?.enable();
     }
 
     this.emit(HOOK_EVENT.AFTER_PARSE_VIEW);
@@ -759,7 +754,7 @@ export default class View extends EventEmitter implements IView {
   }
 
   private doLayout() {
-    const doLayout = this._options.doLayout || defaultDoLayout;
+    const doLayout = this._options.doLayout || Factory.getDefaultLayout();
     if (doLayout && this._layoutMarks?.length) {
       this.emit(HOOK_EVENT.BEFORE_DO_LAYOUT);
       doLayout(this._layoutMarks, this._options, this);
@@ -808,8 +803,16 @@ export default class View extends EventEmitter implements IView {
     this.emit(HOOK_EVENT.BEFORE_DO_RENDER);
     // render as needed
     if (this.renderer) {
-      if (!this._progressiveMarks) {
+      if (!this._progressiveMarks && this.animate) {
         this.animate.animate();
+      } else {
+        this.traverseMarkTree(
+          mark => {
+            mark.cleanExitElements();
+          },
+          null,
+          true
+        );
       }
       // 绘图 =>
       this.renderer.render(immediately);
@@ -869,10 +872,7 @@ export default class View extends EventEmitter implements IView {
     // resize again if width/height signal is updated duration dataflow
     this._resizeRenderer();
 
-    this._willMorphMarks?.forEach(morphMarks => {
-      this._morph.morph(morphMarks.prev, morphMarks.next, normalizedRunningConfig);
-    });
-    this._willMorphMarks = null;
+    (this as any).morph?.(normalizedRunningConfig);
 
     this.releaseCachedGrammars(normalizedRunningConfig);
 
@@ -884,10 +884,6 @@ export default class View extends EventEmitter implements IView {
   }
 
   private reuseCachedGrammars(runningConfig: IRunningConfig) {
-    if (!this._willMorphMarks) {
-      this._willMorphMarks = [];
-    }
-
     if (runningConfig.reuse) {
       const reuseDiffUpdate = (diff: { prev: IGrammarBase; next: IGrammarBase }) => {
         diff.next.reuse(diff.prev);
@@ -896,19 +892,19 @@ export default class View extends EventEmitter implements IView {
         this._cachedGrammars.unrecord(diff.prev);
       };
 
-      const diffedSignal = this._morph.diffGrammar(
+      const diffedSignal = this._differ.diffGrammar(
         this._cachedGrammars.getAllSignals(),
         this.grammars.getAllSignals().filter(signal => !BuiltInSignalID.includes(signal.id()))
       );
       diffedSignal.update.forEach(reuseDiffUpdate);
 
-      const diffedData = this._morph.diffGrammar(this._cachedGrammars.getAllData(), this.grammars.getAllData());
+      const diffedData = this._differ.diffGrammar(this._cachedGrammars.getAllData(), this.grammars.getAllData());
       diffedData.update.forEach(reuseDiffUpdate);
 
-      const diffedScale = this._morph.diffGrammar(this._cachedGrammars.getAllScales(), this.grammars.getAllScales());
+      const diffedScale = this._differ.diffGrammar(this._cachedGrammars.getAllScales(), this.grammars.getAllScales());
       diffedScale.update.forEach(reuseDiffUpdate);
 
-      const diffedCoordinate = this._morph.diffGrammar(
+      const diffedCoordinate = this._differ.diffGrammar(
         this._cachedGrammars.getAllCoordinates(),
         this.grammars.getAllCoordinates()
       );
@@ -917,7 +913,7 @@ export default class View extends EventEmitter implements IView {
       // TODO: reuse custom
     }
 
-    const diffedMark = this._morph.diffMark(
+    const diffedMark = this._differ.diffMark(
       this._cachedGrammars.getAllMarks(),
       this.grammars.getAllMarks().filter(mark => mark.id() !== 'root'),
       runningConfig
@@ -933,7 +929,7 @@ export default class View extends EventEmitter implements IView {
         diff.prev[0].clear();
         this._cachedGrammars.unrecord(diff.prev[0]);
       } else if ((runningConfig.morph && enableMarkMorphConfig) || runningConfig.morphAll) {
-        this._willMorphMarks.push({ prev: diff.prev, next: diff.next });
+        (this as any).addMorphMarks?.({ prev: diff.prev, next: diff.next });
       }
     });
   }
@@ -957,14 +953,14 @@ export default class View extends EventEmitter implements IView {
     });
     const markNodes = this._cachedGrammars.getAllMarkNodes();
     markNodes.forEach(node => {
-      node.mark.animate.stop();
-      if (runningConfig.enableExitAnimation) {
+      node.mark.animate?.stop();
+      if (runningConfig.enableExitAnimation && this.animate) {
         this.animate.animateAddition(node.mark);
       }
     });
     const releaseUp = (node: IMarkTreeNode) => {
       // do nothing when mark is already released or is still animating
-      if (!node.mark.view || node.mark.animate.getAnimatorCount() !== 0) {
+      if (!node.mark.view || (node.mark.animate && node.mark.animate.getAnimatorCount() !== 0)) {
         return;
       }
       // release when current node is leaf node
@@ -981,11 +977,11 @@ export default class View extends EventEmitter implements IView {
     };
     markNodes.forEach(node => {
       const mark = node.mark;
-      if (mark.animate.getAnimatorCount() === 0) {
+      if (mark.animate && mark.animate.getAnimatorCount() === 0) {
         releaseUp(node);
       } else {
         mark.addEventListener('animationEnd', () => {
-          if (mark.animate.getAnimatorCount() === 0) {
+          if (mark.animate && mark.animate.getAnimatorCount() === 0) {
             releaseUp(node);
           }
         });
@@ -1121,170 +1117,6 @@ export default class View extends EventEmitter implements IView {
     return false;
   }
 
-  // --- Event ---
-
-  private bindEvents(eventSpec: BaseEventSpec) {
-    if (this._eventConfig.disable) {
-      return;
-    }
-    const { type: evtType, filter, callback, throttle, debounce, consume, target, dependency } = eventSpec;
-    const eventSelector = parseEventSelector(evtType);
-
-    if (!eventSelector) {
-      return;
-    }
-    const { source, type } = eventSelector;
-
-    const markFilter = generateFilterByMark(eventSelector);
-    const targetSignals =
-      Array.isArray(target) && target.length
-        ? target.map(entry => {
-            return {
-              signal: this.getSignalById(entry.target),
-              callback: entry.callback
-            };
-          })
-        : [
-            {
-              signal: isString(target) ? this.getSignalById(target) : null,
-              callback
-            }
-          ];
-    const validateSignals = targetSignals.filter(entry => entry.signal || entry.callback);
-    const refs = parseReference(dependency, this);
-
-    const send = parseHandler(
-      (evt?: any, element?: IElement) => {
-        const needPreventDefault =
-          (source === EVENT_SOURCE_VIEW && prevent(this._eventConfig, type)) ||
-          (consume && (evt.cancelable === undefined || evt.cancelable));
-
-        if (source === EVENT_SOURCE_WINDOW) {
-          evt = getExtendedEvents(this, evt, element, type, EVENT_SOURCE_WINDOW);
-        }
-
-        let hasCommitted = false;
-
-        if ((!filter || filter(evt)) && (!markFilter || markFilter(element)) && validateSignals.length) {
-          const params = refs.reduce((params, ref) => {
-            params[ref.id()] = ref.output();
-            return params;
-          }, {});
-          validateSignals.forEach(entry => {
-            if (entry.callback && entry.signal) {
-              const changed = entry.signal.set(entry.callback(evt, params));
-
-              if (changed) {
-                this.commit(entry.signal);
-                hasCommitted = true;
-              }
-            } else if (entry.callback) {
-              entry.callback(evt, params);
-            } else {
-              this.commit(entry.signal);
-              hasCommitted = true;
-            }
-          });
-        }
-
-        if (needPreventDefault) {
-          evt.preventDefault();
-        }
-
-        if (consume) {
-          evt.stopPropagation();
-        }
-
-        if (hasCommitted) {
-          this.run();
-        }
-      },
-      { throttle, debounce }
-    );
-
-    if (source === EVENT_SOURCE_VIEW) {
-      if (permit(this._eventConfig, EVENT_SOURCE_VIEW, type)) {
-        // send traps errors, so use {trap: false} option
-        this.addEventListener(type, send, NO_TRAP);
-
-        return () => {
-          this.removeEventListener(type, send);
-        };
-      }
-    } else if (source === EVENT_SOURCE_WINDOW) {
-      vglobal.addEventListener(type, send);
-      this._eventListeners.push({
-        type: type,
-        source: vglobal,
-        handler: send
-      });
-
-      return () => {
-        vglobal.removeEventListener(type, send);
-
-        const index = this._eventListeners.findIndex((entry: any) => {
-          return entry.type === type && entry.source === vglobal && entry.handler === send;
-        });
-
-        if (index >= 0) {
-          this._eventListeners.splice(index, 1);
-        }
-      };
-    }
-  }
-
-  event(eventSpec: EventSpec) {
-    if ('between' in eventSpec) {
-      const [starEvent, endEvent] = eventSpec.between;
-      // FIXME between需要生成唯一ID
-      const id = `${starEvent.type}-${eventSpec.type}-${endEvent.type}`;
-
-      let unbindEndEvent: any;
-
-      this.bindEvents(
-        Object.assign({}, starEvent, {
-          callback: () => {
-            if (!this._eventCache) {
-              this._eventCache = {};
-            }
-            // 中间的事件绑定
-            if (!this._eventCache[id]) {
-              const unbindEvent = this.bindEvents(eventSpec);
-              this._eventCache[id] = unbindEvent;
-            }
-            if (!unbindEndEvent) {
-              // 结束的事件绑定
-              unbindEndEvent = this.bindEvents(
-                Object.assign({}, endEvent, {
-                  callback: () => {
-                    if (this._eventCache[id]) {
-                      this._eventCache[id]();
-                      this._eventCache[id] = null;
-                    }
-                  }
-                })
-              );
-            }
-          }
-        })
-      );
-    } else if ('merge' in eventSpec) {
-      eventSpec.merge.forEach(entry => {
-        const singleEvent: Partial<BaseEventSpec> = Object.assign({}, eventSpec);
-
-        if (isString(entry)) {
-          singleEvent.type = entry;
-        } else if (isObject(entry)) {
-          Object.assign(singleEvent, entry);
-        }
-        singleEvent.debounce = 50;
-        this.bindEvents(singleEvent as BaseEventSpec);
-      });
-    } else {
-      this.bindEvents(eventSpec);
-    }
-  }
-
   interaction(type: string, spec: Partial<InteractionSpec>) {
     const interaction = Factory.createInteraction(type, this, spec);
 
@@ -1336,6 +1168,32 @@ export default class View extends EventEmitter implements IView {
     }
 
     return this;
+  }
+
+  /**
+   * 初始化事件配置，将所有配置转化为 {[key: string]: boolean } 格式。
+   * Initialize event handling configuration.
+   * @param {object} config - The configuration settings.
+   * @return {object}
+   */
+  initializeEventConfig(config: any) {
+    const eventsConfig = Object.assign({ defaults: {} }, config);
+
+    const unpack = (obj: any, keys: string[]) => {
+      keys.forEach(k => {
+        if (isArray(obj[k])) {
+          obj[k] = obj[k].reduce((set: any, key: any) => {
+            set[key] = true;
+            return set;
+          }, {});
+        }
+      });
+    };
+
+    unpack(eventsConfig.defaults, ['prevent', 'allow']);
+    unpack(eventsConfig, [EVENT_SOURCE_VIEW, EVENT_SOURCE_WINDOW]);
+
+    return eventsConfig;
   }
 
   private initEvent() {
@@ -1401,9 +1259,9 @@ export default class View extends EventEmitter implements IView {
 
     this._dataflow = new Dataflow();
 
-    this.animate = new ViewAnimate(this);
+    this.animate = (this as any).initAnimate?.(this);
 
-    this._morph = new Morph();
+    this._differ = new ViewDiff();
 
     // 执行钩子
     if (this._options.hooks) {
@@ -1420,7 +1278,7 @@ export default class View extends EventEmitter implements IView {
     this._eventListeners = [];
 
     // initialize event configuration
-    this._eventConfig = initializeEventConfig(this._options.eventConfig);
+    this._eventConfig = this.initializeEventConfig(this._options.eventConfig);
 
     // set default theme
     this._theme = this._options.disableTheme ? null : ThemeManager.getDefaultTheme();
@@ -1525,7 +1383,7 @@ export default class View extends EventEmitter implements IView {
     Factory.unregisterRuntimeTransforms();
     Logger.setInstance(null);
 
-    this.animate.stop();
+    this.animate?.stop();
 
     this.grammars.release();
     this._cachedGrammars.release();

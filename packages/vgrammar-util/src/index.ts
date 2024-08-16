@@ -10,13 +10,12 @@
 export { accessor, accessorName, accessorFields } from './accessor';
 export { getter } from './getter';
 
-export { id, identity, zero, one, truthy, falsy, emptyObject } from './accessors';
+export { identity, zero } from './accessors';
 
 export { compare, ascending } from './compare';
 export { error } from './error';
 export { extent } from './extent';
 export { field } from './field';
-export { isEqual } from './isEqual';
 
 export { splitAccessPath } from './splitAccessPath';
 
@@ -28,3 +27,5 @@ export { regressionLinear } from './regression-linear';
 export { parseViewBox } from './view-box';
 
 export * from './direction';
+export * from './image';
+export * from './shapes';

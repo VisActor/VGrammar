@@ -149,7 +149,7 @@ test('Mark encode state', function () {
     .encodeState('hover', { fill: () => 'red' });
 
   const element = createSimpleElement();
-  element.updateData('key', [{ key: 0 }], 'key', {} as any);
+  element.updateData('key', [{ key: 0 }], 'key');
   element.initGraphicItem();
 
   // enter

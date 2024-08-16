@@ -1,7 +1,4 @@
 import { getShapeFunction, getMaxRadiusAndCenter } from '../src/shapes';
-import { initBrowserEnv } from '@visactor/vgrammar-core';
-
-initBrowserEnv();
 
 test('getShapeFunction("triangle")', () => {
   const triangle = getShapeFunction('triangle');
@@ -34,10 +31,10 @@ test('getShapeFunction("pentagon")', () => {
 
 test('getShapeFunction("cardioid")', () => {
   const shape = getShapeFunction('cardioid');
-  expect(shape(Math.PI / 3)).toBeCloseTo(0.1339745962155614);
-  expect(shape((2 * Math.PI) / 3)).toBeCloseTo(0.1339745962155614);
+  expect(shape(Math.PI / 3)).toBeCloseTo(1.8660254037844386);
+  expect(shape((2 * Math.PI) / 3)).toBeCloseTo(1.8660254037844386);
 
-  expect(shape(Math.PI / 2)).toBeCloseTo(0);
+  expect(shape(Math.PI / 2)).toBeCloseTo(2);
   expect(shape(Math.PI)).toBeCloseTo(0.9999999999999999);
 });
 
@@ -54,7 +51,7 @@ test('getMaxRadiusAndCenter() of cardioid', () => {
   const res = getMaxRadiusAndCenter('cardioid', [400, 400]);
   expect(res.maxRadius).toBeCloseTo(153);
   expect(res.center[0]).toBeCloseTo(200);
-  expect(res.center[1]).toBeCloseTo(88);
+  expect(res.center[1]).toBeCloseTo(59);
 });
 
 test('getMaxRadiusAndCenter() of triangleForward', () => {

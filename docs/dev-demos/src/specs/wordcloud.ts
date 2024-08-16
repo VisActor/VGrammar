@@ -13,6 +13,7 @@ export const spec = {
   //     "right": 0
   //   },
   //   "autosize": "none",
+  //background: 'yellow',
   width: 500,
   height: 500,
   padding: 5,
@@ -20,7 +21,12 @@ export const spec = {
   data: [
     {
       id: 'baseData',
-      values: baseData.slice(0, 30),
+      values: baseData.map(entry => {
+        return {
+          ...entry,
+          challenge_name: entry['challenge_name']
+        }
+      }),
       transform: [
         {
           type: 'map',
@@ -75,7 +81,7 @@ export const spec = {
           fontFamily: 'HuaWenHeiTi',
           fontSize: { field: 'sum_count' },
           fontWeight: { field: 'weight' },
-          fontSizeRange: [10, 40], // 字体范围
+          fontSizeRange: [12, 36], // 字体范围
           padding: { signal: 'wordPadding' },
           // rotate: { field: 'rotate' },
           shrink: false, // ls是否支持缩小显示单词
@@ -84,12 +90,17 @@ export const spec = {
           clip: false,
           // "spiral": "rectangular",
           randomVisible: false,
-          shape: 'circle',
-          // layoutType: 'fast',
+          shape: {
+            type: 'text',
+            text: '大',
+            fontWeight: 'bold',
+          },
+          backgroundColor: 'pink',
+          layoutType: 'grid',
           progressiveStep: 50,
-          rotate: () => {
-            return Math.random() > 0.5 ? 90 : 0;
-          }
+          // rotate: () => {
+          //   return Math.random() > 0.5 ? 90 : 0;
+          // }
         }
       ],
       encode: {
