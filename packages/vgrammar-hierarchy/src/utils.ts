@@ -7,7 +7,8 @@ export const calculateNodeValue = <Datum extends HierarchicalDatum, NodeElement 
   depth: number = 0,
   flattenIndex: number = -1,
   parent?: NodeElement,
-  getNodeKey?: (datum: Datum) => string
+  getNodeKey?: (datum: Datum) => string,
+  valueField: string = 'value'
 ): { sum: number; maxDepth: number; flattenIndex: number } => {
   let sum = 0;
   let prevFlattenIndex = flattenIndex ?? -1;
@@ -20,7 +21,7 @@ export const calculateNodeValue = <Datum extends HierarchicalDatum, NodeElement 
       maxDepth: -1,
       depth,
       index,
-      value: datum.value,
+      value: datum[valueField],
       isLeaf: true,
       datum: parent ? parent.datum.concat(datum) : [datum],
       parentKey: parent?.key
@@ -35,15 +36,16 @@ export const calculateNodeValue = <Datum extends HierarchicalDatum, NodeElement 
         depth + 1,
         prevFlattenIndex,
         node,
-        getNodeKey
+        getNodeKey,
+        valueField
       );
-      node.value = isNil(datum.value) ? res.sum : Math.max(res.sum, toValidNumber(datum.value));
+      node.value = isNil(datum[valueField]) ? res.sum : Math.max(res.sum, toValidNumber(datum[valueField]));
 
       prevFlattenIndex = res.flattenIndex;
       maxDepth = Math.max(res.maxDepth, maxDepth);
     } else {
       node.isLeaf = true;
-      node.value = toValidNumber(datum.value);
+      node.value = toValidNumber(datum[valueField]);
     }
 
     sum += Math.abs(node.value);

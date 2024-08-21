@@ -83,7 +83,15 @@ export class TreemapLayout {
           };
 
     const nodes: TreemapNodeElement[] = [];
-    const res = calculateNodeValue<TreemapDatum, TreemapNodeElement>(data, nodes, 0, -1, null, this._getNodeKey);
+    const res = calculateNodeValue<TreemapDatum, TreemapNodeElement>(
+      data,
+      nodes,
+      0,
+      -1,
+      null,
+      this._getNodeKey,
+      this.options.valueField
+    );
     this._maxDepth = res.maxDepth;
 
     if (res.sum <= 0) {
