@@ -20,7 +20,7 @@ export const generateIsEmptyPixel = (backgroundColor?: string) => {
   /* Determine bgPixel by creating
       another canvas and fill the specified background color. */
   // eslint-disable-next-line no-undef
-  const bctx = vglobal.createCanvas({ width: 1, height: 1 }).getContext('2d');
+  const bctx = vglobal.createCanvas({ width: 1, height: 1 }).getContext('2d', { willReadFrequently: true });
 
   bctx.fillStyle = backgroundColor;
   bctx.fillRect(0, 0, 1, 1);
@@ -50,7 +50,7 @@ export const generateMaskCanvas = (
       height,
       dpr: 1
     });
-  const tempContext = maskCanvas.getContext('2d');
+  const tempContext = maskCanvas.getContext('2d', { willReadFrequently: true });
   if (cacheCanvas) {
     const prevWidth = cacheCanvas.width;
     const prevHeight = cacheCanvas.height;
