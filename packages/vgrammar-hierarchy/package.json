@@ -41,8 +41,8 @@
     "@visactor/vutils": "~0.18.10",
     "@visactor/vgrammar-core": "workspace:0.13.20",
     "@visactor/vgrammar-util": "workspace:0.13.20",
-    "@visactor/vrender-core": "0.19.24",
-    "@visactor/vrender-kits": "0.19.24"
+    "@visactor/vrender-core": "0.19.25",
+    "@visactor/vrender-kits": "0.19.25"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
