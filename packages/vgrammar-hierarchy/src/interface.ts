@@ -50,6 +50,10 @@ export interface TreemapOptions {
    * when the width or height of the node is smaller then this value, this node will be hide
    */
   minChildrenVisibleSize?: number | number[];
+  /**
+   * specify treemap node value field, defaults to `value`
+   */
+  valueField?: string;
 }
 
 export type TreemapTramsformOptions = TreemapOptions & ViewBoxOptions & { flatten?: boolean };
