@@ -15,7 +15,7 @@ export function layout(
     shapeRatio
   } = segmentationOutput;
   const board = initBoardWithShape(segmentationOutput);
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
   // 对每个区域开始进行布局
   for (const region of regions) {
@@ -77,7 +77,7 @@ export function layoutSelfShrink(
     boardSize
   } = segmentationOutput;
   const board = initBoardWithShape(segmentationOutput);
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
   // 对每个区域开始进行布局
   for (const region of regions) {
@@ -153,7 +153,7 @@ export function layoutGlobalShrink(
     shapeMaxR,
     shapeRatio
   } = segmentationOutput;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   const boardOrigin = initBoardWithShape(segmentationOutput);
   let board = boardOrigin.slice(0);
 
@@ -278,7 +278,7 @@ export function layoutSelfEnlarge(
     shapeMaxR,
     shapeRatio
   } = segmentationOutput;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   const boardOrigin = initBoardWithShape(segmentationOutput);
   let board = boardOrigin.slice(0);
 

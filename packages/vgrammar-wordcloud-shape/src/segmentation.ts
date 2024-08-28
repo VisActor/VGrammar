@@ -7,7 +7,7 @@ import type { CloudWordType, SegmentationInputType, SegmentationOutputType } fro
  */
 export function segmentation(segmentationInput: SegmentationInputType) {
   const { size, maskCanvas } = segmentationInput;
-  const ctx = maskCanvas.getContext('2d');
+  const ctx = maskCanvas.getContext('2d', { willReadFrequently: true });
   const imageData = ctx.getImageData(0, 0, maskCanvas.width, maskCanvas.height);
   // 保存分组标签，0 是背景(像素为白色或透明度为 0)，>1 的分组
   const labels = new Array(size[0] * size[1]).fill(0);
@@ -241,7 +241,7 @@ export function removeBorder(
 ) {
   canvas.width = image.width;
   canvas.height = image.height;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(image, 0, 0);
   const width = canvas.width;

@@ -65,7 +65,7 @@ export class Layout implements IProgressiveTransformResult<any[]> {
 
     // 全局共用的临时画板，此处需要对小程序的 canvas 进行兼容
     const tempCanvas = vglobal.createCanvas({ width: options.size[0], height: options.size[1] });
-    const tempCtx = tempCanvas.getContext('2d');
+    const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
     tempCtx.textAlign = 'center';
     tempCtx.textBaseline = 'middle';
     segmentationInput.tempCanvas = tempCanvas;
