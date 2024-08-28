@@ -71,7 +71,6 @@ export const generateLabelAttributes = (
 
       const data: any[] = addition.data ?? [];
       const themeDatum = currentTheme?.data?.[0] ?? {};
-
       if (data && data.length > 0) {
         data.forEach((d, index) => {
           if (mark.elements[index]) {
@@ -80,6 +79,10 @@ export const generateLabelAttributes = (
           }
         });
       } else {
+        const mergeAttributes = (attributes: any, themeDatum: any) => {
+          const { data: labelData, ...restAttribute } = attributes;
+          return { data: labelData, ...merge({}, themeDatum, restAttribute) };
+        };
         // process by order of elements
         mark.elements.forEach(element => {
           const graphicItem = element.getGraphicItem();
@@ -89,23 +92,21 @@ export const generateLabelAttributes = (
 
               datum.forEach((entry: any) => {
                 const attributes = invokeEncoder(encoder, entry, element, labelParameters);
-                data.push(merge({}, themeDatum, attributes));
+                data.push(mergeAttributes(attributes, themeDatum));
               });
             } else {
               const attributes = invokeEncoder(encoder, element.getDatum(), element, labelParameters);
-              const datum = merge({}, themeDatum, attributes);
-              data.push(datum);
+              data.push(mergeAttributes(attributes, themeDatum));
             }
           }
         });
       }
 
       const graphicItemName = mark.graphicItem?.name;
-      return merge(
+      const result = merge(
         {},
         currentTheme,
         {
-          data,
           baseMarkGroupName: graphicItemName,
           // FIXME: hack
           // 标签是对数据顺序有强要求的场景，因为顺序会影响标签躲避结果；而目前没有机制保证 vrender 图元顺序与数据顺序一致。
@@ -114,10 +115,14 @@ export const generateLabelAttributes = (
         },
         addition ?? {}
       );
+      result.data = data ?? currentTheme.data;
+      return result;
     })
     .filter(label => !isNil(label));
 
-  return merge({}, labelTheme, { size: groupSize, dataLabels });
+  const result = merge({}, labelTheme, { size: groupSize });
+  result.dataLabels = dataLabels;
+  return result;
 };
 
 export class Label extends Component implements ILabel {
