@@ -8,6 +8,12 @@ export interface SankeyOptions {
    */
   direction?: 'horizontal' | 'vertical';
   /**
+   * 是否开启反向坐标轴。
+   * @default false
+   * @since 0.14.1
+   */
+  inverse?: boolean;
+  /**
    * the align type of y position of nodes is differnt layer when the direction is `hotizontal`
    * the align type of x position of nodes is differnt layer when the direction is `hotizontal`
    */
