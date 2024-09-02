@@ -934,6 +934,14 @@ export class Mark extends GrammarBase implements IMark {
     return this.renderContext && (!!this.renderContext.progressive || !!this.renderContext.beforeTransformProgressive);
   }
 
+  canAnimateAfterProgressive() {
+    return (
+      this.renderContext &&
+      this.renderContext.beforeTransformProgressive &&
+      this.renderContext.beforeTransformProgressive.canAnimate()
+    );
+  }
+
   isDoingProgressive() {
     return (
       this.renderContext &&
