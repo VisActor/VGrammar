@@ -2,6 +2,30 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.14.1",
+      "tag": "@visactor/vgrammar-core_v0.14.1",
+      "date": "Mon, 02 Sep 2024 02:02:24 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: treemap transform supports custom valueField"
+          },
+          {
+            "comment": "feat: support inverse of sankey\n\n"
+          },
+          {
+            "comment": "fix: fix error of no animation when direction change\n\n"
+          },
+          {
+            "comment": "fix: fix warning about `willReadFrequently`\n\n"
+          },
+          {
+            "comment": "perf: optimize performance of label component"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.0",
       "tag": "@visactor/vgrammar-core_v0.14.0",
       "date": "Thu, 15 Aug 2024 08:29:53 GMT",
