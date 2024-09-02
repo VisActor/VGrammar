@@ -81,7 +81,7 @@ export const generateLabelAttributes = (
       } else {
         const mergeAttributes = (attributes: any, themeDatum: any) => {
           const { data: labelData, ...restAttribute } = attributes;
-          return { data: labelData, ...merge({}, themeDatum, restAttribute) };
+          return { ...merge({}, themeDatum, restAttribute), data: labelData };
         };
         // process by order of elements
         mark.elements.forEach(element => {
