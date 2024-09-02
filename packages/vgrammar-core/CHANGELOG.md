@@ -1,6 +1,23 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 15 Aug 2024 08:29:53 GMT and should not be manually modified.
+This log was last generated on Mon, 02 Sep 2024 02:02:24 GMT and should not be manually modified.
+
+## 0.14.1
+Mon, 02 Sep 2024 02:02:24 GMT
+
+### Updates
+
+- feat: treemap transform supports custom valueField
+- feat: support inverse of sankey
+
+
+- fix: fix error of no animation when direction change
+
+
+- fix: fix warning about `willReadFrequently`
+
+
+- perf: optimize performance of label component
 
 ## 0.14.0
 Thu, 15 Aug 2024 08:29:53 GMT
