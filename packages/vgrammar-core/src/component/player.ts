@@ -1,10 +1,6 @@
 import { isArray, isString, merge, mixin } from '@visactor/vutils';
 import type { IGraphic } from '@visactor/vrender-core';
-import type {
-  ContinuousPlayerAttributes,
-  DiscretePlayerAttributes,
-  IDiscretePlayer
-} from '@visactor/vrender-components';
+import type { ContinuousPlayerAttributes, DiscretePlayerAttributes } from '@visactor/vrender-components';
 // eslint-disable-next-line no-duplicate-imports
 // eslint-disable-next-line no-duplicate-imports
 import { ContinuousPlayer, DiscretePlayer } from '@visactor/vrender-components';
@@ -93,28 +89,28 @@ export class Player extends Component implements IPlayer {
 
   play() {
     // FIXME: unite IDiscretePlayer and IContinuousPlayer interface in vis-component
-    const player = this.getGroupGraphicItem() as unknown as IDiscretePlayer;
+    const player = this.getGroupGraphicItem() as unknown as DiscretePlayer;
     player.play();
     return this;
   }
 
   pause() {
     // FIXME: unite IDiscretePlayer and IContinuousPlayer interface in vis-component
-    const player = this.getGroupGraphicItem() as unknown as IDiscretePlayer;
+    const player = this.getGroupGraphicItem() as unknown as DiscretePlayer;
     player.pause();
     return this;
   }
 
   backward() {
     // FIXME: unite IDiscretePlayer and IContinuousPlayer interface in vis-component
-    const player = this.getGroupGraphicItem() as unknown as IDiscretePlayer;
+    const player = this.getGroupGraphicItem() as unknown as DiscretePlayer;
     player.backward();
     return this;
   }
 
   forward() {
     // FIXME: unite IDiscretePlayer and IContinuousPlayer interface in vis-component
-    const player = this.getGroupGraphicItem() as unknown as IDiscretePlayer;
+    const player = this.getGroupGraphicItem() as unknown as DiscretePlayer;
     player.forward();
     return this;
   }
