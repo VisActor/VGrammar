@@ -178,24 +178,56 @@ export class SankeyLayout {
     links = links.filter(link => !isNil(link.source) && !isNil(link.target));
 
     if (isVertical(this.options.direction)) {
-      nodes.forEach(node => {
-        const y0 = node.y0;
-        const y1 = node.y1;
+      if (this.options.inverse) {
+        const viewY1 = this._viewBox.x1;
+        nodes.forEach(node => {
+          const { y0, y1, x0, x1 } = node;
 
-        node.y0 = node.x0;
-        node.y1 = node.x1;
-        node.x0 = y0;
-        node.x1 = y1;
+          node.y0 = viewY1 - x1;
+          node.y1 = viewY1 - x0;
+          node.x0 = y0;
+          node.x1 = y1;
+        });
+
+        links.forEach(link => {
+          link.vertical = true;
+          const { x0, x1, y0, y1 } = link;
+
+          link.x0 = y0;
+          link.x1 = y1;
+          link.y0 = viewY1 - x0;
+          link.y1 = viewY1 - x1;
+        });
+      } else {
+        nodes.forEach(node => {
+          const { y0, y1 } = node;
+
+          node.y0 = node.x0;
+          node.y1 = node.x1;
+          node.x0 = y0;
+          node.x1 = y1;
+        });
+
+        links.forEach(link => {
+          link.vertical = true;
+          const x0 = link.x0;
+          const x1 = link.x1;
+          link.x0 = link.y0;
+          link.x1 = link.y1;
+          link.y0 = x0;
+          link.y1 = x1;
+        });
+      }
+    } else if (this.options.inverse) {
+      nodes.forEach(node => {
+        const { x0, x1 } = node;
+        node.x0 = viewBox.x1 - x1;
+        node.x1 = viewBox.x1 - x0;
       });
 
       links.forEach(link => {
-        link.vertical = true;
-        const x0 = link.x0;
-        const x1 = link.x1;
-        link.x0 = link.y0;
-        link.x1 = link.y1;
-        link.y0 = x0;
-        link.y1 = x1;
+        link.x0 = viewBox.x1 - link.x0;
+        link.x1 = viewBox.x1 - link.x1;
       });
     }
 
@@ -206,6 +238,7 @@ export class SankeyLayout {
       link.sourceRect = { x0: sourceNode.x0, x1: sourceNode.x1, y0: sourceNode.y0, y1: sourceNode.y1 };
       link.targetRect = { x0: targetNode.x0, x1: targetNode.x1, y1: targetNode.y1, y0: targetNode.y0 };
     });
+
     return { nodes, links, columns };
   }
 

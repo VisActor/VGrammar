@@ -303,7 +303,7 @@ test('vertical', () => {
     ]
   };
 
-  const layout = new SankeyLayout({ minLinkHeight: 5 });
+  const layout = new SankeyLayout({ minLinkHeight: 5, direction: 'vertical' });
   const result = layout.layout(data, { width: 200, height: 100 });
 
   expect(result.nodes.length).toBe(5);
@@ -326,8 +326,8 @@ test('vertical', () => {
 
   expect(result.links[0]).toMatchObject({
     index: 0,
-    x0: 24,
-    x1: 176
+    y0: 24,
+    y1: 76
   });
 });
 
@@ -458,4 +458,80 @@ test('hierarchy data sankey can be sort', () => {
 
   expect(result.nodes.length).toBe(11);
   expect(result.nodes[0].sourceLinks.map(link => link.value)).toEqual([0, 30, 35]);
+});
+
+test('horizontal inverse', () => {
+  const data = {
+    links: [
+      { source: 'A', target: 'B', value: 1 },
+      { source: 'A', target: 'C', value: 2 },
+      { source: 'C', target: 'E', value: 1 },
+      { source: 'C', target: 'F', value: 1 }
+    ]
+  };
+
+  const layout = new SankeyLayout({ minLinkHeight: 5, inverse: true });
+  const result = layout.layout(data, { width: 200, height: 100 });
+
+  expect(result.nodes.length).toBe(5);
+  expect(result.nodes[0]).toMatchObject({
+    depth: 0,
+    endDepth: 2,
+    index: 0,
+    key: 'A',
+    layer: 0,
+    value: 3
+  });
+  expect(result.nodes[1]).toMatchObject({
+    depth: 1,
+    endDepth: 0,
+    index: 1,
+    key: 'B',
+    layer: 2,
+    value: 1
+  });
+
+  expect(result.links[0]).toMatchObject({
+    index: 0,
+    x0: 176,
+    x1: 24
+  });
+});
+
+test('vertical inverse', () => {
+  const data = {
+    links: [
+      { source: 'A', target: 'B', value: 1 },
+      { source: 'A', target: 'C', value: 2 },
+      { source: 'C', target: 'E', value: 1 },
+      { source: 'C', target: 'F', value: 1 }
+    ]
+  };
+
+  const layout = new SankeyLayout({ minLinkHeight: 5, direction: 'vertical', inverse: true });
+  const result = layout.layout(data, { width: 200, height: 100 });
+
+  expect(result.nodes.length).toBe(5);
+  expect(result.nodes[0]).toMatchObject({
+    depth: 0,
+    endDepth: 2,
+    index: 0,
+    key: 'A',
+    layer: 0,
+    value: 3
+  });
+  expect(result.nodes[1]).toMatchObject({
+    depth: 1,
+    endDepth: 0,
+    index: 1,
+    key: 'B',
+    layer: 2,
+    value: 1
+  });
+
+  expect(result.links[0]).toMatchObject({
+    index: 0,
+    y0: 76,
+    y1: 24
+  });
 });

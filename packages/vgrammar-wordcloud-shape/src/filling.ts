@@ -26,7 +26,7 @@ export function filling(
   } = layoutConfig;
 
   const { boardSize, shapeBounds, tempCanvas: canvas, randomGenerator } = segmentationOutput;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
   // const padding = fillingPadding
 
