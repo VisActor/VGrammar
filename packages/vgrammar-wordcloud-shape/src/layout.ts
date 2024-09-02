@@ -128,6 +128,9 @@ export class Layout implements IProgressiveTransformResult<any[]> {
       this.isLayoutFinished = true;
     }
   }
+  canAnimate() {
+    return true;
+  }
 
   unfinished(): boolean {
     return !this.isLayoutFinished;

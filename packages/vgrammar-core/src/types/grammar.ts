@@ -216,6 +216,8 @@ export interface IProgressiveGrammar {
   restartProgressive: () => void;
   /** 分片执行 */
   evaluateProgressive: () => void;
+  /** 增量流程后，是否执行动画 */
+  canAnimateAfterProgressive: () => boolean;
 }
 
 export interface IMark extends IGrammarBase, IProgressiveGrammar {
