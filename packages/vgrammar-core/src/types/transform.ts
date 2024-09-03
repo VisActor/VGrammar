@@ -376,6 +376,10 @@ export interface IProgressiveTransformResult<Output = any> {
   progressiveRun: () => void;
   /** release the progressive context */
   release: () => void;
+  /**
+   * can animate after progressive
+   */
+  canAnimate?: () => boolean;
 }
 
 export interface IProgressiveTransform<Output = any> {
