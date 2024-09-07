@@ -977,7 +977,7 @@ export default class View extends EventEmitter implements IView {
     };
     markNodes.forEach(node => {
       const mark = node.mark;
-      if (mark.animate && mark.animate.getAnimatorCount() === 0) {
+      if (!mark.animate || mark.animate.getAnimatorCount() === 0) {
         releaseUp(node);
       } else {
         mark.addEventListener('animationEnd', () => {
