@@ -1,3 +1,32 @@
+# v0.14.4
+
+2024-09-05
+
+
+**What's Changed**
+
+* feat: upgrade vrender version by @neuqzxy in https://github.com/VisActor/VGrammar/pull/533
+* [Auto Sync] Sync the code from branch main to branch develop after release 0.14.3 by @github-actions in https://github.com/VisActor/VGrammar/pull/535
+* [Auto release] release 0.14.4 by @github-actions in https://github.com/VisActor/VGrammar/pull/537
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.14.3...v0.14.4
+
+[更多详情请查看 v0.14.4](https://github.com/VisActor/VGrammar/releases/tag/v0.14.4)
+
+# v0.14.3
+
+2024-09-05
+
+
+**What's Changed**
+
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.14.2...v0.14.3
+
+[更多详情请查看 v0.14.3](https://github.com/VisActor/VGrammar/releases/tag/v0.14.3)
+
 # v0.12.9
 
 2024-04-23
