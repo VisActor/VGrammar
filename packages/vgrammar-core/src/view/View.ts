@@ -1342,7 +1342,11 @@ export default class View extends EventEmitter implements IView {
     if (this._progressiveMarks && this._progressiveMarks.some(mark => mark.isDoingProgressive())) {
       const raf = vglobal.getRequestAnimationFrame();
       this._progressiveRafId = raf(this.handleProgressiveFrame);
-    } else if (this._progressiveMarks && this._progressiveMarks.every(mark => mark.canAnimateAfterProgressive())) {
+    } else if (
+      this._progressiveMarks &&
+      this.animate &&
+      this._progressiveMarks.every(mark => mark.canAnimateAfterProgressive())
+    ) {
       this.animate.animate();
     } else if (this._progressiveMarks) {
       this._progressiveMarks = null;
