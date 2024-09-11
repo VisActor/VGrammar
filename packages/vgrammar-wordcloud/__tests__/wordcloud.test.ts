@@ -273,3 +273,30 @@ test('Wordcloud generates wordcloud layout with rotate seed random', async () =>
   expect(result[0].x).toBe(250);
   expect(result[0].y).toBe(250);
 });
+
+test('Wordcloud layout when there is one data and make sure try count is 2', async () => {
+  const data = [
+    {
+      '240829180619332': '健康',
+      '240830104655019': '113'
+    }
+  ];
+
+  const result = await transform(
+    {
+      size: [148, 69],
+      text: { field: '240829180619332' },
+      fontSize: { field: '240830104655019' },
+      fontSizeRange: [10, 50],
+      shape: 'square',
+      randomVisible: false,
+      shrink: true,
+      enlarge: true
+    },
+    data
+  );
+  expect(result.length).toBe(data.length);
+  expect(result[0].fontSize).toBeCloseTo(35.656656207978486);
+  expect(result[0].x).toBeCloseTo(73.45271178843568);
+  expect(result[0].y).toBeCloseTo(34.23038995965935);
+});
