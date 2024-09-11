@@ -1,3 +1,16 @@
+# v0.14.5
+
+2024-09-11
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix error of vchart when no `animate`
+
+
+
+[更多详情请查看 v0.14.5](https://github.com/VisActor/VGrammar/releases/tag/v0.14.5)
+
 # v0.14.4
 
 2024-09-05
