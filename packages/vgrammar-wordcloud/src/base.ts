@@ -158,7 +158,7 @@ export abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgr
         const drawn = this.layoutWord(i);
         curWordTryCount++;
 
-        if (drawn || curWordTryCount >= maxSingleWordTryCount) {
+        if (drawn || curWordTryCount > maxSingleWordTryCount) {
           i++;
           curWordTryCount = 0;
           this.failCount = drawn ? 0 : this.failCount + 1;
