@@ -1,6 +1,16 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Sat, 07 Sep 2024 11:11:13 GMT and should not be manually modified.
+This log was last generated on Thu, 12 Sep 2024 07:43:11 GMT and should not be manually modified.
+
+## 0.14.6
+Thu, 12 Sep 2024 07:43:11 GMT
+
+### Updates
+
+- fix: limit of layout-try-count not as expected
+- fix: fix error of wordcloud when no animate
+
+
 
 ## 0.14.5
 Sat, 07 Sep 2024 11:11:13 GMT
