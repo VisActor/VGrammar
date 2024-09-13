@@ -603,9 +603,9 @@ export class Mark extends GrammarBase implements IMark {
   protected init(stage: any, parameters: any) {
     if (!this._delegateEvent) {
       this._delegateEvent = (event: any, type: string) => {
-        const activeElement = event.target?.[BridgeElementKey] as IElement;
+        const extendedEvt = getExtendedEvents(this.view, event, type, EVENT_SOURCE_VIEW);
+        const activeElement = event.element as IElement;
         if (activeElement?.mark === this) {
-          const extendedEvt = getExtendedEvents(this.view, event, activeElement, type, EVENT_SOURCE_VIEW);
           this.emitGrammarEvent(type, extendedEvt, activeElement);
         }
       };

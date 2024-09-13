@@ -1208,9 +1208,8 @@ export default class View extends EventEmitter implements IView {
   }
 
   private delegateEvent = (event: any, type: string) => {
-    const activeElement = event.target?.[BridgeElementKey];
-    const extendedEvt = getExtendedEvents(this, event, activeElement, type, EVENT_SOURCE_VIEW);
-    this.emit(type, extendedEvt, activeElement);
+    const extendedEvt = getExtendedEvents(this, event, type, EVENT_SOURCE_VIEW);
+    this.emit(type, extendedEvt, (event as any).element);
   };
 
   addEventListener(type: string, handler: BaseEventHandler, options?: any) {

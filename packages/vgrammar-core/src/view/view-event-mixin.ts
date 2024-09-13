@@ -105,18 +105,18 @@ class ViewEventsMixin {
     const refs = parseReference(dependency, this as unknown as IView);
 
     const send = parseHandler(
-      (evt?: any, element?: IElement) => {
+      (evt?: any) => {
         const needPreventDefault =
           (source === EVENT_SOURCE_VIEW && prevent(this._eventConfig, type)) ||
           (consume && (evt.cancelable === undefined || evt.cancelable));
 
         if (source === EVENT_SOURCE_WINDOW) {
-          evt = getExtendedEvents(this as unknown as IView, evt, element, type, EVENT_SOURCE_WINDOW);
+          evt = getExtendedEvents(this as unknown as IView, evt, type, EVENT_SOURCE_WINDOW);
         }
 
         let hasCommitted = false;
 
-        if ((!filter || filter(evt)) && (!markFilter || markFilter(element)) && validateSignals.length) {
+        if ((!filter || filter(evt)) && (!markFilter || markFilter(evt.element)) && validateSignals.length) {
           const params = refs.reduce((params, ref) => {
             params[ref.id()] = ref.output();
             return params;
