@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-projection",
-  "version": "0.14.6",
+  "version": "0.14.7-alpha.0",
   "description": "Projections for map, used in VGrammar.",
   "keywords": [
     "projection",
@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "@visactor/vutils": "~0.18.15",
-    "@visactor/vgrammar-util": "workspace:0.14.6",
-    "@visactor/vgrammar-core": "workspace:0.14.6",
+    "@visactor/vgrammar-util": "workspace:0.14.7-alpha.0",
+    "@visactor/vgrammar-core": "workspace:0.14.7-alpha.0",
     "d3-geo": "^1.12.1"
   },
   "devDependencies": {
