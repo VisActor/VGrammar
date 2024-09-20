@@ -923,7 +923,7 @@ export default class View extends EventEmitter implements IView {
         diff.prev.length === 1 && diff.next.length === 1 && diff.prev[0].markType === diff.next[0].markType;
       const enableMarkMorphConfig =
         diff.prev.every(mark => mark.getMorphConfig().morph) && diff.next.every(mark => mark.getMorphConfig().morph);
-      if ((runningConfig.morph && enableMarkMorphConfig) || runningConfig.morphAll) {
+      if ((this as any).morph && ((runningConfig.morph && enableMarkMorphConfig) || runningConfig.morphAll)) {
         (this as any).addMorphMarks?.({ prev: diff.prev, next: diff.next });
       } else if (matched && runningConfig.reuse) {
         diff.next[0].reuse(diff.prev[0]);
@@ -1095,7 +1095,7 @@ export default class View extends EventEmitter implements IView {
     // run dataflow on width/height signal change
     if (needDataflow) {
       if (render) {
-        this.evaluate();
+        this.evaluate({ morph: false });
       } else {
         this._dataflow.evaluate();
       }
@@ -1208,9 +1208,8 @@ export default class View extends EventEmitter implements IView {
   }
 
   private delegateEvent = (event: any, type: string) => {
-    const activeElement = event.target?.[BridgeElementKey];
-    const extendedEvt = getExtendedEvents(this, event, activeElement, type, EVENT_SOURCE_VIEW);
-    this.emit(type, extendedEvt, activeElement);
+    const extendedEvt = getExtendedEvents(this, event, type, EVENT_SOURCE_VIEW);
+    this.emit(type, extendedEvt, (event as any).element);
   };
 
   addEventListener(type: string, handler: BaseEventHandler, options?: any) {

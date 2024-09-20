@@ -1,3 +1,17 @@
+# v0.14.6
+
+2024-09-13
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: limit of layout-try-count not as expected
+- **@visactor/vgrammar-core**: fix error of wordcloud when no animate
+
+
+
+[more detail about v0.14.6](https://github.com/VisActor/VGrammar/releases/tag/v0.14.6)
+
 # v0.14.5
 
 2024-09-11
