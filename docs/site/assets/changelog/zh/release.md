@@ -1,3 +1,17 @@
+# v0.14.7
+
+2024-09-20
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix event delegate of view
+- **@visactor/vgrammar-core**: disable morph when resize
+
+
+
+[更多详情请查看 v0.14.7](https://github.com/VisActor/VGrammar/releases/tag/v0.14.7)
+
 # v0.14.6
 
 2024-09-13
