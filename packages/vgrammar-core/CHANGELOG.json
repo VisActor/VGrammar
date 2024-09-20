@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.14.7",
+      "tag": "@visactor/vgrammar-core_v0.14.7",
+      "date": "Fri, 20 Sep 2024 07:21:17 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix event delegate of view\n\n"
+          },
+          {
+            "comment": " fix: disable morph when resize"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.6",
       "tag": "@visactor/vgrammar-core_v0.14.6",
       "date": "Thu, 12 Sep 2024 07:43:11 GMT",
