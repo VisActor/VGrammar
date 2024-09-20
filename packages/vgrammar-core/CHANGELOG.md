@@ -1,6 +1,16 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 12 Sep 2024 07:43:11 GMT and should not be manually modified.
+This log was last generated on Fri, 20 Sep 2024 07:21:17 GMT and should not be manually modified.
+
+## 0.14.7
+Fri, 20 Sep 2024 07:21:17 GMT
+
+### Updates
+
+- fix: fix event delegate of view
+
+
+-  fix: disable morph when resize
 
 ## 0.14.6
 Thu, 12 Sep 2024 07:43:11 GMT
