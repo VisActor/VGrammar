@@ -139,7 +139,7 @@ export class Mark extends GrammarBase implements IMark {
 
     // add new encode
     Object.keys(spec.encode ?? {}).forEach(state => {
-      this.encodeState(state, spec.encode[state]);
+      this.encodeState(state, (spec.encode as any)[state]);
     });
     this.animation(spec.animation);
     this.animationState(spec.animationState);
@@ -384,8 +384,8 @@ export class Mark extends GrammarBase implements IMark {
       this._isReentered = true;
     }
 
-    if (this.spec.encode[state]) {
-      const lastEncoder = this.spec.encode[state];
+    if ((this.spec.encode as any)[state]) {
+      const lastEncoder = (this.spec.encode as any)[state];
       // detach last dependencies
       if (isFunctionType(lastEncoder)) {
         this.detach(parseEncodeType(lastEncoder, this.view));
@@ -398,7 +398,7 @@ export class Mark extends GrammarBase implements IMark {
             this.detach(parseEncodeType(lastEncoder[c], this.view));
           });
 
-          this.spec.encode[state] = {};
+          (this.spec.encode as any)[state] = {};
         } else if (isSingleChannel) {
           this.detach(parseEncodeType(lastEncoder[channel], this.view));
         } else {
@@ -410,19 +410,19 @@ export class Mark extends GrammarBase implements IMark {
     }
 
     if (channel) {
-      if (!this.spec.encode[state]) {
-        this.spec.encode[state] = {};
+      if (!(this.spec.encode as any)[state]) {
+        (this.spec.encode as any)[state] = {};
       }
 
       // update encode & append new dependencies
       if (isString(channel)) {
-        this.spec.encode[state][channel] = value;
+        (this.spec.encode as any)[state][channel] = value;
         this.attach(parseEncodeType(value, this.view));
       } else if (isFunctionType(channel)) {
-        this.spec.encode[state] = channel;
+        (this.spec.encode as any)[state] = channel;
         this.attach(parseEncodeType(channel, this.view));
       } else if (channel) {
-        Object.assign(this.spec.encode[state], channel);
+        Object.assign((this.spec.encode as any)[state], channel);
         Object.values(channel).forEach(channelEncoder => {
           this.attach(parseEncodeType(channelEncoder, this.view));
         });
@@ -500,16 +500,16 @@ export class Mark extends GrammarBase implements IMark {
     ];
     if (config === null) {
       keys.forEach(key => {
-        if (!isNil(this.spec[key])) {
-          this.spec[key] = undefined;
+        if (!isNil((this.spec as any)[key])) {
+          (this.spec as any)[key] = undefined;
         }
       });
       return this;
     }
 
     keys.forEach(key => {
-      if (!isNil(config[key])) {
-        this.spec[key] = config[key];
+      if (!isNil((config as any)[key])) {
+        (this.spec as any)[key] = (config as any)[key];
       }
     });
 
@@ -552,7 +552,7 @@ export class Mark extends GrammarBase implements IMark {
 
     this.references.forEach((count, ref) => {
       if (ref.grammarType === GrammarTypeEnum.scale) {
-        scales[ref.id() as string] = ref.output();
+        (scales as any)[ref.id() as string] = ref.output();
       }
     });
 
@@ -569,8 +569,8 @@ export class Mark extends GrammarBase implements IMark {
     const res: Record<string, IBaseScale> = {};
     const params = this.parameters();
 
-    Object.keys(encoders).forEach(state => {
-      const useEncoders = encoders[state];
+    Object.keys(encoders).forEach((state: string) => {
+      const useEncoders = (encoders as any)[state];
 
       if (useEncoders && !isFunctionType(useEncoders)) {
         Object.keys(useEncoders).forEach(channel => {
@@ -592,13 +592,13 @@ export class Mark extends GrammarBase implements IMark {
     }
 
     const res: Record<string, string> = {};
-    Object.keys(encoders).forEach(state => {
-      const useEncoders = encoders[state];
+    Object.keys(encoders).forEach((state: string) => {
+      const useEncoders = (encoders as any)[state];
 
       if (!isFunctionType(useEncoders)) {
         Object.keys(useEncoders).forEach(channel => {
           if (isFieldEncode(useEncoders[channel])) {
-            res[channel] = useEncoders[channel].field;
+            res[channel] = useEncoders[channel].field as string;
           }
         });
       }
@@ -802,7 +802,7 @@ export class Mark extends GrammarBase implements IMark {
         return;
       }
 
-      res[key] = invokeEncoder(groupEncode, el.items && el.items[0] && el.items[0].datum, el, parameters);
+      (res as any)[key] = invokeEncoder(groupEncode, el.items && el.items[0] && el.items[0].datum, el, parameters);
     });
 
     this._groupEncodeResult = res;
@@ -831,9 +831,9 @@ export class Mark extends GrammarBase implements IMark {
           element.items.forEach(item => {
             item.nextAttrs = Object.assign(item.nextAttrs, initAttrs, this._groupEncodeResult[element.groupKey]);
           });
-        } else if (groupEncodeAttrs?.[element.groupKey] && !this.isCollectionMark()) {
+        } else if ((groupEncodeAttrs as any)?.[element.groupKey] && !this.isCollectionMark()) {
           element.items.forEach(item => {
-            item.nextAttrs = Object.assign(item.nextAttrs, initAttrs, groupEncodeAttrs[element.groupKey]);
+            item.nextAttrs = Object.assign(item.nextAttrs, initAttrs, (groupEncodeAttrs as any)[element.groupKey]);
           });
         } else if (initAttrs) {
           element.items.forEach(item => {
@@ -845,13 +845,13 @@ export class Mark extends GrammarBase implements IMark {
 
         if (
           this.isCollectionMark() &&
-          groupEncodeAttrs?.[element.groupKey] &&
-          isValid(groupEncodeAttrs[element.groupKey].defined)
+          (groupEncodeAttrs as any)?.[element.groupKey] &&
+          isValid((groupEncodeAttrs as any)[element.groupKey].defined)
         ) {
           element.items.forEach(item => {
-            item.nextAttrs.defined = groupEncodeAttrs[element.groupKey].defined;
+            item.nextAttrs.defined = (groupEncodeAttrs as any)[element.groupKey].defined;
           });
-          delete groupEncodeAttrs[element.groupKey].defined;
+          delete (groupEncodeAttrs as any)[element.groupKey].defined;
         }
       });
 
@@ -860,7 +860,7 @@ export class Mark extends GrammarBase implements IMark {
       this.evaluateTransform(this._getTransformsAfterEncodeItems(), elements, parameters);
 
       elements.forEach(element => {
-        element.encodeGraphic(this.isCollectionMark() ? groupEncodeAttrs?.[element.groupKey] : null);
+        element.encodeGraphic(this.isCollectionMark() ? (groupEncodeAttrs as any)?.[element.groupKey] : null);
       });
       this.emit(HOOK_EVENT.AFTER_ELEMENT_ENCODE, { encoders, parameters }, this);
     } else {
@@ -993,18 +993,18 @@ export class Mark extends GrammarBase implements IMark {
 
     if (this.isCollectionMark()) {
       this._groupedData.keys.forEach((key, index) => {
-        const data = this.renderContext.progressive.groupedData.get(key);
+        const data = this.renderContext.progressive.groupedData.get(key as string);
         const groupStep = this.renderContext.progressive.step;
         const dataSlice = data.slice(currentIndex * groupStep, (currentIndex + 1) * groupStep);
 
         if (currentIndex === 0) {
           const element = this.createElement();
           element.diffState = DiffState.enter;
-          element.updateData(key, dataSlice, keyGetter);
+          element.updateData(key as string, dataSlice, keyGetter);
           elements.push(element);
         } else {
           const element = this.elements[index];
-          element.updateData(key, dataSlice, keyGetter);
+          element.updateData(key as string, dataSlice, keyGetter);
           elements.push(element);
         }
       });
@@ -1014,7 +1014,7 @@ export class Mark extends GrammarBase implements IMark {
 
     const groupElements: Record<string, IElement[]> = {};
     this._groupedData.keys.forEach(key => {
-      const data = this.renderContext.progressive.groupedData.get(key);
+      const data = this.renderContext.progressive.groupedData.get(key as string);
       const groupStep = this.renderContext.progressive.step;
       const dataSlice = data.slice(currentIndex * groupStep, (currentIndex + 1) * groupStep);
       const group: IElement[] = [];
@@ -1022,12 +1022,12 @@ export class Mark extends GrammarBase implements IMark {
       dataSlice.forEach(entry => {
         const element = this.createElement();
         element.diffState = DiffState.enter;
-        element.updateData(key, [entry], keyGetter);
+        element.updateData(key as string, [entry], keyGetter);
         group.push(element);
         elements.push(element);
       });
 
-      groupElements[key] = group;
+      groupElements[key as string] = group;
     });
 
     return { groupElements, elements };
