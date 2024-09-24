@@ -1224,6 +1224,8 @@ export class Mark extends GrammarBase implements IMark {
   }
 
   prepareRelease() {
+    // 清除数据，防止数据比对失败
+    this.differ.setCurrentData(null);
     this.animate?.stop();
     this.elementMap.forEach(element => (element.diffState = DiffState.exit));
     this._finalParameters = this.parameters();
@@ -1232,6 +1234,8 @@ export class Mark extends GrammarBase implements IMark {
   release() {
     this.releaseEvent();
     this.elements.forEach(element => element.release());
+    this.differ = null;
+    this.elements = [];
     this.elementMap.clear();
     this._finalParameters = null;
 

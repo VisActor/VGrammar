@@ -806,6 +806,7 @@ export default class View extends EventEmitter implements IView {
       if (!this._progressiveMarks && this.animate) {
         this.animate.animate();
       } else {
+        // 清理没有动画的离场元素
         this.traverseMarkTree(
           mark => {
             mark.cleanExitElements();
@@ -816,6 +817,7 @@ export default class View extends EventEmitter implements IView {
       }
       // 绘图 =>
       this.renderer.render(immediately);
+      //
       this.handleRenderEnd();
     }
     this.emit(HOOK_EVENT.AFTER_DO_RENDER);
