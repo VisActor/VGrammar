@@ -27,7 +27,7 @@ export default {
             `../../packages/${pkgName.replace('@visactor/vgrammar', 'vgrammar')}/src/index.ts`
           )
         };
-      }, {})
+      }, {}),
     }
   },
   plugins: [react()]
