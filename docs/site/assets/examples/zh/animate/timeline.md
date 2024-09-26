@@ -335,7 +335,7 @@ const spec = {
                   return 0;
                 },
                 to: (datum, element, params) => {
-                  const xScale = params.view.getScaleById('xscale').output();
+                  const xScale = params.xscale;
                   const bandWidth = xScale.bandwidth();
                   const range = xScale.range();
                   return -Math.abs(range[1] - range[0]);
@@ -377,7 +377,7 @@ const spec = {
             channel: {
               dx: {
                 from: (datum, element, params) => {
-                  const xScale = params.view.getScaleById('xscale').output();
+                  const xScale = params.xscale;
                   const bandWidth = xScale.bandwidth();
                   const range = xScale.range();
                   return Math.abs(range[1] - range[0]);
