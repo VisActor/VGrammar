@@ -249,9 +249,9 @@ const vGrammarView = new View({
 });
 vGrammarView.parseSpec(spec);
 
-vGrammarView.run().then(() => {
-  vGrammarView.getMarkById('bar').animate.runAnimationByState('loop');
-});
+vGrammarView.run();
+
+vGrammarView.getMarkById('bar').animate.runAnimationByState('loop');
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;

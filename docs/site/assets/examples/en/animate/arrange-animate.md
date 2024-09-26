@@ -365,9 +365,8 @@ const vGrammarView = new View({
   container: document.getElementById(CONTAINER_ID),
   hover: true
 });
-vGrammarView.parseSpec(spec);
 
-vGrammarView.run().then(() => {
+const handleAfterRun = () => {
   const title = vGrammarView.getMarkById('title');
   const leftAxis = vGrammarView.getMarkById('leftAxis');
   const bottomAxis = vGrammarView.getMarkById('bottomAxis');
@@ -404,7 +403,12 @@ vGrammarView.run().then(() => {
       options: { overall: viewBox.getValue().y2, orient: 'negative' }
     })
     .after(animation2);
-});
+};
+vGrammarView.parseSpec(spec);
+
+vGrammarView.run();
+
+handleAfterRun();
 
 // 只为了方便控制太调试用，不要拷贝
 window.vGrammarView = vGrammarView;
