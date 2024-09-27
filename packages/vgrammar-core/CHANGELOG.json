@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.14.8",
+      "tag": "@visactor/vgrammar-core_v0.14.8",
+      "date": "Thu, 26 Sep 2024 11:24:04 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix animation state of wordcloud\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.7",
       "tag": "@visactor/vgrammar-core_v0.14.7",
       "date": "Fri, 20 Sep 2024 07:21:17 GMT",

@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 20 Sep 2024 07:21:17 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Sep 2024 11:24:04 GMT and should not be manually modified.
+
+## 0.14.8
+Thu, 26 Sep 2024 11:24:04 GMT
+
+### Updates
+
+- fix: fix animation state of wordcloud
+
+
 
 ## 0.14.7
 Fri, 20 Sep 2024 07:21:17 GMT
