@@ -1,6 +1,11 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 26 Sep 2024 11:24:04 GMT and should not be manually modified.
+This log was last generated on Fri, 27 Sep 2024 06:59:12 GMT and should not be manually modified.
+
+## 0.14.9
+Fri, 27 Sep 2024 06:59:12 GMT
+
+_Version update only_
 
 ## 0.14.8
 Thu, 26 Sep 2024 11:24:04 GMT
