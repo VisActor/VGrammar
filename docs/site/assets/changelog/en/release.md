@@ -1,3 +1,16 @@
+# v0.14.8
+
+2024-09-26
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: fix animation state of wordcloud
+
+
+
+[more detail about v0.14.8](https://github.com/VisActor/VGrammar/releases/tag/v0.14.8)
+
 # v0.14.7
 
 2024-09-20
