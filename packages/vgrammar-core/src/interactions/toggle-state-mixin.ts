@@ -90,7 +90,7 @@ export class ToggleStateMixin implements IToggleStateMixin {
         return;
       }
 
-      mark.elements.forEach(el => {
+      mark.elements?.forEach(el => {
         const isStated = statedElements && statedElements.includes(el);
 
         if (isStated) {
@@ -114,7 +114,7 @@ export class ToggleStateMixin implements IToggleStateMixin {
         return;
       }
 
-      mark.elements.forEach(el => {
+      mark.elements?.forEach(el => {
         const isStated = statedElements && statedElements.includes(el);
 
         if (isStated) {
@@ -132,18 +132,20 @@ export class ToggleStateMixin implements IToggleStateMixin {
     }
 
     this._marks.forEach(mark => {
-      if (reverseState && this._stateMarks[reverseState] && this._stateMarks[reverseState].includes(mark)) {
-        mark.elements.forEach(el => {
-          el.removeState(reverseState);
-        });
-      }
+      if (mark && mark.elements) {
+        if (reverseState && this._stateMarks[reverseState] && this._stateMarks[reverseState].includes(mark)) {
+          mark.elements.forEach(el => {
+            el.removeState(reverseState);
+          });
+        }
 
-      if (state && this._stateMarks[state] && this._stateMarks[state].includes(mark)) {
-        mark.elements.forEach(el => {
-          if (this._statedElements.includes(el)) {
-            el.removeState(state);
-          }
-        });
+        if (state && this._stateMarks[state] && this._stateMarks[state].includes(mark)) {
+          mark.elements.forEach(el => {
+            if (this._statedElements.includes(el)) {
+              el.removeState(state);
+            }
+          });
+        }
       }
     });
   }
