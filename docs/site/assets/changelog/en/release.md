@@ -1,3 +1,16 @@
+# v0.14.10
+
+2024-10-23
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: fix error when clear states
+
+
+
+[more detail about v0.14.10](https://github.com/VisActor/VGrammar/releases/tag/v0.14.10)
+
 # v0.14.9
 
 2024-09-29
