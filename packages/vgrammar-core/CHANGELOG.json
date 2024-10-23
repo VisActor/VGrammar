@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.14.11",
+      "tag": "@visactor/vgrammar-core_v0.14.11",
+      "date": "Wed, 23 Oct 2024 12:22:58 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": " feat: add animation control option `ignoreLoopFinalAttributes`"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.10",
       "tag": "@visactor/vgrammar-core_v0.14.10",
       "date": "Tue, 15 Oct 2024 05:53:02 GMT",
