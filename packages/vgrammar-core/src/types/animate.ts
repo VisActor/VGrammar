@@ -181,6 +181,8 @@ export interface IAnimationControlOptions {
   stopWhenStateChange?: boolean;
   /** 是否立即应用动画初始状态 */
   immediatelyApply?: boolean;
+  /** encode 计算图元最终状态时是否忽略循环动画 */
+  ignoreLoopFinalAttributes?: boolean;
 }
 
 /**
