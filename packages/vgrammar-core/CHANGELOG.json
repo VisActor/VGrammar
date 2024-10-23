@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.14.10",
+      "tag": "@visactor/vgrammar-core_v0.14.10",
+      "date": "Tue, 15 Oct 2024 05:53:02 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix error when clear states\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.9",
       "tag": "@visactor/vgrammar-core_v0.14.9",
       "date": "Fri, 27 Sep 2024 06:59:12 GMT",
