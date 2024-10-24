@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Tue, 15 Oct 2024 05:53:02 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Oct 2024 12:22:58 GMT and should not be manually modified.
+
+## 0.14.11
+Wed, 23 Oct 2024 12:22:58 GMT
+
+### Updates
+
+-  feat: add animation control option `ignoreLoopFinalAttributes`
 
 ## 0.14.10
 Tue, 15 Oct 2024 05:53:02 GMT
