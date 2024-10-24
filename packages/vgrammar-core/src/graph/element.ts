@@ -628,7 +628,14 @@ export class Element implements IElement {
       this.setPrevGraphicAttributes(prevGraphicAttributes);
       this.setFinalGraphicAttributes(finalGraphicAttributes);
 
-      const currentAnimators = this.mark.animate?.getElementAnimators(this);
+      // ignore loop animation final attributes
+      const currentAnimators = this.mark.animate?.getElementAnimators(this).filter(animator => {
+        if (animator.animationOptions.timeline.controlOptions?.ignoreLoopFinalAttributes) {
+          return !animator.animationOptions.timeline.loop;
+        }
+        return true;
+      });
+
       const animateGraphicAttributes = (currentAnimators || []).reduce((attributes, animator) => {
         return Object.assign(attributes, animator.getEndAttributes());
       }, {});
