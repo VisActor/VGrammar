@@ -89,6 +89,14 @@ export class Element implements IElement {
     if (!this.graphicItem) {
       return;
     }
+
+    const { graphicName } = this.mark.getSpec();
+    if (isString(graphicName)) {
+      this.graphicItem.name = graphicName;
+    } else if (isFunction(graphicName)) {
+      this.graphicItem.name = graphicName(this);
+    }
+
     // 统一读取mark中是否可交互的配置
     this.graphicItem[BridgeElementKey] = this;
     if (attrTransforms) {
