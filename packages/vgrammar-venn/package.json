@@ -36,8 +36,8 @@
   "dependencies": {
     "@visactor/vgrammar-core": "workspace:0.14.9",
     "@visactor/vgrammar-util": "workspace:0.14.9",
-    "@visactor/vrender-core": "0.20.7",
-    "@visactor/vrender-kits": "0.20.7",
+    "@visactor/vrender-core": "0.20.8-hotfix.0",
+    "@visactor/vrender-kits": "0.20.8-hotfix.0",
     "@visactor/vutils": "~0.18.17"
   },
   "devDependencies": {
