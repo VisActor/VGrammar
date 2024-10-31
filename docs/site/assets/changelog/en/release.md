@@ -1,3 +1,16 @@
+# v0.14.11
+
+2024-10-31
+
+
+**🆕 New feature**
+
+- **@visactor/vgrammar-core**: add animation control option `ignoreLoopFinalAttributes`
+
+
+
+[more detail about v0.14.11](https://github.com/VisActor/VGrammar/releases/tag/v0.14.11)
+
 # v0.14.10
 
 2024-10-23
