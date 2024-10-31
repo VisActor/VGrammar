@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-venn",
-  "version": "0.14.11",
+  "version": "0.14.12",
   "description": "Venn layout transform for VGrammar",
   "keywords": [
     "venn",
@@ -34,8 +34,8 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vgrammar-core": "workspace:0.14.11",
-    "@visactor/vgrammar-util": "workspace:0.14.11",
+    "@visactor/vgrammar-core": "workspace:0.14.12",
+    "@visactor/vgrammar-util": "workspace:0.14.12",
     "@visactor/vrender-core": "0.20.11",
     "@visactor/vrender-kits": "0.20.11",
     "@visactor/vutils": "~0.18.18"
