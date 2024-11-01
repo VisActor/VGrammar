@@ -261,6 +261,7 @@ export interface IMarkConfig {
    * set graphic name
    */
   graphicName?: string | ((element: IElement) => string);
+  overflow?: 'scroll' | 'hidden' | 'scroll-x' | 'scroll-y';
 }
 
 /**
