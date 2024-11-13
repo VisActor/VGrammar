@@ -27,6 +27,7 @@ import type { IAxis, IDatazoom, IGrid, ILabel, ILegend, IPlayer, IScrollbar, ISl
 import type { CoordinateSpec } from './coordinate';
 import type { ITheme } from './theme';
 import type { IInteraction, InteractionSpec } from './interaction';
+import type { GestureConfig } from '@visactor/vrender-kits';
 
 export interface IViewThemeConfig {
   labelMonospace?: boolean;
@@ -81,7 +82,7 @@ export interface IViewEventConfig {
   /** disable all the events */
   disable?: boolean;
   /** use gesture events or not  */
-  gesture?: boolean;
+  gesture?: boolean | GestureConfig;
   /** use drag events or not */
   drag?: boolean;
 }
