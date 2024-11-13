@@ -269,7 +269,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     // 处理y方向偏移
     if (this._bounds && ['cardioid', 'triangle', 'triangle-upright'].includes(this.options.shape as string)) {
       const currentCenterY = (this._bounds[0].y + this._bounds[1].y) / 2;
-      this._dy = -(currentCenterY - this._size[1] / 2);
+      this._dy = -(currentCenterY - this._originSize[1] / 2);
     }
 
     return this.result;
@@ -384,13 +384,13 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     // 缩放比例
     canvas.width = 1;
     canvas.height = 1;
-    const tempContext = canvas.getContext('2d');
+    const tempContext = canvas.getContext('2d', { willReadFrequently: true });
     const imageData = tempContext.getImageData(0, 0, 1, 1);
     const ratio = Math.sqrt(imageData.data.length >> 2);
 
     canvas.width = (this.cw << 5) / ratio;
     canvas.height = this.ch / ratio;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext('2d', { willReadFrequently: true });
     context.fillStyle = context.strokeStyle = 'red';
     context.textAlign = 'center';
 
@@ -488,14 +488,12 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
             continue;
           }
         }
-      } else {
-        if (isPartOutside(_tag, this._size)) {
-          if (isCollide && this._tTemp === null) {
-            this._tTemp = t;
-            this._dtTemp = dt;
-          }
-          continue;
+      } else if (isPartOutside(_tag, this._size)) {
+        if (isCollide && this._tTemp === null) {
+          this._tTemp = t;
+          this._dtTemp = dt;
         }
+        continue;
       }
 
       // 进入collide检测
@@ -539,6 +537,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
       this._placeStatus = 3;
     }
     !this.shouldShrinkContinue() && this.setCache(_tag, dt);
+
     return false;
   }
 

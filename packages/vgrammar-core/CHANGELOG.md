@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 31 Oct 2024 06:06:34 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Nov 2024 08:04:50 GMT and should not be manually modified.
+
+## 0.14.14
+Wed, 13 Nov 2024 08:04:50 GMT
+
+### Updates
+
+- fix: fix error of shrink in wordcloud when set markShape to be "triangle"
+
+
 
 ## 0.14.13
 Thu, 31 Oct 2024 06:06:34 GMT
