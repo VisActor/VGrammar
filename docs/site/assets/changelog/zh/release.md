@@ -1,3 +1,16 @@
+# v0.14.14
+
+2024-11-13
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix error of shrink in wordcloud when set markShape to be "triangle"
+
+
+
+[更多详情请查看 v0.14.14](https://github.com/VisActor/VGrammar/releases/tag/v0.14.14)
+
 # v0.14.13
 
 2024-10-31
