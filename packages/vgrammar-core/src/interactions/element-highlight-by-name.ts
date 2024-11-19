@@ -77,7 +77,7 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
     });
   }
 
-  reset() {
+  resetAll() {
     const states = [this.options.blurState, this.options.highlightState];
 
     this._marks.forEach(mark => {
@@ -85,6 +85,16 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
         el.removeState(states);
       });
     });
+  }
+
+  reset(element?: InteractionEvent['element']) {
+    if (element) {
+      if (this._marks && this._marks.includes(element.mark)) {
+        element.removeState([this.options.highlightState, this.options.blurState]);
+      }
+    } else {
+      this.resetAll();
+    }
   }
 
   handleStart = (e: InteractionEvent, element: IElement | IGlyphElement) => {
@@ -99,7 +109,7 @@ export class ElementHighlightByName extends BaseInteraction<ElementHighlightByNa
     const shoudReset = this.options.shouldReset ? this.options.shouldReset(e) : this._filterByName(e);
 
     if (shoudReset) {
-      this.reset();
+      this.resetAll();
     }
   };
 }

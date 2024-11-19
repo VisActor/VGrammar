@@ -87,7 +87,7 @@ export abstract class BaseInteraction<T extends IBaseInteractionOptions> {
   }
 
   reset(element?: IElement | IGlyphElement) {
-    // do  nothing
+    // do nothing
   }
 
   protected dispatchEvent(type: 'start' | 'reset' | 'update' | 'end', params: any) {
