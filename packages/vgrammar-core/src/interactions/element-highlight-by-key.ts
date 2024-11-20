@@ -37,7 +37,7 @@ export class ElementHighlightByKey extends BaseInteraction<ElementHighlightOptio
     ];
   }
 
-  clearPrevElements() {
+  resetAll() {
     const states = [this.options.highlightState, this.options.blurState];
 
     this._marks.forEach(mark => {
@@ -74,30 +74,13 @@ export class ElementHighlightByKey extends BaseInteraction<ElementHighlightOptio
     }
   }
 
-  reset(element: InteractionEvent['element']) {
-    if (element && this._marks && this._marks.includes(element.mark)) {
-      const highlightKey = element.key;
-
-      if (isNil(highlightKey)) {
-        return;
+  reset(element?: InteractionEvent['element']) {
+    if (element) {
+      if (this._marks && this._marks.includes(element.mark)) {
+        element.removeState([this.options.highlightState, this.options.blurState]);
       }
-      this._marks.forEach(mark => {
-        mark.elements.forEach(el => {
-          const isHighlight = el.key === highlightKey;
-
-          if (isHighlight) {
-            el.updateStates({
-              [this.options.blurState]: false,
-              [this.options.highlightState]: true
-            });
-          } else {
-            el.updateStates({
-              [this.options.blurState]: true,
-              [this.options.highlightState]: false
-            });
-          }
-        });
-      });
+    } else {
+      this.resetAll();
     }
   }
 
@@ -109,7 +92,7 @@ export class ElementHighlightByKey extends BaseInteraction<ElementHighlightOptio
     const hasActiveElement = e.element && this._marks && this._marks.includes(e.element.mark);
 
     if (hasActiveElement) {
-      this.clearPrevElements();
+      this.resetAll();
     }
   };
 }

@@ -1,5 +1,5 @@
 import { InteractionStateEnum } from '../graph/enums';
-import type { ElementActiveOptions, IMark, IView, InteractionEvent } from '../types';
+import type { ElementActiveOptions, IElement, IMark, IView, InteractionEvent } from '../types';
 import { BaseInteraction } from './base';
 
 export class ElementActive extends BaseInteraction<ElementActiveOptions> {
@@ -13,6 +13,7 @@ export class ElementActive extends BaseInteraction<ElementActiveOptions> {
   };
   options: ElementActiveOptions;
   protected _marks?: IMark[];
+  protected _prevActiveElement?: IElement;
 
   constructor(view: IView, options?: ElementActiveOptions) {
     super(view, options);
@@ -39,14 +40,17 @@ export class ElementActive extends BaseInteraction<ElementActiveOptions> {
     if (element) {
       if (this._marks && this._marks.includes(element.mark)) {
         element.addState(this.options.state);
+        this._prevActiveElement = element;
       }
     }
   }
 
-  reset(element: InteractionEvent['element']) {
-    if (element) {
-      if (this._marks && this._marks.includes(element.mark)) {
-        element.removeState(this.options.state);
+  reset(element?: InteractionEvent['element']) {
+    const el = element ?? this._prevActiveElement;
+
+    if (el) {
+      if (this._marks && this._marks.includes(el.mark)) {
+        el.removeState(this.options.state);
       }
     }
   }

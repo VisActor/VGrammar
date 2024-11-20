@@ -67,7 +67,7 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
     return events;
   }
 
-  clearPrevElements() {
+  resetAll() {
     const { highlightState, blurState } = this.options;
 
     if (this._lastElement) {
@@ -95,21 +95,17 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
 
       this.dispatchEvent('start', { elements: [element], options: this.options });
     } else if (this._lastElement && this._resetType === 'view') {
-      this.clearPrevElements();
+      this.resetAll();
     }
   }
 
   reset(element: InteractionEvent['element']) {
-    if (!this._statedElements || !this._statedElements.length) {
-      return;
-    }
-
-    const hasActiveElement = element && this._marks && this._marks.includes(element.mark);
-
-    if (this._resetType === 'view' && !hasActiveElement) {
-      this.clearPrevElements();
-    } else if (this._resetType === 'self' && hasActiveElement) {
-      this.clearPrevElements();
+    if (element) {
+      if (this._marks && this._marks.includes(element.mark)) {
+        element.removeState([this.options.highlightState, this.options.blurState]);
+      }
+    } else {
+      this.resetAll();
     }
   }
 
@@ -118,6 +114,19 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
   };
 
   handleReset = (e: InteractionEvent) => {
-    this.reset(e.element);
+    if (!this._statedElements || !this._statedElements.length) {
+      return;
+    }
+    const element = e.element;
+
+    if (element) {
+      const hasActiveElement = this._marks && this._marks.includes(element.mark);
+
+      if (this._resetType === 'view' && !hasActiveElement) {
+        this.resetAll();
+      } else if (this._resetType === 'self' && hasActiveElement) {
+        this.resetAll();
+      }
+    }
   };
 }

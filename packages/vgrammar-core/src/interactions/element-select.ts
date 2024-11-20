@@ -65,7 +65,7 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
     return events;
   }
 
-  clearPrevElements = () => {
+  resetAll = () => {
     const { state, reverseState } = this.options;
 
     if (this._statedElements && this._statedElements.length) {
@@ -81,7 +81,17 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
   };
 
   handleReset = (e: InteractionEvent) => {
-    this.reset(e.element);
+    if (!this._statedElements || !this._statedElements.length) {
+      return;
+    }
+    const element = e.element;
+    const hasActiveElement = element && this._marks && this._marks.includes(element.mark);
+
+    if (this._resetType.includes('view') && !hasActiveElement) {
+      this.resetAll();
+    } else if (this._resetType.includes('self') && hasActiveElement) {
+      this.resetAll();
+    }
   };
 
   start(element: InteractionEvent['element']) {
@@ -94,7 +104,7 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
           if (newStatedElements && newStatedElements.length) {
             this._statedElements = this.updateStates(newStatedElements, this._statedElements, state, reverseState);
           } else {
-            this.clearPrevElements();
+            this.resetAll();
           }
         }
       } else {
@@ -113,26 +123,22 @@ export class ElementSelect extends BaseInteraction<ElementSelectOptions> {
 
         if (this._resetType.includes('timeout')) {
           this._timer = setTimeout(() => {
-            this.clearPrevElements();
+            this.resetAll();
           }, this.options.triggerOff as number) as unknown as number;
         }
       }
     } else if (this._resetType.includes('view') && this._statedElements && this._statedElements.length) {
-      this.clearPrevElements();
+      this.resetAll();
     }
   }
 
   reset(element: InteractionEvent['element']) {
-    if (!this._statedElements || !this._statedElements.length) {
-      return;
-    }
-
-    const hasActiveElement = element && this._marks && this._marks.includes(element.mark);
-
-    if (this._resetType.includes('view') && !hasActiveElement) {
-      this.clearPrevElements();
-    } else if (this._resetType.includes('self') && hasActiveElement) {
-      this.clearPrevElements();
+    if (element) {
+      if (this._marks && this._marks.includes(element.mark)) {
+        element.removeState([this.options.state, this.options.reverseState]);
+      }
+    } else {
+      this.resetAll();
     }
   }
 }

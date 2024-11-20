@@ -37,7 +37,7 @@ export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOpt
     ];
   }
 
-  clearPrevElements() {
+  resetAll() {
     const states = [this.options.highlightState, this.options.blurState];
 
     this._marks.forEach(mark => {
@@ -74,11 +74,13 @@ export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOpt
     }
   }
 
-  reset(element: InteractionEvent['element']) {
-    const hasActiveElement = element && this._marks && this._marks.includes(element.mark);
-
-    if (hasActiveElement) {
-      this.clearPrevElements();
+  reset(element?: InteractionEvent['element']) {
+    if (element) {
+      if (this._marks && this._marks.includes(element.mark)) {
+        element.removeState([this.options.highlightState, this.options.blurState]);
+      }
+    } else {
+      this.resetAll();
     }
   }
 
@@ -87,6 +89,11 @@ export class ElementHighlightByGroup extends BaseInteraction<ElementHighlightOpt
   };
 
   handleReset = (e: InteractionEvent) => {
-    this.reset(e.element);
+    const element = e.element;
+    const hasActiveElement = element && this._marks && this._marks.includes(element.mark);
+
+    if (hasActiveElement) {
+      this.resetAll();
+    }
   };
 }

@@ -70,8 +70,9 @@ export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightBy
     });
   }
 
-  reset() {
-    const states = [this.options.blurState, this.options.highlightState];
+  resetAll() {
+    const states = [this.options.highlightState, this.options.blurState];
+
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
         el.removeState(states);
@@ -79,11 +80,21 @@ export class ElementHighlightByLegend extends BaseInteraction<ElementHighlightBy
     });
   }
 
+  reset(element?: InteractionEvent['element']) {
+    if (element) {
+      if (this._marks && this._marks.includes(element.mark)) {
+        element.removeState([this.options.highlightState, this.options.blurState]);
+      }
+    } else {
+      this.resetAll();
+    }
+  }
+
   handleStart = (e: InteractionEvent, element: IElement | IGlyphElement) => {
     this.start(e.detail?.data?.id);
   };
 
   handleReset = (e: InteractionEvent) => {
-    this.reset();
+    this.resetAll();
   };
 }
