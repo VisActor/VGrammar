@@ -19,10 +19,10 @@ importers:
       '@visactor/vgrammar-util': workspace:0.14.15
       '@visactor/vgrammar-wordcloud': workspace:0.14.15
       '@visactor/vgrammar-wordcloud-shape': workspace:0.14.15
-      '@visactor/vrender': 0.20.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender': 0.21.0-beta.0
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': ~0.19.0
       '@vitejs/plugin-react': 3.1.0
       d3-scale-chromatic: ^3.0.0
       lodash: 4.17.21
@@ -41,10 +41,10 @@ importers:
       '@visactor/vgrammar-util': link:../../packages/vgrammar-util
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
-      '@visactor/vrender': 0.20.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender': 0.21.0-beta.0
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': 0.19.0
       '@vitejs/plugin-react': 3.1.0_vite@3.2.6
       d3-scale-chromatic: 3.1.0
       lodash: 4.17.21
@@ -71,10 +71,10 @@ importers:
       '@visactor/vgrammar-venn': workspace:0.14.15
       '@visactor/vgrammar-wordcloud': workspace:0.14.15
       '@visactor/vgrammar-wordcloud-shape': workspace:0.14.15
-      '@visactor/vrender': 0.20.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender': 0.21.0-beta.0
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': ~0.19.0
       '@vitejs/plugin-react': 3.1.0
       axios: ^1.4.0
       canvas: ^2.5.0
@@ -109,10 +109,10 @@ importers:
       '@visactor/vgrammar-venn': link:../../packages/vgrammar-venn
       '@visactor/vgrammar-wordcloud': link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape': link:../../packages/vgrammar-wordcloud-shape
-      '@visactor/vrender': 0.20.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender': 0.21.0-beta.0
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': 0.19.0
       axios: 1.6.8
       highlight.js: 11.9.0
       markdown-it: 13.0.2
@@ -192,7 +192,7 @@ importers:
       '@types/jest': ~29.5.0
       '@types/node': '*'
       '@visactor/vgrammar-util': workspace:0.14.15
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vutils': ~0.19.0
       eslint: ~8.18.0
       jest: ~29.5.0
       jest-environment-jsdom: ~29.5.0
@@ -201,7 +201,7 @@ importers:
       vite: 3.2.6
     dependencies:
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vutils': 0.18.18
+      '@visactor/vutils': 0.19.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -228,14 +228,14 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
-      '@visactor/vdataset': ~0.18.18
+      '@visactor/vdataset': ~0.19.0
       '@visactor/vgrammar-coordinate': workspace:0.14.15
       '@visactor/vgrammar-util': workspace:0.14.15
-      '@visactor/vrender-components': 0.20.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vscale': ~0.18.18
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender-components': 0.21.0-beta.0
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vscale': ~0.19.0
+      '@visactor/vutils': ~0.19.0
       eslint: ~8.18.0
       jest: ~29.5.0
       jest-environment-jsdom: ~29.5.0
@@ -243,14 +243,14 @@ importers:
       typescript: 4.9.5
       vite: 3.2.6
     dependencies:
-      '@visactor/vdataset': 0.18.18
+      '@visactor/vdataset': 0.19.0
       '@visactor/vgrammar-coordinate': link:../vgrammar-coordinate
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender-components': 0.20.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vscale': 0.18.18
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-components': 0.21.0-beta.0
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vscale': 0.19.0
+      '@visactor/vutils': 0.19.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -340,9 +340,9 @@ importers:
       '@types/node': '*'
       '@visactor/vgrammar-core': workspace:0.14.15
       '@visactor/vgrammar-util': workspace:0.14.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': ~0.19.0
       eslint: ~8.18.0
       jest: ~29.5.0
       jest-environment-jsdom: ~29.5.0
@@ -352,9 +352,9 @@ importers:
     dependencies:
       '@visactor/vgrammar-core': link:../vgrammar-core
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': 0.19.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -385,11 +385,11 @@ importers:
       '@visactor/vgrammar-coordinate': workspace:0.14.15
       '@visactor/vgrammar-core': workspace:0.14.15
       '@visactor/vgrammar-util': workspace:0.14.15
-      '@visactor/vrender-components': 0.20.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vscale': ~0.18.18
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender-components': 0.21.0-beta.0
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vscale': ~0.19.0
+      '@visactor/vutils': ~0.19.0
       d3-array: 1.x
       eslint: ~8.18.0
       jest: ~29.5.0
@@ -401,11 +401,11 @@ importers:
       '@visactor/vgrammar-coordinate': link:../vgrammar-coordinate
       '@visactor/vgrammar-core': link:../vgrammar-core
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender-components': 0.20.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vscale': 0.18.18
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-components': 0.21.0-beta.0
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vscale': 0.19.0
+      '@visactor/vutils': 0.19.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -437,7 +437,7 @@ importers:
       '@types/node': '*'
       '@visactor/vgrammar-core': workspace:0.14.15
       '@visactor/vgrammar-util': workspace:0.14.15
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vutils': ~0.19.0
       d3-array: 1.x
       d3-geo: ^1.12.1
       eslint: ~8.18.0
@@ -449,7 +449,7 @@ importers:
     dependencies:
       '@visactor/vgrammar-core': link:../vgrammar-core
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vutils': 0.18.18
+      '@visactor/vutils': 0.19.0
       d3-geo: 1.12.1
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
@@ -481,9 +481,9 @@ importers:
       '@types/node': '*'
       '@visactor/vgrammar-core': workspace:0.14.15
       '@visactor/vgrammar-util': workspace:0.14.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': ~0.19.0
       eslint: ~8.18.0
       jest: ~29.5.0
       jest-environment-jsdom: ~29.5.0
@@ -493,9 +493,9 @@ importers:
     dependencies:
       '@visactor/vgrammar-core': link:../vgrammar-core
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': 0.19.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -522,8 +522,8 @@ importers:
       '@rushstack/eslint-patch': ~1.1.4
       '@types/jest': ~29.5.0
       '@types/node': '*'
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vutils': ~0.19.0
       eslint: ~8.18.0
       jest: ~29.5.0
       jest-environment-jsdom: ~29.5.0
@@ -531,8 +531,8 @@ importers:
       typescript: 4.9.5
       vite: 3.2.6
     dependencies:
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vutils': 0.19.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -561,9 +561,9 @@ importers:
       '@types/node': '*'
       '@visactor/vgrammar-core': workspace:0.14.15
       '@visactor/vgrammar-util': workspace:0.14.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': ~0.19.0
       eslint: ~8.18.0
       jest: ~29.5.0
       jest-environment-jsdom: ~29.5.0
@@ -573,9 +573,9 @@ importers:
     dependencies:
       '@visactor/vgrammar-core': link:../vgrammar-core
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': 0.19.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -604,9 +604,9 @@ importers:
       '@types/node': '*'
       '@visactor/vgrammar-core': workspace:0.14.15
       '@visactor/vgrammar-util': workspace:0.14.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': ~0.19.0
       eslint: ~8.18.0
       jest: ~29.5.0
       jest-environment-jsdom: ~29.5.0
@@ -616,9 +616,9 @@ importers:
     dependencies:
       '@visactor/vgrammar-core': link:../vgrammar-core
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vutils': 0.19.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -647,10 +647,10 @@ importers:
       '@types/node': '*'
       '@visactor/vgrammar-core': workspace:0.14.15
       '@visactor/vgrammar-util': workspace:0.14.15
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vscale': ~0.18.18
-      '@visactor/vutils': ~0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vscale': ~0.19.0
+      '@visactor/vutils': ~0.19.0
       eslint: ~8.18.0
       jest: ~29.5.0
       jest-environment-jsdom: ~29.5.0
@@ -660,10 +660,10 @@ importers:
     dependencies:
       '@visactor/vgrammar-core': link:../vgrammar-core
       '@visactor/vgrammar-util': link:../vgrammar-util
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vscale': 0.18.18
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vscale': 0.19.0
+      '@visactor/vutils': 0.19.0
     devDependencies:
       '@internal/bundler': link:../../tools/bundler
       '@internal/eslint-config': link:../../share/eslint-config
@@ -3426,13 +3426,13 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: false
 
-  /@visactor/vdataset/0.18.18:
-    resolution: {integrity: sha512-lye23zpineMKV42JmuJaOY3fgl7aWhyDIwK9dWooqZzP14AFukPoK7ZvUeuKZihLrHxqtCg2VWEjovnh9O1RUg==}
+  /@visactor/vdataset/0.19.0:
+    resolution: {integrity: sha512-qeU0fb3nq8dL71rx0Bp/kn3zX53lutfv/auped2+jeC/YolGrn37vcYJbJ8TbtQNStmnMuWi5z98H/krkmam3A==}
     dependencies:
       '@turf/flatten': 6.5.0
       '@turf/helpers': 6.5.0
       '@turf/rewind': 6.5.0
-      '@visactor/vutils': 0.18.18
+      '@visactor/vutils': 0.19.0
       d3-dsv: 2.0.0
       d3-geo: 1.12.1
       d3-hexbin: 0.2.2
@@ -3448,43 +3448,43 @@ packages:
       topojson-client: 3.1.0
     dev: false
 
-  /@visactor/vrender-components/0.20.15:
-    resolution: {integrity: sha512-JOUqLHxUMSu+7MY3ck+iVwvB0ao02/XTebKL/KL0GMH741Jpw/ADQtr9x72KYeyqFw1K1FyiTtVuGHZfsT/G2A==}
+  /@visactor/vrender-components/0.21.0-beta.0:
+    resolution: {integrity: sha512-xDVpO6HSdOWq+N2R4cMpSMyghD+RBwrUVCL3biedv6sjPReR7ZUuYZFOZ0LcQXZRniopaosCH4q0CUy2qYMdow==}
     dependencies:
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
-      '@visactor/vscale': 0.18.18
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
+      '@visactor/vscale': 0.19.0
+      '@visactor/vutils': 0.19.0
     dev: false
 
-  /@visactor/vrender-core/0.20.15:
-    resolution: {integrity: sha512-zPiGhq+1Kh9HABmxhqOdAAs0bOJ3xf3grE4O2e4Vvb6+tZuxKG6Zs4EGjdmz1GWobUeT1HXKZsThhs5yk8gQHA==}
+  /@visactor/vrender-core/0.21.0-beta.0:
+    resolution: {integrity: sha512-cBFNiZB/gK7DsvJvrNU1TdFtOG8i5Gc3ZTWRTG2ZwjzTJM0F3TszkV1BzFRpk5cijyX5XXsWh4UkKd7FPAK/qw==}
     dependencies:
-      '@visactor/vutils': 0.18.18
+      '@visactor/vutils': 0.19.0
       color-convert: 2.0.1
 
-  /@visactor/vrender-kits/0.20.15:
-    resolution: {integrity: sha512-Vu+rLtgMR9quZ73VQ90p4xOofONIc4iHYCbSshuVDlO378wb0C9lbuQyD8GFYvppEMfodKCgzPjNjpUZ/67llw==}
+  /@visactor/vrender-kits/0.21.0-beta.0:
+    resolution: {integrity: sha512-jkfef4D25tu32AX1BPefo+1I/yldqST0iwXdzxEhJDilJKbx5bVRy2b606v7qFLqJtTuSwlIpM7cDCIEqFlV+w==}
     dependencies:
       '@resvg/resvg-js': 2.4.1
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vutils': 0.18.18
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vutils': 0.19.0
       roughjs: 4.5.2
 
-  /@visactor/vrender/0.20.15:
-    resolution: {integrity: sha512-ZXGN8V2xdl6VFoP12qh1BbxYsyRmxzAEwj53ORR/vOS2sOev5lBgRBxPruZ/4APKOn2hPakrnMT3u3VVSeZrsg==}
+  /@visactor/vrender/0.21.0-beta.0:
+    resolution: {integrity: sha512-exaY3WtzA11jHJbr6MvH83eitrN0WwYI9dmMgZyNISIpIxWhxMxsdmjsf0OF2O+G3soy8cp8HWSs3f6hZFYHGQ==}
     dependencies:
-      '@visactor/vrender-core': 0.20.15
-      '@visactor/vrender-kits': 0.20.15
+      '@visactor/vrender-core': 0.21.0-beta.0
+      '@visactor/vrender-kits': 0.21.0-beta.0
 
-  /@visactor/vscale/0.18.18:
-    resolution: {integrity: sha512-iRG4kv+5Fv4KX3AxEfV95XU3I6OmF0QizyAhqHxKa7L1MaT+MRvDDk5zHWf1E8gialLbL2xDe3GnT6g/4u5jhA==}
+  /@visactor/vscale/0.19.0:
+    resolution: {integrity: sha512-5xfxl2aego1BBPG631u2mUFKPo6EF4VqxwXhnmz/7IZoJCxXBbT3gU1aHNFa4Z8uZ08bH+6sPSbS5gP0bXhRHw==}
     dependencies:
-      '@visactor/vutils': 0.18.18
+      '@visactor/vutils': 0.19.0
     dev: false
 
-  /@visactor/vutils/0.18.18:
-    resolution: {integrity: sha512-byEJefqxiCz3UWe+YedEVjsdPtnJOAtKdRYi4qT9ojgACdd6QqlWs53Eb7PlMZgWDxVxqkxJP2bZnRKw+ME0Xg==}
+  /@visactor/vutils/0.19.0:
+    resolution: {integrity: sha512-eqdMcSJAk81MOj7Kry5lx+56LcFa3NM2v1V5b7lso0WEBphQl/DXkwvpWUBJKuHKaXn6XV1R4M8tocWUXhAXdA==}
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
