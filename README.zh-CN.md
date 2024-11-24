@@ -33,7 +33,7 @@ VGrammar，不只是生成万千图表的可视化语法，更是化枯燥为神
 
 <div align="center">
 
-[English](./README.md) | 简体中文
+[English](./README.md) | 简体中文 | [日本語](./README.ja-JP.md)
 
 </div>
 

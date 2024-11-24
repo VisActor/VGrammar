@@ -13,14 +13,14 @@
 
 <div align="center">
 
-VGrammar, not only generate charts, but also provide data visualization tools.
+VGrammarは、チャートを生成するだけでなく、データビジュアライゼーションツールも提供します。
 
 <p align="center">
-  <a href="https://www.visactor.io/vgrammar">Introduction</a> •
-  <a href="https://www.visactor.io/vgrammar/example">Demo</a> •
-  <a href="https://www.visactor.io/vgrammar/guide/guides/quick-start">Tutorial</a> •
+  <a href="https://www.visactor.io/vgrammar">紹介</a> •
+  <a href="https://www.visactor.io/vgrammar/example">デモ</a> •
+  <a href="https://www.visactor.io/vgrammar/guide/guides/quick-start">チュートリアル</a> •
   <a href="https://www.visactor.io/vgrammar/api/API/View">API</a>•
-  <a href="https://www.visactor.io/vgrammar/option/">Option</a>
+  <a href="https://www.visactor.io/vgrammar/option/">オプション</a>
 </p>
 
 ![image test](https://github.com/visactor/vgrammar/actions/workflows/bug-server.yml/badge.svg?event=push)
@@ -33,33 +33,33 @@ VGrammar, not only generate charts, but also provide data visualization tools.
 
 <div align="center">
 
-English | [简体中文](./README.zh-CN.md) | [日本語](./README.ja-JP.md)
+[English](./README.md) | [简体中文](./README.zh-CN.md) | 日本語
 
 </div>
 
 <div align="center">
 
-（video）
+（ビデオ）
 
 </div>
 
-# Introduction
+# 紹介
 
-VGrammar is a visual grammar library based on visual rendering engine [VRender](https://github.com/VisActor/VRender). The core capabilities are as follows:
+VGrammarは、ビジュアルレンダリングエンジン[VRender](https://github.com/VisActor/VRender)に基づくビジュアルグラマライブラリです。主な機能は以下の通りです：
 
-1. Easy to Use by Default: VGrammar features a concise syntax, comprehensive interface, rich component library, and simplified development process.
-2. Rich in Capabilities: VGrammar provides extensive capabilities for chart definition, animation arrangement, artistic expression, and complete coverage of various needs.
-3. Flexible and Extensible: VGrammar offers flexible extension options, including custom rendering of graphical elements, data mapping, automatic layout, and effortless expansion possibilities.
+1. デフォルトで使いやすい：VGrammarは簡潔な構文、包括的なインターフェース、豊富なコンポーネントライブラリ、簡素化された開発プロセスを特徴としています。
+2. 機能が豊富：VGrammarは、チャート定義、アニメーションの配置、芸術的表現など、さまざまなニーズを完全にカバーする広範な機能を提供します。
+3. 柔軟で拡張可能：VGrammarは、カスタムレンダリング、データマッピング、自動レイアウトなど、柔軟な拡張オプションを提供し、簡単に拡張できます。
 
-# Repo Intro
+# リポジトリの紹介
 
-This repository includes the following packages:
+このリポジトリには以下のパッケージが含まれています：
 
-1. VGrammar: The main package of VGrammar
+1. VGrammar: VGrammarのメインパッケージ
 
-# Usage
+# 使用方法
 
-## Installation
+## インストール
 
 [npm package](https://www.npmjs.com/package/@visactor/vgrammar)
 
@@ -71,7 +71,7 @@ npm install @visactor/vgrammar
 yarn add @visactor/vgrammar
 ```
 
-## Quick Start
+## クイックスタート
 
 ```javascript
 import { View } from '@visactor/vgrammar';
@@ -172,28 +172,28 @@ vGrammarView.runAsync();
 
 ##
 
-[More demos and detailed tutorials](https://visactor.io/vgrammar)
+[詳細なチュートリアルとデモ](https://visactor.io/vgrammar)
 
-# Related Links
+# 関連リンク
 
-- [Official website](https://visactor.io/vgrammar)
+- [公式サイト](https://visactor.io/vgrammar)
 
-# Ecosystem
+# エコシステム
 
-| Project                                                     | Description                                                                            |
+| プロジェクト                                                     | 説明                                                                            |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| [VChart](https://visactor.io/vchart)                        | A charts lib based on [VisActor/VGrammar](https://visactor.io/vgrammar)                |
-| [React Component Library](https://visactor.io/react-vchart) | A React chart component library based on [VisActor/VChart](https://visactor.io/vchart) |
-| [AI-generated Components](https://visactor.io/ai-vchart)    | AI-generated chart component.                                                          |
+| [VChart](https://visactor.io/vchart)                        | [VisActor/VGrammar](https://visactor.io/vgrammar)に基づくチャートライブラリ                |
+| [Reactコンポーネントライブラリ](https://visactor.io/react-vchart) | [VisActor/VChart](https://visactor.io/vchart)に基づくReactチャートコンポーネントライブラリ |
+| [AI生成コンポーネント](https://visactor.io/ai-vchart)    | AI生成のチャートコンポーネント                                                          |
 
-# Contribution
+# 貢献
 
-If you would like to contribute, please read the [Code of Conduct ](./CODE_OF_CONDUCT.md) and [ Guide](./CONTRIBUTING.md) first。
+貢献したい場合は、まず[行動規範](./CODE_OF_CONDUCT.md)と[ガイド](./CONTRIBUTING.md)をお読みください。
 
-Small streams converge to make great rivers and seas!
+小さな流れが大きな川や海に集まります！
 
 <a href="https://github.com/visactor/vgrammar/graphs/contributors"><img src="https://contrib.rocks/image?repo=visactor/vgrammar" /></a>
 
-# License
+# ライセンス
 
-[MIT License](./LICENSE)
+[MITライセンス](./LICENSE)
