@@ -78,7 +78,7 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
   ],
   [GrammarMarkType.text]: [
     {
-      channels: ['text', 'limit', 'autoLimit', 'maxLineWidth', 'textType'],
+      channels: ['text', 'limit', 'autoLimit', 'maxLineWidth', 'textType', '_originText'],
       transform: (graphicAttributes: any, nextAttrs: any, storedAttrs: any) => {
         const limit = storedAttrs.limit ?? Infinity;
         const autoLimit = storedAttrs.autoLimit ?? Infinity;
@@ -95,6 +95,14 @@ export const transformsByType: Record<string, AttributeTransform[]> = {
         if (isTextConfig || storedAttrs.textType) {
           if (storedAttrs.text.type === 'rich' || storedAttrs.textType === 'rich') {
             graphicAttributes.textConfig = text;
+          } else if (storedAttrs.text.type === 'html') {
+            graphicAttributes.html = text;
+            graphicAttributes.text = storedAttrs._originText ?? '';
+            graphicAttributes.renderable = false;
+          } else if (storedAttrs.text.type === 'react') {
+            graphicAttributes.react = text;
+            graphicAttributes.text = storedAttrs._originText ?? '';
+            graphicAttributes.renderable = false;
           } else {
             graphicAttributes.text = text;
           }
