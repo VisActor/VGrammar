@@ -1,3 +1,16 @@
+# v0.14.16
+
+2024-11-25
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix reset of interactions
+
+
+
+[更多详情请查看 v0.14.16](https://github.com/VisActor/VGrammar/releases/tag/v0.14.16)
+
 # v0.14.15
 
 2024-11-19
