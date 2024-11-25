@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 15 Nov 2024 10:20:09 GMT and should not be manually modified.
+This log was last generated on Thu, 21 Nov 2024 07:41:48 GMT and should not be manually modified.
+
+## 0.14.16
+Thu, 21 Nov 2024 07:41:48 GMT
+
+### Updates
+
+- fix: fix reset of interactions
+
+
 
 ## 0.14.15
 Fri, 15 Nov 2024 10:20:09 GMT

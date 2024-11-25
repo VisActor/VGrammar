@@ -62,7 +62,7 @@ export class ElementActiveByLegend extends BaseInteraction<ElementActiveByLegend
     });
   }
 
-  reset() {
+  resetAll() {
     this._marks.forEach(mark => {
       mark.elements.forEach(el => {
         el.removeState(this.options.state);
@@ -70,11 +70,21 @@ export class ElementActiveByLegend extends BaseInteraction<ElementActiveByLegend
     });
   }
 
+  reset(element?: InteractionEvent['element']) {
+    if (element) {
+      if (this._marks && this._marks.includes(element.mark)) {
+        element.removeState(this.options.state);
+      }
+    } else {
+      this.resetAll();
+    }
+  }
+
   handleStart = (e: InteractionEvent) => {
     this.start(e.detail?.data?.id);
   };
 
   handleReset = (e: InteractionEvent) => {
-    this.reset();
+    this.resetAll();
   };
 }
