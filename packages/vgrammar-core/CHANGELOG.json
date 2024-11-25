@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.14.16",
+      "tag": "@visactor/vgrammar-core_v0.14.16",
+      "date": "Thu, 21 Nov 2024 07:41:48 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: fix reset of interactions\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.15",
       "tag": "@visactor/vgrammar-core_v0.14.15",
       "date": "Fri, 15 Nov 2024 10:20:09 GMT",
