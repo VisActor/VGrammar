@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: support react and html attributes in textmark\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}
