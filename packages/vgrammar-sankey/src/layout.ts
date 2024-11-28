@@ -642,10 +642,17 @@ export class SankeyLayout {
   initializeNodeBreadths(columns: SankeyNodeElement[][]) {
     const minLinkHeight = this.options.minLinkHeight ?? 0;
     let minNodeHeight = this.options.minNodeHeight ?? 0;
+    const maxNodeHeight = this.options.maxNodeHeight ?? Infinity;
+    let maxLinkHeight = this.options.maxLinkHeight;
 
     if (isNil(minNodeHeight) || minNodeHeight < minLinkHeight) {
       minNodeHeight = minLinkHeight;
     }
+
+    if (isNil(maxLinkHeight) || maxLinkHeight > maxNodeHeight) {
+      maxLinkHeight = maxNodeHeight;
+    }
+
     let ky = 0;
     let getGapY: (node: SankeyNodeElement) => number = null;
     let forceNodeHeight: number = null;
@@ -711,10 +718,13 @@ export class SankeyLayout {
           sourceNodeHeight: number
         ) => number)
       : (link: SankeyLinkElement, sourceNode: SankeyNodeElement, sourceNodeHeight: number) => {
-          return Math.max(
-            sourceNode.value ? sourceNodeHeight * linkClampe(link.value / sourceNode.value) : 0,
-            minLinkHeight,
-            0
+          return Math.min(
+            Math.max(
+              sourceNode.value ? sourceNodeHeight * linkClampe(link.value / sourceNode.value) : 0,
+              minLinkHeight,
+              0
+            ),
+            maxLinkHeight
           );
         };
 
@@ -738,7 +748,7 @@ export class SankeyLayout {
         }
 
         calculatedNodeHeight = getNodeHeight(node);
-        nodeHeight = Math.max(calculatedNodeHeight, minNodeHeight);
+        nodeHeight = Math.min(Math.max(calculatedNodeHeight, minNodeHeight), maxNodeHeight);
 
         node.y0 = y;
         node.y1 = y + nodeHeight;
@@ -761,6 +771,30 @@ export class SankeyLayout {
             const node = nodes[j];
             node.y0 += deltaY;
             node.y1 += deltaY;
+          }
+        } else if (this.options.crossNodeAlign === 'parent') {
+          const sourceNodes = nodes.reduce((res: Record<string, boolean>, node) => {
+            if (node.targetLinks && node.targetLinks.length) {
+              node.targetLinks.forEach(link => {
+                res[link.source] = true;
+              });
+            }
+            return res;
+          }, {});
+
+          if (Object.keys(sourceNodes).length && columns[i - 1] && columns[i - 1].length) {
+            const prevSourceNodes = columns[i - 1].filter(node => sourceNodes[node.key]);
+
+            if (prevSourceNodes && prevSourceNodes.length && prevSourceNodes[0].y0 !== nodes[0].y0) {
+              const startY = prevSourceNodes[0].y0;
+              const newDeltaY = startY - nodes[0].y0;
+
+              for (let j = 0, len = nodes.length; j < len; ++j) {
+                const node = nodes[j];
+                node.y0 += newDeltaY;
+                node.y1 += newDeltaY;
+              }
+            }
           }
         } else {
           deltaY = deltaY / (nodes.length + 1);
