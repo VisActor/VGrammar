@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "feat: support `maxNodeHeight` and `maxLinkHeight`, `crossNodeAlign` value `parent` in sankey\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}
