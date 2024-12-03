@@ -22,9 +22,7 @@ class MarkAnimateMixin {
   }
 
   updateAnimate(spec: MarkSpec) {
-    if (spec.animation) {
-      this.animate.updateConfig(spec.animation);
-    }
+    this.animate.updateConfig(spec.animation);
     this.animate.updateState(spec.animationState);
   }
 }
