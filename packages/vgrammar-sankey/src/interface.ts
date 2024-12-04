@@ -16,6 +16,7 @@ export interface SankeyOptions {
   /**
    * the align type of y position of nodes is differnt layer when the direction is `hotizontal`
    * the align type of x position of nodes is differnt layer when the direction is `hotizontal`
+   * the option `parent` is added since 0.14.17
    */
   crossNodeAlign?: 'start' | 'end' | 'middle' | 'parent';
   /**
@@ -74,6 +75,7 @@ export interface SankeyOptions {
   /**
    * the maximal size of node when data is not zero or null
    * this configuration can be used to avoid too large node to be seen when data is too big
+   * @since 0.14.17
    */
   maxNodeHeight?: number;
   /**
@@ -85,6 +87,7 @@ export interface SankeyOptions {
   minLinkHeight?: number;
   /**
    * the maximal size of link when data is not zero or null
+   * @since 0.14.17
    */
   maxLinkHeight?: number;
   /** the iteration count of layout */
