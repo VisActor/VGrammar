@@ -1,3 +1,38 @@
+# v0.14.18
+
+2024-12-05
+
+
+**What's Changed**
+
+* [Auto Sync] Sync the code from branch main to branch develop after release 0.14.17 by @github-actions in https://github.com/VisActor/VGrammar/pull/598
+* [Auto release] release 0.14.18 by @github-actions in https://github.com/VisActor/VGrammar/pull/600
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.14.17...v0.14.18
+
+[更多详情请查看 v0.14.18](https://github.com/VisActor/VGrammar/releases/tag/v0.14.18)
+
+# v0.14.17
+
+2024-12-05
+
+
+**🆕 新增功能**
+
+- **@visactor/vgrammar-core**: support `maxNodeHeight` and `maxLinkHeight`, `crossNodeAlign` value `parent` in sankey
+- **@visactor/vgrammar-core**: add `autoRefresh` to stage
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix the issue of animation cannot be cleared for reused mark
+- **@visactor/vgrammar-core**: glyph state should work when resize
+- **@visactor/vgrammar-core**: support react and html attributes in textmark
+
+
+
+[更多详情请查看 v0.14.17](https://github.com/VisActor/VGrammar/releases/tag/v0.14.17)
+
 # v0.14.16
 
 2024-11-25

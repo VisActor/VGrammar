@@ -257,6 +257,11 @@ export interface IMarkConfig {
    * only used in line/area mark
    */
   enableSegments?: boolean;
+  /**
+   * set graphic name
+   */
+  graphicName?: string | ((element: IElement) => string);
+  overflow?: 'scroll' | 'hidden' | 'scroll-x' | 'scroll-y';
 }
 
 /**
