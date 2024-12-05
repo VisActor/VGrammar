@@ -1,3 +1,23 @@
+# v0.14.17
+
+2024-12-05
+
+
+**🆕 New feature**
+
+- **@visactor/vgrammar-core**: support `maxNodeHeight` and `maxLinkHeight`, `crossNodeAlign` value `parent` in sankey
+- **@visactor/vgrammar-core**: add `autoRefresh` to stage
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: fix the issue of animation cannot be cleared for reused mark
+- **@visactor/vgrammar-core**: glyph state should work when resize
+- **@visactor/vgrammar-core**: support react and html attributes in textmark
+
+
+
+[more detail about v0.14.17](https://github.com/VisActor/VGrammar/releases/tag/v0.14.17)
+
 # v0.14.16
 
 2024-11-25
