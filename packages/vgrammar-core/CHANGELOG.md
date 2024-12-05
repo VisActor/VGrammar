@@ -1,6 +1,25 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 21 Nov 2024 07:41:48 GMT and should not be manually modified.
+This log was last generated on Wed, 04 Dec 2024 08:35:52 GMT and should not be manually modified.
+
+## 0.14.17
+Wed, 04 Dec 2024 08:35:52 GMT
+
+### Updates
+
+- feat: support `maxNodeHeight` and `maxLinkHeight`, `crossNodeAlign` value `parent` in sankey
+
+
+- feat: add `autoRefresh` to stage
+
+
+-   fix: fix the issue of animation cannot be cleared for reused mark
+- fix: glyph state should work when resize
+
+
+- fix: support react and html attributes in textmark
+
+
 
 ## 0.14.16
 Thu, 21 Nov 2024 07:41:48 GMT

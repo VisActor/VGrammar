@@ -79,6 +79,7 @@ export class GlyphElement extends Element implements IGlyphElement {
 
   protected getStateAttrs = (stateName: string, nextStates: string[]) => {
     const isRuntimeState = !isNil(this.runtimeStatesEncoder?.[stateName]);
+
     const encoder = isRuntimeState
       ? {
           ...(this.mark.getSpec() as MarkSpec).encode?.[stateName],
@@ -132,6 +133,11 @@ export class GlyphElement extends Element implements IGlyphElement {
     const isGraphicInit = !this.graphicItem;
     if (!this.graphicItem) {
       this.initGraphicItem();
+    } else {
+      this.graphicItem.clearStates();
+      // 更新数据流后，states计算不缓存
+      this.graphicItem.states = {};
+      this.graphicItem.stateProxy = null;
     }
 
     if (this.diffState === DiffState.enter || isGraphicInit) {
