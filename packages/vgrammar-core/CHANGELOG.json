@@ -2,6 +2,30 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.14.17",
+      "tag": "@visactor/vgrammar-core_v0.14.17",
+      "date": "Wed, 04 Dec 2024 08:35:52 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: support `maxNodeHeight` and `maxLinkHeight`, `crossNodeAlign` value `parent` in sankey\n\n"
+          },
+          {
+            "comment": "feat: add `autoRefresh` to stage\n\n"
+          },
+          {
+            "comment": "  fix: fix the issue of animation cannot be cleared for reused mark"
+          },
+          {
+            "comment": "fix: glyph state should work when resize\n\n"
+          },
+          {
+            "comment": "fix: support react and html attributes in textmark\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.16",
       "tag": "@visactor/vgrammar-core_v0.14.16",
       "date": "Thu, 21 Nov 2024 07:41:48 GMT",
