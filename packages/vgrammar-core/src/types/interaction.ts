@@ -196,6 +196,8 @@ export interface ElementHighlightByNameOptions extends ElementHighlightByLegendO
   parseData?: (e: InteractionEvent) => any;
 }
 
+export type ElementHighlightByGraphicNameOptions = ElementHighlightOptions;
+
 export interface BrushEventParams {
   operateType: string;
   operateMask: IPolygon;
