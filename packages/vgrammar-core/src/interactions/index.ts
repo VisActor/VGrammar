@@ -7,6 +7,9 @@ import { ElementHighlightByGroup } from './element-highlight-by-group';
 import { ElementActiveByLegend } from './element-active-by-legend';
 import { ElementHighlightByLegend } from './element-highlight-by-legend';
 import { ElementHighlightByName } from './element-highlight-by-name';
+import { ElementHighlightByGraphicName } from './element-highlight-by-graphic-name';
+import { ElementSelectByGraphicName } from './element-select-by-graphic-name';
+
 import { BrushHighlight } from './brush-highlight';
 import { BrushActive } from './brush-active';
 import { BrushFilter } from './brush-filter';
@@ -90,6 +93,14 @@ export const registerElementHighlightByLegend = () => {
 
 export const registerElementHighlightByName = () => {
   Factory.registerInteraction(ElementHighlightByName.type, ElementHighlightByName);
+};
+
+export const registerElementHighlightByGraphicName = () => {
+  Factory.registerInteraction(ElementHighlightByGraphicName.type, ElementHighlightByGraphicName);
+};
+
+export const registerElementSelectByGraphicName = () => {
+  Factory.registerInteraction(ElementSelectByGraphicName.type, ElementSelectByGraphicName);
 };
 
 export const registerBrushHighlight = () => {
