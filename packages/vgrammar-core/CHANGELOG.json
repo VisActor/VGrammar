@@ -2,6 +2,24 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.15.0",
+      "tag": "@visactor/vgrammar-core_v0.15.0",
+      "date": "Thu, 05 Dec 2024 09:52:00 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: support overflow of mark\n\n"
+          },
+          {
+            "comment": " feat: add interaction for highlight/select by graphic name"
+          },
+          {
+            "comment": "feat: add `graphicName` in markOption"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.14.18",
       "tag": "@visactor/vgrammar-core_v0.14.18",
       "date": "Thu, 05 Dec 2024 08:32:52 GMT",

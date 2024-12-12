@@ -496,7 +496,9 @@ export class Mark extends GrammarBase implements IMark {
       'attributeTransforms',
       'skipTheme',
       'enableSegments',
-      'stateSort'
+      'stateSort',
+      'graphicName',
+      'overflow'
     ];
     if (config === null) {
       keys.forEach(key => {
@@ -636,7 +638,8 @@ export class Mark extends GrammarBase implements IMark {
       if (!this.graphicItem) {
         const graphicItem = createGraphicItem(this, GrammarMarkType.group, {
           pickable: false,
-          zIndex: this.spec.zIndex ?? 0
+          zIndex: this.spec.zIndex ?? 0,
+          overflow: this.spec.overflow
         }) as IGroup;
         if (this.spec.support3d || (Mark3DType as string[]).includes(this.markType)) {
           graphicItem.setMode('3d');
@@ -650,6 +653,10 @@ export class Mark extends GrammarBase implements IMark {
       }
     } else {
       this.graphicParent = groupGraphicItem;
+
+      this.graphicParent.setAttributes({
+        overflow: this.spec.overflow
+      });
     }
     this.graphicIndex = markIndex;
   }
@@ -681,6 +688,10 @@ export class Mark extends GrammarBase implements IMark {
             clip: false
           });
         }
+      }
+
+      if (!isNil(spec.overflow)) {
+        this.graphicItem.setAttribute('overflow', spec.overflow);
       }
 
       // only update interactive

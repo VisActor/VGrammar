@@ -1,6 +1,17 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 05 Dec 2024 08:32:52 GMT and should not be manually modified.
+This log was last generated on Thu, 05 Dec 2024 09:52:00 GMT and should not be manually modified.
+
+## 0.15.0
+Thu, 05 Dec 2024 09:52:00 GMT
+
+### Updates
+
+- feat: support overflow of mark
+
+
+-  feat: add interaction for highlight/select by graphic name
+- feat: add `graphicName` in markOption
 
 ## 0.14.18
 Thu, 05 Dec 2024 08:32:52 GMT
