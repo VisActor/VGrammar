@@ -2,7 +2,7 @@ import { registerWordCloudShapeTransforms } from '@visactor/vgrammar-wordcloud-s
 import longText from '../data/wordcloud/longText.json';
 import fewData from '../data/wordcloud/fewData.json';
 // 用来调试中英区别的
-import fewData2 from '../data/wordcloud/fewData2.json';
+// import fewData2 from '../data/wordcloud/fewData2.json';
 import siteData from '../data/wordcloud/siteData.json';
 import siteData2 from '../data/wordcloud/siteData2.json';
 import siteData3 from '../data/wordcloud/siteData3.json';
