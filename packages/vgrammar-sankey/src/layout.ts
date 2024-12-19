@@ -674,13 +674,14 @@ export class SankeyLayout {
         return Math.max(cnt, column.length);
       }, 0);
       const maxStepHeight = this._viewBox.height / maxRowCount;
-      const gapY = Math.min(this.options.nodeGap, maxStepHeight);
+      let gapY = Math.min(this.options.nodeGap, maxStepHeight);
+
+      if (minNodeHeight + gapY > maxStepHeight) {
+        gapY = minNodeHeight >= maxStepHeight ? maxStepHeight / 2 : (maxStepHeight - minNodeHeight) / 2;
+        minNodeHeight = Math.min(maxStepHeight - gapY, minNodeHeight);
+      }
       getGapY = () => gapY;
       this._gapY = gapY;
-
-      if ((minNodeHeight + gapY) * maxRowCount > this._viewBox.height) {
-        minNodeHeight = maxStepHeight - gapY;
-      }
 
       if (this.options.equalNodeHeight) {
         forceNodeHeight = this._viewBox.height / maxRowCount - gapY;
