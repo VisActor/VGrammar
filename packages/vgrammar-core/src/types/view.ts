@@ -85,6 +85,17 @@ export interface IViewEventConfig {
   gesture?: boolean | GestureConfig;
   /** use drag events or not */
   drag?: boolean;
+  /**
+   * @default 200
+   * VRender 参数 ，单位 ms
+   * 多次点击之间的最大时间，默认为 200 ms，用于判断点击次数
+   */
+  clickInterval?: number;
+  /**
+   * @default false
+   * VRender 参数 是否自动阻止事件
+   */
+  autoPreventDefault?: boolean;
 }
 
 export interface srIOption3DType extends IOption3D {
