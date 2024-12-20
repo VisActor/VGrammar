@@ -86,12 +86,14 @@ export interface IViewEventConfig {
   /** use drag events or not */
   drag?: boolean;
   /**
+   * @since 0.15.2
    * @default 200
    * VRender 参数 ，单位 ms
    * 多次点击之间的最大时间，默认为 200 ms，用于判断点击次数
    */
   clickInterval?: number;
   /**
+   * @since 0.15.2
    * @default false
    * VRender 参数 是否自动阻止事件
    */
