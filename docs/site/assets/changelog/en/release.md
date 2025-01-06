@@ -1,3 +1,20 @@
+# v0.15.2
+
+2025-01-06
+
+
+**🆕 New feature**
+
+- **@visactor/vgrammar-core**: add `clickInterval` and `autoPreventDefault` event config
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: fix `minNodeHeight` of sankey when set `nodeGap`
+
+
+
+[more detail about v0.15.2](https://github.com/VisActor/VGrammar/releases/tag/v0.15.2)
+
 # v0.15.1
 
 2024-12-19

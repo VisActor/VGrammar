@@ -1,3 +1,20 @@
+# v0.15.2
+
+2025-01-06
+
+
+**🆕 新增功能**
+
+- **@visactor/vgrammar-core**: add `clickInterval` and `autoPreventDefault` event config
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: fix `minNodeHeight` of sankey when set `nodeGap`
+
+
+
+[更多详情请查看 v0.15.2](https://github.com/VisActor/VGrammar/releases/tag/v0.15.2)
+
 # v0.15.1
 
 2024-12-19
