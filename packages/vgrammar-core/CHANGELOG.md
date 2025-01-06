@@ -1,6 +1,16 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 13 Dec 2024 02:22:10 GMT and should not be manually modified.
+This log was last generated on Mon, 23 Dec 2024 10:47:20 GMT and should not be manually modified.
+
+## 0.15.2
+Mon, 23 Dec 2024 10:47:20 GMT
+
+### Updates
+
+- feat: add `clickInterval` and `autoPreventDefault` event config
+- fix: fix `minNodeHeight` of sankey when set `nodeGap`
+
+
 
 ## 0.15.1
 Fri, 13 Dec 2024 02:22:10 GMT
