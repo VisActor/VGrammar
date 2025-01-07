@@ -34,11 +34,11 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vutils": "~0.19.2",
+    "@visactor/vutils": "~0.19.3",
     "@visactor/vgrammar-core": "workspace:0.15.2",
     "@visactor/vgrammar-util": "workspace:0.15.2",
-    "@visactor/vrender-core": "0.21.4",
-    "@visactor/vrender-kits": "0.21.4"
+    "@visactor/vrender-core": "0.21.8",
+    "@visactor/vrender-kits": "0.21.8"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
