@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-sankey",
-  "version": "0.13.23-alpha.1",
+  "version": "0.13.23-alpha.3",
   "description": "Layout of sankey chart, used by VGrammar",
   "keywords": [
     "sankey",
@@ -37,8 +37,8 @@
   },
   "dependencies": {
     "@visactor/vutils": "~0.18.10",
-    "@visactor/vgrammar-core": "workspace:0.13.23-alpha.1",
-    "@visactor/vgrammar-util": "workspace:0.13.23-alpha.1",
+    "@visactor/vgrammar-core": "workspace:0.13.23-alpha.3",
+    "@visactor/vgrammar-util": "workspace:0.13.23-alpha.3",
     "@visactor/vrender-core": "0.19.28",
     "@visactor/vrender-kits": "0.19.28"
   },
