@@ -474,41 +474,74 @@ export interface FishEyeOptions extends IBaseInteractionOptions {
 }
 
 export interface ElementActiveSpec extends ElementActiveOptions {
+  /**
+   * 设置交互的类型为 'element-active'
+   */
   type: 'element-active';
 }
 export interface ElementSelectSpec extends ElementSelectOptions {
+  /**
+   * 设置交互的类型为 'element-select'
+   */
   type: 'element-select';
 }
 export interface ElementHighlightSpec extends ElementHighlightOptions {
+  /**
+   * 设置交互的类型为 'element-highlight'
+   */
   type: 'element-highlight';
 }
 export interface ElementHighlightByKeySpec extends ElementHighlightOptions {
+  /**
+   * 设置交互的类型为 'element-highlight-by-key'
+   */
   type: 'element-highlight-by-key';
 }
 export interface ElementHighlightByGroupSpec extends ElementHighlightOptions {
+  /**
+   * 设置交互的类型为 'element-highlight-by-group'
+   */
   type: 'element-highlight-by-group';
 }
 export interface ElementActiveByLegendSpec extends ElementActiveByLegendOptions {
+  /**
+   * 设置交互的类型为 'element-active-by-legend'
+   */
   type: 'element-active-by-legend';
 }
 
 export interface ElementHighlightByLegendSpec extends ElementHighlightByLegendOptions {
+  /**
+   * 设置交互的类型为'element-highlight-by-legend'
+   */
   type: 'element-highlight-by-legend';
 }
 
 export interface ElementHighlightByNameSpec extends ElementHighlightByNameOptions {
+  /**
+   * 设置交互的类型为'element-highlight-by-name'
+   */
   type: 'element-highlight-by-name';
 }
 
 export interface BrushHighlightSpec extends BrushHighlightOptions {
+  /**
+   * 设置交互类型为'brush-highlight'
+   */
   type: 'brush-highlight';
 }
 
 export interface BrushActiveSpec extends BrushActiveOptions {
+  /**
+   * 设置交互类型为 'brush-active'
+   */
   type: 'brush-active';
 }
 
 export interface BrushFilterSpec extends BrushFilterOptions {
+  /**
+   * 设置交互类型为'brush-filter'
+   */
   type: 'brush-filter';
 }
 
