@@ -1,3 +1,16 @@
+# v0.15.3
+
+2025-01-09
+
+
+**What's Changed**
+
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.15.2...v0.15.3
+
+[more detail about v0.15.3](https://github.com/VisActor/VGrammar/releases/tag/v0.15.3)
+
 # v0.15.2
 
 2025-01-06
