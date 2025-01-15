@@ -40,9 +40,9 @@
     "@visactor/vgrammar-coordinate": "workspace:0.15.3",
     "@visactor/vgrammar-util": "workspace:0.15.3",
     "@visactor/vscale": "~0.19.3",
-    "@visactor/vrender-core": "0.21.8",
-    "@visactor/vrender-kits": "0.21.8",
-    "@visactor/vrender-components": "0.21.8"
+    "@visactor/vrender-core": "0.21.10",
+    "@visactor/vrender-kits": "0.21.10",
+    "@visactor/vrender-components": "0.21.10"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
