@@ -81,7 +81,10 @@ export class Animate implements IAnimate {
         );
       });
       if (needStopAnimation) {
-        // do not clear exit element in case it will animate
+        this.clearElementAnimation(element, false);
+      }
+      // clear animations for exit elements
+      else if (element.diffState === DiffState.exit) {
         this.clearElementAnimation(element, false);
       }
     });
@@ -297,6 +300,16 @@ export class Animate implements IAnimate {
         elementCount: animatedElements.length,
         elementIndex: 0
       };
+      // clear animator with same state
+      animatedElements.forEach(element => {
+        (this.animators.get(config.state) ?? [])
+          .filter(animator => animator.element === element && animator.animationOptions.id === config.id)
+          .forEach(animator => {
+            animator.stop(null, false);
+            this.handleAnimatorEnd(animator, false);
+          });
+      });
+      // run animator
       animatedElements.forEach((element, index) => {
         animationParameters.elementIndex = index;
         // add animation parameter into parameters

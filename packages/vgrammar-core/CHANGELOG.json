@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.15.4",
+      "tag": "@visactor/vgrammar-core_v0.15.4",
+      "date": "Wed, 15 Jan 2025 07:59:52 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "feat: add customInsertZerosToArray in wordcloud #619"
+          },
+          {
+            "comment": "fix loop animation release"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.15.3",
       "tag": "@visactor/vgrammar-core_v0.15.3",
       "date": "Tue, 07 Jan 2025 02:01:38 GMT",

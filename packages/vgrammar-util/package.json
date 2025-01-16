@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-util",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "description": "The common utils functions of VGrammar",
   "keywords": [
     "utils",
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@visactor/vutils": "~0.19.3",
-    "@visactor/vrender-core": "0.21.8"
+    "@visactor/vrender-core": "0.21.10"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",

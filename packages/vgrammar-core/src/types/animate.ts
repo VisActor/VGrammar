@@ -82,7 +82,13 @@ export type IAnimationConfig = IAnimationTimeline | IAnimationTypeConfig;
  * state动画，暂时只支持简单配置
  */
 export interface IStateAnimationConfig {
+  /**
+   * 状态动画的动画时长
+   */
   duration?: number;
+  /**
+   * 状态动画的缓动函数类型
+   */
   easing?: EasingType;
 }
 

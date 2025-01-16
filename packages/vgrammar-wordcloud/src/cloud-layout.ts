@@ -69,6 +69,8 @@ interface ICloudLayoutOptions extends IBaseLayoutOptions {
 
   padding?: TagItemAttribute<number>;
   enlarge?: boolean;
+
+  customInsertZerosToArray?: (array: any[], index: number, length: number) => void;
 }
 
 export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IProgressiveTransformResult {
@@ -371,6 +373,9 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
   // 分组扩充填充数组, 一次填充超过大概126000+会报stack overflow，worker环境下大概6w,这边取个比较小的
   // https://stackoverflow.com/questions/22123769/rangeerror-maximum-call-stack-size-exceeded-why
   private insertZerosToArray(array: any[], index: number, length: number) {
+    if (this.options.customInsertZerosToArray) {
+      return this.options.customInsertZerosToArray(array, index, length);
+    }
     const len = Math.floor(length / MAX_ARGUMENTS_LENGTH);
     const restLen = length % MAX_ARGUMENTS_LENGTH;
 

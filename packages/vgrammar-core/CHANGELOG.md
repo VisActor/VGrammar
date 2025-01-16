@@ -1,6 +1,14 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Tue, 07 Jan 2025 02:01:38 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Jan 2025 07:59:52 GMT and should not be manually modified.
+
+## 0.15.4
+Wed, 15 Jan 2025 07:59:52 GMT
+
+### Updates
+
+- feat: add customInsertZerosToArray in wordcloud #619
+- fix loop animation release
 
 ## 0.15.3
 Tue, 07 Jan 2025 02:01:38 GMT
