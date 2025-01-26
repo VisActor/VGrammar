@@ -73,7 +73,7 @@ export class Animator implements IAnimator {
     return this;
   }
 
-  stop(stopState?: 'start' | 'end', invokeCallback: boolean = true): this {
+  stop(stopState: 'start' | 'end' | null = 'end', invokeCallback: boolean = true): this {
     // FIXME: wait for VRender to fix 'end' parameter
     this.runnings.forEach(running => running.stop(stopState));
     this.animationEnd(invokeCallback);
