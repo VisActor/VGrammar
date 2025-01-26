@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-core",
+      "comment": "fix: fix default param for animator stop",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core"
+}
