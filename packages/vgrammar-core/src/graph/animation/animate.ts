@@ -119,7 +119,7 @@ export class Animate implements IAnimate {
   stopAnimationByState(animationState: string) {
     const animators = this.animators.get(animationState);
     if (animators) {
-      animators.forEach(animator => animator.stop());
+      animators.forEach(animator => animator.stop('end'));
     }
     return this;
   }
@@ -157,7 +157,7 @@ export class Animate implements IAnimate {
   stop() {
     // map will be cleared in animator callback
     this.animators.forEach(animators => {
-      animators.forEach(animator => animator.stop());
+      animators.forEach(animator => animator.stop('end'));
     });
     return this;
   }
