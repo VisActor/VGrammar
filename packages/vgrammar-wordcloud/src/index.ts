@@ -13,6 +13,6 @@ export const registerWordCloudTransforms = () => {
   );
 };
 
-export { transform };
+export const wordcloudTransform = transform;
 
 export { shapes } from '@visactor/vgrammar-util';

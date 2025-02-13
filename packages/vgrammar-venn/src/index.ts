@@ -5,7 +5,8 @@ import { transform, transformMark } from './venn';
 export * from './interface';
 export * from './animation';
 
-export { transform, transformMark };
+export const vennTransform = transform;
+export const vennMarkTransform = transformMark;
 
 export const registerVennTransforms = () => {
   Factory.registerTransform(

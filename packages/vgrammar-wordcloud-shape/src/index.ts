@@ -8,4 +8,4 @@ export const registerWordCloudShapeTransforms = () => {
   Factory.registerTransform('wordcloudShape', { transform, markPhase: 'beforeJoin' }, true);
 };
 
-export { transform };
+export const wordcloudShapeTransform = transform;

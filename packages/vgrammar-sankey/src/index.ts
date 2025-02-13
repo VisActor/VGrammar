@@ -3,7 +3,7 @@ import { transform } from './transform';
 import { SankeyHighlight } from './sankey-highlight';
 
 export { SankeyLayout } from './layout';
-export { transform };
+export const sankeyTransform = transform;
 
 export * from './interface';
 export * from './format';
