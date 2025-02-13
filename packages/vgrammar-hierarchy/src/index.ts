@@ -12,6 +12,7 @@ export { TreeLayout } from './tree/layout';
 export * from './interface';
 export * from './format';
 export * from './utils';
+export { treeTransform, sunburtTransform, circlePackingTransform, treemapTransform };
 
 export const registerTreemapTransforms = () => {
   Factory.registerTransform(

@@ -1,6 +1,16 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 16 Jan 2025 02:27:52 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Feb 2025 09:57:00 GMT and should not be manually modified.
+
+## 0.15.6
+Thu, 13 Feb 2025 09:57:00 GMT
+
+### Updates
+
+- fix: upgrade vrender to 0.21.15, vutils to 0.19.14
+
+
+- fix: fix default param for animator stop
 
 ## 0.15.5
 Thu, 16 Jan 2025 02:27:52 GMT
