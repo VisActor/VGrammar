@@ -326,6 +326,20 @@ export const indexes = [
     ]
   },
   {
+    menu: 'imagecloud',
+    children: [
+      {
+        path: 'imagecloud-spiral',
+        name: '图云-螺旋线布局'
+      },
+      {
+        path: 'imagecloud-grid',
+        name: '图云-网格布局'
+      },
+    
+    ]
+  },
+  {
     menu: 'sankey',
     children: [
       {
@@ -642,7 +656,7 @@ export const indexes = [
         path: 'wordcloud-shape',
         name: 'wordcloud-shape',
         type: 'plot'
-      },
+      }
     ]
   }
 ];

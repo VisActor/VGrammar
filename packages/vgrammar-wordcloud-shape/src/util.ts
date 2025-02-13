@@ -64,43 +64,6 @@ export const calTextLength = (text: string, textLengthLimit?: number) => {
 };
 
 /**
- * 使用 ResourceLoader 加载图片
- */
-export function loadImage(url: string) {
-  if (!url || (!isValidUrl(url) && !isBase64(url) && !url.startsWith('<svg'))) {
-    return null;
-  }
-  return new Promise((resolve, reject) => {
-    const imageMark = createImage({ image: url });
-    const imgData = imageMark.resources?.get(url);
-
-    if (imgData && imgData.state === 'success' && imgData.data) {
-      resolve(imgData.data);
-
-      return;
-    }
-
-    imageMark.successCallback = () => {
-      if (imageMark) {
-        const imgData = imageMark.resources?.get(url);
-        if (imgData && imgData.state === 'success' && imgData.data) {
-          resolve(imgData.data);
-        } else {
-          reject(new Error('image load failed' + url));
-        }
-      } else {
-        reject(new Error('image load failed' + url));
-      }
-    };
-    imageMark.failCallback = () => {
-      // eslint-disable-next-line no-undef
-      const logger = Logger.getInstance();
-      logger.error('image 加载失败！', url);
-    };
-  });
-}
-
-/**
  * 绘制连通区域相关信息，用于 debug
  * 红色为边缘、黑方块为中心、黑色数字为面积
  */

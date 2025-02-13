@@ -1,4 +1,4 @@
-import type { GeometricMaskShape, TextShapeMask } from '@visactor/vgrammar-util';
+import type { GeometricMaskShape, TextShapeMask, SegmentationInputType } from '@visactor/vgrammar-util';
 
 export type TagItemAttribute<T> = T | ((d?: any) => T);
 
@@ -27,17 +27,6 @@ export type AsType = {
   color: string;
 };
 
-export type SegmentationInputType = {
-  shapeUrl: string | TextShapeMask | GeometricMaskShape;
-  size: [number, number];
-  ratio: number;
-  maskCanvas?: HTMLCanvasElement;
-  tempCanvas?: HTMLCanvasElement | any;
-  boardSize: [number, number];
-  random: boolean;
-  randomGenerator?: any;
-  isEmptyPixel?: (imageData: ImageData, i: number, j: number) => boolean;
-};
 export type ShapeConfigType = {
   x: number;
   y: number;
