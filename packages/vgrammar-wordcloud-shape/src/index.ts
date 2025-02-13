@@ -7,3 +7,5 @@ export { WORDCLOUD_SHAPE_HOOK_EVENT } from './util';
 export const registerWordCloudShapeTransforms = () => {
   Factory.registerTransform('wordcloudShape', { transform, markPhase: 'beforeJoin' }, true);
 };
+
+export { transform };
