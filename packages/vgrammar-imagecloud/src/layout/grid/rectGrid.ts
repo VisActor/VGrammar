@@ -1,4 +1,4 @@
-import type { GridLayoutCellType, ImageCloudOptions } from '../../interface';
+import type { GridLayoutCellType, GridLayoutConfig, ImageCloudOptions } from '../../interface';
 export function rectGridLayout(options: ImageCloudOptions) {
   const { imageConfig = {}, size, ratio = 0.1, layoutConfig = {} } = options;
   const { padding = 0, imageSize } = imageConfig;
@@ -13,8 +13,17 @@ export function rectGridLayout(options: ImageCloudOptions) {
     shortSideLength = 1;
   }
 
-  const cellWidth = shortSideLength;
-  const cellHeight = shortSideLength;
+  const { rectAspectRatio = 1 } = layoutConfig as GridLayoutConfig;
+
+  let cellWidth;
+  let cellHeight;
+  if (rectAspectRatio > 1) {
+    cellWidth = shortSideLength;
+    cellHeight = shortSideLength / rectAspectRatio;
+  } else {
+    cellHeight = shortSideLength;
+    cellWidth = shortSideLength * rectAspectRatio;
+  }
   const rows = Math.ceil(height / (cellHeight + padding));
   const cols = Math.ceil(width / (cellWidth + padding));
   const cellCounts = cols * rows;
@@ -24,8 +33,9 @@ export function rectGridLayout(options: ImageCloudOptions) {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       // 计算cell的中心点坐标
-      const cellCenterX = c * cellHeight + cellWidth / 2 + padding * c;
-      const cellCenterY = r * cellWidth + cellHeight / 2 + padding * r;
+      const cellCenterX = c * (cellWidth + padding) + cellWidth / 2;
+      const cellCenterY = r * (cellHeight + padding) + cellHeight / 2;
+
       // 将cell信息存储到数组中
       cellInfo[r * cols + c] = {
         centerX: cellCenterX,
