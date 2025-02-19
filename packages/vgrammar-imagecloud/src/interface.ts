@@ -35,7 +35,7 @@ export interface SegmentationOutputType extends SegmentationInputType {
 
 // TODO: 重复的类型定义 END
 
-export type ImageCollageInputType = ImageInput & {
+export type ImageCollageType = ImageInput & {
   valid: boolean;
   aspectRatio: number;
   x: number;
@@ -47,6 +47,7 @@ export type ImageCollageInputType = ImageInput & {
   padding: number;
   clipPath?: string;
   frequency: number; // 记录图片出现频率，图片可能重复出现
+  datum: any;
   _widthWithPadding: number;
   _heightWithPadding: number;
   _left: number;
@@ -65,7 +66,7 @@ export type GridLayoutCellType = {
   distance: number;
   isEdge?: boolean;
   intersectPixels?: number;
-  image?: ImageCollageInputType;
+  image?: ImageCollageType;
 };
 
 export type GridLayoutContext = {
@@ -100,12 +101,16 @@ export type ImageInput = {
 };
 
 export type AsType = {
-  x: string;
-  y: string;
-  width: string;
-  height: string;
-  opacity: string;
-  angle: number;
+  visible?: string;
+  x?: string;
+  y?: string;
+  width?: string;
+  height?: string;
+  opacity?: string;
+  angle?: string;
+  clipPath?: string;
+  zIndex?: string;
+  datum?: any;
 };
 
 export type FieldOption = { field: string };

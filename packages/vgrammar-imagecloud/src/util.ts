@@ -1,4 +1,4 @@
-import type { FieldOption, ImageCollageInputType, SegmentationOutputType, TagItemAttribute } from './interface';
+import type { FieldOption, ImageCollageType, TagItemAttribute } from './interface';
 import { isFunction } from '@visactor/vutils';
 
 export enum IMAGECLOUD_HOOK_EVENT {
@@ -19,7 +19,7 @@ export const fakeRandom = () => {
   };
 };
 
-export function setSize(image: ImageCollageInputType, longSideLength: number) {
+export function setSize(image: ImageCollageType, longSideLength: number) {
   if (image.aspectRatio > 1) {
     image.width = longSideLength;
     image.height = ~~(longSideLength / image.aspectRatio);
@@ -29,7 +29,7 @@ export function setSize(image: ImageCollageInputType, longSideLength: number) {
   }
 }
 
-export function setSizeByShortSide(image: ImageCollageInputType, shortSideLength: number) {
+export function setSizeByShortSide(image: ImageCollageType, shortSideLength: number) {
   if (image.aspectRatio > 1) {
     image.height = shortSideLength;
     image.width = ~~(shortSideLength * image.aspectRatio);

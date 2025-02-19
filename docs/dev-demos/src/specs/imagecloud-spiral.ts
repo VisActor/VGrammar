@@ -14,8 +14,8 @@ export const spec = {
   data: [
     {
       id: 'baseData',
-      // values: data,
-      values: vipImages,
+      values: data,
+      // values: vipImages,
       transform: [
         {
           type: 'map',
@@ -65,16 +65,15 @@ export const spec = {
         {
           type: 'imagecloud',
           size: [600, 400],
-          padding: { signal: 'wordPadding' },
-          // mask: {
-          //   type: 'text',
-          //   text: '大',
-          //   fontWeight: 'bold',
-          // },
+          mask: {
+            type: 'text',
+            text: '大',
+            fontWeight: 'bold',
+          },
             // mask:'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/shape_motuo_mini.png',
-            mask:'http://localhost:3003/shape_motuo_mini__1_-removebg-preview.png',
-          onUpdateMaskCanvas:(canvas) => {
-              document.getElementById('footer')?.appendChild(canvas)
+          // mask:'http://localhost:3003/shape_motuo_mini__1_-removebg-preview.png',
+          onUpdateMaskCanvas:(canvas: any) => {
+            document.getElementById('footer')?.appendChild(canvas)
           },
           weight: 100,
           image: { field:'url' },
@@ -85,7 +84,7 @@ export const spec = {
             // imageSizeRange:[10, 20]
           },
           layoutConfig:{
-            fillingTimes: 30,
+            fillingTimes: 10,
             minFillingImageSize:14
             // fillingOpacity :0.2
           },
@@ -124,7 +123,8 @@ export const spec = {
 export const callback = (view: IView) => {
   // do nothing
   view.addEventListener('click', (event, element) => {
-    if(element && element.mark.markType === 'image')
-    console.log(element,element.graphicItem)
+    if(element && element.mark.markType === 'image') {
+      console.log(element, element.getGraphicItem());
+    }
   });
 };
