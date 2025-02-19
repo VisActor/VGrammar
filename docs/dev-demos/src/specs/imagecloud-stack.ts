@@ -3,13 +3,14 @@ import { type IView,  } from '@visactor/vgrammar';
 // import data from '../data/imagecloud/baisc.json';
 import data from '../data/imagecloud/weight.json';
 import vipImages from '../data/imagecloud/vip-images.json';
-import dogs from '../data/imagecloud/dogs.json';
 
 
 
 import { registerImageCloudTransforms } from '@visactor/vgrammar-imagecloud';
 import { createRect, Image } from '@visactor/vrender';
 
+const res = await fetch("https://cdn.jsdelivr.net/gh/xiaoluoHe/Resources/images/dogs/files.json");
+const dogs = await res.json();
 
 
 registerImageCloudTransforms();
@@ -68,28 +69,6 @@ export const spec = {
   marks: [
     {
       type: 'image',
-      encode: {
-        enter: {
-          // image: "https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/shape_logo.png",
-          image:'http://localhost:3000/shape_motuo_mini__1_-removebg-preview.png',
-          // image:'http://localhost:3000/shape_motuo_mini__1_-removebg-black.png',
-
-          // _debug_bounds: true,
-          // stroke:'red',
-          // lineWidth:1
-
-        },
-        update: {
-          x:104,
-          y:0,
-          width:391,
-          height:400,
-          opacity: 0.2,
-        },
-      }
-    },
-    {
-      type: 'image',
       from: { data: 'baseData' },
       transform: [
         {
@@ -97,30 +76,31 @@ export const spec = {
           size: [600, 400],
           padding: { signal: 'wordPadding' },
           // mask: "https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/shape_logo.png",
-          mask:'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/shape_motuo_mini.png',
-          // mask: {
-          //   type: 'text',
-          //   text: '大',
-          //   fontWeight: 'bold',
-          // },
+          // mask:'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/shape_motuo_mini.png',
+          mask: {
+            type: 'text',
+            text: '狗',
+            fontWeight: 'bold',
+          },
           layoutConfig: {
             layoutMode:'stack',
-            // cellType:"rect",
-            // cellType:"circle",
             // placement:"masked",
             // placement:"edge"
           },
         onUpdateMaskCanvas:(canvas: any) => {
             document.getElementById('footer')?.appendChild(canvas)
           },
+          as:{
+            angle:'customAngle',
+          },
           weight:{ field: 'count'},
           image: { field:'url' },
           imageConfig:{
-            imageSize:100,
+            imageSize:40,
             // imageSizeRange:[50,200]
             // removeWhiteBorder: true,
           },
-          ratio: 0.1,
+          ratio: 0.08,
           progressiveStep: 50,
         }
       ],
@@ -140,7 +120,7 @@ export const spec = {
           y: { field: 'y' },
           width: {field: 'width'},
           height: {field: 'height'},
-          angle: { field: 'angle' },
+          angle: { field: 'customAngle' },
           clipPath:{field:'clipPath'},
           visible: { field: 'visible' },
           zIndex: { field: 'zIndex' },

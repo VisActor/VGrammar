@@ -1,93 +1,31 @@
 import type {
   GridLayoutCellType,
   GridLayoutContext,
-  ImageCollageInputType,
+  ImageCollageType,
   SegmentationOutputType,
   StackLayoutConfig
 } from '../interface';
 import { Layout } from './basic';
-import { field, setSize } from '../util';
-import { extent, segmentation } from '@visactor/vgrammar-util';
+import { segmentation } from '@visactor/vgrammar-util';
 import { rectGridLayout } from './grid/rectGrid';
-import { isFunction, isNumber } from '@visactor/vutils';
-import { SqrtScale } from '@visactor/vscale';
 
 export class StackLayout extends Layout {
   private layoutContext: GridLayoutContext;
 
-  onImageCollageInputReady(images: any): void {
-    images.forEach((img: any, i: number) => {
-      if (img.status === 'fulfilled') {
-        const imageElement = img.value;
-        const { width, height } = imageElement;
-        this.imageCollageList.push(Object.assign({}, this.data[i], { aspectRatio: width / height }));
-      } else {
-        //  对加载失败的图片设为不可用
-        this.imageCollageList.push(Object.assign({}, this.data[i], { valid: false }));
-      }
-    });
-  }
-
   preProcess() {
     const images = super.preProcess();
-
     const { imageConfig = {}, ratio = 0.1 } = this.options;
-    const size = this.options.size as [number, number];
-    const { imageSizeRange, padding = 0 } = imageConfig;
-    const imageSize = isNumber(imageConfig.imageSize) ? imageConfig.imageSize : field(imageConfig.imageSize);
-    const layoutMethod = rectGridLayout;
-    const layoutResult = layoutMethod(Object.assign({}, this.options, { imageConfig: { imageSize: null } }));
-
-    const { context } = layoutResult;
+    const cellLayoutMethod = rectGridLayout;
+    this.layoutContext = cellLayoutMethod(
+      Object.assign({}, this.options, { imageConfig: { imageSize: null } })
+    ).context;
 
     // 根据 distance 排序，距离越小，越靠近画布中心，优先布局
-    context.cellInfo.sort((cellA, cellB) => cellA.distance - cellB.distance);
-
-    // TODO: 重复代码
-    if (!imageSize) {
-      // 用户没有设置图片大小，则自动计算一个统一的大小
-      const imageArea = images.reduce((prev, pic) => {
-        const r = pic.aspectRatio;
-        return prev + (r > 1 ? 1 / r : r);
-      }, 0);
-      let longSideLength = ~~Math.sqrt((ratio * size[0] * size[1]) / imageArea);
-      // 减掉 padding 的影响
-      longSideLength = longSideLength - 2 * padding < 0 ? 1 : longSideLength - 2 * padding;
-      images.forEach(img => setSize(img, longSideLength));
-    } else if (imageSize && !isFunction(imageSize)) {
-      // 用户指定了统一的图片大小
-      images.forEach(img => setSize(img, imageSize));
-    } else if (imageSize && isFunction(imageSize) && imageSizeRange) {
-      // 用户指定了图片大小的范围
-      const sizeScale = new SqrtScale().domain(extent(images, d => d.weight)).range(imageSizeRange);
-      images.forEach(img => setSize(img, ~~sizeScale.scale(img.weight)));
-    } else if (imageSize && isFunction(imageSize) && !imageSizeRange) {
-      // 用户没指定图片大小范围，但指定了图片大小的对应的 key
-      const a = 0.5;
-      const [min, max] = extent(images, d => d.weight);
-      const picArea = images.reduce((prev, img) => {
-        const r = img.aspectRatio;
-        const w = (img.weight - min) / (max - min);
-        return prev + (r > 1 ? 1 / r : r) * (a + (1 - a) * w) ** 2;
-      }, 0);
-      const x = ~~Math.sqrt((ratio * size[0] * size[1]) / picArea);
-      const range = [
-        ~~(a * x) - padding * 2 < 0 ? 1 : ~~(a * x) - padding * 2,
-        ~~x - padding * 2 < 0 ? 1 : ~~x - padding * 2
-      ];
-
-      const sizeScale = new SqrtScale().domain(extent(images, d => d.weight)).range(range);
-      images.forEach(img => setSize(img, ~~sizeScale.scale(img.weight)));
-    } else {
-      console.warn('image cloud imageSize error');
-    }
-
-    this.layoutContext = context;
-
-    return images;
+    this.layoutContext.cellInfo.sort((cellA, cellB) => cellA.distance - cellB.distance);
+    return this.calculateImageSize(images, imageConfig, ratio);
   }
 
-  doLayout(images: ImageCollageInputType[]) {
+  doLayout(images: ImageCollageType[]) {
     const segmentationInput = this.segmentationInput;
     // 对用户输入的图形进行预处理
     const segmentationOutput: SegmentationOutputType = segmentation(segmentationInput);
@@ -177,6 +115,6 @@ export class StackLayout extends Layout {
         }
       }
     }
-    this.progressiveResult = images;
+    return images;
   }
 }
