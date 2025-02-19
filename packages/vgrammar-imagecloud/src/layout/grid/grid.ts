@@ -4,7 +4,7 @@ import type {
   GridLayoutConfig,
   GridLayoutContext,
   ImageCloudOptions,
-  ImageCollageInputType,
+  ImageCollageType,
   SegmentationOutputType
 } from '../../interface';
 import { setSizeByShortSide } from '../../util';
@@ -24,28 +24,13 @@ const cellLayout: Record<string, (options: ImageCloudOptions) => { context: Grid
 export class GridLayout extends Layout {
   private layoutContext: GridLayoutContext;
 
-  onImageCollageInputReady(images: any): void {
-    images.forEach((img: any, i: number) => {
-      if (img.status === 'fulfilled') {
-        const imageElement = img.value;
-        const { width, height } = imageElement;
-        this.imageCollageList.push(Object.assign({}, this.data[i], { aspectRatio: width / height }));
-      } else {
-        //  对加载失败的图片设为不可用
-        this.imageCollageList.push(Object.assign({}, this.data[i], { valid: false }));
-      }
-    });
-  }
-
   preProcess() {
     const images = super.preProcess();
-
     const { layoutConfig = {} } = this.options;
     const { cellType = 'rect' } = layoutConfig as GridLayoutConfig;
 
-    const layoutMethod = cellLayout[cellType] ?? cellLayout.rect;
-    const layoutResult = layoutMethod(this.options);
-
+    const cellLayoutMethod = cellLayout[cellType] ?? cellLayout.rect;
+    const layoutResult = cellLayoutMethod(this.options);
     const { context, imageLength: shortSideLength } = layoutResult;
 
     images.forEach(img => setSizeByShortSide(img, shortSideLength));
@@ -53,11 +38,10 @@ export class GridLayout extends Layout {
     context.cellInfo.sort((cellA, cellB) => cellA.distance - cellB.distance);
 
     this.layoutContext = context;
-
     return images;
   }
 
-  doLayout(images: ImageCollageInputType[]) {
+  doLayout(images: ImageCollageType[]) {
     const segmentationInput = this.segmentationInput;
     // 对用户输入的图形进行预处理
     const segmentationOutput: SegmentationOutputType = segmentation(segmentationInput);
@@ -169,6 +153,6 @@ export class GridLayout extends Layout {
         this.view.renderer.stage().defaultLayer.add(path);
       }
     }
-    this.progressiveResult = images;
+    return images;
   }
 }

@@ -1,19 +1,13 @@
-import type { ImageCloudOptions, ImageCollageInputType } from '../interface';
+import type { ImageCloudOptions, ImageCollageType, ImageConfig } from '../interface';
 import type { IView, IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import type { SegmentationInputType } from '@visactor/vgrammar-util';
 import { vglobal } from '@visactor/vrender-core';
-import { generateIsEmptyPixel, generateMaskCanvas, loadImage, loadImages } from '@visactor/vgrammar-util';
+import { generateIsEmptyPixel, generateMaskCanvas, loadImage, loadImages, extent } from '@visactor/vgrammar-util';
 import { isString, Logger } from '@visactor/vutils';
 import { removeBorder, scaleAndMiddleShape } from '../segmentation';
-import { fakeRandom, field } from '../util';
-
-export const OUTPUT = {
-  x: 'x',
-  y: 'y',
-  width: 'width',
-  height: 'height',
-  opacity: 'opacity'
-};
+import { fakeRandom, field, setSize } from '../util';
+import { isNumber, isFunction } from '@visactor/vutils';
+import { SqrtScale } from '@visactor/vscale';
 
 export abstract class Layout implements IProgressiveTransformResult<any[]> {
   options: ImageCloudOptions;
@@ -25,10 +19,9 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
   protected isLayoutFinished?: boolean;
   protected progressiveResult?: any[] = [];
   protected segmentationInput?: SegmentationInputType;
-  protected imageCollageList?: ImageCollageInputType[] = [];
+  protected imageCollageList?: ImageCollageType[] = [];
 
-  abstract onImageCollageInputReady(images: any): void;
-  abstract doLayout(images: ImageCollageInputType[]): void;
+  abstract doLayout(images: ImageCollageType[]): ImageCollageType[];
 
   constructor(options: ImageCloudOptions, view?: IView) {
     this.options = options;
@@ -53,6 +46,7 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
       } else {
         img.padding = padding;
         img.weight = field(weight)(this.data[index]);
+        img.datum = this.data[index];
       }
     });
 
@@ -60,6 +54,19 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
     images = images.filter(img => img.valid !== false).sort((a, b) => b.weight - a.weight);
 
     return images;
+  }
+
+  onImageCollageInputReady(images: any): void {
+    images.forEach((img: any, i: number) => {
+      if (img.status === 'fulfilled') {
+        const imageElement = img.value;
+        const { width, height } = imageElement;
+        this.imageCollageList.push(Object.assign({}, this.data[i], { aspectRatio: width / height }));
+      } else {
+        //  对加载失败的图片设为不可用
+        this.imageCollageList.push(Object.assign({}, this.data[i], { valid: false }));
+      }
+    });
   }
 
   layout(data: any[]) {
@@ -192,7 +199,8 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
   progressiveRun() {
     if (this.isImagesFinished && this.isMaskImageFinished && !this.isLayoutFinished) {
       const images = this.preProcess();
-      this.doLayout(images);
+      const layoutResult = this.doLayout(images);
+      this.progressiveResult = this.processOutput(layoutResult);
       this.isLayoutFinished = true;
     } else {
       return;
@@ -208,5 +216,64 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
     this.data = null;
     this.progressiveResult = null;
     this.options = null;
+  }
+
+  protected calculateImageSize(images: ImageCollageType[], imageConfig: ImageConfig = {}, ratio: number = 0.45) {
+    const { imageSizeRange, padding = 0 } = imageConfig;
+    const imageSize = isNumber(imageConfig.imageSize) ? imageConfig.imageSize : field(imageConfig.imageSize);
+    const size = this.options.size as [number, number];
+
+    if (!imageSize && !imageSizeRange) {
+      // 用户没有设置图片大小，则自动计算一个统一的大小
+      const imageArea = images.reduce((prev, pic) => {
+        const r = pic.aspectRatio;
+        return prev + (r > 1 ? 1 / r : r);
+      }, 0);
+      let longSideLength = ~~Math.sqrt((ratio * size[0] * size[1]) / imageArea);
+      // 减掉 padding 的影响
+      longSideLength = longSideLength - 2 * padding < 0 ? 1 : longSideLength - 2 * padding;
+      images.forEach(img => setSize(img, longSideLength));
+    } else if (imageSize && !isFunction(imageSize)) {
+      // 用户指定了统一的图片大小
+      images.forEach(img => setSize(img, imageSize));
+    } else if (imageSizeRange) {
+      // 用户指定了图片大小的范围
+      const sizeScale = new SqrtScale().domain(extent(images, d => d.weight)).range(imageSizeRange);
+      images.forEach(img => setSize(img, ~~sizeScale.scale(img.weight)));
+    } else if (imageSize && isFunction(imageSize) && !imageSizeRange) {
+      // 用户没指定图片大小范围，但指定了图片大小的对应的 key
+      const a = 0.5;
+      const [min, max] = extent(images, d => d.weight);
+      const picArea = images.reduce((prev, img) => {
+        const r = img.aspectRatio;
+        const w = (img.weight - min) / (max - min);
+        return prev + (r > 1 ? 1 / r : r) * (a + (1 - a) * w) ** 2;
+      }, 0);
+      const x = ~~Math.sqrt((ratio * size[0] * size[1]) / picArea);
+      const range = [
+        ~~(a * x) - padding * 2 < 0 ? 1 : ~~(a * x) - padding * 2,
+        ~~x - padding * 2 < 0 ? 1 : ~~x - padding * 2
+      ];
+
+      const sizeScale = new SqrtScale().domain(extent(images, d => d.weight)).range(range);
+      images.forEach(img => setSize(img, ~~sizeScale.scale(img.weight)));
+    } else {
+      console.warn('image cloud imageSize error');
+    }
+
+    return images;
+  }
+
+  protected processOutput(images: ImageCollageType[]) {
+    const outputAs = this.options.as;
+    if (outputAs) {
+      Object.keys(outputAs).forEach(key => {
+        images.forEach(img => {
+          img[(outputAs as Record<string, string>)[key]] = img[key];
+          delete img[key];
+        });
+      });
+    }
+    return images;
   }
 }
