@@ -46,7 +46,7 @@ export type ImageCollageInputType = ImageInput & {
   opacity: number;
   padding: number;
   clipPath?: string;
-  frequency: number; // 记录图片出现频率，在部分布局模式下，图片可能重复出现
+  frequency: number; // 记录图片出现频率，图片可能重复出现
   _widthWithPadding: number;
   _heightWithPadding: number;
   _left: number;
@@ -138,8 +138,12 @@ export type GridLayoutConfig = {
   layoutMode: 'grid';
   /** 网格单元形状 */
   cellType?: 'rect' | 'circle' | 'hexagonal';
-  /** 网格大小比例。基于画布大小的百分比 */
-  cellSizeRatio?: number;
+  /**
+   * 矩形网格单元的宽高比
+   * @description 当 cellType 为 'rect' 时，该值有效
+   * @default 1
+   * */
+  rectAspectRatio?: number;
   /**
    * 图片的布局方式
    * - 'default': 图片填满网格单元，尽可能排列成遮罩的形状
