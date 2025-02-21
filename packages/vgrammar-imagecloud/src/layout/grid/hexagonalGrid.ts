@@ -96,18 +96,7 @@ export function hexagonalGridLayout(options: ImageCloudOptions) {
         }
       }
     },
-    clipPathMethod: (cell: any, image: any) => {
-      // 生成六边形的 SVG 路径
-      const startX = cell.x - image.x + radius;
-      const startY = cell.y - image.y + radius;
-      return `M ${points
-        .map((p, i) => {
-          const x = startX + p.x;
-          const y = startY + p.y;
-          return `${i === 0 ? '' : 'L '}${x},${y}`;
-        })
-        .join(' ')} Z`;
-    }
+    clipPath: `M 1 0 L 0.5 0.866 L -0.5 0.866 L -1 0 L -0.5 -0.866 L 0.5 -0.866 Z`
   });
-  return { context, imageLength: diameter - padding / 2 };
+  return { context, imageLength: diameter - padding };
 }

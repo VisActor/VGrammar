@@ -136,6 +136,9 @@ export class SpiralLayout extends Layout {
         ) {
           image._tempFrequency = (image._tempFrequency ?? image.frequency) + 1;
           fillingImage.frequency = image._tempFrequency;
+          fillingImage.distance = Math.sqrt(
+            Math.pow(fillingImage.x - size[0] / 2, 2) + Math.pow(fillingImage.y - size[1] / 2, 2)
+          );
           fillingImage[key] = `${fillingImage[key]}_${fillingImage.frequency}`;
           fixedFillingImages.push(fillingImage);
         }
