@@ -74,15 +74,7 @@ export function circleGridLayout(options: ImageCloudOptions) {
         }
       }
     },
-    clipPathMethod: (cell: any, image: any) => {
-      // 生成圆形的 SVG 路径
-      const radius = circleRadius;
-      const startX = cell.x - image.x + radius;
-      const startY = cell.y - image.y + radius;
-      return `M ${startX},${startY} m -${radius},0 a ${radius},${radius} 0 1,0 ${
-        radius * 2
-      },0 a ${radius},${radius} 0 1,0 -${radius * 2},0`;
-    }
+    clipPath: `M 1 0 A 1 1 0 1 0 -1 0 A 1 1 0 1 0 1 0 Z`
   });
   return { context, imageLength: circleDiameter };
 }

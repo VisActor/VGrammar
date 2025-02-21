@@ -45,9 +45,10 @@ export type ImageCollageType = ImageInput & {
   weight: number;
   opacity: number;
   padding: number;
-  clipPath?: string;
   frequency: number; // 记录图片出现频率，图片可能重复出现
+  distance: number;
   datum: any;
+  clipConfig?: { shape: string };
   _widthWithPadding: number;
   _heightWithPadding: number;
   _left: number;
@@ -83,7 +84,7 @@ export type GridLayoutContext = {
   cellInfo: GridLayoutCellType[];
   cellCount: number;
   cellPixelCount: number;
-  clipPathMethod: (...args: any) => string;
+  clipPath: string;
   eachPixel: (...args: any) => void;
 };
 
@@ -111,6 +112,7 @@ export type AsType = {
   clipPath?: string;
   zIndex?: string;
   datum?: any;
+  distance?: string;
 };
 
 export type FieldOption = { field: string };
