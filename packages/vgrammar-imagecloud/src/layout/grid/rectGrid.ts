@@ -67,13 +67,7 @@ export function rectGridLayout(options: ImageCloudOptions) {
         }
       }
     },
-    clipPathMethod: (cell: any, image: any) => {
-      const startX = cell.x - image.x;
-      const startY = cell.y - image.y;
-      return `M ${startX},${startY} L ${startX + cellWidth},${startY} L ${startX + cellWidth},${
-        startY + cellHeight
-      } L ${startX},${startY + cellHeight} Z`;
-    }
+    clipPath: `M-.5-.5.5-.5.5.5-.5.5Z`
   });
 
   return { context, imageLength: shortSideLength };

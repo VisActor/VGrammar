@@ -46,8 +46,7 @@ export class GridLayout extends Layout {
     // 对用户输入的图形进行预处理
     const segmentationOutput: SegmentationOutputType = segmentation(segmentationInput);
 
-    const { cellWidth, cellHeight, cellInfo, cellCount, clipPathMethod, eachPixel, cellPixelCount } =
-      this.layoutContext;
+    const { cellWidth, cellHeight, cellInfo, cellCount, clipPath, eachPixel, cellPixelCount } = this.layoutContext;
     if (images.length === 0 || cellCount === 0 || cellWidth === 0 || cellHeight === 0 || cellInfo.length === 0) {
       this.isLayoutFinished = true;
       return;
@@ -92,10 +91,11 @@ export class GridLayout extends Layout {
       if (cell) {
         image.x = cell.centerX - image.width / 2;
         image.y = cell.centerY - image.height / 2;
-        image.clipPath = clipPathMethod(cell, image);
+        image.clipConfig = { shape: clipPath };
         image.frequency = 1;
         image.visible = imageVisible(cell);
         image.cell = `${cell.row}_${cell.col}`;
+        image.distance = cell.distance;
         cell.image = image;
       }
     }
@@ -113,46 +113,15 @@ export class GridLayout extends Layout {
           repeatImage.y = cell.centerY - repeatImage.height / 2;
           repeatImage.frequency += 1;
           repeatImage[key] = `${repeatImage[key]}_${repeatImage.frequency}`;
-          images.push(repeatImage);
           repeatImage.visible = imageVisible(cell);
+          repeatImage.distance = cell.distance;
           repeatImage.cell = `${cell.row}_${cell.col}`;
           cell.image = repeatImage;
+          images.push(repeatImage);
         }
       }
     }
-    // TODO: remove code
-    for (const cell of cellInfo) {
-      if (this.layoutContext.cellType === 'hexagonal') {
-        const polygon = createPolygon({
-          x: cell.centerX,
-          y: cell.centerY,
-          points: this.layoutContext.cellHexPoints.map(p => ({
-            x: p.x,
-            y: p.y
-          })),
-          fill: false,
-          fillOpacity: 0.1,
-          stroke: 'red',
-          lineWidth: 1,
-          strokeOpacity: 0.2,
-          globalZIndex: 1
-        });
-        this.view.renderer.stage().defaultLayer.add(polygon);
-      } else {
-        const path = createPath({
-          x: cell.image.x,
-          y: cell.image.y,
-          path: this.layoutContext.clipPathMethod(cell, cell.image),
-          fill: false,
-          fillOpacity: 0,
-          stroke: 'red',
-          lineWidth: 1,
-          strokeOpacity: 0.2,
-          globalZIndex: 1
-        });
-        this.view.renderer.stage().defaultLayer.add(path);
-      }
-    }
-    return images;
+
+    return images.filter(img => img.visible);
   }
 }

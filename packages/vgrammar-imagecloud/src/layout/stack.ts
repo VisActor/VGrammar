@@ -87,6 +87,7 @@ export class StackLayout extends Layout {
         image.angle = Math.random() * (2 * maxAngle) - maxAngle;
         image.anchor = [image.x + image.width / 2, image.y + image.height / 2];
         image.zIndex = maxDistance - cell.distance;
+        image.distance = cell.distance;
         image.frequency = 1;
         cell.image = image;
       }
@@ -109,12 +110,13 @@ export class StackLayout extends Layout {
           repeatImage[key] = `${repeatImage[key]}_${repeatImage.frequency}`;
           repeatImage.visible = imageVisible(cell);
           repeatImage.cell = `${cell.row}_${cell.col}`;
+          repeatImage.distance = cell.distance;
           repeatImage.zIndex = maxDistance - cell.distance;
           cell.image = repeatImage;
           images.push(repeatImage);
         }
       }
     }
-    return images;
+    return images.filter(img => img.visible);
   }
 }
