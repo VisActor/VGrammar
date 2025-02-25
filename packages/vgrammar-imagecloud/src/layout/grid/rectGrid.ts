@@ -67,7 +67,10 @@ export function rectGridLayout(options: ImageCloudOptions) {
         }
       }
     },
-    clipPath: `M-.5-.5.5-.5.5.5-.5.5Z`
+    // 以矩形(0,0)为中心，cellWidth * cellHeight 的矩形
+    clipPath: `M${-cellWidth / 2} ${-cellHeight / 2} L${cellWidth / 2} ${-cellHeight / 2} L${cellWidth / 2} ${
+      cellHeight / 2
+    } L${-cellWidth / 2} ${cellHeight / 2} Z`
   });
 
   return { context, imageLength: shortSideLength };

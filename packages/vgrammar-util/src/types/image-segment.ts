@@ -4,6 +4,7 @@ export type SegmentationInputType = {
   shapeUrl: string | TextShapeMask | GeometricMaskShape;
   size: [number, number];
   ratio: number;
+  blur?: number;
   maskCanvas?: HTMLCanvasElement;
   tempCanvas?: HTMLCanvasElement | any;
   boardSize: [number, number];
