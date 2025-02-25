@@ -1,5 +1,5 @@
-import { vglobal, createImage } from '@visactor/vrender-core';
-import { isBase64, isNil, isValidUrl, Logger } from '@visactor/vutils';
+import { vglobal } from '@visactor/vrender-core';
+import { isNil } from '@visactor/vutils';
 import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
 
 export enum WORDCLOUD_SHAPE_HOOK_EVENT {
@@ -26,18 +26,6 @@ export const colorListEqual = (arr0: string[], arr1: string[]) => {
   }
 
   return true;
-};
-
-/**
- * 随机拟合
- */
-export const fakeRandom = () => {
-  let i = -1;
-  const arr = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
-  return () => {
-    i = (i + 1) % arr.length;
-    return arr[i];
-  };
 };
 
 /**

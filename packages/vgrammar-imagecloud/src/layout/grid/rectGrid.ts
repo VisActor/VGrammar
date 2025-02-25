@@ -1,4 +1,5 @@
 import type { GridLayoutCellType, GridLayoutConfig, ImageCloudOptions } from '../../interface';
+
 export function rectGridLayout(options: ImageCloudOptions) {
   const { imageConfig = {}, size, ratio = 0.1, layoutConfig = {} } = options;
   const { padding = 0, imageSize } = imageConfig;
