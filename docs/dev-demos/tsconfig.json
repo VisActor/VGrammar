@@ -51,6 +51,9 @@
     },
     {
       "path": "../../packages/vgrammar-plot"
+    },
+    {
+      "path": "../../packages/vgrammar-imagecloud"
     }
   ],
   "include": ["src"]

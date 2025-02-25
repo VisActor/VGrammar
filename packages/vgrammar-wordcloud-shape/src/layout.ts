@@ -1,21 +1,26 @@
 import { degreeToRadian, isFunction, isString, maxInArray, toNumber } from '@visactor/vutils';
 import type {
   CloudWordType,
-  FieldOption,
   LayoutConfigType,
-  SegmentationInputType,
   SegmentationOutputType,
-  TagItemAttribute,
   WordCloudShapeOptions,
   wordsConfigType
 } from './interface';
-import { removeBorder, scaleAndMiddleShape, segmentation } from './segmentation';
-import { WORDCLOUD_SHAPE_HOOK_EVENT, calTextLength, colorListEqual, fakeRandom, functor, loadImage } from './util';
+import { WORDCLOUD_SHAPE_HOOK_EVENT, calTextLength, colorListEqual, functor } from './util';
 import { LinearScale, OrdinalScale, SqrtScale } from '@visactor/vscale';
 import cloud from './cloud-shape-layout';
 import { type IProgressiveTransformResult, type IView } from '@visactor/vgrammar-core';
 import { vglobal } from '@visactor/vrender-core';
-import { generateIsEmptyPixel, generateMaskCanvas } from '@visactor/vgrammar-util';
+import {
+  generateIsEmptyPixel,
+  generateMaskCanvas,
+  loadImage,
+  segmentation,
+  removeBorder,
+  scaleAndMiddleShape
+} from '@visactor/vgrammar-util';
+import type { SegmentationInputType, FieldOption } from '@visactor/vgrammar-util';
+import { fakeRandom, simpleField as field } from '@visactor/vgrammar-util';
 
 const OUTPUT = {
   x: 'x',
@@ -320,7 +325,6 @@ export class Layout implements IProgressiveTransformResult<any[]> {
     const { fillingWords, successedWords, failedWords } = cloud(words, layoutConfig, segmentationOutput);
     const textKey = (options.text as FieldOption)?.field ?? 'textKey'; // 记录用户是用什么 key 存储 text 信息
     const dataIndexKey = options.dataIndexKey ?? 'defaultDataIndexKey';
-
     /** step5: 将单词信息转换为输出 */
     const as = options.as ? { ...OUTPUT, ...options.as } : OUTPUT;
     let w;
@@ -384,7 +388,6 @@ export class Layout implements IProgressiveTransformResult<any[]> {
         });
       }
     }
-
     // 最后将核心词和填充词合并返回
     this.progressiveResult = modKeywords.concat(fillingWordsData);
   }
@@ -693,19 +696,4 @@ const extent = (field: any, data: any[]) => {
   }
 
   return [min, max];
-};
-
-/**
- * 取数逻辑
- */
-const field = <T>(option: FieldOption | TagItemAttribute<T>) => {
-  if (!option) {
-    return null;
-  }
-  if (typeof option === 'string' || typeof option === 'number') {
-    return () => option;
-  } else if (isFunction(option)) {
-    return option as (datum: any) => T;
-  }
-  return (datum: any) => datum[(option as FieldOption).field];
 };

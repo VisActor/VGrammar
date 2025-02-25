@@ -20,6 +20,7 @@
     "@visactor/vgrammar-wordcloud": "workspace:0.15.5",
     "@visactor/vgrammar-wordcloud-shape": "workspace:0.15.5",
     "@visactor/vgrammar-plot": "workspace:0.15.5",
+    "@visactor/vgrammar-imagecloud": "workspace:0.15.5",
     "@visactor/vrender-core": "0.21.11",
     "@visactor/vrender-kits": "0.21.11",
     "@visactor/vrender": "0.21.11",

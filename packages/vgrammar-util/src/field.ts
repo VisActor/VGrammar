@@ -12,6 +12,7 @@ import { accessor } from './accessor';
 import { getter } from './getter';
 import { splitAccessPath } from './splitAccessPath';
 import type { FieldGetterFunction, FieldGetterGeneratorOptions } from './types';
+import type { FieldOption, TagItemAttribute } from './types/field';
 
 const fieldSingle = (fieldStr: string | FieldGetterFunction, name?: string, opt: FieldGetterGeneratorOptions = {}) => {
   if (isFunction(fieldStr)) {
@@ -38,4 +39,19 @@ export const field = (
   }
 
   return fieldSingle(fieldStr, name, opt);
+};
+
+/**
+ * 取数逻辑
+ */
+export const simpleField = <T>(option: FieldOption | TagItemAttribute<T>) => {
+  if (!option) {
+    return null;
+  }
+  if (typeof option === 'string' || typeof option === 'number') {
+    return () => option;
+  } else if (isFunction(option)) {
+    return option as (datum: any) => T;
+  }
+  return (datum: any) => datum[(option as FieldOption).field];
 };
