@@ -1,41 +1,14 @@
-/* eslint-disable spellcheck/spell-checker */
-import type { TextShapeMask, GeometricMaskShape, SegmentationInputType } from '@visactor/vgrammar-util';
+import type {
+  TextShapeMask,
+  GeometricMaskShape,
+  SegmentationOutputType as SegmentationOutputTypeBase,
+  FieldOption,
+  TagItemAttribute
+} from '@visactor/vgrammar-util';
 
-export type ShapeConfigType = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  scale: number;
-};
-export type segmentationType = {
-  regions: any;
-  labels: number[];
-  labelNumber: number;
-};
-export type ShapeBoundsType = {
-  x1: number;
-  x2: number;
-  y1: number;
-  y2: number;
-  width: number;
-  height: number;
-};
-export interface SegmentationOutputType extends SegmentationInputType {
-  segmentation: segmentationType;
-  shapeBounds: ShapeBoundsType;
-  shapeMaxR: number;
-  shapeRatio: number;
-  shapeCenter: number[];
-  shapeArea: number;
-
-  fillingInitialFontSize?: number;
-  fillingDeltaFontSize?: number;
-
+export interface SegmentationOutputType extends SegmentationOutputTypeBase {
   transparentMaskCanvas?: HTMLCanvasElement;
 }
-
-// TODO: 重复的类型定义 END
 
 export type ImageCollageType = ImageInput & {
   valid: boolean;
@@ -117,9 +90,6 @@ export type AsType = {
   distance?: string;
 };
 
-export type FieldOption = { field: string };
-export type TagItemAttribute<T> = T | ((d?: any) => T);
-
 export type LayoutConfigType = SpiralLayoutConfig | GridLayoutConfig | StackLayoutConfig;
 
 /** 螺旋线布局 */
@@ -179,7 +149,7 @@ export type StackLayoutConfig = {
   placement?: 'default' | 'masked' | 'edge';
   /**
    * 最大旋转角度
-   * @default defaultAngleRadians - 默认值为角度 70 度，转换为弧度：
+   * @default 1.22173 - 默认值为角度 70 度，转换为弧度：
    *      70 * (Math.PI / 180) ≈ 1.22173
    * */
   maxAngle?: number;
@@ -220,7 +190,5 @@ export type ImageCloudOptions = {
   as?: AsType;
 
   onUpdateMaskCanvas?: (inputCanvas?: HTMLCanvasElement, maskCanvas?: HTMLCanvasElement) => void;
-  // 图片二值化完成后回调
-  onSegmentationReady?: (segmentationOutput?: SegmentationOutputType) => void;
   onLayoutEnd?: (images: ImageCollageType[]) => void;
 };

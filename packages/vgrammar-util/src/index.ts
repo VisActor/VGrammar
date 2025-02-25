@@ -15,7 +15,7 @@ export { identity, zero } from './accessors';
 export { compare, ascending } from './compare';
 export { error } from './error';
 export { extent } from './extent';
-export { field } from './field';
+export { field, simpleField } from './field';
 
 export { splitAccessPath } from './splitAccessPath';
 
@@ -30,3 +30,4 @@ export * from './direction';
 export * from './image';
 export * from './shapes';
 export * from './loader';
+export * from './random';
