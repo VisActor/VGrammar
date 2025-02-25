@@ -1,21 +1,26 @@
 import { degreeToRadian, isFunction, isString, maxInArray, toNumber } from '@visactor/vutils';
 import type {
   CloudWordType,
-  FieldOption,
   LayoutConfigType,
   SegmentationOutputType,
-  TagItemAttribute,
   WordCloudShapeOptions,
   wordsConfigType
 } from './interface';
-import { removeBorder, scaleAndMiddleShape } from './segmentation';
-import { WORDCLOUD_SHAPE_HOOK_EVENT, calTextLength, colorListEqual, fakeRandom, functor } from './util';
+import { WORDCLOUD_SHAPE_HOOK_EVENT, calTextLength, colorListEqual, functor } from './util';
 import { LinearScale, OrdinalScale, SqrtScale } from '@visactor/vscale';
 import cloud from './cloud-shape-layout';
 import { type IProgressiveTransformResult, type IView } from '@visactor/vgrammar-core';
 import { vglobal } from '@visactor/vrender-core';
-import { generateIsEmptyPixel, generateMaskCanvas, loadImage, segmentation } from '@visactor/vgrammar-util';
-import type { SegmentationInputType } from '@visactor/vgrammar-util';
+import {
+  generateIsEmptyPixel,
+  generateMaskCanvas,
+  loadImage,
+  segmentation,
+  removeBorder,
+  scaleAndMiddleShape
+} from '@visactor/vgrammar-util';
+import type { SegmentationInputType, FieldOption } from '@visactor/vgrammar-util';
+import { fakeRandom, simpleField as field } from '@visactor/vgrammar-util';
 
 const OUTPUT = {
   x: 'x',
@@ -691,19 +696,4 @@ const extent = (field: any, data: any[]) => {
   }
 
   return [min, max];
-};
-
-/**
- * 取数逻辑
- */
-const field = <T>(option: FieldOption | TagItemAttribute<T>) => {
-  if (!option) {
-    return null;
-  }
-  if (typeof option === 'string' || typeof option === 'number') {
-    return () => option;
-  } else if (isFunction(option)) {
-    return option as (datum: any) => T;
-  }
-  return (datum: any) => datum[(option as FieldOption).field];
 };

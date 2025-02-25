@@ -14,11 +14,14 @@ import {
   loadImage,
   loadImages,
   extent,
-  segmentation
+  segmentation,
+  removeBorder,
+  scaleAndMiddleShape,
+  fakeRandom,
+  simpleField as field
 } from '@visactor/vgrammar-util';
 import { isString, Logger } from '@visactor/vutils';
-import { removeBorder, scaleAndMiddleShape } from '../segmentation';
-import { fakeRandom, field, setSize } from '../util';
+import { setSize } from '../util';
 import { isNumber, isFunction } from '@visactor/vutils';
 import { SqrtScale } from '@visactor/vscale';
 
@@ -153,6 +156,7 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
             if ((this.options.layoutConfig as GridLayoutConfig)?.placement === 'masked') {
               transparentMaskCanvas = this.generateTransparentMaskCanvas(shapeImage, size);
             }
+            this.segmentationOutput.transparentMaskCanvas = transparentMaskCanvas;
 
             if (this.options.onUpdateMaskCanvas) {
               this.options.onUpdateMaskCanvas(maskCanvas, transparentMaskCanvas);

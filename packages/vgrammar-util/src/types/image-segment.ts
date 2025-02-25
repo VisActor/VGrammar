@@ -12,3 +12,26 @@ export type SegmentationInputType = {
   randomGenerator?: any;
   isEmptyPixel?: (imageData: ImageData, i: number, j: number) => boolean;
 };
+
+export type segmentationType = {
+  regions: any;
+  labels: number[];
+  labelNumber: number;
+};
+export type ShapeBoundsType = {
+  x1: number;
+  x2: number;
+  y1: number;
+  y2: number;
+  width: number;
+  height: number;
+};
+
+export interface SegmentationOutputType extends SegmentationInputType {
+  segmentation: segmentationType;
+  shapeBounds: ShapeBoundsType;
+  shapeMaxR: number;
+  shapeRatio: number;
+  shapeCenter: number[];
+  shapeArea: number;
+}

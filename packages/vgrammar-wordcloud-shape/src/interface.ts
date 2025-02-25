@@ -1,6 +1,10 @@
-import type { GeometricMaskShape, TextShapeMask, SegmentationInputType } from '@visactor/vgrammar-util';
-
-export type TagItemAttribute<T> = T | ((d?: any) => T);
+import type {
+  GeometricMaskShape,
+  TextShapeMask,
+  SegmentationOutputType as SegmentationOutputTypeBase,
+  FieldOption,
+  TagItemAttribute
+} from '@visactor/vgrammar-util';
 
 export type TagItemFunction<T> = (d?: any) => T;
 
@@ -11,7 +15,6 @@ export interface Rect {
   width: number;
   height: number;
 }
-export type FieldOption = { field: string };
 export type CallbackOption = (datum: any) => any;
 export type AsType = {
   x: string;
@@ -27,37 +30,11 @@ export type AsType = {
   color: string;
 };
 
-export type ShapeConfigType = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  scale: number;
-};
-export type segmentationType = {
-  regions: any;
-  labels: number[];
-  labelNumber: number;
-};
-export type ShapeBoundsType = {
-  x1: number;
-  x2: number;
-  y1: number;
-  y2: number;
-  width: number;
-  height: number;
-};
-export interface SegmentationOutputType extends SegmentationInputType {
-  segmentation: segmentationType;
-  shapeBounds: ShapeBoundsType;
-  shapeMaxR: number;
-  shapeRatio: number;
-  shapeCenter: number[];
-  shapeArea: number;
-
+export interface SegmentationOutputType extends SegmentationOutputTypeBase {
   fillingInitialFontSize?: number;
   fillingDeltaFontSize?: number;
 }
+
 export type wordsConfigType = {
   getText: TagItemFunction<string>;
   getFontSize?: TagItemFunction<number>;
