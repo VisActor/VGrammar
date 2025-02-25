@@ -31,6 +31,8 @@ export interface SegmentationOutputType extends SegmentationInputType {
 
   fillingInitialFontSize?: number;
   fillingDeltaFontSize?: number;
+
+  transparentMaskCanvas?: HTMLCanvasElement;
 }
 
 // TODO: 重复的类型定义 END
@@ -204,6 +206,11 @@ export type ImageCloudOptions = {
      * @default false
      */
     invert?: boolean;
+    /**
+     * 边缘模糊半径
+     * @default 0
+     */
+    edgeBlur?: number;
   };
 
   layoutConfig?: LayoutConfigType;
@@ -212,7 +219,8 @@ export type ImageCloudOptions = {
 
   as?: AsType;
 
-  onUpdateMaskCanvas?: (canvas?: HTMLCanvasElement) => void;
+  onUpdateMaskCanvas?: (inputCanvas?: HTMLCanvasElement, maskCanvas?: HTMLCanvasElement) => void;
   // 图片二值化完成后回调
   onSegmentationReady?: (segmentationOutput?: SegmentationOutputType) => void;
+  onLayoutEnd?: (images: ImageCollageType[]) => void;
 };

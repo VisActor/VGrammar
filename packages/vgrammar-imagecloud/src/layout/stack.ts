@@ -1,12 +1,5 @@
-import type {
-  GridLayoutCellType,
-  GridLayoutContext,
-  ImageCollageType,
-  SegmentationOutputType,
-  StackLayoutConfig
-} from '../interface';
+import type { GridLayoutCellType, GridLayoutContext, ImageCollageType, StackLayoutConfig } from '../interface';
 import { Layout } from './basic';
-import { segmentation } from '@visactor/vgrammar-util';
 import { rectGridLayout } from './grid/rectGrid';
 
 export class StackLayout extends Layout {
@@ -26,13 +19,7 @@ export class StackLayout extends Layout {
   }
 
   doLayout(images: ImageCollageType[]) {
-    const segmentationInput = this.segmentationInput;
-    // 对用户输入的图形进行预处理
-    const segmentationOutput: SegmentationOutputType = segmentation(segmentationInput);
-
-    if (!segmentationOutput.segmentation.regions.length) {
-      return;
-    }
+    const { segmentationOutput } = this;
 
     const { cellWidth, cellHeight, cellInfo, cellCount, eachPixel, cellPixelCount } = this.layoutContext;
     if (images.length === 0 || cellCount === 0 || cellWidth === 0 || cellHeight === 0 || cellInfo.length === 0) {
@@ -40,13 +27,9 @@ export class StackLayout extends Layout {
       return;
     }
 
-    const { layoutConfig = {}, onSegmentationReady } = this.options;
+    const { layoutConfig = {} } = this.options;
     const size = this.options.size as [number, number];
     const { placement = 'default', maxAngle = 45 * (Math.PI / 180) } = layoutConfig as StackLayoutConfig;
-
-    if (onSegmentationReady) {
-      onSegmentationReady(segmentationOutput);
-    }
 
     if (placement === 'edge' || placement === 'default') {
       const { segmentation } = segmentationOutput;

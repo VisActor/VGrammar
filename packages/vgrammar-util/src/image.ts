@@ -251,6 +251,10 @@ const drawGeometricMask = (
   }
 };
 
+interface LabelMap {
+  [key: number]: any;
+}
+
 /**
  * 求图像连通区域的个数、面积、边界、中心点
  * @param {*} shape 图像 base64
@@ -317,12 +321,12 @@ export function segmentation(segmentationInput: SegmentationInputType) {
    * 面积：连通域中的像素个数
    * ratio: 连通区域的大致宽高比
    */
-  const boundaries = {};
-  const areas = {};
-  const centers = {};
-  const maxPoints = {}; // 存储顺序为 iMin, iMax, jMin, jMax
-  const maxR = {};
-  const ratios = {};
+  const boundaries: LabelMap = {};
+  const areas: LabelMap = {};
+  const centers: LabelMap = {};
+  const maxPoints: LabelMap = {};
+  const maxR: LabelMap = {};
+  const ratios: LabelMap = {};
   // 存储形状的范围
   const shapeBounds = {
     x1: Infinity,
@@ -332,6 +336,7 @@ export function segmentation(segmentationInput: SegmentationInputType) {
     width: 0,
     height: 0
   };
+  const boundaryPixels: [number, number][] = [];
 
   for (let i = 0; i < size[1]; i++) {
     for (let j = 0; j < size[0]; j++) {
@@ -342,6 +347,8 @@ export function segmentation(segmentationInput: SegmentationInputType) {
 
       // 当前像素为边界
       if (isBoundaryPixel(i, j)) {
+        boundaryPixels.push([i, j]);
+
         boundaries[label] = boundaries[label] || [];
         boundaries[label].push([j, i]);
 
@@ -377,8 +384,7 @@ export function segmentation(segmentationInput: SegmentationInputType) {
       }
 
       // 计算面积
-      areas[label] = areas[label] || 0;
-      areas[label]++;
+      areas[label] = (areas[label] || 0) + 1;
     }
   }
 
@@ -438,6 +444,21 @@ export function segmentation(segmentationInput: SegmentationInputType) {
     labelNumber: curLabel - 1
   };
 
+  if (segmentationInput.blur) {
+    const blur = segmentationInput.blur;
+    // 对原图进行高斯模糊
+    const blurredLabels = gaussianBlur(labels, size[0], size[1], blur);
+    // 绘制边缘，边缘粗细为 blur 大小
+    const edgeMask = drawContour(labels, boundaryPixels, size[0], size[1], Math.ceil(blur / 2));
+    // 从 edgeMask 上选择模糊的像素，合并到 blurred_labels 中
+    edgeMask.forEach((value: number, index: number) => {
+      // 是边缘像素
+      if (value === 1) {
+        labels[index] = blurredLabels[index];
+      }
+    });
+  }
+
   return Object.assign(segmentationInput, {
     segmentation,
     shapeBounds,
@@ -481,4 +502,108 @@ export function segmentation(segmentationInput: SegmentationInputType) {
     }
     return false;
   }
+}
+
+// 添加辅助函数：生成一维高斯核
+function generateGaussianKernel1D(size: number, sigma: number) {
+  const kernel = new Array(size * 2 + 1).fill(0);
+  const center = size;
+  let sum = 0;
+
+  for (let x = -size; x <= size; x++) {
+    const g = Math.exp(-(x * x) / (2 * sigma * sigma));
+    kernel[x + center] = g;
+    sum += g;
+  }
+
+  // 归一化
+  for (let i = 0; i < kernel.length; i++) {
+    kernel[i] /= sum;
+  }
+
+  return kernel;
+}
+
+// 高斯模糊实现
+function gaussianBlur(labels: number[], width: number, height: number, blur: number) {
+  const sigma = blur / 3;
+  const size = Math.ceil(blur / 2);
+
+  // 生成一维高斯核
+  const kernel = generateGaussianKernel1D(size, sigma);
+
+  // 创建临时数组存储中间结果
+  const temp = new Array(labels.length).fill(0);
+  const result = new Array(labels.length).fill(0);
+
+  // 水平方向模糊
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      let sum = 0;
+      for (let i = -size; i <= size; i++) {
+        const curX = Math.min(Math.max(x + i, 0), width - 1);
+        sum += labels[y * width + curX] * kernel[i + size];
+      }
+      temp[y * width + x] = sum;
+    }
+  }
+
+  // 垂直方向模糊
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      let sum = 0;
+      for (let i = -size; i <= size; i++) {
+        const curY = Math.min(Math.max(y + i, 0), height - 1);
+        sum += temp[curY * width + x] * kernel[i + size];
+      }
+      // 保持值在 0-1 之间，不需要取整
+      result[y * width + x] = Math.max(0, Math.min(1, sum));
+    }
+  }
+
+  return result;
+}
+
+/**
+ * 绘制轮廓函数，类似 OpenCV 中的 drawContours
+ * @param labels 标签数组
+ * @param thickness 轮廓粗细
+ * @returns 轮廓掩码数组
+ */
+function drawContour(
+  labels: number[],
+  boundaryPixels: [number, number][],
+  width: number,
+  height: number,
+  thickness = 1
+) {
+  const result = new Array(labels.length).fill(0);
+  // 根据 thickness 参数绘制轮廓
+  for (const [i, j] of boundaryPixels) {
+    // 将边界像素标记为 1
+    result[i * width + j] = 1;
+
+    // 如果 thickness > 1，则扩展轮廓
+    if (thickness > 1) {
+      // 在边界像素周围创建一个方形区域
+      for (let di = -thickness + 1; di <= thickness - 1; di++) {
+        for (let dj = -thickness + 1; dj <= thickness - 1; dj++) {
+          // 计算距离，只保留在指定厚度内的像素
+          const distance = Math.sqrt(di * di + dj * dj);
+          if (distance < thickness) {
+            const ni = i + di;
+            const nj = j + dj;
+
+            // 检查是否越界
+            if (ni >= 0 && ni < height && nj >= 0 && nj < width) {
+              // 只在非背景区域绘制轮廓
+              result[ni * width + nj] = 1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
 }

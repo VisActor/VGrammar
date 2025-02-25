@@ -1,18 +1,16 @@
-import { createPath, createPolygon } from '@visactor/vrender-core';
 import type {
   GridLayoutCellType,
   GridLayoutConfig,
   GridLayoutContext,
   ImageCloudOptions,
-  ImageCollageType,
-  SegmentationOutputType
+  ImageCollageType
 } from '../../interface';
 import { setSizeByShortSide } from '../../util';
 import { Layout } from '../basic';
-import { segmentation } from '@visactor/vgrammar-util';
 import { rectGridLayout } from './rectGrid';
 import { circleGridLayout } from './circlGrid';
 import { hexagonalGridLayout } from './hexagonalGrid';
+import { pickWithout } from '@visactor/vutils';
 
 const cellLayout: Record<string, (options: ImageCloudOptions) => { context: GridLayoutContext; imageLength: number }> =
   {
@@ -42,22 +40,15 @@ export class GridLayout extends Layout {
   }
 
   doLayout(images: ImageCollageType[]) {
-    const segmentationInput = this.segmentationInput;
-    // 对用户输入的图形进行预处理
-    const segmentationOutput: SegmentationOutputType = segmentation(segmentationInput);
-
     const { cellWidth, cellHeight, cellInfo, cellCount, clipPath, eachPixel, cellPixelCount } = this.layoutContext;
     if (images.length === 0 || cellCount === 0 || cellWidth === 0 || cellHeight === 0 || cellInfo.length === 0) {
       this.isLayoutFinished = true;
       return;
     }
 
-    const { layoutConfig = {}, onSegmentationReady } = this.options;
+    const { segmentationOutput } = this;
+    const { layoutConfig = {} } = this.options;
     const { placement = 'default' } = layoutConfig as GridLayoutConfig;
-
-    if (onSegmentationReady) {
-      onSegmentationReady(segmentationOutput);
-    }
 
     if (placement === 'edge' || placement === 'default') {
       const { segmentation } = segmentationOutput;
@@ -94,7 +85,7 @@ export class GridLayout extends Layout {
         image.clipConfig = { shape: clipPath };
         image.frequency = 1;
         image.visible = imageVisible(cell);
-        image.cell = `${cell.row}_${cell.col}`;
+        image.cell = pickWithout(cell, ['image']);
         image.distance = cell.distance;
         cell.image = image;
       }
@@ -115,7 +106,7 @@ export class GridLayout extends Layout {
           repeatImage[key] = `${repeatImage[key]}_${repeatImage.frequency}`;
           repeatImage.visible = imageVisible(cell);
           repeatImage.distance = cell.distance;
-          repeatImage.cell = `${cell.row}_${cell.col}`;
+          repeatImage.cell = pickWithout(cell, ['image']);
           cell.image = repeatImage;
           images.push(repeatImage);
         }

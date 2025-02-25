@@ -60,6 +60,7 @@ export const spec = {
   marks: [
     {
       type: 'image',
+      id:'images',
       from: { data: 'baseData' },
       transform: [
         {
