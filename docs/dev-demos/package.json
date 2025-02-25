@@ -19,6 +19,7 @@
     "@visactor/vgrammar-projection": "workspace:0.16.0",
     "@visactor/vgrammar-wordcloud": "workspace:0.16.0",
     "@visactor/vgrammar-wordcloud-shape": "workspace:0.16.0",
+    "@visactor/vgrammar-imagecloud": "workspace:0.16.0",
     "@visactor/vgrammar-plot": "workspace:0.16.0",
     "@visactor/vrender-core": "0.22.4",
     "@visactor/vrender-kits": "0.22.4",
