@@ -1,8 +1,21 @@
-import type { ImageCloudOptions, ImageCollageType, ImageConfig } from '../interface';
+import type {
+  GridLayoutConfig,
+  ImageCloudOptions,
+  ImageCollageType,
+  ImageConfig,
+  SegmentationOutputType
+} from '../interface';
 import type { IView, IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import type { SegmentationInputType } from '@visactor/vgrammar-util';
 import { vglobal } from '@visactor/vrender-core';
-import { generateIsEmptyPixel, generateMaskCanvas, loadImage, loadImages, extent } from '@visactor/vgrammar-util';
+import {
+  generateIsEmptyPixel,
+  generateMaskCanvas,
+  loadImage,
+  loadImages,
+  extent,
+  segmentation
+} from '@visactor/vgrammar-util';
 import { isString, Logger } from '@visactor/vutils';
 import { removeBorder, scaleAndMiddleShape } from '../segmentation';
 import { fakeRandom, field, setSize } from '../util';
@@ -19,6 +32,8 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
   protected isLayoutFinished?: boolean;
   protected progressiveResult?: any[] = [];
   protected segmentationInput?: SegmentationInputType;
+  protected segmentationOutput?: SegmentationOutputType;
+
   protected imageCollageList?: ImageCollageType[] = [];
 
   abstract doLayout(images: ImageCollageType[]): ImageCollageType[];
@@ -71,7 +86,6 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
 
   layout(data: any[]) {
     this.data = data;
-
     this.loadSegmentationInput();
     this.loadImageCollageInput();
   }
@@ -87,7 +101,8 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
       tempCanvas: undefined,
       boardSize: [0, 0],
       random: false,
-      randomGenerator: undefined
+      randomGenerator: undefined,
+      blur: options.maskConfig?.edgeBlur
     };
 
     // 全局共用的临时画板，此处需要对小程序的 canvas 进行兼容
@@ -110,7 +125,7 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
     this.segmentationInput = segmentationInput;
     if (isString(segmentationInput.shapeUrl)) {
       segmentationInput.isEmptyPixel = generateIsEmptyPixel(undefined, {
-        threshold: options.maskConfig?.threshold ?? 100,
+        threshold: options.maskConfig?.threshold ?? 200,
         invert: options.maskConfig?.invert
       });
       const imagePromise = loadImage(segmentationInput.shapeUrl);
@@ -120,8 +135,8 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
         this.isLayoutFinished = false;
         imagePromise
           .then(shapeImage => {
-            const size = options.size as [number, number];
             this.isMaskImageFinished = true;
+            const size = options.size as [number, number];
             const maskCanvas = vglobal.createCanvas({ width: size[0], height: size[1], dpr: 1 });
             segmentationInput.maskCanvas = maskCanvas;
             const ctx = maskCanvas.getContext('2d');
@@ -132,8 +147,15 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
             ctx.clearRect(0, 0, size[0], size[1]);
             ctx.drawImage(shapeImage, shapeConfig.x, shapeConfig.y, shapeConfig.width, shapeConfig.height);
 
+            this.segmentationOutput = segmentation(this.segmentationInput);
+
+            let transparentMaskCanvas;
+            if ((this.options.layoutConfig as GridLayoutConfig)?.placement === 'masked') {
+              transparentMaskCanvas = this.generateTransparentMaskCanvas(shapeImage, size);
+            }
+
             if (this.options.onUpdateMaskCanvas) {
-              this.options.onUpdateMaskCanvas(segmentationInput.maskCanvas);
+              this.options.onUpdateMaskCanvas(maskCanvas, transparentMaskCanvas);
             }
           })
           .catch(error => {
@@ -148,6 +170,13 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
       (segmentationInput.shapeUrl.type === 'text' || segmentationInput.shapeUrl.type === 'geometric')
     ) {
       segmentationInput.isEmptyPixel = generateIsEmptyPixel(segmentationInput.shapeUrl.backgroundColor);
+
+      if (segmentationInput.shapeUrl.type === 'text' || segmentationInput.shapeUrl.type === 'geometric') {
+        if (!segmentationInput.shapeUrl.backgroundColor) {
+          segmentationInput.shapeUrl.backgroundColor = 'rgba(255,255,255,0)';
+        }
+      }
+
       const maskCanvas = generateMaskCanvas(
         segmentationInput.shapeUrl,
         size[0],
@@ -156,9 +185,10 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
         options.maskConfig?.invert
       );
       segmentationInput.maskCanvas = maskCanvas;
+      this.segmentationOutput = segmentation(this.segmentationInput);
 
       if (this.options.onUpdateMaskCanvas) {
-        this.options.onUpdateMaskCanvas(maskCanvas);
+        this.options.onUpdateMaskCanvas(maskCanvas, maskCanvas);
       }
       this.isMaskImageFinished = true;
     }
@@ -200,6 +230,9 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
     if (this.isImagesFinished && this.isMaskImageFinished && !this.isLayoutFinished) {
       const images = this.preProcess();
       const layoutResult = this.doLayout(images);
+      if (this.options && this.options.onLayoutEnd) {
+        this.options.onLayoutEnd(layoutResult);
+      }
       this.progressiveResult = this.processOutput(layoutResult);
       this.isLayoutFinished = true;
     } else {
@@ -264,8 +297,34 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
     return images;
   }
 
+  protected generateTransparentMaskCanvas(shapeImage: any, size: [number, number]) {
+    const transparentMaskCanvas = vglobal.createCanvas({ width: size[0], height: size[1], dpr: 1 });
+    const transparentMaskContext = transparentMaskCanvas.getContext('2d');
+    this.segmentationOutput.transparentMaskCanvas = transparentMaskCanvas;
+    if (this.options.maskConfig?.removeWhiteBorder) {
+      removeBorder(shapeImage, transparentMaskCanvas, this.segmentationInput.isEmptyPixel);
+    }
+    const imageData = transparentMaskContext.createImageData(size[0], size[1]); // 宽度和高度
+    const labels = this.segmentationOutput.segmentation.labels;
+    for (let i = 0; i < labels.length; i++) {
+      const color = labels[i] === 0 ? 255 : 0; // 0 为白色 (255, 255, 255)，1 为黑色 (0, 0, 0)
+      const alpha = labels[i] * 255; // 0 为透明 (0)，1 为不透明 (255)
+      // 每个像素在 ImageData 中占 4 个字节 (RGBA)
+      const pixelIndex = i * 4;
+      imageData.data[pixelIndex] = color; // 红色通道
+      imageData.data[pixelIndex + 1] = color; // 绿色通道
+      imageData.data[pixelIndex + 2] = color; // 蓝色通道
+      imageData.data[pixelIndex + 3] = alpha; // Alpha 通道
+    }
+    transparentMaskContext.clearRect(0, 0, size[0], size[1]);
+    transparentMaskContext.fillStyle = `rgba(255,255,255,0)`;
+    transparentMaskContext.fillRect(0, 0, size[0], size[1]);
+    transparentMaskContext.putImageData(imageData, 0, 0);
+    return transparentMaskCanvas;
+  }
+
   protected processOutput(images: ImageCollageType[]) {
-    const outputAs = this.options.as;
+    const outputAs = this.options?.as;
     if (outputAs) {
       Object.keys(outputAs).forEach(key => {
         images.forEach(img => {

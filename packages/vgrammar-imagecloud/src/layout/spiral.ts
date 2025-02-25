@@ -1,7 +1,6 @@
 /* eslint-disable max-depth */
 import type { ImageCollageType, SegmentationOutputType, SpiralLayoutConfig } from '../interface';
 import { minInArray } from '@visactor/vutils';
-import { segmentation } from '@visactor/vgrammar-util';
 import { setSize } from '../util';
 import { Layout } from './basic';
 
@@ -73,24 +72,14 @@ export class SpiralLayout extends Layout {
   }
 
   doLayout(images: ImageCollageType[]) {
-    const segmentationInput = this.segmentationInput;
-    const segmentationOutput: SegmentationOutputType = segmentation(segmentationInput);
-
-    if (!segmentationOutput.segmentation.regions.length) {
-      return;
-    }
-
-    const { layoutConfig = {} as SpiralLayoutConfig, onSegmentationReady } = this.options;
+    const { segmentationOutput } = this;
+    const { layoutConfig = {} as SpiralLayoutConfig } = this.options;
     const size = this.options.size as [number, number];
     const {
       spiralType = 'archimedean',
       fillingTimes = 4,
       minFillingImageSize = 10
     } = layoutConfig as SpiralLayoutConfig;
-
-    if (onSegmentationReady) {
-      onSegmentationReady(segmentationOutput);
-    }
 
     const fixedImages = [];
     const key = Object.keys(images[0]).find(k => k.includes('VGRAMMAR'));
@@ -145,7 +134,7 @@ export class SpiralLayout extends Layout {
       }
     }
 
-    return [...fixedImages, ...fixedFillingImages];
+    return [...fixedImages, ...fixedFillingImages].filter(image => image.visible);
   }
 }
 
