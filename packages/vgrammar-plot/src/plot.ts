@@ -529,4 +529,16 @@ export class Plot implements IPlot {
 
     return mark;
   }
+
+  imagecloud() {
+    const mark = Factory.createPlotMark(PlotMakType.imagecloud);
+
+    if (!mark) {
+      this._logger.error(`Please register ${PlotMakType.imagecloud} before use it`);
+    } else {
+      this._semanticMarks.push(mark);
+    }
+
+    return mark;
+  }
 }

@@ -13,7 +13,8 @@ export const runner = (plot: IPlot) => {
     .data(data)
     .transform([{
       type: 'wordcloudShape',
-      shape: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg',
+      // shape: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/log.jpeg',
+  shape: `https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/shape_logo.png`,
     }])
     .encode('text', 'challenge_name')
     .encode('color', 'challenge_name')
