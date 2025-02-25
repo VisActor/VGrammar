@@ -97,6 +97,7 @@ export type PlotTreemapEncodeSpec = BasicEncoderSpecMap['rect'];
 export type PlotCirclePackingEncodeSpec = BasicEncoderSpecMap['circle'];
 export type PlotWordcloudEncodeSpec = BasicEncoderSpecMap['text'];
 export type PlotWordcloudShapeEncodeSpec = BasicEncoderSpecMap['text'];
+export type PlotImagecloudEncodeSpec = BasicEncoderSpecMap['image'];
 
 export type CoordinateOption = CartesianCoordinateOption | PolarCoordinateOption;
 export type PlotIntervalSpec = Partial<ISemanticMarkSpec<PlotIntervalEncoderSpec, IntervalEncodeChannels>> & {
@@ -215,6 +216,8 @@ export interface IPlot {
   // wordcloud 包如果没注册，会存在问题
   wordcloud: () => IWordcloud;
   wordcloudShape: () => IWordcloudShape;
+  // 需要注册 imagecloud 包
+  imagecloud: () => IImagecloud;
   circlePacking: () => ICirclePacking;
   treemap: () => ITreemap;
   tree: () => ITree;
@@ -376,6 +379,7 @@ export type TreemapEncodeChannels = 'node' | 'value' | 'color' | 'stroke';
 export type CirclepackingEncodeChannels = 'node' | 'value' | 'color' | 'stroke';
 export type WordcloudEncodeChannels = 'text' | 'color' | 'stroke';
 export type WordcloudShapeEncodeChannels = 'text' | 'color' | 'stroke';
+export type ImagecloudShapeEncodeChannels = 'image' | 'weight';
 
 export type IInterval = ISemanticMark<PlotIntervalEncoderSpec, IntervalEncodeChannels>;
 export type ILine = ISemanticMark<BasicEncoderSpecMap['line'], LineEncodeChannels>;
@@ -399,6 +403,7 @@ export type IWordcloudShape = ISemanticMark<PlotWordcloudShapeEncodeSpec, Wordcl
 export type ITree = ISemanticMark<PlotTreeEncodeSpec, TreeEncodeChannels>;
 export type ITreemap = ISemanticMark<PlotTreemapEncodeSpec, TreemapEncodeChannels>;
 export type ICirclePacking = ISemanticMark<PlotCirclePackingEncodeSpec, CirclepackingEncodeChannels>;
+export type IImagecloud = ISemanticMark<PlotImagecloudEncodeSpec, ImagecloudShapeEncodeChannels>;
 
 export type PlotMark =
   | IInterval
