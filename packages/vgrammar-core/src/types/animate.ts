@@ -275,7 +275,7 @@ export interface IAnimator {
   callback: (callbackFunction: (...args: any[]) => void) => this;
 
   // animation control
-  stop: (stopState?: 'start' | 'end', invokeCallback?: boolean) => this;
+  stop: (stopState: 'start' | 'end' | null, invokeCallback?: boolean) => this;
   pause: () => this;
   resume: () => this;
 
