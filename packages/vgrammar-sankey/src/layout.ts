@@ -164,7 +164,7 @@ export class SankeyLayout {
       this.computeNodeEndDepths(nodes);
     }
 
-    if (this._maxDepth <= 1) {
+    if (this._maxDepth <= 0) {
       // empty data
       return null;
     }
@@ -475,6 +475,8 @@ export class SankeyLayout {
     let next: SankeyNodeElement[];
     let nextMap: Record<string, boolean>;
     let depth = 0;
+    let maxDepth = -1;
+    const setNodeLayer = isFunction(this.options.setNodeLayer) ? this.options.setNodeLayer : null;
 
     while (current.length && depth < n) {
       next = [];
@@ -484,7 +486,12 @@ export class SankeyLayout {
         const node = current[i];
 
         if (node) {
-          node.depth = depth;
+          // 防止用户只设置了部分节点的层级
+          node.depth = setNodeLayer ? setNodeLayer(node.datum) ?? depth : depth;
+
+          if (setNodeLayer) {
+            maxDepth = Math.max(node.depth, maxDepth);
+          }
           if (node.sourceLinks && node.sourceLinks.length) {
             for (let j = 0, linkLen = node.sourceLinks.length; j < linkLen; j++) {
               const link = node.sourceLinks[j];
@@ -504,7 +511,7 @@ export class SankeyLayout {
       this._logger.warn('Error: there is a circular link');
     }
 
-    this._maxDepth = depth;
+    this._maxDepth = setNodeLayer ? maxDepth + 1 : depth;
   }
 
   computeNodeEndDepths(nodes: SankeyNodeElement[]) {
