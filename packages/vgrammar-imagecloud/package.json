@@ -56,5 +56,9 @@
     "ts-jest": "~29.1.0",
     "@types/jest": "~29.5.0",
     "@types/node": "*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
