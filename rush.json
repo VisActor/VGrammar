@@ -22,7 +22,9 @@
     {
       "packageName": "@visactor/vgrammar-imagecloud",
       "projectFolder": "packages/vgrammar-imagecloud",
-      "shouldPublish": false
+      "tags": ["package"],
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
     },
     {
       "packageName": "@visactor/vgrammar-plot",
