@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-core",
-  "version": "0.15.5",
+  "version": "0.16.0-imagecloud.2",
   "description": "VGrammar is a visual grammar library",
   "keywords": [
     "grammar",
@@ -37,8 +37,8 @@
   "dependencies": {
     "@visactor/vutils": "~0.19.3",
     "@visactor/vdataset": "~0.19.3",
-    "@visactor/vgrammar-coordinate": "workspace:0.15.5",
-    "@visactor/vgrammar-util": "workspace:0.15.5",
+    "@visactor/vgrammar-coordinate": "workspace:0.16.0-imagecloud.2",
+    "@visactor/vgrammar-util": "workspace:0.16.0-imagecloud.2",
     "@visactor/vscale": "~0.19.3",
     "@visactor/vrender-core": "0.21.11",
     "@visactor/vrender-kits": "0.21.11",

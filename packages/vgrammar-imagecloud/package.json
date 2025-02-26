@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-imagecloud",
-  "version": "0.15.5",
+  "version": "0.16.0-imagecloud.2",
   "description": "Layout Image Collages in specified shape, this is a transform for VGrammar.",
   "keywords": [
     "imagecloud",
@@ -36,8 +36,8 @@
   "dependencies": {
     "@visactor/vutils": "~0.19.3",
     "@visactor/vscale": "~0.19.3",
-    "@visactor/vgrammar-core": "workspace:0.15.5",
-    "@visactor/vgrammar-util": "workspace:0.15.5",
+    "@visactor/vgrammar-core": "workspace:0.16.0-imagecloud.2",
+    "@visactor/vgrammar-util": "workspace:0.16.0-imagecloud.2",
     "@visactor/vrender-core": "0.21.11",
     "@visactor/vrender-kits": "0.21.11"
   },
