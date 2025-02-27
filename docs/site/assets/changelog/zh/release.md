@@ -1,3 +1,17 @@
+# v0.15.6
+
+2025-02-26
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: upgrade vrender to 0.21.15, vutils to 0.19.14
+- **@visactor/vgrammar-core**: fix default param for animator stop
+
+
+
+[更多详情请查看 v0.15.6](https://github.com/VisActor/VGrammar/releases/tag/v0.15.6)
+
 # v0.15.3
 
 2025-01-09

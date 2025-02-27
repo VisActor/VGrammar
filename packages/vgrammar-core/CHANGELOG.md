@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Thu, 13 Feb 2025 09:57:00 GMT and should not be manually modified.
+This log was last generated on Thu, 27 Feb 2025 04:26:31 GMT and should not be manually modified.
+
+## 0.15.7
+Thu, 27 Feb 2025 04:26:31 GMT
+
+### Updates
+
+- fix: when sankey has `setNodeLayer`, the maxDepth should be updated by this
+
+
 
 ## 0.15.6
 Thu, 13 Feb 2025 09:57:00 GMT
