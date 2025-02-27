@@ -1,3 +1,16 @@
+# v0.15.7
+
+2025-02-27
+
+
+**🐛 功能修复**
+
+- **@visactor/vgrammar-core**: when sankey has `setNodeLayer`, the maxDepth should be updated by this
+
+
+
+[更多详情请查看 v0.15.7](https://github.com/VisActor/VGrammar/releases/tag/v0.15.7)
+
 # v0.15.6
 
 2025-02-26
