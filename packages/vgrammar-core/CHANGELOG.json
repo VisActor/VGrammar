@@ -2,6 +2,18 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.15.7",
+      "tag": "@visactor/vgrammar-core_v0.15.7",
+      "date": "Thu, 27 Feb 2025 04:26:31 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: when sankey has `setNodeLayer`, the maxDepth should be updated by this\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.15.6",
       "tag": "@visactor/vgrammar-core_v0.15.6",
       "date": "Thu, 13 Feb 2025 09:57:00 GMT",
