@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-hierarchy",
-  "version": "0.15.6",
+  "version": "0.15.7",
   "description": "Layout of hierarchical data for VGrammar",
   "keywords": [
     "hierarchy",
@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@visactor/vutils": "~0.19.4",
-    "@visactor/vgrammar-core": "workspace:0.15.6",
-    "@visactor/vgrammar-util": "workspace:0.15.6",
+    "@visactor/vgrammar-core": "workspace:0.15.7",
+    "@visactor/vgrammar-util": "workspace:0.15.7",
     "@visactor/vrender-core": "0.21.15",
     "@visactor/vrender-kits": "0.21.15"
   },
