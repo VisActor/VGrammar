@@ -12,3 +12,5 @@ export const registerImageCloudTransforms = () => {
     true
   );
 };
+
+export const imagecloudTransform = transform;
