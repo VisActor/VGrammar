@@ -1,4 +1,4 @@
-export const spirals = {
+export const spirals: Record<string, (size: [number, number]) => (t: number) => [number, number]> = {
   archimedean: archimedeanSpiral,
   rectangular: rectangularSpiral
 };
@@ -10,7 +10,7 @@ function archimedeanSpiral(size: [number, number]) {
   };
 }
 
-function rectangularSpiral(size: number) {
+function rectangularSpiral(size: [number, number]) {
   const dy = 4;
   const dx = (dy * size[0]) / size[1];
   let x = 0;

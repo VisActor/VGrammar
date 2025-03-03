@@ -31,3 +31,4 @@ export * from './image';
 export * from './shapes';
 export * from './loader';
 export * from './random';
+export * from './spirals';
