@@ -13,6 +13,7 @@ import type { IPointLike } from '@visactor/vutils';
 import type { IBaseScale } from '@visactor/vscale';
 import type { IDatazoom, IScrollbar } from './component';
 import type { FieldEncodeType, MarkFunctionType } from './mark';
+import type { GraphicEventType } from '@visactor/vrender-core';
 
 export interface FilterDataTarget {
   data: string | IData;
@@ -260,7 +261,11 @@ export interface DataFilterOptions extends IBaseInteractionOptions {
   };
 }
 
-export interface DrillDownOptions extends BrushOptions {
+export interface DrillDownOptions extends Omit<BrushOptions, 'trigger'> {
+  /**
+   * the trigger event name
+   */
+  trigger?: GraphicEventType;
   /**
    * enable brush
    */
