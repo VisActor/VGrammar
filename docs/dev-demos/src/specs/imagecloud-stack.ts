@@ -7,7 +7,6 @@ import vipImages from '../data/imagecloud/vip-images.json';
 
 
 import { registerImageCloudTransforms } from '@visactor/vgrammar-imagecloud';
-import { createRect, Image } from '@visactor/vrender';
 
 const res = await fetch("https://cdn.jsdelivr.net/gh/xiaoluoHe/Resources/images/dogs/files.json");
 const dogs = await res.json();
@@ -111,9 +110,10 @@ export const spec = {
           // stroke:'blue',
           // lineWidth:1,
           // globalCompositeOperation:'source-atop'
-          // stroke:'red',
-          // lineWidth: 4,
-
+          stroke:'white',
+          lineWidth: 2,
+          shadowBlur: 10,
+          shadowColor: 'grey'
         },
         update: {
           x: { field: 'x' },
@@ -145,34 +145,4 @@ export const callback = (view: IView) => {
   view.addEventListener('click', (event, element) => {
     console.log(event, element?.graphicItem)
   });
-  setTimeout(()=> {
-    const images = view.renderer.stage().getElementsByType('image') as Image[];
-    let index = 0;
-    images.sort((a, b) => a.attribute.zIndex-b.attribute.zIndex);
-    for (const image of images) {
-      if (image.attribute.visible) {
-        const {x, y, width, height,angle, zIndex} = image.attribute
-        const rect = createRect({
-          x,
-          y,
-          width,
-          height,
-          angle,
-          fill: false,
-          fillOpacity: 1,
-          stroke: 'white',
-          lineWidth: 4,
-          zIndex: index++,
-          shadowBlur: 10,
-          shadowColor: 'grey'
-        });
-        image.setAttributes({zIndex: index++, _zIndex: zIndex,});
-        image.parent.appendChild(rect);
-      }
-    }
-    console.log('mock stroke done');
-    view.renderer.stage().renderNextFrame()
-  }, 2000)
-
-
-};
+}
