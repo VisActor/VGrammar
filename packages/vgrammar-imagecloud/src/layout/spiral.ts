@@ -3,7 +3,7 @@ import type { ImageCollageType, SegmentationOutputType, SpiralLayoutConfig } fro
 import { minInArray } from '@visactor/vutils';
 import { setSize } from '../util';
 import { Layout } from './basic';
-
+import { spirals } from '@visactor/vgrammar-util';
 export class SpiralLayout extends Layout {
   preProcess() {
     const images = super.preProcess();
@@ -64,6 +64,23 @@ export class SpiralLayout extends Layout {
           }
         }
         if (!intersect) {
+          // 检查四个顶点
+          const corners = [
+            { x: image.x, y: image.y },
+            { x: image.x + image.width, y: image.y },
+            { x: image.x, y: image.y + image.height },
+            { x: image.x + image.width, y: image.y + image.height }
+          ];
+          let allCornersInShape = true;
+          for (const corner of corners) {
+            if (!labels[corner.y * width + corner.x]) {
+              allCornersInShape = false;
+              break;
+            }
+          }
+          if (!allCornersInShape) {
+            continue;
+          }
           return true;
         }
       }
@@ -133,47 +150,8 @@ export class SpiralLayout extends Layout {
         }
       }
     }
-
     return [...fixedImages, ...fixedFillingImages].filter(image => image.visible);
   }
-}
-
-const spirals: Record<string, (size: [number, number]) => (t: number) => number[]> = {
-  archimedean: archimedeanSpiral,
-  rectangular: rectangularSpiral
-};
-
-function archimedeanSpiral(size: [number, number]) {
-  const e = size[0] / size[1];
-  return function (t: number) {
-    return [e * (t *= 0.1) * Math.cos(t), t * Math.sin(t)];
-  };
-}
-
-function rectangularSpiral(size: [number, number]) {
-  const dy = 4;
-  const dx = (dy * size[0]) / size[1];
-  let x = 0;
-  let y = 0;
-  return function (t: number) {
-    const sign = t < 0 ? -1 : 1;
-    // See triangular numbers: T_n = n * (n + 1) / 2.
-    switch ((Math.sqrt(1 + 4 * sign * t) - sign) & 3) {
-      case 0:
-        x += dx;
-        break;
-      case 1:
-        y += dy;
-        break;
-      case 2:
-        x -= dx;
-        break;
-      default:
-        y -= dy;
-        break;
-    }
-    return [x, y];
-  };
 }
 
 function fit(image: ImageCollageType, fixedImages: ImageCollageType[]) {
