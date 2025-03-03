@@ -16,8 +16,8 @@ export function rectGridLayout(options: ImageCloudOptions) {
 
   const { rectAspectRatio = 1 } = layoutConfig as GridLayoutConfig;
 
-  let cellWidth;
-  let cellHeight;
+  let cellWidth: number;
+  let cellHeight: number;
   if (rectAspectRatio > 1) {
     cellWidth = shortSideLength;
     cellHeight = shortSideLength / rectAspectRatio;

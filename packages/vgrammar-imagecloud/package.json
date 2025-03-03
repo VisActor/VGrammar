@@ -1,7 +1,7 @@
 {
   "name": "@visactor/vgrammar-imagecloud",
   "version": "0.16.0",
-  "description": "",
+  "description": "Layout Image Collages in specified shape, this is a transform for VGrammar.",
   "keywords": [
     "imagecloud",
     "visualization",
