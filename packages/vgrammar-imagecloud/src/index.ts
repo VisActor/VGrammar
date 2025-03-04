@@ -14,3 +14,5 @@ export const registerImageCloudTransforms = () => {
 };
 
 export const imagecloudTransform = transform;
+
+export * from './interface';
