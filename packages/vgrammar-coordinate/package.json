@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-coordinate",
-  "version": "0.15.5",
+  "version": "0.15.6-alpha.0",
   "description": "Coordinates for VGrammar",
   "keywords": [
     "coordinate",
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@visactor/vutils": "~0.19.3",
-    "@visactor/vgrammar-util": "workspace:0.15.5"
+    "@visactor/vgrammar-util": "workspace:0.15.6-alpha.0"
   },
   "devDependencies": {
     "@internal/bundler": "workspace:*",
