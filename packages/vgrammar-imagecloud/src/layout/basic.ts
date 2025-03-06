@@ -177,7 +177,7 @@ export abstract class Layout implements IProgressiveTransformResult<any[]> {
 
       if (segmentationInput.shapeUrl.type === 'text' || segmentationInput.shapeUrl.type === 'geometric') {
         if (!segmentationInput.shapeUrl.backgroundColor) {
-          segmentationInput.shapeUrl.backgroundColor = 'rgba(255,255,255,0)';
+          segmentationInput.shapeUrl.backgroundColor = 'rgba(255,255,255,255)';
         }
       }
 
