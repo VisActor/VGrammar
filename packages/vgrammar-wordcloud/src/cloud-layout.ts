@@ -14,9 +14,8 @@ import { vglobal } from '@visactor/vrender-core';
 import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
 import { isString, merge } from '@visactor/vutils';
 import type { Bounds, IBaseLayoutOptions, TagItemAttribute, TagItemFunction, TagOutputItem } from './interface';
-import { getMaxRadiusAndCenter } from '@visactor/vgrammar-util';
+import { getMaxRadiusAndCenter, spirals } from '@visactor/vgrammar-util';
 import { BaseLayout } from './base';
-import { spirals } from './spirals';
 import { functor } from './util';
 
 // Word cloud layout by Jason Davies, https://www.jasondavies.com/wordcloud/
@@ -75,7 +74,7 @@ interface ICloudLayoutOptions extends IBaseLayoutOptions {
 
 export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IProgressiveTransformResult {
   getTextPadding: TagItemFunction<number>;
-  spiral: (size: [number, number]) => (t: any) => [number, number];
+  spiral: (size: [number, number]) => (t: number) => [number, number];
   random: () => number;
 
   /* ==================== runtime vars ======================== */

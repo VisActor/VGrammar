@@ -21,5 +21,6 @@ export enum PlotMakType {
   treemap = 'treemap',
   sankey = 'sankey',
   wordcloud = 'wordcloud',
-  wordcloudShape = 'wordcloudShape'
+  wordcloudShape = 'wordcloudShape',
+  imagecloud = 'imagecloud'
 }

@@ -33,6 +33,9 @@ export default defineConfig({
   optimizeDeps: {},
   resolve: {
     alias: {
+       '@visactor/vrender-components': '/Users/bytedance/github/VRender-dev/packages/vrender-components/src/index.ts',
+      '@visactor/vrender-core': '/Users/bytedance/github/VRender-dev/packages/vrender-core/src/index.ts',
+      '@visactor/vrender-kits': '/Users/bytedance/github/VRender-dev/packages/vrender-kits/src/index.ts',
       '@visactor/vgrammar': path.resolve('../../packages/vgrammar/src/index.ts'),
       ...vGrammarPkgs.reduce((res, pkgName) => {
         return {
