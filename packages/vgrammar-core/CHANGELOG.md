@@ -1,6 +1,13 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Fri, 21 Mar 2025 08:52:21 GMT and should not be manually modified.
+This log was last generated on Thu, 27 Mar 2025 09:08:56 GMT and should not be manually modified.
+
+## 0.16.3
+Thu, 27 Mar 2025 09:08:56 GMT
+
+### Updates
+
+- fix: prevent clearing animations for exit elements with preState is `exit`
 
 ## 0.16.2
 Fri, 21 Mar 2025 08:52:21 GMT
