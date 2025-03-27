@@ -84,7 +84,7 @@ export class Animate implements IAnimate {
         this.clearElementAnimation(element, false);
       }
       // clear animations for exit elements
-      else if (element.diffState === DiffState.exit) {
+      else if (element.diffState === DiffState.exit && prevElementState !== element.diffState) {
         this.clearElementAnimation(element, false);
       }
     });
