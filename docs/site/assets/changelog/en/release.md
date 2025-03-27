@@ -1,3 +1,16 @@
+# v0.16.3
+
+2025-03-27
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: prevent clearing animations for exit elements with preState is `exit`
+
+
+
+[more detail about v0.16.3](https://github.com/VisActor/VGrammar/releases/tag/v0.16.3)
+
 # v0.16.2
 
 2025-03-27
