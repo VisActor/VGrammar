@@ -34,7 +34,7 @@
     "test-check": "DEBUG=jest jest --forceExit --detectOpenHandles --silent false --verbose false --runInBand"
   },
   "dependencies": {
-    "@visactor/vutils": "~0.19.4",
+    "@visactor/vutils": "~0.19.5",
     "@visactor/vgrammar-util": "workspace:0.16.3"
   },
   "devDependencies": {
