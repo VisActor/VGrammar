@@ -1,4 +1,5 @@
-import { morphPath, multiToOneMorph, oneToMultiMorph } from '@visactor/vrender-core';
+// TODO: morph animation 没有移到 vrender-animation
+// import { morphPath, multiToOneMorph, oneToMultiMorph } from '@visactor/vrender-core';
 import { isNil, isNumber, isValidNumber } from '@visactor/vutils';
 import type { IElement, IMark, IRunningConfig } from '../../types';
 import type { MorphData, MorphElements } from '../../types/morph';
@@ -39,19 +40,19 @@ const doMorph = (
 
   // if no previous item, still execute morph animation
   if ((prev.length === 1 || prev.length === 0) && next.length === 1) {
-    morphPath(prev[0]?.getGraphicItem?.(), next[0].getGraphicItem(), { delay, duration, easing, onEnd });
+    // morphPath(prev[0]?.getGraphicItem?.(), next[0].getGraphicItem(), { delay, duration, easing, onEnd });
   } else if (prev.length === 1 && next.length > 1) {
-    oneToMultiMorph(
-      prev[0].getGraphicItem(),
-      next.map(element => element.getGraphicItem()),
-      { delay, duration, easing, onEnd, individualDelay, splitPath }
-    );
+    // oneToMultiMorph(
+    //   prev[0].getGraphicItem(),
+    //   next.map(element => element.getGraphicItem()),
+    //   { delay, duration, easing, onEnd, individualDelay, splitPath }
+    // );
   } else if (prev.length > 1 && next.length === 1) {
-    multiToOneMorph(
-      prev.map(element => element.getGraphicItem()),
-      next[0].getGraphicItem(),
-      { delay, duration, easing, onEnd, individualDelay, splitPath }
-    );
+    // multiToOneMorph(
+    //   prev.map(element => element.getGraphicItem()),
+    //   next[0].getGraphicItem(),
+    //   { delay, duration, easing, onEnd, individualDelay, splitPath }
+    // );
   }
 };
 

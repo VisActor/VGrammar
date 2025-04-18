@@ -1,7 +1,10 @@
 import { isNil, isValidNumber } from '@visactor/vutils';
+// import type { IAnimate as IGraphicAnimate } from '@visactor/vrender-animate';
+// // eslint-disable-next-line no-duplicate-imports
+import { ACustomAnimate } from '@visactor/vrender-animate';
 import type { IAnimate as IGraphicAnimate } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
-import { ACustomAnimate, Animate, AnimateGroup, AnimateMode } from '@visactor/vrender-core';
+// import { ACustomAnimate, Animate, AnimateMode } from '@visactor/vrender-core';
 import type {
   IAnimationChannelInterpolator,
   IAnimationCustomConstructor,
@@ -16,7 +19,7 @@ import type {
 } from '../../types';
 import { AttributeAnimate, channelAnimationAttributes, CustomInterpolator, typeAnimationAttributes } from './attribute';
 
-Animate.mode |= AnimateMode.SET_ATTR_IMMEDIATELY;
+// Animate.mode |= AnimateMode.SET_ATTR_IMMEDIATELY;
 
 let GlobalAnimatorId = 0;
 
@@ -221,7 +224,7 @@ export class Animator implements IAnimator {
       if (customAnimates.length === 1) {
         graphicAnimate.play(customAnimates[0]);
       } else if (customAnimates.length > 1) {
-        graphicAnimate.play(new AnimateGroup(duration, customAnimates));
+        // graphicAnimate.play(new AnimateGroup(duration, customAnimates));
       }
     }
 

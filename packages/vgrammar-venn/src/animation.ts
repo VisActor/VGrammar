@@ -1,4 +1,4 @@
-import { ACustomAnimate } from '@visactor/vrender-core';
+import { ACustomAnimate } from '@visactor/vrender-animate';
 import type { IVennCircle, IVennOverlapArc, VennCircleName } from './utils/interface';
 import { getArcsFromCircles, getCirclesFromArcs, getPathFromArcs } from './utils/path';
 

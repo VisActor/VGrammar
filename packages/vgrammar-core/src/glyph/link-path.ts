@@ -1,16 +1,20 @@
-import type { IAnimationParameters, LinkPathEncoderSpec, TypeAnimation } from '../types';
-import type { IElement } from '../types/element';
+import type { IElement, LinkPathEncoderSpec } from '../types';
+import type { IGraphic } from '@visactor/vrender-core';
 import { Factory } from '../core/factory';
-import { isNil } from '@visactor/vutils';
 import { registerGlyphGraphic, registerPathGraphic } from '../graph/mark/graphic';
 import { registerGlyphMark } from '../view/glyph';
+import { ACustomAnimate, AnimateExecutor } from '@visactor/vrender-animate';
 
 export interface LinkPathConfig {
   direction?: 'horizontal' | 'vertical' | 'LR' | 'RL' | 'TB' | 'BL' | 'radial';
 }
 
-// const isValidThickness = (thickness: number) => isValidNumber(thickness) && thickness > 1;
-// const hasValidThickness = (options: LinkPathEncodeValues) => isValidThickness(options.thickness);
+type TypeAnimation<T extends IGraphic> = (
+  graphic: T,
+  options: LinkPathConfig,
+  // animationParameters: IAnimationParameters
+  animationParameters: any
+) => { from?: { [channel: string]: any }; to?: { [channel: string]: any } };
 
 export const getHorizontalPath = (options: LinkPathEncoderSpec, ratio?: number) => {
   const curvature = options.curvature ?? 0.5;
@@ -177,108 +181,135 @@ const encoder = (encodeValues: LinkPathEncoderSpec, datum: any, element: IElemen
   return {};
 };
 
-const linkPathGrowIn: TypeAnimation<IElement> = (
-  element: IElement,
-  options: any,
-  animationParameters: IAnimationParameters
-) => {
-  const linkValues: LinkPathEncoderSpec = {
-    x0: element.getGraphicAttribute('x0', false),
-    x1: element.getGraphicAttribute('x1', false),
-    y0: element.getGraphicAttribute('y0', false),
-    y1: element.getGraphicAttribute('y1', false),
-    thickness: element.getGraphicAttribute('thickness', false),
-    round: element.getGraphicAttribute('round', false),
-    align: element.getGraphicAttribute('align', false),
-    pathType: element.getGraphicAttribute('pathType', false),
-    endArrow: element.getGraphicAttribute('endArrow', false),
-    startArrow: element.getGraphicAttribute('startArrow', false)
+const linkPathGrowIn: TypeAnimation<IGraphic> = (graphic: IGraphic, options: any, animationParameters: any) => {
+  const linkValues: Partial<LinkPathEncoderSpec> = {
+    x0: graphic.getFinalAttribute().x0,
+    x1: graphic.getFinalAttribute().x1,
+    y0: graphic.getFinalAttribute().y0,
+    y1: graphic.getFinalAttribute().y1,
+    thickness: graphic.getFinalAttribute().thickness
   };
-  // FIXME: undefined channel animation will cause vRender warning
-  Object.keys(linkValues).forEach(key => {
-    if (isNil(linkValues[key])) {
-      delete linkValues[key];
-    }
-  });
+  // // FIXME: undefined channel animation will cause vRender warning
+  // Object.keys(linkValues).forEach(key => {
+  //   if (isNil(linkValues[key])) {
+  //     delete linkValues[key];
+  //   }
+  // });
   return {
     from: Object.assign({}, linkValues, { x1: linkValues.x0, y1: linkValues.y0 }),
     to: linkValues
   };
 };
 
-const linkPathGrowOut: TypeAnimation<IElement> = (
-  element: IElement,
-  options: any,
-  animationParameters: IAnimationParameters
-) => {
+const linkPathGrowOut: TypeAnimation<IGraphic> = (element: IGraphic, options: any, animationParameters: any) => {
   const linkValues: LinkPathEncoderSpec = {
-    x0: element.getGraphicAttribute('x0', true),
-    x1: element.getGraphicAttribute('x1', true),
-    y0: element.getGraphicAttribute('y0', true),
-    y1: element.getGraphicAttribute('y1', true),
-    thickness: element.getGraphicAttribute('thickness', true),
-    round: element.getGraphicAttribute('round', true),
-    align: element.getGraphicAttribute('align', true),
-    pathType: element.getGraphicAttribute('pathType', true),
-    endArrow: element.getGraphicAttribute('endArrow', true),
-    startArrow: element.getGraphicAttribute('startArrow', true)
+    x0: element.getFinalAttribute().x0,
+    x1: element.getFinalAttribute().x1,
+    y0: element.getFinalAttribute().y0,
+    y1: element.getFinalAttribute().y1,
+    thickness: element.getFinalAttribute().thickness
   };
-  // FIXME: undefined channel animation will cause vRender warning
-  Object.keys(linkValues).forEach(key => {
-    if (isNil(linkValues[key])) {
-      delete linkValues[key];
-    }
-  });
+  // // FIXME: undefined channel animation will cause vRender warning
+  // Object.keys(linkValues).forEach(key => {
+  //   if (isNil(linkValues[key])) {
+  //     delete linkValues[key];
+  //   }
+  // });
   return {
     from: linkValues,
     to: Object.assign({}, linkValues, { x1: linkValues.x0, y1: linkValues.y0 })
   };
 };
 
-const linkPathUpdate: TypeAnimation<IElement> = (
-  element: IElement,
-  options: any,
-  animationParameters: IAnimationParameters
-) => {
-  const bassLinkValues = {
-    thickness: element.getGraphicAttribute('thickness', false),
-    round: element.getGraphicAttribute('round', false),
-    align: element.getGraphicAttribute('align', false),
-    pathType: element.getGraphicAttribute('pathType', false),
-    endArrow: element.getGraphicAttribute('endArrow', false),
-    startArrow: element.getGraphicAttribute('startArrow', false)
-  };
-  // FIXME: undefined channel animation will cause vRender warning
-  Object.keys(bassLinkValues).forEach(key => {
-    if (isNil(bassLinkValues[key])) {
-      delete bassLinkValues[key];
-    }
-  });
-  const prevLinkValues: LinkPathEncoderSpec = Object.assign(
-    {
-      x0: element.getGraphicAttribute('x0', true),
-      x1: element.getGraphicAttribute('x1', true),
-      y0: element.getGraphicAttribute('y0', true),
-      y1: element.getGraphicAttribute('y1', true),
-      ...bassLinkValues
-    },
-    bassLinkValues
-  );
-  const nextLinkValues: LinkPathEncoderSpec = Object.assign(
-    {
-      x0: element.getGraphicAttribute('x0', false),
-      x1: element.getGraphicAttribute('x1', false),
-      y0: element.getGraphicAttribute('y0', false),
-      y1: element.getGraphicAttribute('y1', false)
-    },
-    bassLinkValues
-  );
+const linkPathUpdate: TypeAnimation<IGraphic> = (graphic: IGraphic, options: any, animationParameters: any) => {
+  let from;
+  let to;
+  {
+    const { x0, x1, y0, y1 } = graphic.getFinalAttribute();
+    from = { x0, x1, y0, y1 };
+  }
+  {
+    const { x0, x1, y0, y1 } = graphic.attribute as any;
+    to = { x0, x1, y0, y1 };
+  }
 
   return {
-    from: prevLinkValues,
-    to: nextLinkValues
+    from,
+    to
   };
 };
+
+export class LinkPathGrowIn extends ACustomAnimate<Record<string, number>> {
+  onBind(): void {
+    if (this.params?.diffAttrs) {
+      this.target.setAttributes(this.params.diffAttrs);
+    }
+    const { from, to } = linkPathGrowIn(this.target, this.params.options, this.params);
+    const fromAttrs = this.target.context?.lastAttrs ?? from;
+    this.props = to;
+    this.propKeys = Object.keys(to).filter(key => to[key] != null);
+    this.animate.reSyncProps();
+    this.from = fromAttrs;
+    this.to = to;
+    this.target.setAttributes(fromAttrs);
+  }
+
+  onUpdate(end: boolean, ratio: number, out: Record<string, any>): void {
+    const attribute: Record<string, any> = this.target.attribute;
+    this.propKeys.forEach(key => {
+      attribute[key] = this.from[key] + (this.to[key] - this.from[key]) * ratio;
+    });
+    this.target.setAttributes(attribute);
+  }
+}
+
+export class LinkPathGrowOut extends ACustomAnimate<Record<string, number>> {
+  onBind(): void {
+    if (this.params?.diffAttrs) {
+      this.target.setAttributes(this.params.diffAttrs);
+    }
+    const { from, to } = linkPathGrowOut(this.target, this.params.options, this.params);
+    const fromAttrs = this.target.context?.lastAttrs ?? from;
+    this.props = to;
+    this.propKeys = Object.keys(to).filter(key => to[key] != null);
+    this.animate.reSyncProps();
+    this.from = fromAttrs;
+    this.to = to;
+    this.target.setAttributes(fromAttrs);
+  }
+
+  onUpdate(end: boolean, ratio: number, out: Record<string, any>): void {
+    const attribute: Record<string, any> = this.target.attribute;
+    this.propKeys.forEach(key => {
+      attribute[key] = this.from[key] + (this.to[key] - this.from[key]) * ratio;
+    });
+    this.target.setAttributes(attribute);
+  }
+}
+
+export class LinkPathUpdate extends ACustomAnimate<Record<string, number>> {
+  onBind(): void {
+    if (this.params?.diffAttrs) {
+      this.target.setAttributes(this.params.diffAttrs);
+    }
+    const { from, to } = linkPathUpdate(this.target, this.params.options, this.params);
+    const fromAttrs = this.target.context?.lastAttrs ?? from;
+    this.props = to;
+    this.propKeys = Object.keys(to).filter(key => to[key] != null);
+    this.animate.reSyncProps();
+    this.from = fromAttrs;
+    this.to = to;
+    this.target.setAttributes(fromAttrs);
+  }
+
+  onUpdate(end: boolean, ratio: number, out: Record<string, any>): void {
+    const attribute: Record<string, any> = this.target.attribute;
+    this.propKeys.forEach(key => {
+      attribute[key] = this.from[key] + (this.to[key] - this.from[key]) * ratio;
+    });
+    this.target.setAttributes(attribute);
+  }
+}
 
 export const registerLinkPathGlyph = () => {
   Factory.registerGlyph<LinkPathEncoderSpec, LinkPathConfig>('linkPath', {
@@ -298,10 +329,14 @@ export const registerLinkPathGlyph = () => {
       };
     });
 
-  Factory.registerAnimationType('linkPathGrowIn', linkPathGrowIn);
-  Factory.registerAnimationType('linkPathGrowOut', linkPathGrowOut);
-  Factory.registerAnimationType('linkPathUpdate', linkPathUpdate);
+  // Factory.registerAnimationType('linkPathGrowIn', linkPathGrowIn);
+  // Factory.registerAnimationType('linkPathUpdate', linkPathUpdate);
   registerGlyphMark();
   registerGlyphGraphic();
   registerPathGraphic();
+};
+
+export const registerLinkPathAnimation = () => {
+  AnimateExecutor.registerBuiltInAnimate('linkPathGrowIn', LinkPathGrowIn);
+  AnimateExecutor.registerBuiltInAnimate('linkPathGrowOut', LinkPathGrowOut);
 };

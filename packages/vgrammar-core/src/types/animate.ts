@@ -1,4 +1,5 @@
-import type { IGraphic, ACustomAnimate, EasingType } from '@visactor/vrender-core';
+import type { IGraphic, EasingType } from '@visactor/vrender-core';
+import type { ACustomAnimate } from '@visactor/vrender-animate';
 import type { IPointLike } from '@visactor/vutils';
 import type { MarkFunctionCallback, MarkFunctionType } from './mark';
 import type { IMark } from './grammar';

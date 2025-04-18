@@ -1,6 +1,7 @@
 import type { EasingType, IGraphic } from '@visactor/vrender-core';
 // eslint-disable-next-line no-duplicate-imports
-import { ACustomAnimate, AttributeUpdateType, NOWORK_ANIMATE_ATTR } from '@visactor/vrender-core';
+import { ACustomAnimate } from '@visactor/vrender-animate';
+import { NOWORK_ANIMATE_ATTR, AttributeUpdateType } from '@visactor/vrender-core';
 import { isArray, isFunction, isNil, isObject, isValid } from '@visactor/vutils';
 import type {
   IAnimationChannelInterpolator,
@@ -141,9 +142,9 @@ export class CustomInterpolator extends ACustomAnimate<any> {
     this.to = this.to ?? {};
   }
 
-  getEndProps(): void | Record<string, any> {
-    return this.to;
-  }
+  // getEndProps(): void | Record<string, any> {
+  //   return this.to;
+  // }
 
   onUpdate(end: boolean, ratio: number, out: Record<string, any>): void {
     if (!this._interpolator || !this._element) {
@@ -175,7 +176,7 @@ export class AttributeAnimate extends ACustomAnimate<any> {
   onBind() {
     const excludedChannelMap = (this.target.constructor as any).NOWORK_ANIMATE_ATTR ?? NOWORK_ANIMATE_ATTR;
     const excludedChannels = Object.keys(excludedChannelMap).filter(channel => excludedChannelMap[channel] !== 0);
-    this.subAnimate.animate.preventAttrs(excludedChannels);
+    // this.subAnimate.animate.preventAttrs(excludedChannels);
 
     const from = Object.assign({}, this.from);
     const to = Object.assign({}, this.to);
@@ -192,11 +193,11 @@ export class AttributeAnimate extends ACustomAnimate<any> {
     });
 
     // prevent attributes at the animation invoking time
-    this.target.animates.forEach(a => {
-      if (a !== this.subAnimate.animate) {
-        a.preventAttrs(animatedChannels);
-      }
-    });
+    // this.target.animates.forEach(a => {
+    //   if (a !== this.subAnimate.animate) {
+    //     a.preventAttrs(animatedChannels);
+    //   }
+    // });
 
     this._fromAttribute = from;
     this._toAttribute = to;
@@ -207,11 +208,11 @@ export class AttributeAnimate extends ACustomAnimate<any> {
       const from = {};
 
       // apply attribute which has not been prevented
-      Object.keys(this._fromAttribute).forEach(key => {
-        if (this.subAnimate.animate.validAttr(key)) {
-          from[key] = this._fromAttribute[key];
-        }
-      });
+      // Object.keys(this._fromAttribute).forEach(key => {
+      //   if (this.subAnimate.animate.validAttr(key)) {
+      //     from[key] = this._fromAttribute[key];
+      //   }
+      // });
 
       this.target.setAttributes(from, !1, {
         type: AttributeUpdateType.ANIMATE_UPDATE,
@@ -228,11 +229,11 @@ export class AttributeAnimate extends ACustomAnimate<any> {
       const out = {};
 
       // apply attribute which has not been prevented
-      Object.keys(this._toAttribute).forEach(key => {
-        if (this.subAnimate.animate.validAttr(key)) {
-          out[key] = this._toAttribute[key];
-        }
-      });
+      // Object.keys(this._toAttribute).forEach(key => {
+      //   if (this.subAnimate.animate.validAttr(key)) {
+      //     out[key] = this._toAttribute[key];
+      //   }
+      // });
 
       this.target.setAttributes(out, false, {
         type: AttributeUpdateType.ANIMATE_END
@@ -241,18 +242,18 @@ export class AttributeAnimate extends ACustomAnimate<any> {
   }
 
   update(end: boolean, ratio: number, out: Record<string, any>): void {
-    if (this.updateCount === 0) {
-      this.onFirstRun();
-    }
-    this.updateCount += 1;
+    // if (this.updateCount === 0) {
+    //   this.onFirstRun();
+    // }
+    // this.updateCount += 1;
 
-    // Hack: waiting for canopus to remove invalid key when updating
-    const lastProps = this.step.getLastProps();
-    Object.keys(lastProps).forEach(key => {
-      if (this.subAnimate.animate.validAttr(key)) {
-        out[key] = lastProps[key];
-      }
-    });
+    // // Hack: waiting for canopus to remove invalid key when updating
+    // const lastProps = this.step.getLastProps();
+    // Object.keys(lastProps).forEach(key => {
+    //   if (this.subAnimate.animate.validAttr(key)) {
+    //     out[key] = lastProps[key];
+    //   }
+    // });
     this.onUpdate(end, ratio, out);
     if (end) {
       this.onEnd();
@@ -260,15 +261,15 @@ export class AttributeAnimate extends ACustomAnimate<any> {
   }
 
   onUpdate(end: boolean, ratio: number, out: Record<string, any>): void {
-    this.target.stepInterpolate(
-      this.subAnimate,
-      this.subAnimate.animate,
-      out,
-      this.step,
-      ratio,
-      end,
-      this._toAttribute,
-      this._fromAttribute
-    );
+    // this.target.stepInterpolate(
+    //   this.subAnimate,
+    //   this.subAnimate.animate,
+    //   out,
+    //   this.step,
+    //   ratio,
+    //   end,
+    //   this._toAttribute,
+    //   this._fromAttribute
+    // );
   }
 }
