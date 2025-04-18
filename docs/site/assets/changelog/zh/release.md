@@ -1,3 +1,11 @@
+# v0.16.4
+
+2025-04-17
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.16.3...v0.16.4
+
+[更多详情请查看 v0.16.4](https://github.com/VisActor/VGrammar/releases/tag/v0.16.4)
+
 # v0.16.3
 
 2025-03-27
