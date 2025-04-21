@@ -1,3 +1,19 @@
+# v0.16.5
+
+2025-04-21
+
+
+**What's Changed**
+
+* [Auto Sync] Sync the code from branch main to branch develop after release 0.16.4 by @github-actions in https://github.com/VisActor/VGrammar/pull/646
+* [Auto changelog] changlog of v0.16.4 by @github-actions in https://github.com/VisActor/VGrammar/pull/647
+* [Auto release] release 0.16.5 by @github-actions in https://github.com/VisActor/VGrammar/pull/648
+
+
+**Full Changelog**: https://github.com/VisActor/VGrammar/compare/v0.16.4...v0.16.5
+
+[更多详情请查看 v0.16.5](https://github.com/VisActor/VGrammar/releases/tag/v0.16.5)
+
 # v0.16.4
 
 2025-04-17
