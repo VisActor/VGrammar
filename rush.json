@@ -20,6 +20,13 @@
   "allowedProjectTags": ["tool", "share", "package", "doc"],
   "projects": [
     {
+      "packageName": "@visactor/vgrammar-imagecloud",
+      "projectFolder": "packages/vgrammar-imagecloud",
+      "tags": ["package"],
+      "shouldPublish": true,
+      "versionPolicyName": "vgrammarMain"
+    },
+    {
       "packageName": "@visactor/vgrammar-plot",
       "projectFolder": "packages/vgrammar-plot",
       "tags": ["package"],

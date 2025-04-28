@@ -1,5 +1,5 @@
-import { vglobal, createImage } from '@visactor/vrender-core';
-import { isBase64, isNil, isValidUrl, Logger } from '@visactor/vutils';
+import { vglobal } from '@visactor/vrender-core';
+import { isNil } from '@visactor/vutils';
 import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
 
 export enum WORDCLOUD_SHAPE_HOOK_EVENT {
@@ -29,18 +29,6 @@ export const colorListEqual = (arr0: string[], arr1: string[]) => {
 };
 
 /**
- * 随机拟合
- */
-export const fakeRandom = () => {
-  let i = -1;
-  const arr = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
-  return () => {
-    i = (i + 1) % arr.length;
-    return arr[i];
-  };
-};
-
-/**
  * 判断是否为中文
  */
 export const isChinese = (text: string) => {
@@ -62,43 +50,6 @@ export const calTextLength = (text: string, textLengthLimit?: number) => {
   return length;
   // return length > textLengthLimit ? textLengthLimit + 1.5 : textLengthLimit;
 };
-
-/**
- * 使用 ResourceLoader 加载图片
- */
-export function loadImage(url: string) {
-  if (!url || (!isValidUrl(url) && !isBase64(url) && !url.startsWith('<svg'))) {
-    return null;
-  }
-  return new Promise((resolve, reject) => {
-    const imageMark = createImage({ image: url });
-    const imgData = imageMark.resources?.get(url);
-
-    if (imgData && imgData.state === 'success' && imgData.data) {
-      resolve(imgData.data);
-
-      return;
-    }
-
-    imageMark.successCallback = () => {
-      if (imageMark) {
-        const imgData = imageMark.resources?.get(url);
-        if (imgData && imgData.state === 'success' && imgData.data) {
-          resolve(imgData.data);
-        } else {
-          reject(new Error('image load failed' + url));
-        }
-      } else {
-        reject(new Error('image load failed' + url));
-      }
-    };
-    imageMark.failCallback = () => {
-      // eslint-disable-next-line no-undef
-      const logger = Logger.getInstance();
-      logger.error('image 加载失败！', url);
-    };
-  });
-}
 
 /**
  * 绘制连通区域相关信息，用于 debug
