@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: fix error when the type of stroke is array\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}
