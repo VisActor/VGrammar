@@ -26,7 +26,7 @@ const isStopsEqual = (prev: IColorStop[], next: IColorStop[]) => {
   });
 };
 
-const isColorAttrEqual = (prev: IColor, next: IColor) => {
+const isColorAttrEqual = (prev: IColor, next: IColor): boolean => {
   if (prev === next) {
     return true;
   }
