@@ -69,7 +69,7 @@ const changePointsX = (
   options: IGrowPointsAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const points = element.getGraphicAttribute('points', false);
+  const points = element.getGraphicAttribute('points', false) ?? [];
   return points.map((point: IPointLike) => {
     if (options && options.orient === 'negative') {
       let groupRight = animationParameters.width;
@@ -129,7 +129,7 @@ const changePointsY = (
   options: IGrowPointsAnimationOptions,
   animationParameters: IAnimationParameters
 ) => {
-  const points = element.getGraphicAttribute('points', false);
+  const points = element.getGraphicAttribute('points', false) ?? [];
   return points.map((point: IPointLike) => {
     if (options && options.orient === 'negative') {
       let groupBottom = animationParameters.height;
