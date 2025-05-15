@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "fix: highlight elements should be reset when mouse enter tooltip\n\n",
+      "type": "none",
+      "packageName": "@visactor/vgrammar-core"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-core",
+  "email": "dingling112@gmail.com"
+}
