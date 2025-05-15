@@ -117,6 +117,7 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
     if (!this._statedElements || !this._statedElements.length) {
       return;
     }
+
     const element = e.element;
 
     if (element) {
@@ -127,6 +128,8 @@ export class ElementHighlight extends BaseInteraction<ElementHighlightOptions> {
       } else if (this._resetType === 'self' && hasActiveElement) {
         this.resetAll();
       }
+    } else if (this._resetType === 'view') {
+      this.resetAll();
     }
   };
 }
