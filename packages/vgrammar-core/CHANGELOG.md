@@ -1,6 +1,18 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Mon, 21 Apr 2025 03:43:19 GMT and should not be manually modified.
+This log was last generated on Thu, 15 May 2025 08:28:37 GMT and should not be manually modified.
+
+## 0.16.7
+Thu, 15 May 2025 08:28:37 GMT
+
+### Updates
+
+- fix: highlight elements should be reset when mouse enter tooltip
+
+
+- fix: fix error when the type of stroke is array
+
+
 
 ## 0.16.6
 Mon, 21 Apr 2025 03:43:19 GMT

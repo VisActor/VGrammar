@@ -2,6 +2,21 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.16.7",
+      "tag": "@visactor/vgrammar-core_v0.16.7",
+      "date": "Thu, 15 May 2025 08:28:37 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "fix: highlight elements should be reset when mouse enter tooltip\n\n"
+          },
+          {
+            "comment": "fix: fix error when the type of stroke is array\n\n"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.16.6",
       "tag": "@visactor/vgrammar-core_v0.16.6",
       "date": "Mon, 21 Apr 2025 03:43:19 GMT",
