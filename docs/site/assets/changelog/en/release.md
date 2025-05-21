@@ -1,3 +1,17 @@
+# v0.16.7
+
+2025-05-15
+
+
+**🐛 Bug fix**
+
+- **@visactor/vgrammar-core**: highlight elements should be reset when mouse enter tooltip
+- **@visactor/vgrammar-core**: fix error when the type of stroke is array
+
+
+
+[more detail about v0.16.7](https://github.com/VisActor/VGrammar/releases/tag/v0.16.7)
+
 # v0.16.6
 
 2025-04-27
