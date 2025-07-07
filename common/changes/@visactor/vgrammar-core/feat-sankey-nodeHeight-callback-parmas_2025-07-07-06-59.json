@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@visactor/vgrammar-sankey",
+      "comment": " feat: add columns information in sankey nodeHeight callback",
+      "type": "none"
+    }
+  ],
+  "packageName": "@visactor/vgrammar-sankey"
+}
