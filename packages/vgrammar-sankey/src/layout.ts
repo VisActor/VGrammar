@@ -707,11 +707,11 @@ export class SankeyLayout {
     const isStartGap = this.options.gapPosition === 'start';
     const isMiddleGap = !isStartGap && this.options.gapPosition !== 'end';
     const getNodeHeight = isNumber(this.options.nodeHeight)
-      ? (node: SankeyNodeElement) => this.options.nodeHeight as number
+      ? (node: SankeyNodeElement, columns: SankeyNodeElement[][]) => this.options.nodeHeight as number
       : isFunction(this.options.nodeHeight)
-      ? (this.options.nodeHeight as (node: SankeyNodeElement) => number)
+      ? (this.options.nodeHeight as (node: SankeyNodeElement, columns?: SankeyNodeElement[][]) => number)
       : forceNodeHeight > 0
-      ? (node: SankeyNodeElement) => {
+      ? (node: SankeyNodeElement, columns: SankeyNodeElement[][]) => {
           return forceNodeHeight;
         }
       : (node: SankeyNodeElement) => {
@@ -755,7 +755,7 @@ export class SankeyLayout {
           y += gapY;
         }
 
-        calculatedNodeHeight = getNodeHeight(node);
+        calculatedNodeHeight = getNodeHeight(node, columns);
         nodeHeight = Math.min(Math.max(calculatedNodeHeight, minNodeHeight), maxNodeHeight);
 
         node.y0 = y;
