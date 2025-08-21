@@ -2,6 +2,12 @@
   "name": "@visactor/vgrammar-core",
   "entries": [
     {
+      "version": "0.16.11",
+      "tag": "@visactor/vgrammar-core_v0.16.11",
+      "date": "Wed, 20 Aug 2025 10:01:21 GMT",
+      "comments": {}
+    },
+    {
       "version": "0.16.10",
       "tag": "@visactor/vgrammar-core_v0.16.10",
       "date": "Wed, 02 Jul 2025 02:45:07 GMT",
