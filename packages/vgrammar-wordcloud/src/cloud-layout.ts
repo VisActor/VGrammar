@@ -436,7 +436,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     return { context: context, ratio: ratio, canvas };
   }
 
-  private place(board: number[], tag: TagItem, bounds: Bounds, maxRadius: number) {
+  private place(board: Uint32Array, tag: TagItem, bounds: Bounds, maxRadius: number) {
     let isCollide = false;
     // 情况1，超长词语
     if (this.shouldShrinkContinue() && (tag.width > this._size[0] || tag.height > this._size[1])) {
@@ -759,7 +759,7 @@ function cloudSprite(contextAndRatio: any, d: TagItem, data: TagItem[], di: numb
 }
 
 // Use mask-based collision detection.
-function cloudCollide(tag: TagItem, board: number[], size: [number, number]) {
+function cloudCollide(tag: TagItem, board: Uint32Array, size: [number, number]) {
   const sw = size[0] >> 5;
   const sprite = tag.sprite;
   const w = tag.width >> 5;
