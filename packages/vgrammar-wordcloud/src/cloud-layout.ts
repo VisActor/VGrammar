@@ -90,7 +90,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
   _dy: number = 0;
 
   contextAndRatio?: { context: CanvasRenderingContext2D; ratio: number; canvas: HTMLCanvasElement };
-  _board: number[];
+  _board: Uint32Array;
   /** 已经绘制文字的最小包围盒 */
   _bounds: Bounds;
 
@@ -189,20 +189,20 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
         const distSize0 = Math.max(d.width, d.height);
         if (distSize0 <= maxSize0) {
           // 扩大尺寸满足最小字体要求 =》 按照要求扩大board
-          this.expandBoard(this._board, this._bounds, distSize0 / this._size[0]);
+          this._board = this.expandBoard(this._board, this._bounds, distSize0 / this._size[0]);
         } else if (this.options.clip) {
           // 扩大尺寸不满足最小字体要求，但支持裁剪 =》 按最大尺寸扩大，裁剪词语
-          this.expandBoard(this._board, this._bounds, maxSize0 / this._size[0]);
+          this._board = this.expandBoard(this._board, this._bounds, maxSize0 / this._size[0]);
         } else {
           // 扩大尺寸不满足最小字体要求，且不支持裁剪 =》 丢弃词语
           return true;
         }
       } else if (this._placeStatus === 3) {
         // 扩大画布
-        this.expandBoard(this._board, this._bounds);
+        this._board = this.expandBoard(this._board, this._bounds);
       } else {
         // 扩大画布
-        this.expandBoard(this._board, this._bounds);
+        this._board = this.expandBoard(this._board, this._bounds);
       }
       // 更新一次状态，下次大尺寸词语进入裁剪
       this.updateBoardExpandStatus(d.fontSize);
@@ -223,7 +223,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     this._originSize = [...this._size];
     const contextAndRatio = this.getContext(vglobal.createCanvas({ width: 1, height: 1 }));
     this.contextAndRatio = contextAndRatio;
-    this._board = new Array((this._size[0] >> 5) * this._size[1]).fill(0);
+    this._board = new Uint32Array((this._size[0] >> 5) * this._size[1]).fill(0);
     // 已经绘制文字的最小包围盒
     this._bounds = null;
 
@@ -340,34 +340,68 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     this._size = this._size.map(v => v * (1 - minRatio)) as any;
   }
 
-  // 扩充 bitmap
-  private expandBoard(board: number[], bounds: Bounds, factor?: any) {
-    const expandedLeftWidth = (this._size[0] * (factor || 1.1) - this._size[0]) >> 5;
+  /**
+   * [已优化] 通过重建法高效扩展画板，添加边框。
+   *
+   * @returns {number[]} 返回一个全新的、尺寸更大的画板数组。
+   * @notice 这是一个重大变更：此函数不再原地修改 board，而是返回一个新数组。
+   * 调用方需要相应地更新其引用，例如：this.board = this.expandBoard(...);
+   */
+  private expandBoard(board: Uint32Array, bounds: Bounds, factor?: any): Uint32Array {
+    // --- 1. 计算所有尺寸和偏移量 ---
+    const oldW = this._size[0];
+    const oldH = this._size[1];
+    const oldRowStride = oldW >> 5; // 每行的“块”数
+
+    // 计算水平和垂直方向需要增加的“块”数
+    const expandedLeftWidth = (oldW * (factor || 1.1) - oldW) >> 5;
     let diffWidth = expandedLeftWidth * 2 > 2 ? expandedLeftWidth : 2;
     if (diffWidth % 2 !== 0) {
-      diffWidth++;
+      diffWidth++; // 确保为偶数，以便左右对称
     }
-    let diffHeight = Math.ceil((this._size[1] * (diffWidth << 5)) / this._size[0]);
-    if (diffHeight % 2 !== 0) {
-      diffHeight++;
-    }
-    const w = this._size[0];
-    const h = this._size[1];
-    const widthArr = new Array(diffWidth).fill(0);
 
-    const heightArr = new Array((diffHeight / 2) * (diffWidth + (w >> 5))).fill(0);
-    this.insertZerosToArray(board, h * (w >> 5), heightArr.length + diffWidth / 2);
-    for (let i = h - 1; i > 0; i--) {
-      this.insertZerosToArray(board, i * (w >> 5), widthArr.length);
+    let diffHeight = Math.ceil((oldH * (diffWidth << 5)) / oldW);
+    if (diffHeight % 2 !== 0) {
+      diffHeight++; // 确保为偶数，以便上下对称
     }
-    this.insertZerosToArray(board, 0, heightArr.length + diffWidth / 2);
-    this._size = [w + (diffWidth << 5), h + diffHeight];
+
+    const newW = oldW + (diffWidth << 5);
+    const newH = oldH + diffHeight;
+    const newRowStride = newW >> 5;
+
+    const paddingLeft = diffWidth / 2;
+    const paddingTop = diffHeight / 2;
+
+    // --- 2. 创建并填充新画板 ---
+    const newBoard = new Uint32Array(newH * newRowStride).fill(0);
+
+    // --- 3. 一次性将旧数据复制到新画板中心 ---
+    for (let y = 0; y < oldH; y++) {
+      // 计算旧画板中当前行的读取位置
+      const sourceStartIndex = y * oldRowStride;
+      const sourceEndIndex = sourceStartIndex + oldRowStride;
+
+      // 计算新画板中当前行的写入位置（考虑顶部和左侧边框）
+      const destStartIndex = (y + paddingTop) * newRowStride + paddingLeft;
+
+      // 使用 slice 提取行数据（高效），用 set 写入新位置（最高效）
+      const rowData = board.slice(sourceStartIndex, sourceEndIndex);
+      newBoard.set(rowData, destStartIndex);
+    }
+
+    // --- 4. 更新尺寸和边界信息 ---
+    this._size = [newW, newH];
     if (bounds) {
-      bounds[0].x += (diffWidth << 5) / 2;
-      bounds[0].y += diffHeight / 2;
-      bounds[1].x += (diffWidth << 5) / 2;
-      bounds[1].y += diffHeight / 2;
+      const offsetX = (diffWidth << 5) / 2;
+      const offsetY = diffHeight / 2;
+      bounds[0].x += offsetX;
+      bounds[0].y += offsetY;
+      bounds[1].x += offsetX;
+      bounds[1].y += offsetY;
     }
+
+    // --- 5. 返回新创建的画板 ---
+    return newBoard;
   }
 
   // 分组扩充填充数组, 一次填充超过大概126000+会报stack overflow，worker环境下大概6w,这边取个比较小的
@@ -402,7 +436,7 @@ export class CloudLayout extends BaseLayout<ICloudLayoutOptions> implements IPro
     return { context: context, ratio: ratio, canvas };
   }
 
-  private place(board: number[], tag: TagItem, bounds: Bounds, maxRadius: number) {
+  private place(board: Uint32Array, tag: TagItem, bounds: Bounds, maxRadius: number) {
     let isCollide = false;
     // 情况1，超长词语
     if (this.shouldShrinkContinue() && (tag.width > this._size[0] || tag.height > this._size[1])) {
@@ -725,7 +759,7 @@ function cloudSprite(contextAndRatio: any, d: TagItem, data: TagItem[], di: numb
 }
 
 // Use mask-based collision detection.
-function cloudCollide(tag: TagItem, board: number[], size: [number, number]) {
+function cloudCollide(tag: TagItem, board: Uint32Array, size: [number, number]) {
   const sw = size[0] >> 5;
   const sprite = tag.sprite;
   const w = tag.width >> 5;
