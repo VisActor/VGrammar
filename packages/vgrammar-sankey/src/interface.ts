@@ -94,6 +94,8 @@ export interface SankeyOptions {
   iterations?: number;
   /** parse the key of node, the defaultValue */
   nodeKey?: string | number | ((datum: SankeyNodeDatum) => string | number);
+  /** parse the key of depth, the defaultValue */
+  depthKey?: string | number | ((datum: SankeyNodeDatum) => string | number);
   /** sort link by this function */
   linkSortBy?: (a: SankeyLinkElement, b: SankeyLinkElement) => number;
   /** sort node by this function */
