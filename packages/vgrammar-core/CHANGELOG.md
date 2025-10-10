@@ -1,6 +1,15 @@
 # Change Log - @visactor/vgrammar-core
 
-This log was last generated on Wed, 10 Sep 2025 02:22:15 GMT and should not be manually modified.
+This log was last generated on Fri, 10 Oct 2025 03:23:54 GMT and should not be manually modified.
+
+## 0.16.15
+Fri, 10 Oct 2025 03:23:54 GMT
+
+### Updates
+
+- feat: support nodeDepthKey in sankey
+
+
 
 ## 0.16.14
 Wed, 10 Sep 2025 02:22:15 GMT
