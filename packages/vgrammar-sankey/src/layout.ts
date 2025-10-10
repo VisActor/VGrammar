@@ -83,6 +83,7 @@ export class SankeyLayout {
   private options: SankeyOptions;
 
   private _getNodeKey?: (datum: SankeyNodeDatum) => string;
+  private _getNodeDepth?: (datum: SankeyNodeDatum) => number;
   private _alignFunc: (
     node: SankeyNodeElement,
     maxDepth: number,
@@ -110,8 +111,12 @@ export class SankeyLayout {
     this.options = Object.assign({}, SankeyLayout.defaultOptions, options);
     const keyOption = this.options.nodeKey;
     const keyFunc = isFunction(keyOption) ? keyOption : keyOption ? field(keyOption as string) : null;
-
     this._getNodeKey = keyFunc;
+
+    const depthOption = this.options.depthKey;
+    const depthFunc = isFunction(depthOption) ? depthOption : depthOption ? field(depthOption as string) : null;
+    this._getNodeDepth = depthFunc;
+
     this._logger = Logger.getInstance();
     this._alignFunc = isFunction(this.options.setNodeLayer)
       ? (node: SankeyNodeElement) => {
@@ -264,7 +269,7 @@ export class SankeyLayout {
           nodeMap[nodeKey].value = undefined;
         } else {
           const nodeElement: SankeyNodeElement = {
-            depth,
+            depth: this._getNodeDepth ? this._getNodeDepth(node) ?? depth : depth,
             datum: node,
             index: index,
             key: nodeKey,
@@ -487,7 +492,8 @@ export class SankeyLayout {
 
         if (node) {
           // 防止用户只设置了部分节点的层级
-          node.depth = setNodeLayer ? setNodeLayer(node.datum) ?? depth : depth;
+          const tempDepth = setNodeLayer ? setNodeLayer(node.datum) ?? depth : depth;
+          node.depth = this._getNodeDepth ? this._getNodeDepth(node.datum) ?? tempDepth : tempDepth;
 
           if (setNodeLayer) {
             maxDepth = Math.max(node.depth, maxDepth);
