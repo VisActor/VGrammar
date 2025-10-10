@@ -493,7 +493,7 @@ export class SankeyLayout {
         if (node) {
           // 防止用户只设置了部分节点的层级
           const tempDepth = setNodeLayer ? setNodeLayer(node.datum) ?? depth : depth;
-          node.depth = this._getNodeDepth ? this._getNodeDepth(node) ?? tempDepth : tempDepth;
+          node.depth = this._getNodeDepth ? this._getNodeDepth(node.datum) ?? tempDepth : tempDepth;
 
           if (setNodeLayer) {
             maxDepth = Math.max(node.depth, maxDepth);
