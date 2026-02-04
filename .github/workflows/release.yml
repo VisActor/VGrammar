@@ -118,22 +118,16 @@ jobs:
       # Publish - Release
       - name: Publish to npm with provenance (release)
         if: startsWith(github.ref_name, 'release/')
-        env:
-          NPM_CONFIG_PROVENANCE: true
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag latest
 
       # Publish - Hotfix
       - name: Publish to npm with provenance (hotfix)
         if: startsWith(github.ref_name, 'hotfix/')
-        env:
-          NPM_CONFIG_PROVENANCE: true
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag hotfix
 
       # Publish - Pre-release
       - name: Publish to npm with provenance (pre-release)
         if: startsWith(github.ref_name, 'pre-release/')
-        env:
-          NPM_CONFIG_PROVENANCE: true
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag ${{ steps.semver_prerelease.outputs.pre_release_type }}
 
       - name: Update shrinkwrap
