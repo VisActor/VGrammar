@@ -1,12 +1,65 @@
 import { vglobal, createImage } from '@visactor/vrender-core';
 import { isBase64, isNil, isValidUrl, Logger } from '@visactor/vutils';
-import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
+import type {
+  CachedWordMeasure,
+  CloudWordType,
+  IWordMeasureCache,
+  LayoutConfigType,
+  SegmentationOutputType
+} from './interface';
 
 export enum WORDCLOUD_SHAPE_HOOK_EVENT {
   BEFORE_WORDCLOUD_SHAPE_LAYOUT = 'beforeWordcloudShapeLayout',
   AFTER_WORDCLOUD_SHAPE_LAYOUT = 'afterWordcloudShapeLayout',
 
   AFTER_WORDCLOUD_SHAPE_DRAW = 'afterWordcloudShapeDraw'
+}
+
+export class MapWordMeasureCache implements IWordMeasureCache {
+  private _map: Map<string, CachedWordMeasure>;
+  private _maxSize: number;
+
+  constructor(maxSize: number = 1000) {
+    this._map = new Map();
+    this._maxSize = maxSize;
+  }
+
+  get(key: string): CachedWordMeasure | undefined {
+    const value = this._map.get(key);
+    if (value === undefined) {
+      return undefined;
+    }
+
+    // 简单 LRU：命中时更新插入顺序
+    this._map.delete(key);
+    this._map.set(key, value);
+
+    return value;
+  }
+
+  set(key: string, value: CachedWordMeasure): void {
+    if (this._map.has(key)) {
+      this._map.set(key, value);
+      return;
+    }
+
+    if (this._map.size >= this._maxSize) {
+      const firstKey = this._map.keys().next().value as string | undefined;
+      if (firstKey !== undefined) {
+        this._map.delete(firstKey);
+      }
+    }
+
+    this._map.set(key, value);
+  }
+
+  clear(): void {
+    this._map.clear();
+  }
+
+  size(): number {
+    return this._map.size;
+  }
 }
 
 export const colorListEqual = (arr0: string[], arr1: string[]) => {

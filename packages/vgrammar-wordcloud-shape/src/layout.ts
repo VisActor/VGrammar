@@ -10,7 +10,15 @@ import type {
   wordsConfigType
 } from './interface';
 import { removeBorder, scaleAndMiddleShape, segmentation } from './segmentation';
-import { WORDCLOUD_SHAPE_HOOK_EVENT, calTextLength, colorListEqual, fakeRandom, functor, loadImage } from './util';
+import {
+  MapWordMeasureCache,
+  WORDCLOUD_SHAPE_HOOK_EVENT,
+  calTextLength,
+  colorListEqual,
+  fakeRandom,
+  functor,
+  loadImage
+} from './util';
 import { LinearScale, OrdinalScale, SqrtScale } from '@visactor/vscale';
 import cloud from './cloud-shape-layout';
 import { type IProgressiveTransformResult, type IView } from '@visactor/vgrammar-core';
@@ -204,6 +212,8 @@ export class Layout implements IProgressiveTransformResult<any[]> {
       // font style 相关
       size: options.size,
       ratio: options.ratio || 0.8,
+
+      measureCache: options.measureCache ?? new MapWordMeasureCache(),
 
       // layout 相关
       shapeUrl: options.shape,
