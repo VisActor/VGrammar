@@ -3,20 +3,20 @@ name: Release CI
 on:
   push:
     branches:
-      - 'release/[0-9]+.[0-9]+.[0-9]+'
-      - 'hotfix/[0-9]+.[0-9]+.[0-9]+'
-      - 'pre-release/[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+'
-      - 'pre-release/[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
-      - 'pre-release/[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
-      - 'pre-release/[0-9]+.[0-9]+.[0-9]+-hotfix.[0-9]+'
+      - 'release/[0-9]+\.[0-9]+\.[0-9]+'
+      - 'hotfix/[0-9]+\.[0-9]+\.[0-9]+'
+      - 'pre-release/[0-9]+\.[0-9]+\.[0-9]+-alpha\.[0-9]+'
+      - 'pre-release/[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+'
+      - 'pre-release/[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+'
+      - 'pre-release/[0-9]+\.[0-9]+\.[0-9]+-hotfix\.[0-9]+'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     permissions:
+      id-token: write
       contents: write
       pull-requests: write
-      id-token: write
 
     strategy:
       matrix:
@@ -28,19 +28,37 @@ jobs:
           git config user.name ${{ github.actor }}
           git config user.email ${{ github.actor }}@users.noreply.github.com
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
           cache-dependency-path: './common/config/rush/pnpm-lock.yaml'
-          registry-url: 'https://registry.npmjs.org/'
 
       - name: Update npm
         run: npm install -g npm@latest
 
       - name: Install latest pnpm
         run: npm install -g pnpm@10.7.0
+
+      - name: Install Python distutils (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          python3 -m pip install setuptools --break-system-packages
+
+      - name: Install Python distutils (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-distutils
+          python3 -m pip install setuptools --break-system-packages
+
+      - name: Install native deps for node-canvas (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew update
+          brew install pkg-config cairo pango libpng jpeg giflib librsvg
 
       - name: Install native deps for node-canvas (Linux)
         if: runner.os == 'Linux'
