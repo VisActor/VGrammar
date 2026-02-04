@@ -1,4 +1,4 @@
-import type { CloudWordType, LayoutConfigType, SegmentationOutputType } from './interface';
+import type { CloudWordType, IWordMeasureCache, LayoutConfigType, SegmentationOutputType } from './interface';
 
 export function layout(
   words: CloudWordType[],
@@ -23,7 +23,7 @@ export function layout(
 
     for (let i = 0; i < regionWords.length; i++) {
       // 批量测量单词的 bounds
-      measureSprite(canvas, ctx, words, i);
+      measureSprite(canvas, ctx, words, i, layoutConfig.measureCache);
       const word = regionWords[i];
       word.x = center[0];
       word.y = center[1];
@@ -53,7 +53,7 @@ export function layout(
 
     for (let i = 0; i < failedWords.length; i++) {
       const word = failedWords[i];
-      measureSprite(canvas, ctx, failedWords, i);
+      measureSprite(canvas, ctx, failedWords, i, layoutConfig.measureCache);
       word.x = shapeCenter[0];
       word.y = shapeCenter[1];
       if (word.hasText && place(board, word, shapeMaxR, shapeRatio, size, boardSize, stepFactor)) {
@@ -86,7 +86,7 @@ export function layoutSelfShrink(
 
     for (let i = 0; i < regionWords.length; i++) {
       // 批量测量单词的 bounds
-      measureSprite(canvas, ctx, words, i);
+      measureSprite(canvas, ctx, words, i, layoutConfig.measureCache);
       const word = regionWords[i];
       word.x = center[0];
       word.y = center[1];
@@ -181,7 +181,7 @@ export function layoutGlobalShrink(
     let restartTag = false;
     for (let i = 0; i < regionWords.length; i++) {
       // 批量测量单词的 bounds
-      measureSprite(canvas, ctx, words, i);
+      measureSprite(canvas, ctx, words, i, layoutConfig.measureCache);
       const word = regionWords[i];
       word.x = center[0];
       word.y = center[1];
@@ -252,7 +252,7 @@ export function layoutGlobalShrink(
 
     for (let i = 0; i < failedWords.length; i++) {
       const word = failedWords[i];
-      measureSprite(canvas, ctx, failedWords, i);
+      measureSprite(canvas, ctx, failedWords, i, layoutConfig.measureCache);
       word.x = shapeCenter[0];
       word.y = shapeCenter[1];
       if (word.hasText && place(board, word, shapeMaxR, shapeRatio, size, boardSize, stepFactor)) {
@@ -309,7 +309,7 @@ export function layoutSelfEnlarge(
     let restartTag = false;
     for (let i = 0; i < regionWords.length; i++) {
       // 批量测量单词的 bounds
-      measureSprite(canvas, ctx, words, i);
+      measureSprite(canvas, ctx, words, i, layoutConfig.measureCache);
       const word = regionWords[i];
       word.x = center[0];
       word.y = center[1];
@@ -390,7 +390,7 @@ export function layoutSelfEnlarge(
 
     for (let i = 0; i < failedWords.length; i++) {
       const word = failedWords[i];
-      measureSprite(canvas, ctx, failedWords, i);
+      measureSprite(canvas, ctx, failedWords, i, layoutConfig.measureCache);
       word.x = shapeCenter[0];
       word.y = shapeCenter[1];
       if (word.hasText && place(board, word, shapeMaxR, shapeRatio, size, boardSize, stepFactor)) {
@@ -547,10 +547,23 @@ export function measureSprite(
   canvas: HTMLCanvasElement | any,
   ctx: CanvasRenderingContext2D | null,
   words: CloudWordType[] | any,
-  wi: number
+  wi: number,
+  cache?: IWordMeasureCache
 ) {
-  if (words[wi].sprite || words[wi].fontSize === 0) {
+  const targetWord = words[wi];
+  if (targetWord.sprite || targetWord.fontSize === 0) {
     return;
+  }
+
+  if (cache) {
+    const cached = cache.get(getWordMeasureKey(targetWord));
+    if (cached) {
+      targetWord.sprite = cached.sprite;
+      targetWord.bounds = cached.bounds;
+      targetWord.wordSize = cached.wordSize;
+      targetWord.hasText = true;
+      return;
+    }
   }
 
   const cw = 2048;
@@ -709,6 +722,16 @@ export function measureSprite(
       dRight: dRight - (wordSize[0] >> 1)
     };
     word.sprite = sprite;
+
+    if (cache) {
+      const key = getWordMeasureKey(word);
+      cache.set(key, {
+        sprite,
+        bounds: word.bounds,
+        wordSize
+      });
+    }
+
     // 后续操作中 LT 无意义
     delete word.LT;
   }
@@ -741,6 +764,24 @@ export function measureSprite(
   // })
 
   // document.body.prepend(canvas)
+}
+
+function getWordMeasureKey(word: CloudWordType | any) {
+  return (
+    String(word.text) +
+    '|' +
+    String(word.fontFamily) +
+    '|' +
+    String(word.fontStyle) +
+    '|' +
+    String(word.fontWeight) +
+    '|' +
+    String(word.fontSize) +
+    '|' +
+    String(word.rotate) +
+    '|' +
+    String(word.padding)
+  );
 }
 
 /**

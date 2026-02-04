@@ -81,7 +81,7 @@ export function filling(
     for (let y = startY; y <= y2; y += fillingYStep) {
       for (let x = startX; x <= x2; x += fillingXStep) {
         // 测量填充词的 bounds
-        measureSprite(canvas, ctx, fillingWords, wi);
+        measureSprite(canvas, ctx, fillingWords, wi, layoutConfig.measureCache);
         const word = fillingWords[wi];
         word.x = x;
         word.y = y;
