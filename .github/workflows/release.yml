@@ -14,7 +14,6 @@ jobs:
   build:
     runs-on: macos-latest
     permissions:
-      id-token: write
       contents: write
       pull-requests: write
 
@@ -32,7 +31,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
           cache-dependency-path: './common/config/rush/pnpm-lock.yaml'
 
@@ -142,16 +140,25 @@ jobs:
       # Publish - Release
       - name: Publish to npm (release)
         if: startsWith(github.ref_name, 'release/')
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag latest
 
       # Publish - Hotfix
       - name: Publish to npm (hotfix)
         if: startsWith(github.ref_name, 'hotfix/')
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag hotfix
 
       # Publish - Pre-release
       - name: Publish to npm (pre-release)
         if: startsWith(github.ref_name, 'pre-release/')
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag ${{ steps.semver_prerelease.outputs.pre_release_type }}
 
       - name: Update shrinkwrap
