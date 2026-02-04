@@ -139,6 +139,38 @@ jobs:
           NODE_OPTIONS: '--max_old_space_size=4096'
         run: node common/scripts/install-run-rush.js build --only tag:package
 
+      # Prepare npm OIDC login for rush publish (runs for any publish branch)
+      - name: Prepare npm OIDC login for rush publish
+        if: startsWith(github.ref_name, 'release/') || startsWith(github.ref_name, 'hotfix/') || startsWith(github.ref_name, 'pre-release/')
+        run: |
+          set -euo pipefail
+
+          PUBLISH_HOME=common/temp/publish-home
+          USERCONFIG="${PUBLISH_HOME}/.npmrc"
+
+          echo "Ensuring publish-home directory exists: ${PUBLISH_HOME}"
+          mkdir -p "${PUBLISH_HOME}"
+
+          if [ -f "${USERCONFIG}" ]; then
+            echo "Removing existing ${USERCONFIG} (may contain expired tokens)"
+            rm -f "${USERCONFIG}"
+          fi
+
+          echo "npm version:"
+          npm --version
+
+          echo "Running npm OIDC login and writing userconfig to ${USERCONFIG}"
+          npm login --registry=https://registry.npmjs.org/ --auth-type=oidc --userconfig="${USERCONFIG}"
+
+      - name: Verify npm identity for publish-home
+        if: startsWith(github.ref_name, 'release/') || startsWith(github.ref_name, 'hotfix/') || startsWith(github.ref_name, 'pre-release/')
+        run: |
+          set -euo pipefail
+          PUBLISH_HOME=common/temp/publish-home
+          USERCONFIG="${PUBLISH_HOME}/.npmrc"
+          echo "npm whoami (using ${USERCONFIG}):"
+          npm --userconfig="${USERCONFIG}" whoami || true
+
       # Publish - Release
       - name: Publish to npm (release)
         if: startsWith(github.ref_name, 'release/')
