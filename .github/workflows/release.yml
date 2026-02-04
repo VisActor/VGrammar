@@ -36,6 +36,12 @@ jobs:
           cache-dependency-path: './common/config/rush/pnpm-lock.yaml'
           registry-url: 'https://registry.npmjs.org/'
 
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Install latest pnpm
+        run: npm install -g pnpm@10.7.0
+
       - name: Install native deps for node-canvas (Linux)
         if: runner.os == 'Linux'
         run: |
@@ -116,17 +122,17 @@ jobs:
         run: node common/scripts/install-run-rush.js build --only tag:package
 
       # Publish - Release
-      - name: Publish to npm with provenance (release)
+      - name: Publish to npm (release)
         if: startsWith(github.ref_name, 'release/')
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag latest
 
       # Publish - Hotfix
-      - name: Publish to npm with provenance (hotfix)
+      - name: Publish to npm (hotfix)
         if: startsWith(github.ref_name, 'hotfix/')
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag hotfix
 
       # Publish - Pre-release
-      - name: Publish to npm with provenance (pre-release)
+      - name: Publish to npm (pre-release)
         if: startsWith(github.ref_name, 'pre-release/')
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag ${{ steps.semver_prerelease.outputs.pre_release_type }}
 
