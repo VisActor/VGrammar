@@ -45,17 +45,30 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './common/config/rush/pnpm-lock.yaml'
 
-      - name: Update npm
-        run: npm install -g npm@latest
+      # Workaround for Node 22.22.2 regression:
+      # `npm install -g npm@latest` breaks npm's own dependency tree.
+      # See: https://github.com/nodejs/node/issues/62425
+      # Fix: use corepack or npx to bootstrap, then install npm@latest.
+      - name: Update npm (workaround for Node 22.22.2 bug)
+        run: |
+          echo "Current npm version: $(npm --version)"
+          # Step 1: Install npm@11 via npx to avoid self-upgrade breakage
+          npx npm@latest install -g npm@latest
+          echo "Updated npm version: $(npm --version)"
 
       - name: Verify OIDC requirements
         run: |
           echo "Node version: $(node --version)"
           echo "npm version: $(npm --version)"
           NODE_MAJOR=$(node -e "console.log(process.version.split('.')[0].slice(1))")
-          NPM_VERSION=$(npm --version)
+          NPM_MAJOR=$(npm --version | cut -d. -f1)
+          NPM_MINOR=$(npm --version | cut -d. -f2)
           if [ "$NODE_MAJOR" -lt 22 ]; then
             echo "❌ Node >= 22.14.0 required for OIDC trusted publishing"
+            exit 1
+          fi
+          if [ "$NPM_MAJOR" -lt 11 ] || { [ "$NPM_MAJOR" -eq 11 ] && [ "$NPM_MINOR" -lt 5 ]; }; then
+            echo "❌ npm >= 11.5.1 required for OIDC trusted publishing"
             exit 1
           fi
           echo "✅ Node and npm versions meet OIDC requirements"
