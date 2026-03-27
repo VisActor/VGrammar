@@ -15,6 +15,10 @@
   },
   "license": "MIT",
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VisActor/VGrammar"
+  },
   "main": "cjs/index.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",
