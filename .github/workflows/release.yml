@@ -3,38 +3,71 @@ name: Release CI
 on:
   push:
     branches:
-      - 'release/[0-9]+.[0-9]+.[0-9]+'
-      - 'hotfix/[0-9]+.[0-9]+.[0-9]+'
-      - 'pre-release/[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+'
-      - 'pre-release/[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
-      - 'pre-release/[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
-      - 'pre-release/[0-9]+.[0-9]+.[0-9]+-hotfix.[0-9]+'
+      - 'release/[0-9]+\.[0-9]+\.[0-9]+'
+      - 'hotfix/[0-9]+\.[0-9]+\.[0-9]+'
+      - 'pre-release/[0-9]+\.[0-9]+\.[0-9]+-alpha\.[0-9]+'
+      - 'pre-release/[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+'
+      - 'pre-release/[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+'
+      - 'pre-release/[0-9]+\.[0-9]+\.[0-9]+-hotfix\.[0-9]+'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  release:
+    runs-on: macos-latest
     permissions:
+      id-token: write
       contents: write
       pull-requests: write
-      id-token: write
 
     strategy:
       matrix:
         node-version: [20.x]
 
+    concurrency:
+      group: vgrammar-release-${{ github.ref_name }}
+      cancel-in-progress: false
+
     steps:
-      - uses: actions/checkout@v4
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git identity
+        run: |
           git config user.name ${{ github.actor }}
           git config user.email ${{ github.actor }}@users.noreply.github.com
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
           cache-dependency-path: './common/config/rush/pnpm-lock.yaml'
-          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Install latest pnpm
+        run: npm install -g pnpm@10.7.0
+
+      - name: Install Python distutils (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          python3 -m pip install setuptools --break-system-packages
+
+      - name: Install Python distutils (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-distutils
+          python3 -m pip install setuptools --break-system-packages
+
+      - name: Install native deps for node-canvas (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew update
+          brew install pkg-config cairo pango libpng jpeg giflib librsvg
 
       - name: Install native deps for node-canvas (Linux)
         if: runner.os == 'Linux'
@@ -45,32 +78,30 @@ jobs:
       - name: Install rush
         run: node common/scripts/install-run-rush.js install --bypass-policy
 
-      # Release flow
-      - name: Parse semver version from branch name (release)
+      - name: Parse semver (release)
         if: startsWith(github.ref_name, 'release/')
-        id: semver_parser
+        id: semver_release
         uses: xile611/read-package-version-action@main
         with:
           path: packages/vgrammar
           semver_string: ${{ github.ref_name }}
           semver_pattern: '^release/(.*)$'
 
-      - name: update nextBump of version policies (release)
+      - name: update nextBump (release)
         if: startsWith(github.ref_name, 'release/')
         uses: xile611/set-next-bump-of-rush@main
         with:
-          release_version: ${{ steps.semver_parser.outputs.full }}
+          release_version: ${{ steps.semver_release.outputs.full }}
           write_next_bump: true
 
-      - name: Generate changelog by rush version (release)
+      - name: Generate rush version (release)
         if: startsWith(github.ref_name, 'release/')
         run: node common/scripts/install-run-rush.js version --bump
 
       - name: Update version (release)
         if: startsWith(github.ref_name, 'release/')
-        run: node common/scripts/apply-release-version.js 'none'  ${{ steps.semver_parser.outputs.main }}
+        run: node common/scripts/apply-release-version.js 'none' ${{ steps.semver_release.outputs.main }}
 
-      # Hotfix flow
       - name: Parse semver (hotfix)
         if: startsWith(github.ref_name, 'hotfix/')
         id: semver_hotfix
@@ -87,15 +118,14 @@ jobs:
           release_version: ${{ steps.semver_hotfix.outputs.full }}
           write_next_bump: true
 
-      - name: Generate changelog (hotfix)
+      - name: Generate rush version (hotfix)
         if: startsWith(github.ref_name, 'hotfix/')
         run: node common/scripts/install-run-rush.js version --bump
 
       - name: Update version (hotfix)
         if: startsWith(github.ref_name, 'hotfix/')
-        run: node common/scripts/apply-release-version.js 'none'  ${{ steps.semver_hotfix.outputs.main }}
+        run: node common/scripts/apply-release-version.js 'none' ${{ steps.semver_hotfix.outputs.main }}
 
-      # Pre-release flow
       - name: Parse semver (pre-release)
         if: startsWith(github.ref_name, 'pre-release/')
         id: semver_prerelease
@@ -109,31 +139,26 @@ jobs:
         if: startsWith(github.ref_name, 'pre-release/')
         run: node common/scripts/apply-release-version.js ${{ steps.semver_prerelease.outputs.pre_release_name }} ${{ steps.semver_prerelease.outputs.main }}
 
-      # Build (Shared)
       - name: Build packages
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
         run: node common/scripts/install-run-rush.js build --only tag:package
 
-      # Publish - Release
-      - name: Publish to npm with provenance (release)
+      - name: Publish to npm (release)
         if: startsWith(github.ref_name, 'release/')
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag latest
 
-      # Publish - Hotfix
-      - name: Publish to npm with provenance (hotfix)
+      - name: Publish to npm (hotfix)
         if: startsWith(github.ref_name, 'hotfix/')
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag hotfix
 
-      # Publish - Pre-release
-      - name: Publish to npm with provenance (pre-release)
+      - name: Publish to npm (pre-release)
         if: startsWith(github.ref_name, 'pre-release/')
         run: node common/scripts/install-run-rush.js publish --publish --include-all --tag ${{ steps.semver_prerelease.outputs.pre_release_type }}
 
       - name: Update shrinkwrap
         run: node common/scripts/install-run-rush.js update
 
-      # Git Push & Release Creation - Release
       - name: Get npm version (release)
         if: startsWith(github.ref_name, 'release/')
         id: package_version_release
@@ -144,45 +169,31 @@ jobs:
       - name: Commit & Push changes (release)
         if: startsWith(github.ref_name, 'release/')
         run: |
-          git add .
-          git commit -m 'build: release version ${{ steps.package_version_release.outputs.current_version }}'
-          git push origin ${{ github.ref_name }}
+          set -euo pipefail
+          if git diff --quiet; then
+            echo 'No changes to commit for release branch.'
+          else
+            git add .
+            git commit -m "build: release version ${{ steps.package_version_release.outputs.current_version }} [skip ci]" -n
+            git push --no-verify origin ${{ github.ref_name }}
+          fi
 
-      - name: Collect changelog of rush (release)
+      - name: Create Pull Request to main (release)
         if: startsWith(github.ref_name, 'release/')
-        uses: xile611/collect-rush-changlog@main
-        id: changelog_release
-        with:
-          version: ${{ steps.package_version_release.outputs.current_version }}
-
-      - name: Create Release for Tag (release)
-        if: startsWith(github.ref_name, 'release/')
-        id: release_tag_release
-        uses: ncipollo/release-action@v1.12.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag: v${{ steps.package_version_release.outputs.current_version }}
-          commit: main
-          prerelease: false
-          body: |
-            ${{ steps.changelog_release.outputs.markdown }}
-          draft: true
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          BRANCH="${GITHUB_REF_NAME}"
+          echo "Source branch: $BRANCH"
+          if gh pr list --base main --head "$BRANCH" --state open --json number --limit 1 | grep -q '"number"'; then
+            echo "PR from $BRANCH to main already exists, skip creating."
+            exit 0
+          fi
+          TITLE="[Auto release] release ${{ steps.package_version_release.outputs.current_version }}"
+          BODY="This PR merges release branch $BRANCH into main."
+          gh pr create --base main --head "$BRANCH" --title "$TITLE" --body "$BODY"
 
-      - name: Create Pull Request (release)
-        if: startsWith(github.ref_name, 'release/')
-        uses: dustinirving/create-pr@v1.0.2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: '[Auto release] release ${{ steps.package_version_release.outputs.current_version }}'
-          base: main
-          head: ${{ github.ref_name }}
-          labels: release
-          reviewers: xile611
-          body: |
-            ${{ steps.changelog_release.outputs.markdown }}
-
-      # Git Push & Release Creation - Hotfix
       - name: Get npm version (hotfix)
         if: startsWith(github.ref_name, 'hotfix/')
         id: package_version_hotfix
@@ -193,32 +204,15 @@ jobs:
       - name: Commit & Push changes (hotfix)
         if: startsWith(github.ref_name, 'hotfix/')
         run: |
-          git add .
-          git commit -m 'build: prelease version ${{ steps.package_version_hotfix.outputs.current_version }}'
-          git push origin ${{ github.ref_name }}
+          set -euo pipefail
+          if git diff --quiet; then
+            echo 'No changes to commit for hotfix branch.'
+          else
+            git add .
+            git commit -m "build: hotfix version ${{ steps.package_version_hotfix.outputs.current_version }} [skip ci]" -n
+            git push --no-verify origin ${{ github.ref_name }}
+          fi
 
-      - name: Collect changelog of rush (hotfix)
-        if: startsWith(github.ref_name, 'hotfix/')
-        uses: xile611/collect-rush-changlog@main
-        id: changelog_hotfix
-        with:
-          version: ${{ steps.package_version_hotfix.outputs.current_version }}
-
-      - name: Create Release for Tag (hotfix)
-        if: startsWith(github.ref_name, 'hotfix/')
-        id: release_tag_hotfix
-        uses: ncipollo/release-action@v1.12.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag: v${{ steps.package_version_hotfix.outputs.current_version }}
-          commit: ${{ github.ref_name }}
-          prerelease: false
-          body: |
-            ${{ steps.changelog_hotfix.outputs.markdown }}
-          draft: true
-
-      # Git Push - Pre-release
       - name: Get npm version (pre-release)
         if: startsWith(github.ref_name, 'pre-release/')
         id: package_version_prerelease
@@ -229,6 +223,11 @@ jobs:
       - name: Commit & Push changes (pre-release)
         if: startsWith(github.ref_name, 'pre-release/')
         run: |
-          git add .
-          git commit -m 'build: prerelease version ${{ steps.package_version_prerelease.outputs.current_version }}'
-          git push origin ${{ github.ref_name }}
+          set -euo pipefail
+          if git diff --quiet; then
+            echo 'No changes to commit for pre-release branch.'
+          else
+            git add .
+            git commit -m "build: prerelease version ${{ steps.package_version_prerelease.outputs.current_version }} [skip ci]" -n
+            git push --no-verify origin ${{ github.ref_name }}
+          fi
