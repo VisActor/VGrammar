@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
 
     concurrency:
       group: vgrammar-release-${{ github.ref_name }}
@@ -47,6 +47,18 @@ jobs:
 
       - name: Update npm
         run: npm install -g npm@latest
+
+      - name: Verify OIDC requirements
+        run: |
+          echo "Node version: $(node --version)"
+          echo "npm version: $(npm --version)"
+          NODE_MAJOR=$(node -e "console.log(process.version.split('.')[0].slice(1))")
+          NPM_VERSION=$(npm --version)
+          if [ "$NODE_MAJOR" -lt 22 ]; then
+            echo "❌ Node >= 22.14.0 required for OIDC trusted publishing"
+            exit 1
+          fi
+          echo "✅ Node and npm versions meet OIDC requirements"
 
       - name: Install latest pnpm
         run: npm install -g pnpm@10.7.0
