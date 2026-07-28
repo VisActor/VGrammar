@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar",
-  "version": "0.16.16",
+  "version": "0.16.17",
   "description": "simple package of vgrammar.",
   "keywords": [
     "visualization",
@@ -14,6 +14,10 @@
     "url": "https://VisActor.io/"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VisActor/VGrammar"
+  },
   "main": "cjs/index.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",
@@ -30,7 +34,7 @@
     "test": ""
   },
   "dependencies": {
-    "@visactor/vgrammar-core": "workspace:0.16.16"
+    "@visactor/vgrammar-core": "workspace:0.16.17"
   },
   "devDependencies": {
     "d3-array": "1.x",

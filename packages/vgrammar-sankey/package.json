@@ -1,6 +1,6 @@
 {
   "name": "@visactor/vgrammar-sankey",
-  "version": "0.16.16",
+  "version": "0.16.17",
   "description": "Layout of sankey chart, used by VGrammar",
   "keywords": [
     "sankey",
@@ -17,6 +17,10 @@
   },
   "license": "MIT",
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VisActor/VGrammar"
+  },
   "main": "cjs/index.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",
@@ -37,8 +41,8 @@
   },
   "dependencies": {
     "@visactor/vutils": "~0.19.5",
-    "@visactor/vgrammar-core": "workspace:0.16.16",
-    "@visactor/vgrammar-util": "workspace:0.16.16",
+    "@visactor/vgrammar-core": "workspace:0.16.17",
+    "@visactor/vgrammar-util": "workspace:0.16.17",
     "@visactor/vrender-core": "0.22.19",
     "@visactor/vrender-kits": "0.22.19"
   },
