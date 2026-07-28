@@ -1,0 +1,47 @@
+docs/dev-demos/package.json
+  s_a67cc0749513ae::t_53fd6b1c1fe675 23-25
+docs/site/package.json
+  s_a67cc0749513ae::t_886aeb3ca274b9 28-30
+packages/vgrammar-core/package.json
+  s_a67cc0749513ae::t_2e89b7b9108ed0 47-49
+packages/vgrammar-hierarchy/package.json
+  s_a67cc0749513ae::t_a1769972de9883 48-49
+packages/vgrammar-plot/package.json
+  s_a67cc0749513ae::t_031c78aaa02c44 46-48
+packages/vgrammar-sankey/package.json
+  s_a67cc0749513ae::t_c9441af90350ab 46-47
+packages/vgrammar-util/package.json
+  s_a67cc0749513ae::t_ba82de12c760e5 42
+packages/vgrammar-venn/package.json
+  s_d51adcf15c364d::t_13a90466890e8b 43-44
+packages/vgrammar-wordcloud-shape/package.json
+  s_d51adcf15c364d::t_b5e847e9880795 45-46
+packages/vgrammar-wordcloud/package.json
+  s_d51adcf15c364d::t_b2b5d2bb7eeec3 44-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e80d224449e4e3ffcb2ae5ed69557af35bbccdba",
+  "prompts": {},
+  "sessions": {
+    "s_a67cc0749513ae": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa6b7-3a51-7790-b3cb-2e99e14a396e",
+        "model": "unknown"
+      },
+      "human_author": "lixuefei.1313 <lixuef1313@163.com>"
+    },
+    "s_d51adcf15c364d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa6b7-39d8-79e1-a69b-3fd9189b88e1",
+        "model": "unknown"
+      },
+      "human_author": "lixuefei.1313 <lixuef1313@163.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
