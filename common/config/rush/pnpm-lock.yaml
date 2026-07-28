@@ -19,34 +19,34 @@ importers:
         specifier: workspace:*
         version: link:../../share/ts-config
       '@visactor/vgrammar':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar
       '@visactor/vgrammar-coordinate':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-coordinate
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-core
       '@visactor/vgrammar-hierarchy':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-hierarchy
       '@visactor/vgrammar-plot':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-plot
       '@visactor/vgrammar-projection':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-projection
       '@visactor/vgrammar-sankey':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-sankey
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-util
       '@visactor/vgrammar-wordcloud':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-wordcloud-shape
       '@visactor/vrender':
         specifier: 0.22.20
@@ -82,37 +82,37 @@ importers:
         specifier: 2.46.1
         version: 2.46.1(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@visactor/vgrammar':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar
       '@visactor/vgrammar-coordinate':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-coordinate
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-core
       '@visactor/vgrammar-hierarchy':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-hierarchy
       '@visactor/vgrammar-plot':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-plot
       '@visactor/vgrammar-projection':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-projection
       '@visactor/vgrammar-sankey':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-sankey
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-util
       '@visactor/vgrammar-venn':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-venn
       '@visactor/vgrammar-wordcloud':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../../packages/vgrammar-wordcloud-shape
       '@visactor/vrender':
         specifier: 0.22.20
@@ -212,7 +212,7 @@ importers:
   ../../packages/vgrammar:
     dependencies:
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-core
     devDependencies:
       '@internal/bundler':
@@ -267,7 +267,7 @@ importers:
   ../../packages/vgrammar-coordinate:
     dependencies:
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-util
       '@visactor/vutils':
         specifier: ~0.19.5
@@ -322,10 +322,10 @@ importers:
         specifier: ~0.19.5
         version: 0.19.7
       '@visactor/vgrammar-coordinate':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-coordinate
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-util
       '@visactor/vrender-components':
         specifier: 0.22.20
@@ -389,28 +389,28 @@ importers:
   ../../packages/vgrammar-full:
     dependencies:
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-core
       '@visactor/vgrammar-hierarchy':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-hierarchy
       '@visactor/vgrammar-plot':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-plot
       '@visactor/vgrammar-projection':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-projection
       '@visactor/vgrammar-sankey':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-sankey
       '@visactor/vgrammar-venn':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-venn
       '@visactor/vgrammar-wordcloud':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-wordcloud
       '@visactor/vgrammar-wordcloud-shape':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-wordcloud-shape
     devDependencies:
       '@internal/bundler':
@@ -477,10 +477,10 @@ importers:
   ../../packages/vgrammar-hierarchy:
     dependencies:
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-core
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-util
       '@visactor/vrender-core':
         specifier: 0.22.20
@@ -538,13 +538,13 @@ importers:
   ../../packages/vgrammar-plot:
     dependencies:
       '@visactor/vgrammar-coordinate':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-coordinate
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-core
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-util
       '@visactor/vrender-components':
         specifier: 0.22.20
@@ -614,10 +614,10 @@ importers:
   ../../packages/vgrammar-projection:
     dependencies:
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-core
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-util
       '@visactor/vutils':
         specifier: ~0.19.5
@@ -678,10 +678,10 @@ importers:
   ../../packages/vgrammar-sankey:
     dependencies:
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-core
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-util
       '@visactor/vrender-core':
         specifier: 0.22.20
@@ -791,10 +791,10 @@ importers:
   ../../packages/vgrammar-venn:
     dependencies:
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-core
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-util
       '@visactor/vrender-core':
         specifier: 0.22.20
@@ -852,10 +852,10 @@ importers:
   ../../packages/vgrammar-wordcloud:
     dependencies:
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-core
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-util
       '@visactor/vrender-core':
         specifier: 0.22.20
@@ -913,10 +913,10 @@ importers:
   ../../packages/vgrammar-wordcloud-shape:
     dependencies:
       '@visactor/vgrammar-core':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-core
       '@visactor/vgrammar-util':
-        specifier: workspace:0.16.17
+        specifier: workspace:0.16.18
         version: link:../vgrammar-util
       '@visactor/vrender-core':
         specifier: 0.22.20
