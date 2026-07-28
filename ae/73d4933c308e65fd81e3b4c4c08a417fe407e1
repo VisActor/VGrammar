@@ -1,0 +1,47 @@
+common/config/rush/common-versions.json
+  s_7a4e5e0bb36fbc::t_79c488e0027f3c 26-27
+packages/vgrammar-coordinate/package.json
+  s_7a4e5e0bb36fbc::t_39fdc907715bc7 58
+packages/vgrammar-core/package.json
+  s_7a4e5e0bb36fbc::t_260bb3b7238364 47-49,57
+packages/vgrammar-full/package.json
+  s_7a4e5e0bb36fbc::t_2f3f05476bc882 65
+packages/vgrammar-hierarchy/package.json
+  s_7a4e5e0bb36fbc::t_8897f5541653fa 48-49,65
+packages/vgrammar-plot/package.json
+  s_7a4e5e0bb36fbc::t_05a9e061593b44 46-48,66
+packages/vgrammar-projection/package.json
+  s_7a4e5e0bb36fbc::t_bfb63030edd536 62
+packages/vgrammar-sankey/package.json
+  s_7a4e5e0bb36fbc::t_1390b8d9db98b5 46-47,63
+packages/vgrammar-util/package.json
+  s_7a4e5e0bb36fbc::t_e9a1e05e8be66f 42,58
+packages/vgrammar-venn/package.json
+  s_7a4e5e0bb36fbc::t_d6eae84d4b4cf8 43-44,61
+packages/vgrammar-wordcloud-shape/package.json
+  s_7a4e5e0bb36fbc::t_80d79c29c4042d 45-46,62
+packages/vgrammar-wordcloud/package.json
+  s_7a4e5e0bb36fbc::t_58c585272f2a53 44-45,61
+packages/vgrammar/package.json
+  s_7a4e5e0bb36fbc::t_9dba2da097d454 55
+tools/bundler/package.json
+  s_7a4e5e0bb36fbc::t_12fdf3feef8f2f 88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ae73d4933c308e65fd81e3b4c4c08a417fe407e1",
+  "prompts": {},
+  "sessions": {
+    "s_7a4e5e0bb36fbc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa758-22d8-78f2-a3e9-2c6bfa9bd513",
+        "model": "unknown"
+      },
+      "human_author": "lixuefei.1313 <lixuef1313@163.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
