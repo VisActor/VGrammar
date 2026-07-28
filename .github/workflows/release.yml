@@ -149,14 +149,14 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './common/config/rush/pnpm-lock.yaml'
 
-      # Workaround for Node 22.22.2 regression:
-      # `npm install -g npm@latest` breaks npm's own dependency tree.
+      # Work around the Node 22.22.2 npm self-upgrade regression while keeping
+      # npm below v12: Rush's pnpm publish flow forwards --no-git-checks to npm,
+      # which npm v12 rejects as an unknown CLI config.
       # See: https://github.com/nodejs/node/issues/62425
-      # Fix: use corepack or npx to bootstrap, then install npm@latest.
-      - name: Update npm (workaround for Node 22.22.2 bug)
+      - name: Update npm to the OIDC-compatible npm 11.5.1
         run: |
           echo "Current npm version: $(npm --version)"
-          npx npm@latest install -g npm@latest
+          npx npm@11.5.1 install -g npm@11.5.1
           echo "Updated npm version: $(npm --version)"
 
       - name: Verify OIDC requirements
